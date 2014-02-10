@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="title">
+		<h3><h:outputLabel	value="#{i18n['erp.menu.pagina.titulo']}" /></h3>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="formMenu">
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" />
+					<p:commandButton id="btnNuevoMenu" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevoMenu.show()">
+						<f:setPropertyActionListener target="#{menuController.dialogVisible}" value="true"/>
+					</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panel id="pnlBuscarMenu" header="Buscar Menus">
+				<table>
+					<tr>
+						<td><h:outputLabel for="txtNombreBuscar" value="Nombre Menu" /> </td>
+						<td>
+							<p:inputText id="txtNombreBuscar" 
+								value="#{menuDataManager.menuBuscar.nombreMenu}" label="Nombre Menu"/>
+						</td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="txtUrlMenu" value="Url Menu" /> </td>
+						<td>
+							<p:inputText id="txtUrlMenu" 
+								value="#{menuDataManager.menuBuscar.urlMenu}" label="Url Menu"/>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{menuController.buscarMenu}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscarMenu"
+					update=":formMenu:pnlMessages,tablaMenu,pnlBuscarMenu" />
+			</p:panel>
+			<p:dataTable id="tablaMenu"
+				value="#{menuDataManager.listaMenu}" var="menu" rowIndexVar="rowIndex"
+				paginator="true" rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<f:facet name="header">
+					Lista Menu
+				</f:facet>
+				<p:column headerText="#" styleClass="centered" width="5%">
+					#{rowIndex+1}
+				</p:column>
+				<p:column headerText="#{i18n['erp.menu.nombre']}" width="20%">
+					<h:outputText value="#{menu.nombreMenu}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.menu.url']}" width="40%">
+					<h:outputText value="#{menu.urlMenu}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.menu.descripcion']}" width="25%">
+					<h:outputText value="#{menu.descMenu}" />
+				</p:column>
+				<p:column headerText="#{i18n['label.opciones']}" width="10%" styleClass="centered">
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.editar']}"
+							actionListener="#{menuController.asignarDatosMenu(menu)}"
+							oncomplete="dlgEditarMenu.show()"
+							process="@this"
+							update=":formEditarMenu">
+							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+							<f:setPropertyActionListener target="#{menuDataManager.menuEditar}" value="#{menu}" />
+						</p:commandLink>
+					</h:panelGroup>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+		
+		<ui:include src="dialogNuevoMenu.xhtml" />
+		<ui:include src="dialogEditarMenu.xhtml" />
+		
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="dialogEditarPerfil" header="#{i18n['erp.perfil.editar']}" 
+			widgetVar="dlgEditarPerfil" modal="true" minWidth="500" appendToBody="true">
+	
+		<h:form id="formEditarPerfil">	
+			<p:panel id="pnlEditarPerfil">
+				<table>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.perfil.nombre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombre" 
+								value="#{perfilDataManager.perfilEditar.nombrePerfil}" 
+								required="true" label="#{i18n['erp.perfil.nombre']}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtDesc" value="#{i18n['erp.perfil.descripcion']}" />
+						</td>
+						<td>
+							<p:inputText id="txtDesc" value="#{perfilDataManager.perfilEditar.descPerfil}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="selectModulos" value="#{i18n['erp.perfil.modulo']}" />
+						</td>
+						<td>
+							<p:selectManyCheckbox id="selectModulos" 
+								layout="pageDirection" required="true"
+								value="#{perfilController.modulosSeleccionadosCol}"
+								label="#{i18n['erp.perfil.modulo']}">
+								<f:selectItems value="#{selectItemsController.catalogoListaModulos}" />
+							</p:selectManyCheckbox>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotonesActualizar">
+				<p:commandButton id="btnActualizar" value="#{i18n['label.actualizar']}"
+					actionListener="#{perfilController.actualizarPerfil}"
+					process="@this,pnlEditarPerfil"
+					update=":formPerfil:tablaPerfiles,:formPerfil:pnlMessages"
+					oncomplete=""/>
+			</p:panel>
+		</h:form>
+	</p:dialog>
+</ui:composition>

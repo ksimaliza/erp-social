@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="title">
+		<h3><h:outputLabel	value="#{i18n['erp.modulo.pagina.titulo']}" /></h3>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="formModulo">
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton id="btnRefrecar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
+					<p:commandButton id="btnNuevoModulo" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoModulo.show()"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panel id="pnlBuscarModulo" header="#{i18n['erp.modulo.acordion.buscar']}">
+				<table>
+					<tr>
+						<td width="30%">
+							<h:outputLabel value="#{i18n['erp.modulo.nombre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombre"
+								value="#{moduloDataManager.moduloBuscar.nombreModulo}" label="#{i18n['erp.modulo.nombre']}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel value="#{i18n['erp.modulo.descripcion']}" />
+						</td>
+						<td>
+							<p:inputText id="txtDescripcion"
+								value="#{moduloDataManager.moduloBuscar.descModulo}" label="#{i18n['erp.modulo.descripcion']}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="selectEmpresa" value="#{i18n['erp.modulo.seleccione.empresa']}" />
+						</td>
+						<td>
+							<p:selectOneMenu id="selectEmpresa"
+								value="#{moduloDataManager.moduloBuscar.npIdEmpresa}"
+								label="#{i18n['erp.modulo.seleccione.empresa']}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItems value="#{selectItemsController.catalogoListaEmpresa}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
+						<td>
+							<p:selectOneMenu id="inputEstado"
+								
+								value="#{moduloDataManager.moduloBuscar.estado}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{moduloController.estadoActivo}"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{moduloController.estadoInactivo}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{moduloController.buscarModulos}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscarModulo"
+					update=":formModulo:pnlMessages,tablaModulo,pnlBuscarModulo" />
+			</p:panel>
+			<p:dataTable id="tablaModulo" rowIndexVar="rowIndex"
+				value="#{moduloDataManager.moduloCol}" var="modulo"
+				paginator="true" rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<f:facet name="header">
+					Lista Modulos
+				</f:facet>
+				<p:column headerText="#" styleClass="centered" width="5%">
+					#{rowIndex+1}
+				</p:column>
+				<p:column headerText="#{i18n['erp.modulo.nombre']}" width="35%">
+					<h:outputText value="#{modulo.nombreModulo}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.modulo.descripcion']}" width="40%">
+					<h:outputText value="#{modulo.descModulo}" />
+				</p:column>
+				<!-- <p:column headerText="#{i18n['label.empresa']}">
+					<p:dataList value="#{modulo.empresaTbls}" var="empresa" itemType="disc">
+						<h:outputText value="#{empresa.emrNombre}" />
+					</p:dataList>
+				</p:column> -->
+				<p:column headerText="#{i18n['label.estado']}" styleClass="centered" width="10%">
+					<h:outputText value="#{i18n['label.estado.activo']}"
+						rendered="#{modulo.estado eq moduloController.estadoActivo}" />
+					<h:outputText value="#{i18n['label.estado.inactivo']}"
+						rendered="#{modulo.estado eq moduloController.estadoInactivo}" />
+				</p:column>
+				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							actionListener="#{moduloController.asignarDatosModulo(modulo)}"
+							title="#{i18n['label.editar']}" oncomplete="dlgEditarModulo.show()"
+							process="@this,:formDlgEditarModulo" update=":formDlgEditarModulo">
+							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+							<f:setPropertyActionListener target="#{moduloDataManager.moduloEditar}" value="#{modulo}" />
+						</p:commandLink>
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:outputText value="&#160;|&#160;" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.activar']}" oncomplete="dlgActivar.show()"
+							rendered="#{modulo.estado eq moduloController.estadoInactivo}">
+							<h:graphicImage value="/resources/img/tick.png" alt="#{i18n['label.activar']}"/>
+							<f:setPropertyActionListener target="#{moduloDataManager.moduloEditar}" value="#{modulo}" />
+						</p:commandLink>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.desabilitar']}" oncomplete="dlgInactivar.show()"
+							rendered="#{modulo.estado eq moduloController.estadoActivo}">
+							<h:graphicImage value="/resources/img/delete.png" alt="#{i18n['label.desabilitar']}"/>
+							<f:setPropertyActionListener target="#{moduloDataManager.moduloEditar}" value="#{modulo}" />
+						</p:commandLink>
+					</h:panelGroup>
+				</p:column>
+			</p:dataTable>
+			
+			<!-- Desactivar modulo -->
+			<p:confirmDialog id="dialogInactivar" message="#{i18n['erp.modulo.desactivar.pregunta.confirmacion']}" appendToBody="true"
+				header="#{i18n['erp.modulo.desactivar']}" severity="alert" widgetVar="dlgInactivar" >
+				<p:commandButton value="#{i18n['label.aceptar']}"
+					actionListener="#{moduloController.inactivarModulo}"
+					oncomplete="dlgInactivar.hide()" 
+					update="pnlMessages,tablaModulo" process="@this"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgInactivar.hide();" type="button" />
+			</p:confirmDialog>
+			
+			<!-- Activar modulo -->
+			<p:confirmDialog id="dialogActivar" message="#{i18n['erp.modulo.activar.pregunta.confirmacion']}" appendToBody="true"
+				header="#{i18n['erp.modulo.activar']}" severity="alert" widgetVar="dlgActivar" >
+				<p:commandButton value="#{i18n['label.aceptar']}"
+					actionListener="#{moduloController.activarModulo}"
+					oncomplete="dlgActivar.hide()" 
+					update="pnlMessages,tablaModulo" process="@this"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgActivar.hide();" type="button" />
+			</p:confirmDialog>
+			
+		</h:form>
+	</ui:define>
+	
+	<ui:define name="dialogos">
+		<ui:include src="dialogNuevoModulo.xhtml" />
+		<ui:include src="dialogEditarModulo.xhtml" />
+	</ui:define>
+	
+</ui:composition>

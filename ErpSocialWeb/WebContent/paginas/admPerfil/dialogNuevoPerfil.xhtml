@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpNuevoPerfil" header="Registrar Perfil" 
+		widgetVar="dlgNuevoPerfil" modal="true" minWidth="500" appendToBody="true">
+		<h:form id="formNuevoPerfil">	
+			<p:panel id="pnlNuevoPerfil">
+				<table>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombre" value="Nombre Perfil" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombre" 
+								value="#{perfilDataManager.perfilInstancia.nombrePerfil}" 
+								required="true" label="Nombre Perfil"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtDesc" value="Descripcion Perfil" />
+						</td>
+						<td>
+							<p:inputText id="txtDesc" value="#{perfilDataManager.perfilInstancia.descPerfil}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtDescMenu" value="Modulos" />
+						</td>
+						<td>
+							<p:selectManyCheckbox id="selectModulos" 
+								layout="pageDirection" required="true"
+								value="#{perfilController.modulosSeleccionadosCol}">
+								<f:selectItems value="#{selectItemsController.catalogoListaModulos}" />
+							</p:selectManyCheckbox>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones" styleClass="centered">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{perfilController.registrarPerfil}"
+					process="@this,pnlNuevoPerfil"
+					update="pnlNuevoPerfil,:formPerfil:pnlMessages,:formPerfil:tablaPerfiles"/>
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>

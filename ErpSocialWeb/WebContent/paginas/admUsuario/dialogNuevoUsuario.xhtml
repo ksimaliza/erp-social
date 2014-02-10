@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpNuevoUsuario" header="#{i18n['erp.usuario.registrar']}" 
+		widgetVar="dlgNuevoUsuario" modal="true" minWidth="450" appendToBody="true">
+		<h:form id="formNuevoUsuario">	
+			<p:panel id="pnlNuevoUsuario" styleClass="formulario">
+				<table>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.usuario.nombre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombre" style="width: 70%" required="true"
+								value="#{usuarioDataManager.usuarioInstancia.nombresUsuario}" label="#{i18n['erp.usuario.nombre']}" />
+						</td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="txtApellido" value="#{i18n['erp.usuario.apellido']}" /></td>
+						<td>
+							<p:inputText id="txtApellido" style="width: 70%" required="true"
+								value="#{usuarioDataManager.usuarioInstancia.apellidosUsuario}"  label="#{i18n['erp.usuario.apellido']}" />
+						</td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="txtCI" value="#{i18n['erp.usuario.ci']}" /></td>
+						<td>
+							<p:inputText id="txtCI" style="width: 70%" 
+								value="#{usuarioDataManager.usuarioInstancia.ciUsuario}" label="#{i18n['erp.usuario.ci']}" />
+						</td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="txtUsername" value="#{i18n['erp.usuario.username']}" /></td>
+						<td>
+							<p:inputText id="txtUsername" style="width: 70%" required="true"
+								value="#{usuarioDataManager.usuarioInstancia.loginUsuario}" label="#{i18n['erp.usuario.username']}" />
+						</td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="txtMail" value="#{i18n['erp.usuario.email']}" /></td>
+						<td>
+							<p:inputText id="txtMail" style="width: 70%" 
+								value="#{usuarioDataManager.usuarioInstancia.emailUsuario}" label="#{i18n['erp.usuario.email']}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="selectEmpresa" value="#{i18n['label.empresa']}" />
+						</td>
+						<td>
+							<h:selectOneMenu id="selectEmpresa" required="true" style="width: 70%" 
+								value="#{usuarioController.idEmpresaSeleccionada}" label="#{i18n['label.empresa']}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" />
+								<f:selectItems value="#{selectItemsController.catalogoListaEmpresa}"/>
+								<p:ajax event="change" process="@this" update="selectPerfil" listener="#{usuarioController.obtenerPerfilesEmpresa}"/>
+							</h:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="selectPerfil" value="#{i18n['label.perfil']}" />
+						</td>
+						<td>
+							<p:selectOneMenu id="selectPerfil" required="true" style="width: 70%"
+								value="#{usuarioDataManager.usuarioInstancia.segtPerfil.idPerfil}" label="#{i18n['label.perfil']}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" />
+								<f:selectItems value="#{usuarioController.catalogoPerfiles}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{usuarioController.registrarUsuario}"
+					process="@this,pnlNuevoUsuario"
+					update="pnlNuevoUsuario,:formUsuario:tablaUsuarios,:formUsuario:pnlMessages"
+					oncomplete="dlgNuevoUsuario.hide();"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoUsuario.hide();" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>
