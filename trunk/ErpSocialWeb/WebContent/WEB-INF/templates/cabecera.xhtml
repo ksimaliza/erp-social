@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<div id="logoCabecera"></div>
+	<h:form>
+		<div id="finCabecera">
+			<h:commandLink value="#{i18n['login.cerrar.sesion']}" action="#{loginController.cerrarSesion}"/>
+		</div>
+	</h:form>
+	<div id="nombreSistema">
+		<p>#{i18n['erp.sistema.nombre']}</p>
+	</div>
+</ui:composition>

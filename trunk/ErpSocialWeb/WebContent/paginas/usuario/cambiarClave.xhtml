@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	
+	<ui:define name="title">
+		<h3><h:outputLabel	value="Cambiar clave usuario" /></h3>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="formCambiarClave">
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			<p:panel id="pnlCambiarClave" styleClass="formulario">
+				<table class="formulario">
+					<tr>
+						<td style="width: 25%">
+							<h:outputLabel for="txtClaveActual" value="#{i18n['login.clave.actual']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td style="width: 75%">
+							<h:inputSecret id="txtClaveActual" 
+								style="width: 65%" required="true"
+								label="#{i18n['login.clave.actual']}"
+								value="#{loginDataManager.credencialesDTO.password}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtClaveNueva" value="#{i18n['login.clave.nueva']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<h:inputSecret id="txtClaveNueva" 
+								style="width: 65%" required="true" 
+								label="#{i18n['login.clave.nueva']}"
+								value="#{loginDataManager.credencialesDTO.passwordTemp}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtClaveNuevaConfirmar" value="#{i18n['login.clave.nueva.confirmar']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<h:inputSecret id="txtClaveNuevaConfirmar"
+							style="width: 65%" required="true"
+							label="#{i18n['login.clave.nueva.confirmar']}"
+							value="#{loginDataManager.credencialesDTO.passwordTempConfirmar}" />
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnAceptar"
+					actionListener="#{loginController.cambiarContrasenia}"
+					value="#{i18n['label.aceptar']}" 
+					process="@this,pnlCambiarClave"
+					update=":formCambiarClave:pnlMessages,pnlCambiarClave" />
+			</p:panel>
+		</h:form>
+	</ui:define>
+	
+</ui:composition>

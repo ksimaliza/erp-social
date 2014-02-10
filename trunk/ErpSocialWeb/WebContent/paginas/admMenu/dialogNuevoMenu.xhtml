@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpNuevoMenu" header="#{i18n['erp.menu.registrar']}" visible="#{menuController.dialogVisible}"
+		widgetVar="dlgNuevoMenu" modal="true" minWidth="500" appendToBody="true">
+		<h:form id="formNuevoMenu">	
+			<p:panel id="pnlNuevoMenu" styleClass="formulario">
+				<table class="formulario">
+					<tr>
+						<td width="20%">
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.menu.nombre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombre" 
+								style="width: 70%" required="true"
+								label="#{i18n['erp.menu.nombre']}"
+								value="#{menuDataManager.menuInstancia.nombreMenu}" />
+						</td>
+					</tr>
+					<tr>
+						<td width="20%">
+							<h:outputLabel for="txtUrlMenu" value="#{i18n['erp.menu.url']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtUrlMenu" 
+								style="width: 70%" required="true"
+								label="#{i18n['erp.menu.url']}"
+								value="#{menuDataManager.menuInstancia.urlMenu}" />
+						</td>
+					</tr>
+					<tr>
+						<td width="20%">
+							<h:outputLabel for="txtDescMenu" value="#{i18n['erp.menu.descripcion']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtDescMenu" 
+								style="width: 70%" label="#{i18n['erp.menu.descripcion']}"
+								value="#{menuDataManager.menuInstancia.descMenu}" />
+						</td>
+					</tr>
+					<tr>
+						<td width="20%">
+							<h:outputLabel for="txtDescMenu" value="#{i18n['erp.menu.modulo']}" />
+						</td>
+						<td width="70%">
+							<p:selectManyCheckbox id="selectNotificar" 
+								value="#{menuController.modulosSeleccionados}"
+								layout="pageDirection" required="true"
+								label="#{i18n['erp.menu.modulo']}" style="width: 70%">
+								<f:selectItems value="#{selectItemsController.catalogoListaModulos}" />
+							</p:selectManyCheckbox>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="btnRegistrar">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{menuController.registrarMenu}"
+					update="pnlNuevoMenu,:formMenu:tablaMenu,:formMenu:pnlMessages"
+					process="@this,pnlNuevoMenu" oncomplete="dlgNuevoMenu.hide();"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoMenu.hide();" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>

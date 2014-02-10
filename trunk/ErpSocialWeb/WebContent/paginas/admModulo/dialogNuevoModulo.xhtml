@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="dialogNuevoModulo" header="Registrar Modulo" 
+		widgetVar="dlgNuevoModulo" modal="true" minWidth="600" appendToBody="true" draggable="false">
+		<h:form id="formDlgNuevoModulo">	
+			<p:panel id="pnlCrearModulo">
+				<table>
+					<tr>
+						<td width="30%">
+							<h:outputLabel value="#{i18n['erp.modulo.nombre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombre"
+								value="#{moduloDataManager.moduloInstancia.nombreModulo}" required="true" label="#{i18n['erp.modulo.nombre']}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel value="#{i18n['erp.modulo.descripcion']}" />
+						</td>
+						<td>
+							<p:inputText id="txtDescripcion"
+								value="#{moduloDataManager.moduloInstancia.descModulo}" label="#{i18n['erp.modulo.descripcion']}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel value="#{i18n['erp.modulo.seleccione.empresa']}" />
+						</td>
+						<td>
+							<p:selectManyCheckbox id="selectEmpresas" layout="pageDirection"
+								required="true" label="#{i18n['erp.modulo.seleccione.empresa']}"
+								value="#{moduloController.empresasSeleccionadas}">
+								<f:selectItems value="#{selectItemsController.catalogoListaEmpresa}" />
+							</p:selectManyCheckbox>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="botonesCrear">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{moduloController.registrarModulo}"
+					update="pnlCrearModulo,:formModulo:pnlMessages,:formModulo:tablaModulo" 
+					process="@this,pnlCrearModulo" oncomplete="dlgNuevoModulo.hide()"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" immediate="true" onclick="dlgNuevoModulo.hide()" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>

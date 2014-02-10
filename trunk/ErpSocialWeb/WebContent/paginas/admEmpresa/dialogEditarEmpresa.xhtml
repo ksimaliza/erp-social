@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<p:dialog id="dialogEditarEmpresa" header="#{i18n['erp.empresa.editar']}" 
+		widgetVar="dlgEditarEmpresa" modal="true" width="600" appendToBody="true" draggable="false">
+		<h:form id="formEditarEmpresa">	
+			<p:panel id="pnlEditarEmpresa">
+				<table>
+					<tr>
+						<td width="35%">
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.empresa.nombre']}" />
+						</td>
+						<td width="65%">
+							<p:inputText id="txtNombre" 
+								style="width: 100%" required="true"
+								value="#{empresaDataManager.empresaEditar.emrNombre}" 
+								label="#{i18n['erp.empresa.nombre']}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtDireccion" value="#{i18n['label.direccion']}" />
+						</td>
+						<td>
+							<p:inputText id="txtDireccion" 
+								style="width: 100%"
+								value="#{empresaDataManager.empresaEditar.emrDireccion}"
+								required="true" label="#{i18n['label.direccion']}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtRuc" value="#{i18n['label.ruc']}" />
+						</td>
+						<td>
+							<p:inputText id="txtRuc" 
+								style="width: 100%" maxlength="13"
+								value="#{empresaDataManager.empresaEditar.emrRuc}"
+								onkeypress="return soloEnteros(this, event)"
+								required="true" label="#{i18n['label.ruc']}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtFono" value="#{i18n['label.telefono']}" />
+						</td>
+						<td>
+							<p:inputText id="txtFono" 
+								style="width: 100%" maxlength="12"
+								onkeypress="return soloEnteros(this, event)"
+								value="#{empresaDataManager.empresaEditar.emrTelefono}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtCelular" value="#{i18n['label.celular']}" />
+						</td>
+						<td>
+							<p:inputText id="txtCelular" 
+								style="width: 100%" maxlength="12"
+								onkeypress="return soloEnteros(this, event)"
+								value="#{empresaDataManager.empresaEditar.emrCelular}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtEmail" value="#{i18n['label.email']}" />
+						</td>
+						<td>
+							<p:inputText id="txtEmail" 
+								style="width: 100%"
+								value="#{empresaDataManager.empresaEditar.emrEmail}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtPagina" value="#{i18n['label.pagina']}" />
+						</td>
+						<td>
+							<p:inputText id="txtPagina" 
+								style="width: 100%"
+								value="#{empresaDataManager.empresaEditar.emrPagina}" />
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotonesActualizar">
+				<p:commandButton id="btnActualizar" value="#{i18n['label.actualizar']}"
+					actionListener="#{empresaController.actualizarEmpresa}"
+					process="@this,pnlEditarEmpresa" oncomplete="dlgEditarEmpresa.hide()"
+					update=":formEmpresa:tablaEmpresa,:formEmpresa:pnlMessages"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarEmpresa.hide();" type="button" immediate="true"/>
+			</p:panel>
+		</h:form>
+	</p:dialog>
+</ui:composition>

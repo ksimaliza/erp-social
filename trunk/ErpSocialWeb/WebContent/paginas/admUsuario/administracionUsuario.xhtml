@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="title">
+		<h3><h:outputLabel	value="#{i18n['erp.usuario.pagina.titulo']}" /></h3>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="formUsuario">
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" />
+					<p:commandButton id="btnNuevoUsuario" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevoUsuario.show()"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panel id="pnlBuscarUsuario" header="#{i18n['erp.usuario.buscar']}">
+				<table>
+					<tr>
+						<td><h:outputLabel for="txtNombre" value="#{i18n['erp.usuario.nombre']}" /></td>
+						<td>
+							<p:inputText id="txtNombre"
+								value="#{usuarioDataManager.usuarioBuscar.nombresUsuario}" />
+						</td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="txtApellido" value="#{i18n['erp.usuario.apellido']}" /></td>
+						<td>
+							<p:inputText id="txtApellido"
+								value="#{usuarioDataManager.usuarioBuscar.apellidosUsuario}" />
+						</td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="txtCI" value="#{i18n['erp.usuario.ci']}" /></td>
+						<td>
+							<p:inputText id="txtCI"
+								value="#{usuarioDataManager.usuarioBuscar.ciUsuario}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel value="Empresa" />
+						</td>
+						<td>
+							<p:selectOneMenu value="#{usuarioDataManager.usuarioBuscar.empresaTbl.emrPk}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" />
+								<f:selectItems value="#{selectItemsController.catalogoListaEmpresa}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="botonesBuscar" columns="2">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{usuarioController.buscarUsuario}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscarUsuario"
+					update=":formUsuario:pnlMessages,tablaUsuarios,pnlBuscarUsuario" />
+			</p:panel>
+			<p:dataTable id="tablaUsuarios"
+				value="#{usuarioDataManager.listaUsuario}"
+				var="usuario" rowIndexVar="rowIndex"
+				paginator="true" rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<f:facet name="header">
+					#{i18n['erp.usuario.lista']}
+				</f:facet>
+				<p:column headerText="#" styleClass="centered" width="5%">
+					#{rowIndex+1}
+				</p:column>
+				<p:column headerText="#{i18n['erp.usuario.nombre']}" width="20%">
+					<h:outputText value="#{usuario.nombresUsuario}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.usuario.apellido']}" width="20%">
+					<h:outputText value="#{usuario.apellidosUsuario}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.usuario.ci']}" width="15%">
+					<h:outputText value="#{usuario.ciUsuario}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.usuario.perfil']}" width="20%">
+					<h:outputText value="#{usuario.segtPerfil.nombrePerfil}" />
+				</p:column>
+				<p:column headerText="#{i18n['label.estado']}" styleClass="centered" width="10%">
+					<h:outputText value="#{i18n['label.estado.activo']}"
+						rendered="#{usuario.estado eq usuarioController.estadoActivo}" />
+					<h:outputText value="#{i18n['label.estado.inactivo']}"
+						rendered="#{usuario.estado eq usuarioController.estadoInactivo}" />
+				</p:column>
+				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.editar']}"
+							oncomplete="dlgEditarEmpresa.show()"
+							process="@this,:formEditarEmpresa:pnlEditarEmpresa"
+							update=":formEditarEmpresa:pnlEditarEmpresa">
+							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+							<f:setPropertyActionListener target="#{empresaDataManager.empresaEditar}" value="#{empresa}" />
+						</p:commandLink>
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:outputText value="&#160;|&#160;" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.activar']}"
+							rendered="#{empresa.estado eq empresaController.estadoInactivo}">
+							<h:graphicImage value="/resources/img/tick.png" alt="#{i18n['label.activar']}"/>
+						</p:commandLink>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.desabilitar']}"
+							rendered="#{empresa.estado eq empresaController.estadoActivo}">
+							<h:graphicImage value="/resources/img/delete.png" alt="#{i18n['label.activar']}"/>
+						</p:commandLink>
+					</h:panelGroup>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+		
+		<ui:include src="dialogNuevoUsuario.xhtml" />
+		
+	</ui:define>
+</ui:composition>

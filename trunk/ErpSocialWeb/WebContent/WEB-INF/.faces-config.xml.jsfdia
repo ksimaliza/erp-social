@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#seguridad#login.xhtml"
+  PATH="/seguridad/login.xhtml" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#seguridad#login.xhtml:0" NAME="item"
+   PATH="/seguridad/login.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="homeUsuario::#paginas#home.xhtml"
+    NAME="output" PATH="/paginas/home.xhtml"
+    TARGET="rules:#paginas#home.xhtml" TITLE="homeUsuario" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#seguridad#login.xhtml:1" NAME="item1"
+   PATH="/seguridad/login.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="cambiarClave::#paginas#usuario#cambiarClave.xhtml" NAME="output"
+    PATH="/paginas/usuario/cambiarClave.xhtml"
+    TARGET="rules:#paginas#usuario#cambiarClave.xhtml"
+    TITLE="cambiarClave" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#paginas#usuario#cambiarClave.xhtml"
+  PATH="/paginas/usuario/cambiarClave.xhtml" SHAPE="256,33,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#paginas#usuario#cambiarClave.xhtml:0"
+   NAME="item" PATH="/paginas/usuario/cambiarClave.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="retornarCambiarClave::#paginas#home.xhtml"
+    NAME="output" PATH="/paginas/home.xhtml"
+    TARGET="rules:#paginas#home.xhtml" TITLE="retornarCambiarClave" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#paginas#home.xhtml"
+  PATH="/paginas/home.xhtml" SHAPE="480,17,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

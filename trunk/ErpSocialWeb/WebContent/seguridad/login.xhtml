@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/templateLogin.xhtml">
+
+	<ui:define name="content">
+		<h:form id="formLogin">
+			<div class="center">
+				<p:growl id="pnlMessagesG"/>
+			</div>
+			<p:panel id="idPanelLogin">
+				<table class="center">
+					<tr>
+						<td>
+							<h:outputLabel id="lblUser" value="#{i18n['login.usuario']}" for="txtUser" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:inputText id="txtUser" 
+								value="#{loginDataManager.credencialesDTO.usuario}" 
+								required="true" label="#{i18n['login.usuario']}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel id="lblPass" value="#{i18n['login.clave']}" for="lblPass" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:password id="txtPass" 
+								value="#{loginDataManager.credencialesDTO.password}" 
+								required="true" label="#{i18n['login.clave']}"/>
+						</td>
+					</tr>
+					<tr>
+						<td align="center">
+							<h:commandButton value="#{i18n['label.ingresar']}" action="#{loginController.autenticarUsuario}"/>
+						</td>
+						<td align="center">
+							<h:commandButton type="reset" value="#{i18n['label.limpiar']}" immediate="true"/>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="title">
+		<h3><h:outputLabel	value="#{i18n['erp.perfil.pagina.titulo']}" /></h3>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="formPerfil">
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" />
+					<p:commandButton id="btnNuevoPerfil" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevoPerfil.show()"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panel id="pnlBuscarPerfil" header="#{i18n['erp.perfil.buscar']}">
+				<table>
+					<tr>
+						<td><h:outputLabel for="txtNombreBuscar" value="#{i18n['erp.perfil.nombre']}" /> </td>
+						<td><p:inputText id="txtNombreBuscar" value="#{perfilDataManager.perfilBuscar.nombrePerfil}" /></td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
+						<td>
+							<h:selectOneMenu id="inputEstado" value="#{perfilDataManager.perfilBuscar.estado}">
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}" itemValue=""/>
+								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{perfilController.estadoActivo}"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{perfilController.estadoInactivo}"/>
+							</h:selectOneMenu>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{perfilController.buscarPerfiles}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscarPerfil"
+					update="pnlMessages,tablaPerfiles,pnlBuscarPerfil" />
+			</p:panel>
+			<p:dataTable id="tablaPerfiles" rowIndexVar="rowIndex"
+				value="#{perfilDataManager.listaPerfiles}" var="perfil"
+				paginator="true" rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<f:facet name="header">
+					#{i18n['erp.perfil.lista']}
+				</f:facet>
+				<p:column headerText="#" styleClass="centered" width="5%">
+					#{rowIndex+1}
+				</p:column>
+				<p:column headerText="#{i18n['erp.perfil.nombre']}">
+					<h:outputText value="#{perfil.nombrePerfil}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.perfil.descripcion']}">
+					<h:outputText value="#{perfil.descPerfil}" />
+				</p:column>
+				<p:column headerText="#{i18n['label.estado']}" styleClass="centered">
+					<h:outputText value="#{i18n['label.estado.activo']}"
+						rendered="#{perfil.estado eq perfilController.estadoActivo}" />
+					<h:outputText value="#{i18n['label.estado.inactivo']}"
+						rendered="#{perfil.estado eq perfilController.estadoInactivo}" />
+				</p:column>
+				<!-- <p:column headerText="#{i18n['erp.perfil.modulo']}">
+					<p:dataList value="#{perfil.segtModulos}" var="modulo" itemType="disc">
+						<h:outputText value="#{modulo.nombreModulo}" />
+					</p:dataList>
+				</p:column> -->
+				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.editar']}"
+							oncomplete="dlgEditarPerfil.show()"
+							actionListener="#{perfilController.asignarDatosEditarPerfil(perfil)}"
+							process="@this" update=":formEditarPerfil:pnlEditarPerfil">
+							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+							<f:setPropertyActionListener target="#{perfilDataManager.perfilEditar}" value="#{perfil}" />
+						</p:commandLink>
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:outputText value="&#160;|&#160;" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.activar']}"
+							oncomplete="dlgActivar.show()"
+							rendered="#{perfil.estado eq perfilController.estadoInactivo}">
+							<h:graphicImage value="/resources/img/tick.png" alt="#{i18n['label.activar']}"/>
+							<f:setPropertyActionListener target="#{perfilDataManager.perfilEditar}" value="#{perfil}" />
+						</p:commandLink>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.desabilitar']}"
+							oncomplete="dlgInactivar.show()"
+							rendered="#{perfil.estado eq perfilController.estadoActivo}">
+							<h:graphicImage value="/resources/img/delete.png" alt="#{i18n['label.activar']}"/>
+							<f:setPropertyActionListener target="#{perfilDataManager.perfilEditar}" value="#{perfil}" />
+						</p:commandLink>
+					</h:panelGroup>
+				</p:column>
+			</p:dataTable>
+			
+			<!-- Desactivar perfil -->
+			<p:confirmDialog id="dialogInactivar" message="#{i18n['erp.perfil.desactivar.pregunta.confirmacion']}" appendToBody="true"
+				header="#{i18n['erp.perfil.desactivar']}" severity="alert" widgetVar="dlgInactivar" >
+				<p:commandButton value="#{i18n['label.aceptar']}"
+					actionListener="#{perfilController.inactivarPerfil()}"
+					oncomplete="dlgInactivar.hide()" 
+					update="pnlMessages,tablaPerfiles" process="@this"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgInactivar.hide();" type="button" />
+			</p:confirmDialog>
+			
+			<!-- Activar perfil -->
+			<p:confirmDialog id="dialogActivar" message="#{i18n['erp.perfil.activar.pregunta.confirmacion']}" appendToBody="true"
+				header="#{i18n['erp.perfil.activar']}" severity="alert" widgetVar="dlgActivar" >
+				<p:commandButton value="#{i18n['label.aceptar']}"
+					actionListener="#{perfilController.activarPerfil}"
+					oncomplete="dlgActivar.hide()" 
+					update="pnlMessages,tablaPerfiles" process="@this"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgActivar.hide();" type="button" />
+			</p:confirmDialog>
+			
+		</h:form>
+		
+		<ui:include src="dialogNuevoPerfil.xhtml" />
+		<ui:include src="dialogEditarPerfil.xhtml" />
+		
+	</ui:define>
+</ui:composition>

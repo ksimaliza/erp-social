@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	<p:dialog id="popUpNuevaEmpresa" header="#{i18n['erp.empresa.registrar']}"
+		widgetVar="popUpNuevo" modal="true" minWidth="600" draggable="false" appendToBody="true">
+		<h:form id="formNuevo">	
+			<p:panel id="pnlNuevaEmpresa">
+				<table>
+					<tr>
+						<td width="35%">
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.empresa.nombre']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td width="75%">
+							<p:inputText id="txtNombre" 
+								style="width: 100%" required="true"
+								value="#{empresaDataManager.empresaInstancia.emrNombre}" 
+								label="#{i18n['erp.empresa.nombre']}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtDireccion" value="#{i18n['label.direccion']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:inputText id="txtDireccion" 
+								style="width: 100%"
+								value="#{empresaDataManager.empresaInstancia.emrDireccion}"
+								required="true" label="#{i18n['label.direccion']}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtRuc" value="#{i18n['label.ruc']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:inputText id="txtRuc" 
+								style="width: 100%" maxlength="13"
+								value="#{empresaDataManager.empresaInstancia.emrRuc}"
+								onkeypress="return soloEnteros(this, event)"
+								required="true" label="#{i18n['label.ruc']}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtFono" value="#{i18n['label.telefono']}" />
+						</td>
+						<td>
+							<p:inputText id="txtFono" 
+								style="width: 100%" maxlength="13"
+								onkeypress="return soloEnteros(this, event)"
+								value="#{empresaDataManager.empresaInstancia.emrTelefono}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtCelular" value="#{i18n['label.celular']}" />
+						</td>
+						<td>
+							<p:inputText id="txtCelular" 
+								style="width: 100%" maxlength="13"
+								onkeypress="return soloEnteros(this, event)"
+								value="#{empresaDataManager.empresaInstancia.emrCelular}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtEmail" value="#{i18n['label.email']}" />
+						</td>
+						<td>
+							<p:inputText id="txtEmail" 
+								style="width: 100%"
+								value="#{empresaDataManager.empresaInstancia.emrEmail}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtPagina" value="#{i18n['label.pagina']}" />
+						</td>
+						<td>
+							<p:inputText id="txtPagina" 
+								style="width: 100%"
+								value="#{empresaDataManager.empresaInstancia.emrPagina}" />
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="botonesCrear">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{empresaController.registrarEmpresa}"
+					process="@this,pnlNuevaEmpresa" oncomplete="popUpNuevo.hide()"
+					update="pnlNuevaEmpresa,:formEmpresa:tablaEmpresa,:formEmpresa:pnlMessages"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="popUpNuevo.hide();" type="button" immediate="true"/>
+			</p:panel>
+		</h:form>
+	</p:dialog>
+</ui:composition>

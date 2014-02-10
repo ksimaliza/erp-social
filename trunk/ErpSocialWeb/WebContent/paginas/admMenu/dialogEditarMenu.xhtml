@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpEditarMenu" header="#{i18n['erp.menu.editar']}" 
+		widgetVar="dlgEditarMenu" modal="true" minWidth="500" appendToBody="true">
+		<h:form id="formEditarMenu">	
+			<p:panel id="pnlEditarMenu">
+				<table>
+					<tr>
+						<td width="20%">
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.menu.nombre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombre" 
+								style="width: 70%"
+								value="#{menuDataManager.menuEditar.nombreMenu}" required="true" label="#{i18n['erp.menu.nombre']}"/>
+						</td>
+					</tr>
+					<tr>
+						<td width="20%">
+							<h:outputLabel for="txtUrlMenu" value="#{i18n['erp.menu.url']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtUrlMenu" 
+								style="width: 70%"
+								value="#{menuDataManager.menuEditar.urlMenu}" required="true" label="#{i18n['erp.menu.url']}"/>
+						</td>
+					</tr>
+					<tr>
+						<td width="20%">
+							<h:outputLabel for="txtDescMenu" value="#{i18n['erp.menu.descripcion']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtDescMenu" 
+								style="width: 70%"
+								value="#{menuDataManager.menuEditar.descMenu}" label="#{i18n['erp.menu.descripcion']}"/>
+						</td>
+					</tr>
+					<tr>
+						<td width="20%">
+							<h:outputLabel for="txtDescMenu" value="#{i18n['erp.menu.modulo']}" />
+						</td>
+						<td width="70%">
+							<p:selectManyCheckbox id="selectNotificar"
+								value="#{menuController.modulosSeleccionados}"
+								style="width: 70%" required="true" layout="pageDirection"
+								label="#{i18n['erp.menu.modulo']}">
+								<f:selectItems value="#{selectItemsController.catalogoListaModulos}" />
+							</p:selectManyCheckbox>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnActualizar" value="#{i18n['label.actualizar']}"
+					actionListener="#{menuController.actualizarMenu}"
+					process="@this,pnlEditarMenu"
+					update="pnlEditarMenu,:formMenu:tablaMenu,:formMenu:pnlMessages"/>
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>

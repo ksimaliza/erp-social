@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="dialogEditarModulo" header="Editar Modulo" 
+		widgetVar="dlgEditarModulo" modal="true" minWidth="500" appendToBody="true">
+		<h:form id="formDlgEditarModulo">	
+			<p:panel id="pnlEditarModulo">
+				<table>
+					<tr>
+						<td width="30%">
+							<h:outputLabel value="#{i18n['erp.modulo.nombre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombre"
+								value="#{moduloDataManager.moduloEditar.nombreModulo}" required="true" label="#{i18n['erp.modulo.nombre']}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel value="#{i18n['erp.modulo.descripcion']}" />
+						</td>
+						<td>
+							<p:inputText id="txtDescripcion"
+								value="#{moduloDataManager.moduloEditar.descModulo}" label="#{i18n['erp.modulo.descripcion']}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel value="#{i18n['erp.modulo.seleccione.empresa']}" />
+						</td>
+						<td>
+							<p:selectManyCheckbox id="selectEmpresas" layout="pageDirection"
+								required="true" label="#{i18n['erp.modulo.seleccione.empresa']}"
+								value="#{moduloController.empresasSeleccionadas}">
+								<f:selectItems value="#{selectItemsController.catalogoListaEmpresa}" />
+							</p:selectManyCheckbox>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="botonesEditar">
+				<p:commandButton id="btnActualizar" value="#{i18n['label.actualizar']}"
+					actionListener="#{moduloController.actualizarModulo}"
+					process="@this,pnlEditarModulo" oncomplete="dlgEditarModulo.hide()"
+					update="pnlEditarModulo,:formModulo:pnlMessages,:formModulo:tablaModulo" />
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarModulo.hide()" type="button" immediate="true"/>
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>
