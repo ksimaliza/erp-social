@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="seguridadesPU" transaction-type="JTA">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:/postgresqlErpDS</jta-data-source>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.AnioLectivo</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Bien</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.CabeceraBien</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.CabeceraCatalogo</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.CabeceraCementerio</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.CabeceraMatricula</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.CabeceraUbicacion</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.CargoEmpleado</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Cargo</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Carpeta</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Cementerio</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Certificado</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Contrato</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Cupo</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Curso</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleBien</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleBienPK</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogo</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogoPK</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleCementerio</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleCementerioPK</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleJornada</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleMatricula</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleMatriculaPK</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleUbicacion</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleUbicacionPK</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleVacaciones</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Documento</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Empleado</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Empresa</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.security.Parametro</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.EstadoDocumento</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.EstudianteMatriculaTbl</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Estudiante</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Eucaristia</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Folio</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.FormatoDocumento</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.HolguraEntradaSalida</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Ingreso</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Inventario</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Jornada</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.MatAnio</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.MateriaProfesor</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Materia</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Matricula</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.NotMateria</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Notas</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.PadreEstudiante</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.PadreRepresentante</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Paralelo</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.PersonaCertificado</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.PersonaEmpEstadoDoc</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.PersonaEmpresa</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Persona</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Profesor</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Proveedor</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.security.HistorialClave</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.security.HistoricoTransaccione</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.security.Menu</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.security.Modulo</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.security.Perfil</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.security.Usuario</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Sepulcro</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.TipoCertificado</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.TipoDocumento</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.TipoEmpresa</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Transaccion</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.TransicionEstados</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.Vacaciones</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.ValidacionDocumento</class>
+		<properties>
+			<property name="hibernate.connection.username" value="postgres" />
+			<property name="hibernate.connection.password" value="root" />
+			<property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/ERP_DB" />
+			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
+			<property name="hibernate.show_sql" value="true"/>
+		</properties>
+	</persistence-unit>
+</persistence>
