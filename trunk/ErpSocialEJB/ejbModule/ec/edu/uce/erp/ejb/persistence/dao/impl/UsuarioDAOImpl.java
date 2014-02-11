@@ -3,13 +3,21 @@
  */
 package ec.edu.uce.erp.ejb.persistence.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,6 +73,7 @@ public class UsuarioDAOImpl extends AbstractFacadeImpl<Usuario> implements Usuar
 			}
 			
 		} catch (Exception e) {
+			slf4jLogger.info("error al obtenerPorLogin {}", e.toString());
 			throw new SeguridadesException("Error al obtenerPorLogin" + e);
 		}
 	
@@ -90,6 +99,63 @@ public class UsuarioDAOImpl extends AbstractFacadeImpl<Usuario> implements Usuar
 		}
 		
 		return usuarios;
+	}
+
+	@Override
+	public List<Usuario> obtenerUsuarioCriterios(Usuario usuario) throws SeguridadesException {
+		slf4jLogger.info("error al obtenerPorLogin");
+		
+		List<Usuario> usuarioCol = null;
+		
+		Predicate predicate = null;
+		List<Predicate> criteriaList = null;
+		
+		try {
+			
+			
+			CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+			CriteriaQuery<Usuario> criteriaQuery = criteriaBuilder.createQuery(Usuario.class);
+			
+			Root<Usuario> fromModulo = criteriaQuery.from(Usuario.class);
+			criteriaQuery.select(fromModulo);
+			
+			criteriaList = new ArrayList<Predicate>();
+			
+			//por nombre de usuario
+			if (StringUtils.isNotBlank(usuario.getNombresUsuario())) {
+				Expression<String> nombreModulo = 
+						criteriaBuilder.upper(criteriaBuilder.literal(usuario.getNombresUsuario()));
+				predicate = criteriaBuilder.equal(criteriaBuilder.upper(fromModulo.<String>get("nombresUsuario")), nombreModulo);
+				criteriaList.add(predicate);
+			}
+			
+			//por id empresa
+			if (usuario.getNpIdEmpresa() != null && usuario.getNpIdEmpresa()!=0) {
+				predicate = criteriaBuilder.equal(fromModulo.join("empresaTbl").get("emrPk"), usuario.getNpIdEmpresa());
+				criteriaList.add(predicate);
+			}
+			
+			//por estado
+			if (StringUtils.isNotBlank(usuario.getEstado())) {
+				predicate = criteriaBuilder.equal(fromModulo.get("estado"), usuario.getEstado());
+				criteriaList.add(predicate);
+			}
+			
+			criteriaQuery.where(criteriaBuilder.and(criteriaList.toArray(new Predicate[0])));
+			criteriaQuery.orderBy(criteriaBuilder.asc(fromModulo.get("fechaRegistro")));
+			
+			TypedQuery<Usuario> typedQuery = entityManager.createQuery(criteriaQuery);
+			
+			usuarioCol = typedQuery.getResultList();
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al obtener al obtenerUsuarioCriterios {}", e);
+			throw new SeguridadesException(e);
+		} finally {
+			predicate = null; criteriaList = null;
+		}
+		
+		return usuarioCol;
 	}
 
 }

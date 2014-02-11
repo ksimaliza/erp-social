@@ -96,6 +96,9 @@ public class Usuario implements Serializable {
 	
 	@Transient
 	private Boolean npDebeCambiarClave;
+	
+	@Transient
+	private Integer npIdEmpresa;
 
 	public Usuario() {
 	}
@@ -308,6 +311,14 @@ public class Usuario implements Serializable {
 	
 	public String getNpNombresCompletos () {
 		return this.nombresUsuario + " " + this.apellidosUsuario;
+	}
+
+	public Integer getNpIdEmpresa() {
+		return npIdEmpresa;
+	}
+
+	public void setNpIdEmpresa(Integer npIdEmpresa) {
+		this.npIdEmpresa = npIdEmpresa;
 	}
 
 }
