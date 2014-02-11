@@ -357,11 +357,16 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		
 		List<Usuario> usuariosCol = null;
 		
-//		usuariosCol = factoryDAO.getUsuarioDAOImpl().
+		try {
+			usuariosCol = factoryDAO.getUsuarioDAOImpl().obtenerUsuarioCriterios(usuario);
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarUsuarios {}" , e.getMessage());
+			throw new SeguridadesException("Error al buscarUsuarios");
+		}
 		
 		return usuariosCol;
 	}
-
 	
 
 }

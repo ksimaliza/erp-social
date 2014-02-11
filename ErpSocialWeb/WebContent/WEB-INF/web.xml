@@ -38,14 +38,14 @@
 		<param-value>aristo</param-value>
 	</context-param>
 	<!-- filter mapping -->
-	<!-- <filter>
+	<filter>
 		<filter-name>LoginFiltro</filter-name>
 		<filter-class>ec.edu.uce.erp.web.filtro.LoginFiltro</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>LoginFiltro</filter-name>
 		<url-pattern>/paginas/*</url-pattern>
-	</filter-mapping> -->
+	</filter-mapping>
 	<filter>
 		<filter-name>PrimeFaces FileUpload Filter</filter-name>
 		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>

@@ -1,5 +1,7 @@
 package ec.edu.uce.erp.ejb.persistence.dao;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
@@ -21,5 +23,13 @@ public interface UsuarioDAO extends AbstractFacade<Usuario>{
 	 * @throws SeguridadesException
 	 */
 	Usuario obtenerPorLogin (CredencialesDTO credencialesDTO) throws SeguridadesException;
+	
+	/**
+	 * M&eacute;todo para buscar usuarios por diferentes criterios
+	 * @param usuario
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	List<Usuario> obtenerUsuarioCriterios (Usuario usuario) throws SeguridadesException;
 
 }
