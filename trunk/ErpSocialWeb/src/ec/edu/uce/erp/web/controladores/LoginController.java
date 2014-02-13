@@ -12,7 +12,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.http.HttpServletRequest;
 
-import org.primefaces.model.MenuModel;
+import org.primefaces.model.menu.MenuModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -230,18 +230,18 @@ public class LoginController extends BaseController{
 	 */
 
 
-	/**
-	 * @return the menuModel
-	 */
-	public MenuModel getMenuModel() {
-		return menuModel;
-	}
-
-	/**
-	 * @param menuModel the menuModel to set
-	 */
-	public void setMenuModel(MenuModel menuModel) {
-		this.menuModel = menuModel;
-	}
+//	/**
+//	 * @return the menuModel
+//	 */
+//	public MenuModel getMenuModel() {
+//		return menuModel;
+//	}
+//
+//	/**
+//	 * @param menuModel the menuModel to set
+//	 */
+//	public void setMenuModel(MenuModel menuModel) {
+//		this.menuModel = menuModel;
+//	}
 
 }

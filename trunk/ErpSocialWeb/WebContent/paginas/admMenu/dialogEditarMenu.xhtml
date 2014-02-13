@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpEditarMenu" header="#{i18n['erp.menu.editar']}" 
-		widgetVar="dlgEditarMenu" modal="true" minWidth="500" appendToBody="true">
+		widgetVar="dlgEditarMenu" modal="true" minWidth="500" appendTo="@(body)">
 		<h:form id="formEditarMenu">	
 			<p:panel id="pnlEditarMenu">
 				<table>

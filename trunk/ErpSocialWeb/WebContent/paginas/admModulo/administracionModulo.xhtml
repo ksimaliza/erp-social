@@ -132,7 +132,7 @@
 			</p:dataTable>
 			
 			<!-- Desactivar modulo -->
-			<p:confirmDialog id="dialogInactivar" message="#{i18n['erp.modulo.desactivar.pregunta.confirmacion']}" appendToBody="true"
+			<p:confirmDialog id="dialogInactivar" message="#{i18n['erp.modulo.desactivar.pregunta.confirmacion']}" appendTo="@(body)"
 				header="#{i18n['erp.modulo.desactivar']}" severity="alert" widgetVar="dlgInactivar" >
 				<p:commandButton value="#{i18n['label.aceptar']}"
 					actionListener="#{moduloController.inactivarModulo}"
@@ -142,7 +142,7 @@
 			</p:confirmDialog>
 			
 			<!-- Activar modulo -->
-			<p:confirmDialog id="dialogActivar" message="#{i18n['erp.modulo.activar.pregunta.confirmacion']}" appendToBody="true"
+			<p:confirmDialog id="dialogActivar" message="#{i18n['erp.modulo.activar.pregunta.confirmacion']}" appendTo="@(body)"
 				header="#{i18n['erp.modulo.activar']}" severity="alert" widgetVar="dlgActivar" >
 				<p:commandButton value="#{i18n['label.aceptar']}"
 					actionListener="#{moduloController.activarModulo}"

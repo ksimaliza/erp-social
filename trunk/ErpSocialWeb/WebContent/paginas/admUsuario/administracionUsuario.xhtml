@@ -95,10 +95,11 @@
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarUsuario.show()"
-							process="@this,:formEditarUsuario:pnlEditarUsuario"
+							process="@this"
+							actionListener="#{usuarioController.cargarDatosUsuario(usuario)}"
 							update=":formEditarUsuario:pnlEditarUsuario">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
-							<f:setPropertyActionListener target="#{usuarioDataManager.usuarioBuscar}" value="#{usuario}" />
+							<f:setPropertyActionListener target="#{usuarioDataManager.usuarioEditar}" value="#{usuario}" />
 						</p:commandLink>
 					</h:panelGroup>
 					<h:panelGroup>

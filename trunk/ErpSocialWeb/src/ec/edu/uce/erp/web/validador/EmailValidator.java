@@ -19,7 +19,7 @@ import org.apache.commons.lang3.StringUtils;
  * @author
  *
  */
-@FacesValidator(value="ec.edu.uce.dcc.validator.EmailValidator")
+@FacesValidator(value="ec.edu.uce.erp.web.validador.EmailValidator")
 public class EmailValidator implements Validator{
 	
 	private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\." +
@@ -37,7 +37,7 @@ public class EmailValidator implements Validator{
 	public void validate(FacesContext context, UIComponent component, Object value)
 			throws ValidatorException {
 		
-		if (!StringUtils.isEmpty(value.toString())) {
+		if (StringUtils.isNotBlank(value.toString())) {
 			matcher = pattern.matcher(value.toString());
 			if(!matcher.matches()){
 				

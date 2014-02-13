@@ -100,6 +100,12 @@ public class UsuarioController extends BaseController{
 		}
 	}
 	
+	public void actualizarUsuario () {
+		
+		slf4jLogger.info("actualizarUsuario");
+		
+	}
+	
 	/**
 	 * Obtener los perfiles asociados a una empresa
 	 */
@@ -112,6 +118,9 @@ public class UsuarioController extends BaseController{
 			perfilPlantilla.getNpEmpresaDTO().setEmrPk(idEmpresaSeleccionada);
 			
 			try {
+				
+				this.catalogoPerfiles.clear();
+				
 				List<Perfil> perfilCol = this.servicioAdministracion.buscarPerfileEmpresa(perfilPlantilla);
 				
 				if (CollectionUtils.isNotEmpty(perfilCol)) {
@@ -125,15 +134,23 @@ public class UsuarioController extends BaseController{
 						}
 					}, catalogoPerfiles);
 				} else {
-					this.catalogoPerfiles.clear();
-					MensajesWebController.aniadirMensajeAdvertencia("No se encontraron perfiles para la empresa seleccionada");
+					MensajesWebController.aniadirMensajeAdvertencia("erp.usuario.mensaje.error.perfiles");
 				}
 				
 			} catch (SeguridadesException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				slf4jLogger.info("Error al obtenerPerfilesEmpresa {}", e.toString());
+				MensajesWebController.aniadirMensajeAdvertencia("erp.usuario.mensaje.error.perfiles");
 			}
 			
+		}
+		
+	}
+	
+	public void cargarDatosUsuario (Usuario usuario) {
+		
+		if (usuario != null) {
+			this.idEmpresaSeleccionada = usuario.getEmpresaTbl().getEmrPk();
+			obtenerPerfilesEmpresa();
 		}
 		
 	}
