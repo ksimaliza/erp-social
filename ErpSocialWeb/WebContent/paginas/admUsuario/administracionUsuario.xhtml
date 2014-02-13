@@ -13,8 +13,8 @@
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
 			<p:toolbar>
 				<p:toolbarGroup align="left">
-					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" />
-					<p:commandButton id="btnNuevoUsuario" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevoUsuario.show()"/>
+					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
+					<p:commandButton id="btnNuevoUsuario" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoUsuario.show()"/>
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:panel id="pnlBuscarUsuario" header="#{i18n['erp.usuario.buscar']}">
@@ -58,7 +58,7 @@
 					actionListener="#{usuarioController.buscarUsuario}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarUsuario"
-					update=":formUsuario:pnlMessages,tablaUsuarios,pnlBuscarUsuario" />
+					update="pnlMessages,tablaUsuarios,pnlBuscarUsuario" />
 			</p:panel>
 			<p:dataTable id="tablaUsuarios"
 				value="#{usuarioDataManager.listaUsuario}"
@@ -94,11 +94,11 @@
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
-							oncomplete="dlgEditarEmpresa.show()"
-							process="@this,:formEditarEmpresa:pnlEditarEmpresa"
-							update=":formEditarEmpresa:pnlEditarEmpresa">
+							oncomplete="dlgEditarUsuario.show()"
+							process="@this,:formEditarUsuario:pnlEditarUsuario"
+							update=":formEditarUsuario:pnlEditarUsuario">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
-							<f:setPropertyActionListener target="#{empresaDataManager.empresaEditar}" value="#{empresa}" />
+							<f:setPropertyActionListener target="#{usuarioDataManager.usuarioBuscar}" value="#{usuario}" />
 						</p:commandLink>
 					</h:panelGroup>
 					<h:panelGroup>
@@ -107,14 +107,14 @@
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.activar']}"
-							rendered="#{empresa.estado eq empresaController.estadoInactivo}">
+							rendered="#{usuario.estado eq usuarioController.estadoInactivo}">
 							<h:graphicImage value="/resources/img/tick.png" alt="#{i18n['label.activar']}"/>
 						</p:commandLink>
 					</h:panelGroup>
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.desabilitar']}"
-							rendered="#{empresa.estado eq empresaController.estadoActivo}">
+							rendered="#{usuario.estado eq usuarioController.estadoActivo}">
 							<h:graphicImage value="/resources/img/delete.png" alt="#{i18n['label.activar']}"/>
 						</p:commandLink>
 					</h:panelGroup>
@@ -123,6 +123,7 @@
 		</h:form>
 		
 		<ui:include src="dialogNuevoUsuario.xhtml" />
+		<ui:include src="dialogEditarUsuario.xhtml" />
 		
 	</ui:define>
 </ui:composition>
