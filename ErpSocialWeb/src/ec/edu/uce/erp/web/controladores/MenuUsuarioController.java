@@ -13,10 +13,10 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.primefaces.component.menuitem.MenuItem;
-import org.primefaces.component.submenu.Submenu;
-import org.primefaces.model.DefaultMenuModel;
-import org.primefaces.model.MenuModel;
+import org.primefaces.model.menu.DefaultMenuItem;
+import org.primefaces.model.menu.DefaultMenuModel;
+import org.primefaces.model.menu.DefaultSubMenu;
+import org.primefaces.model.menu.MenuModel;
 
 import ec.edu.uce.erp.ejb.persistence.entity.security.Menu;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
@@ -50,23 +50,40 @@ public class MenuUsuarioController extends BaseController {
 				
 				for (Modulo modulo : colModuloUsuario) {
 					
-					Submenu subMenu = new Submenu();
-					subMenu.setLabel(modulo.getNombreModulo());
+//					version 3.5
+//					Submenu subMenu = new Submenu();
+//					subMenu.setLabel(modulo.getNombreModulo());
+//					
+//					for (Menu menuDTO : modulo.getSegtMenus()) {
+//						
+//						MenuItem menuItem = new MenuItem();
+//						menuItem.setValue(menuDTO.getNombreMenu());
+//						menuItem.setUrl(menuDTO.getUrlMenu());
+//						menuItem.setTitle(menuDTO.getDescMenu());
+//						menuItem.setAjax(true);
+//						subMenu.getChildren().add(menuItem);
+//						
+//						mapMenuUsuario.put(menuDTO.getIdMenu(), menuDTO.getUrlMenu());
+//						
+//					}
+//					
+//					this.model.addSubmenu(subMenu);
+					
+					DefaultSubMenu defaultSubMenu = new DefaultSubMenu(modulo.getNombreModulo());
 					
 					for (Menu menuDTO : modulo.getSegtMenus()) {
 						
-						MenuItem menuItem = new MenuItem();
-						menuItem.setValue(menuDTO.getNombreMenu());
-						menuItem.setUrl(menuDTO.getUrlMenu());
-						menuItem.setTitle(menuDTO.getDescMenu());
-						menuItem.setAjax(true);
-						subMenu.getChildren().add(menuItem);
+						DefaultMenuItem item = new DefaultMenuItem(menuDTO.getNombreMenu());
+						item.setUrl(menuDTO.getUrlMenu());
+						item.setAjax(true);
+						item.setTitle(menuDTO.getDescMenu());
+						defaultSubMenu.addElement(item);
 						
 						mapMenuUsuario.put(menuDTO.getIdMenu(), menuDTO.getUrlMenu());
 						
 					}
 					
-					this.model.addSubmenu(subMenu);
+					model.addElement(defaultSubMenu);
 					
 				}
 				

@@ -106,7 +106,7 @@
 			</p:dataTable>
 			
 			<!-- Desactivar perfil -->
-			<p:confirmDialog id="dialogInactivar" message="#{i18n['erp.perfil.desactivar.pregunta.confirmacion']}" appendToBody="true"
+			<p:confirmDialog id="dialogInactivar" message="#{i18n['erp.perfil.desactivar.pregunta.confirmacion']}" appendTo="@(body)"
 				header="#{i18n['erp.perfil.desactivar']}" severity="alert" widgetVar="dlgInactivar" >
 				<p:commandButton value="#{i18n['label.aceptar']}"
 					actionListener="#{perfilController.inactivarPerfil()}"
@@ -116,7 +116,7 @@
 			</p:confirmDialog>
 			
 			<!-- Activar perfil -->
-			<p:confirmDialog id="dialogActivar" message="#{i18n['erp.perfil.activar.pregunta.confirmacion']}" appendToBody="true"
+			<p:confirmDialog id="dialogActivar" message="#{i18n['erp.perfil.activar.pregunta.confirmacion']}" appendTo="@(body)"
 				header="#{i18n['erp.perfil.activar']}" severity="alert" widgetVar="dlgActivar" >
 				<p:commandButton value="#{i18n['label.aceptar']}"
 					actionListener="#{perfilController.activarPerfil}"

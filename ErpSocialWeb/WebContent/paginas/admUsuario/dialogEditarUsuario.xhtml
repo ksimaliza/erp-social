@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpEditarUsuario" header="#{i18n['erp.usuario.registrar']}" 
-		widgetVar="dlgEditarUsuario" modal="true" minWidth="600" appendToBody="true">
+		widgetVar="dlgEditarUsuario" modal="true" minWidth="600" appendTo="@(body)">
 		<h:form id="formEditarUsuario">	
 			<p:panel id="pnlEditarUsuario" styleClass="formulario">
 				<table>
@@ -16,35 +16,37 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNombre" style="width: 70%" required="true"
-								value="#{usuarioDataManager.usuarioBuscar.nombresUsuario}" label="#{i18n['erp.usuario.nombre']}" />
+								value="#{usuarioDataManager.usuarioEditar.nombresUsuario}" label="#{i18n['erp.usuario.nombre']}" />
 						</td>
 					</tr>
 					<tr>
 						<td><h:outputLabel for="txtApellido" value="#{i18n['erp.usuario.apellido']}" /></td>
 						<td>
 							<p:inputText id="txtApellido" style="width: 70%" required="true"
-								value="#{usuarioDataManager.usuarioBuscar.apellidosUsuario}"  label="#{i18n['erp.usuario.apellido']}" />
+								value="#{usuarioDataManager.usuarioEditar.apellidosUsuario}"  label="#{i18n['erp.usuario.apellido']}" />
 						</td>
 					</tr>
 					<tr>
 						<td><h:outputLabel for="txtCI" value="#{i18n['erp.usuario.ci']}" /></td>
 						<td>
 							<p:inputText id="txtCI" style="width: 70%" 
-								value="#{usuarioDataManager.usuarioBuscar.ciUsuario}" label="#{i18n['erp.usuario.ci']}" />
+								value="#{usuarioDataManager.usuarioEditar.ciUsuario}" label="#{i18n['erp.usuario.ci']}" />
 						</td>
 					</tr>
 					<tr>
 						<td><h:outputLabel for="txtUsername" value="#{i18n['erp.usuario.username']}" /></td>
 						<td>
 							<p:inputText id="txtUsername" style="width: 70%" required="true"
-								value="#{usuarioDataManager.usuarioBuscar.loginUsuario}" label="#{i18n['erp.usuario.username']}" />
+								value="#{usuarioDataManager.usuarioEditar.loginUsuario}" label="#{i18n['erp.usuario.username']}" />
 						</td>
 					</tr>
 					<tr>
 						<td><h:outputLabel for="txtMail" value="#{i18n['erp.usuario.email']}" /></td>
 						<td>
 							<p:inputText id="txtMail" style="width: 70%" 
-								value="#{usuarioDataManager.usuarioBuscar.emailUsuario}" label="#{i18n['erp.usuario.email']}" />
+								value="#{usuarioDataManager.usuarioEditar.emailUsuario}" label="#{i18n['erp.usuario.email']}">
+								<f:validator validatorId="ec.edu.uce.erp.web.validador.EmailValidator" />
+							</p:inputText>
 						</td>
 					</tr>
 					<tr>
@@ -66,7 +68,7 @@
 						</td>
 						<td>
 							<p:selectOneMenu id="selectPerfil" required="true" style="width: 70%"
-								value="#{usuarioDataManager.usuarioBuscar.segtPerfil.idPerfil}" label="#{i18n['label.perfil']}">
+								value="#{usuarioDataManager.usuarioEditar.segtPerfil.idPerfil}" label="#{i18n['label.perfil']}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" />
 								<f:selectItems value="#{usuarioController.catalogoPerfiles}"/>
 							</p:selectOneMenu>

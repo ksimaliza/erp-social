@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpNuevoMenu" header="#{i18n['erp.menu.registrar']}" visible="#{menuController.dialogVisible}"
-		widgetVar="dlgNuevoMenu" modal="true" minWidth="500" appendToBody="true">
+		widgetVar="dlgNuevoMenu" modal="true" minWidth="500" appendTo="@(body)">
 		<h:form id="formNuevoMenu">	
 			<p:panel id="pnlNuevoMenu" styleClass="formulario">
 				<table class="formulario">

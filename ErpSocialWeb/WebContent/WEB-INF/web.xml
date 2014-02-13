@@ -14,10 +14,6 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>*.jsf</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
 	<!-- ======= JSF and Facelets configuration ======= -->
@@ -54,4 +50,21 @@
 		<filter-name>PrimeFaces FileUpload Filter</filter-name>
 		<servlet-name>Faces Servlet</servlet-name>
 	</filter-mapping>
+	<!-- error pages -->
+	<error-page>
+		<error-code>500</error-code>
+		<location>/errores/errorGlobal.xhtml</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/errores/errorElementoNoEncontrado.xhtml</location>
+	</error-page>
+	<error-page>
+		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
+		<location>/errores/sessionCaducada.xhtml</location>
+	</error-page>
+	<!-- session -->
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
 </web-app>

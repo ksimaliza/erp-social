@@ -10,11 +10,11 @@
 	</ui:define>
 	<ui:define name="content">
 		<h:form id="formEmpresa">
-			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			<p:growl id="pnlMessages" closable="true"/>
 			<p:toolbar>
 				<p:toolbarGroup align="left">
-					<p:commandButton id="btnEmpresa" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
-					<p:commandButton id="btnNuevaEmpresa" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="popUpNuevo.show()"/>
+					<p:commandButton id="btnEmpresa" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w"/>
+					<p:commandButton id="btnNuevaEmpresa" value="#{i18n['label.insertar']}" icon="ui-icon-disk" onclick="popUpNuevo.show()"/>
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:panel id="pnlBuscarEmpresa" header="#{i18n['erp.empresa.buscar']}">
@@ -79,7 +79,7 @@
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
-							oncomplete="dlgEditarEmpresa.show()"
+							oncomplete="dlgEditarEmpresa.show();"
 							process="@this,:formEditarEmpresa:pnlEditarEmpresa"
 							update=":formEditarEmpresa:pnlEditarEmpresa">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
@@ -91,7 +91,7 @@
 					</h:panelGroup>
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
-							title="#{i18n['label.activar']}" oncomplete="dlgActivar.show()"
+							title="#{i18n['label.activar']}" oncomplete="dlgActivar.show();"
 							rendered="#{empresa.emrEstado eq empresaController.estadoInactivo}">
 							<h:graphicImage value="/resources/img/tick.png" alt="#{i18n['label.activar']}"/>
 							<f:setPropertyActionListener target="#{empresaDataManager.empresaEditar}" value="#{empresa}" />
@@ -99,7 +99,7 @@
 					</h:panelGroup>
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
-							title="#{i18n['label.desabilitar']}" oncomplete="dlgInactivar.show()"
+							title="#{i18n['label.desabilitar']}" oncomplete="dlgInactivar.show();"
 							rendered="#{empresa.emrEstado eq empresaController.estadoActivo}">
 							<h:graphicImage value="/resources/img/delete.png" alt="#{i18n['label.desabilitar']}"/>
 							<f:setPropertyActionListener target="#{empresaDataManager.empresaEditar}" value="#{empresa}" />
@@ -108,7 +108,7 @@
 				</p:column>
 			</p:dataTable>
 			<!-- Desactivar empresa -->
-			<p:confirmDialog id="confirmation" message="#{i18n['erp.empresa.desactivar.pregunta.confirmacion']}" appendToBody="true"
+			<p:confirmDialog id="confirmation" message="#{i18n['erp.empresa.desactivar.pregunta.confirmacion']}" appendTo="@(body)"
 				header="#{i18n['erp.empresa.desactivar']}" severity="alert" widgetVar="dlgInactivar" >
 				<p:commandButton value="#{i18n['label.aceptar']}"
 					actionListener="#{empresaController.desactivarEmpresa}"
@@ -117,7 +117,7 @@
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgInactivar.hide();" type="button" />
 			</p:confirmDialog>
 			<!-- Activar empresa -->
-			<p:confirmDialog id="dialogActivar" message="#{i18n['erp.empresa.activar.pregunta.confirmacion']}" appendToBody="true"
+			<p:confirmDialog id="dialogActivar" message="#{i18n['erp.empresa.activar.pregunta.confirmacion']}" appendTo="@(body)"
 				header="#{i18n['erp.empresa.activar']}" severity="alert" widgetVar="dlgActivar" >
 				<p:commandButton value="#{i18n['label.aceptar']}"
 					actionListener="#{empresaController.activarEmpresa}"
@@ -126,9 +126,7 @@
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgActivar.hide();" type="button" />
 			</p:confirmDialog>
 		</h:form>
-		
 		<ui:include src="dialogNuevaEmpresa.xhtml" />
 		<ui:include src="dialogEditarEmpresa.xhtml" />
-		
 	</ui:define>
 </ui:composition>

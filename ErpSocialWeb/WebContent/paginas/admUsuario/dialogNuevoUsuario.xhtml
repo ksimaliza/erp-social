@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpNuevoUsuario" header="#{i18n['erp.usuario.registrar']}" 
-		widgetVar="dlgNuevoUsuario" modal="true" minWidth="450" appendToBody="true">
+		widgetVar="dlgNuevoUsuario" modal="true" minWidth="600" appendTo="@(body)">
 		<h:form id="formNuevoUsuario">	
 			<p:panel id="pnlNuevoUsuario" styleClass="formulario">
 				<table>
@@ -44,7 +44,9 @@
 						<td><h:outputLabel for="txtMail" value="#{i18n['erp.usuario.email']}" /></td>
 						<td>
 							<p:inputText id="txtMail" style="width: 70%" 
-								value="#{usuarioDataManager.usuarioInstancia.emailUsuario}" label="#{i18n['erp.usuario.email']}" />
+								value="#{usuarioDataManager.usuarioInstancia.emailUsuario}" label="#{i18n['erp.usuario.email']}" >
+								<f:validator validatorId="ec.edu.uce.erp.web.validador.EmailValidator" />
+							</p:inputText>
 						</td>
 					</tr>
 					<tr>

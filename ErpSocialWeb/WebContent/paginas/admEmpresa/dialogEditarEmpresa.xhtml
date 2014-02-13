@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	<p:dialog id="dialogEditarEmpresa" header="#{i18n['erp.empresa.editar']}" 
-		widgetVar="dlgEditarEmpresa" modal="true" width="600" appendToBody="true" draggable="false">
+		widgetVar="dlgEditarEmpresa" modal="true" width="600" appendTo="@(body)" draggable="false">
 		<h:form id="formEditarEmpresa">	
 			<p:panel id="pnlEditarEmpresa">
 				<table>
@@ -90,8 +90,8 @@
 			<p:panel id="pnlBotonesActualizar">
 				<p:commandButton id="btnActualizar" value="#{i18n['label.actualizar']}"
 					actionListener="#{empresaController.actualizarEmpresa}"
-					process="@this,pnlEditarEmpresa" oncomplete="dlgEditarEmpresa.hide()"
-					update=":formEmpresa:tablaEmpresa,:formEmpresa:pnlMessages"/>
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarEmpresa.hide()"
+					process="@this,pnlEditarEmpresa" update=":formEmpresa:tablaEmpresa,:formEmpresa:pnlMessages"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarEmpresa.hide();" type="button" immediate="true"/>
 			</p:panel>
 		</h:form>

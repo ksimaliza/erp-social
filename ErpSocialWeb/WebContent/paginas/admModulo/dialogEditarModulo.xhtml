@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="dialogEditarModulo" header="Editar Modulo" 
-		widgetVar="dlgEditarModulo" modal="true" minWidth="500" appendToBody="true">
+		widgetVar="dlgEditarModulo" modal="true" minWidth="500" appendTo="@(body)">
 		<h:form id="formDlgEditarModulo">	
 			<p:panel id="pnlEditarModulo">
 				<table>
@@ -45,8 +45,8 @@
 			<p:panel id="botonesEditar">
 				<p:commandButton id="btnActualizar" value="#{i18n['label.actualizar']}"
 					actionListener="#{moduloController.actualizarModulo}"
-					process="@this,pnlEditarModulo" oncomplete="dlgEditarModulo.hide()"
-					update="pnlEditarModulo,:formModulo:pnlMessages,:formModulo:tablaModulo" />
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarModulo.hide()"
+					process="@this,pnlEditarModulo" update="pnlEditarModulo,:formModulo:pnlMessages,:formModulo:tablaModulo" />
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarModulo.hide()" type="button" immediate="true"/>
 			</p:panel>
 		</h:form>

@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="dialogNuevoModulo" header="Registrar Modulo" 
-		widgetVar="dlgNuevoModulo" modal="true" minWidth="600" appendToBody="true" draggable="false">
+		widgetVar="dlgNuevoModulo" modal="true" minWidth="600" appendTo="@(body)" draggable="false">
 		<h:form id="formDlgNuevoModulo">	
 			<p:panel id="pnlCrearModulo">
 				<table>
@@ -45,8 +45,8 @@
 			<p:panel id="botonesCrear">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{moduloController.registrarModulo}"
-					update="pnlCrearModulo,:formModulo:pnlMessages,:formModulo:tablaModulo" 
-					process="@this,pnlCrearModulo" oncomplete="dlgNuevoModulo.hide()"/>
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoModulo.hide()"
+					update="pnlCrearModulo,:formModulo:pnlMessages,:formModulo:tablaModulo" process="@this,pnlCrearModulo"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" immediate="true" onclick="dlgNuevoModulo.hide()" type="button" />
 			</p:panel>
 		</h:form>
