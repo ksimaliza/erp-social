@@ -42,11 +42,12 @@
 					</tr>
 				</table>
 			</p:panel>
-			<p:panel id="pnlBotones" styleClass="centered">
+			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{perfilController.registrarPerfil}"
-					process="@this,pnlNuevoPerfil"
-					update="pnlNuevoPerfil,:formPerfil:pnlMessages,:formPerfil:tablaPerfiles"/>
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoPerfil.hide()"
+					process="@this,pnlNuevoPerfil" update="pnlNuevoPerfil,:formPerfil:pnlMessages,:formPerfil:tablaPerfiles"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoPerfil.hide();" type="button" />
 			</p:panel>
 		</h:form>
 	</p:dialog>

@@ -15,13 +15,13 @@
 			<p:panel id="pnlCambiarClave" styleClass="formulario">
 				<table class="formulario">
 					<tr>
-						<td style="width: 25%">
+						<td style="width: 30%">
 							<h:outputLabel for="txtClaveActual" value="#{i18n['login.clave.actual']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
-						<td style="width: 75%">
-							<h:inputSecret id="txtClaveActual" 
-								style="width: 65%" required="true"
+						<td style="width: 70%">
+							<p:password id="txtClaveActual" 
+								style="width: 50%" required="true"
 								label="#{i18n['login.clave.actual']}"
 								value="#{loginDataManager.credencialesDTO.password}" />
 						</td>
@@ -32,8 +32,8 @@
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
-							<h:inputSecret id="txtClaveNueva" 
-								style="width: 65%" required="true" 
+							<p:password id="txtClaveNueva" 
+								style="width: 50%" required="true" 
 								label="#{i18n['login.clave.nueva']}"
 								value="#{loginDataManager.credencialesDTO.passwordTemp}" />
 						</td>
@@ -44,10 +44,10 @@
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
-							<h:inputSecret id="txtClaveNuevaConfirmar"
-							style="width: 65%" required="true"
-							label="#{i18n['login.clave.nueva.confirmar']}"
-							value="#{loginDataManager.credencialesDTO.passwordTempConfirmar}" />
+							<p:password id="txtClaveNuevaConfirmar"
+								style="width: 50%" required="true"
+								label="#{i18n['login.clave.nueva.confirmar']}"
+								value="#{loginDataManager.credencialesDTO.passwordTempConfirmar}" />
 						</td>
 					</tr>
 				</table>
@@ -56,8 +56,8 @@
 				<p:commandButton id="btnAceptar"
 					actionListener="#{loginController.cambiarContrasenia}"
 					value="#{i18n['label.aceptar']}" 
-					process="@this,pnlCambiarClave"
-					update=":formCambiarClave:pnlMessages,pnlCambiarClave" />
+					process="@all"
+					update="pnlMessages,pnlCambiarClave" />
 			</p:panel>
 		</h:form>
 	</ui:define>

@@ -58,8 +58,9 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnActualizar" value="#{i18n['label.actualizar']}"
 					actionListener="#{menuController.actualizarMenu}"
-					process="@this,pnlEditarMenu"
-					update="pnlEditarMenu,:formMenu:tablaMenu,:formMenu:pnlMessages"/>
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarMenu.hide()"
+					process="@this,pnlEditarMenu" update="pnlEditarMenu,:formMenu:tablaMenu,:formMenu:pnlMessages"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarMenu.hide();" type="button" />
 			</p:panel>
 		</h:form>
 	</p:dialog>

@@ -47,9 +47,9 @@
 			<p:panel id="pnlBotonesActualizar">
 				<p:commandButton id="btnActualizar" value="#{i18n['label.actualizar']}"
 					actionListener="#{perfilController.actualizarPerfil}"
-					process="@this,pnlEditarPerfil"
-					update=":formPerfil:tablaPerfiles,:formPerfil:pnlMessages"
-					oncomplete=""/>
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarPerfil.hide()"
+					process="@this,pnlEditarPerfil" update=":formPerfil:tablaPerfiles,:formPerfil:pnlMessages"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarPerfil.hide();" type="button" />
 			</p:panel>
 		</h:form>
 	</p:dialog>
