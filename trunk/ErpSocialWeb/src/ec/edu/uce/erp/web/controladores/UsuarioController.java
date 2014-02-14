@@ -75,6 +75,8 @@ public class UsuarioController extends BaseController{
 			this.usuarioDataManager.getUsuarioInstancia().getEmpresaTbl().setEmrPk(idEmpresaSeleccionada);
 			this.servicioAdministracion.registrarUsuario(usuarioDataManager.getUsuarioInstancia());
 			this.usuarioDataManager.setUsuarioInstancia(new Usuario());
+			this.usuarioDataManager.getUsuarioInstancia().setSegtPerfil(new Perfil());
+			MensajesWebController.aniadirMensajeInformacion("erp.usuario.mensaje.registrar");
 			
 		} catch (SeguridadesException e) {
 			MensajesWebController.aniadirMensajeError(e.getMessage());

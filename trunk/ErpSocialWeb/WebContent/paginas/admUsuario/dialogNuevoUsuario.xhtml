@@ -29,7 +29,7 @@
 					<tr>
 						<td><h:outputLabel for="txtCI" value="#{i18n['erp.usuario.ci']}" /></td>
 						<td>
-							<p:inputText id="txtCI" style="width: 70%" 
+							<p:inputText id="txtCI" style="width: 70%" onkeypress="return soloEnteros(this, event)" maxlength="13"
 								value="#{usuarioDataManager.usuarioInstancia.ciUsuario}" label="#{i18n['erp.usuario.ci']}" />
 						</td>
 					</tr>
@@ -79,9 +79,8 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{usuarioController.registrarUsuario}"
-					process="@this,pnlNuevoUsuario"
-					update="pnlNuevoUsuario,:formUsuario:tablaUsuarios,:formUsuario:pnlMessages"
-					oncomplete="dlgNuevoUsuario.hide();"/>
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoUsuario.hide()"
+					process="@this,pnlNuevoUsuario" update="pnlNuevoUsuario,:formUsuario:tablaUsuarios,:formUsuario:pnlMessages"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoUsuario.hide();" type="button" />
 			</p:panel>
 		</h:form>

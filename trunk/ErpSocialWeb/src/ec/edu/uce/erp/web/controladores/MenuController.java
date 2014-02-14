@@ -116,6 +116,7 @@ public class MenuController extends BaseController {
 			this.menuDataManager.getMenuEditar().setSegtModulos(this.asignarModulosSeleccionados());
 			this.servicioAdministracion.actualizarMenu(this.menuDataManager.getMenuEditar());
 			this.menuDataManager.setMenuEditar(new Menu());
+			MensajesWebController.aniadirMensajeInformacion("erp.menu.informacion.actualizar");
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al actualizar el menu {}", e.getMessage());

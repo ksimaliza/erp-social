@@ -13,9 +13,17 @@
 	</h:head>
 	<body>
 			<p:layout fullPage="true">
-				<p:layoutUnit id="top" position="north">
+				<p:layoutUnit id="top" position="north" >
 					<h:form>
-						<h:commandLink value="#{i18n['login.cerrar.sesion']}" action="#{loginController.cerrarSesion}"/>
+						<p:panel id="pnlCabecera" columns="2">
+							<h:panelGroup >
+								<h:outputText value="#{i18n['label.bienvenido']}: " />
+								<h:outputText value="#{loginController.usuarioSession.npNombresCompletos}" />
+							</h:panelGroup>
+							<h:panelGroup styleClass="right">
+								<h:commandLink value="#{i18n['login.cerrar.sesion']}" action="#{loginController.cerrarSesion}"/>
+							</h:panelGroup >
+						</p:panel>
 					</h:form>
 				</p:layoutUnit>
 				<p:layoutUnit id="menu" position="west">

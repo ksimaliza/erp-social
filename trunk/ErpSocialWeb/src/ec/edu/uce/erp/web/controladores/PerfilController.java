@@ -80,6 +80,7 @@ public class PerfilController extends BaseController {
 				MensajesWebController.aniadirMensajeError("Error al registrar el perfil");
 			}
 			
+			this.getModulosSeleccionadosCol().clear();
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al registrar el perfil {}", e);
@@ -122,6 +123,7 @@ public class PerfilController extends BaseController {
 		try {
 			this.perfilDataManager.getPerfilEditar().setSegtModulos(this.asignarModulosSeleccionados());
 			this.servicioAdministracion.actualizarPerfil(this.perfilDataManager.getPerfilEditar());
+			MensajesWebController.aniadirMensajeInformacion("erp.perfil.informacion.actualizar");
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al actualizarPerfill {}", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -180,6 +182,7 @@ public class PerfilController extends BaseController {
 		try {
 			this.perfilDataManager.getPerfilEditar().setEstado(getEstadoActivo());
 			this.servicioAdministracion.actualizarPerfil(this.perfilDataManager.getPerfilEditar());
+			MensajesWebController.aniadirMensajeInformacion("erp.perfil.informacion.actualizar");
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al activarPerfil {}", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -194,6 +197,7 @@ public class PerfilController extends BaseController {
 		try {
 			this.perfilDataManager.getPerfilEditar().setEstado(getEstadoInactivo());
 			this.servicioAdministracion.actualizarPerfil(this.perfilDataManager.getPerfilEditar());
+			MensajesWebController.aniadirMensajeInformacion("erp.perfil.informacion.actualizar");
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al inactivarPerfil {}", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
