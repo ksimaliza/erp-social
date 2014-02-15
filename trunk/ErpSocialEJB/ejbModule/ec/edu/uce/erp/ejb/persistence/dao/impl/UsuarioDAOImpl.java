@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.ConstantesApplication;
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.persistence.dao.UsuarioDAO;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 import ec.edu.uce.erp.ejb.persistence.util.dto.CredencialesDTO;
@@ -103,7 +104,7 @@ public class UsuarioDAOImpl extends AbstractFacadeImpl<Usuario> implements Usuar
 
 	@Override
 	public List<Usuario> obtenerUsuarioCriterios(Usuario usuario) throws SeguridadesException {
-		slf4jLogger.info("error al obtenerPorLogin");
+		slf4jLogger.info("obtenerUsuarioCriterios");
 		
 		List<Usuario> usuarioCol = null;
 		
@@ -111,7 +112,6 @@ public class UsuarioDAOImpl extends AbstractFacadeImpl<Usuario> implements Usuar
 		List<Predicate> criteriaList = null;
 		
 		try {
-			
 			
 			CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 			CriteriaQuery<Usuario> criteriaQuery = criteriaBuilder.createQuery(Usuario.class);
@@ -123,9 +123,25 @@ public class UsuarioDAOImpl extends AbstractFacadeImpl<Usuario> implements Usuar
 			
 			//por nombre de usuario
 			if (StringUtils.isNotBlank(usuario.getNombresUsuario())) {
-				Expression<String> nombreModulo = 
-						criteriaBuilder.upper(criteriaBuilder.literal(usuario.getNombresUsuario()));
-				predicate = criteriaBuilder.equal(criteriaBuilder.upper(fromModulo.<String>get("nombresUsuario")), nombreModulo);
+				Expression<String> nombreUsuario = 
+						criteriaBuilder.upper(criteriaBuilder.literal(UtilAplication.appendStringBuilder("%", usuario.getNombresUsuario(), "%").toString()));
+				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromModulo.<String>get("nombresUsuario")), nombreUsuario);
+				criteriaList.add(predicate);
+			}
+			
+			//por apellido de usuario
+			if (StringUtils.isNotBlank(usuario.getApellidosUsuario())) {
+				Expression<String> apellidoUsuario = 
+						criteriaBuilder.upper(criteriaBuilder.literal(UtilAplication.appendStringBuilder("%", usuario.getApellidosUsuario(), "%").toString()));
+				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromModulo.<String>get("apellidosUsuario")), apellidoUsuario);
+				criteriaList.add(predicate);
+			}
+			
+			//por ci de usuario
+			if (StringUtils.isNotBlank(usuario.getCiUsuario())) {
+				Expression<String> ciUsuario = 
+						criteriaBuilder.upper(criteriaBuilder.literal(UtilAplication.appendStringBuilder("%", usuario.getCiUsuario(), "%").toString()));
+				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromModulo.<String>get("ciUsuario")), ciUsuario);
 				criteriaList.add(predicate);
 			}
 			
