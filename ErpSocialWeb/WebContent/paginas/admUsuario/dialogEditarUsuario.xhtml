@@ -7,43 +7,50 @@
 	
 	<p:dialog id="popUpEditarUsuario" header="#{i18n['erp.usuario.registrar']}" 
 		widgetVar="dlgEditarUsuario" modal="true" minWidth="600" appendTo="@(body)">
-		<h:form id="formEditarUsuario">	
+		<h:form id="formEditarUsuario" styleClass="formulario">	
 			<p:panel id="pnlEditarUsuario" styleClass="formulario">
-				<table>
+				<table style="formulario">
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.usuario.nombre']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNombre" style="width: 70%" required="true"
+							<p:inputText id="txtNombre" style="width: 90%" required="true"
 								value="#{usuarioDataManager.usuarioEditar.nombresUsuario}" label="#{i18n['erp.usuario.nombre']}" />
 						</td>
 					</tr>
 					<tr>
-						<td><h:outputLabel for="txtApellido" value="#{i18n['erp.usuario.apellido']}" /></td>
 						<td>
-							<p:inputText id="txtApellido" style="width: 70%" required="true"
+							<h:outputLabel for="txtApellido" value="#{i18n['erp.usuario.apellido']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:inputText id="txtApellido" style="width: 90%" required="true"
 								value="#{usuarioDataManager.usuarioEditar.apellidosUsuario}"  label="#{i18n['erp.usuario.apellido']}" />
 						</td>
 					</tr>
 					<tr>
 						<td><h:outputLabel for="txtCI" value="#{i18n['erp.usuario.ci']}" /></td>
 						<td>
-							<p:inputText id="txtCI" style="width: 70%" onkeypress="return soloEnteros(this, event)" maxlength="13"
+							<p:inputText id="txtCI" style="width: 90%" onkeypress="return soloEnteros(this, event)" maxlength="13"
 								value="#{usuarioDataManager.usuarioEditar.ciUsuario}" label="#{i18n['erp.usuario.ci']}" />
 						</td>
 					</tr>
 					<tr>
-						<td><h:outputLabel for="txtUsername" value="#{i18n['erp.usuario.username']}" /></td>
 						<td>
-							<p:inputText id="txtUsername" style="width: 70%" required="true"
+							<h:outputLabel for="txtUsername" value="#{i18n['erp.usuario.username']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:inputText id="txtUsername" style="width: 90%" required="true"
 								value="#{usuarioDataManager.usuarioEditar.loginUsuario}" label="#{i18n['erp.usuario.username']}" />
 						</td>
 					</tr>
 					<tr>
 						<td><h:outputLabel for="txtMail" value="#{i18n['erp.usuario.email']}" /></td>
 						<td>
-							<p:inputText id="txtMail" style="width: 70%" 
+							<p:inputText id="txtMail" style="width: 90%" 
 								value="#{usuarioDataManager.usuarioEditar.emailUsuario}" label="#{i18n['erp.usuario.email']}">
 								<f:validator validatorId="ec.edu.uce.erp.web.validador.EmailValidator" />
 							</p:inputText>
@@ -52,9 +59,10 @@
 					<tr>
 						<td>
 							<h:outputLabel for="selectEmpresa" value="#{i18n['label.empresa']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
-							<h:selectOneMenu id="selectEmpresa" required="true" style="width: 70%" 
+							<h:selectOneMenu id="selectEmpresa" required="true" style="width: 90%" 
 								value="#{usuarioController.idEmpresaSeleccionada}" label="#{i18n['label.empresa']}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" />
 								<f:selectItems value="#{selectItemsController.catalogoListaEmpresa}"/>
@@ -65,9 +73,10 @@
 					<tr>
 						<td>
 							<h:outputLabel for="selectPerfil" value="#{i18n['label.perfil']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
-							<p:selectOneMenu id="selectPerfil" required="true" style="width: 70%"
+							<p:selectOneMenu id="selectPerfil" required="true" style="width: 90%"
 								value="#{usuarioDataManager.usuarioEditar.segtPerfil.idPerfil}" label="#{i18n['label.perfil']}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" />
 								<f:selectItems value="#{usuarioController.catalogoPerfiles}"/>
@@ -78,7 +87,7 @@
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
-					actionListener="#{usuarioController.registrarUsuario}"
+					actionListener="#{usuarioController.actualizarUsuario}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarUsuario.hide()"
 					process="@this,pnlEditarUsuario" update="pnlEditarUsuario,:formUsuario:tablaUsuarios,:formUsuario:pnlMessages"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarUsuario.hide();" type="button" />

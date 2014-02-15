@@ -45,7 +45,7 @@
 							<h:outputLabel value="Empresa" />
 						</td>
 						<td>
-							<p:selectOneMenu value="#{usuarioDataManager.usuarioBuscar.empresaTbl.emrPk}">
+							<p:selectOneMenu value="#{usuarioDataManager.usuarioBuscar.npIdEmpresa}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" />
 								<f:selectItems value="#{selectItemsController.catalogoListaEmpresa}"/>
 							</p:selectOneMenu>
@@ -53,7 +53,7 @@
 					</tr>
 				</table>
 			</p:panel>
-			<p:panel id="botonesBuscar" columns="2">
+			<p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
 					actionListener="#{usuarioController.buscarUsuario}"
 					value="#{i18n['label.buscar']}" 
@@ -108,19 +108,50 @@
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.activar']}"
-							rendered="#{usuario.estado eq usuarioController.estadoInactivo}">
+							rendered="#{usuario.estado eq usuarioController.estadoInactivo}"
+							oncomplete="dlgActivar.show()">
 							<h:graphicImage value="/resources/img/tick.png" alt="#{i18n['label.activar']}"/>
+							<f:setPropertyActionListener target="#{usuarioDataManager.usuarioEditar}" value="#{usuario}" />
 						</p:commandLink>
 					</h:panelGroup>
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.desabilitar']}"
-							rendered="#{usuario.estado eq usuarioController.estadoActivo}">
-							<h:graphicImage value="/resources/img/delete.png" alt="#{i18n['label.activar']}"/>
+							rendered="#{usuario.estado eq usuarioController.estadoActivo}"
+							oncomplete="dlgDesactivar.show()">
+							<h:graphicImage value="/resources/img/delete.png" alt="#{i18n['label.desabilitar']}"/>
+							<f:setPropertyActionListener target="#{usuarioDataManager.usuarioEditar}" value="#{usuario}" />
 						</p:commandLink>
 					</h:panelGroup>
 				</p:column>
 			</p:dataTable>
+			
+			<!-- Desactivar usuario -->
+			<p:confirmDialog id="dialogDesactivar" width="400" widgetVar="dlgDesactivar"
+				message="#{i18n['erp.usuario.desactivar.pregunta.confirmacion']}"
+				header="#{i18n['erp.usuario.desactivar']}" appendTo="@(body)">
+				<p:commandButton value="#{i18n['label.aceptar']}"
+					actionListener="#{usuarioController.desactivarUsuario}"
+					oncomplete="dlgDesactivar.hide()"
+					update="pnlMessages,tablaUsuarios" process="@this"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{i18n['label.cancelar']}" type="button" 
+					onclick="dlgDesactivar.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+			
+			<!-- Activar usuario -->
+			<p:confirmDialog id="dialogActivar" width="400" widgetVar="dlgActivar"
+				message="#{i18n['erp.usuario.activar.pregunta.confirmacion']}"
+				header="#{i18n['erp.usuario.activar']}" appendTo="@(body)">
+				<p:commandButton value="#{i18n['label.aceptar']}"
+					actionListener="#{usuarioController.activarUsuario}"
+					oncomplete="dlgActivar.hide()"
+					update="pnlMessages,tablaUsuarios" process="@this"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{i18n['label.cancelar']}" type="button" 
+					onclick="dlgActivar.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		
 		</h:form>
 		
 		<ui:include src="dialogNuevoUsuario.xhtml" />

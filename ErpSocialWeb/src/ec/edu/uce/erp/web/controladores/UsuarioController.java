@@ -15,6 +15,7 @@ import javax.faces.model.SelectItem;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Transformer;
+import org.apache.commons.lang3.SerializationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -87,6 +88,7 @@ public class UsuarioController extends BaseController{
 		slf4jLogger.info("buscarUsuario");
 		
 		try {
+			
 			List<Usuario> usuariosCol = this.servicioAdministracion.buscarUsuarios(this.usuarioDataManager.getUsuarioBuscar());
 			
 			if (CollectionUtils.isEmpty(usuariosCol)) {
@@ -105,6 +107,26 @@ public class UsuarioController extends BaseController{
 	public void actualizarUsuario () {
 		
 		slf4jLogger.info("actualizarUsuario");
+		
+		Usuario usuarioUpdate = null;
+		Usuario usuarioClone = SerializationUtils.clone(this.usuarioDataManager.getUsuarioEditar());
+		
+		try {
+			
+			this.usuarioDataManager.getUsuarioEditar().getEmpresaTbl().setEmrPk(idEmpresaSeleccionada);
+			usuarioUpdate = this.servicioAdministracion.actualizarUsuario(usuarioDataManager.getUsuarioEditar());
+			this.usuarioDataManager.setUsuarioEditar(new Usuario());
+			this.usuarioDataManager.getUsuarioEditar().setSegtPerfil(new Perfil());
+			MensajesWebController.aniadirMensajeInformacion("erp.usuario.mensaje.actualizar");
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al actualizarUsuario {}", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		} finally {
+			if (usuarioUpdate == null) {
+				this.usuarioDataManager.setUsuarioEditar(usuarioClone);
+			}
+		}
 		
 	}
 	
@@ -155,6 +177,42 @@ public class UsuarioController extends BaseController{
 			obtenerPerfilesEmpresa();
 		}
 		
+	}
+	
+	public void desactivarUsuario () {
+		
+		slf4jLogger.info("desactivarUsuario");
+		
+		try {
+			this.usuarioDataManager.getUsuarioEditar().setEstado(getEstadoInactivo());
+			Usuario usuario = servicioAdministracion.actualizarUsuario(this.usuarioDataManager.getUsuarioEditar());
+			
+			if (usuario != null) {
+				MensajesWebController.aniadirMensajeInformacion("erp.usuario.mensaje.actualizar");
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al desactivarUsuario {}", e.toString());
+			MensajesWebController.aniadirMensajeError(e.toString());
+		}
+	}
+	
+	public void activarUsuario () {
+		
+		slf4jLogger.info("activarUsuario");
+		
+		try {
+			this.usuarioDataManager.getUsuarioEditar().setEstado(getEstadoActivo());
+			Usuario usuario = servicioAdministracion.actualizarUsuario(this.usuarioDataManager.getUsuarioEditar());
+			
+			if (usuario != null) {
+				MensajesWebController.aniadirMensajeInformacion("erp.usuario.mensaje.actualizar");
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al desactivarUsuario {}", e.toString());
+			MensajesWebController.aniadirMensajeError(e.toString());
+		}
 	}
 	
 	/*
