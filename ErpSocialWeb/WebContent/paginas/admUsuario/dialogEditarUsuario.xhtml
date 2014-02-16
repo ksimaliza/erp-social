@@ -33,8 +33,10 @@
 					<tr>
 						<td><h:outputLabel for="txtCI" value="#{i18n['erp.usuario.ci']}" /></td>
 						<td>
-							<p:inputText id="txtCI" style="width: 90%" onkeypress="return soloEnteros(this, event)" maxlength="13"
-								value="#{usuarioDataManager.usuarioEditar.ciUsuario}" label="#{i18n['erp.usuario.ci']}" />
+							<p:inputText id="txtCI" style="width: 90%" onkeypress="return soloEnteros(this, event)" maxlength="10"
+								value="#{usuarioDataManager.usuarioEditar.ciUsuario}" label="#{i18n['erp.usuario.ci']}" >
+								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+							</p:inputText>
 						</td>
 					</tr>
 					<tr>
