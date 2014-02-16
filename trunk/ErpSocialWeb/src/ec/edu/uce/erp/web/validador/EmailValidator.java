@@ -34,8 +34,7 @@ public class EmailValidator implements Validator{
 	}
 
 	@Override
-	public void validate(FacesContext context, UIComponent component, Object value)
-			throws ValidatorException {
+	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		
 		if (StringUtils.isNotBlank(value.toString())) {
 			matcher = pattern.matcher(value.toString());
