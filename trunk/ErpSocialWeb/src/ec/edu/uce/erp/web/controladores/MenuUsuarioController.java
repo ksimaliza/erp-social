@@ -50,25 +50,6 @@ public class MenuUsuarioController extends BaseController {
 				
 				for (Modulo modulo : colModuloUsuario) {
 					
-//					version 3.5
-//					Submenu subMenu = new Submenu();
-//					subMenu.setLabel(modulo.getNombreModulo());
-//					
-//					for (Menu menuDTO : modulo.getSegtMenus()) {
-//						
-//						MenuItem menuItem = new MenuItem();
-//						menuItem.setValue(menuDTO.getNombreMenu());
-//						menuItem.setUrl(menuDTO.getUrlMenu());
-//						menuItem.setTitle(menuDTO.getDescMenu());
-//						menuItem.setAjax(true);
-//						subMenu.getChildren().add(menuItem);
-//						
-//						mapMenuUsuario.put(menuDTO.getIdMenu(), menuDTO.getUrlMenu());
-//						
-//					}
-//					
-//					this.model.addSubmenu(subMenu);
-					
 					DefaultSubMenu defaultSubMenu = new DefaultSubMenu(modulo.getNombreModulo());
 					
 					for (Menu menuDTO : modulo.getSegtMenus()) {
