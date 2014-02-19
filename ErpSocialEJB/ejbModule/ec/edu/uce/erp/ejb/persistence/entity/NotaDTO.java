@@ -23,9 +23,6 @@ public class NotaDTO implements Serializable {
 	@Column(name="not_materia")
 	private String notMateria;
 
-	@Column(name="not_matricula")
-	private Integer notMatricula;
-
 	@Column(name="not_observacion")
 	private String notObservacion;
 
@@ -59,14 +56,6 @@ public class NotaDTO implements Serializable {
 
 	public void setNotMateria(String notMateria) {
 		this.notMateria = notMateria;
-	}
-
-	public Integer getNotMatricula() {
-		return this.notMatricula;
-	}
-
-	public void setNotMatricula(Integer notMatricula) {
-		this.notMatricula = notMatricula;
 	}
 
 	public String getNotObservacion() {
