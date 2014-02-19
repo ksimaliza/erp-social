@@ -42,11 +42,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="../lib"/>
 		</attributes>
 	</classpathentry>
-	<!-- <classpathentry kind="lib" path="/ErpSocialWeb/WebContent/WEB-INF/lib/primefaces-3.5.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="../lib"/>
-		</attributes>
-	</classpathentry> -->
 	<classpathentry kind="lib" path="/ErpSocialWeb/WebContent/WEB-INF/lib/slf4j-api-1.7.2.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="../lib"/>
@@ -57,5 +52,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="../lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/ErpSocialWeb/WebContent/WEB-INF/lib/junit-4.11.jar"/>
+	<classpathentry kind="lib" path="/ErpSocialWeb/WebContent/WEB-INF/lib/hamcrest-core-1.3.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

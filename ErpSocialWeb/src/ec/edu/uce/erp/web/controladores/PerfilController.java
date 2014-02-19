@@ -116,6 +116,9 @@ public class PerfilController extends BaseController {
 		}
 	}
 	
+	/**
+	 * Actualizar un perfil en la BD
+	 */
 	public void actualizarPerfil () {
 		
 		slf4jLogger.info("actualizarPerfil");
@@ -201,6 +204,14 @@ public class PerfilController extends BaseController {
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al inactivarPerfil {}", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
+	public void validarInactivarPerfil (Perfil perfil) {
+		
+		if (perfil != null) {
+			
 		}
 		
 	}
