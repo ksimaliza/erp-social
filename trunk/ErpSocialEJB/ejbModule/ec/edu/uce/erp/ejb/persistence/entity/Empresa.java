@@ -18,6 +18,7 @@ import javax.persistence.Table;
 
 import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
+import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaUtil;
 
 
 /**
@@ -27,7 +28,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 @Entity
 @Table(name="empresa_tbl")
 @NamedQuery(name="Empresa.findAll", query="SELECT e FROM Empresa e")
-public class Empresa implements Serializable {
+public class Empresa extends AuditoriaUtil implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id

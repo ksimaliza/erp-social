@@ -3,7 +3,6 @@
  */
 package ec.edu.uce.erp.web.datamanager;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
+import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 /**
  * @author 
@@ -22,7 +22,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
  */
 @SessionScoped
 @ManagedBean(name="empresaDataManager")
-public class EmpresaDataManager implements Serializable{
+public class EmpresaDataManager extends BaseDataManager {
 	
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(EmpresaDataManager.class);
 	
@@ -33,7 +33,9 @@ public class EmpresaDataManager implements Serializable{
 	
 	private List<Empresa> listaEmpresa;
 	
-	public EmpresaDataManager () {}
+	public EmpresaDataManager () {
+		super();
+	}
 	
 	@PostConstruct
 	public void inicializarObjetos () {
@@ -41,6 +43,7 @@ public class EmpresaDataManager implements Serializable{
 		slf4jLogger.info("inicializarObjetos");
 		
 		this.empresaInstancia = new Empresa();
+		this.empresaInstancia.setUsuarioRegistro(this.getUsuarioSession());
 		this.empresaEditar = new Empresa();
 		this.empresaBuscar = new Empresa();
 		this.listaEmpresa = new ArrayList<Empresa>();

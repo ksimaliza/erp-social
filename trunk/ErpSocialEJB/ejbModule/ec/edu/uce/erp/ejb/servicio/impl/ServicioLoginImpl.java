@@ -82,13 +82,8 @@ public class ServicioLoginImpl implements ServicioLogin{
 				HistoricoTransaccione historicoTransacciones = new HistoricoTransaccione();
 				historicoTransacciones.setNombreTransaccion(UtilAplication.appendStringBuilder(ServicioLoginImpl.class.getName(), " ", "autenticarUsuario").toString());
 				historicoTransacciones.setFechaTransaccion(UtilAplication.obtenerFechaActual());
-//				historicoTransacciones.setDcTipoTransaccion(new DetalleCatalogo());
-//				historicoTransacciones.getDcTipoTransaccion().setId(new DetalleCatalogoPK());
-//				historicoTransacciones.getDcTipoTransaccion().getId().setCabCatalogoFk(CatalogoCabeceraConstantes.ID_CAB_CATALOGO_TIPO_TRANSACCION);
-//				historicoTransacciones.getDcTipoTransaccion().getId().setDetCatalogoNivel1(EnumTipoTransaccion.LOGIN.getId());
-				
-				historicoTransacciones.setCabCatalogoFk(CatalogoCabeceraConstantes.ID_CAB_CATALOGO_TIPO_TRANSACCION);
-				historicoTransacciones.setDetCatalogoNivel1(EnumTipoTransaccion.LOGIN.getId());
+				historicoTransacciones.setCabCatalogoTipoTransaccion(CatalogoCabeceraConstantes.ID_CAB_CATALOGO_TIPO_TRANSACCION);
+				historicoTransacciones.setDetCatalogoTipoTransaccion(EnumTipoTransaccion.LOGIN.getId());
 				
 				historicoTransacciones.setSegtUsuario(usuarioLogueado);
 				
