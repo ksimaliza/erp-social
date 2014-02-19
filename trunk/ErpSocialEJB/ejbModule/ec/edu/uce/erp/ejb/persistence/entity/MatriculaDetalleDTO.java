@@ -1,6 +1,8 @@
 package ec.edu.uce.erp.ejb.persistence.entity;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
 
 
@@ -30,6 +32,11 @@ public class MatriculaDetalleDTO implements Serializable {
 	@JoinColumn(name="mat_matricula")
 	private MatriculaDTO matMatriculaBean;
 
+	
+	@OneToMany(mappedBy="matMatriculaDetalleBean")
+	private List<NotaDTO> notNotas;
+
+	
 	public MatriculaDetalleDTO() {
 	}
 
@@ -55,6 +62,14 @@ public class MatriculaDetalleDTO implements Serializable {
 
 	public void setMatMatriculaBean(MatriculaDTO matMatriculaBean) {
 		this.matMatriculaBean = matMatriculaBean;
+	}
+
+	public List<NotaDTO> getNotNotas() {
+		return notNotas;
+	}
+
+	public void setNotNotas(List<NotaDTO> notNotas) {
+		this.notNotas = notNotas;
 	}
 
 }
