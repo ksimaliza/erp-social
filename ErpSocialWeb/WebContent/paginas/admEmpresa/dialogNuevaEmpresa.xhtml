@@ -56,8 +56,12 @@
 					<tr>
 						<td><h:outputLabel for="txtEmail"
 								value="#{i18n['label.email']}" /></td>
-						<td><p:inputText id="txtEmail" style="width: 100%"
-								value="#{empresaDataManager.empresaInstancia.emrEmail}" /></td>
+						<td>
+							<p:inputText id="txtEmail" style="width: 100%"
+								value="#{empresaDataManager.empresaInstancia.emrEmail}">
+								<f:validator validatorId="ec.edu.uce.erp.web.validador.EmailValidator" />
+							</p:inputText>
+						</td>
 					</tr>
 					<tr>
 						<td><h:outputLabel for="txtPagina"

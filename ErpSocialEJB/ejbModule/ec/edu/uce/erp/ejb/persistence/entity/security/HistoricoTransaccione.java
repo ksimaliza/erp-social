@@ -42,10 +42,10 @@ public class HistoricoTransaccione implements Serializable {
 	private String nombreTransaccion;
 	
 	@Column(name="det_catalogo_tipo_transaccion")
-	private String detCatalogoNivel1;
+	private String detCatalogoTipoTransaccion;
 	
 	@Column(name="cab_catalogo_tipo_transaccion")
-	private String cabCatalogoFk;
+	private String cabCatalogoTipoTransaccion;
 	
 	//bi-directional many-to-one association to DetalleCatalogo
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -109,20 +109,20 @@ public class HistoricoTransaccione implements Serializable {
 		this.dcTipoTransaccion = dcTipoTransaccion;
 	}
 
-	public String getDetCatalogoNivel1() {
-		return detCatalogoNivel1;
+	public String getDetCatalogoTipoTransaccion() {
+		return detCatalogoTipoTransaccion;
 	}
 
-	public void setDetCatalogoNivel1(String detCatalogoNivel1) {
-		this.detCatalogoNivel1 = detCatalogoNivel1;
+	public void setDetCatalogoTipoTransaccion(String detCatalogoTipoTransaccion) {
+		this.detCatalogoTipoTransaccion = detCatalogoTipoTransaccion;
 	}
 
-	public String getCabCatalogoFk() {
-		return cabCatalogoFk;
+	public String getCabCatalogoTipoTransaccion() {
+		return cabCatalogoTipoTransaccion;
 	}
 
-	public void setCabCatalogoFk(String cabCatalogoFk) {
-		this.cabCatalogoFk = cabCatalogoFk;
+	public void setCabCatalogoTipoTransaccion(String cabCatalogoTipoTransaccion) {
+		this.cabCatalogoTipoTransaccion = cabCatalogoTipoTransaccion;
 	}
 
 }

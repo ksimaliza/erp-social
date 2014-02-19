@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.common.enums.EnumTipoTransaccion;
 import ec.edu.uce.erp.common.util.ConstantesApplication;
 import ec.edu.uce.erp.common.util.EncriptacionUtil;
 import ec.edu.uce.erp.common.util.SeguridadesException;
@@ -27,6 +28,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.security.Menu;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Perfil;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
+import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 
 /**
@@ -42,6 +44,7 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 	private FactoryDAO factoryDAO;
 
 	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public Empresa registrarEmpresa(Empresa empresa) throws SeguridadesException {
 		slf4jLogger.info("registrarEmpresa");
 		
@@ -59,9 +62,13 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 			
 			empresaNueva = factoryDAO.getEmpresaDAOImpl().create(empresa);
 			
+			factoryDAO.getHistoricoTransaccioneDAOImpl()
+					.registrarHistoricoTransaccion(new AuditoriaDTO(empresa.getUsuarioRegistro()
+							.getIdUsuario(), ServicioAdministracionImpl.class.getName(), "registrarEmpresa", EnumTipoTransaccion.CREATE.getId()));
+			
 		} catch (Exception e) {
 			slf4jLogger.info("Error al registrar la empresa {}", e.getMessage());
-			throw new SeguridadesException("No se pudo registrar la empresa");
+			throw new SeguridadesException(e);
 		}
 		return empresaNueva;
 	}
