@@ -3,6 +3,9 @@
  */
 package ec.edu.uce.erp.web.common.datamanager;
 
+import static ec.edu.uce.erp.common.util.ConstantesApplication.ESTADO_ACTIVO;
+import static ec.edu.uce.erp.common.util.ConstantesApplication.ESTADO_INACTIVO;
+
 import java.io.Serializable;
 
 import javax.faces.context.FacesContext;
@@ -35,6 +38,14 @@ public abstract class BaseDataManager implements Serializable{
 	 */
 	public void setUsuarioSession(Usuario usuarioSession) {
 		this.usuarioSession = usuarioSession;
+	}
+	
+	public String getEstadoActivo() {
+		return ESTADO_ACTIVO;
+	}
+	
+	public String getEstadoInactivo() {
+		return ESTADO_INACTIVO;
 	}
 
 }

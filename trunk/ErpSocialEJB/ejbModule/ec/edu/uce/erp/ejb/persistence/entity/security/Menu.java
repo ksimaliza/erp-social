@@ -16,6 +16,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaUtil;
+
 
 /**
  * The persistent class for the segt_menu database table.
@@ -24,7 +26,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="segt_menu")
 @NamedQuery(name="Menu.findAll", query="SELECT m FROM Menu m")
-public class Menu implements Serializable {
+public class Menu extends AuditoriaUtil implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id

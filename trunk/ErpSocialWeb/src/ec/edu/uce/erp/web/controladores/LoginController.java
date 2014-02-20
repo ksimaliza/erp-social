@@ -12,7 +12,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.http.HttpServletRequest;
 
-import org.primefaces.model.menu.MenuModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +31,7 @@ import ec.edu.uce.erp.web.datamanager.LoginDataManager;
  */
 @SessionScoped
 @ManagedBean (name = "loginController") 
-public class LoginController extends BaseController{
+public class LoginController extends BaseController {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(LoginController.class);
@@ -50,14 +49,7 @@ public class LoginController extends BaseController{
 		this.loginDataManager = loginDataManager;
 	}
 	
-	private MenuModel menuModel;
-	
 	public LoginController () {}
-	
-//	@PostConstruct
-//	public void inicializarObjetos () {
-//		this.cargarMenuUsuario();
-//	}
 	
 	/*
 	 * Metodos
@@ -228,20 +220,5 @@ public class LoginController extends BaseController{
 	/*
 	 * Propiedades
 	 */
-
-
-//	/**
-//	 * @return the menuModel
-//	 */
-//	public MenuModel getMenuModel() {
-//		return menuModel;
-//	}
-//
-//	/**
-//	 * @param menuModel the menuModel to set
-//	 */
-//	public void setMenuModel(MenuModel menuModel) {
-//		this.menuModel = menuModel;
-//	}
 
 }

@@ -3,7 +3,6 @@
  */
 package ec.edu.uce.erp.web.datamanager;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.ejb.persistence.entity.security.Menu;
+import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 /**
  * @author 
@@ -22,7 +22,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.security.Menu;
  */
 @SessionScoped
 @ManagedBean (name="menuDataManager")
-public class MenuDataManager implements Serializable{
+public class MenuDataManager extends BaseDataManager{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -42,7 +42,9 @@ public class MenuDataManager implements Serializable{
 		slf4jLogger.info("inicializarObjetos");
 		
 		this.menuInstancia = new Menu();
+		this.menuInstancia.setUsuarioRegistro(getUsuarioSession());
 		this.menuEditar = new Menu();
+		this.menuEditar.setUsuarioRegistro(getUsuarioSession());
 		this.menuBuscar = new Menu();
 		
 		this.listaMenu = new ArrayList<Menu>();

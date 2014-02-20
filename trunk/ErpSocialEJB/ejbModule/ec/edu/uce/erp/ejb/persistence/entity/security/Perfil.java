@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
+import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaUtil;
 
 
 /**
@@ -28,7 +29,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
 @Entity
 @Table(name="segt_perfil")
 @NamedQuery(name="Perfil.findAll", query="SELECT p FROM Perfil p")
-public class Perfil implements Serializable {
+public class Perfil extends AuditoriaUtil implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id

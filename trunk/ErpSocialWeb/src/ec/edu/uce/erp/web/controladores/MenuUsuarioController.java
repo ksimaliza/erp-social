@@ -7,10 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.primefaces.model.menu.DefaultMenuItem;
@@ -20,6 +18,7 @@ import org.primefaces.model.menu.MenuModel;
 
 import ec.edu.uce.erp.ejb.persistence.entity.security.Menu;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
+import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 import ec.edu.uce.erp.ejb.persistence.vo.LoginVO;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 
@@ -79,27 +78,15 @@ public class MenuUsuarioController extends BaseController {
 	public MenuModel getModel() {
 		return model;
 	}
-
-	public void save() {
-		addMessage("Data saved");
+	
+	public Usuario getUsuarioSession () {
+		
+		if (getSessionParameter("usuario") != null) {
+			return (Usuario)getSessionParameter("usuario");
+		}
+		
+		return null;
 	}
 
-	public void update() {
-		addMessage("Data updated");
-	}
-
-	public void delete() {
-		addMessage("Data deleted");
-	}
-
-	public String redirect() {
-		return "home?faces-redirect=true";
-	}
-
-	public void addMessage(String summary) {
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,
-				summary, null);
-		FacesContext.getCurrentInstance().addMessage(null, message);
-	}
 
 }

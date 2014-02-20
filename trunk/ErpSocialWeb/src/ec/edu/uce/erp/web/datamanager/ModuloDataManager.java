@@ -3,7 +3,6 @@
  */
 package ec.edu.uce.erp.web.datamanager;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
+import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 /**
  * @author 
@@ -23,7 +23,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
  */
 @SessionScoped
 @ManagedBean (name = "moduloDataManager")
-public class ModuloDataManager implements Serializable{
+public class ModuloDataManager extends BaseDataManager {
 
 	private static final long serialVersionUID = 1L;
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(ModuloDataManager.class);
@@ -33,17 +33,23 @@ public class ModuloDataManager implements Serializable{
 	private Modulo moduloBuscar;
 	private List<Modulo> moduloCol;
 	
-	public ModuloDataManager () {}
+	public ModuloDataManager () {
+		super();
+	}
 	
 	@PostConstruct
 	public void inicializarObjetos () {
 		slf4jLogger.info("inicializarObjetos");
 		this.moduloInstancia = new Modulo();
 		this.moduloInstancia.setEmpresaTbls(new ArrayList<Empresa>());
+		this.moduloInstancia.setUsuarioRegistro(getUsuarioSession());
+		
 		this.moduloEditar = new Modulo();
-		this.moduloInstancia.setEmpresaTbls(new ArrayList<Empresa>());
+		this.moduloEditar.setEmpresaTbls(new ArrayList<Empresa>());
+		this.moduloEditar.setUsuarioRegistro(getUsuarioSession());
+		
 		this.moduloBuscar = new Modulo();
-		this.moduloInstancia.setEmpresaTbls(new ArrayList<Empresa>());
+		this.moduloBuscar.setEmpresaTbls(new ArrayList<Empresa>());
 		this.moduloCol = new ArrayList<Modulo>();
 	}
 

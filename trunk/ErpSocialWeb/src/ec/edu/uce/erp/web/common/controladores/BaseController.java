@@ -3,16 +3,11 @@
  */
 package ec.edu.uce.erp.web.common.controladores;
 
-import static ec.edu.uce.erp.common.util.ConstantesApplication.ESTADO_ACTIVO;
-import static ec.edu.uce.erp.common.util.ConstantesApplication.ESTADO_INACTIVO;
-
 import java.io.Serializable;
 import java.util.Map;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-
-import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 /**
  * @author 
  *
@@ -20,10 +15,6 @@ import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 public abstract class BaseController implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-
-	public Usuario getUsuarioSession(){
-		return (Usuario)getExternalContext().getSessionMap().get("usuario");
-	}
 	
 	/**
 	 * Recupera el valor asociado a un parametro de la p&aacute;gina JSF
@@ -74,14 +65,4 @@ public abstract class BaseController implements Serializable{
 		return FacesContext.getCurrentInstance();
 	}
 	
-	
-	
-	public String getEstadoActivo() {
-		return ESTADO_ACTIVO;
-	}
-	
-	public String getEstadoInactivo() {
-		return ESTADO_INACTIVO;
-	}
-
 }

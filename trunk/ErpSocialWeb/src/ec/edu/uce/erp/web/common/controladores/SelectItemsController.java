@@ -3,6 +3,8 @@
  */
 package ec.edu.uce.erp.web.common.controladores;
 
+import static ec.edu.uce.erp.common.util.ConstantesApplication.ESTADO_ACTIVO;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +62,7 @@ public class SelectItemsController extends BaseController {
 			
 			slf4jLogger.info("cargar catalogo empresa");
 			Empresa dto = new Empresa();
-			dto.setEmrEstado(getEstadoActivo());
+			dto.setEmrEstado(ESTADO_ACTIVO);
 			try {
 				List<Empresa> empresaCol = servicioAdministracion.buscarEmpresa(dto);
 				CollectionUtils.collect(empresaCol, new Transformer() {
@@ -88,7 +90,7 @@ public class SelectItemsController extends BaseController {
 			slf4jLogger.info("cargar catalogo perfiles");
 			try {
 				Perfil dto = new Perfil();
-				dto.setEstado(getEstadoActivo());
+				dto.setEstado(ESTADO_ACTIVO);
 				List<Perfil> perfilesCol = servicioAdministracion.buscarPerfiles(dto);
 				CollectionUtils.collect(perfilesCol, new Transformer() {
 					@Override
@@ -116,7 +118,7 @@ public class SelectItemsController extends BaseController {
 			
 			try {
 				Modulo moduloDTO = new Modulo();
-				moduloDTO.setEstado(getEstadoActivo());
+				moduloDTO.setEstado(ESTADO_ACTIVO);
 				List<Modulo> moduloCol = this.servicioAdministracion.buscarModulos(moduloDTO);
 				
 				CollectionUtils.collect(moduloCol, new Transformer() {
@@ -136,7 +138,5 @@ public class SelectItemsController extends BaseController {
 		
 		return catalogoListaModulos;
 	}
-	
-	
 	
 }

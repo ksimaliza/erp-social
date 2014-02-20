@@ -13,7 +13,6 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.persistence.dao.HistoricoTransaccioneDAO;
 import ec.edu.uce.erp.ejb.persistence.entity.security.HistoricoTransaccione;
-import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaDTO;
 
 /**
@@ -40,9 +39,8 @@ public class HistoricoTransaccioneDAOImpl extends AbstractFacadeImpl<HistoricoTr
 			historicoTransacciones.setFechaTransaccion(UtilAplication.obtenerFechaActual());
 			historicoTransacciones.setNombreTransaccion(auditoriaDTO.getAccionClase());
 			historicoTransacciones.setCabCatalogoTipoTransaccion(CatalogoCabeceraConstantes.ID_CAB_CATALOGO_TIPO_TRANSACCION);
-			historicoTransacciones.setDetCatalogoTipoTransaccion(auditoriaDTO.getIdTipoTransaccion());
-			historicoTransacciones.setSegtUsuario(new Usuario());
-			historicoTransacciones.getSegtUsuario().setIdUsuario(auditoriaDTO.getIdUsuario());
+			historicoTransacciones.setDetCatalogoTipoTransaccion(auditoriaDTO.getEnumTipoTransaccion().getId());
+			historicoTransacciones.setIdUsuario(auditoriaDTO.getIdUsuario());
 			this.create(historicoTransacciones);
 		}
 		

@@ -18,7 +18,7 @@
 						<p:panel id="pnlCabecera" columns="2">
 							<h:panelGroup >
 								<h:outputText value="#{i18n['label.bienvenido']}: " />
-								<h:outputText value="#{loginController.usuarioSession.npNombresCompletos}" />
+								<h:outputText value="#{menuUsuarioController.usuarioSession.npNombresCompletos}" />
 							</h:panelGroup>
 							<h:panelGroup styleClass="right">
 								<h:commandLink value="#{i18n['login.cerrar.sesion']}" action="#{loginController.cerrarSesion}"/>

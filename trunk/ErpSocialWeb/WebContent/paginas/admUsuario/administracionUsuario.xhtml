@@ -86,9 +86,9 @@
 				</p:column>
 				<p:column headerText="#{i18n['label.estado']}" styleClass="centered" width="10%">
 					<h:outputText value="#{i18n['label.estado.activo']}"
-						rendered="#{usuario.estado eq usuarioController.estadoActivo}" />
+						rendered="#{usuario.estado eq usuarioDataManager.estadoActivo}" />
 					<h:outputText value="#{i18n['label.estado.inactivo']}"
-						rendered="#{usuario.estado eq usuarioController.estadoInactivo}" />
+						rendered="#{usuario.estado eq usuarioDataManager.estadoInactivo}" />
 				</p:column>
 				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
 					<h:panelGroup>
@@ -108,7 +108,7 @@
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.activar']}"
-							rendered="#{usuario.estado eq usuarioController.estadoInactivo}"
+							rendered="#{usuario.estado eq usuarioDataManager.estadoInactivo}"
 							oncomplete="dlgActivar.show()">
 							<h:graphicImage value="/resources/img/tick.png" alt="#{i18n['label.activar']}"/>
 							<f:setPropertyActionListener target="#{usuarioDataManager.usuarioEditar}" value="#{usuario}" />
@@ -117,7 +117,7 @@
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.desabilitar']}"
-							rendered="#{usuario.estado eq usuarioController.estadoActivo}"
+							rendered="#{usuario.estado eq usuarioDataManager.estadoActivo}"
 							oncomplete="dlgDesactivar.show()">
 							<h:graphicImage value="/resources/img/delete.png" alt="#{i18n['label.desabilitar']}"/>
 							<f:setPropertyActionListener target="#{usuarioDataManager.usuarioEditar}" value="#{usuario}" />

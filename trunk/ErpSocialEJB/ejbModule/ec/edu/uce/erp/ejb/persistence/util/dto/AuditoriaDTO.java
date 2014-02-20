@@ -5,26 +5,28 @@ package ec.edu.uce.erp.ejb.persistence.util.dto;
 
 import java.io.Serializable;
 
+import ec.edu.uce.erp.common.enums.EnumTipoTransaccion;
+
 /**
  * @author
  *
  */
-public class AuditoriaDTO implements Serializable{
+public final class AuditoriaDTO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
 	private Integer idUsuario;
 	private String clase;
 	private String accion;
-	private String idTipoTransaccion;
+	private EnumTipoTransaccion enumTipoTransaccion;
 	
 	public AuditoriaDTO () {}
 	
-	public AuditoriaDTO (Integer idUsuario, String clase, String accion, String idTipoTransaccion) {
+	public AuditoriaDTO (Integer idUsuario, String clase, String accion, EnumTipoTransaccion enumTipoTransaccion) {
 		this.idUsuario = idUsuario;
 		this.clase = clase;
 		this.accion = accion;
-		this.idTipoTransaccion = idTipoTransaccion;
+		this.enumTipoTransaccion = enumTipoTransaccion;
 	}
 
 	/**
@@ -75,17 +77,17 @@ public class AuditoriaDTO implements Serializable{
 	}
 
 	/**
-	 * @return the idTipoTransaccion
+	 * @return the enumTipoTransaccion
 	 */
-	public String getIdTipoTransaccion() {
-		return idTipoTransaccion;
+	public EnumTipoTransaccion getEnumTipoTransaccion() {
+		return enumTipoTransaccion;
 	}
 
 	/**
-	 * @param idTipoTransaccion the idTipoTransaccion to set
+	 * @param enumTipoTransaccion the enumTipoTransaccion to set
 	 */
-	public void setIdTipoTransaccion(String idTipoTransaccion) {
-		this.idTipoTransaccion = idTipoTransaccion;
+	public void setEnumTipoTransaccion(EnumTipoTransaccion enumTipoTransaccion) {
+		this.enumTipoTransaccion = enumTipoTransaccion;
 	}
 	
 }

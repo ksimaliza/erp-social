@@ -57,8 +57,8 @@
 								
 								value="#{moduloDataManager.moduloBuscar.estado}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
-								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{moduloController.estadoActivo}"/>
-								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{moduloController.estadoInactivo}"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{moduloDataManager.estadoActivo}"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{moduloDataManager.estadoInactivo}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
@@ -95,9 +95,9 @@
 				</p:column> -->
 				<p:column headerText="#{i18n['label.estado']}" styleClass="centered" width="10%">
 					<h:outputText value="#{i18n['label.estado.activo']}"
-						rendered="#{modulo.estado eq moduloController.estadoActivo}" />
+						rendered="#{modulo.estado eq moduloDataManager.estadoActivo}" />
 					<h:outputText value="#{i18n['label.estado.inactivo']}"
-						rendered="#{modulo.estado eq moduloController.estadoInactivo}" />
+						rendered="#{modulo.estado eq moduloDataManager.estadoInactivo}" />
 				</p:column>
 				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
 					<h:panelGroup>
@@ -115,7 +115,7 @@
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.activar']}" oncomplete="dlgActivar.show()"
-							rendered="#{modulo.estado eq moduloController.estadoInactivo}">
+							rendered="#{modulo.estado eq moduloDataManager.estadoInactivo}">
 							<h:graphicImage value="/resources/img/tick.png" alt="#{i18n['label.activar']}"/>
 							<f:setPropertyActionListener target="#{moduloDataManager.moduloEditar}" value="#{modulo}" />
 						</p:commandLink>
@@ -123,7 +123,7 @@
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.desabilitar']}" oncomplete="dlgInactivar.show()"
-							rendered="#{modulo.estado eq moduloController.estadoActivo}">
+							rendered="#{modulo.estado eq moduloDataManager.estadoActivo}">
 							<h:graphicImage value="/resources/img/delete.png" alt="#{i18n['label.desabilitar']}"/>
 							<f:setPropertyActionListener target="#{moduloDataManager.moduloEditar}" value="#{modulo}" />
 						</p:commandLink>

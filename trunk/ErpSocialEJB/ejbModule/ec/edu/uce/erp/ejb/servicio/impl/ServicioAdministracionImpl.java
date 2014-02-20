@@ -42,6 +42,10 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 	
 	@EJB 
 	private FactoryDAO factoryDAO;
+	
+	/*
+	 * Metodos para administracion de empresas
+	 */
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -64,7 +68,7 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 			
 			factoryDAO.getHistoricoTransaccioneDAOImpl()
 					.registrarHistoricoTransaccion(new AuditoriaDTO(empresa.getUsuarioRegistro()
-							.getIdUsuario(), ServicioAdministracionImpl.class.getName(), "registrarEmpresa", EnumTipoTransaccion.CREATE.getId()));
+							.getIdUsuario(), ServicioAdministracionImpl.class.getName(), "registrarEmpresa", EnumTipoTransaccion.CREATE));
 			
 		} catch (Exception e) {
 			slf4jLogger.info("Error al registrar la empresa {}", e.getMessage());
@@ -87,17 +91,26 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		return Boolean.TRUE;
 	}
 
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	@Override
 	public Empresa actualizarEmpresa(Empresa empresa) throws SeguridadesException {
+		
 		slf4jLogger.info("actualizarEmpresa");
+		
+		Empresa empresaActualizada = null;
+		
 		try {
-//			empresa.setFechaModificacion(UtilAplication.obtenerFechaActual());
-			return factoryDAO.getEmpresaDAOImpl().update(empresa);
+			empresaActualizada = factoryDAO.getEmpresaDAOImpl().update(empresa);
+			factoryDAO.getHistoricoTransaccioneDAOImpl()
+					.registrarHistoricoTransaccion(new AuditoriaDTO(empresa.getUsuarioRegistro()
+							.getIdUsuario(), ServicioAdministracionImpl.class.getName(), "actualizarEmpresa", EnumTipoTransaccion.UPDATE));
 			
 		} catch (Exception e) {
 			slf4jLogger.info("Error al actualizar la empresa {}", e.getMessage());
 			throw new SeguridadesException("No se pudo actualizar la empresa");
 		}
+		
+		return empresaActualizada;
 	}
 
 	@Override
@@ -111,6 +124,11 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		}
 	}
 
+	/*
+	 * Metodos modulos
+	 */
+	
+	@TransactionAttribute (TransactionAttributeType.REQUIRED)
 	@Override
 	public Modulo registrarModulo(Modulo modulo) throws SeguridadesException {
 		
@@ -123,17 +141,115 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 			modulo.setFechaRegistro(UtilAplication.obtenerFechaActual());
 			moduloNuevo = factoryDAO.getModuloDAOImpl().create(modulo);
 			
+			factoryDAO.getHistoricoTransaccioneDAOImpl()
+					.registrarHistoricoTransaccion(new AuditoriaDTO(modulo.getUsuarioRegistro()
+							.getIdUsuario(), ServicioAdministracionImpl.class.getName(), "registrarModulo", EnumTipoTransaccion.CREATE));
+			
 		} catch (Exception e) {
 			slf4jLogger.info("Error al registrar el modulo {}", e.getMessage());
 			throw new SeguridadesException("No se pudo registrar el m\u00F3dulo");
-		} finally {
-			if (moduloNuevo == null) {
-				throw new SeguridadesException("Error registrar el m\u00F3dulo");
-			}
-		}
+		} 
+		
 		return moduloNuevo;
 	}
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	@Override
+	public Modulo actualizarModulo(Modulo modulo) throws SeguridadesException {
+		slf4jLogger.info("actualizarModulo");
+		
+		Modulo moduloActualizado = null;
+		
+		try {
+			
+			modulo.setFechaModificacion(UtilAplication.obtenerFechaActual());
+			moduloActualizado = factoryDAO.getModuloDAOImpl().update(modulo);
+			
+			factoryDAO.getHistoricoTransaccioneDAOImpl()
+					.registrarHistoricoTransaccion(new AuditoriaDTO(modulo.getUsuarioRegistro()
+							.getIdUsuario(), ServicioAdministracionImpl.class.getName(), "actualizarModulo", EnumTipoTransaccion.UPDATE));
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al actualizar el modulo {}", e.getMessage());
+			throw new SeguridadesException ("No se pudo actualizar el modulo en la base de datos");
+		}
+		
+		return moduloActualizado;
+	}
 
+	@Override
+	public List<Modulo> buscarModulos(Modulo modulo) throws SeguridadesException {
+		
+		slf4jLogger.info("buscarModulos");
+		
+		List<Modulo> moduloCol = null;
+		
+		try {
+			moduloCol = factoryDAO.getModuloDAOImpl().obtenerModuloCriterios(modulo);
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscar los modulos de la bd {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener los modulos de la base de datos");
+		}
+		
+		return moduloCol;
+		
+	}
+
+	
+	/*
+	 * Metodos perfiles
+	 */
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	@Override
+	public Perfil registrarPerfil(Perfil perfil) throws SeguridadesException {
+		slf4jLogger.info("registrarPerfil");
+		
+		Perfil perfilNuevo = null;
+		
+		try {
+			perfil.setEstado(ConstantesApplication.ESTADO_ACTIVO);
+			perfil.setFechaRegistro(UtilAplication.obtenerFechaActual());
+			perfilNuevo = factoryDAO.getPerfilDAOImpl().create(perfil);
+			
+			factoryDAO.getHistoricoTransaccioneDAOImpl()
+					.registrarHistoricoTransaccion(new AuditoriaDTO(perfil.getUsuarioRegistro()
+							.getIdUsuario(), ServicioAdministracionImpl.class.getName(), "registrarPerfil", EnumTipoTransaccion.CREATE));
+			
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al registrar el perfil {}", e.getMessage());
+			throw new SeguridadesException("No se pudo registrar el perfil");
+		}
+		
+		return perfilNuevo;
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	@Override
+	public Perfil actualizarPerfil(Perfil perfil) throws SeguridadesException {
+		slf4jLogger.info("actualizarPerfil");
+		
+		Perfil perfilActualizado = null;
+		
+		try {
+			
+			perfil.setFechaModificacion(UtilAplication.obtenerFechaActual());
+			perfilActualizado = factoryDAO.getPerfilDAOImpl().update(perfil);
+			
+			factoryDAO.getHistoricoTransaccioneDAOImpl()
+					.registrarHistoricoTransaccion(new AuditoriaDTO(perfil.getUsuarioRegistro()
+							.getIdUsuario(), ServicioAdministracionImpl.class.getName(), "actualizarPerfil", EnumTipoTransaccion.UPDATE));
+					
+		} catch (Exception e) {
+			slf4jLogger.info("No se pudo actualizar el perfil {}" , e.getMessage());
+			throw new SeguridadesException("No se pudo actualizar el perfil");
+		}
+		
+		return perfilActualizado;
+	}
+	
 	@Override
 	public List<Perfil> buscarPerfiles(Perfil perfil) throws SeguridadesException {
 		slf4jLogger.info("buscarPerfiles");
@@ -174,65 +290,55 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 			throw new SeguridadesException("No se pudo obtener los perfiles de la base de datos");
 		}
 	}
-
 	
-
-	@Override
-	public Modulo actualizarModulo(Modulo modulo) throws SeguridadesException {
-		slf4jLogger.info("actualizarModulo");
-		try {
-			
-			modulo.setFechaModificacion(UtilAplication.obtenerFechaActual());
-			return factoryDAO.getModuloDAOImpl().update(modulo);
-			
-		} catch (Exception e) {
-			slf4jLogger.info("Error al actualizar el modulo {}", e.getMessage());
-			throw new SeguridadesException ("No se pudo actualizar el modulo en la base de datos");
-		}
-	}
-
-	@Override
-	public List<Modulo> buscarModulos(Modulo modulo) throws SeguridadesException {
-		
-		slf4jLogger.info("buscarModulos");
-		
-		List<Modulo> moduloCol = null;
-		
-		try {
-			moduloCol = factoryDAO.getModuloDAOImpl().obtenerModuloCriterios(modulo);
-			
-		} catch (Exception e) {
-			slf4jLogger.info("Error al buscar los modulos de la bd {}", e.getMessage());
-			throw new SeguridadesException("No se pudo obtener los modulos de la base de datos");
-		}
-		
-		return moduloCol;
-		
-	}
-
+	/*
+	* Administracion de menu
+	*/
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	@Override
 	public Menu registrarMenu(Menu menu) throws SeguridadesException {
 		slf4jLogger.info("registrarMenu");
+		
+		Menu menuNuevo = null;
+		
 		try {
 			menu.setFechaRegistro(UtilAplication.obtenerFechaActual());
-			return factoryDAO.getMenuDAOImpl().create(menu);
+			menuNuevo = factoryDAO.getMenuDAOImpl().create(menu);
+			
+			factoryDAO.getHistoricoTransaccioneDAOImpl()
+					.registrarHistoricoTransaccion(new AuditoriaDTO(menu.getUsuarioRegistro()
+							.getIdUsuario(), ServicioAdministracionImpl.class.getName(), "registrarMenu", EnumTipoTransaccion.CREATE));
 			
 		} catch (Exception e) {
 			slf4jLogger.info("Error al registrar el menu {}", e.getMessage());
 			throw new SeguridadesException("No se pudo registrar el menu");
 		}
+		
+		return menuNuevo;
 	}
 
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	@Override
 	public Menu actualizarMenu(Menu menu) throws SeguridadesException {
 		slf4jLogger.info("actualizarMenu");
+		
+		Menu menuActualizado = null;
+		
 		try {
 			menu.setFechaModificacion(UtilAplication.obtenerFechaActual());
-			return factoryDAO.getMenuDAOImpl().update(menu);
+			menuActualizado = factoryDAO.getMenuDAOImpl().update(menu);
+			
+			factoryDAO.getHistoricoTransaccioneDAOImpl()
+					.registrarHistoricoTransaccion(new AuditoriaDTO(menu.getUsuarioRegistro()
+							.getIdUsuario(), ServicioAdministracionImpl.class.getName(), "actualizarMenu", EnumTipoTransaccion.UPDATE));
+			
 		} catch (Exception e) {
 			slf4jLogger.info("No se pudo actualizar el menu {}" , e.getMessage());
 			throw new SeguridadesException("No se pudo actualizar el menu");
 		}
+		
+		return menuActualizado;
 	}
 
 	@Override
@@ -246,36 +352,7 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		}
 	}
 
-	@Override
-	public Perfil registrarPerfil(Perfil perfil) throws SeguridadesException {
-		slf4jLogger.info("registrarPerfil");
-		
-		Perfil perfilNuevo = null;
-		
-		try {
-			perfil.setEstado(ConstantesApplication.ESTADO_ACTIVO);
-			perfil.setFechaRegistro(UtilAplication.obtenerFechaActual());
-			perfilNuevo = factoryDAO.getPerfilDAOImpl().create(perfil);
-			
-		} catch (Exception e) {
-			slf4jLogger.info("Error al registrar el perfil {}", e.getMessage());
-			throw new SeguridadesException("No se pudo registrar el perfil");
-		}
-		
-		return perfilNuevo;
-	}
-
-	@Override
-	public Perfil actualizarPerfil(Perfil perfil) throws SeguridadesException {
-		slf4jLogger.info("actualizarPerfil");
-		try {
-			perfil.setFechaModificacion(UtilAplication.obtenerFechaActual());
-			return factoryDAO.getPerfilDAOImpl().update(perfil);
-		} catch (Exception e) {
-			slf4jLogger.info("No se pudo actualizar el perfil {}" , e.getMessage());
-			throw new SeguridadesException("No se pudo actualizar el perfil");
-		}
-	}
+	
 	
 	/*
 	 * Metodos para la administracion del usuario
@@ -303,6 +380,10 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 			persona.getSegtUsuario().setIdUsuario(usuarioNuevo.getIdUsuario());
 			
 			factoryDAO.getPersonaDAOImpl().create(persona);
+			
+			factoryDAO.getHistoricoTransaccioneDAOImpl()
+					.registrarHistoricoTransaccion(new AuditoriaDTO(usuario.getUsuarioRegistro()
+							.getIdUsuario(), ServicioAdministracionImpl.class.getName(), "registrarUsuario", EnumTipoTransaccion.CREATE));
 			
 		} catch (Exception e) {
 			slf4jLogger.info("Error al registrar el usuario {}", e.getMessage());
@@ -349,13 +430,23 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 	@Override
 	public Usuario actualizarUsuario(Usuario usuario) throws SeguridadesException {
 		slf4jLogger.info("actualizarUsuario");
+		
+		Usuario usuarioActualizado = null;
+		
 		try {
 			usuario.setFechaModificacion(UtilAplication.obtenerFechaActual());
-			return factoryDAO.getUsuarioDAOImpl().update(usuario);
+			usuarioActualizado = factoryDAO.getUsuarioDAOImpl().update(usuario);
+			
+			factoryDAO.getHistoricoTransaccioneDAOImpl()
+					.registrarHistoricoTransaccion(new AuditoriaDTO(usuario.getUsuarioRegistro()
+							.getIdUsuario(), ServicioAdministracionImpl.class.getName(), "actualizarUsuario", EnumTipoTransaccion.UPDATE));
+			
 		} catch (Exception e) {
 			slf4jLogger.info("No se pudo actulizar el usuario {}" , e.getMessage());
 			throw new SeguridadesException("No se pudo actualizar el usuario");
 		}
+		
+		return usuarioActualizado;
 	}
 
 	@Override

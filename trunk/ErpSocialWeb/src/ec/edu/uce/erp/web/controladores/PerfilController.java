@@ -183,7 +183,7 @@ public class PerfilController extends BaseController {
 		slf4jLogger.info("activarPerfil");
 		
 		try {
-			this.perfilDataManager.getPerfilEditar().setEstado(getEstadoActivo());
+			this.perfilDataManager.getPerfilEditar().setEstado(perfilDataManager.getEstadoActivo());
 			this.servicioAdministracion.actualizarPerfil(this.perfilDataManager.getPerfilEditar());
 			MensajesWebController.aniadirMensajeInformacion("erp.perfil.informacion.actualizar");
 		} catch (SeguridadesException e) {
@@ -198,7 +198,7 @@ public class PerfilController extends BaseController {
 		slf4jLogger.info("inactivarPerfil");
 		
 		try {
-			this.perfilDataManager.getPerfilEditar().setEstado(getEstadoInactivo());
+			this.perfilDataManager.getPerfilEditar().setEstado(perfilDataManager.getEstadoInactivo());
 			this.servicioAdministracion.actualizarPerfil(this.perfilDataManager.getPerfilEditar());
 			MensajesWebController.aniadirMensajeInformacion("erp.perfil.informacion.actualizar");
 		} catch (SeguridadesException e) {

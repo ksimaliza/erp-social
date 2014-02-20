@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.ejb.persistence.util.dto.CredencialesDTO;
 
 /**
- * @author wilmerPC
+ * @author 
  *
  */
 @SessionScoped

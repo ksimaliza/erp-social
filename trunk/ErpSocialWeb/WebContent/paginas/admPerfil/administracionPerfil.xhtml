@@ -28,8 +28,8 @@
 						<td>
 							<h:selectOneMenu id="inputEstado" value="#{perfilDataManager.perfilBuscar.estado}">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}" itemValue=""/>
-								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{perfilController.estadoActivo}"/>
-								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{perfilController.estadoInactivo}"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{perfilDataManager.estadoActivo}"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{perfilDataManager.estadoInactivo}"/>
 							</h:selectOneMenu>
 						</td>
 					</tr>
@@ -61,9 +61,9 @@
 				</p:column>
 				<p:column headerText="#{i18n['label.estado']}" styleClass="centered">
 					<h:outputText value="#{i18n['label.estado.activo']}"
-						rendered="#{perfil.estado eq perfilController.estadoActivo}" />
+						rendered="#{perfil.estado eq perfilDataManager.estadoActivo}" />
 					<h:outputText value="#{i18n['label.estado.inactivo']}"
-						rendered="#{perfil.estado eq perfilController.estadoInactivo}" />
+						rendered="#{perfil.estado eq perfilDataManager.estadoInactivo}" />
 				</p:column>
 				<!-- <p:column headerText="#{i18n['erp.perfil.modulo']}">
 					<p:dataList value="#{perfil.segtModulos}" var="modulo" itemType="disc">
@@ -88,7 +88,7 @@
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.activar']}"
 							oncomplete="dlgActivar.show()"
-							rendered="#{perfil.estado eq perfilController.estadoInactivo}">
+							rendered="#{perfil.estado eq perfilDataManager.estadoInactivo}">
 							<h:graphicImage value="/resources/img/tick.png" alt="#{i18n['label.activar']}"/>
 							<f:setPropertyActionListener target="#{perfilDataManager.perfilEditar}" value="#{perfil}" />
 						</p:commandLink>
@@ -97,7 +97,7 @@
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.desabilitar']}"
 							oncomplete="dlgInactivar.show()"
-							rendered="#{perfil.estado eq perfilController.estadoActivo}">
+							rendered="#{perfil.estado eq perfilDataManager.estadoActivo}">
 							<h:graphicImage value="/resources/img/delete.png" alt="#{i18n['label.activar']}"/>
 							<f:setPropertyActionListener target="#{perfilDataManager.perfilEditar}" value="#{perfil}" />
 						</p:commandLink>
