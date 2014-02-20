@@ -103,10 +103,11 @@ public class PerfilDAOImpl extends AbstractFacadeImpl<Perfil> implements PerfilD
 			if (perfilDTO.getNpEmpresaDTO() != null && perfilDTO.getNpEmpresaDTO().getEmrPk()!=null) {
 				
 				Query query = entityManager
-						.createQuery("select p from Perfil p join p.segtModulos m join m.empresaTbls e where e.emrPk = ? and p.estado = ? and m.estado = ?");
+						.createQuery("select distinct p from Perfil p join p.segtModulos m join m.empresaTbls e where e.emrPk = ? and p.estado = ? and m.estado = ? and e.emrEstado = ?");
 				query.setParameter(1, perfilDTO.getNpEmpresaDTO().getEmrPk());
 				query.setParameter(2, ConstantesApplication.ESTADO_ACTIVO);
 				query.setParameter(3, ConstantesApplication.ESTADO_ACTIVO);
+				query.setParameter(4, ConstantesApplication.ESTADO_ACTIVO);
 				perfilCol = query.getResultList();
 				
 			}

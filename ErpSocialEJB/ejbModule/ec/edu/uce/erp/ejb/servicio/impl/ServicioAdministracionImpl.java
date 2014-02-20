@@ -442,7 +442,7 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 							.getIdUsuario(), ServicioAdministracionImpl.class.getName(), "actualizarUsuario", EnumTipoTransaccion.UPDATE));
 			
 		} catch (Exception e) {
-			slf4jLogger.info("No se pudo actulizar el usuario {}" , e.getMessage());
+			slf4jLogger.info("No se pudo actualizar el usuario {}" , e.getMessage());
 			throw new SeguridadesException("No se pudo actualizar el usuario");
 		}
 		
