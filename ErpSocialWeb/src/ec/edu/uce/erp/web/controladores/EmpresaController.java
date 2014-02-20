@@ -126,7 +126,7 @@ public class EmpresaController extends BaseController {
 		
 			if (this.empresaDataManager.getEmpresaEditar() != null) {
 				
-				this.empresaDataManager.getEmpresaEditar().setEmrEstado(getEstadoInactivo());
+				this.empresaDataManager.getEmpresaEditar().setEmrEstado(empresaDataManager.getEstadoInactivo());
 				this.servicioAdministracion.actualizarEmpresa(this.empresaDataManager.getEmpresaEditar());
 				this.empresaDataManager.setEmpresaEditar(new Empresa());
 				
@@ -149,7 +149,7 @@ public class EmpresaController extends BaseController {
 		
 			if (this.empresaDataManager.getEmpresaEditar() != null) {
 				
-				this.empresaDataManager.getEmpresaEditar().setEmrEstado(getEstadoActivo());
+				this.empresaDataManager.getEmpresaEditar().setEmrEstado(empresaDataManager.getEstadoActivo());
 				this.servicioAdministracion.actualizarEmpresa(this.empresaDataManager.getEmpresaEditar());
 				this.empresaDataManager.setEmpresaEditar(new Empresa());
 				

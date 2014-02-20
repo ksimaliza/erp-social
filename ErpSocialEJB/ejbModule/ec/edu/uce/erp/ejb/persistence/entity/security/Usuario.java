@@ -19,6 +19,7 @@ import javax.persistence.Transient;
 
 import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaUtil;
 
 
 /**
@@ -28,7 +29,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 @Entity
 @Table(name="segt_usuario")
 @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
-public class Usuario implements Serializable {
+public class Usuario extends AuditoriaUtil implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -77,9 +78,9 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy="segtUsuario")
 	private List<HistorialClave> segtHistorialClaves;
 
-	//bi-directional many-to-one association to HistoricoTransaccione
-	@OneToMany(mappedBy="segtUsuario")
-	private List<HistoricoTransaccione> segtHistoricoTransacciones;
+//	//bi-directional many-to-one association to HistoricoTransaccione
+//	@OneToMany(mappedBy="segtUsuario")
+//	private List<HistoricoTransaccione> segtHistoricoTransacciones;
 
 	//bi-directional many-to-one association to Empresa
 	@ManyToOne
@@ -243,27 +244,27 @@ public class Usuario implements Serializable {
 		return segtHistorialClave;
 	}
 
-	public List<HistoricoTransaccione> getSegtHistoricoTransacciones() {
-		return this.segtHistoricoTransacciones;
-	}
+//	public List<HistoricoTransaccione> getSegtHistoricoTransacciones() {
+//		return this.segtHistoricoTransacciones;
+//	}
+//
+//	public void setSegtHistoricoTransacciones(List<HistoricoTransaccione> segtHistoricoTransacciones) {
+//		this.segtHistoricoTransacciones = segtHistoricoTransacciones;
+//	}
 
-	public void setSegtHistoricoTransacciones(List<HistoricoTransaccione> segtHistoricoTransacciones) {
-		this.segtHistoricoTransacciones = segtHistoricoTransacciones;
-	}
-
-	public HistoricoTransaccione addSegtHistoricoTransaccione(HistoricoTransaccione segtHistoricoTransaccione) {
-		getSegtHistoricoTransacciones().add(segtHistoricoTransaccione);
-		segtHistoricoTransaccione.setSegtUsuario(this);
-
-		return segtHistoricoTransaccione;
-	}
-
-	public HistoricoTransaccione removeSegtHistoricoTransaccione(HistoricoTransaccione segtHistoricoTransaccione) {
-		getSegtHistoricoTransacciones().remove(segtHistoricoTransaccione);
-		segtHistoricoTransaccione.setSegtUsuario(null);
-
-		return segtHistoricoTransaccione;
-	}
+//	public HistoricoTransaccione addSegtHistoricoTransaccione(HistoricoTransaccione segtHistoricoTransaccione) {
+//		getSegtHistoricoTransacciones().add(segtHistoricoTransaccione);
+//		segtHistoricoTransaccione.setSegtUsuario(this);
+//
+//		return segtHistoricoTransaccione;
+//	}
+//
+//	public HistoricoTransaccione removeSegtHistoricoTransaccione(HistoricoTransaccione segtHistoricoTransaccione) {
+//		getSegtHistoricoTransacciones().remove(segtHistoricoTransaccione);
+//		segtHistoricoTransaccione.setSegtUsuario(null);
+//
+//		return segtHistoricoTransaccione;
+//	}
 
 	public Empresa getEmpresaTbl() {
 		return this.empresaTbl;

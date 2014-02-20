@@ -84,8 +84,7 @@ public class ServicioLoginImpl implements ServicioLogin{
 				historicoTransacciones.setFechaTransaccion(UtilAplication.obtenerFechaActual());
 				historicoTransacciones.setCabCatalogoTipoTransaccion(CatalogoCabeceraConstantes.ID_CAB_CATALOGO_TIPO_TRANSACCION);
 				historicoTransacciones.setDetCatalogoTipoTransaccion(EnumTipoTransaccion.LOGIN.getId());
-				
-				historicoTransacciones.setSegtUsuario(usuarioLogueado);
+				historicoTransacciones.setIdUsuario(usuarioLogueado.getIdUsuario());
 				
 				factoryDAO.getHistoricoTransaccioneDAOImpl().create(historicoTransacciones);
 				

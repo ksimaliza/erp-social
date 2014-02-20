@@ -3,7 +3,6 @@
  */
 package ec.edu.uce.erp.web.datamanager;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.ejb.persistence.entity.security.Perfil;
+import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 /**
  * @author 
@@ -22,7 +22,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.security.Perfil;
  */
 @SessionScoped
 @ManagedBean (name = "perfilDataManager")
-public class PerfilDataManager implements Serializable{
+public class PerfilDataManager extends BaseDataManager {
 	
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(PerfilDataManager.class);
 	
@@ -34,14 +34,18 @@ public class PerfilDataManager implements Serializable{
 	
 	private List<Perfil> listaPerfiles;
 	
-	public PerfilDataManager () {}
+	public PerfilDataManager () {
+		super();
+	}
 	
 	@PostConstruct
 	public void inicializarObjetos () {
 		
 		slf4jLogger.info("inicializarObjetos");
 		this.perfilInstancia = new Perfil();
+		this.perfilInstancia.setUsuarioRegistro(getUsuarioSession());
 		this.perfilEditar = new Perfil();
+		this.perfilEditar.setUsuarioRegistro(getUsuarioSession());
 		this.perfilBuscar = new Perfil();
 		
 		this.listaPerfiles = new ArrayList<Perfil>();

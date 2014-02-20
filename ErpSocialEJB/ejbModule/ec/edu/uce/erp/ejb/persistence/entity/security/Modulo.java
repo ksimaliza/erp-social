@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
+import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaUtil;
 
 
 /**
@@ -27,7 +28,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
 @Entity
 @Table(name="segt_modulo")
 @NamedQuery(name="Modulo.findAll", query="SELECT m FROM Modulo m")
-public class Modulo implements Serializable {
+public class Modulo extends AuditoriaUtil implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id

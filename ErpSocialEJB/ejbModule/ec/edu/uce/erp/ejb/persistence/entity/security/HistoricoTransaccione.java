@@ -41,6 +41,9 @@ public class HistoricoTransaccione implements Serializable {
 	@Column(name="nombre_transaccion")
 	private String nombreTransaccion;
 	
+	@Column(name="id_usuario")
+	private Integer idUsuario;
+	
 	@Column(name="det_catalogo_tipo_transaccion")
 	private String detCatalogoTipoTransaccion;
 	
@@ -56,8 +59,10 @@ public class HistoricoTransaccione implements Serializable {
 	private DetalleCatalogo dcTipoTransaccion;
 
 	//bi-directional many-to-one association to Usuario
-	@ManyToOne
-	@JoinColumn(name="id_usuario")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumns({
+		@JoinColumn(name="id_usuario", referencedColumnName="id_usuario", unique=false, nullable=true, insertable=false, updatable=false)
+	})
 	private Usuario segtUsuario;
 
 	public HistoricoTransaccione() {
@@ -123,6 +128,20 @@ public class HistoricoTransaccione implements Serializable {
 
 	public void setCabCatalogoTipoTransaccion(String cabCatalogoTipoTransaccion) {
 		this.cabCatalogoTipoTransaccion = cabCatalogoTipoTransaccion;
+	}
+
+	/**
+	 * @return the idUsuario
+	 */
+	public Integer getIdUsuario() {
+		return idUsuario;
+	}
+
+	/**
+	 * @param idUsuario the idUsuario to set
+	 */
+	public void setIdUsuario(Integer idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 }

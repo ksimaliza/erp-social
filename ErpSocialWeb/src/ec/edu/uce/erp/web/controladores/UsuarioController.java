@@ -184,7 +184,7 @@ public class UsuarioController extends BaseController{
 		slf4jLogger.info("desactivarUsuario");
 		
 		try {
-			this.usuarioDataManager.getUsuarioEditar().setEstado(getEstadoInactivo());
+			this.usuarioDataManager.getUsuarioEditar().setEstado(usuarioDataManager.getEstadoInactivo());
 			Usuario usuario = servicioAdministracion.actualizarUsuario(this.usuarioDataManager.getUsuarioEditar());
 			
 			if (usuario != null) {
@@ -202,7 +202,7 @@ public class UsuarioController extends BaseController{
 		slf4jLogger.info("activarUsuario");
 		
 		try {
-			this.usuarioDataManager.getUsuarioEditar().setEstado(getEstadoActivo());
+			this.usuarioDataManager.getUsuarioEditar().setEstado(usuarioDataManager.getEstadoActivo());
 			Usuario usuario = servicioAdministracion.actualizarUsuario(this.usuarioDataManager.getUsuarioEditar());
 			
 			if (usuario != null) {

@@ -3,7 +3,6 @@
  */
 package ec.edu.uce.erp.web.datamanager;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +13,7 @@ import javax.faces.bean.SessionScoped;
 import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Perfil;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
+import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 /**
  * @author 
@@ -21,7 +21,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
  */
 @SessionScoped
 @ManagedBean (name = "usuarioDataManager")
-public class UsuarioDataManager implements Serializable{
+public class UsuarioDataManager extends BaseDataManager {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -31,13 +31,17 @@ public class UsuarioDataManager implements Serializable{
 	
 	private List<Usuario> listaUsuario;
 	
-	public UsuarioDataManager () {}
+	public UsuarioDataManager () {
+		super();
+	}
 	
 	@PostConstruct
 	public void inicializarObjetos () {
+		
 		this.usuarioInstancia = new Usuario();
 		this.usuarioInstancia.setEmpresaTbl(new Empresa());
 		this.usuarioInstancia.setSegtPerfil(new Perfil());
+		this.usuarioInstancia.setUsuarioRegistro(getUsuarioSession());
 		
 		this.usuarioBuscar = new Usuario();
 		this.usuarioBuscar.setEmpresaTbl(new Empresa());
@@ -46,6 +50,7 @@ public class UsuarioDataManager implements Serializable{
 		this.usuarioEditar = new Usuario();
 		this.usuarioEditar.setEmpresaTbl(new Empresa());
 		this.usuarioEditar.setSegtPerfil(new Perfil());
+		this.usuarioEditar.setUsuarioRegistro(getUsuarioSession());
 		
 		this.listaUsuario = new ArrayList<Usuario>();
 	}
