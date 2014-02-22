@@ -6,6 +6,7 @@ package ec.edu.uce.erp.common.util;
 import static ec.edu.uce.erp.common.util.ConstantesApplication.PORCENTAJE;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 /**
  * @author
@@ -18,6 +19,10 @@ public final class UtilAplication {
 
 	public static Timestamp obtenerFechaActual() {
 		return new Timestamp(System.currentTimeMillis());
+	}
+	
+	public static String fechaActualConFormato (String pattern) {
+		return new SimpleDateFormat(pattern).format(obtenerFechaActual());
 	}
 
 	/**
