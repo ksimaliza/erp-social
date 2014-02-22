@@ -37,7 +37,8 @@
 								maxlength="13"
 								value="#{empresaDataManager.empresaInstancia.emrRuc}"
 								onkeypress="return soloEnteros(this, event)" required="true"
-								label="#{i18n['label.ruc']}" /></td>
+								label="#{i18n['label.ruc']}" >
+								<f:validateLength maximum="13" minimum="13"/></p:inputText></td>
 					</tr>
 					<tr>
 						<td><h:outputLabel for="txtFono"

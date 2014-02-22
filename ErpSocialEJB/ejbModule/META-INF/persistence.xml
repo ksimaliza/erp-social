@@ -89,6 +89,7 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.RepresentanteDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.NotaDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.ParcialDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.view.VistaHistoricoTransaccion</class>
 		<properties>
 			<property name="hibernate.connection.username" value="postgres" />
 			<property name="hibernate.connection.password" value="root" />
