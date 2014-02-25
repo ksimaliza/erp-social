@@ -19,7 +19,7 @@ import ec.edu.uce.erp.common.util.CatalogoCabeceraConstantes;
 import ec.edu.uce.erp.common.util.EncriptacionUtil;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.common.util.UtilAplication;
-import ec.edu.uce.erp.ejb.persistence.dao.FactoryDAO;
+import ec.edu.uce.erp.ejb.dao.factory.FactoryDAO;
 import ec.edu.uce.erp.ejb.persistence.entity.security.HistorialClave;
 import ec.edu.uce.erp.ejb.persistence.entity.security.HistoricoTransaccione;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;

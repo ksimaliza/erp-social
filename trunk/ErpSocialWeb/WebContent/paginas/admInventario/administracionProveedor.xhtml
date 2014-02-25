@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="title">
+		<h3><h:outputLabel	value="#{i18n['erp.proveedor.pagina.titulo']}" /></h3>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="formProveedor">
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
+					<p:commandButton id="btnNuevoProveedor" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoProveedor.show()"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panel id="pnlBuscarProveedor" header="#{i18n['erp.proveedor.buscar']}">
+				<table>
+					<tr>
+						<td><h:outputLabel for="txtNombre" value="#{i18n['erp.proveedor.nombre']}" /></td>
+						<td>
+							<p:inputText id="txtNombre"
+								value="#{proveedorDataManager.proveedorBuscar.provNombre}" />
+						</td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="txtApellido" value="#{i18n['erp.proveedor.apellido']}" /></td>
+						<td>
+							<p:inputText id="txtApellido"
+								value="#{proveedorDataManager.proveedorBuscar.provApellido}" />
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{proveedorController.buscarProveedor}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscarProveedor"
+					update="pnlMessages,tablaProveedor,pnlBuscarProveedor" />
+			</p:panel>
+			<p:dataTable id="tablaProveedor"
+				value="#{proveedorDataManager.listaProveedor}"
+				var="proveedor" rowIndexVar="rowIndex"
+				paginator="true" rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<f:facet name="header">
+					#{i18n['erp.proveedor.lista']}
+				</f:facet>
+				<p:column headerText="#" styleClass="centered" width="5%">
+					#{rowIndex+1}
+				</p:column>
+				<p:column headerText="#{i18n['erp.proveedor.nombre']}" width="20%">
+					<h:outputText value="#{proveedor.provNombre}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.proveedor.apellido']}" width="20%">
+					<h:outputText value="#{proveedor.provApellido}" />
+				</p:column>
+				
+				<p:column headerText="#{i18n['label.estado']}" styleClass="centered" width="10%">
+					<h:outputText value="#{i18n['label.estado.activo']}"
+						rendered="#{proveedor.provEstado eq proveedorDataManager.estadoActivo}" />
+					<h:outputText value="#{i18n['label.estado.inactivo']}"
+						rendered="#{proveedor.provEstado eq proveedorDataManager.estadoInactivo}" />
+				</p:column>
+				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.editar']}">
+							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+							<f:setPropertyActionListener target="#{proveedorDataManager.proveedorEditar}" value="#{proveedor}" />
+						</p:commandLink>
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:outputText value="&#160;|&#160;" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.activar']}"
+							rendered="#{usuario.estado eq usuarioDataManager.estadoInactivo}">
+							<h:graphicImage value="/resources/img/tick.png" alt="#{i18n['label.activar']}"/>
+							<f:setPropertyActionListener target="#{usuarioDataManager.usuarioEditar}" value="#{usuario}" />
+						</p:commandLink>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.desabilitar']}"
+							rendered="#{usuario.estado eq usuarioDataManager.estadoActivo}">
+							<h:graphicImage value="/resources/img/delete.png" alt="#{i18n['label.desabilitar']}"/>
+							<f:setPropertyActionListener target="#{usuarioDataManager.usuarioEditar}" value="#{usuario}" />
+						</p:commandLink>
+					</h:panelGroup>
+				</p:column>
+			</p:dataTable>
+			
+		</h:form>
+		
+		<ui:include src="dialogNuevoProveedor.xhtml" />
+		<!-- <ui:include src="dialogEditarProveedor.xhtml" /> -->
+		
+	</ui:define>
+</ui:composition>

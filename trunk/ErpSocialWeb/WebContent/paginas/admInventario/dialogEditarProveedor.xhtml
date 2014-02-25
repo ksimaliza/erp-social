@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpEditarProveedor" header="#{i18n['erp.proveedor.registrar']}" 
+		widgetVar="dlgEditarProveedor" modal="true" minWidth="600" appendTo="@(body)">
+		<h:form id="formNuevoProveedor">	
+			<p:panel id="pnlNuevoProveedor" styleClass="formulario">
+				<table style="formulario">
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.proveedor.nombre']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombre" style="width: 90%" required="true"
+								value="#{proveedorDataManager.proveedorInstancia.provNombre}" label="#{i18n['erp.proveedor.nombre']}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtApellido" value="#{i18n['erp.proveedor.apellido']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:inputText id="txtApellido" style="width: 90%" required="true"
+								value="#{proveedorDataManager.proveedorInstancia.provApellido}"  label="#{i18n['erp.proveedor.apellido']}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtApellido" value="#{i18n['erp.proveedor.direccion']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:inputText id="txtApellido" style="width: 90%" required="true"
+								value="#{proveedorDataManager.proveedorInstancia.provDireccion}"  label="#{i18n['erp.proveedor.direccion']}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtApellido" value="#{i18n['erp.proveedor.telefono']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:inputText id="txtApellido" style="width: 90%" 
+								onkeypress="return soloEnteros(this, event)" required="true"
+								value="#{proveedorDataManager.proveedorInstancia.provTelefono}"  label="#{i18n['erp.proveedor.telefono']}" />
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{proveedorController.registrarProveedor}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarProveedor.hide()"
+					process="@this,pnlNuevoProveedor" update="pnlNuevoProveedor,:formProveedor:tablaProveedor,:formProveedor:pnlMessages"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarProveedor.hide();" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>

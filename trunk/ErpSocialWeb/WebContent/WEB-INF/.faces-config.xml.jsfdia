@@ -28,4 +28,11 @@
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#paginas#home.xhtml"
   PATH="/paginas/home.xhtml" SHAPE="480,17,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:" SHAPE="32,161,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules::0" NAME="item" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="salir::#seguridad#login.xhtml" NAME="output"
+    PATH="/seguridad/login.xhtml" TARGET="rules:#seguridad#login.xhtml"
+    TITLE="salir" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
 </PROCESS>

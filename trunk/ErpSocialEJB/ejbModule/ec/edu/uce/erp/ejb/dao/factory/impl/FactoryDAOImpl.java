@@ -1,14 +1,14 @@
 /**
  * 
  */
-package ec.edu.uce.erp.ejb.persistence.dao.impl;
+package ec.edu.uce.erp.ejb.dao.factory.impl;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import ec.edu.uce.erp.ejb.dao.factory.FactoryDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.EmpresaDAO;
-import ec.edu.uce.erp.ejb.persistence.dao.FactoryDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HistorialClaveDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HistoricoTransaccioneDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.MenuDAO;
@@ -17,6 +17,15 @@ import ec.edu.uce.erp.ejb.persistence.dao.ParametroDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PerfilDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PersonaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.UsuarioDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.EmpresaDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.HistorialClaveDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.HistoricoTransaccioneDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.MenuDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.ModuloDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.ParametroDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.PerfilDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.PersonaDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.UsuarioDAOImpl;
 
 /**
  * @author 

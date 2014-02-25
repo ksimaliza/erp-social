@@ -60,7 +60,7 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.PersonaEmpresa</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Persona</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Profesor</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.Proveedor</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.inventario.Proveedor</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.security.HistorialClave</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.security.HistoricoTransaccione</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.security.Menu</class>
