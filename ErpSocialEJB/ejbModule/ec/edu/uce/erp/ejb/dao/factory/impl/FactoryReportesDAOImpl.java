@@ -1,12 +1,13 @@
 /**
  * 
  */
-package ec.edu.uce.erp.ejb.persistence.factory;
+package ec.edu.uce.erp.ejb.dao.factory.impl;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import ec.edu.uce.erp.ejb.dao.factory.FactoryReportesDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.VistaHistoricoTransaccionDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.VistaHistoricoTransaccionDAOImpl;
 

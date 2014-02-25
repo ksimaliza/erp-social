@@ -1,4 +1,4 @@
-package ec.edu.uce.erp.ejb.persistence.entity;
+package ec.edu.uce.erp.ejb.persistence.entity.inventario;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,6 +12,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import ec.edu.uce.erp.ejb.persistence.entity.Ingreso;
+import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaUtil;
+
 
 /**
  * The persistent class for the proveedor database table.
@@ -19,7 +22,7 @@ import javax.persistence.SequenceGenerator;
  */
 @Entity
 @NamedQuery(name="Proveedor.findAll", query="SELECT p FROM Proveedor p")
-public class Proveedor implements Serializable {
+public class Proveedor extends AuditoriaUtil implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id

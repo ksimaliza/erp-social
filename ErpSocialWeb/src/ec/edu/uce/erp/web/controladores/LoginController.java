@@ -79,12 +79,11 @@ public class LoginController extends BaseController {
 				
 				if (loginVO.getUsuario().getNpDebeCambiarClave()) {
 					MensajesWebController.aniadirMensajeInformacion("Debe cambiar su clave para continuar usando el sistema");
-					getExternalContext().getSessionMap().remove("usuario");
 					salida = "cambiarClave";
 				} else {
 					salida = "homeUsuario";
-					getExternalContext().getSessionMap().put("usuario", loginVO.getUsuario());
 				}
+				getExternalContext().getSessionMap().put("usuario", loginVO.getUsuario());
 				
 				getExternalContext().getSessionMap().put("loginVO", loginVO);
 				loginDataManager.setCredencialesDTO(new CredencialesDTO());

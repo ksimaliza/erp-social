@@ -56,8 +56,7 @@
 				<p:commandButton id="btnAceptar"
 					actionListener="#{loginController.cambiarContrasenia}"
 					value="#{i18n['label.aceptar']}" 
-					process="@all"
-					update="pnlMessages,pnlCambiarClave" />
+					process="@this,pnlCambiarClave"/>
 			</p:panel>
 		</h:form>
 	</ui:define>
