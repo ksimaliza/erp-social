@@ -3,6 +3,8 @@
  */
 package ec.edu.uce.erp.web.controladores;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -12,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
@@ -45,6 +48,21 @@ public class ProveedorController extends BaseController{
 	
 	public void buscarProveedor () {
 		slf4jLogger.info("buscarProveedor");
+		
+		try {
+			List<Proveedor> listaProveedor = servicioInventario.buscarProveedorCriterios(this.proveedorDataManager.getProveedorBuscar());
+			this.proveedorDataManager.getListaProveedor().clear();
+			
+			if (listaProveedor.isEmpty()) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.proveedorDataManager.setListaProveedor(listaProveedor);
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("error al buscarProveedor {}", e.toString());
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
 	}
 	
 	public void registrarProveedor () {
@@ -52,12 +70,78 @@ public class ProveedorController extends BaseController{
 		slf4jLogger.info("registrarProveedor");
 		
 		try {
-			servicioInventario.registrarProveedor(this.proveedorDataManager.getProveedorInstancia());
+			Proveedor proveedorNuevo = servicioInventario.registrarProveedor(this.proveedorDataManager.getProveedorInstancia());
+			
+			if (proveedorNuevo != null) {
+				this.proveedorDataManager.getListaProveedor().add(proveedorNuevo);
+				MensajesWebController.aniadirMensajeInformacion("erp.proveedor.informacion.registar");
+			}
+			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("error al registrarProveedor {}", e.toString());
 			MensajesWebController.aniadirMensajeInformacion(e.getMessage());
 		}
 		
+	}
+	
+	public void actualizarProveedor () {
+		
+		slf4jLogger.info("actualizarProveedor");
+		
+		try {
+			
+			this.proveedorDataManager.getProveedorEditar().setUsuarioRegistro(this.proveedorDataManager.getUsuarioSession());
+			Proveedor proveedorActualizado = servicioInventario.actualizarProveedor(this.proveedorDataManager.getProveedorEditar());
+			
+			if (proveedorActualizado != null) {
+				MensajesWebController.aniadirMensajeInformacion("erp.proveedor.informacion.actualizar");
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("error al registrarProveedor {}", e.toString());
+			MensajesWebController.aniadirMensajeInformacion(e.getMessage());
+		}
+		
+	}
+	
+	public void desactivarProveedor () {
+		
+		slf4jLogger.info("desactivarUsuario");
+		
+		try {
+			
+			this.proveedorDataManager.getProveedorEditar().setUsuarioRegistro(this.proveedorDataManager.getUsuarioSession());
+			this.proveedorDataManager.getProveedorEditar().setProvEstado(proveedorDataManager.getEstadoInactivo());
+			Proveedor proveedorActualizado = servicioInventario.actualizarProveedor(this.proveedorDataManager.getProveedorEditar());
+			
+			if (proveedorActualizado != null) {
+				MensajesWebController.aniadirMensajeInformacion("erp.proveedor.informacion.actualizar");
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al desactivarProveedor {}", e.toString());
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+	}
+	
+	public void activarProveedor () {
+		
+		slf4jLogger.info("activarProveedor");
+		
+		try {
+			
+			this.proveedorDataManager.getProveedorEditar().setUsuarioRegistro(this.proveedorDataManager.getUsuarioSession());
+			this.proveedorDataManager.getProveedorEditar().setProvEstado(proveedorDataManager.getEstadoActivo());
+			Proveedor proveedorActualizado = servicioInventario.actualizarProveedor(this.proveedorDataManager.getProveedorEditar());
+			
+			if (proveedorActualizado != null) {
+				MensajesWebController.aniadirMensajeInformacion("erp.proveedor.informacion.actualizar");
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al activarProveedor {}", e.toString());
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
 	}
 
 }

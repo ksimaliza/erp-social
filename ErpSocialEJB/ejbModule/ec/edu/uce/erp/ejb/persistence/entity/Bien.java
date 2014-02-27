@@ -20,6 +20,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.Inventario;
+
 
 /**
  * The persistent class for the bien_tbl database table.

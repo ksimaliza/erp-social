@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import ec.edu.uce.erp.ejb.persistence.entity.inventario.Proveedor;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
 
 
 /**
