@@ -44,7 +44,7 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.FormatoDocumento</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.HolguraEntradaSalida</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Ingreso</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.Inventario</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.Inventario</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Jornada</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.MatAnio</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.MateriaProfesor</class>
@@ -60,7 +60,7 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.PersonaEmpresa</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Persona</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Profesor</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.inventario.Proveedor</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.security.HistorialClave</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.security.HistoricoTransaccione</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.security.Menu</class>
@@ -97,5 +97,6 @@
 			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
 			<property name="hibernate.show_sql" value="true"/>
 		</properties>
+<!-- 		<validation-mode>CALLBACK</validation-mode> -->
 	</persistence-unit>
 </persistence>

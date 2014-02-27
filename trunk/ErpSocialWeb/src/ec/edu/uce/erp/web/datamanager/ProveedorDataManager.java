@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import ec.edu.uce.erp.ejb.persistence.entity.inventario.Proveedor;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 /**

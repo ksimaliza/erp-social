@@ -116,8 +116,8 @@ public class UsuarioDAOImpl extends AbstractFacadeImpl<Usuario> implements Usuar
 			CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 			CriteriaQuery<Usuario> criteriaQuery = criteriaBuilder.createQuery(Usuario.class);
 			
-			Root<Usuario> fromModulo = criteriaQuery.from(Usuario.class);
-			criteriaQuery.select(fromModulo);
+			Root<Usuario> fromUsuario = criteriaQuery.from(Usuario.class);
+			criteriaQuery.select(fromUsuario);
 			
 			criteriaList = new ArrayList<Predicate>();
 			
@@ -125,7 +125,7 @@ public class UsuarioDAOImpl extends AbstractFacadeImpl<Usuario> implements Usuar
 			if (StringUtils.isNotBlank(usuario.getNombresUsuario())) {
 				Expression<String> nombreUsuario = 
 						criteriaBuilder.upper(criteriaBuilder.literal(UtilAplication.appendStringBuilder("%", usuario.getNombresUsuario(), "%").toString()));
-				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromModulo.<String>get("nombresUsuario")), nombreUsuario);
+				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromUsuario.<String>get("nombresUsuario")), nombreUsuario);
 				criteriaList.add(predicate);
 			}
 			
@@ -133,7 +133,7 @@ public class UsuarioDAOImpl extends AbstractFacadeImpl<Usuario> implements Usuar
 			if (StringUtils.isNotBlank(usuario.getApellidosUsuario())) {
 				Expression<String> apellidoUsuario = 
 						criteriaBuilder.upper(criteriaBuilder.literal(UtilAplication.appendStringBuilder("%", usuario.getApellidosUsuario(), "%").toString()));
-				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromModulo.<String>get("apellidosUsuario")), apellidoUsuario);
+				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromUsuario.<String>get("apellidosUsuario")), apellidoUsuario);
 				criteriaList.add(predicate);
 			}
 			
@@ -141,24 +141,24 @@ public class UsuarioDAOImpl extends AbstractFacadeImpl<Usuario> implements Usuar
 			if (StringUtils.isNotBlank(usuario.getCiUsuario())) {
 				Expression<String> ciUsuario = 
 						criteriaBuilder.upper(criteriaBuilder.literal(UtilAplication.appendStringBuilder("%", usuario.getCiUsuario(), "%").toString()));
-				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromModulo.<String>get("ciUsuario")), ciUsuario);
+				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromUsuario.<String>get("ciUsuario")), ciUsuario);
 				criteriaList.add(predicate);
 			}
 			
 			//por id empresa
 			if (usuario.getNpIdEmpresa() != null && usuario.getNpIdEmpresa()!=0) {
-				predicate = criteriaBuilder.equal(fromModulo.join("empresaTbl").get("emrPk"), usuario.getNpIdEmpresa());
+				predicate = criteriaBuilder.equal(fromUsuario.join("empresaTbl").get("emrPk"), usuario.getNpIdEmpresa());
 				criteriaList.add(predicate);
 			}
 			
 			//por estado
 			if (StringUtils.isNotBlank(usuario.getEstado())) {
-				predicate = criteriaBuilder.equal(fromModulo.get("estado"), usuario.getEstado());
+				predicate = criteriaBuilder.equal(fromUsuario.get("estado"), usuario.getEstado());
 				criteriaList.add(predicate);
 			}
 			
 			criteriaQuery.where(criteriaBuilder.and(criteriaList.toArray(new Predicate[0])));
-			criteriaQuery.orderBy(criteriaBuilder.asc(fromModulo.get("fechaRegistro")));
+			criteriaQuery.orderBy(criteriaBuilder.asc(fromUsuario.get("fechaRegistro")));
 			
 			TypedQuery<Usuario> typedQuery = entityManager.createQuery(criteriaQuery);
 			

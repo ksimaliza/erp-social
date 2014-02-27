@@ -1,4 +1,4 @@
-package ec.edu.uce.erp.ejb.persistence.entity.inventario;
+package ec.edu.uce.erp.ejb.persistence.entity.inventory;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
 
 import ec.edu.uce.erp.ejb.persistence.entity.Ingreso;
 import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaUtil;
@@ -37,6 +38,7 @@ public class Proveedor extends AuditoriaUtil implements Serializable {
 	@Column(name="prov_direccion")
 	private String provDireccion;
 
+//	@NotNull(message = "El estado del proveedor no puede ser nulo")
 	@Column(name="prov_estado")
 	private String provEstado;
 
