@@ -16,6 +16,8 @@ public abstract class AuditoriaUtil {
 	@Transient
 	private Usuario usuarioRegistro;
 	
+	@Transient
+	private String npMensajeEditar;
 	
 	public AuditoriaUtil() {}
 
@@ -31,6 +33,20 @@ public abstract class AuditoriaUtil {
 	 */
 	public void setUsuarioRegistro(Usuario usuarioRegistro) {
 		this.usuarioRegistro = usuarioRegistro;
+	}
+
+	/**
+	 * @return the npMensajeEditar
+	 */
+	public String getNpMensajeEditar() {
+		return npMensajeEditar;
+	}
+
+	/**
+	 * @param npMensajeEditar the npMensajeEditar to set
+	 */
+	public void setNpMensajeEditar(String npMensajeEditar) {
+		this.npMensajeEditar = npMensajeEditar;
 	}
 	
 }

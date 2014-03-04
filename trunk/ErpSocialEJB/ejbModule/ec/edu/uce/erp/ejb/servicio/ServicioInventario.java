@@ -44,5 +44,5 @@ public interface ServicioInventario {
 	 * @throws SeguridadesException
 	 */
 	List<Proveedor> buscarProveedorCriterios (Proveedor proveedor) throws SeguridadesException;
-
+	
 }

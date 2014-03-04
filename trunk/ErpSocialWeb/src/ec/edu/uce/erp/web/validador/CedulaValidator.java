@@ -10,7 +10,7 @@ import javax.faces.validator.ValidatorException;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Validar por la cedula de identidad
+ * Validar si la cedula ingresada es correcta
  * 
  * @author
  * 
@@ -23,6 +23,7 @@ public class CedulaValidator implements Validator {
 		
 		// ConstantesApp.LongitudCedula
 		final Integer legthCedula = 10;
+		final Integer num_provincias = 24;
 			
 		String cedula = String.valueOf(value);
 		
@@ -30,8 +31,12 @@ public class CedulaValidator implements Validator {
 			
 			if (StringUtils.isNotBlank(cedula)) {
 				
-				// para lanzar la exepcion si se ingreso letras
-				Integer.parseInt(cedula);
+				//verifica que los dos primeros dígitos correspondan a un valor entre 1 y NUMERO_DE_PROVINCIAS
+				int prov = Integer.parseInt(cedula.substring(0, 2));
+				
+				if (!((prov > 0) && (prov <= num_provincias))) {
+					lanzarExcepcion("Cedula incorrecta.");
+				}
 				
 				if (cedula.length() == legthCedula) {
 					
@@ -58,28 +63,24 @@ public class CedulaValidator implements Validator {
 							// cedula correcta
 							return;
 						} else {
-							FacesMessage msg = new FacesMessage("Cedula incorrecta.", "Cedula incorrecta.");
-							msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-							throw new ValidatorException(msg);
+							lanzarExcepcion("Cedula incorrecta.");
 						}
 					} else {
-						FacesMessage msg = new FacesMessage("Cedula incorrecta.", "Cedula incorrecta.");
-						msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-						throw new ValidatorException(msg);
+						lanzarExcepcion("Cedula incorrecta.");
 					}
 				} else {
-					
-					FacesMessage msg = new FacesMessage("Cedula con longitud incorrecta.", "Cedula con longitud incorrecta.");
-					msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-					throw new ValidatorException(msg);
-					
+					lanzarExcepcion("Cedula con longitud incorrecta.");
 				}
 				
 			}
 		} catch (NumberFormatException e) {
-			FacesMessage msg = new FacesMessage("Cedula con formato incorrecto.", "Cedula con formato incorrecto.");
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-			throw new ValidatorException(msg);
+			lanzarExcepcion("Cedula con formato incorrecto.");
 		}
+	}
+	
+	private void lanzarExcepcion (String mensaje) {
+		FacesMessage msg = new FacesMessage(mensaje, mensaje);
+		msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+		throw new ValidatorException(msg);
 	}
 }

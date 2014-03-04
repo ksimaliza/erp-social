@@ -11,7 +11,6 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +21,7 @@ import ec.edu.uce.erp.common.util.EncriptacionUtil;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.dao.factory.FactoryDAO;
+import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogo;
 import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Menu;
@@ -116,12 +116,26 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 	@Override
 	public List<Empresa> buscarEmpresa(Empresa empresa) throws SeguridadesException {
 		slf4jLogger.info("buscarEmpresa");
+		List<Empresa> listEmpresas = null;
 		try {
-			return factoryDAO.getEmpresaDAOImpl().obtenerEmpresaCriterios(empresa);
+			listEmpresas = factoryDAO.getEmpresaDAOImpl().obtenerEmpresaCriterios(empresa);
 		} catch (Exception e) {
 			slf4jLogger.info("Error al buscar la empresa {}", e.getMessage());
 			throw new SeguridadesException("No se pudo obtener las empresas de la base de datos");
 		}
+		return listEmpresas;
+	}
+	
+	@Override
+	public Empresa obtenerEmpresaPorId(Integer id) throws SeguridadesException {
+		
+		Empresa empresaEncontrada = factoryDAO.getEmpresaDAOImpl().find(id);
+		if (empresaEncontrada != null) {
+			//se cargan las relaciones lazy de la empresa para realizar la validaciones necesarias
+			empresaEncontrada.getSegtUsuarios().size();
+			empresaEncontrada.getSegtModulos().size();
+		}
+		return empresaEncontrada;
 	}
 
 	/*
@@ -259,18 +273,18 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		try {
 			perfilCol = factoryDAO.getPerfilDAOImpl().obtenerPerfilCriterios(perfil);
 			
-			if (CollectionUtils.isNotEmpty(perfilCol)) {
-				CollectionUtils.select(perfilCol, new Predicate() {
-					
-					@Override
-					public boolean evaluate(Object arg0) {
-						Perfil perfil = (Perfil)arg0;
-						perfil.getSegtModulos().size();
-						perfil.getSegtUsuarios().size();
-						return true;
-					}
-				});
-			}
+//			if (CollectionUtils.isNotEmpty(perfilCol)) {
+//				CollectionUtils.select(perfilCol, new Predicate() {
+//					
+//					@Override
+//					public boolean evaluate(Object arg0) {
+//						Perfil perfil = (Perfil)arg0;
+//						perfil.getSegtModulos().size();
+//						perfil.getSegtUsuarios().size();
+//						return true;
+//					}
+//				});
+//			}
 			
 		} catch (Exception e) {
 			slf4jLogger.info("Error al buscar los perfiles de la bd {}", e.getMessage());
@@ -289,6 +303,20 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 			slf4jLogger.info("Error al buscarPerfileEmpresa de la bd {}", e.getMessage());
 			throw new SeguridadesException("No se pudo obtener los perfiles de la base de datos");
 		}
+	}
+	
+	@Override
+	public Perfil obtenerPerfilPorId(Integer id) throws SeguridadesException {
+		slf4jLogger.info("obtenerPerfilPorId");
+		
+		Perfil perfilEncontrado = null;
+		perfilEncontrado = factoryDAO.getPerfilDAOImpl().find(id);
+		if (perfilEncontrado != null) {
+			// cargar las relaciones lazy del perfil
+			perfilEncontrado.getSegtModulos().size();
+			perfilEncontrado.getSegtUsuarios().size();
+		}
+		return perfilEncontrado;
 	}
 	
 	/*
@@ -465,6 +493,32 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		
 		return usuariosCol;
 	}
+	
+	/*
+	 * Servicio para administracion de catalogos del modulo de inventarios
+	 */
+
+	@Override
+	public List<DetalleCatalogo> buscarDetalleCatalogoCriterios(
+			DetalleCatalogo detalleCatalogo) throws SeguridadesException {
+		
+		List<DetalleCatalogo> listDetalleCatalogo = null;
+		
+		try {
+			
+			listDetalleCatalogo = factoryDAO.getDetalleCatalogoDAOImpl().obtenerDetalleCatalogoCriterios(detalleCatalogo);
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarDetalleCatalogoCriterios {}" , e.getMessage());
+			throw new SeguridadesException("Error al buscarDetalleCatalogoCriterios");
+		}
+		
+		return listDetalleCatalogo;
+	}
+
+	
+
+	
 	
 
 }

@@ -75,10 +75,9 @@
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarPerfil.show()"
-							actionListener="#{perfilController.asignarDatosEditarPerfil(perfil)}"
+							actionListener="#{perfilController.cargarDatosPerfil(perfil)}"
 							process="@this" update=":formEditarPerfil:pnlEditarPerfil">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
-							<f:setPropertyActionListener target="#{perfilDataManager.perfilEditar}" value="#{perfil}" />
 						</p:commandLink>
 					</h:panelGroup>
 					<h:panelGroup>

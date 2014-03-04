@@ -157,23 +157,28 @@ public class PerfilController extends BaseController {
 		return moduloCol;
 	}
 	
-	public void asignarDatosEditarPerfil(Perfil perfil) {
+	public void cargarDatosPerfil (Perfil perfil) {
+		try {
+			Perfil perfilEncontrado = servicioAdministracion.obtenerPerfilPorId(perfil.getIdPerfil());
+			this.asignarDatosEditarPerfil(perfilEncontrado);
+			this.perfilDataManager.setPerfilEditar(perfilEncontrado);
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al cargar los datos del perfil seleccionado {}", e.getMessage());
+			MensajesWebController.aniadirMensajeError("Error al cargar los datos del perfil seleccionado");
+		}
+	}
+	
+	private void asignarDatosEditarPerfil(Perfil perfil) {
 		
 		slf4jLogger.info("asignarDatosEditarPerfil");
 		
-		try {
-			getModulosSeleccionadosCol().clear();
-			if (CollectionUtils.isNotEmpty(perfil.getSegtModulos())) {
-				
-				for (Modulo modulo : perfil.getSegtModulos()) {
-					getModulosSeleccionadosCol().add(modulo.getIdModulo());
-				}
-				
+		getModulosSeleccionadosCol().clear();
+		if (CollectionUtils.isNotEmpty(perfil.getSegtModulos())) {
+			
+			for (Modulo modulo : perfil.getSegtModulos()) {
+				getModulosSeleccionadosCol().add(modulo.getIdModulo());
 			}
 			
-		} catch (Exception e) {
-			slf4jLogger.info("error al asignarDatosEditarPerfil {}", e.getMessage());
-			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 		
 	}

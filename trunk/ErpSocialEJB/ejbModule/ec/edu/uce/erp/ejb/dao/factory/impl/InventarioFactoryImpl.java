@@ -8,8 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import ec.edu.uce.erp.ejb.dao.factory.InventarioFactory;
+import ec.edu.uce.erp.ejb.persistence.dao.DetalleCatalogoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HistoricoTransaccioneDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ProveedorDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.DetalleCatalogoDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.HistoricoTransaccioneDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.ProveedorDAOImpl;
 
@@ -24,8 +26,8 @@ public class InventarioFactoryImpl implements InventarioFactory{
 	private EntityManager entityManager;
 	
 	private ProveedorDAO proveedorDAO;
-	
 	private HistoricoTransaccioneDAO historicoTransaccioneDAO;
+	private DetalleCatalogoDAO detalleCatalogoDAO;
 
 	@Override
 	public ProveedorDAO getProveedorDAOImpl() {
@@ -42,6 +44,14 @@ public class InventarioFactoryImpl implements InventarioFactory{
 			historicoTransaccioneDAO = new HistoricoTransaccioneDAOImpl(entityManager);
 		}
 		return historicoTransaccioneDAO;
+	}
+
+	@Override
+	public DetalleCatalogoDAO getCatalogoDAOImpl() {
+		if (detalleCatalogoDAO == null) {
+			detalleCatalogoDAO = new DetalleCatalogoDAOImpl(entityManager);
+		}
+		return detalleCatalogoDAO;
 	}
 
 }

@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
@@ -110,6 +111,7 @@ public class EmpresaController extends BaseController {
 		slf4jLogger.info("actualizarEmpresa");
 		
 		try {
+			this.empresaDataManager.getEmpresaEditar().setUsuarioRegistro(this.empresaDataManager.getUsuarioSession());
 			this.servicioAdministracion.actualizarEmpresa(this.empresaDataManager.getEmpresaEditar());
 			this.empresaDataManager.setEmpresaEditar(new Empresa());
 			MensajesWebController.aniadirMensajeInformacion("erp.empresa.actualizar.exito");
@@ -125,7 +127,7 @@ public class EmpresaController extends BaseController {
 		try {
 		
 			if (this.empresaDataManager.getEmpresaEditar() != null) {
-				
+				this.empresaDataManager.getEmpresaEditar().setUsuarioRegistro(this.empresaDataManager.getUsuarioSession());
 				this.empresaDataManager.getEmpresaEditar().setEmrEstado(empresaDataManager.getEstadoInactivo());
 				this.servicioAdministracion.actualizarEmpresa(this.empresaDataManager.getEmpresaEditar());
 				this.empresaDataManager.setEmpresaEditar(new Empresa());
@@ -149,6 +151,7 @@ public class EmpresaController extends BaseController {
 		
 			if (this.empresaDataManager.getEmpresaEditar() != null) {
 				
+				this.empresaDataManager.getEmpresaEditar().setUsuarioRegistro(this.empresaDataManager.getUsuarioSession());
 				this.empresaDataManager.getEmpresaEditar().setEmrEstado(empresaDataManager.getEstadoActivo());
 				this.servicioAdministracion.actualizarEmpresa(this.empresaDataManager.getEmpresaEditar());
 				this.empresaDataManager.setEmpresaEditar(new Empresa());
@@ -162,6 +165,33 @@ public class EmpresaController extends BaseController {
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 		
+	}
+	
+	public void cargarDatosEmpresa (Empresa empresa) {
+		try {
+			Empresa empresaEditar = servicioAdministracion.obtenerEmpresaPorId(empresa.getEmrPk());
+			
+			if (empresaEditar == null) {
+				this.empresaDataManager.setEmpresaEditar(empresa);
+			} else {
+				this.empresaDataManager.setEmpresaEditar(empresaEditar);
+			}
+			this.validarDesactivarEmpresa(this.empresaDataManager.getEmpresaEditar());
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al cargar los datos de la empresa seleccionada {}", e.toString());
+			MensajesWebController.aniadirMensajeError("Error al cargar los datos de la empresa seleccionada");
+		}
+	}
+	
+	private void validarDesactivarEmpresa (Empresa empresa) {
+		if (CollectionUtils.isNotEmpty(empresa.getSegtUsuarios()) || CollectionUtils.isNotEmpty(empresa.getSegtModulos())){
+			empresa.setNpMensajeEditar(UtilAplication
+					.appendStringBuilder("La empresa: ", empresa.getEmrNombre(),
+							" tiene usuarios o m\u00F3dulos relacionados, est\u00E1 seguro de continuar?").toString());
+		} else {
+			empresa.setNpMensajeEditar(UtilAplication.appendStringBuilder("Seguro desea desactivar la empresa ", empresa.getEmrNombre(), " ?").toString());
+		}
 	}
 	
 }

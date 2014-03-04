@@ -5,15 +5,16 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	
-	<p:dialog id="dialogEditarPerfil" header="#{i18n['erp.perfil.editar']}" 
-			widgetVar="dlgEditarPerfil" modal="true" minWidth="500" appendTo="@(body)">
+	<p:dialog id="dialogEditarPerfil" header="#{i18n['erp.perfil.editar']}" resizable="false" draggable="false"
+			widgetVar="dlgEditarPerfil" modal="true" width="500" minWidth="500" appendTo="@(body)">
 	
-		<h:form id="formEditarPerfil">	
+		<h:form id="formEditarPerfil" styleClass="formulario">	
 			<p:panel id="pnlEditarPerfil">
-				<table>
+				<table class="formulario">
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.perfil.nombre']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNombre" 
@@ -32,6 +33,7 @@
 					<tr>
 						<td>
 							<h:outputLabel for="selectModulos" value="#{i18n['erp.perfil.modulo']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
 							<p:selectManyCheckbox id="selectModulos" 
