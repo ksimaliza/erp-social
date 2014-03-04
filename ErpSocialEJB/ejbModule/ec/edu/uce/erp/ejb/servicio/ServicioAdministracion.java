@@ -12,6 +12,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogo;
 import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Menu;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
+import ec.edu.uce.erp.ejb.persistence.entity.security.Parametro;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Perfil;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 
@@ -184,7 +185,7 @@ public interface ServicioAdministracion {
 	List<Usuario> buscarUsuarios (Usuario usuario) throws SeguridadesException;
 	
 	/*
-	 * Servicio para administracion de catalogos del modulo de inventarios
+	 * Servicio para administracion de catalogos
 	 */
 	
 	/**
@@ -194,5 +195,25 @@ public interface ServicioAdministracion {
 	 * @throws SeguridadesException
 	 */
 	List<DetalleCatalogo> buscarDetalleCatalogoCriterios (DetalleCatalogo detalleCatalogo) throws SeguridadesException;
+	
+	/*
+	 * Servicios para la administracion de parametros
+	 */
+	
+	/**
+	 * Buscar <code>Parametro</code> de la BD por criterios
+	 * @param parametro
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	List<Parametro> buscarParametrosCriterios (Parametro parametro) throws SeguridadesException;
+	
+	/**
+	 * Actualizar <code>Parametro</code> de la BD 
+	 * @param parametro
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	Parametro actualizarParametro (Parametro parametro) throws SeguridadesException;
 
 }

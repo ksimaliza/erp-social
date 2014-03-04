@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="title">
+		<h3><h:outputLabel	value="#{i18n['erp.parametros.pagina.titulo']}" /></h3>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="formParametro">
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" />
+					<!-- <p:commandButton id="btnNuevoParametro" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevoPerfil.show()"/> -->
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panel id="pnlBuscarParametro" header="#{i18n['erp.parametros.buscar']}">
+				<table>
+					<tr>
+						<td><h:outputLabel for="txtNombreBuscar" value="#{i18n['erp.parametro.nombre']}" /> </td>
+						<td><p:inputText id="txtNombreBuscar" value="#{parametroDataManager.parametroBuscar.nombreParametro}" /></td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
+						<td>
+							<h:selectOneMenu id="inputEstado" value="#{parametroDataManager.parametroBuscar.estado}">
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}" itemValue=""/>
+								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{parametroDataManager.estadoActivo}"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{parametroDataManager.estadoInactivo}"/>
+							</h:selectOneMenu>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{parametroController.buscarParametros}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscarParametro"
+					update="pnlMessages,tablaParametros,pnlBuscarParametro" />
+			</p:panel>
+			<p:dataTable id="tablaParametros" rowIndexVar="rowIndex"
+				value="#{parametroDataManager.listParametro}" var="parametro"
+				paginator="true" rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<f:facet name="header">
+					#{i18n['erp.parametros.lista']}
+				</f:facet>
+				<p:column headerText="#" styleClass="centered" width="5%">
+					#{rowIndex+1}
+				</p:column>
+				<p:column headerText="#{i18n['erp.parametro.nombre']}">
+					<h:outputText value="#{parametro.nombreParametro}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.parametro.valor']}">
+					<h:outputText value="#{parametro.valorParametro}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.parametro.descripcion']}">
+					<h:outputText value="#{parametro.descripcionParametro}" />
+				</p:column>
+				<p:column headerText="#{i18n['label.estado']}" styleClass="centered">
+					<h:outputText value="#{i18n['label.estado.activo']}"
+						rendered="#{parametro.estado eq parametroDataManager.estadoActivo}" />
+					<h:outputText value="#{i18n['label.estado.inactivo']}"
+						rendered="#{parametro.estado eq parametroDataManager.estadoInactivo}" />
+				</p:column>
+				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.editar']}"
+							oncomplete="dlgEditarParametro.show()"
+							process="@this" update=":formEditarParametro:pnlEditarParametro">
+							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+							<f:setPropertyActionListener target="#{parametroDataManager.parametroEditar}" value="#{parametro}" />
+						</p:commandLink>
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:outputText value="&#160;|&#160;" />
+					</h:panelGroup>
+					<!-- activar -->
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.activar']}"
+							oncomplete="dlgActivar.show()"
+							rendered="#{parametro.estado eq parametroDataManager.estadoInactivo}">
+							<h:graphicImage value="/resources/img/tick.png" alt="#{i18n['label.activar']}"/>
+							<f:setPropertyActionListener target="#{parametroDataManager.parametroEditar}" value="#{parametro}" />
+						</p:commandLink>
+					</h:panelGroup>
+					<!-- desactivar -->
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.desabilitar']}"
+							oncomplete="dlgInactivar.show()"
+							rendered="#{parametro.estado eq parametroDataManager.estadoActivo}">
+							<h:graphicImage value="/resources/img/delete.png" alt="#{i18n['label.activar']}"/>
+							<f:setPropertyActionListener target="#{parametroDataManager.parametroEditar}" value="#{parametro}" />
+						</p:commandLink>
+					</h:panelGroup>
+				</p:column>
+			</p:dataTable>
+			
+			<!-- Desactivar parametro -->
+			<p:confirmDialog id="dialogInactivar" message="#{i18n['erp.parametro.desactivar.pregunta.confirmacion']}" appendTo="@(body)"
+				header="#{i18n['erp.parametro.desactivar']}" severity="alert" widgetVar="dlgInactivar" >
+				<p:commandButton value="#{i18n['label.aceptar']}"
+					actionListener="#{parametroController.inactivarParametro}"
+					oncomplete="dlgInactivar.hide()" 
+					update="pnlMessages,tablaParametros" process="@this"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgInactivar.hide();" type="button" />
+			</p:confirmDialog>
+			
+			<!-- Activar parametro -->
+			<p:confirmDialog id="dialogActivar" message="#{i18n['erp.parametro.activar.pregunta.confirmacion']}" appendTo="@(body)"
+				header="#{i18n['erp.parametro.activar']}" severity="alert" widgetVar="dlgActivar" >
+				<p:commandButton value="#{i18n['label.aceptar']}"
+					actionListener="#{parametroController.activarParametro}"
+					oncomplete="dlgActivar.hide()" 
+					update="pnlMessages,tablaParametros" process="@this"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgActivar.hide();" type="button" />
+			</p:confirmDialog>
+			
+		</h:form>
+		
+		<ui:include src="dialogEditarParametro.xhtml" />
+		
+	</ui:define>
+</ui:composition>

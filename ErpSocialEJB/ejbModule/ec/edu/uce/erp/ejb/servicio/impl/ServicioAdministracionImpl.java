@@ -26,6 +26,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Menu;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
+import ec.edu.uce.erp.ejb.persistence.entity.security.Parametro;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Perfil;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaDTO;
@@ -91,8 +92,8 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		return Boolean.TRUE;
 	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public Empresa actualizarEmpresa(Empresa empresa) throws SeguridadesException {
 		
 		slf4jLogger.info("actualizarEmpresa");
@@ -142,8 +143,8 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 	 * Metodos modulos
 	 */
 	
-	@TransactionAttribute (TransactionAttributeType.REQUIRED)
 	@Override
+	@TransactionAttribute (TransactionAttributeType.REQUIRED)
 	public Modulo registrarModulo(Modulo modulo) throws SeguridadesException {
 		
 		Modulo moduloNuevo = null;
@@ -167,8 +168,8 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		return moduloNuevo;
 	}
 	
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public Modulo actualizarModulo(Modulo modulo) throws SeguridadesException {
 		slf4jLogger.info("actualizarModulo");
 		
@@ -215,8 +216,8 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 	 * Metodos perfiles
 	 */
 	
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public Perfil registrarPerfil(Perfil perfil) throws SeguridadesException {
 		slf4jLogger.info("registrarPerfil");
 		
@@ -240,8 +241,8 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		return perfilNuevo;
 	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public Perfil actualizarPerfil(Perfil perfil) throws SeguridadesException {
 		slf4jLogger.info("actualizarPerfil");
 		
@@ -323,8 +324,8 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 	* Administracion de menu
 	*/
 	
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public Menu registrarMenu(Menu menu) throws SeguridadesException {
 		slf4jLogger.info("registrarMenu");
 		
@@ -346,8 +347,8 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		return menuNuevo;
 	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public Menu actualizarMenu(Menu menu) throws SeguridadesException {
 		slf4jLogger.info("actualizarMenu");
 		
@@ -385,8 +386,8 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 	/*
 	 * Metodos para la administracion del usuario
 	 */
-	@TransactionAttribute (TransactionAttributeType.REQUIRED)
 	@Override
+	@TransactionAttribute (TransactionAttributeType.REQUIRED)
 	public Usuario registrarUsuario(Usuario usuario) throws SeguridadesException {
 		slf4jLogger.info("registrarUsuario");
 		
@@ -456,6 +457,7 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 	}
 
 	@Override
+	@TransactionAttribute (TransactionAttributeType.REQUIRED)
 	public Usuario actualizarUsuario(Usuario usuario) throws SeguridadesException {
 		slf4jLogger.info("actualizarUsuario");
 		
@@ -471,7 +473,7 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 			
 		} catch (Exception e) {
 			slf4jLogger.info("No se pudo actualizar el usuario {}" , e.getMessage());
-			throw new SeguridadesException("No se pudo actualizar el usuario");
+			throw new SeguridadesException(e);
 		}
 		
 		return usuarioActualizado;
@@ -510,15 +512,46 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 			
 		} catch (Exception e) {
 			slf4jLogger.info("Error al buscarDetalleCatalogoCriterios {}" , e.getMessage());
-			throw new SeguridadesException("Error al buscarDetalleCatalogoCriterios");
+			throw new SeguridadesException(e);
 		}
 		
 		return listDetalleCatalogo;
 	}
-
 	
+	/*
+	 * Servicios para la administracion de parametros
+	 */
+	
+	@Override
+	public List<Parametro> buscarParametrosCriterios(Parametro parametro) throws SeguridadesException {
+		List<Parametro> listParametro = null;
+		try {
+			listParametro = factoryDAO.getParametroDAOImpl().buscarParametroCriterios(parametro);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarParametrosCriterios {}" , e.getMessage());
+			throw new SeguridadesException(e);
+		}
+		return listParametro;
+	}
 
+	@Override
+	@TransactionAttribute (TransactionAttributeType.REQUIRED)
+	public Parametro actualizarParametro(Parametro parametro) throws SeguridadesException {
+		Parametro parametroUpdate = null;
+		
+		try {
+			parametro.setFechaModificacion(UtilAplication.obtenerFechaActual());
+			parametroUpdate = factoryDAO.getParametroDAOImpl().update(parametro);
+			factoryDAO.getHistoricoTransaccioneDAOImpl()
+				.registrarHistoricoTransaccion(new AuditoriaDTO(parametro.getUsuarioRegistro()
+						.getIdUsuario(), ServicioAdministracionImpl.class.getName(), "actualizarParametro", EnumTipoTransaccion.UPDATE));
+		} catch (Exception e) {
+			slf4jLogger.info("Error al actualizarParametro {}" , e.getMessage());
+			throw new SeguridadesException(e);
+		}
+		
+		return parametroUpdate;
+	}
 	
 	
-
 }

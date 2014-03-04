@@ -12,6 +12,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaUtil;
+
 
 /**
  * The persistent class for the erpt_parametro database table.
@@ -20,7 +22,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="erpt_parametro")
 @NamedQuery(name="Parametro.findAll", query="SELECT p FROM Parametro p")
-public class Parametro implements Serializable {
+public class Parametro extends AuditoriaUtil implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
