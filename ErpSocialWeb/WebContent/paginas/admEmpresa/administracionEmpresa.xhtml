@@ -18,21 +18,21 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:panel id="pnlBuscarEmpresa" header="#{i18n['erp.empresa.buscar']}">
-				<table>
+				<table class="formulario">
 					<tr>
-						<td><h:outputLabel for="txtNombreBuscar" value="#{i18n['erp.empresa.nombre']}" /> </td>
-						<td><p:inputText id="txtNombreBuscar" value="#{empresaDataManager.empresaBuscar.emrNombre}" /></td>
+						<td width="20%"><h:outputLabel for="txtNombreBuscar" value="#{i18n['erp.empresa.nombre']}" /> </td>
+						<td width="80%"><p:inputText id="txtNombreBuscar" style="width: 30%" value="#{empresaDataManager.empresaBuscar.emrNombre}" /></td>
 					</tr>
 					<tr>
 						<td><h:outputLabel for="txtRuc" value="#{i18n['erp.empresa.ruc']}" /> </td>
 						<td>
-							<p:inputText id="txtRuc" value="#{empresaDataManager.empresaBuscar.emrRuc}" onkeypress="return soloEnteros(this, event)"/>
+							<p:inputText id="txtRuc" style="width: 30%" value="#{empresaDataManager.empresaBuscar.emrRuc}" onkeypress="return soloEnteros(this, event)"/>
 						</td>
 					</tr>
 					<tr>
 						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
 						<td>
-							<p:selectOneMenu id="inputEstado" value="#{empresaDataManager.empresaBuscar.emrEstado}">
+							<p:selectOneMenu id="inputEstado" style="width: 30%" value="#{empresaDataManager.empresaBuscar.emrEstado}">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}" itemValue=""/>
 								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{empresaDataManager.estadoActivo}"/>
 								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{empresaDataManager.estadoInactivo}"/>
@@ -53,7 +53,7 @@
 				var="empresa" rowIndexVar="rowIndex"
 				paginator="true" rows="5" paginatorPosition="bottom"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="5,10,15">
+				rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.mensaje.lista.vacia']}">
 				<f:facet name="header">
 					#{i18n['erp.empresa.lista']}
 				</f:facet>
@@ -89,26 +89,32 @@
 					<h:panelGroup>
 						<h:outputText value="&#160;|&#160;" />
 					</h:panelGroup>
+					<!-- activar -->
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
-							title="#{i18n['label.activar']}" oncomplete="dlgActivar.show();"
+							title="#{i18n['label.activar']}"
+							oncomplete="dlgActivar.show();"
 							rendered="#{empresa.emrEstado eq empresaDataManager.estadoInactivo}">
 							<h:graphicImage value="/resources/img/tick.png" alt="#{i18n['label.activar']}"/>
 							<f:setPropertyActionListener target="#{empresaDataManager.empresaEditar}" value="#{empresa}" />
 						</p:commandLink>
 					</h:panelGroup>
+					<!-- desactivar -->
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
-							title="#{i18n['label.desabilitar']}" oncomplete="dlgInactivar.show();"
+							title="#{i18n['label.desabilitar']}"
+							process="@this" update=":formEmpresa:dialogDesactivar"
+							actionListener="#{empresaController.cargarDatosEmpresa(empresa)}"
+							oncomplete="dlgInactivar.show();"
 							rendered="#{empresa.emrEstado eq empresaDataManager.estadoActivo}">
 							<h:graphicImage value="/resources/img/delete.png" alt="#{i18n['label.desabilitar']}"/>
-							<f:setPropertyActionListener target="#{empresaDataManager.empresaEditar}" value="#{empresa}" />
 						</p:commandLink>
 					</h:panelGroup>
 				</p:column>
 			</p:dataTable>
 			<!-- Desactivar empresa -->
-			<p:confirmDialog id="confirmation" message="#{i18n['erp.empresa.desactivar.pregunta.confirmacion']}" appendTo="@(body)"
+			<p:confirmDialog id="dialogDesactivar" width="400" 
+				message="#{empresaDataManager.empresaEditar.npMensajeEditar}" appendTo="@(body)"
 				header="#{i18n['erp.empresa.desactivar']}" severity="alert" widgetVar="dlgInactivar" >
 				<p:commandButton value="#{i18n['label.aceptar']}"
 					actionListener="#{empresaController.desactivarEmpresa}"

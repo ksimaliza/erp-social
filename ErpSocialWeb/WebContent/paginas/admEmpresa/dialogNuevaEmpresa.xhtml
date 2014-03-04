@@ -4,18 +4,17 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
-	<p:dialog id="popUpNuevaEmpresa" appendTo="@(body)"
-		header="#{i18n['erp.empresa.registrar']}" widgetVar="popUpNuevo" modal="true" minWidth="600" draggable="false">
-		<h:form id="formNuevo">
-			<p:growl id="pnlMessagesDialog" closable="true"/>
+	<p:dialog id="popUpNuevaEmpresa" appendTo="@(body)" resizable="false"
+		header="#{i18n['erp.empresa.registrar']}" widgetVar="popUpNuevo" modal="true" width="500" minWidth="500" draggable="false">
+		<h:form id="formNuevo" styleClass="formulario">
 			<p:panel id="pnlNuevaEmpresa">
-				<table>
+				<table class="formulario">
 					<tr>
 						<td width="35%"><h:outputLabel for="txtNombre"
 								value="#{i18n['erp.empresa.nombre']}" /> <h:outputLabel
 								value="#{i18n['label.signo.requerido']}"
 								styleClass="item-required" /></td>
-						<td width="75%"><p:inputText id="txtNombre"
+						<td width="60%"><p:inputText id="txtNombre"
 								style="width: 100%" required="true"
 								value="#{empresaDataManager.empresaInstancia.emrNombre}"
 								label="#{i18n['erp.empresa.nombre']}" /></td>
@@ -33,12 +32,16 @@
 						<td><h:outputLabel for="txtRuc" value="#{i18n['label.ruc']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}"
 								styleClass="item-required" /></td>
-						<td><p:inputText id="txtRuc" style="width: 100%"
+						<td>
+							<p:inputText id="txtRuc" style="width: 100%"
 								maxlength="13"
 								value="#{empresaDataManager.empresaInstancia.emrRuc}"
 								onkeypress="return soloEnteros(this, event)" required="true"
 								label="#{i18n['label.ruc']}" >
-								<f:validateLength maximum="13" minimum="13"/></p:inputText></td>
+								<f:validateLength maximum="13" minimum="10"/>
+								<f:validator validatorId="ec.edu.uce.erp.web.validador.RucValidator" />
+							</p:inputText>
+						</td>
 					</tr>
 					<tr>
 						<td><h:outputLabel for="txtFono"
@@ -76,7 +79,7 @@
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{empresaController.registrarEmpresa}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) popUpNuevo.hide()"
-					process="@this,pnlNuevaEmpresa" update="pnlNuevaEmpresa,:formEmpresa:tablaEmpresa,pnlMessagesDialog" />
+					process="@this,pnlNuevaEmpresa" update="pnlNuevaEmpresa,:formEmpresa:tablaEmpresa,:formEmpresa:pnlMessages" />
 				<p:commandButton value="#{i18n['label.cancelar']}"
 					onclick="popUpNuevo.hide();" type="button" immediate="true" />
 			</p:panel>

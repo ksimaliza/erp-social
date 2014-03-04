@@ -25,12 +25,11 @@ import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 public class EmpresaDataManager extends BaseDataManager {
 	
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(EmpresaDataManager.class);
-	
 	private static final long serialVersionUID = 1L;
+	
 	private Empresa empresaInstancia;
 	private Empresa empresaEditar;
 	private Empresa empresaBuscar;
-	
 	private List<Empresa> listaEmpresa;
 	
 	public EmpresaDataManager () {
@@ -107,5 +106,4 @@ public class EmpresaDataManager extends BaseDataManager {
 		this.listaEmpresa = listaEmpresa;
 	}
 
-	
 }

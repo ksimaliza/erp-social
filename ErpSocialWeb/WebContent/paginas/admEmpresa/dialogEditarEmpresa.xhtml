@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	<p:dialog id="dialogEditarEmpresa" header="#{i18n['erp.empresa.editar']}" 
-		widgetVar="dlgEditarEmpresa" modal="true" width="600" appendTo="@(body)" draggable="false">
+		widgetVar="dlgEditarEmpresa" modal="true" width="500" minWidth="500" appendTo="@(body)" draggable="false">
 		<h:form id="formEditarEmpresa">	
 			<p:panel id="pnlEditarEmpresa">
 				<table>
@@ -40,7 +40,10 @@
 								style="width: 100%" maxlength="13"
 								value="#{empresaDataManager.empresaEditar.emrRuc}"
 								onkeypress="return soloEnteros(this, event)"
-								required="true" label="#{i18n['label.ruc']}"/>
+								required="true" label="#{i18n['label.ruc']}">
+								<f:validateLength maximum="13" minimum="10"/>
+								<f:validator validatorId="ec.edu.uce.erp.web.validador.RucValidator" />
+							</p:inputText>
 						</td>
 					</tr>
 					<tr>

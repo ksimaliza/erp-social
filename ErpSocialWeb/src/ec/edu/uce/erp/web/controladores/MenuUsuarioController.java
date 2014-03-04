@@ -16,6 +16,7 @@ import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
 
+import ec.edu.uce.erp.common.util.MessagesApplicacion;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Menu;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
@@ -36,7 +37,7 @@ public class MenuUsuarioController extends BaseController {
 
 	public MenuUsuarioController() {
 		
-		model = new DefaultMenuModel();
+		this.model = new DefaultMenuModel();
 		
 		if (getSessionParameter("usuario") != null && getSessionParameter("loginVO") != null) {
 			
@@ -46,6 +47,7 @@ public class MenuUsuarioController extends BaseController {
 			if (CollectionUtils.isNotEmpty(colModuloUsuario)) {
 				
 				Map<Integer, String> mapMenuUsuario = new HashMap<Integer, String>();
+				mapMenuUsuario.put(0, MessagesApplicacion.getString("erp.seguridades.pagina.home.usuario"));
 				
 				for (Modulo modulo : colModuloUsuario) {
 					

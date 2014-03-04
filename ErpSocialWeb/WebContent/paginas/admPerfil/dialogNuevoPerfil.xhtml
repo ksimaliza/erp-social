@@ -5,37 +5,43 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	
-	<p:dialog id="popUpNuevoPerfil" header="Registrar Perfil" 
-		widgetVar="dlgNuevoPerfil" modal="true" minWidth="500" appendTo="@(body)">
-		<h:form id="formNuevoPerfil">	
+	<p:dialog id="popUpNuevoPerfil" header="#{i18n['erp.perfil.registrar']}" resizable="false" draggable="false"
+		widgetVar="dlgNuevoPerfil" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<h:form id="formNuevoPerfil" styleClass="formulario">
 			<p:panel id="pnlNuevoPerfil">
-				<table>
+				<table class="formulario">
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtNombre" value="Nombre Perfil" />
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.perfil.nombre']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNombre" 
+							<p:inputText id="txtNombre"
+								style="width: 100%"
 								value="#{perfilDataManager.perfilInstancia.nombrePerfil}" 
-								required="true" label="Nombre Perfil"/>
+								required="true" label="#{i18n['erp.perfil.nombre']}"/>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<h:outputLabel for="txtDesc" value="Descripcion Perfil" />
+							<h:outputLabel for="txtDesc" value="#{i18n['erp.perfil.descripcion']}" />
 						</td>
 						<td>
-							<p:inputText id="txtDesc" value="#{perfilDataManager.perfilInstancia.descPerfil}" />
+							<p:inputText id="txtDesc" style="width: 100%"
+								value="#{perfilDataManager.perfilInstancia.descPerfil}" />
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<h:outputLabel for="txtDescMenu" value="Modulos" />
+							<h:outputLabel for="txtDescMenu" value="#{i18n['erp.perfil.modulo']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
-							<p:selectManyCheckbox id="selectModulos" 
+							<p:selectManyCheckbox id="selectModulos"
+								style="width: 100%"
 								layout="pageDirection" required="true"
-								value="#{perfilController.modulosSeleccionadosCol}">
+								value="#{perfilController.modulosSeleccionadosCol}"
+								label="#{i18n['erp.perfil.modulo']}">
 								<f:selectItems value="#{selectItemsController.catalogoListaModulos}" />
 							</p:selectManyCheckbox>
 						</td>

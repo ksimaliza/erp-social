@@ -35,6 +35,7 @@
 						<td>
 							<p:inputText id="txtCI" style="width: 90%" onkeypress="return soloEnteros(this, event)" maxlength="10"
 								value="#{usuarioDataManager.usuarioInstancia.ciUsuario}" label="#{i18n['erp.usuario.ci']}" >
+								<f:validateLength maximum="10" minimum="10"/>
 								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							</p:inputText>
 						</td>

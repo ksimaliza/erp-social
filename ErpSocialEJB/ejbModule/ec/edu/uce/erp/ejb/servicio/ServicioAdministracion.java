@@ -8,6 +8,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogo;
 import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Menu;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
@@ -42,12 +43,20 @@ public interface ServicioAdministracion {
 	Empresa actualizarEmpresa (Empresa empresa) throws SeguridadesException;
 	
 	/**
-	 * Buscar empresa por criterios
+	 * Buscar empresas por criterios
 	 * @param empresa
 	 * @return
 	 * @throws SeguridadesException
 	 */
 	List<Empresa> buscarEmpresa (Empresa empresa) throws SeguridadesException;
+	
+	/**
+	 * Obtener empresa por ID (primary key)
+	 * @param empresa
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	Empresa obtenerEmpresaPorId (Integer id) throws SeguridadesException; 
 	
 	/*
 	 * servicios para administrar las modulos
@@ -139,6 +148,14 @@ public interface ServicioAdministracion {
 	 */
 	List<Perfil> buscarPerfileEmpresa (Perfil perfil) throws SeguridadesException;
 	
+	/**
+	 * Obtener <code>Perfil</code> por el id (Primary key)
+	 * @param id
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	Perfil obtenerPerfilPorId (Integer id) throws SeguridadesException; 
+	
 	/*
 	 * servicios para administrar usuarios
 	 */
@@ -165,5 +182,17 @@ public interface ServicioAdministracion {
 	 * @throws SeguridadesException
 	 */
 	List<Usuario> buscarUsuarios (Usuario usuario) throws SeguridadesException;
+	
+	/*
+	 * Servicio para administracion de catalogos del modulo de inventarios
+	 */
+	
+	/**
+	 * Buscar <code>DetalleCatalogo</code> por criterios
+	 * @param detalleCatalogo
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	List<DetalleCatalogo> buscarDetalleCatalogoCriterios (DetalleCatalogo detalleCatalogo) throws SeguridadesException;
 
 }
