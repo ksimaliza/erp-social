@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="dialogEditarParametro" header="#{i18n['erp.parametro.editar']}" resizable="false" draggable="false"
+			widgetVar="dlgEditarParametro" modal="true" width="500" minWidth="500" appendTo="@(body)">
+	
+		<h:form id="formEditarParametro" styleClass="formulario">
+			<p:panel id="pnlEditarParametro">
+				<table class="formulario">
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.parametro.nombre']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombre" style="width: 100%"
+								value="#{parametroDataManager.parametroEditar.nombreParametro}" 
+								required="true" label="#{i18n['erp.parametro.nombre']}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtValor" value="#{i18n['erp.parametro.valor']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:inputText id="txtValor" style="width: 100%"
+								value="#{parametroDataManager.parametroEditar.valorParametro}"
+								required="true" label="#{i18n['erp.parametro.valor']}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtDesc" value="#{i18n['erp.parametro.descripcion']}" />
+						</td>
+						<td>
+							<p:inputText id="txtDesc" style="width: 100%"
+								value="#{parametroDataManager.parametroEditar.descripcionParametro}" />
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotonesActualizar">
+				<p:commandButton id="btnActualizar" value="#{i18n['label.actualizar']}"
+					actionListener="#{parametroController.actualizarParametro}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarParametro.hide()"
+					process="@this,pnlEditarParametro" update=":formParametro:tablaParametros,:formParametro:pnlMessages"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarParametro.hide();" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+</ui:composition>

@@ -5,52 +5,55 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	
-	<p:dialog id="popUpNuevoMenu" header="#{i18n['erp.menu.registrar']}" 
-		widgetVar="dlgNuevoMenu" modal="true" minWidth="600" appendTo="@(body)">
+	<p:dialog id="popUpNuevoMenu" header="#{i18n['erp.menu.registrar']}" draggable="false"
+		resizable="false" widgetVar="dlgNuevoMenu" modal="true" minWidth="500" width="500" appendTo="@(body)">
 		<h:form id="formNuevoMenu">	
 			<p:panel id="pnlNuevoMenu" styleClass="formulario">
 				<table class="formulario">
 					<tr>
-						<td width="20%">
+						<td width="30%">
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.menu.nombre']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNombre" 
-								style="width: 70%" required="true"
+								style="width: 100%" required="true"
 								label="#{i18n['erp.menu.nombre']}"
 								value="#{menuDataManager.menuInstancia.nombreMenu}" />
 						</td>
 					</tr>
 					<tr>
-						<td width="20%">
+						<td>
 							<h:outputLabel for="txtUrlMenu" value="#{i18n['erp.menu.url']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
-						<td width="70%">
+						<td>
 							<p:inputText id="txtUrlMenu" 
-								style="width: 70%" required="true"
+								style="width: 100%" required="true"
 								label="#{i18n['erp.menu.url']}"
 								value="#{menuDataManager.menuInstancia.urlMenu}" />
 						</td>
 					</tr>
 					<tr>
-						<td width="20%">
+						<td>
 							<h:outputLabel for="txtDescMenu" value="#{i18n['erp.menu.descripcion']}" />
 						</td>
-						<td width="70%">
+						<td>
 							<p:inputText id="txtDescMenu" 
-								style="width: 70%" label="#{i18n['erp.menu.descripcion']}"
+								style="width: 100%" label="#{i18n['erp.menu.descripcion']}"
 								value="#{menuDataManager.menuInstancia.descMenu}" />
 						</td>
 					</tr>
 					<tr>
-						<td width="20%">
-							<h:outputLabel for="txtDescMenu" value="#{i18n['erp.menu.modulo']}" />
+						<td>
+							<h:outputLabel for="selectModulo" value="#{i18n['erp.menu.modulo']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
-						<td width="70%">
-							<p:selectManyCheckbox id="selectNotificar" 
+						<td>
+							<p:selectManyCheckbox id="selectModulo" 
 								value="#{menuController.modulosSeleccionados}"
 								layout="pageDirection" required="true"
-								label="#{i18n['erp.menu.modulo']}" style="width: 70%">
+								label="#{i18n['erp.menu.modulo']}" style="width: 100%">
 								<f:selectItems value="#{selectItemsController.catalogoListaModulos}" />
 							</p:selectManyCheckbox>
 						</td>
