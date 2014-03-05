@@ -15,11 +15,11 @@
 			<p:panel id="pnlCambiarClave" styleClass="formulario">
 				<table class="formulario">
 					<tr>
-						<td style="width: 30%">
+						<td style="width: 20%">
 							<h:outputLabel for="txtClaveActual" value="#{i18n['login.clave.actual']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
-						<td style="width: 70%">
+						<td style="width: 80%">
 							<p:password id="txtClaveActual" 
 								style="width: 50%" required="true"
 								label="#{i18n['login.clave.actual']}"
@@ -53,10 +53,9 @@
 				</table>
 			</p:panel>
 			<p:panel id="pnlBotones">
-				<p:commandButton id="btnAceptar"
-					actionListener="#{loginController.cambiarContrasenia}"
-					value="#{i18n['label.aceptar']}" 
-					process="@this,pnlCambiarClave"/>
+				<h:commandButton id="btnAceptar"
+					action="#{loginController.cambiarContrasenia}"
+					value="#{i18n['label.aceptar']}"/>
 			</p:panel>
 		</h:form>
 	</ui:define>

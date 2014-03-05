@@ -16,7 +16,7 @@ public class TestEncriptacion {
 	@Test
 	public void encriptarClave () {
 		System.out.println("encriptarClave");
-		String claveSinEncriptar = "prueba";
+		String claveSinEncriptar = "inventario";
 		String claveEncriptada = EncriptacionUtil.getInstancia().encriptar(claveSinEncriptar);
 		System.out.println("claveEncriptada: " + claveEncriptada);
 	}
@@ -24,7 +24,7 @@ public class TestEncriptacion {
 	@Test
 	public void desencriptarClave () {
 		System.out.println("desencriptarClave");
-		String claveSinEncriptar = "XcVaXrQKOr4=";
+		String claveSinEncriptar = "9UrwXVpZzrUZFB+Poq7bng==";
 		String claveDesencriptada = EncriptacionUtil.getInstancia().desencriptar(claveSinEncriptar);
 		System.out.println("claveDesencriptada: " + claveDesencriptada);
 	}

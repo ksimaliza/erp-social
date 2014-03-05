@@ -51,5 +51,17 @@ public final class UtilAplication {
 	public static String concatenarPorcenteje(String parametro){
 		return appendStringBuilder(PORCENTAJE, parametro, PORCENTAJE).toString();
 	}
+	
+	/**
+	 * Sumar dias a una fecha en formato Timestamp
+	 * @param timestamp
+	 * @param numDias
+	 * @return
+	 */
+	public static Timestamp sumarDiasTimestamp(Timestamp timestamp, Long numeroDias) {
+		// 24 * 3600 * 1000
+		Long total = Long.valueOf(timestamp.getTime()) + numeroDias * 1000L * 60L * 30L * 24L;
+		return new Timestamp(total);
+	}
 
 }

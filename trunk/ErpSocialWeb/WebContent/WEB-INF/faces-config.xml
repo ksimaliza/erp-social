@@ -34,7 +34,6 @@
 	
 	<navigation-rule>
 		<description>retornarCambiarClaveUsuario</description>
-		<from-view-id>/paginas/usuario/cambiarClave.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>retornarCambiarClave</from-outcome>
 			<to-view-id>/paginas/home.xhtml</to-view-id>

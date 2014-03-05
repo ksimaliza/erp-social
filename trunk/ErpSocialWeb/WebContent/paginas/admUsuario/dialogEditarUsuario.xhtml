@@ -6,10 +6,10 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpEditarUsuario" header="#{i18n['erp.usuario.registrar']}" 
-		widgetVar="dlgEditarUsuario" modal="true" minWidth="600" appendTo="@(body)">
+		widgetVar="dlgEditarUsuario" modal="true" minWidth="500" width="500" appendTo="@(body)">
 		<h:form id="formEditarUsuario" styleClass="formulario">	
-			<p:panel id="pnlEditarUsuario" styleClass="formulario">
-				<table style="formulario">
+			<p:panel id="pnlEditarUsuario">
+				<table class="formulario">
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.usuario.nombre']}" />

@@ -396,8 +396,8 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		try {
 			
 			if (this.verificarPersonaRepetida(usuario)) {
-				throw new SeguridadesException("Ya existe una persona registrada con ese num de cedula");
-			} 
+				throw new SeguridadesException("Ya existe un usuario registrado con ese n\u00FAmero de c\u00E9dula");
+			}
 			
 			usuario.setFechaRegistro(UtilAplication.obtenerFechaActual());
 			usuario.setPassUsuario(EncriptacionUtil.getInstancia().encriptar(usuario.getLoginUsuario()));
@@ -416,7 +416,7 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 			
 		} catch (Exception e) {
 			slf4jLogger.info("Error al registrar el usuario {}", e.getMessage());
-			throw new SeguridadesException("No se pudo registrar el usuario");
+			throw new SeguridadesException(e);
 		}
 		
 		return usuarioNuevo;
