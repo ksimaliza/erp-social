@@ -80,7 +80,7 @@ public class UsuarioController extends BaseController{
 			MensajesWebController.aniadirMensajeInformacion("erp.usuario.mensaje.registrar");
 			
 		} catch (SeguridadesException e) {
-			MensajesWebController.aniadirMensajeError(e.getMessage());
+			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
 	}
 	

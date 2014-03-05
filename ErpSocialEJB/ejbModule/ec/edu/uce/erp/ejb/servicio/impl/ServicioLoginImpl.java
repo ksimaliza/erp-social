@@ -3,6 +3,9 @@
  */
 package ec.edu.uce.erp.ejb.servicio.impl;
 
+import static ec.edu.uce.erp.common.util.ConstantesApplication.ESTADO_ACTIVO;
+
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -11,18 +14,21 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.enums.EnumTipoTransaccion;
 import ec.edu.uce.erp.common.util.CatalogoCabeceraConstantes;
 import ec.edu.uce.erp.common.util.EncriptacionUtil;
+import ec.edu.uce.erp.common.util.MessagesApplicacion;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.dao.factory.FactoryDAO;
 import ec.edu.uce.erp.ejb.persistence.entity.security.HistorialClave;
 import ec.edu.uce.erp.ejb.persistence.entity.security.HistoricoTransaccione;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
+import ec.edu.uce.erp.ejb.persistence.entity.security.Parametro;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 import ec.edu.uce.erp.ejb.persistence.util.dto.CredencialesDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.LoginVO;
@@ -64,10 +70,10 @@ public class ServicioLoginImpl implements ServicioLogin{
 				loginVOUsuario = new LoginVO();
 				loginVOUsuario.setCredencialesDTO(loginVO.getCredencialesDTO());
 				
-				usuarioLogueado.setFechaUltimoIngreso(UtilAplication.obtenerFechaActual());
-				factoryDAO.getUsuarioDAOImpl().update(usuarioLogueado);
-				
 				usuarioLogueado.setNpDebeCambiarClave(this.debeCambiarClave(usuarioLogueado));
+				usuarioLogueado.setFechaUltimoIngreso(UtilAplication.obtenerFechaActual());
+				
+				factoryDAO.getUsuarioDAOImpl().update(usuarioLogueado);
 				
 				//obtener los modulos del usuario
 				List<Modulo> modulosUsuario = factoryDAO.getModuloDAOImpl().obtenerModuloUsuario(usuarioLogueado);
@@ -154,19 +160,30 @@ public class ServicioLoginImpl implements ServicioLogin{
 	
 	private Boolean debeCambiarClave (Usuario usuario) throws SeguridadesException{
 		
-		String userNameEncriptado = EncriptacionUtil.getInstancia().encriptar(usuario.getLoginUsuario());
-		
-		if (userNameEncriptado.equals(usuario.getPassUsuario())) {
+		// si es el primer ingreso se debe cambiar la clave
+		if (usuario.getFechaUltimoIngreso()== null) {
 			return Boolean.TRUE;
-		} else {
+		}
+		
+		// se verifica la ultima ves que cambio la clave y se compara con el tiempo que se usa como parametro
+		Parametro parametroPlantilla = new Parametro();
+		parametroPlantilla.setEstado(ESTADO_ACTIVO);
+		parametroPlantilla.setIdParametro(MessagesApplicacion.getInteger("erp.parametro.cambiar.clave.id"));
+		List<Parametro> parametroCol = factoryDAO.getParametroDAOImpl().buscarParametroCriterios(parametroPlantilla);
+		
+		if (CollectionUtils.isNotEmpty(parametroCol) && parametroCol.size()==1) {
+			Parametro parametro = parametroCol.get(0);
 			
-//			ParametroDTO parametroPlantilla = new ParametroDTO();
-//			List<ParametroDTO> parametroCol = factoryDAO.getParametroDAOImpl().buscarParametroCriterios(parametroPlantilla);
-//			if (CollectionUtils.isEmpty(parametroCol)) {
-//				return Boolean.FALSE;
-//			} else {
-//				
-//			}
+			if (StringUtils.isNotBlank(parametro.getValorParametro())) {
+				
+				Long numeroDias = Long.valueOf(parametro.getValorParametro());
+				Timestamp fechaMaximoCambioClave = UtilAplication.sumarDiasTimestamp(usuario.getFechaCambioClave(),numeroDias);
+				Timestamp fechaActual = UtilAplication.obtenerFechaActual();
+				
+				if (fechaActual.getTime() > fechaMaximoCambioClave.getTime()) {
+					return Boolean.TRUE;
+				}
+			}
 		}
 		
 		return Boolean.FALSE;

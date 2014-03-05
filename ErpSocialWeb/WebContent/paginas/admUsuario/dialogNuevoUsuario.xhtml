@@ -6,17 +6,17 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpNuevoUsuario" header="#{i18n['erp.usuario.registrar']}" 
-		widgetVar="dlgNuevoUsuario" modal="true" minWidth="600" appendTo="@(body)">
-		<h:form id="formNuevoUsuario">	
-			<p:panel id="pnlNuevoUsuario" styleClass="formulario">
-				<table style="formulario">
+		widgetVar="dlgNuevoUsuario" modal="true" minWidth="500" width="500" appendTo="@(body)">
+		<h:form id="formNuevoUsuario" styleClass="formulario">	
+			<p:panel id="pnlNuevoUsuario">
+				<table class="formulario">
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.usuario.nombre']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNombre" style="width: 90%" required="true"
+							<p:inputText id="txtNombre" style="width: 100%" required="true"
 								value="#{usuarioDataManager.usuarioInstancia.nombresUsuario}" label="#{i18n['erp.usuario.nombre']}" />
 						</td>
 					</tr>
@@ -26,14 +26,14 @@
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
-							<p:inputText id="txtApellido" style="width: 90%" required="true"
+							<p:inputText id="txtApellido" style="width: 100%" required="true"
 								value="#{usuarioDataManager.usuarioInstancia.apellidosUsuario}"  label="#{i18n['erp.usuario.apellido']}" />
 						</td>
 					</tr>
 					<tr>
 						<td><h:outputLabel for="txtCI" value="#{i18n['erp.usuario.ci']}" /></td>
 						<td>
-							<p:inputText id="txtCI" style="width: 90%" onkeypress="return soloEnteros(this, event)" maxlength="10"
+							<p:inputText id="txtCI" style="width: 100%" onkeypress="return soloEnteros(this, event)" maxlength="10"
 								value="#{usuarioDataManager.usuarioInstancia.ciUsuario}" label="#{i18n['erp.usuario.ci']}" >
 								<f:validateLength maximum="10" minimum="10"/>
 								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
@@ -46,14 +46,14 @@
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
-							<p:inputText id="txtUsername" style="width: 90%" required="true"
+							<p:inputText id="txtUsername" style="width: 100%" required="true"
 								value="#{usuarioDataManager.usuarioInstancia.loginUsuario}" label="#{i18n['erp.usuario.username']}" />
 						</td>
 					</tr>
 					<tr>
 						<td><h:outputLabel for="txtMail" value="#{i18n['erp.usuario.email']}" /></td>
 						<td>
-							<p:inputText id="txtMail" style="width: 90%" 
+							<p:inputText id="txtMail" style="width: 100%" 
 								value="#{usuarioDataManager.usuarioInstancia.emailUsuario}" label="#{i18n['erp.usuario.email']}" >
 								<f:validator validatorId="ec.edu.uce.erp.web.validador.EmailValidator" />
 							</p:inputText>
@@ -65,7 +65,7 @@
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
-							<h:selectOneMenu id="selectEmpresa" required="true" style="width: 90%" 
+							<h:selectOneMenu id="selectEmpresa" required="true" style="width: 100%" 
 								value="#{usuarioController.idEmpresaSeleccionada}" label="#{i18n['label.empresa']}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" />
 								<f:selectItems value="#{selectItemsController.catalogoListaEmpresa}"/>
@@ -79,7 +79,7 @@
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
-							<p:selectOneMenu id="selectPerfil" required="true" style="width: 90%"
+							<p:selectOneMenu id="selectPerfil" required="true" style="width: 100%"
 								value="#{usuarioDataManager.usuarioInstancia.segtPerfil.idPerfil}" label="#{i18n['label.perfil']}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" />
 								<f:selectItems value="#{usuarioController.catalogoPerfiles}"/>
