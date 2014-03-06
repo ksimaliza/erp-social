@@ -1,7 +1,9 @@
-package ec.edu.uce.erp.ejb.persistence.entity;
+package ec.edu.uce.erp.ejb.persistence.entity.matricula;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.sql.Timestamp;
 import java.util.List;
 
