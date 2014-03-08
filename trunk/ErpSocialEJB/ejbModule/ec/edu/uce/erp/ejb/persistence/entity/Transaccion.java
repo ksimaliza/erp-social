@@ -17,6 +17,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.Bien;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien;
+
 
 /**
  * The persistent class for the transaccion_tbl database table.

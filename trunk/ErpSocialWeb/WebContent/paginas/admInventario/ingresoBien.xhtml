@@ -6,40 +6,33 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="title">
-		<h3><h:outputLabel	value="#{i18n['erp.proveedor.pagina.titulo']}" /></h3>
+		<h3><h:outputLabel	value="#{i18n['erp.bien.pagina.titulo']}" /></h3>
 	</ui:define>
 	<ui:define name="content">
-		<h:form id="formProveedor">
+		<h:form id="formBien">
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
 			<p:toolbar>
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
-					<p:commandButton id="btnNuevoProveedor" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoProveedor.show()"/>
+					<p:commandButton id="btnNuevoBien" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoProveedor.show()"/>
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:panel id="pnlBuscarProveedor" header="#{i18n['erp.proveedor.buscar']}">
+			<p:panel id="pnlBuscarBien" header="#{i18n['erp.bien.buscar']}">
 				<table>
 					<tr>
-						<td><h:outputLabel for="txtNombre" value="#{i18n['erp.proveedor.nombre']}" /></td>
+						<td><h:outputLabel for="txtNombre" value="#{i18n['erp.bien.nombre']}" /></td>
 						<td>
 							<p:inputText id="txtNombre"
-								value="#{proveedorDataManager.proveedorBuscar.provNombre}" />
-						</td>
-					</tr>
-					<tr>
-						<td><h:outputLabel for="txtApellido" value="#{i18n['erp.proveedor.apellido']}" /></td>
-						<td>
-							<p:inputText id="txtApellido"
-								value="#{proveedorDataManager.proveedorBuscar.provApellido}" />
+								value="#{bienDataManager.bienBuscar.bieNombre}" />
 						</td>
 					</tr>
 					<tr>
 						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
 						<td>
-							<p:selectOneMenu id="inputEstado" value="#{proveedorDataManager.proveedorBuscar.provEstado}">
+							<p:selectOneMenu id="inputEstado" value="#{bienDataManager.bienBuscar.bieEstado}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
-								<f:selectItem itemLabel="#{i18n['label.estado.vigente']}" itemValue="#{proveedorDataManager.estadoActivo}"/>
-								<f:selectItem itemLabel="#{i18n['label.estado.novigente']}" itemValue="#{proveedorDataManager.estadoInactivo}"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{bienDataManager.estadoActivo}"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{bienDataManager.estadoInactivo}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
@@ -47,14 +40,14 @@
 			</p:panel>
 			<p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
-					actionListener="#{proveedorController.buscarProveedor}"
+					actionListener="#{bienController.buscarBienes}"
 					value="#{i18n['label.buscar']}" 
-					process="@this,pnlBuscarProveedor"
-					update="pnlMessages,tablaProveedor,pnlBuscarProveedor" />
+					process="@this,pnlBuscarBien"
+					update="pnlMessages,tablaBienes,pnlBuscarBien" />
 			</p:panel>
-			<p:dataTable id="tablaProveedor"
-				value="#{proveedorDataManager.listaProveedor}"
-				var="proveedor" rowIndexVar="rowIndex"
+			<p:dataTable id="tablaBienes"
+				value="#{bienDataManager.listBien}"
+				var="bien" rowIndexVar="rowIndex"
 				paginator="true" rows="5" paginatorPosition="bottom"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
@@ -64,8 +57,8 @@
 				<p:column headerText="#" styleClass="centered" width="5%">
 					#{rowIndex+1}
 				</p:column>
-				<p:column headerText="#{i18n['erp.proveedor.nombre']}" width="20%">
-					<h:outputText value="#{proveedor.provNombre}" />
+				<p:column headerText="#{i18n['erp.bien.nombre']}" width="20%">
+					<h:outputText value="#{bien.bieNombre}" />
 				</p:column>
 				<p:column headerText="#{i18n['erp.proveedor.apellido']}" width="20%">
 					<h:outputText value="#{proveedor.provApellido}" />
@@ -120,7 +113,7 @@
 				<p:commandButton value="#{i18n['label.aceptar']}"
 					actionListener="#{proveedorController.desactivarProveedor}"
 					oncomplete="dlgDesactivar.hide()"
-					update="pnlMessages,tablaProveedor" process="@this"
+					update="pnlMessages,tablaBienes" process="@this"
 					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
 				<p:commandButton value="#{i18n['label.cancelar']}" type="button" 
 					onclick="dlgDesactivar.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
@@ -133,7 +126,7 @@
 				<p:commandButton value="#{i18n['label.aceptar']}"
 					actionListener="#{proveedorController.activarProveedor}"
 					oncomplete="dlgActivar.hide()"
-					update="pnlMessages,tablaProveedor" process="@this"
+					update="pnlMessages,tablaBienes" process="@this"
 					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
 				<p:commandButton value="#{i18n['label.cancelar']}" type="button" 
 					onclick="dlgActivar.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />

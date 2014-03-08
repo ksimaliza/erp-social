@@ -1,4 +1,4 @@
-package ec.edu.uce.erp.ejb.persistence.entity;
+package ec.edu.uce.erp.ejb.persistence.entity.inventory;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -20,7 +20,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import ec.edu.uce.erp.ejb.persistence.entity.inventory.Inventario;
+import ec.edu.uce.erp.ejb.persistence.entity.Ingreso;
+import ec.edu.uce.erp.ejb.persistence.entity.Transaccion;
+import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaUtil;
 
 
 /**
@@ -30,11 +32,11 @@ import ec.edu.uce.erp.ejb.persistence.entity.inventory.Inventario;
 @Entity
 @Table(name="bien_tbl")
 @NamedQuery(name="Bien.findAll", query="SELECT b FROM Bien b")
-public class Bien implements Serializable {
+public class Bien extends AuditoriaUtil implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="BIEN_TBL_BIEPK_GENERATOR", sequenceName="BIEN_TBL_BIE_PK_SEQ")
+	@SequenceGenerator(name="BIEN_TBL_BIEPK_GENERATOR", sequenceName="BIEN_TBL_BIE_PK_SEQ", allocationSize = 1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="BIEN_TBL_BIEPK_GENERATOR")
 	@Column(name="bie_pk")
 	private Integer biePk;

@@ -15,7 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import ec.edu.uce.erp.ejb.persistence.entity.Bien;
 import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
 
 

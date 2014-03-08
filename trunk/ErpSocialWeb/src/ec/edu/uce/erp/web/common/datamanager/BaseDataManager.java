@@ -25,7 +25,7 @@ public abstract class BaseDataManager implements Serializable{
 	public BaseDataManager () {
 		this.usuarioSession = (Usuario)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
 	}
-
+	
 	/**
 	 * @return the usuarioSession
 	 */
