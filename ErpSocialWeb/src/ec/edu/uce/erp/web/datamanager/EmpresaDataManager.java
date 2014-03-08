@@ -44,7 +44,6 @@ public class EmpresaDataManager extends BaseDataManager {
 		this.empresaInstancia = new Empresa();
 		this.empresaInstancia.setUsuarioRegistro(this.getUsuarioSession());
 		this.empresaEditar = new Empresa();
-		this.empresaEditar.setUsuarioRegistro(this.getUsuarioSession());
 		this.empresaBuscar = new Empresa();
 		this.listaEmpresa = new ArrayList<Empresa>();
 		

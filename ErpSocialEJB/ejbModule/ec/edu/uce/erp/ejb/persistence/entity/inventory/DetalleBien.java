@@ -1,4 +1,4 @@
-package ec.edu.uce.erp.ejb.persistence.entity;
+package ec.edu.uce.erp.ejb.persistence.entity.inventory;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,6 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import ec.edu.uce.erp.ejb.persistence.entity.Ingreso;
+import ec.edu.uce.erp.ejb.persistence.entity.Transaccion;
 
 
 /**

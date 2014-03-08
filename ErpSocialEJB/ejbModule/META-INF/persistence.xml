@@ -6,8 +6,8 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:/postgresqlErpDS</jta-data-source>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.AnioLectivo</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.Bien</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.CabeceraBien</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.Bien</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.CabeceraBien</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.CabeceraCatalogo</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.CabeceraCementerio</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.CabeceraMatricula</class>
@@ -20,8 +20,8 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Contrato</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Cupo</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Curso</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleBien</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleBienPK</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBienPK</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogo</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogoPK</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleCementerio</class>
