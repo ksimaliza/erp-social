@@ -17,6 +17,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.matricula.NivelDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matricula.NivelParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matricula.NotaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matricula.ParaleloDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matricula.ParcialDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
 
 @Stateless
@@ -131,14 +132,14 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	@Override
 	public MatriculaDTO createOrUpdateMatricula(MatriculaDTO matriculaDTO) throws SeguridadesException
 	{
-		slf4jLogger.info("createOrUpdateMateria");
+		slf4jLogger.info("createOrUpdateMatricula");
 		try {
 		if(matriculaDTO.getRegCodigo()!=null)
 			return matriculaFactoryDAO.getMatriculaDAOImpl().update(matriculaDTO);
 		else
 			return matriculaFactoryDAO.getMatriculaDAOImpl().create(matriculaDTO);
 		} catch (Exception e) {
-			slf4jLogger.info("error al createOrUpdateMateria {}", e.toString());
+			slf4jLogger.info("error al createOrUpdateMatricula {}", e.toString());
 			throw new SeguridadesException(e);
 		}
 		
@@ -148,23 +149,23 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	@Override
 	public void deleteMatricula(MatriculaDTO matriculaDTO) throws SeguridadesException
 	{
-		slf4jLogger.info("deleteMateria");
+		slf4jLogger.info("deleteMatricula");
 		try {
 		if(matriculaDTO.getRegCodigo()!=null)
 			matriculaFactoryDAO.getMatriculaDAOImpl().remove(matriculaDTO);		
 		else 
 			throw new SeguridadesException("no existe una coincidencia");
 		} catch (Exception e) {
-			slf4jLogger.info("error al deleteMateria {}", e.toString());
+			slf4jLogger.info("error al deleteMatricula {}", e.toString());
 			throw new SeguridadesException(e);
 		}
 		
 	}
 	
 	@Override
-	public NivelDTO createOrUpdateMatricula(NivelDTO nivelDTO) throws SeguridadesException
+	public NivelDTO createOrUpdateNivel(NivelDTO nivelDTO) throws SeguridadesException
 	{
-		slf4jLogger.info("createOrUpdateMateria");
+		slf4jLogger.info("createOrUpdateMatricula");
 		try {
 		if(nivelDTO.getNivCodigo()!=null)
 			return matriculaFactoryDAO.getNivelDAOImpl().update(nivelDTO);
@@ -214,30 +215,30 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	@Override
 	public void deleteNivelParalelo(NivelParaleloDTO nivelParaleloDTO) throws SeguridadesException
 	{
-		slf4jLogger.info("deleteMateria");
+		slf4jLogger.info("deleteNivelParalelo");
 		try {
 		if(nivelParaleloDTO.getNpaCodigo()!=null)
 			matriculaFactoryDAO.getNivelParaleloDAOImpl().remove(nivelParaleloDTO);		
 		else 
 			throw new SeguridadesException("no existe una coincidencia");
 		} catch (Exception e) {
-			slf4jLogger.info("error al deleteMateria {}", e.toString());
+			slf4jLogger.info("error al deleteNivelParalelo {}", e.toString());
 			throw new SeguridadesException(e);
 		}
 		
 	}
 	
 	@Override
-	public NotaDTO createOrUpdateNivelParalelo(NotaDTO notaDTO) throws SeguridadesException
+	public NotaDTO createOrUpdateNota(NotaDTO notaDTO) throws SeguridadesException
 	{
-		slf4jLogger.info("createOrUpdateMateria");
+		slf4jLogger.info("createOrUpdateNota");
 		try {
 		if(notaDTO.getNotCodigo()!=null)
 			return matriculaFactoryDAO.getNotaDAOImpl().update(notaDTO);
 		else
 			return matriculaFactoryDAO.getNotaDAOImpl().create(notaDTO);
 		} catch (Exception e) {
-			slf4jLogger.info("error al createOrUpdateMateria {}", e.toString());
+			slf4jLogger.info("error al createOrUpdateNota {}", e.toString());
 			throw new SeguridadesException(e);
 		}
 		
@@ -247,14 +248,14 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	@Override
 	public void deleteNota(NotaDTO notaDTO) throws SeguridadesException
 	{
-		slf4jLogger.info("deleteMateria");
+		slf4jLogger.info("deleteNota");
 		try {
 		if(notaDTO.getNotCodigo()!=null)
 			matriculaFactoryDAO.getNotaDAOImpl().remove(notaDTO);		
 		else 
 			throw new SeguridadesException("no existe una coincidencia");
 		} catch (Exception e) {
-			slf4jLogger.info("error al deleteMateria {}", e.toString());
+			slf4jLogger.info("error al deleteNota {}", e.toString());
 			throw new SeguridadesException(e);
 		}
 		
@@ -263,14 +264,14 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	@Override
 	public ParaleloDTO createOrUpdateParalelo(ParaleloDTO paraleloDTO) throws SeguridadesException
 	{
-		slf4jLogger.info("createOrUpdateMateria");
+		slf4jLogger.info("createOrUpdateParalelo");
 		try {
 		if(paraleloDTO.getParCodigo()!=null)
 			return matriculaFactoryDAO.getParaleloDAOImpl().update(paraleloDTO);
 		else
 			return matriculaFactoryDAO.getParaleloDAOImpl().create(paraleloDTO);
 		} catch (Exception e) {
-			slf4jLogger.info("error al createOrUpdateMateria {}", e.toString());
+			slf4jLogger.info("error al createOrUpdateParalelo {}", e.toString());
 			throw new SeguridadesException(e);
 		}
 		
@@ -280,14 +281,47 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	@Override
 	public void deleteParalelo(ParaleloDTO paraleloDTO) throws SeguridadesException
 	{
-		slf4jLogger.info("deleteMateria");
+		slf4jLogger.info("deleteParalelo");
 		try {
 		if(paraleloDTO.getParCodigo()!=null)
 			matriculaFactoryDAO.getParaleloDAOImpl().remove(paraleloDTO);		
 		else 
 			throw new SeguridadesException("no existe una coincidencia");
 		} catch (Exception e) {
-			slf4jLogger.info("error al deleteMateria {}", e.toString());
+			slf4jLogger.info("error al deleteParalelo {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+	}
+	
+	@Override
+	public ParcialDTO createOrUpdateParcial(ParcialDTO parcialDTO) throws SeguridadesException
+	{
+		slf4jLogger.info("createOrUpdateParcial");
+		try {
+		if(parcialDTO.getParCodigo()!=null)
+			return matriculaFactoryDAO.getParcialDAOImpl().update(parcialDTO);
+		else
+			return matriculaFactoryDAO.getParcialDAOImpl().create(parcialDTO);
+		} catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdateParcial {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+	}
+	
+	
+	@Override
+	public void deleteParcial(ParcialDTO parcialDTO) throws SeguridadesException
+	{
+		slf4jLogger.info("deleteParcial");
+		try {
+		if(parcialDTO.getParCodigo()!=null)
+			matriculaFactoryDAO.getParcialDAOImpl().remove(parcialDTO);		
+		else 
+			throw new SeguridadesException("no existe una coincidencia");
+		} catch (Exception e) {
+			slf4jLogger.info("error al deleteParalelo {}", e.toString());
 			throw new SeguridadesException(e);
 		}
 		

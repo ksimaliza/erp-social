@@ -11,6 +11,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.matricula.NivelDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matricula.NivelParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matricula.NotaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matricula.ParaleloDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matricula.ParcialDTO;
 
 @Local
 public interface ServicioMatricula {
@@ -58,5 +59,15 @@ public interface ServicioMatricula {
 
 		ParaleloDTO createOrUpdateParalelo(ParaleloDTO paraleloDTO)
 				throws SeguridadesException;
+
+		NivelDTO createOrUpdateNivel(NivelDTO nivelDTO)
+				throws SeguridadesException;
+
+		NotaDTO createOrUpdateNota(NotaDTO notaDTO) throws SeguridadesException;
+
+		ParcialDTO createOrUpdateParcial(ParcialDTO parcialDTO)
+				throws SeguridadesException;
+
+		void deleteParcial(ParcialDTO parcialDTO) throws SeguridadesException;
 
 }
