@@ -8,16 +8,15 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.dao.factory.MatriculaFactoryDAO;
-import ec.edu.uce.erp.ejb.persistence.entity.matricula.AsinacionDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matricula.EstudianteDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matricula.EstudianteRepresentanteDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matricula.MateriaDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matricula.MatriculaDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matricula.NivelDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matricula.NivelParaleloDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matricula.NotaDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matricula.ParaleloDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matricula.ParcialDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MateriaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NotaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParcialDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
 
 @Stateless

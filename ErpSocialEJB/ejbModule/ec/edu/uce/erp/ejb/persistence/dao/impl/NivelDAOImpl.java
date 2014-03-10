@@ -3,7 +3,7 @@ package ec.edu.uce.erp.ejb.persistence.dao.impl;
 import javax.persistence.EntityManager;
 
 import ec.edu.uce.erp.ejb.persistence.dao.NivelDAO;
-import ec.edu.uce.erp.ejb.persistence.entity.matricula.NivelDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 
 public class NivelDAOImpl extends AbstractFacadeImpl<NivelDTO> implements NivelDAO {
 

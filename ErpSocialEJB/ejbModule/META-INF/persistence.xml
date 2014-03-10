@@ -75,20 +75,20 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.TransicionEstados</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Vacaciones</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.ValidacionDocumento</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.matricula.AsinacionDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.matricula.EstudianteDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.matricula.EstudianteRepresentanteDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.matricula.MateriaDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.matricula.MatriculaDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.matricula.MatriculaDetalleDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.matricula.NivelDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.matricula.NivelParaleloDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.matricula.ParaleloDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.matricula.PeriodoDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.matricula.ProfesorDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.matricula.RepresentanteDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.matricula.NotaDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.matricula.ParcialDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteRepresentanteDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MateriaDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDetalleDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NotaDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParcialDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.view.VistaHistoricoTransaccion</class>
 		<properties>
 			<property name="hibernate.connection.username" value="postgres" />

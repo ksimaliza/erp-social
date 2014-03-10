@@ -3,7 +3,7 @@ package ec.edu.uce.erp.ejb.persistence.dao.impl;
 import javax.persistence.EntityManager;
 
 import ec.edu.uce.erp.ejb.persistence.dao.RepresentanteDAO;
-import ec.edu.uce.erp.ejb.persistence.entity.matricula.RepresentanteDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteDTO;
 
 public class RepresentanteDAOImpl extends AbstractFacadeImpl<RepresentanteDTO> implements RepresentanteDAO {
 

@@ -3,7 +3,7 @@ package ec.edu.uce.erp.ejb.persistence.dao.impl;
 import javax.persistence.EntityManager;
 
 import ec.edu.uce.erp.ejb.persistence.dao.NivelParaleloDAO;
-import ec.edu.uce.erp.ejb.persistence.entity.matricula.NivelParaleloDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
 
 public class NivelParaleloDAOImpl extends AbstractFacadeImpl<NivelParaleloDTO> implements NivelParaleloDAO{
 

@@ -3,7 +3,7 @@ package ec.edu.uce.erp.ejb.persistence.dao.impl;
 import javax.persistence.EntityManager;
 
 import ec.edu.uce.erp.ejb.persistence.dao.MatriculaDAO;
-import ec.edu.uce.erp.ejb.persistence.entity.matricula.MatriculaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDTO;
 
 public class MatriculaDAOImpl extends AbstractFacadeImpl<MatriculaDTO> implements MatriculaDAO{
 
