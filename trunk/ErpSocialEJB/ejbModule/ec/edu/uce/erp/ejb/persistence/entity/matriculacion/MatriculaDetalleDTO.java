@@ -1,4 +1,4 @@
-package ec.edu.uce.erp.ejb.persistence.entity.matricula;
+package ec.edu.uce.erp.ejb.persistence.entity.matriculacion;
 
 import java.io.Serializable;
 import java.util.List;
