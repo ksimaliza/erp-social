@@ -12,16 +12,24 @@
 
 	
 <ui:define name="content">
-		<h:form id="formMenu">
+		<h:form id="formEstudiante">
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
 			<p:toolbar>
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" />
-					<p:commandButton id="btnNuevoMenu" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevoMenu.show()">
-						<f:setPropertyActionListener target="#{menuController.dialogVisible}" value="true"/>
-					</p:commandButton>
+					<p:commandButton id="btnNuevoEstudiante" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevoEstudiante.show()">
+						</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
-		</h:form>	
-</ui:define>
-	</ui:composition>
+			<p:panel id="pnlBuscarEstudiante" header="#{i18n['erp.matricula.estudiante.buscar']}">
+				<table>
+					<tr>
+						<td><h:outputLabel for="txtNombreBuscar" value="#{i18n['erp.matricula.estudiante.nombre']}" /> </td>
+					</tr>
+				</table>
+			</p:panel>
+				
+		</h:form>			
+		
+	</ui:define>
+</ui:composition>
