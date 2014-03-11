@@ -17,6 +17,9 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NotaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParcialDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
 
 @Stateless
@@ -320,7 +323,106 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		else 
 			throw new SeguridadesException("no existe una coincidencia");
 		} catch (Exception e) {
-			slf4jLogger.info("error al deleteParalelo {}", e.toString());
+			slf4jLogger.info("error al deleteParcial {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+	}
+	
+	@Override
+	public PeriodoDTO createOrUpdatePeriodo(PeriodoDTO periodoDTO) throws SeguridadesException
+	{
+		slf4jLogger.info("createOrUpdatePeriodo");
+		try {
+		if(periodoDTO.getPerCodigo()!=null)
+			return matriculaFactoryDAO.getPeriodoDAOImpl().update(periodoDTO);
+		else
+			return matriculaFactoryDAO.getPeriodoDAOImpl().create(periodoDTO);
+		} catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdatePeriodo {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+	}
+	
+	
+	@Override
+	public void deletePeriodo(PeriodoDTO periodoDTO) throws SeguridadesException
+	{
+		slf4jLogger.info("deletePeriodo");
+		try {
+		if(periodoDTO.getPerCodigo()!=null)
+			matriculaFactoryDAO.getPeriodoDAOImpl().remove(periodoDTO);		
+		else 
+			throw new SeguridadesException("no existe una coincidencia");
+		} catch (Exception e) {
+			slf4jLogger.info("error al deletePeriodo {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+	}
+	
+	@Override
+	public ProfesorDTO createOrUpdateProfesor(ProfesorDTO profesorDTO) throws SeguridadesException
+	{
+		slf4jLogger.info("createOrUpdateProfesor");
+		try {
+		if(profesorDTO.getProCodigo()!=null)
+			return matriculaFactoryDAO.getProfesorDAOImpl().update(profesorDTO);
+		else
+			return matriculaFactoryDAO.getProfesorDAOImpl().create(profesorDTO);
+		} catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdateProfesor {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+	}
+	
+	
+	@Override
+	public void deleteProfesor(ProfesorDTO profesorDTO) throws SeguridadesException
+	{
+		slf4jLogger.info("deleteProfesor");
+		try {
+		if(profesorDTO.getProCodigo()!=null)
+			matriculaFactoryDAO.getProfesorDAOImpl().remove(profesorDTO);		
+		else 
+			throw new SeguridadesException("no existe una coincidencia");
+		} catch (Exception e) {
+			slf4jLogger.info("error al deleteProfesor {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+	}
+	
+	@Override
+	public RepresentanteDTO createOrUpdateRepresentante(RepresentanteDTO representanteDTO) throws SeguridadesException
+	{
+		slf4jLogger.info("createOrUpdateRepresentante");
+		try {
+		if(representanteDTO.getRepCodigo()!=null)
+			return matriculaFactoryDAO.getRepresentanteDAOImpl().update(representanteDTO);
+		else
+			return matriculaFactoryDAO.getRepresentanteDAOImpl().create(representanteDTO);
+		} catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdateRepresentante {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+	}
+	
+	
+	@Override
+	public void deleteRepresentante(RepresentanteDTO representanteDTO) throws SeguridadesException
+	{
+		slf4jLogger.info("deleteRepresentante");
+		try {
+		if(representanteDTO.getRepCodigo()!=null)
+			matriculaFactoryDAO.getRepresentanteDAOImpl().remove(representanteDTO);		
+		else 
+			throw new SeguridadesException("no existe una coincidencia");
+		} catch (Exception e) {
+			slf4jLogger.info("error al deleteRepresentante {}", e.toString());
 			throw new SeguridadesException(e);
 		}
 		
