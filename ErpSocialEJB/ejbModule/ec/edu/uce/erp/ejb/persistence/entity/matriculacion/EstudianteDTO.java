@@ -95,4 +95,12 @@ public class EstudianteDTO implements Serializable {
 		return matMatricula;
 	}
 
+	public long getSerialVersionUID() {
+		return serialVersionUID;
+	}
+
+	public void setSerialVersionUID(long serialVersionUID) {
+		this.serialVersionUID = serialVersionUID;
+	}
+
 }
