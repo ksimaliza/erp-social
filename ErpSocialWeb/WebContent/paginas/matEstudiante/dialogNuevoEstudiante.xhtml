@@ -6,9 +6,9 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpNuevoPerfil" header="#{i18n['erp.perfil.registrar']}" resizable="false" draggable="false"
-		widgetVar="dlgNuevoPerfil" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		widgetVar="dlgNuevoEstudiante" modal="true" width="500" minWidth="500" appendTo="@(body)">
 		<h:form id="formNuevoPerfil" styleClass="formulario">
-			<p:panel id="pnlNuevoPerfil">
+			<p:panel id="pnlNuevoEstudiante">
 				<table class="formulario">
 					<tr>
 						<td width="30%">
@@ -28,7 +28,7 @@
 						</td>
 						<td>
 							<p:inputText id="txtDesc" style="width: 100%"
-								value="#{perfilDataManager.perfilInstancia.descPerfil}" />
+								 />
 						</td>
 					</tr>
 					<tr>
@@ -52,7 +52,7 @@
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{perfilController.registrarPerfil}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoPerfil.hide()"
-					process="@this,pnlNuevoPerfil" update="pnlNuevoPerfil,:formPerfil:pnlMessages,:formPerfil:tablaPerfiles"/>
+					process="@this,pnlNuevoPerfil" update="pnlNuevoPerfil,:formEstudiante:pnlMessages,:formPerfil:tablaPerfiles"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoPerfil.hide();" type="button" />
 			</p:panel>
 		</h:form>
