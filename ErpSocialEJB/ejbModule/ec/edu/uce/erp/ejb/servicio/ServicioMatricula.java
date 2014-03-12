@@ -12,6 +12,9 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NotaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParcialDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteDTO;
 
 @Local
 public interface ServicioMatricula {
@@ -60,6 +63,22 @@ public interface ServicioMatricula {
 			throws SeguridadesException;
 
 	void deleteParcial(ParcialDTO parcialDTO) throws SeguridadesException;
+
+	PeriodoDTO createOrUpdatePeriodo(PeriodoDTO periodoDTO)
+			throws SeguridadesException;
+
+	void deletePeriodo(PeriodoDTO periodoDTO) throws SeguridadesException;
+
+	ProfesorDTO createOrUpdateProfesor(ProfesorDTO profesorDTO)
+			throws SeguridadesException;
+
+	void deleteProfesor(ProfesorDTO profesorDTO) throws SeguridadesException;
+
+	RepresentanteDTO createOrUpdateRepresentante(
+			RepresentanteDTO representanteDTO) throws SeguridadesException;
+
+	void deleteRepresentante(RepresentanteDTO representanteDTO)
+			throws SeguridadesException;
 
 
 
