@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpNuevoPeriodo" header="#{i18n['erp.matricula.periodo.registrar']}" resizable="false" draggable="false"
+		widgetVar="dlgNuevoPeriodo" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<h:form id="formNuevoPeriodo" styleClass="formulario">
+			<p:panel id="pnlNuevoPeriodo">
+				<table class="formulario">
+					
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtDescrip" value="#{i18n['erp.matricula.periodo.descripcion']}" />
+							
+						</td>
+						<td width="70%">
+							<p:inputText id="txtDescrip"
+								style="width: 100%"
+								required="true" label="#{i18n['erp.matricula.periodo.descripcion']}"/>
+						</td>
+					</tr>
+					
+					
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoPeriodo.hide()"
+					process="@this,pnlNuevoPeriodo" update="pnlNuevoPeriodo,:formPeriodo:pnlMessages,:formPeriodo:tablaPeriodo"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoPeriodo.hide();" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>
