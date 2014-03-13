@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	
+<ui:define name="title">
+		<h3><h:outputLabel	value="#{i18n['erp.matricula.materia.pagina.titulo']}" /></h3>
+	</ui:define>	
+
+	
+<ui:define name="content">
+		<h:form id="formMateria">
+		
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
+					</p:commandButton>
+					<p:commandButton id="btnNuevaMateria" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevaMateria.show()">
+						</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panel id="pnlBuscarMateria" header="#{i18n['erp.matricula.materia.buscar']}">
+				<table class="formulario">
+					<tr>
+						<td><h:outputLabel value="Nombre" /> </td>
+					</tr>
+				</table>
+			</p:panel>
+
+
+
+<p:dataTable id="tablaMateria"
+	
+	rowIndexVar="rowIndex"
+	paginator="true" rows="5" paginatorPosition="bottom"
+	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.matricula.materia.lista']}">
+	<f:facet name="header">
+		#{i18n['erp.matricula.materia.lista']}
+	</f:facet>
+	<p:column headerText="#" styleClass="centered" width="5%">
+		#{rowIndex+1}
+	</p:column>
+
+			</p:dataTable>			
+	
+</h:form>			
+		
+		
+<ui:include src="dialogNuevaMateria.xhtml" />		
+		
+	</ui:define>
+</ui:composition>
