@@ -58,7 +58,7 @@ public class DetalleCatalogoDAOImpl extends AbstractFacadeImpl<DetalleCatalogo> 
 			
 			//por id cabecera
 			if (StringUtils.isNotBlank(detalleCatalogo.getId().getCabCatalogoFk())) {
-				predicate = criteriaBuilder.equal(fromUsuario.get("id.cabCatalogoFk"), detalleCatalogo.getId().getCabCatalogoFk());
+				predicate = criteriaBuilder.equal(fromUsuario.get("id").get("cabCatalogoFk"), detalleCatalogo.getId().getCabCatalogoFk());
 				criteriaList.add(predicate);
 			}
 			
