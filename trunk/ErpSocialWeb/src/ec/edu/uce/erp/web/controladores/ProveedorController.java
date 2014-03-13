@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogo;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
@@ -70,11 +71,20 @@ public class ProveedorController extends BaseController{
 		slf4jLogger.info("registrarProveedor");
 		
 		try {
+			
+			this.proveedorDataManager.getProveedorInstancia()
+					.setCabCatalogoPaisCiudad(this.proveedorDataManager
+									.getDetalleCatalogoSeleccionado().getId().getCabCatalogoFk());
+			this.proveedorDataManager.getProveedorInstancia()
+					.setDetCatalogoPaisCiudad(this.proveedorDataManager
+									.getDetalleCatalogoSeleccionado().getId().getDetCatalogoNivel1());
 			Proveedor proveedorNuevo = servicioInventario.registrarProveedor(this.proveedorDataManager.getProveedorInstancia());
 			
 			if (proveedorNuevo != null) {
 				this.proveedorDataManager.getListaProveedor().add(proveedorNuevo);
 				MensajesWebController.aniadirMensajeInformacion("erp.proveedor.informacion.registar");
+				this.proveedorDataManager.setProveedorInstancia(new Proveedor());
+				this.proveedorDataManager.setDetalleCatalogoSeleccionado(new DetalleCatalogo());
 			}
 			
 		} catch (SeguridadesException e) {

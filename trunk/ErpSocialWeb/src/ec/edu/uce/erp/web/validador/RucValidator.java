@@ -38,9 +38,9 @@ public class RucValidator implements Validator{
 				}
 				
 				//verifica que el ruc finalice en 001
-				if (!ruc.substring(10, 13).equals("001")) {
-					lanzarExcepcion("Los tres ultimos digitos no tienen el codigo del RUC 001.");
-				}
+//				if (!ruc.substring(10, 13).equals("001")) {
+//					lanzarExcepcion("Los tres ultimos digitos no tienen el codigo del RUC 001.");
+//				}
 				
 				int tercerDigito = Integer.parseInt(ruc.substring(2, 3));
 				

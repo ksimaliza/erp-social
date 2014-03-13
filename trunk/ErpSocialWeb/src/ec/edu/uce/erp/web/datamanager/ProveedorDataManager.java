@@ -3,15 +3,29 @@
  */
 package ec.edu.uce.erp.web.datamanager;
 
+import static ec.edu.uce.erp.common.util.CatalogoCabeceraConstantes.ID_CAB_CATALOGO_CUIDAD_ECUADOR;
+import static ec.edu.uce.erp.common.util.ConstantesApplication.ESTADO_ACTIVO;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogo;
+import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogoPK;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
+import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
+import ec.edu.uce.erp.web.common.util.UtilSelectItems;
 
 /**
  * @author 
@@ -22,6 +36,10 @@ import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 public class ProveedorDataManager extends BaseDataManager{
 
 	private static final long serialVersionUID = 1L;
+	private static final Logger slf4jLogger = LoggerFactory.getLogger(ProveedorDataManager.class);
+	
+	@EJB
+	public ServicioAdministracion servicioAdministracion;
 	
 	private Proveedor proveedorInstancia;
 	private Proveedor proveedorEditar;
@@ -29,8 +47,12 @@ public class ProveedorDataManager extends BaseDataManager{
 	
 	private List<Proveedor> listaProveedor;
 	
+	private List<SelectItem> catalogoCiudadEcuador;
+	private DetalleCatalogo detalleCatalogoSeleccionado;
+	
 	public ProveedorDataManager () {
 		super();
+//		catalogoCiudadEcuador = new ArrayList<SelectItem>();
 	}
 	
 	@PostConstruct
@@ -40,6 +62,9 @@ public class ProveedorDataManager extends BaseDataManager{
 		this.proveedorEditar = new Proveedor();
 		this.proveedorBuscar = new Proveedor();
 		this.listaProveedor = new ArrayList<Proveedor>();
+		
+		detalleCatalogoSeleccionado = new DetalleCatalogo();
+		detalleCatalogoSeleccionado.setId(new DetalleCatalogoPK());
 	}
 
 	/**
@@ -97,5 +122,42 @@ public class ProveedorDataManager extends BaseDataManager{
 	public void setListaProveedor(List<Proveedor> listaProveedor) {
 		this.listaProveedor = listaProveedor;
 	}
+	
+	/**
+	 * @return the catalogoCiudadEcuador
+	 * @throws SeguridadesException 
+	 */
+	public List<SelectItem> getCatalogoCiudadEcuador() throws SeguridadesException {
+		
+		if (CollectionUtils.isEmpty(catalogoCiudadEcuador)) {
+			
+			DetalleCatalogo detalleCatalogo = new DetalleCatalogo();
+			detalleCatalogo.setId(new DetalleCatalogoPK());
+			detalleCatalogo.getId().setCabCatalogoFk(ID_CAB_CATALOGO_CUIDAD_ECUADOR);
+			detalleCatalogo.setDetCatalogoEstado(ESTADO_ACTIVO);
+			List<DetalleCatalogo> listDetalleCatalogo = servicioAdministracion.buscarDetalleCatalogoCriterios(detalleCatalogo);
+			
+			slf4jLogger.info("cargar catalogoTipoIngreso");
+			catalogoCiudadEcuador = UtilSelectItems.getInstancia().cargarSelectItems(listDetalleCatalogo, null, null);
+			
+		}
+		
+		return catalogoCiudadEcuador;
+	}
 
+	/**
+	 * @return the detalleCatalogoSeleccionado
+	 */
+	public DetalleCatalogo getDetalleCatalogoSeleccionado() {
+		return detalleCatalogoSeleccionado;
+	}
+
+	/**
+	 * @param detalleCatalogoSeleccionado the detalleCatalogoSeleccionado to set
+	 */
+	public void setDetalleCatalogoSeleccionado(
+			DetalleCatalogo detalleCatalogoSeleccionado) {
+		this.detalleCatalogoSeleccionado = detalleCatalogoSeleccionado;
+	}
+	
 }

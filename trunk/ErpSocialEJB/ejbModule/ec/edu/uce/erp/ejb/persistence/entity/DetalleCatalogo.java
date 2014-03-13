@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
@@ -33,7 +34,7 @@ public class DetalleCatalogo implements Serializable {
 	private String detCatalogoEstado;
 
 	//bi-directional many-to-one association to CabeceraCatalogo
-	@ManyToOne
+	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn(name="cab_catalogo_fk", referencedColumnName="cab_catalogo_pk", insertable=false, updatable=false)
 	private CabeceraCatalogo cabeceraCatalogoTbl;
 

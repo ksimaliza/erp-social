@@ -6,10 +6,10 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpNuevoProveedor" header="#{i18n['erp.proveedor.registrar']}" 
-		widgetVar="dlgNuevoProveedor" modal="true" minWidth="600" appendTo="@(body)">
-		<h:form id="formNuevoProveedor">	
-			<p:panel id="pnlNuevoProveedor" styleClass="formulario">
-				<table style="formulario">
+		widgetVar="dlgNuevoProveedor" modal="true" minWidth="500" width="500" appendTo="@(body)" draggable="false">
+		<h:form id="formNuevoProveedor" styleClass="formulario">
+			<p:panel id="pnlNuevoProveedor" >
+				<table class="formulario">
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.proveedor.nombre']}" />
@@ -32,6 +32,34 @@
 					</tr>
 					<tr>
 						<td>
+							<h:outputLabel for="txtCiRuc" value="#{i18n['erp.proveedor.ci']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:inputText id="txtCiRuc" style="width: 90%" maxlength="13"
+								onkeypress="return soloEnteros(this, event)" required="true"
+								value="#{proveedorDataManager.proveedorInstancia.provDocumentoIdentificacion}" label="#{i18n['erp.proveedor.ci']}">
+								<f:validateLength maximum="13" minimum="10"/>
+								<f:validator validatorId="ec.edu.uce.erp.web.validador.RucValidator" />
+							</p:inputText>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtCiudad" value="#{i18n['erp.proveedor.ciudad']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:selectOneMenu id="txtCiudad" panelStyle="width: 20%"
+								required="true" label="#{i18n['erp.proveedor.ciudad']}"
+								value="#{proveedorDataManager.proveedorInstancia.detCatalogoPaisCiudad}" >
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItems value="#{proveedorDataManager.catalogoCiudadEcuador}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td>
 							<h:outputLabel for="txtDireccion" value="#{i18n['erp.proveedor.direccion']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
@@ -43,12 +71,33 @@
 					<tr>
 						<td>
 							<h:outputLabel for="txtTelefono" value="#{i18n['erp.proveedor.telefono']}" />
-							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
 							<p:inputText id="txtTelefono" style="width: 90%" 
-								onkeypress="return soloEnteros(this, event)" required="true"
+								onkeypress="return soloEnteros(this, event)" maxlength="15"
 								value="#{proveedorDataManager.proveedorInstancia.provTelefono}"  label="#{i18n['erp.proveedor.telefono']}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtMail" value="#{i18n['label.email']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:inputText id="txtMail" style="width: 90%" required="true"
+								value="#{proveedorDataManager.proveedorInstancia.provEmail}" label="#{i18n['label.email']}" >
+								<f:validator validatorId="ec.edu.uce.erp.web.validador.EmailValidator" />
+							</p:inputText>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtNotas" value="#{i18n['erp.proveedor.notas']}" />
+						</td>
+						<td>
+							<p:inputText id="txtNotas" style="width: 90%" 
+								value="#{proveedorDataManager.proveedorInstancia.provNotas}" label="#{i18n['erp.proveedor.notas']}" >
+							</p:inputText>
 						</td>
 					</tr>
 				</table>
