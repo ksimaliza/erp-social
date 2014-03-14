@@ -8,6 +8,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
 
 /**
@@ -16,6 +17,18 @@ import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
  */
 @Local
 public interface ServicioInventario {
+	
+	/*
+	 * Servicio para administracion del catalogo usado en el modulo de inventario
+	 */
+	
+	/**
+	 * Buscar <code>DetalleBien</code> en la BD por diferentes criterios
+	 * @param detalleBien
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	List<DetalleBien> buscarDetalleBienCriterios (DetalleBien detalleBien) throws SeguridadesException;
 	
 	/*
 	 * Servicio para administracion de proveedores

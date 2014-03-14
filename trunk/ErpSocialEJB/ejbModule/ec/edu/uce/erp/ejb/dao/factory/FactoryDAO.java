@@ -5,6 +5,7 @@ package ec.edu.uce.erp.ejb.dao.factory;
 
 import javax.ejb.Local;
 
+import ec.edu.uce.erp.ejb.persistence.dao.DetalleBienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.DetalleCatalogoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.EmpresaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HistorialClaveDAO;
@@ -37,5 +38,6 @@ public interface FactoryDAO {
 	PersonaDAO getPersonaDAOImpl();
 	
 	DetalleCatalogoDAO getDetalleCatalogoDAOImpl();
+	DetalleBienDAO getDetalleBienDAOImpl();
 	
 }

@@ -14,7 +14,7 @@ public class DetalleBienPK implements Serializable {
 	//default serial version id, required for serializable classes.
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="cab_bien_fk", insertable=false, updatable=false)
+	@Column(name="cab_bien_fk")
 	private String cabBienFk;
 
 	@Column(name="det_bien_nivel1")

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
@@ -35,21 +36,21 @@ public class DetalleBien implements Serializable {
 	@Column(name="det_bien_estado")
 	private String detBienEstado;
 
-	//bi-directional many-to-one association to Bien
-	@OneToMany(mappedBy="detalleBienTbl1")
-	private List<Bien> bienTbls1;
+//	//bi-directional many-to-one association to Bien
+//	@OneToMany(mappedBy="dcTipoBien")
+//	private List<Bien> bienTbls1;
 
-	//bi-directional many-to-one association to Bien
-	@OneToMany(mappedBy="detalleBienTbl2")
-	private List<Bien> bienTbls2;
+//	//bi-directional many-to-one association to Bien
+//	@OneToMany(mappedBy="dcEstadoBien")
+//	private List<Bien> bienTbls2;
 
-	//bi-directional many-to-one association to Bien
-	@OneToMany(mappedBy="detalleBienTbl3")
-	private List<Bien> bienTbls3;
+//	//bi-directional many-to-one association to Bien
+//	@OneToMany(mappedBy="dcEstadoConservacion")
+//	private List<Bien> bienTbls3;
 
 	//bi-directional many-to-one association to CabeceraBien
-	@ManyToOne
-	@JoinColumn(name="cab_bien_fk", insertable=false, updatable=false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="cab_bien_fk", referencedColumnName="cab_bien_pk", insertable=false, updatable=false)
 	private CabeceraBien cabeceraBienTbl;
 
 	//bi-directional many-to-one association to Ingreso
@@ -87,71 +88,71 @@ public class DetalleBien implements Serializable {
 		this.detBienEstado = detBienEstado;
 	}
 
-	public List<Bien> getBienTbls1() {
-		return this.bienTbls1;
-	}
+//	public List<Bien> getBienTbls1() {
+//		return this.bienTbls1;
+//	}
+//
+//	public void setBienTbls1(List<Bien> bienTbls1) {
+//		this.bienTbls1 = bienTbls1;
+//	}
 
-	public void setBienTbls1(List<Bien> bienTbls1) {
-		this.bienTbls1 = bienTbls1;
-	}
+//	public Bien addBienTbls1(Bien bienTbls1) {
+//		getBienTbls1().add(bienTbls1);
+//		bienTbls1.setDetalleBienTbl1(this);
+//
+//		return bienTbls1;
+//	}
+//
+//	public Bien removeBienTbls1(Bien bienTbls1) {
+//		getBienTbls1().remove(bienTbls1);
+//		bienTbls1.setDetalleBienTbl1(null);
+//
+//		return bienTbls1;
+//	}
 
-	public Bien addBienTbls1(Bien bienTbls1) {
-		getBienTbls1().add(bienTbls1);
-		bienTbls1.setDetalleBienTbl1(this);
+//	public List<Bien> getBienTbls2() {
+//		return this.bienTbls2;
+//	}
+//
+//	public void setBienTbls2(List<Bien> bienTbls2) {
+//		this.bienTbls2 = bienTbls2;
+//	}
 
-		return bienTbls1;
-	}
+//	public Bien addBienTbls2(Bien bienTbls2) {
+//		getBienTbls2().add(bienTbls2);
+//		bienTbls2.setDetalleBienTbl2(this);
+//
+//		return bienTbls2;
+//	}
+//
+//	public Bien removeBienTbls2(Bien bienTbls2) {
+//		getBienTbls2().remove(bienTbls2);
+//		bienTbls2.setDetalleBienTbl2(null);
+//
+//		return bienTbls2;
+//	}
 
-	public Bien removeBienTbls1(Bien bienTbls1) {
-		getBienTbls1().remove(bienTbls1);
-		bienTbls1.setDetalleBienTbl1(null);
+//	public List<Bien> getBienTbls3() {
+//		return this.bienTbls3;
+//	}
+//
+//	public void setBienTbls3(List<Bien> bienTbls3) {
+//		this.bienTbls3 = bienTbls3;
+//	}
 
-		return bienTbls1;
-	}
-
-	public List<Bien> getBienTbls2() {
-		return this.bienTbls2;
-	}
-
-	public void setBienTbls2(List<Bien> bienTbls2) {
-		this.bienTbls2 = bienTbls2;
-	}
-
-	public Bien addBienTbls2(Bien bienTbls2) {
-		getBienTbls2().add(bienTbls2);
-		bienTbls2.setDetalleBienTbl2(this);
-
-		return bienTbls2;
-	}
-
-	public Bien removeBienTbls2(Bien bienTbls2) {
-		getBienTbls2().remove(bienTbls2);
-		bienTbls2.setDetalleBienTbl2(null);
-
-		return bienTbls2;
-	}
-
-	public List<Bien> getBienTbls3() {
-		return this.bienTbls3;
-	}
-
-	public void setBienTbls3(List<Bien> bienTbls3) {
-		this.bienTbls3 = bienTbls3;
-	}
-
-	public Bien addBienTbls3(Bien bienTbls3) {
-		getBienTbls3().add(bienTbls3);
-		bienTbls3.setDetalleBienTbl3(this);
-
-		return bienTbls3;
-	}
-
-	public Bien removeBienTbls3(Bien bienTbls3) {
-		getBienTbls3().remove(bienTbls3);
-		bienTbls3.setDetalleBienTbl3(null);
-
-		return bienTbls3;
-	}
+//	public Bien addBienTbls3(Bien bienTbls3) {
+//		getBienTbls3().add(bienTbls3);
+//		bienTbls3.setDetalleBienTbl3(this);
+//
+//		return bienTbls3;
+//	}
+//
+//	public Bien removeBienTbls3(Bien bienTbls3) {
+//		getBienTbls3().remove(bienTbls3);
+//		bienTbls3.setDetalleBienTbl3(null);
+//
+//		return bienTbls3;
+//	}
 
 	public CabeceraBien getCabeceraBienTbl() {
 		return this.cabeceraBienTbl;

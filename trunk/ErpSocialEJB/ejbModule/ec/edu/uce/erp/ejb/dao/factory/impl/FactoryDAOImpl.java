@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import ec.edu.uce.erp.ejb.dao.factory.FactoryDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.DetalleBienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.DetalleCatalogoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.EmpresaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HistorialClaveDAO;
@@ -18,6 +19,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.ParametroDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PerfilDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PersonaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.UsuarioDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.DetalleBienDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.DetalleCatalogoDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.EmpresaDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.HistorialClaveDAOImpl;
@@ -53,6 +55,7 @@ public class FactoryDAOImpl implements FactoryDAO {
 	private PersonaDAO personaDAO;
 	
 	private DetalleCatalogoDAO detalleCatalogoDAO;
+	private DetalleBienDAO detalleBienDAO;
 
 	@Override
 	public UsuarioDAO getUsuarioDAOImpl() {
@@ -133,6 +136,14 @@ public class FactoryDAOImpl implements FactoryDAO {
 			detalleCatalogoDAO = new DetalleCatalogoDAOImpl(entityManager);
 		}
 		return detalleCatalogoDAO;
+	}
+
+	@Override
+	public DetalleBienDAO getDetalleBienDAOImpl() {
+		if (detalleBienDAO == null) {
+			detalleBienDAO = new DetalleBienDAOImpl(entityManager);
+		}
+		return detalleBienDAO;
 	}
 
 }

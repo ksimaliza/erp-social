@@ -18,7 +18,10 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogo;
 import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogoPK;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBienPK;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
+import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 
 /**
  * @author
@@ -43,15 +46,24 @@ public final class UtilSelectItems {
 		return INSTANCIA;
 	}
 	
-	public List<SelectItem> cargarSelectItems (List<DetalleCatalogo> listDetalleCatalogo, String idDetalleCatalogo, ServicioAdministracion servicioAdministracion) throws SeguridadesException {
+	/**
+	 * Cargar <code>SelectItem</code> desde la tabla <code>DetalleCatalogo</code>
+	 * @param idCabCatalogo
+	 * @param servicioAdministracion
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	public List<SelectItem> cargarSelectItemsDetCatalogo (String idCabCatalogo, ServicioAdministracion servicioAdministracion) throws SeguridadesException {
 		
-		slf4jLogger.info("cargarSelectItems");
+		slf4jLogger.info("cargarSelectItemsDetCatalogo");
 		
 		List<SelectItem> listSelectItem = new ArrayList<SelectItem>();
 		
-		if (CollectionUtils.isEmpty(listDetalleCatalogo)) {
-			listDetalleCatalogo = consultarDetalleCatalogo(idDetalleCatalogo, servicioAdministracion);
-		}
+		DetalleCatalogo detalleCatalogo = new DetalleCatalogo();
+		detalleCatalogo.setId(new DetalleCatalogoPK());
+		detalleCatalogo.getId().setCabCatalogoFk(idCabCatalogo);
+		detalleCatalogo.setDetCatalogoEstado(ESTADO_ACTIVO);
+		List<DetalleCatalogo> listDetalleCatalogo = servicioAdministracion.buscarDetalleCatalogoCriterios(detalleCatalogo);
 		
 		if (CollectionUtils.isNotEmpty(listDetalleCatalogo)) {
 			CollectionUtils.collect(listDetalleCatalogo, new Transformer() {
@@ -67,11 +79,37 @@ public final class UtilSelectItems {
 		
 	}
 	
-	private List<DetalleCatalogo> consultarDetalleCatalogo (String idDetalleCatalogo, ServicioAdministracion servicioAdministracion) throws SeguridadesException {
-		DetalleCatalogo detalleCatalogo = new DetalleCatalogo();
-		detalleCatalogo.setId(new DetalleCatalogoPK());
-		detalleCatalogo.getId().setCabCatalogoFk(idDetalleCatalogo);
-		detalleCatalogo.setDetCatalogoEstado(ESTADO_ACTIVO);
-		return servicioAdministracion.buscarDetalleCatalogoCriterios(detalleCatalogo);
+	/**
+	 * Cargar <code>SelectItem</code> desde la tabla <code>DetalleBien</code>
+	 * @param idCabCatalogo
+	 * @param servicioInventario
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	public List<SelectItem> cargarSelectItemsDetBien (String idCabCatalogo, ServicioInventario servicioInventario) throws SeguridadesException {
+		
+		slf4jLogger.info("cargarSelectItemsDetBien");
+		
+		List<SelectItem> listSelectItem = new ArrayList<SelectItem>();
+		
+		DetalleBien detalleBien = new DetalleBien();
+		detalleBien.setId(new DetalleBienPK());
+		detalleBien.getId().setCabBienFk(idCabCatalogo);
+		detalleBien.setDetBienEstado(ESTADO_ACTIVO);
+		List<DetalleBien> listDetalleBien = servicioInventario.buscarDetalleBienCriterios(detalleBien);
+		
+		if (CollectionUtils.isNotEmpty(listDetalleBien)) {
+			CollectionUtils.collect(listDetalleBien, new Transformer() {
+				@Override
+				public Object transform(final Object arg0) {
+					final DetalleBien detalleBien = (DetalleBien)arg0;
+					return new SelectItem(detalleBien.getId().getDetBienNivel1(), detalleBien.getDetBienDescripcion());
+				}
+			}, listSelectItem);
+		}
+		
+		return listSelectItem;
+		
 	}
+	
 }

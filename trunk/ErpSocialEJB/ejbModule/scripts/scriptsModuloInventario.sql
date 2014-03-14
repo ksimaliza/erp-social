@@ -141,3 +141,61 @@ INSERT INTO detalle_catalogo_tbl
 INSERT INTO detalle_catalogo_tbl
 (cab_catalogo_fk, det_catalogo_nivel1, det_catalogo_descripcion, det_catalogo_estado) VALUES 
 ('TCECU', 'PBAMO', 'Puerto Baquerizo Moreno', '1');
+
+
+--Tipo del bien: Ingresado, asignado, reasignado, devuelto se manejar dentro de un cat&acute;logo
+-- Cabecera catalogo
+INSERT INTO cabecera_bien_tbl(
+cab_bien_pk, cab_bien_descripcion, cab_bien_archivo) VALUES 
+('TIBIE', 'Tipo del bien: Ingresado, asignado, reasignado, devuelto.', 'N/A');
+
+-- Detalle catalogo
+INSERT INTO detalle_bien_tbl(
+            cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
+    VALUES ('TIBIE', 'INGRE', 'Ingresado', '1');
+
+INSERT INTO detalle_bien_tbl(
+            cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
+    VALUES ('TIBIE', 'ASIGN', 'Asignado', '1');
+
+INSERT INTO detalle_bien_tbl(
+            cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
+    VALUES ('TIBIE', 'REASI', 'Reasignado', '1');
+
+INSERT INTO detalle_bien_tbl(
+            cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
+    VALUES ('TIBIE', 'DEVUE', 'Devuelto', '1');
+    
+-- Estado del bien: Se definira como activo, inactivo dentro de un catalogo.
+-- Cabecera catalogo
+INSERT INTO cabecera_bien_tbl(
+cab_bien_pk, cab_bien_descripcion, cab_bien_archivo) VALUES 
+('ESBIE', 'Estado del bien: Se definira como activo, inactivo', 'N/A');
+
+-- Detalle catalogo
+INSERT INTO detalle_bien_tbl(
+            cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
+    VALUES ('ESBIE', 'ACTIV', 'Activo', '1');
+
+INSERT INTO detalle_bien_tbl(
+            cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
+    VALUES ('ESBIE', 'INACT', 'Inactivo', '1');
+    
+-- Estado de Conservacion.- Se manejara dentro de una catalogo bueno, malo, regular.
+-- Cabecera catalogo
+INSERT INTO cabecera_bien_tbl(
+cab_bien_pk, cab_bien_descripcion, cab_bien_archivo) VALUES 
+('ESCON', 'Estado de Conservacion.- Bueno, malo, regular', 'N/A');
+
+-- Detalle catalogo
+INSERT INTO detalle_bien_tbl(
+            cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
+    VALUES ('ESCON', 'BUENO', 'Bueno', '1');
+
+INSERT INTO detalle_bien_tbl(
+            cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
+    VALUES ('ESCON', 'MALO', 'Malo', '1');
+
+INSERT INTO detalle_bien_tbl(
+            cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
+    VALUES ('ESCON', 'REGUL', 'Regular', '1');
