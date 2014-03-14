@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpNuevoFalta" header="#{i18n['erp.asistencia.falta.registrar']}" resizable="false" draggable="false"
+		widgetVar="dlgNuevoFalta" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<h:form id="formNuevoFalta" styleClass="formulario">
+			<p:panel id="pnlNuevoFalta">
+				<table class="formulario">
+					
+					<tr>
+						
+						<td width="30%">
+							<h:outputLabel for="lbEmpleado" value="#{i18n['erp.asistencia.falta.empleado']}" />
+						</td>
+						<td>
+							<h:selectOneListbox for="listboxEmpleado" value="#{i18n['erp.asistencia.falta.empleado']}" />
+						</td>
+												
+					</tr>
+					
+					<tr>
+						
+						<td width="30%">
+							<h:outputLabel for="txtFecha" value="#{i18n['erp.asistencia.falta.fecha']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtFecha" style="width: 100%"
+							required="true" label="#{i18n['erp.asistencia.falta.fecha']}"
+								 />
+						</td>
+						</tr>
+						<tr>
+						
+						<td width="30%">
+							<h:outputLabel for="txtDescrip" value="#{i18n['erp.asistencia.falta.descripcion']}" />
+							
+						</td>
+						<td width="70%">
+							<p:inputText id="txtDescrip"
+								style="width: 100%"
+								required="true" label="#{i18n['erp.asistencia.falta.descripcion']}"/>
+						</td>
+					</tr>
+					
+					
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaMateria.hide()"
+					process="@this,pnlNuevoFalta" update="pnlNuevoFalta,:formFalta:pnlMessages,:formFalta:tablaFalta"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoFalta.hide();" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>
