@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.enums.EnumTipoTransaccion;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.dao.factory.InventarioFactory;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
 import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
@@ -33,6 +34,26 @@ public class ServicioInventarioImpl implements ServicioInventario{
 	
 	@EJB
 	private InventarioFactory inventarioFactory;
+	
+	/*
+	 * Servicio para administracion del catalogo usado en el modulo de inventario
+	 */
+	
+	@Override
+	public List<DetalleBien> buscarDetalleBienCriterios (DetalleBien detalleBien) throws SeguridadesException {
+		slf4jLogger.info("buscarDetalleBienCriterios");
+		
+		List<DetalleBien> listaDetalleBien = null;
+		
+		try {
+			listaDetalleBien = inventarioFactory.getDetalleBienDAOImpl().obtenerDetalleBienCriterios(detalleBien);
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("error al buscarDetalleBienCriterios {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+		return listaDetalleBien;
+	}
 	
 	/*
 	 * Servicio para administracion de proveedores

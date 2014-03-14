@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpNuevoBien" header="#{i18n['erp.proveedor.registrar']}" 
+		widgetVar="dlgNuevoBien" modal="true" minWidth="500" width="500" appendTo="@(body)" draggable="false">
+		<h:form id="formNuevoBien" styleClass="formulario">
+			<p:panel id="pnlNuevoBien" >
+				<table class="formulario">
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.nombre']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombre" style="width: 90%" required="true"
+								value="#{bienDataManager.bienInstancia.bieNombre}" label="#{i18n['erp.bien.nombre']}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtTipoBien" value="#{i18n['erp.bien.tipo']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:selectOneMenu id="txtTipoBien" panelStyle="width: 20%"
+								required="true" label="#{i18n['erp.bien.tipo']}"
+								value="#{bienDataManager.bienInstancia.detCatalogoTipoBien}" >
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItems value="#{bienDataManager.dcTipoBien}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{bienController.registrarBien}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoBien.hide()"
+					process="@this,pnlNuevoBien" update="pnlNuevoBien,:formBien:tablaBienes,:formBien:pnlMessages"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoBien.hide();" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>

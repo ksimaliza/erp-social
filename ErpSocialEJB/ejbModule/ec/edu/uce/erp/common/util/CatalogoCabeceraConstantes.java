@@ -23,5 +23,20 @@ public final class CatalogoCabeceraConstantes {
 	 * id cabecera catalogo cuidades Ecuador
 	 */
 	public static final String ID_CAB_CATALOGO_CUIDAD_ECUADOR = MessagesApplicacion.getString("erp.inventarios.cabecera.catalogo.id.ciudadEcuador");
-
+	
+	/**
+	 * id cabecera catalogo tipo bien
+	 */
+	public static final String ID_CAB_CATALOGO_TIPO_BIEN = MessagesApplicacion.getString("erp.inventarios.cabecera.catalogo.id.tipoBien");
+	
+	/**
+	 * id cabecera catalogo estado bien
+	 */
+	public static final String ID_CAB_CATALOGO_ESTADO_BIEN = MessagesApplicacion.getString("erp.inventarios.cabecera.catalogo.id.estadoBien");
+	
+	/**
+	 * id cabecera catalogo estado conservacion
+	 */
+	public static final String ID_CAB_CATALOGO_ESTADO_CONSERVACION = MessagesApplicacion.getString("erp.inventarios.cabecera.catalogo.id.estadoConservacion");
+	
 }
