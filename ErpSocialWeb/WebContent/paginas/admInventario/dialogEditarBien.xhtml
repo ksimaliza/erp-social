@@ -5,10 +5,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	
-	<p:dialog id="popUpNuevoBien" header="#{i18n['erp.bien.registrar']}" 
-		widgetVar="dlgNuevoBien" modal="true" minWidth="500" width="500" appendTo="@(body)" draggable="false">
-		<h:form id="formNuevoBien" styleClass="formulario">
-			<p:panel id="pnlNuevoBien" >
+	<p:dialog id="popUpEditarBien" header="#{i18n['erp.bien.editar']}" 
+		widgetVar="dlgEditarBien" modal="true" minWidth="500" width="500" appendTo="@(body)" draggable="false">
+		<h:form id="formEditarBien" styleClass="formulario">
+			<p:panel id="pnlEditarBien" >
 				<table class="formulario">
 					<tr>
 						<td width="30%">
@@ -100,15 +100,14 @@
 								value="#{bienDataManager.bienInstancia.bieNombre}" label="#{i18n['erp.bien.nombre']}" />
 						</td>
 					</tr>
-					
 				</table>
 			</p:panel>
 			<p:panel id="pnlBotones">
-				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
-					actionListener="#{bienController.registrarBien}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoBien.hide()"
-					process="@this,pnlNuevoBien" update="pnlNuevoBien,:formBien:tablaBienes,:formBien:pnlMessages"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoBien.hide();" type="button" />
+				<p:commandButton id="btnActualizar" value="#{i18n['label.actualizar']}"
+					actionListener="#{bienController.editarBien()}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarBien.hide()"
+					process="@this,pnlEditarBien" update="pnlEditarBien,:formBien:tablaBienes,:formBien:pnlMessages"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarBien.hide();" type="button" />
 			</p:panel>
 		</h:form>
 	</p:dialog>

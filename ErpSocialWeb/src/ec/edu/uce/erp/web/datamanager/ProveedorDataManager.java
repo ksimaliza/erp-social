@@ -51,7 +51,6 @@ public class ProveedorDataManager extends BaseDataManager{
 	
 	@PostConstruct
 	public void inicializarObjetos () {
-		this.proveedorInstancia.setUsuarioRegistro(getUsuarioSession());
 		this.proveedorInstancia = new Proveedor();
 		this.proveedorInstancia.setUsuarioRegistro(getUsuarioSession());
 		this.proveedorEditar = new Proveedor();

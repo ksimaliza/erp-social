@@ -45,6 +45,10 @@ public class BienController extends BaseController{
 		slf4jLogger.info("registrarBien");
 	}
 	
+	public void editarBien () {
+		slf4jLogger.info("editarBien");
+	}
+	
 	public void buscarBienes () {
 		slf4jLogger.info("registrarBien");
 	}
