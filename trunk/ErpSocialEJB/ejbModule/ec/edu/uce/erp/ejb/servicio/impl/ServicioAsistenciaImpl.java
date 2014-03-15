@@ -291,4 +291,12 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		
 	}
 
+
+	@Override
+	public PermisoDTO createOrUpdateHorarioPermiso(PermisoDTO permisoDTO)
+			throws SeguridadesException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

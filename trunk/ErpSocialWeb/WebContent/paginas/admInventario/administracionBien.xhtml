@@ -57,7 +57,31 @@
 				<p:column headerText="#" styleClass="centered" width="5%">
 					#{rowIndex+1}
 				</p:column>
-				<p:column headerText="#{i18n['erp.bien.nombre']}" width="20%">
+				<p:column headerText="#{i18n['erp.bien.codigo']}" width="10%">
+					<h:outputText value="#{bien.biePk}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.bien.categoria']}" width="10%">
+					<h:outputText value="erp.bien.categoria" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.bien.linea']}" width="10%">
+					<h:outputText value="erp.bien.linea" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.bien.marca.material']}" width="10%">
+					<h:outputText value="erp.bien.marca.material" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.bien.modelo']}" width="10%">
+					<h:outputText value="#{bien.bieModelo}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.bien.color']}" width="10%">
+					<h:outputText value="#{bien.bieColor}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.bien.fecha.asignacion']}" width="10%">
+					<h:outputText value="#{bien.bieFechaAsig}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.bien.ubicacion']}" width="10%">
+					<h:outputText value="#{bien.bieUbicacion}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.bien.nombre']}" width="10%">
 					<h:outputText value="#{bien.bieNombre}" />
 				</p:column>
 				
@@ -67,6 +91,7 @@
 		</h:form>
 		
 		<ui:include src="dialogNuevoBien.xhtml" />
+		<ui:include src="dialogEditarBien.xhtml" />
 		
 	</ui:define>
 </ui:composition>

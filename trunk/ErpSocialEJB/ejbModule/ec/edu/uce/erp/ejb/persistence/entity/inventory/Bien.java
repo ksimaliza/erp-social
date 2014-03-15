@@ -128,6 +128,9 @@ public class Bien extends AuditoriaUtil implements Serializable {
 	//bi-directional many-to-one association to Transaccion
 	@OneToMany(mappedBy="bienTbl")
 	private List<Transaccion> transaccionTbls;
+	
+	@Column(name="bie_notas")
+	private String bieNotas;
 
 	public Bien() {
 	}
@@ -372,6 +375,20 @@ public class Bien extends AuditoriaUtil implements Serializable {
 	 */
 	public void setDcEstadoConservacion(DetalleBien dcEstadoConservacion) {
 		this.dcEstadoConservacion = dcEstadoConservacion;
+	}
+
+	/**
+	 * @return the bieNotas
+	 */
+	public String getBieNotas() {
+		return bieNotas;
+	}
+
+	/**
+	 * @param bieNotas the bieNotas to set
+	 */
+	public void setBieNotas(String bieNotas) {
+		this.bieNotas = bieNotas;
 	}
 
 }

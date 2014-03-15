@@ -25,6 +25,11 @@ add constraint FK_PROVEEDOR_REFERENCE_DETALLE foreign key (cab_catalogo_pais_cui
 references DETALLE_CATALOGO_TBL (CAB_CATALOGO_FK, DET_CATALOGO_NIVEL1)
 on delete restrict on update restrict;
 
+/*Agregar columnas faltantes tabla bien*/
+-- Notas
+alter table bien_tbl
+add column bie_notas  VARCHAR(500) null;
+
 -- crear cabecera catalogo tipo ingreso
 INSERT INTO cabecera_catalogo_tbl
 (cab_catalogo_pk, cab_catalogo_descripcion) VALUES 
