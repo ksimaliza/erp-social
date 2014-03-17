@@ -11,10 +11,14 @@
 	<ui:define name="content">
 		<h:form id="formProveedor">
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
-			<p:toolbar>
+			<p:toolbar id="toolbar">
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
 					<p:commandButton id="btnNuevoProveedor" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoProveedor.show()"/>
+					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
+						image="exportExcel" disabled="#{empty proveedorDataManager.listaProveedor}">
+						<p:dataExporter type="xls" target="tablaProveedor" fileName="proveedores" postProcessor="#{proveedorController.postProcessXLS}"/>
+					</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:panel id="pnlBuscarProveedor" header="#{i18n['erp.proveedor.buscar']}">
@@ -50,7 +54,7 @@
 					actionListener="#{proveedorController.buscarProveedor}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarProveedor"
-					update="pnlMessages,tablaProveedor,pnlBuscarProveedor" />
+					update="pnlMessages,tablaProveedor,pnlBuscarProveedor,toolbar" />
 			</p:panel>
 			<p:dataTable id="tablaProveedor"
 				value="#{proveedorDataManager.listaProveedor}"
@@ -59,25 +63,35 @@
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
 				<f:facet name="header">
-					#{i18n['erp.proveedor.lista']}
+					<h:outputText value="#{i18n['erp.proveedor.lista']}" />
 				</f:facet>
-				<p:column headerText="#" styleClass="centered" width="5%">
-					#{rowIndex+1}
+				<p:column styleClass="centered" width="5%">
+					<f:facet name="header">
+						<h:outputText value="#{rowIndex+1}" />
+					</f:facet>
 				</p:column>
-				<p:column headerText="#{i18n['erp.proveedor.nombre']}" width="20%">
+				<p:column width="20%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.proveedor.nombre']}" />
+					</f:facet>
 					<h:outputText value="#{proveedor.provNombre}" />
 				</p:column>
-				<p:column headerText="#{i18n['erp.proveedor.apellido']}" width="20%">
+				<p:column width="20%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.proveedor.apellido']}" />
+					</f:facet>
 					<h:outputText value="#{proveedor.provApellido}" />
 				</p:column>
-				
-				<p:column headerText="#{i18n['label.estado']}" styleClass="centered" width="10%">
+				<p:column styleClass="centered" width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['label.estado']}" />
+					</f:facet>
 					<h:outputText value="#{i18n['label.estado.vigente']}"
 						rendered="#{proveedor.provEstado eq proveedorDataManager.estadoActivo}" />
 					<h:outputText value="#{i18n['label.estado.novigente']}"
 						rendered="#{proveedor.provEstado eq proveedorDataManager.estadoInactivo}" />
 				</p:column>
-				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
+				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%" exportable="false">
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							process="@this" update=":formEditarProveedor:pnlEditarProveedor"

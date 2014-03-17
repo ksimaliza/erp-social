@@ -6,22 +6,22 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="title">
-		<h3><h:outputLabel	value="#{i18n['erp.bien.pagina.titulo']}" /></h3>
+		<h3><h:outputLabel	value="#{i18n['erp.bien.ingreso.pagina.titulo']}" /></h3>
 	</ui:define>
 	<ui:define name="content">
-		<h:form id="formBien">
+		<h:form id="formIngresoBien">
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
 			<p:toolbar id="toolbar">
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
-					<p:commandButton id="btnNuevoBien" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoBien.show()"/>
+					<p:commandButton id="btnNuevoBien" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoIngreso.show()"/>
 					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
 						image="exportExcel" disabled="#{empty bienDataManager.listBien}">
 						<p:dataExporter type="xls" target="tablaBienes" fileName="productos" postProcessor="#{bienController.postProcessXLS}"/>
 					</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:panel id="pnlBuscarBien" header="#{i18n['erp.bien.buscar']}">
+			<p:panel id="pnlBuscarBien" header="#{i18n['erp.bien.ingreso.buscar']}">
 				<table>
 					<tr>
 						<td><h:outputLabel for="txtNombre" value="#{i18n['erp.bien.nombre']}" /></td>
@@ -124,8 +124,8 @@
 			
 		</h:form>
 		
-		<ui:include src="dialogNuevoBien.xhtml" />
-		<ui:include src="dialogEditarBien.xhtml" />
+		<ui:include src="dialogNuevoIngresoBien.xhtml" />
+<!-- 		<ui:include src="dialogEditarBien.xhtml" /> -->
 		
 	</ui:define>
 </ui:composition>
