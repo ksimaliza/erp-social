@@ -16,6 +16,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import org.apache.commons.lang3.StringUtils;
+
+import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogo;
 import ec.edu.uce.erp.ejb.persistence.entity.Ingreso;
 import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaUtil;
@@ -233,6 +236,13 @@ public class Proveedor extends AuditoriaUtil implements Serializable {
 	 */
 	public void setDcCiudadPais(DetalleCatalogo dcCiudadPais) {
 		this.dcCiudadPais = dcCiudadPais;
+	}
+	
+	public String getNpNombresCompletos () {
+		if (StringUtils.isNotBlank(this.provNombre) && StringUtils.isNotBlank(this.provApellido)) {
+			return UtilAplication.appendStringBuilder(this.provNombre, " ", this.provApellido).toString();
+		}
+		return null;
 	}
 
 }

@@ -20,6 +20,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogo;
 import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogoPK;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBienPK;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 
@@ -110,6 +111,30 @@ public final class UtilSelectItems {
 		
 		return listSelectItem;
 		
+	}
+	
+	public List<SelectItem> cargarSelectItemProveedor (ServicioInventario servicioInventario) throws SeguridadesException {
+		slf4jLogger.info("cargarSelectItemProveedor");
+		
+		List<SelectItem> listSelectItem = new ArrayList<SelectItem>();
+		
+		Proveedor proveedor = new Proveedor();
+		proveedor.setProvEstado(ESTADO_ACTIVO);
+		
+		List<Proveedor> listProveedor = new ArrayList<Proveedor>();
+		listProveedor = servicioInventario.buscarProveedorCriterios(proveedor);
+		
+		if (CollectionUtils.isNotEmpty(listProveedor)) {
+			CollectionUtils.collect(listProveedor, new Transformer() {
+				@Override
+				public Object transform(final Object arg0) {
+					final Proveedor proveedor = (Proveedor)arg0;
+					return new SelectItem(proveedor.getProvPk(), proveedor.getNpNombresCompletos());
+				}
+			}, listSelectItem);
+		}
+		
+		return listSelectItem;
 	}
 	
 }

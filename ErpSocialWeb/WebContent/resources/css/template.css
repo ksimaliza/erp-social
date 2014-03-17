@@ -167,6 +167,15 @@ textarea[disabled],input[type="text"][disabled],input[type="password"][disabled]
 }
 
 /*****************************************************************
+ * ESTILOS BOTONES
+ ****************************************************************/
+.exportExcel {
+	width: 16px;
+	height: 16px;
+	background: #ddd url(../img/exportExcel.gif) !important;
+}
+
+/*****************************************************************
  * ESTILOS DE PRIMEFACES
  ****************************************************************/
 .ui-widget {

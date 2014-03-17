@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpNuevoIngreso" header="#{i18n['erp.bien.ingreso.registrar']}" 
+		widgetVar="dlgNuevoIngreso" modal="true" minWidth="500" width="500" appendTo="@(body)" draggable="false">
+		<h:form id="formNuevoIngreso" styleClass="formulario">
+			<p:panel id="pnlNuevoIngreso" >
+				<table class="formulario">
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtTipoIngreso" value="#{i18n['erp.bien.ingreso.tipo']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td width="70%">
+							<h:outputText value="erp.bien.ingreso.tipo" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtProveedor" value="#{i18n['label.proveedor']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<h:outputText value="label.proveedor" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtCustodio" value="#{i18n['label.custodio']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<h:outputText value="label.custodio" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtFechaIngreso" value="#{i18n['erp.bien.fecha.entrada']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:calendar id="popupCal" label="#{i18n['erp.bien.fecha.entrada']}"/>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{bienController.registrarBien}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoIngreso.hide()"
+					process="@this,pnlNuevoIngreso" update="pnlNuevoIngreso,:formBien:tablaBienes,:formBien:pnlMessages"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoIngreso.hide();" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>
