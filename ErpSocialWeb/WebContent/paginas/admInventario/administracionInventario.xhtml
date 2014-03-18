@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="title">
+		<h3><h:outputLabel	value="#{i18n['erp.inventario.pagina.titulo']}" /></h3>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="formInventario">
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			<p:toolbar id="toolbar">
+				<p:toolbarGroup align="left">
+					<!-- <p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
+					<p:commandButton id="btnNuevoBien" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoIngreso.show()"/> -->
+					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
+						image="exportExcel" disabled="#{empty bienDataManager.listBien}">
+						<p:dataExporter type="xls" target="tablaInventario" fileName="inventario" postProcessor="#{bienController.postProcessXLS}"/>
+					</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panel id="pnlBuscarInventario" header="#{i18n['label.buscar.criterios']}">
+				<table>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCategoria" value="#{i18n['erp.bien.categoria']}" />
+						</td>
+						<td  width="70%">
+							<p:selectOneMenu id="txtCategoria" panelStyle="width: 20%" label="#{i18n['erp.bien.categoria']}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtLinea" value="#{i18n['erp.bien.linea']}" />
+						</td>
+						<td>
+							<p:selectOneMenu id="txtLinea" panelStyle="width: 20%" label="#{i18n['erp.bien.linea']}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{bienController.buscarBienes}"
+					value="#{i18n['label.filtrar']}" 
+					process="@this,pnlBuscarInventario"
+					update="pnlMessages,tablaInventario,pnlBuscarInventario,toolbar" />
+			</p:panel>
+			<p:dataTable id="tablaInventario"
+				value="#{bienDataManager.listBien}"
+				var="bien" rowIndexVar="rowIndex"
+				paginator="true" rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<f:facet name="header">
+					<h:outputText value="#{i18n['erp.bien.lista']}" />
+				</f:facet>
+				<p:column styleClass="centered" width="5%">
+					<f:facet name="header">
+						<h:outputText value="#" />
+					</f:facet>
+					<h:outputText value="#{rowIndex+1}"/>
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['label.fecha']}" />
+					</f:facet>
+					<h:outputText value="label.fecha" />
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.bien.codigo']}" />
+					</f:facet>
+					<h:outputText value="#{bien.biePk}" />
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['label.articulo']}" />
+					</f:facet>
+					<h:outputText value="label.articulo" />
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['label.entrada']}" />
+					</f:facet>
+					<h:outputText value="label.entrada" />
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['label.salida']}" />
+					</f:facet>
+					<h:outputText value="label.salida" />
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.inventario.numero.orden']}" />
+					</f:facet>
+					<h:outputText value="erp.inventario.numero.orden" />
+				</p:column>
+			</p:dataTable>
+			
+		</h:form>
+		
+	</ui:define>
+</ui:composition>
