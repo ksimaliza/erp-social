@@ -10,13 +10,13 @@ public class EstudianteDAOImpl extends AbstractFacadeImpl<EstudianteDTO> impleme
 
 	public EstudianteDAOImpl() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public EstudianteDAOImpl(EntityManager entityManager) {
 		super(entityManager);
-		// TODO Auto-generated constructor stub
 	}
 
+
+	
 	
 }
