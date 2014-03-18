@@ -52,7 +52,7 @@
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{bienController.registrarBien}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoIngreso.hide()"
-					process="@this,pnlNuevoIngreso" update="pnlNuevoIngreso,:formBien:tablaBienes,:formBien:pnlMessages"/>
+					process="@this,pnlNuevoIngreso" update="pnlNuevoIngreso,:formIngresoBien:tablaIngresos,:formIngresoBien:pnlMessages"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoIngreso.hide();" type="button" />
 			</p:panel>
 		</h:form>

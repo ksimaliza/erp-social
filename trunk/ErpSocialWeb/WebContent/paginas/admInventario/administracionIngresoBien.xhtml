@@ -17,7 +17,7 @@
 					<p:commandButton id="btnNuevoBien" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoIngreso.show()"/>
 					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
 						image="exportExcel" disabled="#{empty bienDataManager.listBien}">
-						<p:dataExporter type="xls" target="tablaBienes" fileName="productos" postProcessor="#{bienController.postProcessXLS}"/>
+						<p:dataExporter type="xls" target="tablaIngresos" fileName="productos" postProcessor="#{bienController.postProcessXLS}"/>
 					</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
@@ -47,9 +47,9 @@
 					actionListener="#{bienController.buscarBienes}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarBien"
-					update="pnlMessages,tablaBienes,pnlBuscarBien,toolbar" />
+					update="pnlMessages,tablaIngresos,pnlBuscarBien,toolbar" />
 			</p:panel>
-			<p:dataTable id="tablaBienes"
+			<p:dataTable id="tablaIngresos"
 				value="#{bienDataManager.listBien}"
 				var="bien" rowIndexVar="rowIndex"
 				paginator="true" rows="5" paginatorPosition="bottom"
