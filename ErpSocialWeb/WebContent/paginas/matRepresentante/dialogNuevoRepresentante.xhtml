@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpNuevoRepresentante" header="#{i18n['erp.matricula.representante.registrar']}" resizable="false" draggable="false"
+		widgetVar="dlgNuevoRepresentante" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<h:form id="formNuevoRepresentante" styleClass="formulario">
+			<p:panel id="pnlNuevoRepresentante">
+				<table class="formulario">
+					<tr>
+						
+						<td width="30%">
+							<h:outputLabel for="txtCi" value="#{i18n['erp.matricula.representante.cedula']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCi" style="width: 100%"
+							required="true" label="#{i18n['erp.matricula.representante.cedula']}"
+								 />
+						</td>
+						</tr>
+						<tr>
+						
+						<td width="30%">
+							<h:outputLabel for="txtNombres" value="#{i18n['erp.matricula.representante.nombres']}" />
+							
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombres"
+								style="width: 100%"
+								required="true" label="#{i18n['erp.matricula.representante.nombres']}"/>
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApe" value="#{i18n['erp.matricula.representante.apellidos']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApe" style="width: 100%"
+								 />
+						</td>
+						
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFecNac" value="#{i18n['erp.matricula.representante.fechanac']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtFecNac" style="width: 100%"
+								 />
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtDir" value="#{i18n['erp.matricula.representante.direccion']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtDir" style="width: 100%"
+								 />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtTelefono" value="#{i18n['erp.matricula.representante.telefono']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtTelefono" style="width: 100%"
+								 />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCelular" value="#{i18n['erp.matricula.representante.celular']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCelular" style="width: 100%"
+								 />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtEmail" value="#{i18n['erp.matricula.representante.email']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtEmail" style="width: 100%"
+								 />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFoto" value="#{i18n['erp.matricula.representante.foto']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtFoto" style="width: 100%"
+								 />
+						</td>	
+					</tr>
+					
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoRepresentante.hide()"
+					process="@this,pnlNuevoRepresentante" update="pnlNuevoRepresentante,:formRepresentante:pnlMessages,:formRepresentante:tablaRepresentante"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoRepresentante.hide();" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>
