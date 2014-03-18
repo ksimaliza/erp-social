@@ -1,5 +1,7 @@
 package ec.edu.uce.erp.ejb.servicio;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
@@ -15,6 +17,9 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParcialDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteDTO;
+import ec.edu.uce.erp.ejb.persistence.vo.EstudianteVO;
+import ec.edu.uce.erp.ejb.persistence.vo.ProfesorVO;
+import ec.edu.uce.erp.ejb.persistence.vo.RepresentanteVO;
 
 @Local
 public interface ServicioMatricula {
@@ -23,12 +28,6 @@ public interface ServicioMatricula {
 			throws SeguridadesException;
 
 	void deleteAsinacion(AsinacionDTO asinacionDTO) throws SeguridadesException;
-
-	EstudianteDTO createOrUpdateEstudiante(EstudianteDTO estudianteDTO)
-			throws SeguridadesException;
-
-	void deleteEstudiante(EstudianteDTO estudianteDTO)
-			throws SeguridadesException;
 
 	MateriaDTO createOrUpdateMateria(MateriaDTO materiaDTO)
 			throws SeguridadesException;
@@ -69,15 +68,28 @@ public interface ServicioMatricula {
 
 	void deletePeriodo(PeriodoDTO periodoDTO) throws SeguridadesException;
 
-	ProfesorDTO createOrUpdateProfesor(ProfesorDTO profesorDTO)
+	void deleteRepresentante(RepresentanteDTO representanteDTO)
 			throws SeguridadesException;
 
-	void deleteProfesor(ProfesorDTO profesorDTO) throws SeguridadesException;
+	List<AsinacionDTO> buscarAsinacion(AsinacionDTO asinacion)
+			throws SeguridadesException;
 
-	RepresentanteDTO createOrUpdateRepresentante(
-			RepresentanteDTO representanteDTO) throws SeguridadesException;
+	AsinacionDTO buscarAsinacionid(Integer id) throws SeguridadesException;
 
-	void deleteRepresentante(RepresentanteDTO representanteDTO)
+	EstudianteDTO buscarEstudianteid(Integer id) throws SeguridadesException;
+
+	EstudianteDTO createOrUpdateEstudiante(EstudianteVO estudianteVO)
+			throws SeguridadesException;
+
+	void deleteEstudiante(EstudianteVO estudianteVO)
+			throws SeguridadesException;
+
+	ProfesorDTO createOrUpdateProfesor(ProfesorVO profesorVO)
+			throws SeguridadesException;
+
+	void deleteProfesor(ProfesorVO profesorVO) throws SeguridadesException;
+
+	RepresentanteDTO createOrUpdateRepresentante(RepresentanteVO representanteVO)
 			throws SeguridadesException;
 
 

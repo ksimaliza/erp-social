@@ -39,9 +39,6 @@ public interface ServicioAsistencia {
 	HorarioEmpleadoDTO createOrUpdateHorarioEmpleado(
 			HorarioEmpleadoDTO horarioempleadoDTO) throws SeguridadesException;
 
-	PermisoDTO createOrUpdateHorarioPermiso(PermisoDTO permisoDTO)
-			throws SeguridadesException;
-
 	PermisoDTO createOrUpdatePermiso(PermisoDTO permisoDTO)
 			throws SeguridadesException;
 
@@ -55,6 +52,9 @@ public interface ServicioAsistencia {
 	TipoDTO createOrUpdateTipo(TipoDTO tipoDTO) throws SeguridadesException;
 
 	void deleteTipo(TipoDTO tipoDTO) throws SeguridadesException;
+
+	PermisoDTO createOrUpdateHorarioPermiso(PermisoDTO permisoDTO)
+			throws SeguridadesException;
 
 
 

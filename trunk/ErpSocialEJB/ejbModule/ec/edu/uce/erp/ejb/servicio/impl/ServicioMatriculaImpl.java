@@ -1,5 +1,7 @@
 package ec.edu.uce.erp.ejb.servicio.impl;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -7,7 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.dao.factory.FactoryDAO;
 import ec.edu.uce.erp.ejb.dao.factory.MatriculaFactoryDAO;
+import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MateriaDTO;
@@ -20,6 +24,9 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParcialDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteDTO;
+import ec.edu.uce.erp.ejb.persistence.vo.EstudianteVO;
+import ec.edu.uce.erp.ejb.persistence.vo.ProfesorVO;
+import ec.edu.uce.erp.ejb.persistence.vo.RepresentanteVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
 
 @Stateless
@@ -27,6 +34,9 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 
 	@EJB
 	private MatriculaFactoryDAO matriculaFactoryDAO;
+	
+	@EJB
+	private FactoryDAO factoryDAO;
 	
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(ServicioMatriculaImpl.class);
 	
@@ -64,37 +74,84 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	}
 	
 	@Override
+	public List<AsinacionDTO> buscarAsinacion(AsinacionDTO asinacion) throws SeguridadesException {
+		slf4jLogger.info("buscarAsinacion");
+		List<AsinacionDTO> listAsinacion = null;
+		try {
+			//listAsinacion = matriculaFactoryDAO.getAsinacionDAOImpl().obtenerAsinacion(asinacion);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarAsinacion {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener las empresas de la base de datos");
+		}
+		return listAsinacion;
+	}
 	
-	public EstudianteDTO createOrUpdateEstudiante(EstudianteDTO estudianteDTO) throws SeguridadesException
+	@Override
+	public AsinacionDTO buscarAsinacionid(Integer id) throws SeguridadesException {
+		slf4jLogger.info("buscarAsinacionid");
+		AsinacionDTO asinacionencontrada;
+		try {
+			asinacionencontrada = matriculaFactoryDAO.getAsinacionDAOImpl().find(id);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarAsinacion {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener las asinaciones de la base de datos");
+		}
+		return asinacionencontrada;
+	}
+	
+	@Override
+	public EstudianteDTO createOrUpdateEstudiante(EstudianteVO estudianteVO) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateEstudiante");
+		Persona persona;
 		try {
-		if(estudianteDTO.getEstCodigo()!=null)
-			return matriculaFactoryDAO.getEstudianteDAOImpl().update(estudianteDTO);
-		else
-			return matriculaFactoryDAO.getEstudianteDAOImpl().create(estudianteDTO);
+		if(estudianteVO.getEstudiante().getEstCodigo()!=null){
+			persona= factoryDAO.getPersonaDAOImpl().update(estudianteVO.getPersona());
+			return matriculaFactoryDAO.getEstudianteDAOImpl().update(estudianteVO.getEstudiante());
+		}
+		else{
+			persona= factoryDAO.getPersonaDAOImpl().create(estudianteVO.getPersona());
+			estudianteVO.getEstudiante().setEstPersona(persona.getPerPk());
+			return matriculaFactoryDAO.getEstudianteDAOImpl().create(estudianteVO.getEstudiante());
+		}
 		} catch (Exception e) {
 			slf4jLogger.info("error al createOrUpdateEstudiante {}", e.toString());
 			throw new SeguridadesException(e);
 		}
 		
+		
 	}
 	
 	
 	@Override
-	public void deleteEstudiante(EstudianteDTO estudianteDTO) throws SeguridadesException
+	public void deleteEstudiante(EstudianteVO estudianteVO) throws SeguridadesException
 	{
 		slf4jLogger.info("deleteEstudiante");
 		try {
-		if(estudianteDTO.getEstCodigo()!=null)
-			matriculaFactoryDAO.getEstudianteDAOImpl().remove(estudianteDTO);		
-		else 
+		if(estudianteVO.getEstudiante().getEstCodigo()!=null){
+			factoryDAO.getPersonaDAOImpl().remove(estudianteVO.getPersona());
+			matriculaFactoryDAO.getEstudianteDAOImpl().remove(estudianteVO.getEstudiante());		
+		}
+			else {
 			throw new SeguridadesException("no existe una coincidencia");
-		} catch (Exception e) {
+		}} catch (Exception e) {
 			slf4jLogger.info("error al deleteEstudiante {}", e.toString());
 			throw new SeguridadesException(e);
 		}
 		
+	}
+	
+	@Override
+	public EstudianteDTO buscarEstudianteid(Integer id) throws SeguridadesException {
+		slf4jLogger.info("buscarEstudianteid");
+		EstudianteDTO estudianteencontrado;
+		try {
+			estudianteencontrado = matriculaFactoryDAO.getEstudianteDAOImpl().find(id);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarEstudianteid {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener las asinaciones de la base de datos");
+		}
+		return estudianteencontrado;
 	}
 	
 	@Override
@@ -129,7 +186,6 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		}
 		
 	}
-	
 	
 	@Override
 	public MatriculaDTO createOrUpdateMatricula(MatriculaDTO matriculaDTO) throws SeguridadesException
@@ -363,15 +419,22 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	}
 	
 	@Override
-	public ProfesorDTO createOrUpdateProfesor(ProfesorDTO profesorDTO) throws SeguridadesException
+	public ProfesorDTO createOrUpdateProfesor(ProfesorVO profesorVO) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateProfesor");
+		
 		try {
-		if(profesorDTO.getProCodigo()!=null)
-			return matriculaFactoryDAO.getProfesorDAOImpl().update(profesorDTO);
+		Persona persona;
+		if(profesorVO.getProfesor().getProCodigo()!=null){
+			persona = factoryDAO.getPersonaDAOImpl().update(profesorVO.getPersona());
+			return matriculaFactoryDAO.getProfesorDAOImpl().update(profesorVO.getProfesor());
+		}
 		else
-			return matriculaFactoryDAO.getProfesorDAOImpl().create(profesorDTO);
-		} catch (Exception e) {
+		{
+			persona = factoryDAO.getPersonaDAOImpl().create(profesorVO.getPersona());
+			profesorVO.getProfesor().setProPersona(persona.getPerPk());	
+			return matriculaFactoryDAO.getProfesorDAOImpl().create(profesorVO.getProfesor());
+		}} catch (Exception e) {
 			slf4jLogger.info("error al createOrUpdateProfesor {}", e.toString());
 			throw new SeguridadesException(e);
 		}
@@ -380,12 +443,14 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	
 	
 	@Override
-	public void deleteProfesor(ProfesorDTO profesorDTO) throws SeguridadesException
+	public void deleteProfesor(ProfesorVO profesorVO) throws SeguridadesException
 	{
 		slf4jLogger.info("deleteProfesor");
 		try {
-		if(profesorDTO.getProCodigo()!=null)
-			matriculaFactoryDAO.getProfesorDAOImpl().remove(profesorDTO);		
+		if(profesorVO.getProfesor().getProCodigo()!=null){
+			factoryDAO.getPersonaDAOImpl().remove(profesorVO.getPersona());
+			matriculaFactoryDAO.getProfesorDAOImpl().remove(profesorVO.getProfesor());		
+		}
 		else 
 			throw new SeguridadesException("no existe una coincidencia");
 		} catch (Exception e) {
@@ -396,15 +461,21 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	}
 	
 	@Override
-	public RepresentanteDTO createOrUpdateRepresentante(RepresentanteDTO representanteDTO) throws SeguridadesException
+	public RepresentanteDTO createOrUpdateRepresentante(RepresentanteVO representanteVO) throws SeguridadesException
 	{
+		Persona persona;
 		slf4jLogger.info("createOrUpdateRepresentante");
 		try {
-		if(representanteDTO.getRepCodigo()!=null)
-			return matriculaFactoryDAO.getRepresentanteDAOImpl().update(representanteDTO);
-		else
-			return matriculaFactoryDAO.getRepresentanteDAOImpl().create(representanteDTO);
-		} catch (Exception e) {
+		if(representanteVO.getRepresentante().getRepCodigo()!=null){
+			persona = factoryDAO.getPersonaDAOImpl().update(representanteVO.getPersona());
+			return matriculaFactoryDAO.getRepresentanteDAOImpl().update(representanteVO.getRepresentante());
+		}
+			else
+		{
+			persona = factoryDAO.getPersonaDAOImpl().create(representanteVO.getPersona());
+			representanteVO.getRepresentante().setRepPersona(persona.getPerPk());
+			return matriculaFactoryDAO.getRepresentanteDAOImpl().create(representanteVO.getRepresentante());
+		}} catch (Exception e) {
 			slf4jLogger.info("error al createOrUpdateRepresentante {}", e.toString());
 			throw new SeguridadesException(e);
 		}
