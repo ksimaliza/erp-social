@@ -10,6 +10,8 @@ import javax.persistence.PersistenceContext;
 import ec.edu.uce.erp.ejb.dao.factory.FactoryDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.DetalleBienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.DetalleCatalogoDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.EmpleadoDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.EmpleadoeDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.EmpresaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HistorialClaveDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HistoricoTransaccioneDAO;
@@ -21,6 +23,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.PersonaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.UsuarioDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.DetalleBienDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.DetalleCatalogoDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.EmpleadoeDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.EmpresaDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.HistorialClaveDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.HistoricoTransaccioneDAOImpl;
@@ -46,6 +49,7 @@ public class FactoryDAOImpl implements FactoryDAO {
 	private ModuloDAO moduloDAO;
 	private PerfilDAO perfilDAO;
 	private MenuDAO menuDAO;
+	private EmpleadoeDAO empleadoeDAO;
 	
 	private HistoricoTransaccioneDAO historicoTransaccioneDAO;
 	private HistorialClaveDAO historialClaveDAO;
@@ -63,6 +67,14 @@ public class FactoryDAOImpl implements FactoryDAO {
 			usuarioDAO = new UsuarioDAOImpl(entityManager);
 		}
 		return usuarioDAO;
+	}
+	
+	@Override
+	public EmpleadoeDAO getEmpleadoeDAOImpl() {
+		if (empleadoeDAO == null) {
+			empleadoeDAO = new EmpleadoeDAOImpl(entityManager);
+		}
+		return empleadoeDAO;
 	}
 	
 	@Override

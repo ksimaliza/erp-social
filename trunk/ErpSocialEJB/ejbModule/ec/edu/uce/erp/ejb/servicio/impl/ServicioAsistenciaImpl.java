@@ -8,6 +8,9 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.dao.factory.AsistenciaFactoryDAO;
+import ec.edu.uce.erp.ejb.dao.factory.FactoryDAO;
+import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
+import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaDTO;
@@ -16,6 +19,9 @@ import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioEmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.RegistroDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.TipoDTO;
+import ec.edu.uce.erp.ejb.persistence.vo.EmpleadoVO;
+import ec.edu.uce.erp.ejb.persistence.vo.FaltaVO;
+import ec.edu.uce.erp.ejb.persistence.vo.PermisoVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAsistencia;
 
 @Stateless
@@ -23,6 +29,7 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 	@EJB
 	private AsistenciaFactoryDAO asistenciaFactoryDAO;
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(ServicioAsistenciaImpl.class);
+	private FactoryDAO factoryDAO;
 	
 	@Override
 	public DiaDTO createOrUpdateDia(DiaDTO diaDTO) throws SeguridadesException
@@ -58,15 +65,27 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 	}
 	
 	@Override
-	public EmpleadoDTO createOrUpdateEmpleado(EmpleadoDTO empleadoDTO) throws SeguridadesException
+	public EmpleadoDTO createOrUpdateEmpleado(EmpleadoVO empleadoVO) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateEmpleado");
+		Persona persona;
+		Empleado empleado;
 		try {
-		if(empleadoDTO.getAemCodigo()!=null)
-			return asistenciaFactoryDAO.getEmpleadoDAOImpl().update(empleadoDTO);
-		else
-			return asistenciaFactoryDAO.getEmpleadoDAOImpl().create(empleadoDTO);
-		} catch (Exception e) {
+		if(empleadoVO.getEmpleadoDTO().getAemCodigo()!=null)
+		{
+			persona= factoryDAO.getPersonaDAOImpl().update(empleadoVO.getPersona());
+			empleado= factoryDAO.getEmpleadoeDAOImpl().update(empleadoVO.getEmpleado());
+			return asistenciaFactoryDAO.getEmpleadoDAOImpl().update(empleadoVO.getEmpleadoDTO());
+		}
+			else
+			{
+				persona= factoryDAO.getPersonaDAOImpl().create(empleadoVO.getPersona());
+				empleado= factoryDAO.getEmpleadoeDAOImpl().create(empleadoVO.getEmpleado());
+				empleadoVO.getEmpleado().setPersonaTbl(persona);
+				return asistenciaFactoryDAO.getEmpleadoDAOImpl().create(empleadoVO.getEmpleadoDTO());
+		} 
+		}
+		catch (Exception e) {
 			slf4jLogger.info("error al createOrUpdateEmpleado {}", e.toString());
 			throw new SeguridadesException(e);
 		}
@@ -91,15 +110,24 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 	}
 	
 	@Override
-	public FaltaDTO createOrUpdateFalta(FaltaDTO faltaDTO) throws SeguridadesException
+	public FaltaDTO createOrUpdateFalta(FaltaVO faltaVO) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateFalta");
+		EmpleadoDTO empleado;
+		
 		try {
-		if(faltaDTO.getFalCodigo()!=null)
-			return asistenciaFactoryDAO.getFaltaDAOImpl().update(faltaDTO);
-		else
-			return asistenciaFactoryDAO.getFaltaDAOImpl().create(faltaDTO);
-		} catch (Exception e) {
+		if(faltaVO.getFalta().getFalCodigo()!=null){
+			empleado = asistenciaFactoryDAO.getEmpleadoDAOImpl().update(faltaVO.getEmpleado());
+			return asistenciaFactoryDAO.getFaltaDAOImpl().update(faltaVO.getFalta());
+		}
+			else {
+				empleado = asistenciaFactoryDAO.getEmpleadoDAOImpl().create(faltaVO.getEmpleado());
+				faltaVO.getFalta().setAsiEmpleado(empleado);
+				return asistenciaFactoryDAO.getFaltaDAOImpl().create(faltaVO.getFalta());
+		} 
+		}
+		
+		catch (Exception e) {
 			slf4jLogger.info("error al createOrUpdateFalta {}", e.toString());
 			throw new SeguridadesException(e);
 		}
@@ -191,15 +219,21 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 	}
 	
 	@Override
-	public PermisoDTO createOrUpdatePermiso(PermisoDTO permisoDTO) throws SeguridadesException
+	public PermisoDTO createOrUpdatePermiso(PermisoVO permisoVO) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdatePermiso");
+		EmpleadoDTO empleado;
 		try {
-		if(permisoDTO.getPerCodigo()!=null)
-			return asistenciaFactoryDAO.getPermisoDAOImpl().update(permisoDTO);
-		else
-			return asistenciaFactoryDAO.getPermisoDAOImpl().create(permisoDTO);
-		} catch (Exception e) {
+		if(permisoVO.getPermiso().getPerCodigo()!=null){
+			empleado = asistenciaFactoryDAO.getEmpleadoDAOImpl().update(permisoVO.getEmpleado());
+			return asistenciaFactoryDAO.getPermisoDAOImpl().update(permisoVO.getPermiso());
+		}
+			else
+		{
+			empleado = asistenciaFactoryDAO.getEmpleadoDAOImpl().create(permisoVO.getEmpleado());
+			permisoVO.getPermiso().setAsiEmpleado(empleado);
+			return asistenciaFactoryDAO.getPermisoDAOImpl().create(permisoVO.getPermiso());
+		}} catch (Exception e) {
 			slf4jLogger.info("error al createOrUpdatePermiso {}", e.toString());
 			throw new SeguridadesException(e);
 		}

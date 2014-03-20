@@ -11,6 +11,9 @@ import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioEmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.RegistroDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.TipoDTO;
+import ec.edu.uce.erp.ejb.persistence.vo.EmpleadoVO;
+import ec.edu.uce.erp.ejb.persistence.vo.FaltaVO;
+import ec.edu.uce.erp.ejb.persistence.vo.PermisoVO;
 
 @Local
 public interface ServicioAsistencia {
@@ -19,12 +22,7 @@ public interface ServicioAsistencia {
 
 	void deleteDia(DiaDTO diaDTO) throws SeguridadesException;
 
-	EmpleadoDTO createOrUpdateEmpleado(EmpleadoDTO empleadoDTO)
-			throws SeguridadesException;
-
 	void deleteEmpleado(EmpleadoDTO empleadoDTO) throws SeguridadesException;
-
-	FaltaDTO createOrUpdateFalta(FaltaDTO faltaDTO) throws SeguridadesException;
 
 	void deleteFalta(FaltaDTO faltaDTO) throws SeguridadesException;
 
@@ -39,9 +37,6 @@ public interface ServicioAsistencia {
 	HorarioEmpleadoDTO createOrUpdateHorarioEmpleado(
 			HorarioEmpleadoDTO horarioempleadoDTO) throws SeguridadesException;
 
-	PermisoDTO createOrUpdatePermiso(PermisoDTO permisoDTO)
-			throws SeguridadesException;
-
 	void deletePermiso(PermisoDTO permisoDTO) throws SeguridadesException;
 
 	RegistroDTO createOrUpdateRegistro(RegistroDTO registroDTO)
@@ -54,6 +49,14 @@ public interface ServicioAsistencia {
 	void deleteTipo(TipoDTO tipoDTO) throws SeguridadesException;
 
 	PermisoDTO createOrUpdateHorarioPermiso(PermisoDTO permisoDTO)
+			throws SeguridadesException;
+
+	EmpleadoDTO createOrUpdateEmpleado(EmpleadoVO empleadoVO)
+			throws SeguridadesException;
+
+	FaltaDTO createOrUpdateFalta(FaltaVO faltaVO) throws SeguridadesException;
+
+	PermisoDTO createOrUpdatePermiso(PermisoVO permisoVO)
 			throws SeguridadesException;
 
 

@@ -7,6 +7,7 @@ import javax.ejb.Local;
 
 import ec.edu.uce.erp.ejb.persistence.dao.DetalleBienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.DetalleCatalogoDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.EmpleadoeDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.EmpresaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HistorialClaveDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HistoricoTransaccioneDAO;
@@ -39,5 +40,6 @@ public interface FactoryDAO {
 	
 	DetalleCatalogoDAO getDetalleCatalogoDAOImpl();
 	DetalleBienDAO getDetalleBienDAOImpl();
+	EmpleadoeDAO getEmpleadoeDAOImpl();
 	
 }
