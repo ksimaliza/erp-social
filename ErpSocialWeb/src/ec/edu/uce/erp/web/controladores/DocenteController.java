@@ -1,8 +1,6 @@
 package ec.edu.uce.erp.web.controladores;
 
 
-
-
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -25,7 +23,7 @@ import ec.edu.uce.erp.web.datamanager.DocenteDataManager;
 @ViewScoped
 @ManagedBean (name = "DocenteController")
 public class DocenteController {
-	private static final Logger slf4jLogger = LoggerFactory.getLogger(PerfilController.class);
+	private static final Logger slf4jLogger = LoggerFactory.getLogger(DocenteController.class);
 	
 	@EJB
 	private ServicioMatricula servicioMatricula;
@@ -33,7 +31,7 @@ public class DocenteController {
 	@ManagedProperty(value="#{docenteDataManager}")
 	private DocenteDataManager docenteDataManager;
 	
-	public void setPerfilDataManager(DocenteDataManager docenteDataManager) {
+	public void setDocenteDataManager(DocenteDataManager docenteDataManager) {
 		this.docenteDataManager = docenteDataManager;
 	}
 	

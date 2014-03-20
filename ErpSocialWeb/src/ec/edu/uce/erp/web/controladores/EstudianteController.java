@@ -20,7 +20,7 @@ import ec.edu.uce.erp.web.datamanager.EstudianteDataManager;
 @ManagedBean (name = "EstudianteController")
 public class EstudianteController {
 	
-		private static final Logger slf4jLogger = LoggerFactory.getLogger(PerfilController.class);
+		private static final Logger slf4jLogger = LoggerFactory.getLogger(EstudianteController.class);
 		
 		@EJB
 		private ServicioMatricula servicioMatricula;
@@ -28,7 +28,7 @@ public class EstudianteController {
 		@ManagedProperty(value="#{EstudianteDataManager}")
 		private EstudianteDataManager estudianteDataManager;
 		
-		public void setPerfilDataManager(EstudianteDataManager estudianteDataManager) {
+		public void setEstudianteDataManager(EstudianteDataManager estudianteDataManager) {
 			this.estudianteDataManager = estudianteDataManager;
 		}
 		
