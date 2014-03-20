@@ -16,7 +16,7 @@
 							<h:outputLabel for="txtCi" value="#{i18n['erp.asistencia.empleado.cedula']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtCi" style="width: 100%"
+							<p:inputText id="txtCi" value="#{empleadoDataManager.persona.perCi}" style="width: 100%"
 							required="true" label="#{i18n['erp.asistencia.empleado.cedula']}"
 								 />
 						</td>
@@ -29,9 +29,9 @@
 							
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNombres"
+							<p:inputText id="txtNombres" value="#{empleadoDataManager.persona.perNombres}" 
 								style="width: 100%"
-								required="true" label="#{i18n['erp.asistencia.empleado.nombres']}"/>
+								required="true" label="#{i18n['erp.asistencia.empleado.nombres']}" />
 						</td>
 					</tr>
 					<tr>
@@ -39,7 +39,7 @@
 							<h:outputLabel for="txtApe" value="#{i18n['erp.asistencia.empleado.apellidos']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtApe" style="width: 100%"
+							<p:inputText id="txtApe" style="width: 100%" value="#{empleadoDataManager.persona.perApellidos}" 
 								 />
 						</td>
 						
@@ -50,7 +50,7 @@
 							<h:outputLabel for="txtFecNac" value="#{i18n['erp.asistencia.empleado.fechanac']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtFecNac" style="width: 100%"
+							<p:inputText id="txtFecNac" style="width: 100%" value="#{empleadoDataManager.persona.perFechaNac}" 
 								 />
 						</td>	
 					</tr>
@@ -60,7 +60,7 @@
 							<h:outputLabel for="txtDir" value="#{i18n['erp.asistencia.empleado.direccion']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtDir" style="width: 100%"
+							<p:inputText id="txtDir" style="width: 100%" value="#{empleadoDataManager.persona.perDireccion}" 
 								 />
 						</td>	
 					</tr>
@@ -69,7 +69,7 @@
 							<h:outputLabel for="txtTelefono" value="#{i18n['erp.asistencia.empleado.telefono']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtTelefono" style="width: 100%"
+							<p:inputText id="txtTelefono" style="width: 100%" value="#{empleadoDataManager.persona.perTelefono}" 
 								 />
 						</td>	
 					</tr>
@@ -78,7 +78,7 @@
 							<h:outputLabel for="txtCelular" value="#{i18n['erp.asistencia.empleado.celular']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtCelular" style="width: 100%"
+							<p:inputText id="txtCelular" style="width: 100%" value="#{empleadoDataManager.persona.perCelular}" 
 								 />
 						</td>	
 					</tr>
@@ -87,7 +87,7 @@
 							<h:outputLabel for="txtEmail" value="#{i18n['erp.asistencia.empleado.email']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtEmail" style="width: 100%"
+							<p:inputText id="txtEmail" style="width: 100%" value="#{empleadoDataManager.persona.perEmail}" 
 								 />
 						</td>	
 					</tr>
@@ -96,7 +96,7 @@
 							<h:outputLabel for="txtFoto" value="#{i18n['erp.asistencia.empleado.foto']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtFoto" style="width: 100%"
+							<p:inputText id="txtFoto" style="width: 100%" value="#{empleadoDataManager.persona.perFoto}" 
 								 />
 						</td>	
 					</tr>
@@ -106,7 +106,7 @@
 							<h:outputLabel for="txtAfiliacion" value="#{i18n['erp.asistencia.empleado.afiliacion']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtAfiliacion" style="width: 100%"
+							<p:inputText id="txtAfiliacion" style="width: 100%" value="#{empleadoDataManager.}" 
 								 />
 						</td>
 						
@@ -117,7 +117,7 @@
 							<h:outputLabel for="txtfecIng" value="#{i18n['erp.asistencia.empleado.fechaingreso']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtfecIng" style="width: 100%"
+							<p:inputText id="txtfecIng" style="width: 100%" value="#{estudianteDataManager.estudiantePersonaInsertar.perCi}" 
 								 />
 						</td>
 						
@@ -157,16 +157,16 @@
 					</tr>
 					
 					<tr>
-						
-						<td width="30%">
-							<h:outputLabel for="lbClave" value="#{i18n['erp.asistencia.empleado.estado']}" />
+					<td>
+							<h:outputText value="Estado Empleado"/>
+							<h:selectManyCheckbox id="selectEstado" 
+								value = "#{i18n['erp.asistencia.empleado.estado']}">
+								<f:selectItems itemLabel="Activo"/>
+								<f:selectItems itemLabel="Inactivo"/>
+							</h:selectManyCheckbox>
+							
 						</td>
-						<td>
-							<h:selectOneListbox for="listboxClave" value="#{i18n['erp.asistencia.empleado.estado']}" />
-						</td>
-												
-					</tr>
-											
+						</tr>					
 									
 				</table>
 			</p:panel>

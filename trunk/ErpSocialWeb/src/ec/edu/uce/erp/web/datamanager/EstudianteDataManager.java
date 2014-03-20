@@ -7,6 +7,7 @@ import javax.faces.bean.SessionScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.vo.EstudianteVO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
@@ -21,6 +22,8 @@ public class EstudianteDataManager extends BaseDataManager {
 		private EstudianteVO estudianteEditar;
 		private EstudianteVO estudianteBuscar;
 		
+		private Persona estudiantePersonaInsertar;
+		
 		@PostConstruct
 		public void inicializarObjetos () {
 			
@@ -28,6 +31,8 @@ public class EstudianteDataManager extends BaseDataManager {
 			this.estudianteInstancia = new EstudianteVO();		
 			this.estudianteEditar = new EstudianteVO();
 			this.estudianteBuscar = new EstudianteVO();
+			
+			this.estudiantePersonaInsertar=new Persona();
 				
 		}
 
@@ -53,6 +58,14 @@ public class EstudianteDataManager extends BaseDataManager {
 
 		public void setEstudianteBuscar(EstudianteVO estudianteBuscar) {
 			this.estudianteBuscar = estudianteBuscar;
+		}
+
+		public Persona getEstudiantePersonaInsertar() {
+			return estudiantePersonaInsertar;
+		}
+
+		public void setEstudiantePersonaInsertar(Persona estudiantePersonaInsertar) {
+			this.estudiantePersonaInsertar = estudiantePersonaInsertar;
 		}
 		
 		

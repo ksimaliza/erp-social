@@ -26,7 +26,7 @@ public class RepresentanteController {
 	@ManagedProperty(value="#{RepresentanteDataManager}")
 	private RepresentanteDataManager representanteDataManager;
 	
-	public void setPerfilDataManager(RepresentanteDataManager representanteDataManager) {
+	public void setRepresentanteDataManager(RepresentanteDataManager representanteDataManager) {
 		this.representanteDataManager = representanteDataManager;
 	}
 	
