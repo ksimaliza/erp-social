@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogo;
 import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogoPK;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.CabeceraBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBienPK;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
@@ -130,6 +131,27 @@ public final class UtilSelectItems {
 				public Object transform(final Object arg0) {
 					final Proveedor proveedor = (Proveedor)arg0;
 					return new SelectItem(proveedor.getProvPk(), proveedor.getNpNombresCompletos());
+				}
+			}, listSelectItem);
+		}
+		
+		return listSelectItem;
+	}
+	
+	public List<SelectItem> cargarSelectItemCabeceraBien (ServicioInventario servicioInventario) throws SeguridadesException {
+		
+		slf4jLogger.info("cargarSelectItemInventarios");
+		
+		List<SelectItem> listSelectItem = new ArrayList<SelectItem>();
+		
+		List<CabeceraBien> listCabeceraBien = servicioInventario.buscarCabeceraBien();
+		
+		if (CollectionUtils.isNotEmpty(listCabeceraBien)) {
+			CollectionUtils.collect(listCabeceraBien, new Transformer() {
+				@Override
+				public Object transform(final Object arg0) {
+					final CabeceraBien cabeceraBien = (CabeceraBien)arg0;
+					return new SelectItem(cabeceraBien.getCabBienPk(), cabeceraBien.getCabBienDescripcion());
 				}
 			}, listSelectItem);
 		}

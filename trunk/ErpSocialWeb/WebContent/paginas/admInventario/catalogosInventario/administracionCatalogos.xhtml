@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="title">
+		<h3><h:outputLabel	value="#{i18n['erp.inventario.administracion.catalogos.titulo']}" /></h3>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="formDetalleBien">
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			<p:toolbar id="toolbar">
+				<p:toolbarGroup align="left">
+					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
+					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
+						icon="exportExcel" disabled="#{empty detalleBienDataManager.listDetalleBien}">
+						<p:dataExporter type="xls" target="tablaDetalleBien" fileName="productos" postProcessor="#{detalleBienController.postProcessXLS}"/>
+					</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panel id="pnlBuscarDetalleBien" header="#{i18n['erp.inventario.administracion.catalogos.buscar']}">
+				<table class="formulario">
+					<tr>
+						<td style="width: 20%">
+							<h:outputLabel for="txtCatalogo" value="#{i18n['erp.inventario.administracion.catalogos.seleccione.tipo']}" />
+						</td>
+						<td style="width: 60%">
+							<p:selectOneMenu id="txtCatalogo" panelStyle="width: 20%" 
+								value="#{detalleBienDataManager.detalleBienBuscar.id.cabBienFk}" >
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItems value="#{detalleBienDataManager.dcCabeceraBien}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{detalleBienController.buscarDetalleBien}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscarDetalleBien"
+					update="pnlMessages,tablaDetalleBien,pnlBuscarDetalleBien,toolbar" />
+				<h:commandButton value="a" action="#{detalleBienController.buscarDetalleBien}" />
+			</p:panel>
+			<p:dataTable id="tablaDetalleBien"
+				value="#{detalleBienDataManager.listDetalleBien}"
+				var="detalleBien" rowIndexVar="rowIndex"
+				paginator="true" rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<f:facet name="header">
+					<h:outputText value="#{i18n['erp.bien.lista']}" />
+				</f:facet>
+				<p:column styleClass="centered" width="5%">
+					<f:facet name="header">
+						<h:outputText value="#" />
+					</f:facet>
+					<h:outputText value="#{rowIndex+1}"/>
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['label.codigo']}" />
+					</f:facet>
+					<h:outputText value="#{detalleBien.id.detBienNivel1}" />
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['label.descripcion']}" />
+					</f:facet>
+					<h:outputText value="#{detalleBien.detBienDescripcion}" />
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['label.estado']}" />
+					</f:facet>
+					<h:outputText value="#{detalleBien.detBienEstado}" />
+				</p:column>
+				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%" exportable="false">
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.editar']}"
+							process="@this" >
+							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+							<f:setPropertyActionListener target="#{detalleBienDataManager.detalleBienEditar}" value="#{detalleBien}" />
+						</p:commandLink>
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:outputText value="&#160;|&#160;" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.activar']}"
+							rendered="#{detalleBien.detBienEstado eq detalleBienDataManager.estadoInactivo}">
+							<h:graphicImage value="/resources/img/tick.png" alt="#{i18n['label.activar']}"/>
+							<f:setPropertyActionListener target="#{detalleBienDataManager.detalleBienEditar}" value="#{detalleBien}" />
+						</p:commandLink>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.desabilitar']}"
+							rendered="#{detalleBien.detBienEstado eq detalleBienDataManager.estadoActivo}"
+							oncomplete="dlgDesactivar.show()">
+							<h:graphicImage value="/resources/img/delete.png" alt="#{i18n['label.desabilitar']}"/>
+							<f:setPropertyActionListener target="#{detalleBienDataManager.detalleBienEditar}" value="#{detalleBien}" />
+						</p:commandLink>
+					</h:panelGroup>
+				</p:column>
+			</p:dataTable>
+			
+		</h:form>
+		
+	</ui:define>
+</ui:composition>

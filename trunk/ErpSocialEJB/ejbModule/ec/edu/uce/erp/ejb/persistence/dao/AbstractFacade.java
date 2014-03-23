@@ -1,5 +1,7 @@
 package ec.edu.uce.erp.ejb.persistence.dao;
 
+import java.util.List;
+
 /**
  * Interfaz generica para administrar la pricipales operaciones hacia la BD
  * @author 
@@ -34,5 +36,11 @@ public interface AbstractFacade<T> {
 	 * @return
 	 */
 	T find(Object id);
+	
+	/**
+	 * Busca todas las entidades disponibles de una entidad de la BD
+	 * @return lista de entidades encontradas
+	 */
+	List<T> buscarTodos();
 
 }

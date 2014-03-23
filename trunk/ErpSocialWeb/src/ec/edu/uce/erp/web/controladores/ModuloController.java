@@ -88,6 +88,7 @@ public class ModuloController extends BaseController{
 		
 		try {
 			
+			this.moduloDataManager.getModuloEditar().setUsuarioRegistro(this.moduloDataManager.getUsuarioSession());
 			this.moduloDataManager.getModuloEditar().setEmpresaTbls(this.asignarEmpresasSeleccionadas());
 			this.servicioAdministracion.actualizarModulo(this.moduloDataManager.getModuloEditar());
 			MensajesWebController.aniadirMensajeInformacion("erp.modulo.actualizar.exito");
@@ -104,6 +105,7 @@ public class ModuloController extends BaseController{
 		try {
 			
 			if (this.moduloDataManager.getModuloEditar()!=null) {
+				this.moduloDataManager.getModuloEditar().setUsuarioRegistro(this.moduloDataManager.getUsuarioSession());
 				this.moduloDataManager.getModuloEditar().setEstado(moduloDataManager.getEstadoActivo());
 				this.servicioAdministracion.actualizarModulo(this.moduloDataManager.getModuloEditar());
 				MensajesWebController.aniadirMensajeInformacion("erp.modulo.actualizar.exito");
@@ -122,6 +124,7 @@ public class ModuloController extends BaseController{
 		try {
 			
 			if (this.moduloDataManager.getModuloEditar()!=null) {
+				this.moduloDataManager.getModuloEditar().setUsuarioRegistro(this.moduloDataManager.getUsuarioSession());
 				this.moduloDataManager.getModuloEditar().setEstado(moduloDataManager.getEstadoInactivo());
 				this.servicioAdministracion.actualizarModulo(this.moduloDataManager.getModuloEditar());
 				MensajesWebController.aniadirMensajeInformacion("erp.modulo.actualizar.exito");

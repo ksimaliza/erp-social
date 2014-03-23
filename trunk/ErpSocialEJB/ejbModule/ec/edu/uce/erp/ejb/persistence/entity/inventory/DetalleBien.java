@@ -1,7 +1,6 @@
 package ec.edu.uce.erp.ejb.persistence.entity.inventory;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -10,11 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import ec.edu.uce.erp.ejb.persistence.entity.Ingreso;
-import ec.edu.uce.erp.ejb.persistence.entity.Transaccion;
 
 
 /**
@@ -53,13 +48,13 @@ public class DetalleBien implements Serializable {
 	@JoinColumn(name="cab_bien_fk", referencedColumnName="cab_bien_pk", insertable=false, updatable=false)
 	private CabeceraBien cabeceraBienTbl;
 
-	//bi-directional many-to-one association to Ingreso
-	@OneToMany(mappedBy="detalleBienTbl")
-	private List<Ingreso> ingresoTbls;
-
-	//bi-directional many-to-one association to Transaccion
-	@OneToMany(mappedBy="detalleBienTbl")
-	private List<Transaccion> transaccionTbls;
+//	//bi-directional many-to-one association to Ingreso
+//	@OneToMany(mappedBy="detalleBienTbl")
+//	private List<Ingreso> ingresoTbls;
+//
+//	//bi-directional many-to-one association to Transaccion
+//	@OneToMany(mappedBy="detalleBienTbl")
+//	private List<Transaccion> transaccionTbls;
 
 	public DetalleBien() {
 	}
@@ -162,48 +157,48 @@ public class DetalleBien implements Serializable {
 		this.cabeceraBienTbl = cabeceraBienTbl;
 	}
 
-	public List<Ingreso> getIngresoTbls() {
-		return this.ingresoTbls;
-	}
+//	public List<Ingreso> getIngresoTbls() {
+//		return this.ingresoTbls;
+//	}
+//
+//	public void setIngresoTbls(List<Ingreso> ingresoTbls) {
+//		this.ingresoTbls = ingresoTbls;
+//	}
 
-	public void setIngresoTbls(List<Ingreso> ingresoTbls) {
-		this.ingresoTbls = ingresoTbls;
-	}
+//	public Ingreso addIngresoTbl(Ingreso ingresoTbl) {
+//		getIngresoTbls().add(ingresoTbl);
+//		ingresoTbl.setDetalleBienTbl(this);
+//
+//		return ingresoTbl;
+//	}
+//
+//	public Ingreso removeIngresoTbl(Ingreso ingresoTbl) {
+//		getIngresoTbls().remove(ingresoTbl);
+//		ingresoTbl.setDetalleBienTbl(null);
+//
+//		return ingresoTbl;
+//	}
+//
+//	public List<Transaccion> getTransaccionTbls() {
+//		return this.transaccionTbls;
+//	}
+//
+//	public void setTransaccionTbls(List<Transaccion> transaccionTbls) {
+//		this.transaccionTbls = transaccionTbls;
+//	}
 
-	public Ingreso addIngresoTbl(Ingreso ingresoTbl) {
-		getIngresoTbls().add(ingresoTbl);
-		ingresoTbl.setDetalleBienTbl(this);
-
-		return ingresoTbl;
-	}
-
-	public Ingreso removeIngresoTbl(Ingreso ingresoTbl) {
-		getIngresoTbls().remove(ingresoTbl);
-		ingresoTbl.setDetalleBienTbl(null);
-
-		return ingresoTbl;
-	}
-
-	public List<Transaccion> getTransaccionTbls() {
-		return this.transaccionTbls;
-	}
-
-	public void setTransaccionTbls(List<Transaccion> transaccionTbls) {
-		this.transaccionTbls = transaccionTbls;
-	}
-
-	public Transaccion addTransaccionTbl(Transaccion transaccionTbl) {
-		getTransaccionTbls().add(transaccionTbl);
-		transaccionTbl.setDetalleBienTbl(this);
-
-		return transaccionTbl;
-	}
-
-	public Transaccion removeTransaccionTbl(Transaccion transaccionTbl) {
-		getTransaccionTbls().remove(transaccionTbl);
-		transaccionTbl.setDetalleBienTbl(null);
-
-		return transaccionTbl;
-	}
+//	public Transaccion addTransaccionTbl(Transaccion transaccionTbl) {
+//		getTransaccionTbls().add(transaccionTbl);
+//		transaccionTbl.setDetalleBienTbl(this);
+//
+//		return transaccionTbl;
+//	}
+//
+//	public Transaccion removeTransaccionTbl(Transaccion transaccionTbl) {
+//		getTransaccionTbls().remove(transaccionTbl);
+//		transaccionTbl.setDetalleBienTbl(null);
+//
+//		return transaccionTbl;
+//	}
 
 }

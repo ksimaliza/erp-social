@@ -8,6 +8,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.CabeceraBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
 
@@ -29,6 +30,13 @@ public interface ServicioInventario {
 	 * @throws SeguridadesException
 	 */
 	List<DetalleBien> buscarDetalleBienCriterios (DetalleBien detalleBien) throws SeguridadesException;
+	
+	/**
+	 * Cargar todos los catalogos de la tabla <code>CabeceraBien</code> del modulo de inventario
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	List<CabeceraBien> buscarCabeceraBien () throws SeguridadesException;
 	
 	/*
 	 * Servicio para administracion de proveedores

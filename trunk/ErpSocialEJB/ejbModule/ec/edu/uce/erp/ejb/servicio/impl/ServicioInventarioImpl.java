@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.enums.EnumTipoTransaccion;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.dao.factory.InventarioFactory;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.CabeceraBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
 import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaDTO;
@@ -53,6 +54,15 @@ public class ServicioInventarioImpl implements ServicioInventario{
 		}
 		
 		return listaDetalleBien;
+	}
+	
+	@Override
+	public List<CabeceraBien> buscarCabeceraBien () throws SeguridadesException {
+		try {
+			return inventarioFactory.getCabeceraBienDAOImpl().buscarTodos();
+		} catch (Exception e) {
+			throw new SeguridadesException(e);
+		}
 	}
 	
 	/*
