@@ -1,6 +1,7 @@
 package ec.edu.uce.erp.ejb.persistence.dao.impl;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -38,6 +39,11 @@ public abstract class AbstractFacadeImpl<T> implements AbstractFacade<T> {
 
 	public T find(Object id) {
 		return entityManager.find(entityClass, id);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<T> buscarTodos() {
+		return entityManager.createQuery("from " + this.entityClass.getName()).getResultList();
 	}
 
 }
