@@ -65,6 +65,24 @@ public class ServicioInventarioImpl implements ServicioInventario{
 		}
 	}
 	
+	@Override
+	@TransactionAttribute (TransactionAttributeType.REQUIRED)
+	public DetalleBien actualizarDetalleBien(DetalleBien detalleBien) throws SeguridadesException {
+		
+		DetalleBien detalleBienUpdate = null;
+		
+		try {
+			detalleBienUpdate =  inventarioFactory.getDetalleBienDAOImpl().update(detalleBien);
+			inventarioFactory.getHistoricoTransaccioneDAOImpl()
+					.registrarHistoricoTransaccion(
+							new AuditoriaDTO(detalleBien.getUsuarioRegistro()
+									.getIdUsuario(), ServicioInventarioImpl.class.getName(), "actualizarDetalleBien", EnumTipoTransaccion.UPDATE));
+		} catch (Exception e) {
+			throw new SeguridadesException(e);
+		}
+		return detalleBienUpdate;
+	}
+	
 	/*
 	 * Servicio para administracion de proveedores
 	 */
@@ -132,5 +150,7 @@ public class ServicioInventarioImpl implements ServicioInventario{
 		
 		return listaProveedor;
 	}
+
+
 
 }

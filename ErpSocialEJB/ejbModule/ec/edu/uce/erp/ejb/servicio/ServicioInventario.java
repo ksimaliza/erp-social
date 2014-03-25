@@ -38,6 +38,14 @@ public interface ServicioInventario {
 	 */
 	List<CabeceraBien> buscarCabeceraBien () throws SeguridadesException;
 	
+	/**
+	 * Actualizar <code>DetalleBien</code> en la BD
+	 * @param detalleBien
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	DetalleBien actualizarDetalleBien (DetalleBien detalleBien) throws SeguridadesException;
+	
 	/*
 	 * Servicio para administracion de proveedores
 	 */

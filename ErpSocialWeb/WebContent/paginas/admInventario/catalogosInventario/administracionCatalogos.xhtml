@@ -16,7 +16,7 @@
 					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
 					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
 						icon="exportExcel" disabled="#{empty detalleBienDataManager.listDetalleBien}">
-						<p:dataExporter type="xls" target="tablaDetalleBien" fileName="productos" postProcessor="#{detalleBienController.postProcessXLS}"/>
+						<p:dataExporter type="xls" target="tablaDetalleBien" fileName="catalogos" postProcessor="#{detalleBienController.postProcessXLS}"/>
 					</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
@@ -31,19 +31,22 @@
 								value="#{detalleBienDataManager.detalleBienBuscar.id.cabBienFk}" >
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
 								<f:selectItems value="#{detalleBienDataManager.dcCabeceraBien}"/>
+								<p:ajax event="change" 
+									listener="#{detalleBienController.buscarDetalleBien}" 
+									process="@this,pnlBuscarDetalleBien"
+									update="pnlMessages,tablaDetalleBien,pnlBuscarDetalleBien,toolbar"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
 				</table>
 			</p:panel>
-			<p:panel id="botonesBuscar">
+			<!-- <p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
 					actionListener="#{detalleBienController.buscarDetalleBien}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarDetalleBien"
 					update="pnlMessages,tablaDetalleBien,pnlBuscarDetalleBien,toolbar" />
-				<h:commandButton value="a" action="#{detalleBienController.buscarDetalleBien}" />
-			</p:panel>
+			</p:panel> -->
 			<p:dataTable id="tablaDetalleBien"
 				value="#{detalleBienDataManager.listDetalleBien}"
 				var="detalleBien" rowIndexVar="rowIndex"
@@ -75,13 +78,17 @@
 					<f:facet name="header">
 						<h:outputText value="#{i18n['label.estado']}" />
 					</f:facet>
-					<h:outputText value="#{detalleBien.detBienEstado}" />
+					<h:outputText value="#{i18n['label.estado.activo']}"
+						rendered="#{detalleBien.detBienEstado eq detalleBienDataManager.estadoActivo}" />
+					<h:outputText value="#{i18n['label.estado.inactivo']}"
+						rendered="#{detalleBien.detBienEstado eq detalleBienDataManager.estadoInactivo}" />
 				</p:column>
 				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%" exportable="false">
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
-							process="@this" >
+							process="@this" update=":formEditarUsuario:pnlEditarCatalogo"
+							oncomplete="dlgEditarCatalogo.show()" >
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 							<f:setPropertyActionListener target="#{detalleBienDataManager.detalleBienEditar}" value="#{detalleBien}" />
 						</p:commandLink>
@@ -89,18 +96,23 @@
 					<h:panelGroup>
 						<h:outputText value="&#160;|&#160;" />
 					</h:panelGroup>
+					<!-- Activar -->
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.activar']}"
-							rendered="#{detalleBien.detBienEstado eq detalleBienDataManager.estadoInactivo}">
+							rendered="#{detalleBien.detBienEstado eq detalleBienDataManager.estadoInactivo}"
+							process="@this" update=":formDetalleBien:dialogActivar"
+							oncomplete="dlgActivar.show()">
 							<h:graphicImage value="/resources/img/tick.png" alt="#{i18n['label.activar']}"/>
 							<f:setPropertyActionListener target="#{detalleBienDataManager.detalleBienEditar}" value="#{detalleBien}" />
 						</p:commandLink>
 					</h:panelGroup>
+					<!-- Desactivar -->
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.desabilitar']}"
 							rendered="#{detalleBien.detBienEstado eq detalleBienDataManager.estadoActivo}"
+							process="@this" update=":formDetalleBien:dialogDesactivar"
 							oncomplete="dlgDesactivar.show()">
 							<h:graphicImage value="/resources/img/delete.png" alt="#{i18n['label.desabilitar']}"/>
 							<f:setPropertyActionListener target="#{detalleBienDataManager.detalleBienEditar}" value="#{detalleBien}" />
@@ -108,8 +120,26 @@
 					</h:panelGroup>
 				</p:column>
 			</p:dataTable>
-			
+			<!-- Desactivar catalogo -->
+			<p:confirmDialog id="dialogDesactivar" width="400" 
+				message="#{i18n['erp.inventario.administracion.catalogos.desactivar.pregunta.confirmacion']}" appendTo="@(body)"
+				header="#{i18n['erp.inventario.administracion.catalogos.desactivar']}" severity="alert" widgetVar="dlgDesactivar" >
+				<p:commandButton value="#{i18n['label.aceptar']}"
+					actionListener="#{detalleBienController.desactivarDetalleBien}"
+					oncomplete="dlgDesactivar.hide()" 
+					update="pnlMessages,tablaDetalleBien" process="@this"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgDesactivar.hide();" type="button" />
+			</p:confirmDialog>
+			<!-- Activar catalogo -->
+			<p:confirmDialog id="dialogActivar" message="#{i18n['erp.inventario.administracion.catalogos.activar.pregunta.confirmacion']}" appendTo="@(body)"
+				header="#{i18n['erp.inventario.administracion.catalogos.activar']}" severity="alert" widgetVar="dlgActivar" >
+				<p:commandButton value="#{i18n['label.aceptar']}"
+					actionListener="#{detalleBienController.activarDetalleBien}"
+					oncomplete="dlgActivar.hide()" 
+					update="pnlMessages,tablaDetalleBien" process="@this"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgActivar.hide();" type="button" />
+			</p:confirmDialog>
 		</h:form>
-		
+		<ui:include src="dialogEditarDetalleBien.xhtml" />
 	</ui:define>
 </ui:composition>
