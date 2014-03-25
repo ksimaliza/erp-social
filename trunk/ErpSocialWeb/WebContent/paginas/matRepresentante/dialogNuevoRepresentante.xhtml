@@ -15,8 +15,8 @@
 						<td width="30%">
 							<h:outputLabel for="txtCi" value="#{i18n['erp.matricula.representante.cedula']}" />
 						</td>
-						<td width="70%">
-							<p:inputText id="txtCi" style="width: 100%"
+						<td width="70%"> 
+							<p:inputText id="txtCi" style="width: 100%" value="#{representanteDataManager.representanteInstancia.persona.perCi}"
 							required="true" label="#{i18n['erp.matricula.representante.cedula']}"
 								 />
 						</td>
@@ -28,7 +28,7 @@
 							
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNombres"
+							<p:inputText id="txtNombres" value="#{representanteDataManager.representanteInstancia.persona.perNombres}"
 								style="width: 100%"
 								required="true" label="#{i18n['erp.matricula.representante.nombres']}"/>
 						</td>
@@ -37,8 +37,8 @@
 						<td width="30%">
 							<h:outputLabel for="txtApe" value="#{i18n['erp.matricula.representante.apellidos']}" />
 						</td>
-						<td width="70%">
-							<p:inputText id="txtApe" style="width: 100%"
+						<td width="70%"> 
+							<p:inputText id="txtApe" style="width: 100%" value="#{representanteDataManager.representanteInstancia.persona.perApellidos}"
 								 />
 						</td>
 						
@@ -49,7 +49,7 @@
 							<h:outputLabel for="txtFecNac" value="#{i18n['erp.matricula.representante.fechanac']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtFecNac" style="width: 100%"
+							<p:inputText id="txtFecNac" style="width: 100%" value="#{representanteDataManager.representanteInstancia.persona.perFechaNac}"
 								 />
 						</td>	
 					</tr>
@@ -59,7 +59,7 @@
 							<h:outputLabel for="txtDir" value="#{i18n['erp.matricula.representante.direccion']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtDir" style="width: 100%"
+							<p:inputText id="txtDir" style="width: 100%" value="#{representanteDataManager.representanteInstancia.persona.perDireccion}"
 								 />
 						</td>	
 					</tr>
@@ -68,7 +68,7 @@
 							<h:outputLabel for="txtTelefono" value="#{i18n['erp.matricula.representante.telefono']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtTelefono" style="width: 100%"
+							<p:inputText id="txtTelefono" style="width: 100%" value="#{representanteDataManager.representanteInstancia.persona.perTelefono}"
 								 />
 						</td>	
 					</tr>
@@ -77,7 +77,7 @@
 							<h:outputLabel for="txtCelular" value="#{i18n['erp.matricula.representante.celular']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtCelular" style="width: 100%"
+							<p:inputText id="txtCelular" style="width: 100%" value="#{representanteDataManager.representanteInstancia.persona.perCelular}"
 								 />
 						</td>	
 					</tr>
@@ -86,7 +86,7 @@
 							<h:outputLabel for="txtEmail" value="#{i18n['erp.matricula.representante.email']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtEmail" style="width: 100%"
+							<p:inputText id="txtEmail" style="width: 100%" value="#{representanteDataManager.representanteInstancia.persona.perEmail}"
 								 />
 						</td>	
 					</tr>
@@ -95,7 +95,7 @@
 							<h:outputLabel for="txtFoto" value="#{i18n['erp.matricula.representante.foto']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtFoto" style="width: 100%"
+							<p:inputText id="txtFoto" style="width: 100%" value="#{representanteDataManager.representanteInstancia.persona.perFoto}"
 								 />
 						</td>	
 					</tr>
@@ -104,6 +104,7 @@
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{RepresentanteController.registrarRepresentante()}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoRepresentante.hide()"
 					process="@this,pnlNuevoRepresentante" update="pnlNuevoRepresentante,:formRepresentante:pnlMessages,:formRepresentante:tablaRepresentante"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoRepresentante.hide();" type="button" />
