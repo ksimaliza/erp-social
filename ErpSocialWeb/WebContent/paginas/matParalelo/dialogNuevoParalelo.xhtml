@@ -17,7 +17,7 @@
 							
 						</td>
 						<td width="70%">
-							<p:inputText id="txtDescrip"
+							<p:inputText id="txtDescrip" value="#{ParaleloDataManager.paraleloInstancia.parDescripcion}"
 								style="width: 100%"
 								required="true" label="#{i18n['erp.matricula.paralelo.descripcion']}"/>
 						</td>
@@ -28,6 +28,7 @@
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{ParaleloController.registrarParalelo()}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoNivel.hide()"
 					process="@this,pnlNuevoParalelo" update="pnlNuevoParalelo,:formParalelo:pnlMessages,:formParalelo:tablaParalelo"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoParalelo.hide();" type="button" />

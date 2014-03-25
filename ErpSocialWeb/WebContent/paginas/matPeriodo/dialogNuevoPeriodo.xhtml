@@ -17,7 +17,7 @@
 							
 						</td>
 						<td width="70%">
-							<p:inputText id="txtDescrip"
+							<p:inputText id="txtDescrip" value="#{PeriodoDataManager.periodoInstancia.perDescripcion}"
 								style="width: 100%"
 								required="true" label="#{i18n['erp.matricula.periodo.descripcion']}"/>
 						</td>
@@ -28,6 +28,7 @@
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{PeriodoController.registrarPeriodo()}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoPeriodo.hide()"
 					process="@this,pnlNuevoPeriodo" update="pnlNuevoPeriodo,:formPeriodo:pnlMessages,:formPeriodo:tablaPeriodo"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoPeriodo.hide();" type="button" />
@@ -35,4 +36,3 @@
 		</h:form>
 	</p:dialog>
 	
-</ui:composition>
