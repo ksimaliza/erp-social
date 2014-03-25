@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MateriaDTO;
@@ -78,9 +79,6 @@ public interface ServicioMatricula {
 
 	EstudianteDTO buscarEstudianteid(Integer id) throws SeguridadesException;
 
-	EstudianteDTO createOrUpdateEstudiante(EstudianteVO estudianteVO)
-			throws SeguridadesException;
-
 	void deleteEstudiante(EstudianteVO estudianteVO)
 			throws SeguridadesException;
 
@@ -91,6 +89,9 @@ public interface ServicioMatricula {
 
 	RepresentanteDTO createOrUpdateRepresentante(RepresentanteVO representanteVO)
 			throws SeguridadesException;
+
+	EstudianteDTO createOrUpdateEstudiante(EstudianteDTO estudianteDTO,
+			Persona persona) throws SeguridadesException;
 
 
 
