@@ -57,13 +57,7 @@ public class EmpleadoDataManager extends BaseDataManager {
 		this.empleadoBuscar = empleadoBuscar;
 	}
 
-	public Persona getPersona() {
-		return persona;
-	}
-
-	public void setPersona(Persona persona) {
-		this.persona = persona;
-	}
+	
 	
 	
 }
