@@ -99,20 +99,21 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		return asinacionencontrada;
 	}
 	
+	
 	@Override
-	public EstudianteDTO createOrUpdateEstudiante(EstudianteVO estudianteVO) throws SeguridadesException
+	public EstudianteDTO createOrUpdateEstudiante(EstudianteDTO estudianteDTO, Persona persona) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateEstudiante");
-		Persona persona;
+		Persona personanueva;
 		try {
-		if(estudianteVO.getEstudiante().getEstCodigo()!=null){
-			persona= factoryDAO.getPersonaDAOImpl().update(estudianteVO.getPersona());
-			return matriculaFactoryDAO.getEstudianteDAOImpl().update(estudianteVO.getEstudiante());
+		if(estudianteDTO.getEstCodigo()!=null){
+			personanueva= factoryDAO.getPersonaDAOImpl().update(persona);
+			return matriculaFactoryDAO.getEstudianteDAOImpl().update(estudianteDTO);
 		}
 		else{
-			persona= factoryDAO.getPersonaDAOImpl().create(estudianteVO.getPersona());
-			estudianteVO.getEstudiante().setEstPersona(persona.getPerPk());
-			return matriculaFactoryDAO.getEstudianteDAOImpl().create(estudianteVO.getEstudiante());
+			personanueva= factoryDAO.getPersonaDAOImpl().create(persona);
+			estudianteDTO.setEstPersona(personanueva.getPerPk());
+			return matriculaFactoryDAO.getEstudianteDAOImpl().create(estudianteDTO);
 		}
 		} catch (Exception e) {
 			slf4jLogger.info("error al createOrUpdateEstudiante {}", e.toString());
