@@ -47,6 +47,7 @@ public class DetalleBienDataManager extends BaseDataManager {
 		this.detalleBienBuscar = new DetalleBien();
 		this.detalleBienBuscar.setId(new DetalleBienPK());
 		this.detalleBienEditar = new DetalleBien();
+		this.detalleBienEditar.setId(new DetalleBienPK());
 		this.listDetalleBien = new ArrayList<DetalleBien>();
 	}
 

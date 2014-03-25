@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaUtil;
+
 
 /**
  * The persistent class for the detalle_bien_tbl database table.
@@ -19,7 +21,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="detalle_bien_tbl")
 @NamedQuery(name="DetalleBien.findAll", query="SELECT d FROM DetalleBien d")
-public class DetalleBien implements Serializable {
+public class DetalleBien extends AuditoriaUtil implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
