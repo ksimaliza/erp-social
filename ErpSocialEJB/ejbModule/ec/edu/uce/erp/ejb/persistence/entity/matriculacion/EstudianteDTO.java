@@ -16,7 +16,7 @@ public class EstudianteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="MAT_ESTUDIANTE_ESTCODIGO_GENERATOR", sequenceName="MAT_ESTUDIANTE_EST_CODIGO_SEQ")
+	@SequenceGenerator(name="MAT_ESTUDIANTE_ESTCODIGO_GENERATOR", sequenceName="MAT_ESTUDIANTE_EST_CODIGO_SEQ",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MAT_ESTUDIANTE_ESTCODIGO_GENERATOR")
 	@Column(name="est_codigo")
 	private Integer estCodigo;

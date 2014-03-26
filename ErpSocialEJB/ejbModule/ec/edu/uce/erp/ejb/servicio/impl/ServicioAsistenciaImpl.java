@@ -22,7 +22,6 @@ import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.RegistroDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.TipoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
-import ec.edu.uce.erp.ejb.persistence.vo.EmpleadoVO;
 import ec.edu.uce.erp.ejb.persistence.vo.FaltaVO;
 import ec.edu.uce.erp.ejb.persistence.vo.PermisoVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAsistencia;
@@ -69,26 +68,26 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 	
 	@Override
 	@TransactionAttribute (TransactionAttributeType.REQUIRED)
-	public EmpleadoDTO createOrUpdateEmpleado(EmpleadoVO empleadoVO) throws SeguridadesException
+	public EmpleadoDTO createOrUpdateEmpleado(EmpleadoDTO empleadoDTO, Empleado empleado, Persona persona) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateEmpleado");
-		Persona persona;
-		Empleado empleado;
+		Persona personanueva;
+		Empleado empleadonuevo;
 		try {
-			if(empleadoVO.getEmpleadoDTO().getAemCodigo()!=null)
+			if(empleadoDTO.getAemCodigo()!=null)
 			{
-				factoryDAO.getPersonaDAOImpl().update(empleadoVO.getPersona());
-				factoryDAO.getEmpleadoeDAOImpl().update(empleadoVO.getEmpleado());
-				return asistenciaFactoryDAO.getEmpleadoDAOImpl().update(empleadoVO.getEmpleadoDTO());
+				factoryDAO.getPersonaDAOImpl().update(persona);
+				factoryDAO.getEmpleadoeDAOImpl().update(empleado);
+				return asistenciaFactoryDAO.getEmpleadoDAOImpl().update(empleadoDTO);
 			}
 			else
 			{
-				empleadoVO.getPersona().setSegtUsuario(new Usuario());
-				persona=factoryDAO.getPersonaDAOImpl().create(empleadoVO.getPersona());
-				empleadoVO.getEmpleado().setPersonaTbl(persona);
-				empleado=factoryDAO.getEmpleadoeDAOImpl().create(empleadoVO.getEmpleado());
-				empleadoVO.getEmpleadoDTO().setAemEmpleado(empleado.getEmpPk());
-				return asistenciaFactoryDAO.getEmpleadoDAOImpl().create(empleadoVO.getEmpleadoDTO());
+				persona.setSegtUsuario(new Usuario());
+				personanueva=factoryDAO.getPersonaDAOImpl().create(persona);
+				empleado.setPersonaTbl(personanueva);
+				empleadonuevo=factoryDAO.getEmpleadoeDAOImpl().create(empleado);
+				empleadoDTO.setAemEmpleado(empleadonuevo.getEmpPk());
+				return asistenciaFactoryDAO.getEmpleadoDAOImpl().create(empleadoDTO);
 			} 
 		}
 		catch (Exception e) {
