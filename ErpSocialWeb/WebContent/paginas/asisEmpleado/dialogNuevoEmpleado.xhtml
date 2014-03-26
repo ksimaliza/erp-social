@@ -87,7 +87,10 @@
 							<h:outputLabel for="txtEmail" value="#{i18n['erp.asistencia.empleado.email']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtEmail" style="width: 100%" value="#{empleadoDataManager.personaInsertar.perEmail}" required="true"/>
+							<p:inputText id="txtEmail" style="width: 100%" value="#{empleadoDataManager.personaInsertar.perEmail}" required="true">
+						<f:validator validatorId="ec.edu.uce.erp.web.validador.EmailValidator" />
+						</p:inputText>
+						
 						</td>	
 					</tr>
 					
