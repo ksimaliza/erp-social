@@ -17,14 +17,14 @@ import ec.edu.uce.erp.web.datamanager.EmpleadoDataManager;
 
 
 @ViewScoped
-@ManagedBean (name = "EmpleadoController")
+@ManagedBean (name = "empleadoController")
 public class EmpleadoController {
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(EmpleadoController.class);
 	
 	@EJB
 	private ServicioAsistencia servicioAsistencia;
 	
-	@ManagedProperty(value="#{EmpleadoDataManager}")
+	@ManagedProperty(value="#{empleadoDataManager}")
 	private EmpleadoDataManager empleadoDataManager;
 	
 	public void setEmpleadoDataManager(EmpleadoDataManager empleadoDataManager) {
@@ -33,15 +33,18 @@ public class EmpleadoController {
 	
 
 	public void registrarEmpleado () {
-		
 		slf4jLogger.info("registrarEmpleado");
+		EmpleadoVO empleadoVO;
 		try {
-			EmpleadoDTO empleadonuevo = this.servicioAsistencia.createOrUpdateEmpleado(this.empleadoDataManager.getEmpleadoInstancia());
+			empleadoVO=new EmpleadoVO();
+			empleadoVO.setEmpleado(empleadoDataManager.getEmpleadoInsertar());
+			empleadoVO.setEmpleadoDTO(empleadoDataManager.getEmpleadoDTOInsertar());
+			empleadoVO.setPersona(empleadoDataManager.getPersonaInsertar());
+			EmpleadoDTO empleadonuevo = this.servicioAsistencia.createOrUpdateEmpleado(empleadoVO);
 			if (empleadonuevo != null) {
-				empleadoDataManager.setEmpleadoInstancia(new EmpleadoVO());
+				empleadoDataManager.setEmpleadoDTOInsertar(empleadonuevo);
 				MensajesWebController.aniadirMensajeInformacion("erp.matricula.empleado.registrar.exito");
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
 			MensajesWebController.aniadirMensajeError(e.getMessage());
