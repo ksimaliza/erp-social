@@ -9,8 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
+import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO;
-import ec.edu.uce.erp.ejb.persistence.vo.EmpleadoVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAsistencia;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.datamanager.EmpleadoDataManager;
@@ -32,25 +33,26 @@ public class EmpleadoController {
 	}
 	
 
+	
+
 	public void registrarEmpleado () {
+		
 		slf4jLogger.info("registrarEmpleado");
-		EmpleadoVO empleadoVO;
 		try {
-			empleadoVO=new EmpleadoVO();
-			empleadoVO.setEmpleado(empleadoDataManager.getEmpleadoInsertar());
-			empleadoVO.setEmpleadoDTO(empleadoDataManager.getEmpleadoDTOInsertar());
-			empleadoVO.setPersona(empleadoDataManager.getPersonaInsertar());
-			EmpleadoDTO empleadonuevo = this.servicioAsistencia.createOrUpdateEmpleado(empleadoVO);
-			if (empleadonuevo != null) {
-				empleadoDataManager.setEmpleadoDTOInsertar(empleadonuevo);
-				MensajesWebController.aniadirMensajeInformacion("erp.matricula.empleado.registrar.exito");
+			EmpleadoDTO empleadoNuevo = this.servicioAsistencia.createOrUpdateEmpleado(this.empleadoDataManager.getEmpleadoDTOInsertar(),this.empleadoDataManager.getEmpleadoInsertar(),this.empleadoDataManager.getPersonaInsertar());
+			if (empleadoNuevo != null) {
+				empleadoDataManager.setEmpleadoDTOInsertar(new EmpleadoDTO());
+				empleadoDataManager.setEmpleadoInsertar(new Empleado());
+				empleadoDataManager.setPersonaInsertar(new Persona());
+				MensajesWebController.aniadirMensajeInformacion("erp.matricula.estudiante.registrar.exito");
 			}
+			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 		
 	}
-
+	
 	
 }
