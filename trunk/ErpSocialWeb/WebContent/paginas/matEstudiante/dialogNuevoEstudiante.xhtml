@@ -91,7 +91,9 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtEmail" style="width: 100%"
-								 value="#{estudianteDataManager.estudiantePersonaInsertar.perEmail}" label="#{i18n['erp.matricula.estudiante.direccion']}"/>
+								 value="#{estudianteDataManager.estudiantePersonaInsertar.perEmail}" label="#{i18n['erp.matricula.estudiante.direccion']}">
+						<f:validator validatorId="ec.edu.uce.erp.web.validador.EmailValidator" />
+						</p:inputText>
 						</td>	
 					</tr>
 					
@@ -101,7 +103,7 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{estudianteController.registrarEstudiante}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevo.hide()"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEstudiante.hide()"
 					process="@this,pnlNuevoEstudiante" update="pnlNuevoEstudiante,:formEstudiante:pnlMessages,:formEstudiante:tablaEstudiante"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoEstudiante.hide()" type="button" />
 			</p:panel>
