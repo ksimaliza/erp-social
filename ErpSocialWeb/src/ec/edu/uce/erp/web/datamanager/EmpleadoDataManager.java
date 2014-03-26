@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
-import ec.edu.uce.erp.ejb.persistence.vo.EmpleadoVO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 @SessionScoped
@@ -18,46 +18,43 @@ public class EmpleadoDataManager extends BaseDataManager {
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(PerfilDataManager.class);
 	private static final long serialVersionUID = 1L;
 	
-	private EmpleadoVO empleadoInstancia;
-	private EmpleadoVO empleadoEditar;
-	private EmpleadoVO empleadoBuscar;
-	private Persona empleadopersonainsertar;
-	private Empleado empleadoempleadoinsertar;
+	private Persona personaInsertar;
+	private Empleado empleadoInsertar;
+	private EmpleadoDTO empleadoDTOInsertar;
+	
 	@PostConstruct
 	public void inicializarObjetos () {
 		
 		slf4jLogger.info("inicializarObjetos");
-		this.empleadoInstancia = new EmpleadoVO();		
-		this.empleadoEditar = new EmpleadoVO();
-		this.empleadoBuscar = new EmpleadoVO();
-		this.empleadopersonainsertar = new Persona();	
+		personaInsertar=new Persona();
+		empleadoDTOInsertar=new EmpleadoDTO();  
+		empleadoInsertar=new Empleado();
 	}
 
-	public EmpleadoVO getEmpleadoInstancia() {
-		return empleadoInstancia;
+	public Persona getPersonaInsertar() {
+		return personaInsertar;
 	}
 
-	public void setEmpleadoInstancia(EmpleadoVO empleadoInstancia) {
-		this.empleadoInstancia = empleadoInstancia;
+	public void setPersonaInsertar(Persona personaInsertar) {
+		this.personaInsertar = personaInsertar;
 	}
 
-	public EmpleadoVO getEmpleadoEditar() {
-		return empleadoEditar;
+	public Empleado getEmpleadoInsertar() {
+		return empleadoInsertar;
 	}
 
-	public void setEmpleadoEditar(EmpleadoVO empleadoEditar) {
-		this.empleadoEditar = empleadoEditar;
+	public void setEmpleadoInsertar(Empleado empleadoInsertar) {
+		this.empleadoInsertar = empleadoInsertar;
 	}
 
-	public EmpleadoVO getEmpleadoBuscar() {
-		return empleadoBuscar;
+	public EmpleadoDTO getEmpleadoDTOInsertar() {
+		return empleadoDTOInsertar;
 	}
 
-	public void setEmpleadoBuscar(EmpleadoVO empleadoBuscar) {
-		this.empleadoBuscar = empleadoBuscar;
+	public void setEmpleadoDTOInsertar(EmpleadoDTO empleadoDTOInsertar) {
+		this.empleadoDTOInsertar = empleadoDTOInsertar;
 	}
 
-	
 	
 	
 }
