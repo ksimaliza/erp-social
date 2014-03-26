@@ -10,6 +10,8 @@
 		<h:form id="formNuevoEstudiante" styleClass="formulario">
 			<p:panel id="pnlNuevoEstudiante">
 				<table class="formulario">
+					
+					
 					<tr>
 						
 						<td width="30%">
@@ -17,8 +19,12 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCi" value="#{estudianteDataManager.estudiantePersonaInsertar.perCi}" style="width: 100%"
-							required="true" label="#{i18n['erp.matricula.estudiante.cedula']}" 
-								 />
+							required="true" label="#{i18n['erp.matricula.estudiante.cedula']}">
+							<f:validateLength maximum="10" minimum="10"/>
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+						
+						</p:inputText>
+						
 						</td>
 						</tr>
 						<tr>
@@ -43,14 +49,22 @@
 						
 					</tr>
 					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFecNac" value="#{i18n['erp.matricula.estudiante.fechanac']}" />
+						</td>
+						<td width="70%">
+							<p:calendar id="txtFecNac" style="width: 100%" navigator="true" value="#{empleadoDataManager.personaInsertar.perFechaNac}"  showOn="button" required="true"/>
+						</td>	
+					</tr>
 					
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtDir" value="#{i18n['erp.matricula.estudiante.direccion']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtDir" style="width: 100%"
-								value="#{estudianteDataManager.estudiantePersonaInsertar.perDireccion}" label="#{i18n['erp.matricula.estudiante.direccion']}" />
+							<p:inputTextarea id="txtDir" style="width: 100%" autoResize="false" 
+								value="#{estudianteDataManager.estudiantePersonaInsertar.perDireccion}" label="#{i18n['erp.matricula.estudiante.direccion']}" required="true" />
 						</td>	
 					</tr>
 					<tr>
@@ -59,7 +73,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtTelefono" style="width: 100%"
-								value="#{estudianteDataManager.estudiantePersonaInsertar.perTelefono}" label="#{i18n['erp.matricula.estudiante.direccion']}" />
+								value="#{estudianteDataManager.estudiantePersonaInsertar.perTelefono}" label="#{i18n['erp.matricula.estudiante.direccion']}" onkeypress="return isNumberKey(event)" />
 						</td>	
 					</tr>
 					<tr>
@@ -68,7 +82,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCelular" style="width: 100%"
-								value="#{estudianteDataManager.estudiantePersonaInsertar.perCelular}" label="#{i18n['erp.matricula.estudiante.direccion']}" />
+								value="#{estudianteDataManager.estudiantePersonaInsertar.perCelular}" label="#{i18n['erp.matricula.estudiante.direccion']}" onkeypress="return isNumberKey(event)" />
 						</td>	
 					</tr>
 					<tr>
@@ -80,15 +94,7 @@
 								 value="#{estudianteDataManager.estudiantePersonaInsertar.perEmail}" label="#{i18n['erp.matricula.estudiante.direccion']}"/>
 						</td>	
 					</tr>
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtFoto" value="#{i18n['erp.matricula.estudiante.foto']}" />
-						</td>
-						<td width="70%">
-							<p:inputText id="txtFoto" style="width: 100%"
-								 value="#{estudianteDataManager.estudiantePersonaInsertar.perFoto}" label="#{i18n['erp.matricula.estudiante.direccion']}"/>
-						</td>	
-					</tr>
+					
 					
 				</table>
 			</p:panel>

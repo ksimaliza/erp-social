@@ -26,7 +26,7 @@ public class EstudianteController {
 		@EJB
 		private ServicioMatricula servicioMatricula;
 		
-		@ManagedProperty(value="#{EstudianteDataManager}")
+		@ManagedProperty(value="#{estudianteDataManager}")
 		private EstudianteDataManager estudianteDataManager;
 		
 		public void setEstudianteDataManager(EstudianteDataManager estudianteDataManager) {
