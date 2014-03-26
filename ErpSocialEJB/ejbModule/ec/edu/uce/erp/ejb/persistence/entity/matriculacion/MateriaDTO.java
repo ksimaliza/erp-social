@@ -18,7 +18,7 @@ public class MateriaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="MAT_MATERIA_MTRCODIGO_GENERATOR", sequenceName="MAT_MATERIA_MTR_CODIGO_SEQ")
+	@SequenceGenerator(name="MAT_MATERIA_MTRCODIGO_GENERATOR", sequenceName="MAT_MATERIA_MTR_CODIGO_SEQ", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MAT_MATERIA_MTRCODIGO_GENERATOR")
 	@Column(name="mtr_codigo")
 	private Integer mtrCodigo;
