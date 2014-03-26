@@ -2,6 +2,8 @@ package ec.edu.uce.erp.ejb.servicio.impl;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioEmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.RegistroDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.TipoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 import ec.edu.uce.erp.ejb.persistence.vo.EmpleadoVO;
 import ec.edu.uce.erp.ejb.persistence.vo.FaltaVO;
 import ec.edu.uce.erp.ejb.persistence.vo.PermisoVO;
@@ -65,25 +68,28 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 	}
 	
 	@Override
+	@TransactionAttribute (TransactionAttributeType.REQUIRED)
 	public EmpleadoDTO createOrUpdateEmpleado(EmpleadoVO empleadoVO) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateEmpleado");
 		Persona persona;
 		Empleado empleado;
 		try {
-		if(empleadoVO.getEmpleadoDTO().getAemCodigo()!=null)
-		{
-			persona= factoryDAO.getPersonaDAOImpl().update(empleadoVO.getPersona());
-			empleado= factoryDAO.getEmpleadoeDAOImpl().update(empleadoVO.getEmpleado());
-			return asistenciaFactoryDAO.getEmpleadoDAOImpl().update(empleadoVO.getEmpleadoDTO());
-		}
+			if(empleadoVO.getEmpleadoDTO().getAemCodigo()!=null)
+			{
+				factoryDAO.getPersonaDAOImpl().update(empleadoVO.getPersona());
+				factoryDAO.getEmpleadoeDAOImpl().update(empleadoVO.getEmpleado());
+				return asistenciaFactoryDAO.getEmpleadoDAOImpl().update(empleadoVO.getEmpleadoDTO());
+			}
 			else
 			{
-				persona= factoryDAO.getPersonaDAOImpl().create(empleadoVO.getPersona());
-				empleado= factoryDAO.getEmpleadoeDAOImpl().create(empleadoVO.getEmpleado());
+				empleadoVO.getPersona().setSegtUsuario(new Usuario());
+				persona=factoryDAO.getPersonaDAOImpl().create(empleadoVO.getPersona());
 				empleadoVO.getEmpleado().setPersonaTbl(persona);
+				empleado=factoryDAO.getEmpleadoeDAOImpl().create(empleadoVO.getEmpleado());
+				empleadoVO.getEmpleadoDTO().setAemEmpleado(empleado.getEmpPk());
 				return asistenciaFactoryDAO.getEmpleadoDAOImpl().create(empleadoVO.getEmpleadoDTO());
-		} 
+			} 
 		}
 		catch (Exception e) {
 			slf4jLogger.info("error al createOrUpdateEmpleado {}", e.toString());
