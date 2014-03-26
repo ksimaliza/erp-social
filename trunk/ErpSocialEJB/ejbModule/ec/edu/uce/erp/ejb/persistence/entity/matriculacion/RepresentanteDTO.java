@@ -18,7 +18,7 @@ public class RepresentanteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="MAT_REPRESENTANTE_REPCODIGO_GENERATOR", sequenceName="MAT_REPRESENTANTE_REP_CODIGO_SEQ")
+	@SequenceGenerator(name="MAT_REPRESENTANTE_REPCODIGO_GENERATOR", sequenceName="MAT_REPRESENTANTE_REP_CODIGO_SEQ",allocationSize=1 )
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MAT_REPRESENTANTE_REPCODIGO_GENERATOR")
 	@Column(name="rep_codigo")
 	private Integer repCodigo;
