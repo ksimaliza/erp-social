@@ -3,6 +3,8 @@ package ec.edu.uce.erp.ejb.servicio;
 import javax.ejb.Local;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
+import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaDTO;
@@ -51,13 +53,14 @@ public interface ServicioAsistencia {
 	PermisoDTO createOrUpdateHorarioPermiso(PermisoDTO permisoDTO)
 			throws SeguridadesException;
 
-	EmpleadoDTO createOrUpdateEmpleado(EmpleadoVO empleadoVO)
-			throws SeguridadesException;
-
+	
 	FaltaDTO createOrUpdateFalta(FaltaVO faltaVO) throws SeguridadesException;
 
 	PermisoDTO createOrUpdatePermiso(PermisoVO permisoVO)
 			throws SeguridadesException;
+
+	EmpleadoDTO createOrUpdateEmpleado(EmpleadoDTO empleadoDTO,
+			Empleado empleado, Persona persona) throws SeguridadesException;
 
 
 
