@@ -16,7 +16,7 @@ import ec.edu.uce.erp.web.datamanager.ParaleloDataManager;
 
 
 @ViewScoped
-@ManagedBean (name = "ParaleloController")
+@ManagedBean (name = "paraleloController")
 
 public class ParaleloController {
 	
@@ -25,7 +25,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ParaleloContro
 	@EJB
 	private ServicioMatricula servicioMatricula;
 	
-	@ManagedProperty(value="#{ParaleloDataManager}")
+	@ManagedProperty(value="#{paraleloDataManager}")
 	private ParaleloDataManager paraleloDataManager;
 	
 	public void setParaleloDataManager(ParaleloDataManager paraleloDataManager) {

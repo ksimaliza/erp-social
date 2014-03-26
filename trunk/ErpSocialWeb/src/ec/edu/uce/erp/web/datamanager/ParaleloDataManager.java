@@ -11,7 +11,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 @SessionScoped
-@ManagedBean (name = "ParaleloDataManager")
+@ManagedBean (name = "paraleloDataManager")
 public class ParaleloDataManager extends BaseDataManager{
 
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(PerfilDataManager.class);

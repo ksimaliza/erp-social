@@ -10,7 +10,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-import ec.edu.uce.erp.ejb.persistence.vo.ProfesorVO;
+
+
+import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 
@@ -25,9 +28,13 @@ public class DocenteDataManager extends BaseDataManager {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private ProfesorVO profesorInstancia;
-	private ProfesorVO profesorEditar;
-	private ProfesorVO profesorBuscar;
+	private ProfesorDTO profesorInstancia;
+	private ProfesorDTO profesorEditar;
+	private ProfesorDTO profesorBuscar;
+	
+	private Persona personaInstancia;
+	private Persona personaEditar;
+	private Persona personaBuscar;
 	
 
 
@@ -39,37 +46,65 @@ public class DocenteDataManager extends BaseDataManager {
 	public void inicializarObjetos () {
 		
 		slf4jLogger.info("inicializarObjetos");
-		this.profesorInstancia = new ProfesorVO();		
-		this.profesorBuscar = new ProfesorVO();
-		this.profesorEditar = new ProfesorVO();
+		this.profesorInstancia = new ProfesorDTO();		
+		this.profesorBuscar = new ProfesorDTO();
+		this.profesorEditar = new ProfesorDTO();
+		this.personaInstancia=new Persona();
+		this.personaBuscar=new Persona();
+		this.personaEditar=new Persona();
+		
 			
 	}
 
-	public ProfesorVO getProfesorInstancia() {
+	public ProfesorDTO getProfesorInstancia() {
 		return profesorInstancia;
 	}
 
-	public void setProfesorInstancia(ProfesorVO profesorInstancia) {
+	public void setProfesorInstancia(ProfesorDTO profesorInstancia) {
 		this.profesorInstancia = profesorInstancia;
 	}
 
-	public ProfesorVO getProfesorEditar() {
+	public ProfesorDTO getProfesorEditar() {
 		return profesorEditar;
 	}
 
-	public void setProfesorEditar(ProfesorVO profesorEditar) {
+	public void setProfesorEditar(ProfesorDTO profesorEditar) {
 		this.profesorEditar = profesorEditar;
 	}
 
-	public ProfesorVO getProfesorBuscar() {
+	public ProfesorDTO getProfesorBuscar() {
 		return profesorBuscar;
 	}
 
-	public void setProfesorBuscar(ProfesorVO profesorBuscar) {
+	public void setProfesorBuscar(ProfesorDTO profesorBuscar) {
 		this.profesorBuscar = profesorBuscar;
 	}
 
-		
+	public Persona getPersonaInstancia() {
+		return personaInstancia;
+	}
+
+	public void setPersonaInstancia(Persona personaInstancia) {
+		this.personaInstancia = personaInstancia;
+	}
+
+	public Persona getPersonaEditar() {
+		return personaEditar;
+	}
+
+	public void setPersonaEditar(Persona personaEditar) {
+		this.personaEditar = personaEditar;
+	}
+
+	public Persona getPersonaBuscar() {
+		return personaBuscar;
+	}
+
+	public void setPersonaBuscar(Persona personaBuscar) {
+		this.personaBuscar = personaBuscar;
+	}
+
+	
 	
 }
 
