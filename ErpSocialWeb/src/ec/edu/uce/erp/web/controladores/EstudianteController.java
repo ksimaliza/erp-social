@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
+import ec.edu.uce.erp.ejb.persistence.vo.EstudianteVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.datamanager.EstudianteDataManager;
@@ -47,8 +48,12 @@ public class EstudianteController {
 		public void registrarEstudiante () {
 			
 			slf4jLogger.info("registrarEstudiante");
+			EstudianteVO estudianteVO;
 			try {
-				EstudianteDTO estudianteNuevo = this.servicioMatricula.createOrUpdateEstudiante(this.estudianteDataManager.getEstudianteInstancia(),this.estudianteDataManager.getEstudiantePersonaInsertar());
+				estudianteVO=new EstudianteVO();
+				estudianteVO.setEstudiante(estudianteDataManager.getEstudianteInstancia());
+				estudianteVO.setPersona(estudianteDataManager.getEstudiantePersonaInsertar());
+				EstudianteDTO estudianteNuevo = this.servicioMatricula.createOrUpdateEstudiante(estudianteVO);
 				if (estudianteNuevo != null) {
 					estudianteDataManager.setEstudianteInstancia(new EstudianteDTO());
 					estudianteDataManager.setEstudiantePersonaInsertar(new Persona());

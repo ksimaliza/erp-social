@@ -11,7 +11,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 @SessionScoped
-@ManagedBean (name = "PeriodoDataManager")
+@ManagedBean (name = "periodoDataManager")
 public class PeriodoDataManager extends BaseDataManager {
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(PeriodoDataManager.class);
 	private static final long serialVersionUID = 1L;

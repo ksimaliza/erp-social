@@ -15,7 +15,7 @@ import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.datamanager.PeriodoDataManager;
 
 @ViewScoped
-@ManagedBean (name = "PeriodoController")
+@ManagedBean (name = "periodoController")
 
 public class PeriodoController {
 private static final Logger slf4jLogger = LoggerFactory.getLogger(PeriodoController.class);
@@ -23,7 +23,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PeriodoControl
 	@EJB
 	private ServicioMatricula servicioMatricula;
 	
-	@ManagedProperty(value="#{PeriodoDataManager}")
+	@ManagedProperty(value="#{periodoDataManager}")
 	private PeriodoDataManager periodoDataManager;
 	
 	public void setPeriodoDataManager(PeriodoDataManager periodoDataManager) {

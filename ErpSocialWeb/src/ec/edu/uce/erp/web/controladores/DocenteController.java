@@ -7,21 +7,22 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
-
+import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.ProfesorVO;
-
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.datamanager.DocenteDataManager;
 
 
 @ViewScoped
-@ManagedBean (name = "DocenteController")
+@ManagedBean (name = "docenteController")
 public class DocenteController {
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(DocenteController.class);
 	
@@ -46,10 +47,17 @@ public class DocenteController {
 	public void registrarDocente () {
 		
 		slf4jLogger.info("registrarDocente");
+		ProfesorVO profesorVO;
+		
 		try {
-			ProfesorDTO profesorNuevo = this.servicioMatricula.createOrUpdateProfesor(this.docenteDataManager.getProfesorInstancia());
+			profesorVO=new ProfesorVO();
+			profesorVO.setProfesor(docenteDataManager.getProfesorInstancia());
+			profesorVO.setPersona(docenteDataManager.getPersonaInstancia());
+			ProfesorDTO profesorNuevo = this.servicioMatricula.createOrUpdateProfesor(profesorVO);
+			
 			if (profesorNuevo != null) {
-				docenteDataManager.setProfesorInstancia(new ProfesorVO());
+				docenteDataManager.setProfesorInstancia(new ProfesorDTO());
+				docenteDataManager.setPersonaInstancia(new Persona());
 				MensajesWebController.aniadirMensajeInformacion("erp.matricula.docente.registrar.exito");
 			}
 			
