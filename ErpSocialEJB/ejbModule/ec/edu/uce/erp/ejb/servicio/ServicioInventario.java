@@ -9,7 +9,9 @@ import javax.ejb.Local;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CabeceraBien;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.CategoriaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
 
 /**
@@ -74,4 +76,59 @@ public interface ServicioInventario {
 	 */
 	List<Proveedor> buscarProveedorCriterios (Proveedor proveedor) throws SeguridadesException;
 	
+	/*
+	 * Servicio para administracion de linea bien
+	 */
+	
+	/**
+	 * Registrar <code>LineaBien</code> en la BD
+	 * @param lineaBien
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	LineaBien registrarLineaBien (LineaBien lineaBien) throws SeguridadesException;
+	
+	/**
+	 * Actualizar <code>LineaBien</code> en la BD
+	 * @param lineaBien
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	LineaBien actualizarLineaBien (LineaBien lineaBien) throws SeguridadesException;
+	
+	/**
+	 * Buscar <code>LineaBien</code> en la BD por diferentes criterios
+	 * @param lineaBien
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	List<LineaBien> buscarLineaBienCriterios (LineaBien lineaBien) throws SeguridadesException;
+	
+	/*
+	 * Servicio para administracion de categoria bien
+	 */
+	
+	/**
+	 *  Registrar <code>CategoriaBien</code> en la BD
+	 * @param categoriaBien
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	CategoriaBien registrarCategoriaBien (CategoriaBien categoriaBien) throws SeguridadesException;
+	
+	/**
+	 * Actualizar <code>CategoriaBien</code> en la BD
+	 * @param categoriaBien
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	CategoriaBien actualizarCategoriaBien (CategoriaBien categoriaBien) throws SeguridadesException;
+	
+	/**
+	 * Buscar <code>CategoriaBien</code> en la BD por diferentes criterios
+	 * @param categoriaBien
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	List<CategoriaBien> buscarCategoriaBienCriterios (CategoriaBien categoriaBien) throws SeguridadesException;
 }

@@ -36,6 +36,7 @@ public class DetalleBienDataManager extends BaseDataManager {
 	@EJB
 	public ServicioInventario servicioInventario;
 	
+	private DetalleBien detalleBienRegistrar;
 	private DetalleBien detalleBienBuscar;
 	private DetalleBien detalleBienEditar;
 	private List<DetalleBien> listDetalleBien;
@@ -44,6 +45,8 @@ public class DetalleBienDataManager extends BaseDataManager {
 	
 	public DetalleBienDataManager () {
 		super();
+		this.detalleBienRegistrar = new DetalleBien();
+		this.detalleBienRegistrar.setId(new DetalleBienPK());
 		this.detalleBienBuscar = new DetalleBien();
 		this.detalleBienBuscar.setId(new DetalleBienPK());
 		this.detalleBienEditar = new DetalleBien();
@@ -104,6 +107,20 @@ public class DetalleBienDataManager extends BaseDataManager {
 		}
 		
 		return dcCabeceraBien;
+	}
+
+	/**
+	 * @return the detalleBienRegistrar
+	 */
+	public DetalleBien getDetalleBienRegistrar() {
+		return detalleBienRegistrar;
+	}
+
+	/**
+	 * @param detalleBienRegistrar the detalleBienRegistrar to set
+	 */
+	public void setDetalleBienRegistrar(DetalleBien detalleBienRegistrar) {
+		this.detalleBienRegistrar = detalleBienRegistrar;
 	}
 	
 }

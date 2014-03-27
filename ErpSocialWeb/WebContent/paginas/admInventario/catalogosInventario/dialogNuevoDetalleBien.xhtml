@@ -17,7 +17,16 @@
 						</td>
 						<td width="70%">
 							<h:outputText id="txtNombre" style="width: 90%" required="true"
-								value="#{detalleBienDataManager.detalleBienEditar.id.detBienNivel1}" label="#{i18n['label.codigo']}" />
+								value="#{detalleBienDataManager.detalleBienRegistrar.id.detBienNivel1}" label="#{i18n['label.codigo']}" />
+							<!-- <p:selectOneMenu id="txtCatalogo" panelStyle="width: 20%" 
+								value="#{detalleBienDataManager.detalleBienBuscar.id.cabBienFk}" >
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItems value="#{detalleBienDataManager.dcCabeceraBien}"/>
+								<p:ajax event="change" 
+									listener="#{detalleBienController.buscarDetalleBien}" 
+									process="@this,pnlBuscarDetalleBien"
+									update="pnlMessages,tablaDetalleBien,pnlBuscarDetalleBien,toolbar"/>
+							</p:selectOneMenu> -->
 						</td>
 					</tr>
 					<tr>
@@ -27,7 +36,7 @@
 						</td>
 						<td>
 							<p:inputText id="txtDesc" style="width: 90%" required="true"
-								value="#{detalleBienDataManager.detalleBienEditar.detBienDescripcion}" label="#{i18n['label.descripcion']}" />
+								value="#{detalleBienDataManager.detalleBienRegistrar.detBienDescripcion}" label="#{i18n['label.descripcion']}" />
 						</td>
 					</tr>
 					<tr>
@@ -37,7 +46,7 @@
 						</td>
 						<td>
 							<p:selectOneMenu id="inputEstado"
-								value="#{detalleBienDataManager.detalleBienEditar.detBienEstado}">
+								value="#{detalleBienDataManager.detalleBienRegistrar.detBienEstado}">
 								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{detalleBienDataManager.estadoActivo}"/>
 								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{detalleBienDataManager.estadoInactivo}"/>
 							</p:selectOneMenu>
