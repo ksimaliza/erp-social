@@ -19,7 +19,9 @@ import ec.edu.uce.erp.common.enums.EnumTipoTransaccion;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.dao.factory.InventarioFactory;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CabeceraBien;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.CategoriaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
 import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
@@ -151,6 +153,70 @@ public class ServicioInventarioImpl implements ServicioInventario{
 		return listaProveedor;
 	}
 
+	/*
+	 * Servicio para administracion de linea bien
+	 */
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public LineaBien registrarLineaBien(LineaBien lineaBien) throws SeguridadesException {
+		LineaBien lineaBienNuevo = null;
+		try {
+			lineaBien.setLinBienEstado(ESTADO_ACTIVO);
+			lineaBienNuevo = inventarioFactory.getLineaBienDAOImpl().create(lineaBien);
+			inventarioFactory.getHistoricoTransaccioneDAOImpl()
+					.registrarHistoricoTransaccion(
+							new AuditoriaDTO(lineaBien.getUsuarioRegistro()
+									.getIdUsuario(), ServicioInventarioImpl.class.getName(), "registrarLineaBien", EnumTipoTransaccion.CREATE));
+		} catch (Exception e) {
+			throw new SeguridadesException();
+		}
+		return lineaBienNuevo;
+	}
 
+	@Override
+	public LineaBien actualizarLineaBien(LineaBien lineaBien) throws SeguridadesException {
+		LineaBien lineaBienUpdate = null;
+		try {
+			lineaBienUpdate = inventarioFactory.getLineaBienDAOImpl().update(lineaBien);
+			inventarioFactory.getHistoricoTransaccioneDAOImpl()
+					.registrarHistoricoTransaccion(
+							new AuditoriaDTO(lineaBien.getUsuarioRegistro()
+									.getIdUsuario(), ServicioInventarioImpl.class.getName(), "actualizarLineaBien", EnumTipoTransaccion.UPDATE));
+		} catch (Exception e) {
+			throw new SeguridadesException();
+		}
+		return lineaBienUpdate;
+	}
+
+	@Override
+	public List<LineaBien> buscarLineaBienCriterios(LineaBien lineaBien)
+			throws SeguridadesException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/*
+	 * Servicio para administracion de categoria bien
+	 */
+	@Override
+	public CategoriaBien registrarCategoriaBien(CategoriaBien categoriaBien)
+			throws SeguridadesException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CategoriaBien actualizarCategoriaBien(CategoriaBien categoriaBien)
+			throws SeguridadesException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CategoriaBien> buscarCategoriaBienCriterios(
+			CategoriaBien categoriaBien) throws SeguridadesException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

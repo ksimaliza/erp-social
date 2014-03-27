@@ -99,6 +99,9 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.RegistroDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.TipoDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.CategoriaBien</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.CategoriaBienPK</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien</class>
 		<properties>
 			<property name="hibernate.connection.username" value="postgres" />
 			<property name="hibernate.connection.password" value="root" />

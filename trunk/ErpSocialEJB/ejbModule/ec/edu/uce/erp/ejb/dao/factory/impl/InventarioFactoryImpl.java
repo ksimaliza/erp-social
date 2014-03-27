@@ -10,13 +10,17 @@ import javax.persistence.PersistenceContext;
 import ec.edu.uce.erp.ejb.dao.factory.InventarioFactory;
 import ec.edu.uce.erp.ejb.persistence.dao.BienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.CabeceraBienDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.CategoriaBienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.DetalleBienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HistoricoTransaccioneDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.LineaBienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ProveedorDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.BienDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.CabeceraBienDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.CategoriaBienDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.DetalleBienDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.HistoricoTransaccioneDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.LineaBienDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.ProveedorDAOImpl;
 
 /**
@@ -35,6 +39,9 @@ public class InventarioFactoryImpl implements InventarioFactory{
 	private BienDAO bienDAO;
 	private DetalleBienDAO detalleBienDAO;
 	private CabeceraBienDAO cabeceraBienDAO;
+	
+	private LineaBienDAO lineaBienDAO;
+	private CategoriaBienDAO categoriaBienDAO;
 
 	@Override
 	public ProveedorDAO getProveedorDAOImpl() {
@@ -77,5 +84,20 @@ public class InventarioFactoryImpl implements InventarioFactory{
 		return cabeceraBienDAO;
 	}
 
+	@Override
+	public LineaBienDAO getLineaBienDAOImpl() {
+		if (lineaBienDAO == null) {
+			lineaBienDAO = new LineaBienDAOImpl(entityManager);
+		}
+		return lineaBienDAO;
+	}
+
+	@Override
+	public CategoriaBienDAO getCategoriaBienDAO() {
+		if (categoriaBienDAO == null) {
+			categoriaBienDAO = new CategoriaBienDAOImpl(entityManager);
+		}
+		return categoriaBienDAO;
+	}
 
 }

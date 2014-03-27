@@ -204,3 +204,46 @@ INSERT INTO detalle_bien_tbl(
 INSERT INTO detalle_bien_tbl(
             cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
     VALUES ('ESCON', 'REGUL', 'Regular', '1');
+    
+/*==============================================================*/
+/* Table: LINEA_BIEN_TBL                                        */
+/*==============================================================*/
+create table LINEA_BIEN_TBL (
+   LIN_BIEN_PK          SERIAL               not null,
+   LIN_BIEN_NOMBRE      VARCHAR(50)          not null,
+   LIN_BIEN_DESCRIPCION VARCHAR(200)         null,
+   LIN_BIEN_ESTADO      VARCHAR(2)           not null,
+   constraint PK_LINEA_BIEN_TBL primary key (LIN_BIEN_PK)
+);
+
+/*==============================================================*/
+/* Table: CATEGORIA_BIEN_TBL                                    */
+/*==============================================================*/
+create table CATEGORIA_BIEN_TBL (
+   CAT_BIEN_PK          SERIAL               not null,
+   LIN_BIEN_PK          INT4                 not null,
+   CAT_BIEN_NOMBRE      VARCHAR(50)          not null,
+   CAT_BIEN_DESCRIPCION VARCHAR(200)         null,
+   CAT_BIEN_ESTADO      VARCHAR(200)         null,
+   constraint PK_CATEGORIA_BIEN_TBL primary key (CAT_BIEN_PK, LIN_BIEN_PK)
+);
+
+alter table CATEGORIA_BIEN_TBL
+   add constraint FK_CATEGORI_REFERENCE_LINEA_BI foreign key (LIN_BIEN_PK)
+      references LINEA_BIEN_TBL (LIN_BIEN_PK)
+      on delete restrict on update restrict;
+      
+/*==============================================================*/
+/* alter: BIEN_TBL                                    */
+/*==============================================================*/
+      
+alter table BIEN_TBL
+add column CAT_BIEN_PK          INT4                 null;
+
+alter table BIEN_TBL
+add column   LIN_BIEN_PK          INT4                 null;
+
+alter table BIEN_TBL
+   add constraint FK_BIEN_TBL_REFERENCE_CATEGORI foreign key (CAT_BIEN_PK, LIN_BIEN_PK)
+      references CATEGORIA_BIEN_TBL (CAT_BIEN_PK, LIN_BIEN_PK)
+      on delete restrict on update restrict;

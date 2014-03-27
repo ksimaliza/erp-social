@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="title">
+		<h3><h:outputLabel	value="#{i18n['erp.linea.bien.pagina.titulo']}" /></h3>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="formLineaBien">
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			<p:toolbar id="toolbar">
+				<p:toolbarGroup align="left">
+					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
+					<p:commandButton id="btnNuevoBien" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoLineaBien.show()"/>
+					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
+						icon="exportExcel" disabled="#{empty lineaBienDataManager.listLineaBien}">
+						<p:dataExporter type="xls" target="tablaLineaBien" fileName="LineaBien" postProcessor="#{lineaBienController.postProcessXLS}"/>
+					</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panel id="pnlBuscarLineaBien" header="#{i18n['erp.linea.bien.buscar']}">
+				<table>
+					<tr>
+						<td><h:outputLabel for="txtNombre" value="#{i18n['erp.linea.bien.nombre']}" /></td>
+						<td>
+							<p:inputText id="txtNombre"
+								value="#{lineaBienDataManager.lineaBienBuscar.linBienNombre}" />
+						</td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
+						<td>
+							<p:selectOneMenu id="inputEstado" value="#{lineaBienDataManager.lineaBienBuscar.linBienEstado}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{bienDataManager.estadoActivo}"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{bienDataManager.estadoInactivo}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{lineaBienController.buscarLineaBien}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscarLineaBien"
+					update="pnlMessages,tablaLineaBien,pnlBuscarLineaBien,toolbar" />
+			</p:panel>
+			<p:dataTable id="tablaLineaBien"
+				value="#{lineaBienDataManager.listLineaBien}"
+				var="lineaBien" rowIndexVar="rowIndex"
+				paginator="true" rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<f:facet name="header">
+					<h:outputText value="#{i18n['erp.bien.lista']}" />
+				</f:facet>
+				<p:column styleClass="centered" width="5%">
+					<f:facet name="header">
+						<h:outputText value="#" />
+					</f:facet>
+					<h:outputText value="#{rowIndex+1}"/>
+				</p:column>
+				<p:column width="15%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.linea.bien.nombre']}" />
+					</f:facet>
+					<h:outputText value="#{lineaBien.linBienNombre}" />
+				</p:column>
+				<p:column width="20%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.linea.bien.descripcion']}" />
+					</f:facet>
+					<h:outputText value="#{lineaBien.linBienDescripcion}" />
+				</p:column>
+				<p:column styleClass="centered" width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['label.estado']}"/>
+					</f:facet>
+					<h:outputText value="#{i18n['label.estado.activo']}"
+						rendered="#{lineaBien.linBienEstado eq lineaBienDataManager.estadoActivo}" />
+					<h:outputText value="#{i18n['label.estado.inactivo']}"
+						rendered="#{lineaBien.linBienEstado eq lineaBienDataManager.estadoInactivo}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+		
+		<ui:include src="dialogNuevoLineaBien.xhtml" />
+		<!-- <ui:include src="dialogEditarBien.xhtml" /> -->
+		
+	</ui:define>
+</ui:composition>
