@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="title">
+		<h3><h:outputLabel	value="#{i18n['erp.categoria.bien.pagina.titulo']}" /></h3>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="formCategoriaBien">
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			<p:toolbar id="toolbar">
+				<p:toolbarGroup align="left">
+					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
+					<p:commandButton id="btnNuevoBien" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoCategoriaBien.show()"/>
+					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
+						icon="exportExcel" disabled="#{empty categoriaBienDataManager.listCategoriaBien}">
+						<p:dataExporter type="xls" target="tablaCategoriaBien" fileName="CategoriaBien" postProcessor="#{categoriaBienController.postProcessXLS()}"/>
+					</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panel id="pnlBuscarCategoriaBien" header="#{i18n['erp.categoria.bien.buscar']}">
+				<table>
+					<tr>
+						<td><h:outputLabel for="txtNombre" value="#{i18n['erp.categoria.bien.nombre']}" /></td>
+						<td>
+							<p:inputText id="txtNombre"
+								value="#{categoriaBienDataManager.categoriaBienBuscar.catBienNombre}" />
+						</td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="inputLineaBien" value="#{i18n['erp.categoria.linea.bien']}"/></td>
+						<td>
+							<p:selectOneMenu id="inputLineaBien" value="#{categoriaBienDataManager.categoriaBienBuscar.linBienPk}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItems value="#{categoriaBienDataManager.dcLineaBien}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
+						<td>
+							<p:selectOneMenu id="inputEstado" value="#{categoriaBienDataManager.categoriaBienBuscar.catBienEstado}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{categoriaBienDataManager.estadoActivo}"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{categoriaBienDataManager.estadoInactivo}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{categoriaBienController.buscarCategoriaBien}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscarCategoriaBien"
+					update="pnlMessages,tablaCategoriaBien,pnlBuscarCategoriaBien,toolbar" />
+			</p:panel>
+			<p:dataTable id="tablaCategoriaBien"
+				value="#{categoriaBienDataManager.listCategoriaBien}"
+				var="categoriaBien" rowIndexVar="rowIndex"
+				paginator="true" rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<f:facet name="header">
+					<h:outputText value="#{i18n['erp.bien.lista']}" />
+				</f:facet>
+				<p:column styleClass="centered" width="5%">
+					<f:facet name="header">
+						<h:outputText value="#" />
+					</f:facet>
+					<h:outputText value="#{rowIndex+1}"/>
+				</p:column>
+				<p:column width="15%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.categoria.bien.nombre']}" />
+					</f:facet>
+					<h:outputText value="#{categoriaBien.catBienNombre}" />
+				</p:column>
+				<p:column width="20%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.categoria.bien.descripcion']}" />
+					</f:facet>
+					<h:outputText value="#{categoriaBien.catBienDescripcion}" />
+				</p:column>
+				<p:column styleClass="centered" width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['label.estado']}"/>
+					</f:facet>
+					<h:outputText value="#{i18n['label.estado.activo']}"
+						rendered="#{categoriaBien.catBienEstado eq categoriaBienDataManager.estadoActivo}" />
+					<h:outputText value="#{i18n['label.estado.inactivo']}"
+						rendered="#{categoriaBien.catBienEstado eq categoriaBienDataManager.estadoInactivo}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+		
+		<ui:include src="dialogNuevoCategoriaBien.xhtml"/>
+		<!-- <ui:include src="dialogEditarBien.xhtml" /> -->
+		
+	</ui:define>
+</ui:composition>

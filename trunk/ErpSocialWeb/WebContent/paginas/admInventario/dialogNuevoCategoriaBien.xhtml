@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpNuevoCategoriaBien" header="#{i18n['erp.categoria.bien.registrar']}" 
+		widgetVar="dlgNuevoCategoriaBien" modal="true" minWidth="500" width="500" appendTo="@(body)" draggable="false">
+		<h:form id="formNuevoLineaBien" styleClass="formulario">
+			<p:panel id="pnlNuevoLineaBien" >
+				<table class="formulario">
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.categoria.bien.nombre']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombre" style="width: 100%" required="true"
+								value="#{categoriaBienDataManager.categoriaBienInstancia.catBienNombre}" label="#{i18n['erp.categoria.bien.nombre']}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtDesc" value="#{i18n['erp.categoria.bien.descripcion']}" />
+						</td>
+						<td>
+							<p:inputTextarea id="txtDesc" style="width: 100%" 
+								value="#{categoriaBienDataManager.categoriaBienInstancia.catBienDescripcion}" label="#{i18n['erp.categoria.bien.descripcion']}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="inputLineaBien" value="#{i18n['erp.categoria.linea.bien']}"/>
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:selectOneMenu id="inputLineaBien"
+								required="true" label="#{i18n['erp.categoria.linea.bien']}"
+								value="#{categoriaBienDataManager.categoriaBienInstancia.linBienPk}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItems value="#{categoriaBienDataManager.dcLineaBien}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{categoriaBienController.registrarCategoriaBien}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoCategoriaBien.hide()"
+					process="@this,pnlNuevoLineaBien" update="pnlNuevoLineaBien,:formCategoriaBien:tablaCategoriaBien,:formCategoriaBien:pnlMessages"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoCategoriaBien.hide();" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>

@@ -51,20 +51,20 @@ public class DetalleBienDAOImpl extends AbstractFacadeImpl<DetalleBien> implemen
 			CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 			CriteriaQuery<DetalleBien> criteriaQuery = criteriaBuilder.createQuery(DetalleBien.class);
 			
-			Root<DetalleBien> fromUsuario = criteriaQuery.from(DetalleBien.class);
-			criteriaQuery.select(fromUsuario);
+			Root<DetalleBien> fromDetalleBien = criteriaQuery.from(DetalleBien.class);
+			criteriaQuery.select(fromDetalleBien);
 			
 			criteriaList = new ArrayList<Predicate>();
 			
 			//por id cabecera
 			if (StringUtils.isNotBlank(detalleBien.getId().getCabBienFk())) {
-				predicate = criteriaBuilder.equal(fromUsuario.get("id").get("cabBienFk"), detalleBien.getId().getCabBienFk());
+				predicate = criteriaBuilder.equal(fromDetalleBien.get("id").get("cabBienFk"), detalleBien.getId().getCabBienFk());
 				criteriaList.add(predicate);
 			}
 			
 			//por estado
 			if (StringUtils.isNotBlank(detalleBien.getDetBienEstado())) {
-				predicate = criteriaBuilder.equal(fromUsuario.get("detBienEstado"), detalleBien.getDetBienEstado());
+				predicate = criteriaBuilder.equal(fromDetalleBien.get("detBienEstado"), detalleBien.getDetBienEstado());
 				criteriaList.add(predicate);
 			}
 			
