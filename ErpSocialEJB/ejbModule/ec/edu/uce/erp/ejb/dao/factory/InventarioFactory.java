@@ -32,7 +32,7 @@ public interface InventarioFactory {
 	
 	LineaBienDAO getLineaBienDAOImpl();
 	
-	CategoriaBienDAO getCategoriaBienDAO(); 
+	CategoriaBienDAO getCategoriaBienDAOImpl(); 
 	
 
 }

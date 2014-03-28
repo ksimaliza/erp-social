@@ -93,7 +93,7 @@ public class InventarioFactoryImpl implements InventarioFactory{
 	}
 
 	@Override
-	public CategoriaBienDAO getCategoriaBienDAO() {
+	public CategoriaBienDAO getCategoriaBienDAOImpl() {
 		if (categoriaBienDAO == null) {
 			categoriaBienDAO = new CategoriaBienDAOImpl(entityManager);
 		}

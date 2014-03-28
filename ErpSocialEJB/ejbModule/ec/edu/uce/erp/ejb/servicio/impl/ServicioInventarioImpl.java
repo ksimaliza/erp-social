@@ -189,34 +189,72 @@ public class ServicioInventarioImpl implements ServicioInventario{
 	}
 
 	@Override
-	public List<LineaBien> buscarLineaBienCriterios(LineaBien lineaBien)
-			throws SeguridadesException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<LineaBien> buscarLineaBienCriterios(LineaBien lineaBien) throws SeguridadesException {
+		
+		List<LineaBien> listLineaBien = null;
+		
+		try {
+			listLineaBien = inventarioFactory.getLineaBienDAOImpl().obtenerLineaBienCriterios(lineaBien);
+		} catch (Exception e) {
+			throw new SeguridadesException(e);
+		}
+		
+		return listLineaBien;
 	}
 
 	/*
 	 * Servicio para administracion de categoria bien
 	 */
+	
 	@Override
-	public CategoriaBien registrarCategoriaBien(CategoriaBien categoriaBien)
-			throws SeguridadesException {
-		// TODO Auto-generated method stub
-		return null;
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public CategoriaBien registrarCategoriaBien(CategoriaBien categoriaBien) throws SeguridadesException {
+		CategoriaBien categoriaBienNuevo = null;
+		try {
+			categoriaBien.setCatBienEstado(ESTADO_ACTIVO);
+			categoriaBienNuevo = inventarioFactory.getCategoriaBienDAOImpl().create(categoriaBien);
+			inventarioFactory.getHistoricoTransaccioneDAOImpl()
+					.registrarHistoricoTransaccion(
+							new AuditoriaDTO(categoriaBien.getUsuarioRegistro()
+									.getIdUsuario(), ServicioInventarioImpl.class.getName(), "registrarCategoriaBien", EnumTipoTransaccion.CREATE));
+			
+		} catch (Exception e) {
+			slf4jLogger.info("error al registrarCategoriaBien {}", e.getCause().getMessage());
+			throw new SeguridadesException(e);
+		}
+		return categoriaBienNuevo;
 	}
 
 	@Override
-	public CategoriaBien actualizarCategoriaBien(CategoriaBien categoriaBien)
-			throws SeguridadesException {
-		// TODO Auto-generated method stub
-		return null;
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public CategoriaBien actualizarCategoriaBien(CategoriaBien categoriaBien) throws SeguridadesException {
+		CategoriaBien categoriaBienUpdate = null;
+		try {
+			categoriaBienUpdate = inventarioFactory.getCategoriaBienDAOImpl().update(categoriaBien);
+			inventarioFactory.getHistoricoTransaccioneDAOImpl()
+					.registrarHistoricoTransaccion(
+							new AuditoriaDTO(categoriaBien.getUsuarioRegistro()
+									.getIdUsuario(), ServicioInventarioImpl.class.getName(), "actualizarCategoriaBien", EnumTipoTransaccion.UPDATE));
+			
+		} catch (Exception e) {
+			slf4jLogger.info("error al actualizarCategoriaBien {}", e.getCause().getMessage());
+			throw new SeguridadesException(e);
+		}
+		return categoriaBienUpdate;
 	}
 
 	@Override
-	public List<CategoriaBien> buscarCategoriaBienCriterios(
-			CategoriaBien categoriaBien) throws SeguridadesException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<CategoriaBien> buscarCategoriaBienCriterios(CategoriaBien categoriaBien) throws SeguridadesException {
+		List<CategoriaBien> listCategoriaBien = null;
+		
+		try {
+			listCategoriaBien = inventarioFactory.getCategoriaBienDAOImpl().obtenerCategoriaBienCriterios(categoriaBien);
+		} catch (Exception e) {
+			slf4jLogger.info("error al buscarCategoriaBienCriterios {}", e.getCause().getMessage());
+			throw new SeguridadesException(e);
+		}
+		
+		return listCategoriaBien;
 	}
 
 }

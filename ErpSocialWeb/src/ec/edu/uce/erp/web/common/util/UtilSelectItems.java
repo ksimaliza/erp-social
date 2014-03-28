@@ -21,6 +21,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogoPK;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CabeceraBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBienPK;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
@@ -152,6 +153,29 @@ public final class UtilSelectItems {
 				public Object transform(final Object arg0) {
 					final CabeceraBien cabeceraBien = (CabeceraBien)arg0;
 					return new SelectItem(cabeceraBien.getCabBienPk(), cabeceraBien.getCabBienDescripcion());
+				}
+			}, listSelectItem);
+		}
+		
+		return listSelectItem;
+	}
+	
+	public List<SelectItem> cargarSelectItemLineaBien (ServicioInventario servicioInventario) throws SeguridadesException {
+		
+		slf4jLogger.info("cargarSelectItemCategoriaBien");
+		
+		List<SelectItem> listSelectItem = new ArrayList<SelectItem>();
+		
+		LineaBien lineaBien = new LineaBien();
+		lineaBien.setLinBienEstado(ESTADO_ACTIVO);
+		List<LineaBien> listLineaBien = servicioInventario.buscarLineaBienCriterios(lineaBien);
+		
+		if (CollectionUtils.isNotEmpty(listLineaBien)) {
+			CollectionUtils.collect(listLineaBien, new Transformer() {
+				@Override
+				public Object transform(final Object arg0) {
+					final LineaBien lineaBien = (LineaBien)arg0;
+					return new SelectItem(lineaBien.getLinBienPk(), lineaBien.getLinBienNombre());
 				}
 			}, listSelectItem);
 		}

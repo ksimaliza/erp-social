@@ -3,11 +3,14 @@
  */
 package ec.edu.uce.erp.web.controladores;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,6 +62,19 @@ public class LineaBienController extends BaseController{
 	
 	public void buscarLineaBien () {
 		slf4jLogger.info("buscarLineaBien");
+		
+		try {
+			List<LineaBien> listLineaBien = servicioInventario.buscarLineaBienCriterios(this.lineaBienDataManager.getLineaBienBuscar());
+			if (CollectionUtils.isEmpty(listLineaBien)) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				this.lineaBienDataManager.getListLineaBien().clear();
+			} else {
+				this.lineaBienDataManager.setListLineaBien(listLineaBien);
+			}
+			
+		} catch (Exception e) {
+			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
+		}
 	}
 	
 
