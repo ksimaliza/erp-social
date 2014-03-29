@@ -85,11 +85,68 @@
 					<h:outputText value="#{i18n['label.estado.inactivo']}"
 						rendered="#{lineaBien.linBienEstado eq lineaBienDataManager.estadoInactivo}" />
 				</p:column>
+				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%" exportable="false">
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.editar']}"
+							process="@this"
+							oncomplete="dlgEditarLineaBien.show()"
+							update=":formEditarLineaBien:pnlEditarLineaBien">
+							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+							<f:setPropertyActionListener target="#{lineaBienDataManager.lineaBienEditar}" value="#{lineaBien}" />
+						</p:commandLink>
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:outputText value="&#160;|&#160;" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.activar']}"
+							rendered="#{lineaBien.linBienEstado eq lineaBienDataManager.estadoInactivo}"
+							oncomplete="dlgActivar.show()">
+							<h:graphicImage value="/resources/img/tick.png" alt="#{i18n['label.activar']}"/>
+							<f:setPropertyActionListener target="#{lineaBienDataManager.lineaBienEditar}" value="#{lineaBien}" />
+						</p:commandLink>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.desabilitar']}"
+							rendered="#{lineaBien.linBienEstado eq lineaBienDataManager.estadoActivo}"
+							oncomplete="dlgDesactivar.show()">
+							<h:graphicImage value="/resources/img/delete.png" alt="#{i18n['label.desabilitar']}"/>
+							<f:setPropertyActionListener target="#{lineaBienDataManager.lineaBienEditar}" value="#{lineaBien}" />
+						</p:commandLink>
+					</h:panelGroup>
+				</p:column>
 			</p:dataTable>
+			<!-- Desactivar linea bien -->
+			<p:confirmDialog id="dialogDesactivar" width="400" widgetVar="dlgDesactivar"
+				message="#{i18n['erp.linea.bien.desactivar.pregunta.confirmacion']}"
+				header="#{i18n['erp.linea.bien.desactivar']}" appendTo="@(body)">
+				<p:commandButton value="#{i18n['label.aceptar']}"
+					actionListener="#{lineaBienController.desactivarLineaBien}"
+					oncomplete="dlgDesactivar.hide()"
+					update="pnlMessages,tablaLineaBien" process="@this"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{i18n['label.cancelar']}" type="button" 
+					onclick="dlgDesactivar.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+			<!-- Activar linea bien -->
+			<p:confirmDialog id="dialogActivar" width="400" widgetVar="dlgActivar"
+				message="#{i18n['erp.linea.bien.activar.pregunta.confirmacion']}"
+				header="#{i18n['erp.linea.bien.activar']}" appendTo="@(body)">
+				<p:commandButton value="#{i18n['label.aceptar']}"
+					actionListener="#{lineaBienController.activarLineaBien}"
+					oncomplete="dlgActivar.hide()"
+					update="pnlMessages,tablaLineaBien" process="@this"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{i18n['label.cancelar']}" type="button" 
+					onclick="dlgActivar.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
 		</h:form>
 		
 		<ui:include src="dialogNuevoLineaBien.xhtml" />
-		<!-- <ui:include src="dialogEditarBien.xhtml" /> -->
+		<ui:include src="dialogEditarLineaBien.xhtml" />
 		
 	</ui:define>
 </ui:composition>

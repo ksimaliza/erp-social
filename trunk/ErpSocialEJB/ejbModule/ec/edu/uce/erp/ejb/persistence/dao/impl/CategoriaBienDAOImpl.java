@@ -72,9 +72,10 @@ public class CategoriaBienDAOImpl extends AbstractFacadeImpl<CategoriaBien> impl
 			}
 			
 			//por id del padre
-//			if (categoriaBien.getId()!=null && categoriaBien.getId().getCatBienPk()!=null) {
-//				predicate = criteriaBuilder.equal(fromLineaBien.get("id").get("catBienPk"), categoriaBien.getId().getCatBienPk());
-//			}
+			if (categoriaBien.getLinBienPk()!=null && categoriaBien.getLinBienPk()!=0) {
+				predicate = criteriaBuilder.equal(fromLineaBien.get("linBienPk"), categoriaBien.getLinBienPk());
+				criteriaList.add(predicate);
+			}
 			
 			criteriaQuery.where(criteriaBuilder.and(criteriaList.toArray(new Predicate[0])));
 			

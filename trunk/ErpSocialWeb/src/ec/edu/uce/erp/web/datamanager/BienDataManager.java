@@ -48,6 +48,8 @@ public class BienDataManager extends BaseDataManager{
 	private List<SelectItem> dcEstadoBien;
 	private List<SelectItem> dcEstadoConservacion;
 	
+	
+	
 	public BienDataManager () {
 		super();
 		this.bienInstancia = new Bien();

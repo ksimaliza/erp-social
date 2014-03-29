@@ -60,6 +60,20 @@ public class LineaBienController extends BaseController{
 		}
 	}
 	
+	public void actualizarLineaBien () {
+		slf4jLogger.info("actualizarLineaBien");
+		try {
+			this.lineaBienDataManager.getLineaBienEditar().setUsuarioRegistro(this.lineaBienDataManager.getUsuarioSession());
+			LineaBien lineaBien = servicioInventario.actualizarLineaBien(this.lineaBienDataManager.getLineaBienEditar());
+			if (lineaBien != null) {
+				MensajesWebController.aniadirMensajeInformacion("erp.mensaje.update.exito");
+			}
+		} catch (Exception e) {
+			MensajesWebController.aniadirMensajeError(e.toString());
+			slf4jLogger.info("Error al actualizarLineaBien {}", e.toString());
+		}
+	}
+	
 	public void buscarLineaBien () {
 		slf4jLogger.info("buscarLineaBien");
 		
@@ -72,6 +86,36 @@ public class LineaBienController extends BaseController{
 				this.lineaBienDataManager.setListLineaBien(listLineaBien);
 			}
 			
+		} catch (Exception e) {
+			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
+		}
+	}
+	
+	public void desactivarLineaBien () {
+		slf4jLogger.info("desactivarLineaBien");
+		
+		try {
+			this.lineaBienDataManager.getLineaBienEditar().setUsuarioRegistro(this.lineaBienDataManager.getUsuarioSession());
+			this.lineaBienDataManager.getLineaBienEditar().setLinBienEstado(this.lineaBienDataManager.getEstadoInactivo());
+			LineaBien lineaBien = this.servicioInventario.actualizarLineaBien(this.lineaBienDataManager.getLineaBienEditar());
+			if (lineaBien != null) {
+				MensajesWebController.aniadirMensajeInformacion("erp.mensaje.update.exito");
+			}
+		} catch (Exception e) {
+			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
+		}
+	}
+	
+	public void activarLineaBien () {
+		slf4jLogger.info("aactivarLineaBien");
+		
+		try {
+			this.lineaBienDataManager.getLineaBienEditar().setUsuarioRegistro(this.lineaBienDataManager.getUsuarioSession());
+			this.lineaBienDataManager.getLineaBienEditar().setLinBienEstado(this.lineaBienDataManager.getEstadoActivo());
+			LineaBien lineaBien = this.servicioInventario.actualizarLineaBien(this.lineaBienDataManager.getLineaBienEditar());
+			if (lineaBien != null) {
+				MensajesWebController.aniadirMensajeInformacion("erp.mensaje.update.exito");
+			}
 		} catch (Exception e) {
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}

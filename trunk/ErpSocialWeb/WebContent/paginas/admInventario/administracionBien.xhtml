@@ -16,7 +16,7 @@
 					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
 					<p:commandButton id="btnNuevoBien" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoBien.show()"/>
 					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
-						image="exportExcel" disabled="#{empty bienDataManager.listBien}">
+						icon="exportExcel" disabled="#{empty bienDataManager.listBien}">
 						<p:dataExporter type="xls" target="tablaBienes" fileName="productos" postProcessor="#{bienController.postProcessXLS}"/>
 					</p:commandButton>
 				</p:toolbarGroup>

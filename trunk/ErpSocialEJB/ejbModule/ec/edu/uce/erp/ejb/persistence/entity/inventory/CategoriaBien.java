@@ -38,7 +38,7 @@ public class CategoriaBien extends AuditoriaUtil implements Serializable {
 	private String catBienNombre;
 
 	//bi-directional many-to-one association to LineaBien
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="lin_bien_pk", referencedColumnName="lin_bien_pk", insertable=false, updatable=false)
 	private LineaBien lineaBienTbl;
 

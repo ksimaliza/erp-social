@@ -14,7 +14,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang3.SerializationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +25,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
+import ec.edu.uce.erp.web.common.util.UtilSelectItems;
 import ec.edu.uce.erp.web.datamanager.UsuarioDataManager;
 
 /**
@@ -149,14 +149,17 @@ public class UsuarioController extends BaseController{
 				
 				if (CollectionUtils.isNotEmpty(perfilCol)) {
 					
-					CollectionUtils.collect(perfilCol, new Transformer() {
-						
-						@Override
-						public Object transform(Object arg0) {
-							Perfil perfilDTO = (Perfil)arg0;
-							return new SelectItem(perfilDTO.getIdPerfil(), perfilDTO.getNombrePerfil());
-						}
-					}, catalogoPerfiles);
+//					CollectionUtils.collect(perfilCol, new Transformer() {
+//						
+//						@Override
+//						public Object transform(Object arg0) {
+//							Perfil perfilDTO = (Perfil)arg0;
+//							return new SelectItem(perfilDTO.getIdPerfil(), perfilDTO.getNombrePerfil());
+//						}
+//					}, catalogoPerfiles);
+					
+					catalogoPerfiles.addAll(UtilSelectItems.getInstancia().cargarSelectItemsGenerico(perfilCol, "idPerfil", "nombrePerfil"));
+					
 				} else {
 					MensajesWebController.aniadirMensajeAdvertencia("erp.usuario.mensaje.error.perfiles");
 				}
@@ -164,6 +167,8 @@ public class UsuarioController extends BaseController{
 			} catch (SeguridadesException e) {
 				slf4jLogger.info("Error al obtenerPerfilesEmpresa {}", e.toString());
 				MensajesWebController.aniadirMensajeAdvertencia("erp.usuario.mensaje.error.perfiles");
+			} finally {
+				perfilPlantilla = null;
 			}
 			
 		}
