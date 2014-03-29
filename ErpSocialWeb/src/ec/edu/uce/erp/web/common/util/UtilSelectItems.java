@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.common.util.UtilReflection;
 import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogo;
 import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogoPK;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CabeceraBien;
@@ -49,6 +50,22 @@ public final class UtilSelectItems {
 		return INSTANCIA;
 	}
 	
+	public <T> List<SelectItem> cargarSelectItemsGenerico (List<T> listData, final String idPrimaryKey, final String name) {
+		
+		slf4jLogger.info("cargarSelectItemsGenerico");
+		
+		List<SelectItem> listSelectItem = new ArrayList<SelectItem>();
+		
+		CollectionUtils.collect(listData, new Transformer() {
+			@Override
+			public Object transform(final Object arg0) {
+				return new SelectItem(UtilReflection.invocarGet(arg0, idPrimaryKey), UtilReflection.invocarGet(arg0, name));
+			}
+		}, listSelectItem);
+		
+		return listSelectItem;
+	}
+	
 	/**
 	 * Cargar <code>SelectItem</code> desde la tabla <code>DetalleCatalogo</code>
 	 * @param idCabCatalogo
@@ -69,13 +86,15 @@ public final class UtilSelectItems {
 		List<DetalleCatalogo> listDetalleCatalogo = servicioAdministracion.buscarDetalleCatalogoCriterios(detalleCatalogo);
 		
 		if (CollectionUtils.isNotEmpty(listDetalleCatalogo)) {
-			CollectionUtils.collect(listDetalleCatalogo, new Transformer() {
-				@Override
-				public Object transform(final Object arg0) {
-					final DetalleCatalogo detalleCatalogo = (DetalleCatalogo)arg0;
-					return new SelectItem(detalleCatalogo.getId().getDetCatalogoNivel1(), detalleCatalogo.getDetCatalogoDescripcion());
-				}
-			}, listSelectItem);
+//			CollectionUtils.collect(listDetalleCatalogo, new Transformer() {
+//				@Override
+//				public Object transform(final Object arg0) {
+//					final DetalleCatalogo detalleCatalogo = (DetalleCatalogo)arg0;
+//					return new SelectItem(detalleCatalogo.getId().getDetCatalogoNivel1(), detalleCatalogo.getDetCatalogoDescripcion());
+//				}
+//			}, listSelectItem);
+			
+			listSelectItem = this.cargarSelectItemsGenerico(listDetalleCatalogo, "id.detCatalogoNivel1", "detCatalogoDescripcion");
 		}
 		
 		return listSelectItem;

@@ -22,18 +22,21 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:panel id="pnlBuscarCategoriaBien" header="#{i18n['erp.categoria.bien.buscar']}">
-				<table>
+				<table class="formulario">
 					<tr>
-						<td><h:outputLabel for="txtNombre" value="#{i18n['erp.categoria.bien.nombre']}" /></td>
-						<td>
-							<p:inputText id="txtNombre"
+						<td width="20%">
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.categoria.bien.nombre']}" />
+						</td>
+						<td width="80%">
+							<p:inputText id="txtNombre" style="width: 50%"
 								value="#{categoriaBienDataManager.categoriaBienBuscar.catBienNombre}" />
 						</td>
 					</tr>
 					<tr>
 						<td><h:outputLabel for="inputLineaBien" value="#{i18n['erp.categoria.linea.bien']}"/></td>
 						<td>
-							<p:selectOneMenu id="inputLineaBien" value="#{categoriaBienDataManager.categoriaBienBuscar.linBienPk}">
+							<p:selectOneMenu id="inputLineaBien" style="width: 30%"
+								value="#{categoriaBienDataManager.categoriaBienBuscar.linBienPk}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
 								<f:selectItems value="#{categoriaBienDataManager.dcLineaBien}"/>
 							</p:selectOneMenu>
@@ -42,7 +45,8 @@
 					<tr>
 						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
 						<td>
-							<p:selectOneMenu id="inputEstado" value="#{categoriaBienDataManager.categoriaBienBuscar.catBienEstado}">
+							<p:selectOneMenu id="inputEstado" style="width: 30%"
+								value="#{categoriaBienDataManager.categoriaBienBuscar.catBienEstado}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
 								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{categoriaBienDataManager.estadoActivo}"/>
 								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{categoriaBienDataManager.estadoInactivo}"/>
@@ -94,11 +98,71 @@
 					<h:outputText value="#{i18n['label.estado.inactivo']}"
 						rendered="#{categoriaBien.catBienEstado eq categoriaBienDataManager.estadoInactivo}" />
 				</p:column>
+				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%" exportable="false">
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.editar']}"
+							process="@this"
+							oncomplete="dlgEditarCategoriaBien.show()"
+							update=":formEditarLineaBien:pnlEditarLineaBien">
+							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+							<f:setPropertyActionListener target="#{categoriaBienDataManager.categoriaBienEditar}" value="#{categoriaBien}" />
+						</p:commandLink>
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:outputText value="&#160;|&#160;" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.activar']}"
+							rendered="#{categoriaBien.catBienEstado eq categoriaBienDataManager.estadoInactivo}"
+							oncomplete="dlgActivar.show()">
+							<h:graphicImage value="/resources/img/tick.png" alt="#{i18n['label.activar']}"/>
+							<f:setPropertyActionListener target="#{categoriaBienDataManager.categoriaBienEditar}" value="#{categoriaBien}" />
+						</p:commandLink>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.desabilitar']}"
+							rendered="#{categoriaBien.catBienEstado eq categoriaBienDataManager.estadoActivo}"
+							oncomplete="dlgDesactivar.show()">
+							<h:graphicImage value="/resources/img/delete.png" alt="#{i18n['label.desabilitar']}"/>
+							<f:setPropertyActionListener target="#{categoriaBienDataManager.categoriaBienEditar}" value="#{categoriaBien}" />
+						</p:commandLink>
+					</h:panelGroup>
+				</p:column>
 			</p:dataTable>
+			
+			<!-- Desactivar categoria bien -->
+			<p:confirmDialog id="dialogDesactivar" width="400" widgetVar="dlgDesactivar"
+				message="#{i18n['erp.categoria.bien.desactivar.pregunta.confirmacion']}"
+				header="#{i18n['erp.categoria.bien.desactivar']}" appendTo="@(body)">
+				<p:commandButton value="#{i18n['label.aceptar']}"
+					actionListener="#{categoriaBienController.desactivarCategoriaBien}"
+					oncomplete="dlgDesactivar.hide()"
+					update="pnlMessages,tablaCategoriaBien" process="@this"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{i18n['label.cancelar']}" type="button" 
+					onclick="dlgDesactivar.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+			
+			<!-- Activar categoria bien -->
+			<p:confirmDialog id="dialogActivar" width="400" widgetVar="dlgActivar"
+				message="#{i18n['erp.categoria.bien.activar.pregunta.confirmacion']}"
+				header="#{i18n['erp.categoria.bien.activar']}" appendTo="@(body)">
+				<p:commandButton value="#{i18n['label.aceptar']}"
+					actionListener="#{categoriaBienController.activarCategoriaBien}"
+					oncomplete="dlgActivar.hide()"
+					pdate="pnlMessages,tablaCategoriaBien" process="@this"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{i18n['label.cancelar']}" type="button" 
+					onclick="dlgActivar.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+			
 		</h:form>
 		
 		<ui:include src="dialogNuevoCategoriaBien.xhtml"/>
-		<!-- <ui:include src="dialogEditarBien.xhtml" /> -->
+		<ui:include src="dialogEditarCategoriaBien.xhtml" />
 		
 	</ui:define>
 </ui:composition>
