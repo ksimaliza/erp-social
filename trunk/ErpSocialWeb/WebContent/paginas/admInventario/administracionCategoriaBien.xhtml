@@ -17,7 +17,7 @@
 					<p:commandButton id="btnNuevoBien" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoCategoriaBien.show()"/>
 					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
 						icon="exportExcel" disabled="#{empty categoriaBienDataManager.listCategoriaBien}">
-						<p:dataExporter type="xls" target="tablaCategoriaBien" fileName="CategoriaBien" postProcessor="#{categoriaBienController.postProcessXLS()}"/>
+						<p:dataExporter type="xls" target="tablaCategoriaBien" fileName="CategoriaBien" postProcessor="#{categoriaBienController.postProcessXLS}"/>
 					</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
@@ -32,16 +32,7 @@
 								value="#{categoriaBienDataManager.categoriaBienBuscar.catBienNombre}" />
 						</td>
 					</tr>
-					<tr>
-						<td><h:outputLabel for="inputLineaBien" value="#{i18n['erp.categoria.linea.bien']}"/></td>
-						<td>
-							<p:selectOneMenu id="inputLineaBien" style="width: 30%"
-								value="#{categoriaBienDataManager.categoriaBienBuscar.linBienPk}">
-								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
-								<f:selectItems value="#{categoriaBienDataManager.dcLineaBien}"/>
-							</p:selectOneMenu>
-						</td>
-					</tr>
+					
 					<tr>
 						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
 						<td>

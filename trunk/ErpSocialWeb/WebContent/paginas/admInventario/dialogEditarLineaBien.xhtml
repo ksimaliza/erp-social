@@ -30,9 +30,28 @@
 						</td>
 					</tr>
 					<tr>
-						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
 						<td>
-							<p:selectOneMenu id="inputEstado" value="#{lineaBienDataManager.lineaBienEditar.linBienEstado}">
+							<h:outputLabel for="inputLineaBien" value="#{i18n['erp.categoria.linea.bien']}"/>
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:selectOneMenu id="inputLineaBien" style="width: 50%"
+								required="true" label="#{i18n['erp.categoria.linea.bien']}"
+								value="#{lineaBienDataManager.lineaBienEditar.catBienPk}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItems value="#{lineaBienDataManager.dcCategoriaBien}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/>
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:selectOneMenu id="inputEstado"
+								required="true" label="#{i18n['label.estado']}"
+								value="#{lineaBienDataManager.lineaBienEditar.linBienEstado}">
 								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{lineaBienDataManager.estadoActivo}"/>
 								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{lineaBienDataManager.estadoInactivo}"/>
 							</p:selectOneMenu>

@@ -6,6 +6,8 @@ import javax.persistence.*;
 
 import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaUtil;
 
+import java.util.List;
+
 
 /**
  * The persistent class for the categoria_bien_tbl database table.
@@ -17,16 +19,11 @@ import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaUtil;
 public class CategoriaBien extends AuditoriaUtil implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-//	@EmbeddedId
-//	private CategoriaBienPK id;
 	@Id
-	@SequenceGenerator(name="CATEGORIA_BIEN_TBL_CAT_BIENPK_GENERATOR", sequenceName="CATEGORIA_BIEN_TBL_CAT_BIEN_PK_SEQ", allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CATEGORIA_BIEN_TBL_CAT_BIENPK_GENERATOR")
+	@SequenceGenerator(name="CATEGORIA_BIEN_TBL_CATBIENPK_GENERATOR", sequenceName="CATEGORIA_BIEN_TBL_CAT_BIEN_PK_SEQ", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CATEGORIA_BIEN_TBL_CATBIENPK_GENERATOR")
 	@Column(name="cat_bien_pk")
 	private Integer catBienPk;
-
-	@Column(name="lin_bien_pk")
-	private Integer linBienPk;
 
 	@Column(name="cat_bien_descripcion")
 	private String catBienDescripcion;
@@ -38,20 +35,19 @@ public class CategoriaBien extends AuditoriaUtil implements Serializable {
 	private String catBienNombre;
 
 	//bi-directional many-to-one association to LineaBien
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="lin_bien_pk", referencedColumnName="lin_bien_pk", insertable=false, updatable=false)
-	private LineaBien lineaBienTbl;
+	@OneToMany(mappedBy="categoriaBienTbl")
+	private List<LineaBien> lineaBienTbls;
 
 	public CategoriaBien() {
 	}
 
-//	public CategoriaBienPK getId() {
-//		return this.id;
-//	}
-//
-//	public void setId(CategoriaBienPK id) {
-//		this.id = id;
-//	}
+	public Integer getCatBienPk() {
+		return this.catBienPk;
+	}
+
+	public void setCatBienPk(Integer catBienPk) {
+		this.catBienPk = catBienPk;
+	}
 
 	public String getCatBienDescripcion() {
 		return this.catBienDescripcion;
@@ -77,40 +73,26 @@ public class CategoriaBien extends AuditoriaUtil implements Serializable {
 		this.catBienNombre = catBienNombre;
 	}
 
-	public LineaBien getLineaBienTbl() {
-		return this.lineaBienTbl;
+	public List<LineaBien> getLineaBienTbls() {
+		return this.lineaBienTbls;
 	}
 
-	public void setLineaBienTbl(LineaBien lineaBienTbl) {
-		this.lineaBienTbl = lineaBienTbl;
+	public void setLineaBienTbls(List<LineaBien> lineaBienTbls) {
+		this.lineaBienTbls = lineaBienTbls;
 	}
 
-	/**
-	 * @return the catBienPk
-	 */
-	public Integer getCatBienPk() {
-		return catBienPk;
+	public LineaBien addLineaBienTbl(LineaBien lineaBienTbl) {
+		getLineaBienTbls().add(lineaBienTbl);
+		lineaBienTbl.setCategoriaBienTbl(this);
+
+		return lineaBienTbl;
 	}
 
-	/**
-	 * @param catBienPk the catBienPk to set
-	 */
-	public void setCatBienPk(Integer catBienPk) {
-		this.catBienPk = catBienPk;
-	}
+	public LineaBien removeLineaBienTbl(LineaBien lineaBienTbl) {
+		getLineaBienTbls().remove(lineaBienTbl);
+		lineaBienTbl.setCategoriaBienTbl(null);
 
-	/**
-	 * @return the linBienPk
-	 */
-	public Integer getLinBienPk() {
-		return linBienPk;
-	}
-
-	/**
-	 * @param linBienPk the linBienPk to set
-	 */
-	public void setLinBienPk(Integer linBienPk) {
-		this.linBienPk = linBienPk;
+		return lineaBienTbl;
 	}
 
 }

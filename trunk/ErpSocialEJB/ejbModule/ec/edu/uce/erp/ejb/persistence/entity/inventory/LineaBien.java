@@ -2,11 +2,19 @@ package ec.edu.uce.erp.ejb.persistence.entity.inventory;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaUtil;
-
-import java.util.List;
 
 
 /**
@@ -19,11 +27,17 @@ import java.util.List;
 public class LineaBien extends AuditoriaUtil implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+//	@EmbeddedId
+//	private LineaBienPK id;
+	
 	@Id
-	@SequenceGenerator(name="LINEA_BIEN_TBL_LINBIENPK_GENERATOR", sequenceName="BIEN_TBL_BIE_PK_SEQ", allocationSize=1)
+	@SequenceGenerator(name="LINEA_BIEN_TBL_LINBIENPK_GENERATOR", sequenceName="LINEA_BIEN_TBL_LIN_BIEN_PK_SEQ", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="LINEA_BIEN_TBL_LINBIENPK_GENERATOR")
 	@Column(name="lin_bien_pk")
 	private Integer linBienPk;
+
+	@Column(name="cat_bien_pk")
+	private Integer catBienPk;
 
 	@Column(name="lin_bien_descripcion")
 	private String linBienDescripcion;
@@ -34,20 +48,22 @@ public class LineaBien extends AuditoriaUtil implements Serializable {
 	@Column(name="lin_bien_nombre")
 	private String linBienNombre;
 
-	//bi-directional many-to-one association to CategoriaBien
-	@OneToMany(mappedBy="lineaBienTbl")
-	private List<CategoriaBien> categoriaBienTbls;
+	
+	//@JoinColumn(name="cab_bien_fk", referencedColumnName="cab_bien_pk", insertable=false, updatable=false)
+	@ManyToOne (fetch = FetchType.LAZY)
+	@JoinColumn(name="cat_bien_pk", referencedColumnName="cat_bien_pk", insertable=false, updatable=false)
+	private CategoriaBien categoriaBienTbl;
 
 	public LineaBien() {
 	}
 
-	public Integer getLinBienPk() {
-		return this.linBienPk;
-	}
-
-	public void setLinBienPk(Integer linBienPk) {
-		this.linBienPk = linBienPk;
-	}
+//	public LineaBienPK getId() {
+//		return this.id;
+//	}
+//
+//	public void setId(LineaBienPK id) {
+//		this.id = id;
+//	}
 
 	public String getLinBienDescripcion() {
 		return this.linBienDescripcion;
@@ -73,26 +89,40 @@ public class LineaBien extends AuditoriaUtil implements Serializable {
 		this.linBienNombre = linBienNombre;
 	}
 
-	public List<CategoriaBien> getCategoriaBienTbls() {
-		return this.categoriaBienTbls;
+	public CategoriaBien getCategoriaBienTbl() {
+		return this.categoriaBienTbl;
 	}
 
-	public void setCategoriaBienTbls(List<CategoriaBien> categoriaBienTbls) {
-		this.categoriaBienTbls = categoriaBienTbls;
+	public void setCategoriaBienTbl(CategoriaBien categoriaBienTbl) {
+		this.categoriaBienTbl = categoriaBienTbl;
 	}
 
-	public CategoriaBien addCategoriaBienTbl(CategoriaBien categoriaBienTbl) {
-		getCategoriaBienTbls().add(categoriaBienTbl);
-		categoriaBienTbl.setLineaBienTbl(this);
-
-		return categoriaBienTbl;
+	/**
+	 * @return the linBienPk
+	 */
+	public Integer getLinBienPk() {
+		return linBienPk;
 	}
 
-	public CategoriaBien removeCategoriaBienTbl(CategoriaBien categoriaBienTbl) {
-		getCategoriaBienTbls().remove(categoriaBienTbl);
-		categoriaBienTbl.setLineaBienTbl(null);
+	/**
+	 * @param linBienPk the linBienPk to set
+	 */
+	public void setLinBienPk(Integer linBienPk) {
+		this.linBienPk = linBienPk;
+	}
 
-		return categoriaBienTbl;
+	/**
+	 * @return the catBienPk
+	 */
+	public Integer getCatBienPk() {
+		return catBienPk;
+	}
+
+	/**
+	 * @param catBienPk the catBienPk to set
+	 */
+	public void setCatBienPk(Integer catBienPk) {
+		this.catBienPk = catBienPk;
 	}
 
 }

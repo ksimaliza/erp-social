@@ -68,6 +68,12 @@ public class LineaBienDAOImpl extends AbstractFacadeImpl<LineaBien> implements L
 				criteriaList.add(predicate);
 			}
 			
+			//por id del padre
+			if (lineaBien.getCatBienPk()!=null && lineaBien.getCatBienPk()!=0) {
+				predicate = criteriaBuilder.equal(fromLineaBien.get("catBienPk"), lineaBien.getCatBienPk());
+				criteriaList.add(predicate);
+			}
+			
 			criteriaQuery.where(criteriaBuilder.and(criteriaList.toArray(new Predicate[0])));
 			
 			TypedQuery<LineaBien> typedQuery = entityManager.createQuery(criteriaQuery);

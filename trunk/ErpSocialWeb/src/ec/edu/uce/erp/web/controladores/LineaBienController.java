@@ -51,6 +51,7 @@ public class LineaBienController extends BaseController{
 		try {
 			LineaBien lineaBien = servicioInventario.registrarLineaBien(this.lineaBienDataManager.getLineaBienInstancia());
 			if (lineaBien != null) {
+				this.lineaBienDataManager.setLineaBienInstancia(new LineaBien());
 				this.lineaBienDataManager.getListLineaBien().add(lineaBien);
 				MensajesWebController.aniadirMensajeInformacion("erp.mensaje.registro.exito");
 			}
@@ -66,6 +67,7 @@ public class LineaBienController extends BaseController{
 			this.lineaBienDataManager.getLineaBienEditar().setUsuarioRegistro(this.lineaBienDataManager.getUsuarioSession());
 			LineaBien lineaBien = servicioInventario.actualizarLineaBien(this.lineaBienDataManager.getLineaBienEditar());
 			if (lineaBien != null) {
+				this.lineaBienDataManager.setLineaBienEditar(new LineaBien());
 				MensajesWebController.aniadirMensajeInformacion("erp.mensaje.update.exito");
 			}
 		} catch (Exception e) {
