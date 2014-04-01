@@ -29,6 +29,20 @@
 								value="#{lineaBienDataManager.lineaBienInstancia.linBienDescripcion}" label="#{i18n['erp.linea.bien.descripcion']}"/>
 						</td>
 					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="inputLineaBien" value="#{i18n['erp.categoria.linea.bien']}"/>
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:selectOneMenu id="inputLineaBien" style="width: 50%"
+								required="true" label="#{i18n['erp.categoria.linea.bien']}"
+								value="#{lineaBienDataManager.lineaBienInstancia.catBienPk}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItems value="#{lineaBienDataManager.dcCategoriaBien}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
 				</table>
 			</p:panel>
 			<p:panel id="pnlBotones">

@@ -22,18 +22,29 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:panel id="pnlBuscarLineaBien" header="#{i18n['erp.linea.bien.buscar']}">
-				<table>
+				<table class="formulario">
 					<tr>
-						<td><h:outputLabel for="txtNombre" value="#{i18n['erp.linea.bien.nombre']}" /></td>
-						<td>
+						<td width="20%"><h:outputLabel for="txtNombre" value="#{i18n['erp.linea.bien.nombre']}" /></td>
+						<td width="80%">
 							<p:inputText id="txtNombre"
 								value="#{lineaBienDataManager.lineaBienBuscar.linBienNombre}" />
 						</td>
 					</tr>
 					<tr>
+						<td><h:outputLabel for="inputLineaBien" value="#{i18n['erp.categoria.linea.bien']}"/></td>
+						<td>
+							<p:selectOneMenu id="inputLineaBien" style="width: 30%"
+								value="#{lineaBienDataManager.lineaBienBuscar.catBienPk}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItems value="#{lineaBienDataManager.dcCategoriaBien}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
 						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
 						<td>
-							<p:selectOneMenu id="inputEstado" value="#{lineaBienDataManager.lineaBienBuscar.linBienEstado}">
+							<p:selectOneMenu id="inputEstado" style="width: 30%" 
+								value="#{lineaBienDataManager.lineaBienBuscar.linBienEstado}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
 								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{lineaBienDataManager.estadoActivo}"/>
 								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{lineaBienDataManager.estadoInactivo}"/>

@@ -26,13 +26,15 @@
 					</tr>
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtCategoria" value="#{i18n['erp.bien.categoria']}" />
+							<h:outputLabel for="selectCategoria" value="#{i18n['erp.bien.categoria']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td  width="70%">
-							<p:selectOneMenu id="txtCategoria" panelStyle="width: 20%"
-								required="false" label="#{i18n['erp.bien.categoria']}">
+							<p:selectOneMenu id="selectCategoria" style="width: 100%"
+								required="true" label="#{i18n['erp.bien.categoria']}"
+								value="#{bienDataManager.idCategoriaBienSeleccionado}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItems value="#{bienDataManager.dcCategoriaBien}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>

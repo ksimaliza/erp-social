@@ -20,6 +20,7 @@ import ec.edu.uce.erp.common.util.UtilReflection;
 import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogo;
 import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogoPK;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CabeceraBien;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.CategoriaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBienPK;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien;
@@ -181,7 +182,7 @@ public final class UtilSelectItems {
 	
 	public List<SelectItem> cargarSelectItemLineaBien (ServicioInventario servicioInventario) throws SeguridadesException {
 		
-		slf4jLogger.info("cargarSelectItemCategoriaBien");
+		slf4jLogger.info("cargarSelectItemLineaBien");
 		
 		List<SelectItem> listSelectItem = new ArrayList<SelectItem>();
 		
@@ -197,6 +198,23 @@ public final class UtilSelectItems {
 					return new SelectItem(lineaBien.getLinBienPk(), lineaBien.getLinBienNombre());
 				}
 			}, listSelectItem);
+		}
+		
+		return listSelectItem;
+	}
+	
+	public List<SelectItem> cargarSelectItemCategoriaBien (ServicioInventario servicioInventario) throws SeguridadesException {
+		
+		slf4jLogger.info("cargarSelectItemCategoriaBien");
+		
+		List<SelectItem> listSelectItem = new ArrayList<SelectItem>();
+		
+		CategoriaBien categoriaBien = new CategoriaBien();
+		categoriaBien.setCatBienEstado(ESTADO_ACTIVO);
+		List<CategoriaBien> listCategoriaBien = servicioInventario.buscarCategoriaBienCriterios(categoriaBien);
+		
+		if (CollectionUtils.isNotEmpty(listCategoriaBien)) {
+			listSelectItem = this.cargarSelectItemsGenerico(listCategoriaBien, "catBienPk", "catBienNombre");
 		}
 		
 		return listSelectItem;

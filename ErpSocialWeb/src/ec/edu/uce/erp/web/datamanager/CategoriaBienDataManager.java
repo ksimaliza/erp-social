@@ -6,20 +6,11 @@ package ec.edu.uce.erp.web.datamanager;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.model.SelectItem;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CategoriaBien;
-import ec.edu.uce.erp.ejb.persistence.entity.inventory.CategoriaBienPK;
-import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
-import ec.edu.uce.erp.web.common.util.UtilSelectItems;
 
 /**
  * @author 
@@ -30,25 +21,23 @@ import ec.edu.uce.erp.web.common.util.UtilSelectItems;
 public class CategoriaBienDataManager extends BaseDataManager{
 
 	private static final long serialVersionUID = 1L;
-	private static final Logger slf4jLogger = LoggerFactory.getLogger(CategoriaBienDataManager.class);
+//	private static final Logger slf4jLogger = LoggerFactory.getLogger(CategoriaBienDataManager.class);
 	
 	private CategoriaBien categoriaBienInstancia;
 	private CategoriaBien categoriaBienBuscar;
 	private CategoriaBien categoriaBienEditar;
 	private List<CategoriaBien> listCategoriaBien;
 	
-	@EJB
-	public ServicioInventario servicioInventario;
-	
-	private List<SelectItem> dcLineaBien;
+//	@EJB
+//	public ServicioInventario servicioInventario;
+//	
+//	private List<SelectItem> dcLineaBien;
 	
 	public CategoriaBienDataManager () {
 		super();
 		this.categoriaBienInstancia = new CategoriaBien();
-//		this.categoriaBienInstancia.setId(new CategoriaBienPK());
 		this.categoriaBienInstancia.setUsuarioRegistro(getUsuarioSession());
 		this.categoriaBienBuscar = new CategoriaBien();
-//		this.categoriaBienBuscar.setId(new CategoriaBienPK());
 		this.categoriaBienEditar = new CategoriaBien();
 		this.listCategoriaBien = new ArrayList<CategoriaBien>();
 	}
@@ -109,18 +98,18 @@ public class CategoriaBienDataManager extends BaseDataManager{
 		this.listCategoriaBien = listCategoriaBien;
 	}
 
-	/**
-	 * @return the dcCategoriaBien
-	 * @throws SeguridadesException 
-	 */
-	public List<SelectItem> getDcLineaBien() throws SeguridadesException {
-		
-		if (dcLineaBien == null) {
-			slf4jLogger.info("cargar catalogoCategoriaBien");
-			dcLineaBien = UtilSelectItems.getInstancia().cargarSelectItemLineaBien(servicioInventario);
-		}
-		
-		return dcLineaBien;
-	}
+//	/**
+//	 * @return the dcCategoriaBien
+//	 * @throws SeguridadesException 
+//	 */
+//	public List<SelectItem> getDcLineaBien() throws SeguridadesException {
+//		
+//		if (dcLineaBien == null) {
+//			slf4jLogger.info("cargar catalogoCategoriaBien");
+//			dcLineaBien = UtilSelectItems.getInstancia().cargarSelectItemLineaBien(servicioInventario);
+//		}
+//		
+//		return dcLineaBien;
+//	}
 	
 }
