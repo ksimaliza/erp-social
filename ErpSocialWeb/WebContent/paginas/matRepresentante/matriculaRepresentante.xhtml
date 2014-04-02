@@ -26,16 +26,36 @@
 			</p:toolbar>
 			<p:panel id="pnlBuscarRepresentante" header="#{i18n['erp.matricula.representante.buscar']}">
 				<table class="formulario">
-					<tr>
-						<td><h:outputLabel value="Nombre" /> </td>
+					<tr >
+						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.representante.nombres']}" /> </td>
+					<td width="70%">
+							<p:inputText id="txtNombreBuscar"
+								value="#{representanteDataManager.representanteBuscar.perNombres}" />
+						</td>
+					
+					</tr>
+					
+					<tr >
+						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.representante.apellidos']}" /> </td>
+					<td width="70%">
+							<p:inputText id="txtApellidosBuscar"
+								value="#{representanteDataManager.representanteBuscar.perApellidos}" />
+						</td>
+					
 					</tr>
 				</table>
 			</p:panel>
 
-
+<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{representanteController.buscarRepresentantes}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscarRepresentante"
+					update=":formRepresentante:pnlMessages,tablaRepresentante,pnlBuscarRepresentante" />
+			</p:panel>
 
 <p:dataTable id="tablaRepresentante"
-	
+	value="#{representanteDataManager.representanteListDTOs}" var="representante"
 	rowIndexVar="rowIndex"
 	paginator="true" rows="5" paginatorPosition="bottom"
 	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -46,7 +66,24 @@
 	<p:column headerText="#" styleClass="centered" width="5%">
 		#{rowIndex+1}
 	</p:column>
-
+<p:column headerText="#{i18n['erp.matricula.representante.nombres']}" width="35%">
+					<h:outputText value="#{representante.perNombres}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.matricula.representante.apellidos']}" width="40%">
+					<h:outputText value="#{representante.perApellidos}" />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.matricula.representante.cedula']}" width="40%">
+					<h:outputText value="#{representante.perCi}" />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.matricula.representante.direccion']}" width="40%">
+					<h:outputText value="#{representante.perDireccion}" />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.matricula.representante.fechanac']}" width="40%">
+					<h:outputText value="#{representante.perFechaNac}" />
+				</p:column>
 			</p:dataTable>			
 	
 </h:form>			

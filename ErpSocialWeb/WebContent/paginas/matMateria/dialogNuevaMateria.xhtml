@@ -17,7 +17,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNombre" style="width: 100%"
-							required="true" label="#{i18n['erp.matricula.materia.nombre']}" value="#{MateriaDataManager.materiaInstancia.mtrNombe}"
+							required="true" label="#{i18n['erp.matricula.materia.nombre']}" value="#{materiaDataManager.materiaInstancia.mtrNombe}"
 								 />
 						</td>
 						</tr>
@@ -27,7 +27,7 @@
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
-					actionListener="#{MateriaController.registrarMateria()}"
+					actionListener="#{materiaController.registrarMateria}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaMateria.hide()"
 					process="@this,pnlNuevaMateria" update="pnlNuevaMateria,:formMateria:pnlMessages,:formMateria:tablaMateria"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaMateria.hide();" type="button" />
