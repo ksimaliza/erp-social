@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpEditarDocente" header="#{i18n['erp.matricula.docente.editar']}" resizable="false" draggable="false"
+		widgetVar="dlgEditarDocente" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<h:form id="formEditarDocente" styleClass="formulario">
+			<p:panel id="pnlEditarDocente">
+				<table class="formulario">
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFoto" value="#{i18n['erp.matricula.docente.foto']}" />
+						</td>
+						<td width="70%"> 
+							<p:inputText id="txtFoto" style="width: 100%"  value="#{docenteDataManager.personaInstancia.perFoto}"
+								 />
+						</td>	
+					</tr>
+					
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCi" value="#{i18n['erp.matricula.docente.cedula']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCi" style="width: 100%" value="#{docenteDataManager.personaInstancia.perCi}"
+							required="true" label="#{i18n['erp.matricula.docente.cedula']}">
+								<f:validateLength maximum="10" minimum="10"/>
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+								
+								</p:inputText>
+						</td>
+						</tr>
+						
+							
+							
+							<tr>
+						
+						<td width="30%">
+							<h:outputLabel for="txtNombres" value="#{i18n['erp.matricula.docente.nombres']}" />
+							
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombres"  value="#{docenteDataManager.personaInstancia.perNombres}"
+								style="width: 100%"
+								required="true" label="#{i18n['erp.matricula.docente.nombres']}"/>
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApe" value="#{i18n['erp.matricula.docente.apellidos']}" />
+						</td>
+						<td width="70%"> 
+							<p:inputText id="txtApe" style="width: 100%"  value="#{docenteDataManager.personaInstancia.perApellidos}"
+								 />
+						</td>
+						
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFecNac" value="#{i18n['erp.matricula.docente.fechanac']}" />
+						</td>
+						<td width="70%">
+							<p:calendar id="txtFecNac" style="width: 100%"  value="#{docenteDataManager.personaInstancia.perFechaNac}" 
+								showOn="button" required="true" />
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtDir" value="#{i18n['erp.matricula.docente.direccion']}" />
+						</td>
+						<td width="70%">
+							<p:inputTextarea id="txtDir" style="width: 100%" autoResize="false"  value="#{docenteDataManager.personaInstancia.perDireccion}"
+							required="true" />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtTelefono" value="#{i18n['erp.matricula.docente.telefono']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtTelefono" style="width: 100%" value="#{docenteDataManager.personaInstancia.perTelefono}"
+								onkeypress="return isNumberKey(event)" />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCelular" value="#{i18n['erp.matricula.docente.celular']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCelular" style="width: 100%" value="#{docenteDataManager.personaInstancia.perCelular}" onkeypress="return isNumberKey(event)"
+								 />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtEmail" value="#{i18n['erp.matricula.docente.email']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtEmail" style="width: 100%" value="#{docenteDataManager.personaInstancia.perEmail}"
+								 >
+								 <f:validator validatorId="ec.edu.uce.erp.web.validador.EmailValidator" />
+						</p:inputText>
+						</td>	
+					</tr>
+					
+					
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{docenteController.registrarDocente()}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarDocente.hide()"
+					process="@this,pnlEditarDocente" update="pnlEditarDocente,:formDocente:pnlMessages,:formDocente:tablaDocente"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarDocente.hide();" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>

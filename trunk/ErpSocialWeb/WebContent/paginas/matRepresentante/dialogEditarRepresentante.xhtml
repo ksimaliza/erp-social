@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpEditarRepresentante" header="#{i18n['erp.matricula.representante.registrar']}" resizable="false" draggable="false"
+		widgetVar="dlgEditarRepresentante" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<h:form id="formEditarRepresentante" styleClass="formulario">
+			<p:panel id="pnlEditarRepresentante">
+				<table class="formulario">
+					<tr>
+						
+						<td width="30%">
+							<h:outputLabel for="txtCi" value="#{i18n['erp.matricula.representante.cedula']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCi" value="#{representanteDataManager.personaInstancia.perCi}" style="width: 100%"
+							required="true" label="#{i18n['erp.matricula.representante.cedula']}">
+							<f:validateLength maximum="10" minimum="10"/>
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+						
+						</p:inputText>
+						
+						</td>
+						</tr>
+						<tr>
+						
+						<td width="30%">
+							<h:outputLabel for="txtNombres" value="#{i18n['erp.matricula.representante.nombres']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombres" value="#{representanteDataManager.personaInstancia.perNombres}"
+								style="width: 100%" required="true" label="#{i18n['erp.matricula.representante.nombres']}" />
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApe" value="#{i18n['erp.matricula.representante.apellidos']}"  />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApe" style="width: 100%" 
+								value="#{representanteDataManager.personaInstancia.perApellidos}" label="#{i18n['erp.matricula.representante.apellidos']}"/>
+							
+						</td>
+						
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFecNac" value="#{i18n['erp.matricula.representante.fechanac']}" />
+						</td>
+						<td width="70%">
+							<p:calendar id="txtFecNac" style="width: 100%" navigator="true" value="#{representanteDataManager.personaInstancia.perFechaNac}"  showOn="button" required="true"/>
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtDir" value="#{i18n['erp.matricula.representante.direccion']}" />
+						</td>
+						<td width="70%">
+							<p:inputTextarea id="txtDir" style="width: 100%" autoResize="false" 
+								value="#{representanteDataManager.personaInstancia.perDireccion}" label="#{i18n['erp.matricula.representante.direccion']}" required="true" />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtTelefono" value="#{i18n['erp.matricula.representante.telefono']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtTelefono" style="width: 100%"
+								value="#{representanteDataManager.personaInstancia.perTelefono}" label="#{i18n['erp.matricula.representante.telefono']}" onkeypress="return isNumberKey(event)" />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCelular" value="#{i18n['erp.matricula.representante.celular']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCelular" style="width: 100%"
+								value="#{representanteDataManager.personaInstancia.perCelular}" label="#{i18n['erp.matricula.representante.celular']}" onkeypress="return isNumberKey(event)" />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtEmail" value="#{i18n['erp.matricula.representante.email']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtEmail" style="width: 100%"
+								 value="#{representanteDataManager.personaInstancia.perEmail}" label="#{i18n['erp.matricula.representante.email']}">
+						<f:validator validatorId="ec.edu.uce.erp.web.validador.EmailValidator" />
+						</p:inputText>
+						</td>	
+					</tr>
+					
+					
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{representanteController.registrarRepresentante}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgRepresentante.hide()"
+					process="@this,pnlEditarRepresentante" update="pnlEditarRepresentante,:formRepresentante:pnlMessages,:formRepresentante:tablaRepresentante"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarRepresentante.hide()" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>

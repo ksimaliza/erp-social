@@ -11,6 +11,20 @@
 			<p:panel id="pnlNuevoEstudiante">
 				<table class="formulario">
 					
+											
+					<tr>
+						
+						<td width="30%">
+							<h:outputLabel for="txtFoto" value="#{i18n['erp.matricula.estudiante.foto']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtFoto" value="#{estudianteDataManager.estudiantePersonaInsertar.perFoto}" style="width: 100%"
+							required="true" label="#{i18n['erp.matricula.estudiante.foto']}">
+													
+						</p:inputText>
+						
+						</td>
+						</tr>
 					
 					<tr>
 						
@@ -54,7 +68,7 @@
 							<h:outputLabel for="txtFecNac" value="#{i18n['erp.matricula.estudiante.fechanac']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFecNac" style="width: 100%" navigator="true" value="#{empleadoDataManager.personaInsertar.perFechaNac}"  showOn="button" required="true"/>
+							<p:calendar id="txtFecNac" style="width: 100%" navigator="true" value="#{estudianteDataManager.estudiantePersonaInsertar.perFechaNac}"  showOn="button" required="true"/>
 						</td>	
 					</tr>
 					
