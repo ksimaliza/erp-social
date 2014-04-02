@@ -4,6 +4,7 @@ import javax.ejb.Local;
 
 import ec.edu.uce.erp.ejb.persistence.dao.AsinacionDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.EstudianteDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.EstudianteListDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.EstudianteRepresentanteDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.MateriaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.MatriculaDAO;
@@ -47,5 +48,7 @@ public interface MatriculaFactoryDAO {
 	EstudianteDAO getEstudianteDAOImpl();
 
 	AsinacionDAO getAsinacionDAOImpl();
+
+	EstudianteListDAO getEstudianteListDAOImpl();
 
 }

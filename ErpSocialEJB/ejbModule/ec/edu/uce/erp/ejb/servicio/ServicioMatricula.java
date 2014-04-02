@@ -6,7 +6,9 @@ import javax.ejb.Local;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MateriaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
@@ -17,6 +19,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParcialDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EstudianteVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ProfesorVO;
 import ec.edu.uce.erp.ejb.persistence.vo.RepresentanteVO;
@@ -76,7 +79,7 @@ public interface ServicioMatricula {
 
 	AsinacionDTO buscarAsinacionid(Integer id) throws SeguridadesException;
 
-	EstudianteDTO buscarEstudianteid(Integer id) throws SeguridadesException;
+	
 
 	void deleteEstudiante(EstudianteVO estudianteVO)
 			throws SeguridadesException;
@@ -93,6 +96,23 @@ public interface ServicioMatricula {
 	EstudianteDTO createOrUpdateEstudiante(EstudianteVO estudiantevo)
 			throws SeguridadesException;
 
+	List<EstudianteListDTO> buscarEstudiante(EstudianteListDTO estudianteListDTO)
+			throws SeguridadesException;
+
+	List<DocenteListDTO> buscarProfesor(DocenteListDTO docenteListDTO)
+			throws SeguridadesException;
+
+	List<RepresentanteListDTO> buscarRepresentante(
+			RepresentanteListDTO representanteListDTO)
+			throws SeguridadesException;
+
+	List<MateriaDTO> buscarMateria(MateriaDTO materiaDTO)
+			throws SeguridadesException;
+
+	EstudianteVO obtenerEstudiantePorId(Integer idPersona, Integer idEstudiante)
+			throws SeguridadesException;
+
+	
 
 
 }
