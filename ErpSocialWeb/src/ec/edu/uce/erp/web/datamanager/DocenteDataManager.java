@@ -2,6 +2,9 @@ package ec.edu.uce.erp.web.datamanager;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -9,10 +12,8 @@ import javax.faces.bean.SessionScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
-
-
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
@@ -30,7 +31,8 @@ public class DocenteDataManager extends BaseDataManager {
 	
 	private ProfesorDTO profesorInstancia;
 	private ProfesorDTO profesorEditar;
-	private ProfesorDTO profesorBuscar;
+	private DocenteListDTO profesorBuscar;
+	private List<DocenteListDTO> listaDocenteListDTOs;
 	
 	private Persona personaInstancia;
 	private Persona personaEditar;
@@ -47,11 +49,12 @@ public class DocenteDataManager extends BaseDataManager {
 		
 		slf4jLogger.info("inicializarObjetos");
 		this.profesorInstancia = new ProfesorDTO();		
-		this.profesorBuscar = new ProfesorDTO();
+		this.profesorBuscar = new DocenteListDTO();
 		this.profesorEditar = new ProfesorDTO();
 		this.personaInstancia=new Persona();
 		this.personaBuscar=new Persona();
 		this.personaEditar=new Persona();
+		this.listaDocenteListDTOs=new ArrayList<DocenteListDTO>();
 		
 			
 	}
@@ -72,11 +75,11 @@ public class DocenteDataManager extends BaseDataManager {
 		this.profesorEditar = profesorEditar;
 	}
 
-	public ProfesorDTO getProfesorBuscar() {
+	public DocenteListDTO getProfesorBuscar() {
 		return profesorBuscar;
 	}
 
-	public void setProfesorBuscar(ProfesorDTO profesorBuscar) {
+	public void setProfesorBuscar(DocenteListDTO profesorBuscar) {
 		this.profesorBuscar = profesorBuscar;
 	}
 
@@ -102,6 +105,14 @@ public class DocenteDataManager extends BaseDataManager {
 
 	public void setPersonaBuscar(Persona personaBuscar) {
 		this.personaBuscar = personaBuscar;
+	}
+
+	public List<DocenteListDTO> getListaDocenteListDTOs() {
+		return listaDocenteListDTOs;
+	}
+
+	public void setListaDocenteListDTOs(List<DocenteListDTO> listaDocenteListDTOs) {
+		this.listaDocenteListDTOs = listaDocenteListDTOs;
 	}
 
 	

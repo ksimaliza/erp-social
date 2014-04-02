@@ -1,17 +1,21 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EstudianteVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
@@ -29,6 +33,8 @@ public class EstudianteController {
 		
 		@ManagedProperty(value="#{estudianteDataManager}")
 		private EstudianteDataManager estudianteDataManager;
+		
+		private List<Object> estudiantesSeleccionados;
 		
 		public void setEstudianteDataManager(EstudianteDataManager estudianteDataManager) {
 			this.estudianteDataManager = estudianteDataManager;
@@ -66,4 +72,53 @@ public class EstudianteController {
 			}
 			
 		}
+		
+		public void buscarEstudiantes () {
+			slf4jLogger.info("buscarEstudiantes");
+			
+			List<EstudianteListDTO> listaestudiantes=null;
+			
+			try {
+								
+				listaestudiantes = this.servicioMatricula.buscarEstudiante(estudianteDataManager.getEstudianteBuscar());
+				
+				if (CollectionUtils.isEmpty(listaestudiantes) && listaestudiantes.size()==0) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.estudianteDataManager.setListaEstudianteListDTOs(listaestudiantes);
+				}
+				
+			} catch (SeguridadesException e) {
+				slf4jLogger.info("Error al buscar el estudiante {} ", e);
+				MensajesWebController.aniadirMensajeError(e.getMessage());
+			}
+			
+		}
+		
+		public List<Object> getEstudiantesSeleccionados() {
+			return estudiantesSeleccionados;
+		}
+
+
+		public void setEstudiantesSeleccionados(List<Object> estudiantesSeleccionados) {
+			this.estudiantesSeleccionados = estudiantesSeleccionados;
+		}
+		
+	
+		public void cargarDatosEstudiante (EstudianteDTO estudiante, Persona persona) {
+			try {
+				EstudianteVO estudianteEncontrado = servicioMatricula.obtenerEstudiantePorId(persona.getPerPk(),estudiante.getEstCodigo());
+				
+				this.estudianteDataManager.setEstudiantePersonaInsertar(estudianteEncontrado.getPersona());
+				this.estudianteDataManager.setEstudianteEditar(estudianteEncontrado);
+								
+			} catch (SeguridadesException e) {
+				slf4jLogger.info("Error al cargar los datos del estudiante seleccionado {}", e.getMessage());
+				MensajesWebController.aniadirMensajeError("Error al cargar los datos del perfil seleccionado");
+			}
+		}
+		
 }
+		
+		
+

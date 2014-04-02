@@ -1,16 +1,20 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.RepresentanteVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
@@ -53,6 +57,28 @@ public class RepresentanteController {
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
+	public void buscarRepresentantes () {
+		slf4jLogger.info("buscarDocentes");
+		
+		List<RepresentanteListDTO> listarepresentante=null;
+		
+		try {
+							
+			listarepresentante = this.servicioMatricula.buscarRepresentante(representanteDataManager.getRepresentanteBuscar());
+			
+			if (CollectionUtils.isEmpty(listarepresentante) && listarepresentante.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.representanteDataManager.setRepresentanteListDTOs(listarepresentante);
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarDocentes {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 		

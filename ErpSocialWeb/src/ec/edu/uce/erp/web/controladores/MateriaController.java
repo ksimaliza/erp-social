@@ -1,10 +1,13 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +18,7 @@ import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.datamanager.MateriaDataManager;
 
 @ViewScoped
-@ManagedBean (name = "MateriaController")
+@ManagedBean (name = "materiaController")
 
 public class MateriaController {
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(MateriaController.class);
@@ -23,7 +26,7 @@ public class MateriaController {
 	@EJB
 	private ServicioMatricula servicioMatricula;
 	
-	@ManagedProperty(value="#{MateriaDataManager}")
+	@ManagedProperty(value="#{materiaDataManager}")
 	private MateriaDataManager materiaDataManager;
 	
 	public void setMateriaDataManager(MateriaDataManager materiaDataManager) {
@@ -55,4 +58,29 @@ public class MateriaController {
 		}
 		
 	}
+	
+	public void buscarMateria () {
+		slf4jLogger.info("buscarMateria");
+		
+		List<MateriaDTO> listamaterias=null;
+		
+		try {
+							
+			listamaterias = this.servicioMatricula.buscarMateria(materiaDataManager.getMateriaBuscar());
+			
+			if (CollectionUtils.isEmpty(listamaterias) && listamaterias.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.materiaDataManager.setMateriaDTOs(listamaterias);
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarMateria {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
+	
+	
 }
