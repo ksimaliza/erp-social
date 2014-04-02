@@ -1,5 +1,7 @@
 package ec.edu.uce.erp.web.datamanager;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -11,7 +13,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MateriaDTO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 @SessionScoped
-@ManagedBean (name = "MateriaDataManager")
+@ManagedBean (name = "materiaDataManager")
 public class MateriaDataManager extends BaseDataManager{
 	
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(PerfilDataManager.class);
@@ -20,6 +22,7 @@ public class MateriaDataManager extends BaseDataManager{
 	private MateriaDTO materiaInstancia;
 	private MateriaDTO materiaEditar;
 	private MateriaDTO materiaBuscar;
+	private List<MateriaDTO> materiaDTOs;
 	
 	@PostConstruct
 	public void inicializarObjetos () {
@@ -53,6 +56,14 @@ public class MateriaDataManager extends BaseDataManager{
 
 	public void setMateriaBuscar(MateriaDTO materiaBuscar) {
 		this.materiaBuscar = materiaBuscar;
+	}
+
+	public List<MateriaDTO> getMateriaDTOs() {
+		return materiaDTOs;
+	}
+
+	public void setMateriaDTOs(List<MateriaDTO> materiaDTOs) {
+		this.materiaDTOs = materiaDTOs;
 	}
 	
 	

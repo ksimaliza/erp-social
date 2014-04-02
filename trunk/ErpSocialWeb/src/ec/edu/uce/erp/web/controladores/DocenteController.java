@@ -1,19 +1,20 @@
 package ec.edu.uce.erp.web.controladores;
 
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
-
-
-
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.ProfesorVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
@@ -31,6 +32,7 @@ public class DocenteController {
 	
 	@ManagedProperty(value="#{docenteDataManager}")
 	private DocenteDataManager docenteDataManager;
+	
 	
 	public void setDocenteDataManager(DocenteDataManager docenteDataManager) {
 		this.docenteDataManager = docenteDataManager;
@@ -68,29 +70,31 @@ public class DocenteController {
 		
 	}
 	
-	/**
-	 * Buscar un docente en la bd
-	 */
-	//public void buscarDocente () {
+	public void buscarDocente () {
+		slf4jLogger.info("buscarDocente");
 		
-	//	slf4jLogger.info("buscarDocente");
-		//try {
-			
-		//	List<ProfesorDTO> docenteCol = this.servicioMatricula.;
-			
-		//	if (CollectionUtils.isEmpty(empresaCol) || empresaCol.size() < 0) {
-		//		MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-		//		empresaDataManager.setListaEmpresa(new ArrayList<Empresa>());
-		//	} else {
-		//		empresaDataManager.setListaEmpresa(empresaCol);
-		//	}
-			
-		//} catch (SeguridadesException e) {
-		//	slf4jLogger.info("error al buscarEmpresa {}", e.toString());
-		//	MensajesWebController.aniadirMensajeError(e.getMessage());
-		//}
+		List<DocenteListDTO> listadocentes=null;
 		
-	//}
+		try {
+							
+			listadocentes = this.servicioMatricula.buscarProfesor(docenteDataManager.getProfesorBuscar());
+			
+			if (CollectionUtils.isEmpty(listadocentes) && listadocentes.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.docenteDataManager.setListaDocenteListDTOs(listadocentes);
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarDocente {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
+	
+
+	
 	
 	
 	

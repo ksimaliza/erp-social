@@ -1,5 +1,8 @@
 package ec.edu.uce.erp.web.datamanager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -9,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteListDTO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 @SessionScoped
@@ -19,7 +23,8 @@ public class RepresentanteDataManager extends BaseDataManager{
 	
 	private RepresentanteDTO representanteInstancia;
 	private RepresentanteDTO representanteEditar;
-	private RepresentanteDTO representanteBuscar;
+	private RepresentanteListDTO representanteBuscar;
+	private List<RepresentanteListDTO> representanteListDTOs;
 	
 	private Persona personaInstancia;
 	private Persona personaEditar;
@@ -33,7 +38,10 @@ public class RepresentanteDataManager extends BaseDataManager{
 		slf4jLogger.info("inicializarObjetos");
 		this.representanteInstancia = new RepresentanteDTO();		
 		this.representanteEditar = new RepresentanteDTO();
-		this.representanteBuscar = new RepresentanteDTO();
+		this.representanteBuscar = new RepresentanteListDTO();
+		this.representanteListDTOs = new ArrayList<RepresentanteListDTO>();
+		
+		
 		this.personaInstancia = new Persona();		
 		this.personaEditar = new Persona();
 		this.personaBuscar = new Persona();
@@ -65,13 +73,13 @@ public class RepresentanteDataManager extends BaseDataManager{
 
 
 
-	public RepresentanteDTO getRepresentanteBuscar() {
+	public RepresentanteListDTO getRepresentanteBuscar() {
 		return representanteBuscar;
 	}
 
 
 
-	public void setRepresentanteBuscar(RepresentanteDTO representanteBuscar) {
+	public void setRepresentanteBuscar(RepresentanteListDTO representanteBuscar) {
 		this.representanteBuscar = representanteBuscar;
 	}
 
@@ -109,6 +117,19 @@ public class RepresentanteDataManager extends BaseDataManager{
 
 	public void setPersonaBuscar(Persona personaBuscar) {
 		this.personaBuscar = personaBuscar;
+	}
+
+
+
+	public List<RepresentanteListDTO> getRepresentanteListDTOs() {
+		return representanteListDTOs;
+	}
+
+
+
+	public void setRepresentanteListDTOs(
+			List<RepresentanteListDTO> representanteListDTOs) {
+		this.representanteListDTOs = representanteListDTOs;
 	}
 
 	
