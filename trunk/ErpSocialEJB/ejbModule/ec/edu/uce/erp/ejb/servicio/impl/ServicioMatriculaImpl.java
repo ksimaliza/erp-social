@@ -160,13 +160,13 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	}
 	
 	@Override
-	public EstudianteVO obtenerEstudiantePorId(Integer idPersona, Integer idEstudiante) throws SeguridadesException {
+	public EstudianteVO obtenerEstudiantePorId(Integer Idpersona, Integer Idestudiante) throws SeguridadesException {
 		slf4jLogger.info("obtenerEstudiantePorId");
 		
 		EstudianteVO est=new EstudianteVO();
 		
-		est.setEstudiante(matriculaFactoryDAO.getEstudianteDAOImpl().find(idEstudiante));
-		est.setPersona(factoryDAO.getPersonaDAOImpl().find(idPersona));
+		est.setEstudiante(matriculaFactoryDAO.getEstudianteDAOImpl().find(Idestudiante));
+		est.setPersona(factoryDAO.getPersonaDAOImpl().find(Idpersona));
 		return est;
 	}
 
@@ -189,20 +189,6 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	}
 	
 	
-	@Override
-	public List<MateriaDTO> buscarMateria(MateriaDTO materiaDTO) throws SeguridadesException {
-		slf4jLogger.info("buscarMateria");
-		List<MateriaDTO> listmateria = null;
-		try {
-			listmateria = matriculaFactoryDAO.getMateriaDAOImpl().obtenerMateria(materiaDTO);
-		} catch (Exception e) {
-			slf4jLogger.info("Error al buscarMateria {}", e.getMessage());
-			throw new SeguridadesException("No se pudo obtener las Materias de la base de datos");
-		}
-		
-		return listmateria;
-	}
-	
 	
 	@Override
 	public void deleteMateria(MateriaDTO materiaDTO) throws SeguridadesException
@@ -218,6 +204,31 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 			throw new SeguridadesException(e);
 		}
 		
+	}
+	
+	@Override
+	public List<MateriaDTO> buscarMateria(MateriaDTO materiaDTO) throws SeguridadesException {
+		slf4jLogger.info("buscarMateria");
+		List<MateriaDTO> listmateria = null;
+		try {
+			listmateria = matriculaFactoryDAO.getMateriaDAOImpl().obtenerMateria(materiaDTO);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarMateria {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener las Materias de la base de datos");
+		}
+		
+		return listmateria;
+	}
+	
+	@Override
+	public MateriaDTO obtenerMateriaPorId(Integer id) throws SeguridadesException {
+		slf4jLogger.info("obtenerMateriaPorId");
+		
+		MateriaDTO mat=new MateriaDTO();
+		
+		mat = matriculaFactoryDAO.getMateriaDAOImpl().find(id);
+		
+		return mat;
 	}
 	
 	@Override
@@ -287,6 +298,31 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	}
 	
 	@Override
+	public List<NivelDTO> buscarNivel(NivelDTO nivelDTO) throws SeguridadesException {
+		slf4jLogger.info("buscarNivel");
+		List<NivelDTO> listnivel = null;
+		try {
+			listnivel = matriculaFactoryDAO.getNivelDAOImpl().obtenerNivel(nivelDTO);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarMateria {}", e.getMessage());
+			throw new SeguridadesException("No se pudo buscarNivel de la base de datos");
+		}
+		
+		return listnivel;
+	}
+	
+	@Override
+	public NivelDTO obtenerNivelPorId(Integer id) throws SeguridadesException {
+		slf4jLogger.info("obtenerNivelPorId");
+		
+		NivelDTO nivel=new NivelDTO();
+		
+		nivel = matriculaFactoryDAO.getNivelDAOImpl().find(id);
+		
+		return nivel;
+	}
+	
+	@Override
 	public NivelParaleloDTO createOrUpdateNivelParalelo(NivelParaleloDTO nivelParaleloDTO) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateMateria");
@@ -318,6 +354,9 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		}
 		
 	}
+	
+	
+	
 	
 	@Override
 	public NotaDTO createOrUpdateNota(NotaDTO notaDTO) throws SeguridadesException
@@ -352,6 +391,8 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		
 	}
 	
+	
+	
 	@Override
 	public ParaleloDTO createOrUpdateParalelo(ParaleloDTO paraleloDTO) throws SeguridadesException
 	{
@@ -383,6 +424,31 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 			throw new SeguridadesException(e);
 		}
 		
+	}
+	
+	@Override
+	public List<ParaleloDTO> buscarParalelo(ParaleloDTO paraleloDTO) throws SeguridadesException {
+		slf4jLogger.info("buscarParalelo");
+		List<ParaleloDTO> listparalelo = null;
+		try {
+			listparalelo = matriculaFactoryDAO.getParaleloDAOImpl().obtenerParalelo(paraleloDTO);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarMateria {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener las Materias de la base de datos");
+		}
+		
+		return listparalelo;
+	}
+	
+	@Override
+	public ParaleloDTO obtenerParaleloPorId(Integer id) throws SeguridadesException {
+		slf4jLogger.info("obtenerParaleloPorId");
+		
+		ParaleloDTO par=new ParaleloDTO();
+		
+		par = matriculaFactoryDAO.getParaleloDAOImpl().find(id);
+		
+		return par;
 	}
 	
 	@Override
@@ -452,6 +518,31 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	}
 	
 	@Override
+	public List<PeriodoDTO> buscarPeriodo(PeriodoDTO periodoDTO) throws SeguridadesException {
+		slf4jLogger.info("buscarPeriodo");
+		List<PeriodoDTO> listperiodo = null;
+		try {
+			listperiodo = matriculaFactoryDAO.getPeriodoDAOImpl().obtenerPeriodo(periodoDTO);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarPeriodo {}", e.getMessage());
+			throw new SeguridadesException("No se pudo buscarPeriodo de la base de datos");
+		}
+		
+		return listperiodo;
+	}
+	
+	@Override
+	public PeriodoDTO obtenerPeriodoPorId(Integer id) throws SeguridadesException {
+		slf4jLogger.info("obtenerPeriodoPorId");
+		
+		PeriodoDTO per=new PeriodoDTO();
+		
+		per = matriculaFactoryDAO.getPeriodoDAOImpl().find(id);
+		
+		return per;
+	}
+	
+	@Override
 	public ProfesorDTO createOrUpdateProfesor(ProfesorVO profesorVO) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateProfesor");
@@ -507,6 +598,17 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		return listdocentes;
 	}
 	
+	@Override
+	public ProfesorVO obtenerDocentePorId(Integer Idpersona, Integer Iddocente) throws SeguridadesException {
+		slf4jLogger.info("obtenerDocentePorId");
+		
+		ProfesorVO pro=new ProfesorVO();
+		
+		pro.setProfesor(matriculaFactoryDAO.getProfesorDAOImpl().find(Iddocente));
+		pro.setPersona(factoryDAO.getPersonaDAOImpl().find(Idpersona));
+		return pro;
+	}
+	
 	
 	@Override
 	public RepresentanteDTO createOrUpdateRepresentante(RepresentanteVO representanteVO) throws SeguridadesException
@@ -560,6 +662,18 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 			throw new SeguridadesException(e);
 		}
 		
+	}
+	
+	
+	@Override
+	public RepresentanteVO obtenerRepresentantePorId(Integer Idpersona, Integer Idrepresentante) throws SeguridadesException {
+		slf4jLogger.info("obtenerRepresentantePorId");
+		
+		RepresentanteVO rep=new RepresentanteVO();
+		
+		rep.setRepresentante(matriculaFactoryDAO.getRepresentanteDAOImpl().find(Idrepresentante));
+		rep.setPersona(factoryDAO.getPersonaDAOImpl().find(Idpersona));
+		return rep;
 	}
 	
 	
