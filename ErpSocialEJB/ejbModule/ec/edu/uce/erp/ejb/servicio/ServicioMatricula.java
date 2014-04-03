@@ -109,8 +109,32 @@ public interface ServicioMatricula {
 	List<MateriaDTO> buscarMateria(MateriaDTO materiaDTO)
 			throws SeguridadesException;
 
-	EstudianteVO obtenerEstudiantePorId(Integer idPersona, Integer idEstudiante)
+	
+
+	EstudianteVO obtenerEstudiantePorId(Integer Idpersona, Integer Idestudiante)
 			throws SeguridadesException;
+
+	RepresentanteVO obtenerRepresentantePorId(Integer Idpersona,
+			Integer Idrepresentante) throws SeguridadesException;
+
+	ProfesorVO obtenerDocentePorId(Integer Idpersona, Integer Iddocente)
+			throws SeguridadesException;
+
+	MateriaDTO obtenerMateriaPorId(Integer id) throws SeguridadesException;
+
+	List<NivelDTO> buscarNivel(NivelDTO nivelDTO) throws SeguridadesException;
+
+	NivelDTO obtenerNivelPorId(Integer id) throws SeguridadesException;
+
+	List<ParaleloDTO> buscarParalelo(ParaleloDTO paraleloDTO)
+			throws SeguridadesException;
+
+	ParaleloDTO obtenerParaleloPorId(Integer id) throws SeguridadesException;
+
+	List<PeriodoDTO> buscarPeriodo(PeriodoDTO periodoDTO)
+			throws SeguridadesException;
+
+	PeriodoDTO obtenerPeriodoPorId(Integer id) throws SeguridadesException;
 
 	
 
