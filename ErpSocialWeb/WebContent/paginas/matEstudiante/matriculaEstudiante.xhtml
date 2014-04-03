@@ -90,7 +90,7 @@
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarEstudiante.show()"
-							actionListener="#{estudianteController.cargarDatosEstudiante(estudiante.estPersona,estudiante.estCodigo)}"
+							actionListener="#{estudianteController.cargarDatosEstudiante(estudiante)}"
 							process="@this" update=":formEditarEstudiante:pnlEditarEstudiante">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>

@@ -26,16 +26,27 @@
 			</p:toolbar>
 			<p:panel id="pnlBuscarParalelo" header="#{i18n['erp.matricula.paralelo.buscar']}">
 				<table class="formulario">
-					<tr>
-						<td><h:outputLabel value="Nombre" /> </td>
+					<tr >
+						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.paralelo.descripcion']}" /> </td>
+					<td width="70%">
+							<p:inputText id="txtDescripBuscar"
+								value="#{paraleloDataManager.paraleloBuscar.parDescripcion}" />
+						</td>
+					
 					</tr>
 				</table>
 			</p:panel>
-
+<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{paraleloController.buscarParalelo}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscarParalelo"
+					update=":formParalelo:pnlMessages,tablaParalelo,pnlBuscarParalelo" />
+			</p:panel>
 
 
 <p:dataTable id="tablaParalelo"
-	
+	value="#{paraleloDataManager.paraleloDTOs}" var="paralelos"
 	rowIndexVar="rowIndex"
 	paginator="true" rows="5" paginatorPosition="bottom"
 	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -46,13 +57,28 @@
 	<p:column headerText="#" styleClass="centered" width="5%">
 		#{rowIndex+1}
 	</p:column>
-
+<p:column headerText="#{i18n['erp.matricula.paralelo.descripcion']}" width="35%">
+					<h:outputText value="#{paralelos.parDescripcion}" />
+				</p:column>
+				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.editar']}"
+							oncomplete="dlgEditarParalelo.show()"
+							actionListener="#{paraleloController.cargarDatosParalelo(paralelos)}"
+							process="@this" update=":formEditarParalelo:pnlEditarParalelo">
+							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+						</p:commandLink>
+					</h:panelGroup>
+					</p:column>
 			</p:dataTable>			
 	
 </h:form>			
 		
 		
 <ui:include src="dialogNuevoParalelo.xhtml" />		
+<ui:include src="dialogEditarParalelo.xhtml" />	
+
 		
 	</ui:define>
 </ui:composition>

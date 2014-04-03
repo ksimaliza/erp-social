@@ -84,12 +84,26 @@
 				<p:column headerText="#{i18n['erp.matricula.representante.fechanac']}" width="40%">
 					<h:outputText value="#{representante.perFechaNac}" />
 				</p:column>
+				
+				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.editar']}"
+							oncomplete="dlgEditarRepresentante.show()"
+							actionListener="#{representanteController.cargarDatosRepresentante(representante)}"
+							process="@this" update=":formEditarRepresentante:pnlEditarRepresentante">
+							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+						</p:commandLink>
+					</h:panelGroup>
+					</p:column>
+					
 			</p:dataTable>			
 	
 </h:form>			
 		
 		
 <ui:include src="dialogNuevoRepresentante.xhtml" />		
+<ui:include src="dialogEditarRepresentante.xhtml" />
 		
 	</ui:define>
 </ui:composition>
