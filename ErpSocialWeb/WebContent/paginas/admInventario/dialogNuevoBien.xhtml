@@ -62,6 +62,7 @@
 							<p:selectOneMenu id="txtMarcaMaterial" style="width: 100%"
 								required="false" label="#{i18n['erp.bien.marca.material']}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItems value="#{bienDataManager.dcMarcaBien}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>

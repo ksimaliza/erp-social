@@ -24,6 +24,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.inventory.CategoriaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBienPK;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.MarcaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
@@ -215,6 +216,23 @@ public final class UtilSelectItems {
 		
 		if (CollectionUtils.isNotEmpty(listCategoriaBien)) {
 			listSelectItem = this.cargarSelectItemsGenerico(listCategoriaBien, "catBienPk", "catBienNombre");
+		}
+		
+		return listSelectItem;
+	}
+	
+	public List<SelectItem> cargarSelectItemMarcaBien (ServicioInventario servicioInventario) throws SeguridadesException {
+		
+		slf4jLogger.info("cargarSelectItemMarcaBien");
+		
+		List<SelectItem> listSelectItem = new ArrayList<SelectItem>();
+		
+		MarcaBien marcaBien = new MarcaBien();
+		marcaBien.setMarBienEstado(ESTADO_ACTIVO);
+		List<MarcaBien> listMarcaBien = servicioInventario.buscarMarcaBienCriterios(marcaBien);
+		
+		if (CollectionUtils.isNotEmpty(listMarcaBien)) {
+			listSelectItem = this.cargarSelectItemsGenerico(listMarcaBien, "marBienPk", "marBienNombre");
 		}
 		
 		return listSelectItem;

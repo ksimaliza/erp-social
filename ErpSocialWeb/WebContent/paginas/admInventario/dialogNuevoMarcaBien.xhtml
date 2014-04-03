@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpNuevoMarcaBien" header="#{i18n['erp.marca.bien.registrar']}" 
+		widgetVar="dlgNuevoMarcaBien" modal="true" minWidth="550" width="550" appendTo="@(body)" draggable="false">
+		<h:form id="formNuevoMarcaBien" styleClass="formulario">
+			<p:panel id="pnlNuevoMarcaBien" >
+				<table class="formulario">
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.marca.bien.nombre']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombre" style="width: 100%" required="true"
+								value="#{marcaBienDataManager.marcaBienInstancia.marBienNombre}" label="#{i18n['erp.marca.bien.nombre']}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtDesc" value="#{i18n['erp.marca.bien.descripcion']}" />
+						</td>
+						<td>
+							<p:inputTextarea id="txtDesc" style="width: 100%" 
+								value="#{marcaBienDataManager.marcaBienInstancia.marBienDescripcion}" label="#{i18n['erp.marca.bien.descripcion']}"/>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{marcaBienController.registrarMarcaBien}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoMarcaBien.hide()"
+					process="@this,pnlNuevoMarcaBien" update="pnlNuevoMarcaBien,:formMarcaBien:tablaMarcaBien,:formMarcaBien:pnlMessages"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoMarcaBien.hide();" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>

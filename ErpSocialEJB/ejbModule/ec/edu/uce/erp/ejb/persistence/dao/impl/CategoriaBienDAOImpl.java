@@ -19,6 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.persistence.dao.CategoriaBienDAO;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CategoriaBien;
@@ -39,7 +40,7 @@ public class CategoriaBienDAOImpl extends AbstractFacadeImpl<CategoriaBien> impl
 	}
 
 	@Override
-	public List<CategoriaBien> obtenerCategoriaBienCriterios(CategoriaBien categoriaBien) throws SecurityException {
+	public List<CategoriaBien> obtenerCategoriaBienCriterios(CategoriaBien categoriaBien) throws SeguridadesException {
 		
 		slf4jLogger.info("obtenerCategoriaBienCriterios");
 		
@@ -78,6 +79,7 @@ public class CategoriaBienDAOImpl extends AbstractFacadeImpl<CategoriaBien> impl
 			listLineaBien = typedQuery.getResultList();
 		} catch (Exception e) {
 			slf4jLogger.error("error al obtenerCategoriaBienCriterios {}", e.getCause().getMessage());
+			throw new SeguridadesException(e);
 		}
 		
 		return listLineaBien;

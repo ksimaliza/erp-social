@@ -1,7 +1,10 @@
 package ec.edu.uce.erp.ejb.persistence.entity.inventory;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaUtil;
 
 
 /**
@@ -11,7 +14,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="marca_bien_tbl")
 @NamedQuery(name="MarcaBien.findAll", query="SELECT m FROM MarcaBien m")
-public class MarcaBien implements Serializable {
+public class MarcaBien extends AuditoriaUtil implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id

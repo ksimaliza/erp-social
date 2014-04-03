@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CategoriaBien;
 
 /**
@@ -22,6 +23,6 @@ public interface CategoriaBienDAO extends AbstractFacade<CategoriaBien>{
 	 * @return
 	 * @throws SecurityException
 	 */
-	List<CategoriaBien> obtenerCategoriaBienCriterios (CategoriaBien categoriaBien) throws SecurityException;
+	List<CategoriaBien> obtenerCategoriaBienCriterios (CategoriaBien categoriaBien) throws SeguridadesException;
 
 }

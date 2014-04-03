@@ -12,6 +12,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.inventory.CabeceraBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CategoriaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.MarcaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
 
 /**
@@ -131,4 +132,32 @@ public interface ServicioInventario {
 	 * @throws SeguridadesException
 	 */
 	List<CategoriaBien> buscarCategoriaBienCriterios (CategoriaBien categoriaBien) throws SeguridadesException;
+	
+	/*
+	 * Servicio para administracion de marca bien
+	 */
+	
+	/**
+	 * Registrar <code>MarcaBien</code> en la BD
+	 * @param marcaBien
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	MarcaBien registrarMarcaBien (MarcaBien marcaBien) throws SeguridadesException;
+	
+	/**
+	 * Actualizar <code>MarcaBien</code> en la BD
+	 * @param marcaBien
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	MarcaBien actualizarMarcaBien (MarcaBien marcaBien) throws SeguridadesException;
+	
+	/**
+	 * Buscar <code>MarcaBien</code> en la BD por diferentes criterios
+	 * @param marcaBien
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	List<MarcaBien> buscarMarcaBienCriterios (MarcaBien marcaBien) throws SeguridadesException;
 }

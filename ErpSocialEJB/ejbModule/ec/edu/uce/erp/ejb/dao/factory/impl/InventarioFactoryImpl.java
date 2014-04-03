@@ -14,6 +14,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.CategoriaBienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.DetalleBienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HistoricoTransaccioneDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.LineaBienDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.MarcaBienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ProveedorDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.BienDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.CabeceraBienDAOImpl;
@@ -21,6 +22,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.impl.CategoriaBienDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.DetalleBienDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.HistoricoTransaccioneDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.LineaBienDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.MarcaBienDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.ProveedorDAOImpl;
 
 /**
@@ -42,6 +44,7 @@ public class InventarioFactoryImpl implements InventarioFactory{
 	
 	private LineaBienDAO lineaBienDAO;
 	private CategoriaBienDAO categoriaBienDAO;
+	private MarcaBienDAO marcaBienDAO;
 
 	@Override
 	public ProveedorDAO getProveedorDAOImpl() {
@@ -98,6 +101,14 @@ public class InventarioFactoryImpl implements InventarioFactory{
 			categoriaBienDAO = new CategoriaBienDAOImpl(entityManager);
 		}
 		return categoriaBienDAO;
+	}
+
+	@Override
+	public MarcaBienDAO getMarcaBienDAOImpl() {
+		if (marcaBienDAO == null) {
+			marcaBienDAO = new MarcaBienDAOImpl(entityManager);
+		}
+		return marcaBienDAO;
 	}
 
 }
