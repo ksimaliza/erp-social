@@ -81,6 +81,18 @@ public class MateriaController {
 		
 	}
 	
+	public void cargarDatosMateria (MateriaDTO materia) {
+		try {
+			MateriaDTO materiaEncontrado = servicioMatricula.obtenerMateriaPorId(materia.getMtrCodigo());
+			
+			this.materiaDataManager.setMateriaInstancia(materiaEncontrado);
+									
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al cargar los cargarDatosMateria seleccionado {}", e.getMessage());
+			MensajesWebController.aniadirMensajeError("Error al cargarDatosMateria seleccionado");
+		}
+	}
+	
 	
 	
 }

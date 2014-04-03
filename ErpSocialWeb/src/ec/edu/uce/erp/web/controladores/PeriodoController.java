@@ -1,10 +1,13 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,5 +57,39 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PeriodoControl
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 		
+	}
+	
+	public void buscarPeriodo () {
+		slf4jLogger.info("buscarPeriodo");
+		
+		List<PeriodoDTO> listaperiodos=null;
+		
+		try {
+							
+			listaperiodos = this.servicioMatricula.buscarPeriodo(periodoDataManager.getPeriodoBuscar());
+			
+			if (CollectionUtils.isEmpty(listaperiodos) && listaperiodos.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.periodoDataManager.setPeriodoLista(listaperiodos);
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarPeriodo {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
+	public void cargarDatosPeriodo (PeriodoDTO periodoDTO) {
+		try {
+			PeriodoDTO periodoEncontrado = servicioMatricula.obtenerPeriodoPorId(periodoDTO.getPerCodigo());
+			
+			this.periodoDataManager.setPeriodoInstancia(periodoEncontrado);
+									
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al cargarDatosPeriodo seleccionado {}", e.getMessage());
+			MensajesWebController.aniadirMensajeError("Error al cargarDatosPeriodo seleccionado");
+		}
 	}
 }

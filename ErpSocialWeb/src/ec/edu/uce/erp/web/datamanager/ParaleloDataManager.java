@@ -1,5 +1,7 @@
 package ec.edu.uce.erp.web.datamanager;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -20,6 +22,7 @@ public class ParaleloDataManager extends BaseDataManager{
 	private ParaleloDTO paraleloInstancia;
 	private ParaleloDTO paraleloEditar;
 	private ParaleloDTO paraleloBuscar;
+	private List<ParaleloDTO> paraleloDTOs;
 	
 	@PostConstruct
 	public void inicializarObjetos () {
@@ -53,6 +56,14 @@ public class ParaleloDataManager extends BaseDataManager{
 
 	public void setParaleloBuscar(ParaleloDTO paraleloBuscar) {
 		this.paraleloBuscar = paraleloBuscar;
+	}
+
+	public List<ParaleloDTO> getParaleloDTOs() {
+		return paraleloDTOs;
+	}
+
+	public void setParaleloDTOs(List<ParaleloDTO> paraleloDTOs) {
+		this.paraleloDTOs = paraleloDTOs;
 	}
 	
 	
