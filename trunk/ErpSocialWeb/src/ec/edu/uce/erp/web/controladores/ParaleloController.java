@@ -1,10 +1,13 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,4 +59,41 @@ public void registrarParalelo () {
 	}
 	
 }
+
+public void buscarParalelo () {
+	slf4jLogger.info("buscarParalelo");
+	
+	List<ParaleloDTO> listaparalelo=null;
+	
+	try {
+						
+		listaparalelo = this.servicioMatricula.buscarParalelo(paraleloDataManager.getParaleloBuscar());
+		
+		if (CollectionUtils.isEmpty(listaparalelo) && listaparalelo.size()==0) {
+			MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+		} else {
+			this.paraleloDataManager.setParaleloDTOs(listaparalelo);
+		}
+		
+	} catch (SeguridadesException e) {
+		slf4jLogger.info("Error al buscarParalelo {} ", e);
+		MensajesWebController.aniadirMensajeError(e.getMessage());
+	}
+	
+}
+
+public void cargarDatosParalelo (ParaleloDTO paralelo) {
+	try {
+		ParaleloDTO paraleloEncontrado = servicioMatricula.obtenerParaleloPorId(paralelo.getParCodigo());
+		
+		this.paraleloDataManager.setParaleloInstancia(paraleloEncontrado);
+								
+	} catch (SeguridadesException e) {
+		slf4jLogger.info("Error al cargarDatosParalelo seleccionado {}", e.getMessage());
+		MensajesWebController.aniadirMensajeError("Error al cargarDatosParalelo seleccionado");
+	}
+}
+
+
+
 }

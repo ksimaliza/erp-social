@@ -92,6 +92,19 @@ public class DocenteController {
 		
 	}
 	
+	public void cargarDatosDocente (DocenteListDTO docente) {
+		try {
+			ProfesorVO profesorEncontrado = servicioMatricula.obtenerDocentePorId(docente.getProPersona(),docente.getProCodigo());
+			
+			this.docenteDataManager.setPersonaInstancia(profesorEncontrado.getPersona());
+			this.docenteDataManager.setProfesorInstancia(profesorEncontrado.getProfesor());
+							
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al cargarDatosDocente seleccionado {}", e.getMessage());
+			MensajesWebController.aniadirMensajeError("Error al cargarDatosDocente seleccionado");
+		}
+	}
+	
 	
 
 	

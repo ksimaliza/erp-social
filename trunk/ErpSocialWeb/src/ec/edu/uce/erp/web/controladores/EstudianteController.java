@@ -105,16 +105,16 @@ public class EstudianteController {
 		}
 		
 	
-		public void cargarDatosEstudiante (EstudianteDTO estudiante, Persona persona) {
+		public void cargarDatosEstudiante (EstudianteListDTO estudiante) {
 			try {
-				EstudianteVO estudianteEncontrado = servicioMatricula.obtenerEstudiantePorId(persona.getPerPk(),estudiante.getEstCodigo());
+				EstudianteVO estudianteEncontrado = servicioMatricula.obtenerEstudiantePorId(estudiante.getEstPersona(),estudiante.getEstCodigo());
 				
 				this.estudianteDataManager.setEstudiantePersonaInsertar(estudianteEncontrado.getPersona());
-				this.estudianteDataManager.setEstudianteEditar(estudianteEncontrado);
+				this.estudianteDataManager.setEstudianteInstancia(estudianteEncontrado.getEstudiante());
 								
 			} catch (SeguridadesException e) {
 				slf4jLogger.info("Error al cargar los datos del estudiante seleccionado {}", e.getMessage());
-				MensajesWebController.aniadirMensajeError("Error al cargar los datos del perfil seleccionado");
+				MensajesWebController.aniadirMensajeError("Error al cargar los datos del estudiante seleccionado");
 			}
 		}
 		

@@ -83,6 +83,19 @@ public class RepresentanteController {
 		}
 		
 	}
+	
+	public void cargarDatosRepresentante (RepresentanteListDTO representante) {
+		try {
+			RepresentanteVO representanteEncontrado = servicioMatricula.obtenerRepresentantePorId(representante.getRepPersona(), representante.getRepCodigo());
+			
+			this.representanteDataManager.setRepresentanteInstancia(representanteEncontrado.getRepresentante());
+			this.representanteDataManager.setPersonaInstancia(representanteEncontrado.getPersona());
+							
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al cargarDatosRepresentante {}", e.getMessage());
+			MensajesWebController.aniadirMensajeError("Error al cargarDatosRepresentante seleccionado");
+		}
+	}
 
 
 }

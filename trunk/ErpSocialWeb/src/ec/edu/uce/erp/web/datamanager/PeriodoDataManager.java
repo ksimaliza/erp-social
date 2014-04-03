@@ -1,5 +1,7 @@
 package ec.edu.uce.erp.web.datamanager;
 
+import java.util.ArrayList;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -20,6 +22,8 @@ public class PeriodoDataManager extends BaseDataManager {
 	private PeriodoDTO periodoEditar;
 	private PeriodoDTO periodoBuscar;
 	
+private java.util.List<PeriodoDTO> periodoLista; 
+	
 	@PostConstruct
 	public void inicializarObjetos () {
 		
@@ -27,6 +31,8 @@ public class PeriodoDataManager extends BaseDataManager {
 		this.periodoInstancia = new PeriodoDTO();		
 		this.periodoEditar = new PeriodoDTO();
 		this.periodoBuscar = new PeriodoDTO();
+		this.periodoLista = new ArrayList<PeriodoDTO>();
+		
 			
 	}
 
@@ -52,6 +58,14 @@ public class PeriodoDataManager extends BaseDataManager {
 
 	public void setPeriodoBuscar(PeriodoDTO periodoBuscar) {
 		this.periodoBuscar = periodoBuscar;
+	}
+
+	public java.util.List<PeriodoDTO> getPeriodoLista() {
+		return periodoLista;
+	}
+
+	public void setPeriodoLista(java.util.List<PeriodoDTO> periodoLista) {
+		this.periodoLista = periodoLista;
 	}
 	
 	
