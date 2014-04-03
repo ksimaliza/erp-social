@@ -50,6 +50,7 @@ public class BienDataManager extends BaseDataManager{
 	private List<SelectItem> dcEstadoConservacion;
 	private List<SelectItem> dcCategoriaBien;
 	private List<SelectItem> dcLineaBien;
+	private List<SelectItem> dcMarcaBien;
 	
 	private Integer idCategoriaBienSeleccionado;
 	
@@ -223,6 +224,24 @@ public class BienDataManager extends BaseDataManager{
 	 */
 	public List<SelectItem> getDcLineaBien() {
 		return dcLineaBien;
+	}
+
+	/**
+	 * @return the dcMarcaBien
+	 */
+	public List<SelectItem> getDcMarcaBien() {
+		
+		try {
+			if (CollectionUtils.isEmpty(dcMarcaBien)) {
+				slf4jLogger.info("cargar getDcMarcaBien");
+				dcMarcaBien = UtilSelectItems.getInstancia().cargarSelectItemMarcaBien(servicioInventario);
+			}
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("error al cargar getDcMarcaBien {}", e.getCause().getMessage());
+			e.printStackTrace();
+		}
+		
+		return dcMarcaBien;
 	}
 	
 }

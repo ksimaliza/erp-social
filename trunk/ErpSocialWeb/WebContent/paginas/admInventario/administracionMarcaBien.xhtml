@@ -6,30 +6,30 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="title">
-		<h3><h:outputLabel	value="#{i18n['erp.categoria.bien.pagina.titulo']}" /></h3>
+		<h3><h:outputLabel	value="#{i18n['erp.marca.bien.pagina.titulo']}" /></h3>
 	</ui:define>
 	<ui:define name="content">
-		<h:form id="formCategoriaBien">
+		<h:form id="formMarcaBien">
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
 			<p:toolbar id="toolbar">
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
-					<p:commandButton id="btnNuevoBien" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoCategoriaBien.show()"/>
+					<p:commandButton id="btnNuevoBien" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoMarcaBien.show()"/>
 					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
-						icon="exportExcel" disabled="#{empty categoriaBienDataManager.listCategoriaBien}">
-						<p:dataExporter type="xls" target="tablaCategoriaBien" fileName="CategoriaBien" postProcessor="#{categoriaBienController.postProcessXLS}"/>
+						icon="exportExcel" disabled="#{empty marcaBienDataManager.listMarcaBien}">
+						<p:dataExporter type="xls" target="tablaMarcaBien" fileName="CategoriaBien" postProcessor="#{marcaBienController.postProcessXLS}"/>
 					</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:panel id="pnlBuscarCategoriaBien" header="#{i18n['erp.categoria.bien.buscar']}">
+			<p:panel id="pnlBuscarMarcaBien" header="#{i18n['erp.marca.bien.buscar']}">
 				<table class="formulario">
 					<tr>
 						<td width="20%">
-							<h:outputLabel for="txtNombre" value="#{i18n['erp.categoria.bien.nombre']}" />
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.marca.bien.nombre']}" />
 						</td>
 						<td width="80%">
 							<p:inputText id="txtNombre" style="width: 50%"
-								value="#{categoriaBienDataManager.categoriaBienBuscar.catBienNombre}" />
+								value="#{marcaBienDataManager.marcaBienBuscar.marBienNombre}" />
 						</td>
 					</tr>
 					
@@ -37,10 +37,10 @@
 						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
 						<td>
 							<p:selectOneMenu id="inputEstado" style="width: 30%"
-								value="#{categoriaBienDataManager.categoriaBienBuscar.catBienEstado}">
+								value="#{marcaBienDataManager.marcaBienBuscar.marBienEstado}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
-								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{categoriaBienDataManager.estadoActivo}"/>
-								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{categoriaBienDataManager.estadoInactivo}"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{marcaBienDataManager.estadoActivo}"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{marcaBienDataManager.estadoInactivo}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
@@ -48,14 +48,14 @@
 			</p:panel>
 			<p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
-					actionListener="#{categoriaBienController.buscarCategoriaBien}"
+					actionListener="#{marcaBienController.buscarMarcaBien}"
 					value="#{i18n['label.buscar']}" 
-					process="@this,pnlBuscarCategoriaBien"
-					update="pnlMessages,tablaCategoriaBien,pnlBuscarCategoriaBien,toolbar" />
+					process="@this,pnlBuscarMarcaBien"
+					update="pnlMessages,tablaMarcaBien,pnlBuscarMarcaBien,toolbar" />
 			</p:panel>
-			<p:dataTable id="tablaCategoriaBien"
-				value="#{categoriaBienDataManager.listCategoriaBien}"
-				var="categoriaBien" rowIndexVar="rowIndex"
+			<p:dataTable id="tablaMarcaBien"
+				value="#{marcaBienDataManager.listMarcaBien}"
+				var="marcaBien" rowIndexVar="rowIndex"
 				paginator="true" rows="5" paginatorPosition="bottom"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
@@ -70,34 +70,34 @@
 				</p:column>
 				<p:column width="15%">
 					<f:facet name="header">
-						<h:outputText value="#{i18n['erp.categoria.bien.nombre']}" />
+						<h:outputText value="#{i18n['erp.marca.bien.nombre']}" />
 					</f:facet>
-					<h:outputText value="#{categoriaBien.catBienNombre}" />
+					<h:outputText value="#{marcaBien.marBienNombre}" />
 				</p:column>
 				<p:column width="20%">
 					<f:facet name="header">
-						<h:outputText value="#{i18n['erp.categoria.bien.descripcion']}" />
+						<h:outputText value="#{i18n['erp.marca.bien.descripcion']}" />
 					</f:facet>
-					<h:outputText value="#{categoriaBien.catBienDescripcion}" />
+					<h:outputText value="#{marcaBien.marBienDescripcion}" />
 				</p:column>
 				<p:column styleClass="centered" width="10%">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['label.estado']}"/>
 					</f:facet>
 					<h:outputText value="#{i18n['label.estado.activo']}"
-						rendered="#{categoriaBien.catBienEstado eq categoriaBienDataManager.estadoActivo}" />
+						rendered="#{marcaBien.marBienEstado eq marcaBienDataManager.estadoActivo}" />
 					<h:outputText value="#{i18n['label.estado.inactivo']}"
-						rendered="#{categoriaBien.catBienEstado eq categoriaBienDataManager.estadoInactivo}" />
+						rendered="#{marcaBien.marBienEstado eq marcaBienDataManager.estadoInactivo}" />
 				</p:column>
 				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%" exportable="false">
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							process="@this"
-							oncomplete="dlgEditarCategoriaBien.show()"
-							update=":formEditarLineaBien:pnlEditarLineaBien">
+							oncomplete="dlgEditarMarcaBien.show()"
+							update=":formEditarMarcaBien:pnlEditarMarcaBien">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
-							<f:setPropertyActionListener target="#{categoriaBienDataManager.categoriaBienEditar}" value="#{categoriaBien}" />
+							<f:setPropertyActionListener target="#{marcaBienDataManager.marcaBienEditar}" value="#{marcaBien}" />
 						</p:commandLink>
 					</h:panelGroup>
 					<h:panelGroup>
@@ -106,45 +106,45 @@
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.activar']}"
-							rendered="#{categoriaBien.catBienEstado eq categoriaBienDataManager.estadoInactivo}"
+							rendered="#{marcaBien.marBienEstado eq marcaBienDataManager.estadoInactivo}"
 							oncomplete="dlgActivar.show()">
 							<h:graphicImage value="/resources/img/tick.png" alt="#{i18n['label.activar']}"/>
-							<f:setPropertyActionListener target="#{categoriaBienDataManager.categoriaBienEditar}" value="#{categoriaBien}" />
+							<f:setPropertyActionListener target="#{marcaBienDataManager.marcaBienEditar}" value="#{marcaBien}" />
 						</p:commandLink>
 					</h:panelGroup>
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.desabilitar']}"
-							rendered="#{categoriaBien.catBienEstado eq categoriaBienDataManager.estadoActivo}"
+							rendered="#{marcaBien.marBienEstado eq marcaBienDataManager.estadoActivo}"
 							oncomplete="dlgDesactivar.show()">
 							<h:graphicImage value="/resources/img/delete.png" alt="#{i18n['label.desabilitar']}"/>
-							<f:setPropertyActionListener target="#{categoriaBienDataManager.categoriaBienEditar}" value="#{categoriaBien}" />
+							<f:setPropertyActionListener target="#{marcaBienDataManager.marcaBienEditar}" value="#{marcaBien}" />
 						</p:commandLink>
 					</h:panelGroup>
 				</p:column>
 			</p:dataTable>
 			
-			<!-- Desactivar categoria bien -->
+			<!-- Desactivar marca bien -->
 			<p:confirmDialog id="dialogDesactivar" width="400" widgetVar="dlgDesactivar"
-				message="#{i18n['erp.categoria.bien.desactivar.pregunta.confirmacion']}"
-				header="#{i18n['erp.categoria.bien.desactivar']}" appendTo="@(body)">
+				message="#{i18n['erp.marca.bien.desactivar.pregunta.confirmacion']}"
+				header="#{i18n['erp.marca.bien.desactivar']}" appendTo="@(body)">
 				<p:commandButton value="#{i18n['label.aceptar']}"
-					actionListener="#{categoriaBienController.desactivarCategoriaBien}"
+					actionListener="#{marcaBienController.desactivarMarcaBien}"
 					oncomplete="dlgDesactivar.hide()"
-					update="pnlMessages,tablaCategoriaBien" process="@this"
+					update="pnlMessages,tablaMarcaBien" process="@this"
 					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
 				<p:commandButton value="#{i18n['label.cancelar']}" type="button" 
 					onclick="dlgDesactivar.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>
 			
-			<!-- Activar categoria bien -->
+			<!-- Activar marca bien -->
 			<p:confirmDialog id="dialogActivar" width="400" widgetVar="dlgActivar"
-				message="#{i18n['erp.categoria.bien.activar.pregunta.confirmacion']}"
-				header="#{i18n['erp.categoria.bien.activar']}" appendTo="@(body)">
+				message="#{i18n['erp.marca.bien.activar.pregunta.confirmacion']}"
+				header="#{i18n['erp.marca.bien.activar']}" appendTo="@(body)">
 				<p:commandButton value="#{i18n['label.aceptar']}"
-					actionListener="#{categoriaBienController.activarCategoriaBien}"
+					actionListener="#{marcaBienController.activarMarcaBien}"
 					oncomplete="dlgActivar.hide()"
-					update="pnlMessages,tablaCategoriaBien" process="@this"
+					update="pnlMessages,tablaMarcaBien" process="@this"
 					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
 				<p:commandButton value="#{i18n['label.cancelar']}" type="button" 
 					onclick="dlgActivar.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
@@ -152,8 +152,8 @@
 			
 		</h:form>
 		
-		<ui:include src="dialogNuevoCategoriaBien.xhtml"/>
-		<ui:include src="dialogEditarCategoriaBien.xhtml" />
+		<ui:include src="dialogNuevoMarcaBien.xhtml"/>
+		<ui:include src="dialogEditarMarcaBien.xhtml" />
 		
 	</ui:define>
 </ui:composition>

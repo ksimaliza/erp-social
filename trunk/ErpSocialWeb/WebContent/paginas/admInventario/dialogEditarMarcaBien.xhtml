@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpEditarMarcaBien" header="#{i18n['erp.marca.bien.actualizar']}" 
+		widgetVar="dlgEditarMarcaBien" modal="true" minWidth="550" width="550" appendTo="@(body)" draggable="false">
+		<h:form id="formEditarMarcaBien" styleClass="formulario">
+			<p:panel id="pnlEditarMarcaBien" >
+				<table class="formulario">
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.marca.bien.nombre']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombre" style="width: 100%" required="true"
+								value="#{marcaBienDataManager.marcaBienEditar.marBienNombre}" label="#{i18n['erp.marca.bien.nombre']}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtDesc" value="#{i18n['erp.marca.bien.descripcion']}" />
+						</td>
+						<td>
+							<p:inputTextarea id="txtDesc" style="width: 100%" 
+								value="#{marcaBienDataManager.marcaBienEditar.marBienDescripcion}" label="#{i18n['erp.marca.bien.descripcion']}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/>
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:selectOneMenu id="inputEstado"
+								required="true" label="#{i18n['label.estado']}"
+								value="#{marcaBienDataManager.marcaBienEditar.marBienEstado}">
+								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{marcaBienDataManager.estadoActivo}"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{marcaBienDataManager.estadoInactivo}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{marcaBienController.actualizarMarcaBien}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarMarcaBien.hide()"
+					process="@this,pnlEditarMarcaBien" update="pnlEditarMarcaBien,:formMarcaBien:tablaMarcaBien,:formMarcaBien:pnlMessages"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarMarcaBien.hide();" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>

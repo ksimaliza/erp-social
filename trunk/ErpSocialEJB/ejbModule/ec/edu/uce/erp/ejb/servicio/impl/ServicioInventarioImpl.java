@@ -22,6 +22,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.inventory.CabeceraBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CategoriaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.MarcaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
 import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
@@ -244,6 +245,7 @@ public class ServicioInventarioImpl implements ServicioInventario{
 	}
 
 	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public List<CategoriaBien> buscarCategoriaBienCriterios(CategoriaBien categoriaBien) throws SeguridadesException {
 		List<CategoriaBien> listCategoriaBien = null;
 		
@@ -255,6 +257,57 @@ public class ServicioInventarioImpl implements ServicioInventario{
 		}
 		
 		return listCategoriaBien;
+	}
+
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public MarcaBien registrarMarcaBien(MarcaBien marcaBien) throws SeguridadesException {
+		MarcaBien categoriaBienNuevo = null;
+		try {
+			marcaBien.setMarBienEstado(ESTADO_ACTIVO);
+			categoriaBienNuevo = inventarioFactory.getMarcaBienDAOImpl().create(marcaBien);
+			inventarioFactory.getHistoricoTransaccioneDAOImpl()
+					.registrarHistoricoTransaccion(
+							new AuditoriaDTO(marcaBien.getUsuarioRegistro()
+									.getIdUsuario(), ServicioInventarioImpl.class.getName(), "registrarMarcaBien", EnumTipoTransaccion.CREATE));
+			
+		} catch (Exception e) {
+			slf4jLogger.info("error al registrarCategoriaBien {}", e.getCause().getMessage());
+			throw new SeguridadesException(e);
+		}
+		return categoriaBienNuevo;
+	}
+
+	@Override
+	public MarcaBien actualizarMarcaBien(MarcaBien marcaBien) throws SeguridadesException {
+		MarcaBien marcaBienUpdate = null;
+		try {
+			marcaBienUpdate = inventarioFactory.getMarcaBienDAOImpl().update(marcaBien);
+			inventarioFactory.getHistoricoTransaccioneDAOImpl()
+					.registrarHistoricoTransaccion(
+							new AuditoriaDTO(marcaBien.getUsuarioRegistro()
+									.getIdUsuario(), ServicioInventarioImpl.class.getName(), "actualizarMarcaBien", EnumTipoTransaccion.UPDATE));
+			
+		} catch (Exception e) {
+			slf4jLogger.info("error al actualizarMarcaBien {}", e.getCause().getMessage());
+			throw new SeguridadesException(e);
+		}
+		return marcaBienUpdate;
+	}
+
+	@Override
+	public List<MarcaBien> buscarMarcaBienCriterios(MarcaBien marcaBien) throws SeguridadesException {
+		
+		List<MarcaBien> listMarcaBien = null;
+		
+		try {
+			listMarcaBien = inventarioFactory.getMarcaBienDAOImpl().buscarMarcaBienCriterios(marcaBien);
+		} catch (Exception e) {
+			slf4jLogger.info("error al buscarMarcaBienCriterios {}", e.getCause().getMessage());
+			throw new SeguridadesException(e);
+		}
+		
+		return listMarcaBien;
 	}
 
 }
