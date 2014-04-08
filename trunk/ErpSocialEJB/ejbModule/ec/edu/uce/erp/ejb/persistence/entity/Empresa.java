@@ -105,6 +105,11 @@ public class Empresa extends AuditoriaUtil implements Serializable {
 	public Empresa() {
 	}
 
+	public Empresa(Integer emrPk) {
+		this.emrPk=emrPk;
+	}
+
+	
 	public Integer getEmrPk() {
 		return this.emrPk;
 	}

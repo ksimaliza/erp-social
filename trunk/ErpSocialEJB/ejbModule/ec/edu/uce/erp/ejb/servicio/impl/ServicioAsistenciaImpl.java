@@ -2,6 +2,8 @@ package ec.edu.uce.erp.ejb.servicio.impl;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +21,6 @@ import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioEmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.RegistroDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.TipoDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 import ec.edu.uce.erp.ejb.persistence.vo.EmpleadoVO;
 import ec.edu.uce.erp.ejb.persistence.vo.FaltaVO;
 import ec.edu.uce.erp.ejb.persistence.vo.PermisoVO;
@@ -27,9 +28,13 @@ import ec.edu.uce.erp.ejb.servicio.ServicioAsistencia;
 
 @Stateless
 public class ServicioAsistenciaImpl implements ServicioAsistencia{
+	
 	@EJB
 	private AsistenciaFactoryDAO asistenciaFactoryDAO;
+	
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(ServicioAsistenciaImpl.class);
+	
+	@EJB
 	private FactoryDAO factoryDAO;
 	
 	@Override
@@ -66,7 +71,7 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 	}
 	
 	@Override
-	
+	@TransactionAttribute (TransactionAttributeType.REQUIRED)
 	public EmpleadoDTO createOrUpdateEmpleado(EmpleadoVO empleadoVO) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateEmpleado");
@@ -81,7 +86,7 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 			}
 			else
 			{
-				empleadoVO.getPersona().setSegtUsuario(new Usuario());
+				//empleadoVO.getPersona().setSegtUsuario(new Usuario());
 				personanueva=factoryDAO.getPersonaDAOImpl().create(empleadoVO.getPersona());
 				empleadoVO.getEmpleado().setPersonaTbl(personanueva);
 				empleadonuevo=factoryDAO.getEmpleadoeDAOImpl().create(empleadoVO.getEmpleado());
