@@ -32,7 +32,7 @@ public class Empleado implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="EMPLEADO_TBL_EMPPK_GENERATOR", sequenceName="EMPLEADO_TBL_EMP_PK_SEQ")
+	@SequenceGenerator(name="EMPLEADO_TBL_EMPPK_GENERATOR", sequenceName="EMPLEADO_TBL_EMP_PK_SEQ",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EMPLEADO_TBL_EMPPK_GENERATOR")
 	@Column(name="emp_pk")
 	private Integer empPk;
