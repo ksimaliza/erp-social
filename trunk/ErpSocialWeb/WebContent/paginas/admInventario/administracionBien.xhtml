@@ -74,19 +74,19 @@
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.categoria']}" />
 					</f:facet>
-					<h:outputText value="erp.bien.categoria" />
+					<h:outputText value="#{bien.lineaBien.categoriaBienTbl.catBienNombre}" />
 				</p:column>
 				<p:column width="10%">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.linea']}" />
 					</f:facet>
-					<h:outputText value="erp.bien.linea" />
+					<h:outputText value="#{bien.lineaBien.linBienNombre}" />
 				</p:column>
 				<p:column width="10%">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.marca.material']}" />
 					</f:facet>
-					<h:outputText value="erp.bien.marca.material" />
+					<h:outputText value="#{bien.marcaBien.marBienNombre}" />
 				</p:column>
 				<p:column width="10%">
 					<f:facet name="header">
@@ -118,10 +118,40 @@
 					</f:facet>
 					<h:outputText value="#{bien.bieNombre}" />
 				</p:column>
-				
+				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%" exportable="false">
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.editar']}"
+							process="@this"
+							oncomplete="dlgEditarBien.show()"
+							update=":formEditarBien:pnlEditarBien">
+							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+							<f:setPropertyActionListener target="#{bienDataManager.bienEditar}" value="#{bien}" />
+						</p:commandLink>
+					</h:panelGroup>
+					<!-- <h:panelGroup>
+						<h:outputText value="&#160;|&#160;" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.activar']}"
+							rendered="#{marcaBien.marBienEstado eq marcaBienDataManager.estadoInactivo}"
+							oncomplete="dlgActivar.show()">
+							<h:graphicImage value="/resources/img/tick.png" alt="#{i18n['label.activar']}"/>
+							<f:setPropertyActionListener target="#{marcaBienDataManager.marcaBienEditar}" value="#{marcaBien}" />
+						</p:commandLink>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.desabilitar']}"
+							rendered="#{marcaBien.marBienEstado eq marcaBienDataManager.estadoActivo}"
+							oncomplete="dlgDesactivar.show()">
+							<h:graphicImage value="/resources/img/delete.png" alt="#{i18n['label.desabilitar']}"/>
+							<f:setPropertyActionListener target="#{marcaBienDataManager.marcaBienEditar}" value="#{marcaBien}" />
+						</p:commandLink>
+					</h:panelGroup> -->
+				</p:column>
 			</p:dataTable>
-			
-			
 		</h:form>
 		
 		<ui:include src="dialogNuevoBien.xhtml" />
