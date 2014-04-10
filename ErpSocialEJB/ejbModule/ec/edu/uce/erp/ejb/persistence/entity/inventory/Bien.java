@@ -82,6 +82,28 @@ public class Bien extends AuditoriaUtil implements Serializable {
 	
 	@Column(name="det_bien_est_conserv_nivel1_fk")
 	private String detEstadoConservacion;
+	
+	@Column(name="cat_bien_pk")
+	private Integer catBienPk;
+	
+	@Column(name="lin_bien_pk")
+	private Integer linBienPk;
+	
+	@Column(name="mar_bien_pk")
+	private Integer marBienPk;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumns({
+		@JoinColumn(name="cat_bien_pk", referencedColumnName="cat_bien_pk", unique=false, nullable=true, insertable=false, updatable=false),
+		@JoinColumn(name="lin_bien_pk", referencedColumnName="lin_bien_pk", unique=false, nullable=true, insertable=false, updatable=false)
+		})
+	private LineaBien lineaBien;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumns({
+		@JoinColumn(name="mar_bien_pk", referencedColumnName="mar_bien_pk", unique=false, nullable=true, insertable=false, updatable=false)
+		})
+	private MarcaBien marcaBien;
 
 	//bi-directional many-to-one association to DetalleBien detalleBienTbl1
 	/**
@@ -389,6 +411,76 @@ public class Bien extends AuditoriaUtil implements Serializable {
 	 */
 	public void setBieNotas(String bieNotas) {
 		this.bieNotas = bieNotas;
+	}
+
+	/**
+	 * @return the catBienPk
+	 */
+	public Integer getCatBienPk() {
+		return catBienPk;
+	}
+
+	/**
+	 * @param catBienPk the catBienPk to set
+	 */
+	public void setCatBienPk(Integer catBienPk) {
+		this.catBienPk = catBienPk;
+	}
+
+	/**
+	 * @return the linBienPk
+	 */
+	public Integer getLinBienPk() {
+		return linBienPk;
+	}
+
+	/**
+	 * @param linBienPk the linBienPk to set
+	 */
+	public void setLinBienPk(Integer linBienPk) {
+		this.linBienPk = linBienPk;
+	}
+
+	/**
+	 * @return the marBienPk
+	 */
+	public Integer getMarBienPk() {
+		return marBienPk;
+	}
+
+	/**
+	 * @param marBienPk the marBienPk to set
+	 */
+	public void setMarBienPk(Integer marBienPk) {
+		this.marBienPk = marBienPk;
+	}
+
+	/**
+	 * @return the lineaBien
+	 */
+	public LineaBien getLineaBien() {
+		return lineaBien;
+	}
+
+	/**
+	 * @param lineaBien the lineaBien to set
+	 */
+	public void setLineaBien(LineaBien lineaBien) {
+		this.lineaBien = lineaBien;
+	}
+
+	/**
+	 * @return the marcaBien
+	 */
+	public MarcaBien getMarcaBien() {
+		return marcaBien;
+	}
+
+	/**
+	 * @param marcaBien the marcaBien to set
+	 */
+	public void setMarcaBien(MarcaBien marcaBien) {
+		this.marcaBien = marcaBien;
 	}
 
 }

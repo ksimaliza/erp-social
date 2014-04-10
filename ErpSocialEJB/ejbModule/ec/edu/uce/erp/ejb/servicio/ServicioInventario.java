@@ -8,6 +8,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.Bien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CabeceraBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CategoriaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien;
@@ -160,4 +161,32 @@ public interface ServicioInventario {
 	 * @throws SeguridadesException
 	 */
 	List<MarcaBien> buscarMarcaBienCriterios (MarcaBien marcaBien) throws SeguridadesException;
+	
+	/*
+	 * Servicio para administracion de bien
+	 */
+	
+	/**
+	 * Registrar <code>Bien</code> en la BD
+	 * @param bien
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	Bien registrarBien (Bien bien) throws SeguridadesException;
+	
+	/**
+	 * Actualizar <code>Bien</code> en la BD
+	 * @param bien
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	Bien actualizarBien (Bien bien) throws SeguridadesException;
+	
+	/**
+	 * Buscar <code>Bien</code> en la BD por diferentes criterios
+	 * @param bien
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	List<Bien> buscarBienCriterios (Bien bien) throws SeguridadesException;
 }

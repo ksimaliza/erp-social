@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.enums.EnumTipoTransaccion;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.dao.factory.InventarioFactory;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.Bien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CabeceraBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CategoriaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien;
@@ -279,6 +280,7 @@ public class ServicioInventarioImpl implements ServicioInventario{
 	}
 
 	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public MarcaBien actualizarMarcaBien(MarcaBien marcaBien) throws SeguridadesException {
 		MarcaBien marcaBienUpdate = null;
 		try {
@@ -308,6 +310,60 @@ public class ServicioInventarioImpl implements ServicioInventario{
 		}
 		
 		return listMarcaBien;
+	}
+	
+	/*
+	 * Servicio para administracion de bien
+	 */
+
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public Bien registrarBien(Bien bien) throws SeguridadesException {
+		Bien bienNuevo = null;
+		try {
+			bienNuevo = inventarioFactory.getBienDAOImpl().create(bien);
+			inventarioFactory.getHistoricoTransaccioneDAOImpl()
+					.registrarHistoricoTransaccion(
+							new AuditoriaDTO(bien.getUsuarioRegistro()
+									.getIdUsuario(), ServicioInventarioImpl.class.getName(), "registrarBien", EnumTipoTransaccion.CREATE));
+			
+		} catch (Exception e) {
+			slf4jLogger.info("error al registrarBien {}", e.getCause().getMessage());
+			throw new SeguridadesException(e);
+		}
+		return bienNuevo;
+	}
+
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public Bien actualizarBien(Bien bien) throws SeguridadesException {
+		Bien bienUpdate = null;
+		try {
+			bienUpdate = inventarioFactory.getBienDAOImpl().update(bien);
+			inventarioFactory.getHistoricoTransaccioneDAOImpl()
+					.registrarHistoricoTransaccion(
+							new AuditoriaDTO(bien.getUsuarioRegistro()
+									.getIdUsuario(), ServicioInventarioImpl.class.getName(), "actualizarBien", EnumTipoTransaccion.UPDATE));
+			
+		} catch (Exception e) {
+			slf4jLogger.info("error al actualizarBien {}", e.getCause().getMessage());
+			throw new SeguridadesException(e);
+		}
+		return bienUpdate;
+	}
+
+	@Override
+	public List<Bien> buscarBienCriterios(Bien bien) throws SeguridadesException {
+		List<Bien> listBien = null;
+		
+		try {
+			listBien = inventarioFactory.getBienDAOImpl().buscarBienCriterios(bien);
+		} catch (Exception e) {
+			slf4jLogger.info("error al buscarBienCriterios {}", e.getCause().getMessage());
+			throw new SeguridadesException(e);
+		}
+		
+		return listBien;
 	}
 
 }
