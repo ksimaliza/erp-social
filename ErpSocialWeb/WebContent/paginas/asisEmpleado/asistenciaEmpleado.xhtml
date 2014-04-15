@@ -24,18 +24,41 @@
 						</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:panel id="pnlBuscarEmpleado" header="#{i18n['erp.asistencia.empleado.buscar']}">
+
+
+			<p:panel id="pnlBuscar" header="#{i18n['erp.asistencia.empleado.buscar']}">
 				<table class="formulario">
+					<tr >
+						<td width="30%"><h:outputLabel value="#{i18n['erp.asistencia.empleado.nombres']}" /> </td>
+					<td width="70%">
+							<p:inputText id="txtNombreBuscar"
+								value="#{empleadoDataManager.empleadoBuscar.perNombres}" />
+						</td>
+					
+					</tr>
+					
 					<tr>
-						<td><h:outputLabel value="Nombre" /> </td>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.asistencia.empleado.apellidos']}" /> </td>
+					<td width="70%">
+							<p:inputText id="txtApellidosBuscar"
+								value="#{empleadoDataManager.empleadoBuscar.perApellidos}" />
+						</td>
+					
 					</tr>
 				</table>
 			</p:panel>
 
+			<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{empleadoController.buscar}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscar"
+					update=":formEmpleado:pnlMessages,tablaEmpleado,pnlBuscar" />
+			</p:panel>
 
 
 	<p:dataTable id="tablaEmpleado"
-		
+		value="#{empleadoDataManager.empleadoList}" var="emp"
 		rowIndexVar="rowIndex"
 		paginator="true" rows="5" paginatorPosition="bottom"
 		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -46,6 +69,26 @@
 		<p:column headerText="#" styleClass="centered" width="5%">
 			#{rowIndex+1}
 		</p:column>
+	
+		<p:column headerText="#{i18n['erp.matricula.estudiante.nombres']}" width="35%">
+				<h:outputText value="#{emp.perNombres}" />
+		</p:column>
+		
+		<p:column headerText="#{i18n['erp.matricula.estudiante.apellidos']}" width="40%">
+			<h:outputText value="#{emp.perApellidos}" />
+		</p:column>
+		
+		<p:column headerText="#{i18n['erp.matricula.estudiante.cedula']}" width="40%">
+			<h:outputText value="#{emp.perCi}" />
+		</p:column>
+		
+		<p:column headerText="#{i18n['erp.matricula.estudiante.direccion']}" width="40%">
+			<h:outputText value="#{emp.perDireccion}" />
+		</p:column>
+		
+		<p:column headerText="#{i18n['erp.matricula.estudiante.fechanac']}" width="40%">
+			<h:outputText value="#{emp.perFechaNac}" />
+		</p:column>	
 	
 	</p:dataTable>			
 	
