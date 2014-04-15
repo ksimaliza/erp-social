@@ -1,18 +1,21 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
-import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 import ec.edu.uce.erp.ejb.persistence.vo.EmpleadoVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAsistencia;
@@ -70,6 +73,26 @@ public class EmpleadoController extends BaseController{
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
+	
+	public void buscar() {
+		slf4jLogger.info("buscar");
+		List<EmpleadoListDTO> listResultado=null;
+		try {
+			listResultado = this.servicioAsistencia.readEmpleado(empleadoDataManager.getEmpleadoBuscar());
+			
+			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.empleadoDataManager.setEmpleadoList(listResultado);
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscar el empleado {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 		
