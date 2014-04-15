@@ -19,6 +19,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioEmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoDTO;
@@ -145,17 +146,17 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		EmpleadoDTO empleado;
 		
 		try {
-		if(faltaVO.getFalta().getFalCodigo()!=null){
-			empleado = asistenciaFactoryDAO.getEmpleadoDAOImpl().update(faltaVO.getEmpleado());
-			return asistenciaFactoryDAO.getFaltaDAOImpl().update(faltaVO.getFalta());
-		}
-			else {
-				empleado = asistenciaFactoryDAO.getEmpleadoDAOImpl().create(faltaVO.getEmpleado());
+			if(faltaVO.getFalta().getFalCodigo()!=null){
+				empleado = asistenciaFactoryDAO.getEmpleadoDAOImpl().find(faltaVO.getEmpleado().getAemCodigo());
 				faltaVO.getFalta().setAsiEmpleado(empleado);
-				return asistenciaFactoryDAO.getFaltaDAOImpl().create(faltaVO.getFalta());
-		} 
-		}
-		
+				return asistenciaFactoryDAO.getFaltaDAOImpl().update(faltaVO.getFalta());
+			}
+				else {
+					empleado = asistenciaFactoryDAO.getEmpleadoDAOImpl().find(faltaVO.getEmpleado().getAemCodigo());
+					faltaVO.getFalta().setAsiEmpleado(empleado);
+					return asistenciaFactoryDAO.getFaltaDAOImpl().create(faltaVO.getFalta());
+			} 
+		}		
 		catch (Exception e) {
 			slf4jLogger.info("error al createOrUpdateFalta {}", e.toString());
 			throw new SeguridadesException(e);
@@ -181,6 +182,22 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 	}
 	
 	
+	@Override
+	public List<FaltaListDTO> readFalta(FaltaListDTO falta) throws SeguridadesException {
+		slf4jLogger.info("readFalta");
+		List<FaltaListDTO> listResultado = null;
+		try {
+			listResultado = asistenciaFactoryDAO.getFaltaDAOImpl().findAll(falta);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al readFalta {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener falta de la base de datos");
+		}
+		return listResultado;
+	}
+
+	
+	
+	/*Horario*/
 	@Override
 	public HorarioDTO createOrUpdateHorario(HorarioDTO horarioDTO) throws SeguridadesException
 	{

@@ -104,6 +104,7 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBienPK</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.MarcaBien</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaListDTO</class>
 		<properties>
 			<property name="hibernate.connection.username" value="postgres" />
 			<property name="hibernate.connection.password" value="root" />

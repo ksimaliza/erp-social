@@ -9,6 +9,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioEmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoDTO;
@@ -66,6 +67,9 @@ public interface ServicioAsistencia {
 			throws SeguridadesException;
 
 	List<EmpleadoListDTO> readEmpleado(EmpleadoListDTO empleado)
+			throws SeguridadesException;
+
+	List<FaltaListDTO> readFalta(FaltaListDTO falta)
 			throws SeguridadesException;
 
 
