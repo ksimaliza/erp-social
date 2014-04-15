@@ -1,5 +1,7 @@
 package ec.edu.uce.erp.ejb.servicio.impl;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -15,6 +17,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioEmpleadoDTO;
@@ -37,6 +40,7 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 	@EJB
 	private FactoryDAO factoryDAO;
 	
+	/*Dia*/
 	@Override
 	public DiaDTO createOrUpdateDia(DiaDTO diaDTO) throws SeguridadesException
 	{
@@ -70,6 +74,7 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		
 	}
 	
+	/*Empleado*/
 	@Override
 	@TransactionAttribute (TransactionAttributeType.REQUIRED)
 	public EmpleadoDTO createOrUpdateEmpleado(EmpleadoVO empleadoVO) throws SeguridadesException
@@ -98,7 +103,6 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 			slf4jLogger.info("error al createOrUpdateEmpleado {}", e.toString());
 			throw new SeguridadesException(e);
 		}
-		
 	}
 	
 	
@@ -118,6 +122,22 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		
 	}
 	
+
+	@Override
+	public List<EmpleadoListDTO> readEmpleado(EmpleadoListDTO empleado) throws SeguridadesException {
+		slf4jLogger.info("readEmpleado");
+		List<EmpleadoListDTO> listResultado = null;
+		try {
+			listResultado = asistenciaFactoryDAO.getEmpleadoDAOImpl().findAll(empleado);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al readEmpleado {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener empleado de la base de datos");
+		}
+		return listResultado;
+	}
+	
+	
+	/*Falta*/
 	@Override
 	public FaltaDTO createOrUpdateFalta(FaltaVO faltaVO) throws SeguridadesException
 	{
