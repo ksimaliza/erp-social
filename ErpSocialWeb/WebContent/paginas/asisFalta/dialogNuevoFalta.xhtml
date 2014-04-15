@@ -12,37 +12,35 @@
 				<table class="formulario">
 					
 					<tr>
-						
 						<td width="30%">
-							<h:outputLabel for="lbEmpleado" value="#{i18n['erp.asistencia.falta.empleado']}" />
+							<h:outputLabel for="sumEmpleado" value="#{i18n['erp.asistencia.falta.empleado']}" />
 						</td>
 						<td>
-							<h:selectOneListbox for="listboxEmpleado" value="#{i18n['erp.asistencia.falta.empleado']}" />
+							<p:selectOneMenu id="sumEmpleado" value="#{faltaDataManager.empleadoCodigo}" filter="true" required="true">
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{faltaController.faltaDataManager.empleadoList}" var="emp" itemLabel="#{emp.perApellidos} #{emp.perNombres}" itemValue="#{emp.aemCodigo}"/>
+							</p:selectOneMenu>
 						</td>
-												
 					</tr>
 					
 					<tr>
-						
 						<td width="30%">
-							<h:outputLabel for="txtFecha" value="#{i18n['erp.asistencia.falta.fecha']}" />
+							<h:outputLabel for="calFecha" value="#{i18n['erp.asistencia.falta.fecha']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtFecha" style="width: 100%"
-							required="true" label="#{i18n['erp.asistencia.falta.fecha']}"
-								 />
+							<p:calendar id="calFecha" style="width: 100%" required="true" showOn="button" label="#{i18n['erp.asistencia.falta.fecha']}" value="#{faltaDataManager.fechaFalta}"/>
 						</td>
-						</tr>
-						<tr>
-						
+					</tr>
+					
+					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtDescrip" value="#{i18n['erp.asistencia.falta.descripcion']}" />
 							
 						</td>
 						<td width="70%">
-							<p:inputText id="txtDescrip"
-								style="width: 100%"
-								required="true" label="#{i18n['erp.asistencia.falta.descripcion']}"/>
+							<p:inputTextarea id="txtDescrip" style="width: 100%" value="#{faltaDataManager.faltaInsertar.falDescripcion}"
+								required="true" label="#{i18n['erp.asistencia.falta.descripcion']}" counterTemplate="{0}." maxlength="255" counter="counter" autoResize="false"/>
+							<h:outputText id="counter" />  	
 						</td>
 					</tr>
 					
@@ -50,9 +48,9 @@
 				</table>
 			</p:panel>
 			<p:panel id="pnlBotones">
-				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}" actionListener="#{faltaController.registrarFalta}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaMateria.hide()"
-					process="@this,pnlNuevoFalta" update="pnlNuevoFalta,:formFalta:pnlMessages,:formFalta:tablaFalta"/>
+					process="@this,pnlNuevoFalta" update="pnlNuevoFalta,:formFalta:pnlMessages,:formFalta:tabla"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoFalta.hide();" type="button" />
 			</p:panel>
 		</h:form>
