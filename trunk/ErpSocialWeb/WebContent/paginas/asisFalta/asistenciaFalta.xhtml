@@ -24,28 +24,60 @@
 						</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:panel id="pnlBuscarFalta" header="#{i18n['erp.asistencia.falta.buscar']}">
+			
+			<p:panel id="pnlBuscar" header="#{i18n['erp.asistencia.empleado.buscar']}">
 				<table class="formulario">
+					<tr >
+						<td width="30%"><h:outputLabel value="#{i18n['erp.asistencia.empleado.nombres']}" /> </td>
+					<td width="70%">
+							<p:inputText id="txtNombreBuscar"
+								value="#{faltaDataManager.faltaBuscar.perNombres}" />
+						</td>
+					
+					</tr>
+					
 					<tr>
-						<td><h:outputLabel value="Nombre" /> </td>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.asistencia.empleado.apellidos']}" /> </td>
+					<td width="70%">
+							<p:inputText id="txtApellidosBuscar"
+								value="#{faltaDataManager.faltaBuscar.perApellidos}" />
+						</td>
+					
 					</tr>
 				</table>
 			</p:panel>
 
+			<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{faltaController.buscar}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscar"
+					update=":formFalta:pnlMessages,tabla,pnlBuscar" />
+			</p:panel>
 
 
-<p:dataTable id="tablaFalta"
-	
-	rowIndexVar="rowIndex"
-	paginator="true" rows="5" paginatorPosition="bottom"
-	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-	rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.asistencia.falta.lista']}">
-	<f:facet name="header">
-		#{i18n['erp.asistencia.falta.lista']}
-	</f:facet>
-	<p:column headerText="#" styleClass="centered" width="5%">
-		#{rowIndex+1}
-	</p:column>
+			<p:dataTable id="tabla" rowIndexVar="rowIndex" paginator="true" rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.asistencia.falta.lista']}" value="#{faltaDataManager.faltaList}" var="fal">
+				
+				<f:facet name="header">
+					#{i18n['erp.asistencia.falta.lista']}
+				</f:facet>
+				<p:column headerText="#" styleClass="centered" width="5%">
+					#{rowIndex+1}
+				</p:column>
+
+				<p:column headerText="#{i18n['erp.asistencia.empleado.cedula']}" width="40%">
+					<h:outputText value="#{fal.perCi}" />
+				</p:column>								
+
+				<p:column headerText="#{i18n['erp.asistencia.empleado.nombres']}" width="35%">
+						<h:outputText value="#{fal.perNombres}" />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.asistencia.empleado.apellidos']}" width="40%">
+					<h:outputText value="#{fal.perApellidos}" />
+				</p:column>				
 
 			</p:dataTable>			
 	
