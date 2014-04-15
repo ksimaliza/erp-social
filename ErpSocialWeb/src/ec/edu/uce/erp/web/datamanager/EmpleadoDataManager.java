@@ -1,5 +1,8 @@
 package ec.edu.uce.erp.web.datamanager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -10,17 +13,23 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 @SessionScoped
 @ManagedBean (name = "empleadoDataManager")
 public class EmpleadoDataManager extends BaseDataManager {
+	
+	
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(PerfilDataManager.class);
 	private static final long serialVersionUID = 1L;
 	
 	private Persona personaInsertar;
 	private Empleado empleadoInsertar;
 	private EmpleadoDTO empleadoDTOInsertar;
+	
+	private EmpleadoListDTO empleadoBuscar;
+	private List<EmpleadoListDTO> empleadoList;
 	
 	@PostConstruct
 	public void inicializarObjetos () {
@@ -29,6 +38,8 @@ public class EmpleadoDataManager extends BaseDataManager {
 		personaInsertar=new Persona();
 		empleadoDTOInsertar=new EmpleadoDTO();  
 		empleadoInsertar=new Empleado();
+		empleadoList=new ArrayList<EmpleadoListDTO>();
+		empleadoBuscar=new EmpleadoListDTO();
 	}
 
 	public Persona getPersonaInsertar() {
@@ -53,6 +64,22 @@ public class EmpleadoDataManager extends BaseDataManager {
 
 	public void setEmpleadoDTOInsertar(EmpleadoDTO empleadoDTOInsertar) {
 		this.empleadoDTOInsertar = empleadoDTOInsertar;
+	}
+
+	public List<EmpleadoListDTO> getEmpleadoList() {
+		return empleadoList;
+	}
+
+	public void setEmpleadoList(List<EmpleadoListDTO> empleadoList) {
+		this.empleadoList = empleadoList;
+	}
+
+	public EmpleadoListDTO getEmpleadoBuscar() {
+		return empleadoBuscar;
+	}
+
+	public void setEmpleadoBuscar(EmpleadoListDTO empleadoBuscar) {
+		this.empleadoBuscar = empleadoBuscar;
 	}
 
 	
