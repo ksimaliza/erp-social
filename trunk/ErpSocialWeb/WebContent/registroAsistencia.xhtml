@@ -14,7 +14,10 @@
 
 <body>
 	<h:form id="formAsistencia">
-	
+		<div class="center">
+			<p:growl id="pnlMessagesG"/>
+		</div>
+	<p:panel id="pnlDatos">
 		<table class="center">
 			<tr>
 				<td width="30%">
@@ -42,7 +45,13 @@
 					<p:inputText id="txtCodigo" style="width: 100%" value="#{registroAsistenciaDataManager.empleado.aemCodigoRegistro}" required="true"/>
 				</td>						
 			</tr>
+			<tr>
+				<td colspan="2">
+					<p:commandButton value="#{i18n['label.guardar']}" actionListener="#{registroAsistenciaController.registrar}" update="pnlMessagesG,pnlDatos" process="pnlDatos"/>
+				</td>									
+			</tr>
 		</table>
+		</p:panel>
 		
 	</h:form>
 </body>
