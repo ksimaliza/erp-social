@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>Erp Social</title>
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+	<link rel="StyleSheet" href="#{request.contextPath}/resources/css/template.css" />	
+</h:head>
+
+<body>
+	<h:form id="formAsistencia">
+	
+		<table class="center">
+			<tr>
+				<td width="30%">
+					<h:outputLabel for="txtUsuario" value="#{i18n['erp.asistencia.empleado.usuario']}" />
+				</td>
+				<td width="70%">
+					<p:inputText id="txtUsuario" style="width: 100%" value="#{registroAsistenciaDataManager.empleado.aemUsuario}" required="true"/>
+				</td>						
+			</tr>
+			
+			<tr>
+				<td width="30%">
+					<h:outputLabel for="txtClave" value="#{i18n['erp.asistencia.empleado.clave']}" />
+				</td>
+				<td width="70%">
+					<p:inputText id="txtClave" style="width: 100%" value="#{registroAsistenciaDataManager.empleado.aemClave}" required="true"/>
+				</td>						
+			</tr>
+
+			<tr>
+				<td width="30%">
+					<h:outputLabel for="txtCodigo" value="#{i18n['erp.asistencia.empleado.codigo.asistencia']}" />
+				</td>
+				<td width="70%">
+					<p:inputText id="txtCodigo" style="width: 100%" value="#{registroAsistenciaDataManager.empleado.aemCodigoRegistro}" required="true"/>
+				</td>						
+			</tr>
+		</table>
+		
+	</h:form>
+</body>
+
+</html>
