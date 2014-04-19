@@ -77,4 +77,49 @@ public class EmpleadoDAOImpl extends AbstractFacadeImpl<EmpleadoDTO> implements 
 		return resultado;
 	}
 	
+	@Override
+	public EmpleadoDTO findByCredentials(EmpleadoDTO empleado) throws SeguridadesException
+	{
+		List<Predicate> criteriaList = new ArrayList<Predicate>();
+		Predicate predicate = null;
+		EmpleadoDTO result;
+		
+		try {
+			CriteriaBuilder cb=entityManager.getCriteriaBuilder();
+			CriteriaQuery<EmpleadoDTO> cq=cb.createQuery(EmpleadoDTO.class);
+			Root<EmpleadoDTO> from = cq.from(EmpleadoDTO.class);
+		
+			CriteriaQuery<EmpleadoDTO> select = cq.select(from);
+			
+			if(!StringUtils.isEmpty(empleado.getAemUsuario())){
+				predicate=cb.equal(from.get("aemUsuario"), empleado.getAemUsuario());
+				criteriaList.add(predicate);
+			}
+
+			if(!StringUtils.isEmpty(empleado.getAemCodigoRegistro())){
+				predicate=cb.equal(from.get("aemCodigoRegistro"), empleado.getAemCodigoRegistro());
+				criteriaList.add(predicate);
+			}
+			
+			if(!StringUtils.isEmpty(empleado.getAemClave())){
+				predicate=cb.equal(from.get("aemClave"), empleado.getAemClave());
+				criteriaList.add(predicate);
+			}
+			
+			if(criteriaList!=null && criteriaList.size()>0)
+				cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
+
+			TypedQuery<EmpleadoDTO> typedQuery = entityManager.createQuery(select);
+			result = typedQuery.getSingleResult();
+
+		} catch (Exception e) {
+			slf4jLogger.info("No se pudo obtener los parametros de la BD {}", e);
+			throw new SeguridadesException(e);
+		}
+		return result;
+	}
+
+	
+	
+
 }

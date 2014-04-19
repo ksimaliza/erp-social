@@ -72,6 +72,12 @@ public interface ServicioAsistencia {
 	List<FaltaListDTO> readFalta(FaltaListDTO falta)
 			throws SeguridadesException;
 
+	EmpleadoDTO readEmpleadoByCredentials(EmpleadoDTO empleado)
+			throws SeguridadesException;
+
+	void createOrUpdateRegistroAsistencia(RegistroDTO registro)
+			throws SeguridadesException;
+
 
 
 }

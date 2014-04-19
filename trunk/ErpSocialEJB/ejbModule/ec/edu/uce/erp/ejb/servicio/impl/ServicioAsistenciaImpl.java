@@ -72,7 +72,6 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 			slf4jLogger.info("error al deleteDia {}", e.toString());
 			throw new SeguridadesException(e);
 		}
-		
 	}
 	
 	/*Empleado*/
@@ -106,6 +105,18 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		}
 	}
 	
+	@Override
+	public EmpleadoDTO readEmpleadoByCredentials(EmpleadoDTO empleado) throws SeguridadesException{
+		slf4jLogger.info("readEmpleadoByCredentials");
+		EmpleadoDTO resultado = null;
+		try {
+			resultado = asistenciaFactoryDAO.getEmpleadoDAOImpl().findByCredentials(empleado);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al readEmpleadoByCredentials {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener empleado de la base de datos");
+		}
+		return resultado;	
+	}
 	
 	@Override
 	public void deleteEmpleado(EmpleadoDTO empleadoDTO) throws SeguridadesException
@@ -123,7 +134,6 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		
 	}
 	
-
 	@Override
 	public List<EmpleadoListDTO> readEmpleado(EmpleadoListDTO empleado) throws SeguridadesException {
 		slf4jLogger.info("readEmpleado");
@@ -195,6 +205,23 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		return listResultado;
 	}
 
+	/*RegistroAsistencia*/
+	@Override
+	public void createOrUpdateRegistroAsistencia(RegistroDTO registro) throws SeguridadesException
+	{
+		slf4jLogger.info("createOrUpdateRegistroAsistencia");
+		try {
+			if(registro.getRasCodigo()!=null)
+				asistenciaFactoryDAO.getRegistroDAOImpl().update(registro);
+			else
+				asistenciaFactoryDAO.getRegistroDAOImpl().create(registro);
+		}catch(Exception e){
+			slf4jLogger.info("Error al readFalta {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener falta de la base de datos");	
+		}
+	}
+	
+	
 	
 	
 	/*Horario*/
@@ -264,6 +291,8 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		
 	}
 	
+	
+	/*Permiso*/
 	@Override
 	public PermisoDTO createOrUpdatePermiso(PermisoVO permisoVO) throws SeguridadesException
 	{

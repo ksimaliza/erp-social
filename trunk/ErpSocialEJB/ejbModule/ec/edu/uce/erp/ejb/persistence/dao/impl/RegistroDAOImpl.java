@@ -9,12 +9,10 @@ public class RegistroDAOImpl extends AbstractFacadeImpl<RegistroDTO> implements 
 
 	public RegistroDAOImpl() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public RegistroDAOImpl(EntityManager entityManager) {
 		super(entityManager);
-		// TODO Auto-generated constructor stub
 	}
 
 }
