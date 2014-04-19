@@ -18,6 +18,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.asistencia.TipoDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EmpleadoVO;
 import ec.edu.uce.erp.ejb.persistence.vo.FaltaVO;
 import ec.edu.uce.erp.ejb.persistence.vo.PermisoVO;
+import ec.edu.uce.erp.ejb.persistence.vo.RegistroAsistenciaVO;
 
 @Local
 public interface ServicioAsistencia {
@@ -75,7 +76,8 @@ public interface ServicioAsistencia {
 	EmpleadoDTO readEmpleadoByCredentials(EmpleadoDTO empleado)
 			throws SeguridadesException;
 
-	void createOrUpdateRegistroAsistencia(RegistroDTO registro)
+	void createOrUpdateRegistroAsistencia(
+			RegistroAsistenciaVO registroAsistencia)
 			throws SeguridadesException;
 
 

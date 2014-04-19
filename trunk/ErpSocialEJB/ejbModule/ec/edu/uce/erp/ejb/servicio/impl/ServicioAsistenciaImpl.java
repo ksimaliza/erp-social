@@ -28,6 +28,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.asistencia.TipoDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EmpleadoVO;
 import ec.edu.uce.erp.ejb.persistence.vo.FaltaVO;
 import ec.edu.uce.erp.ejb.persistence.vo.PermisoVO;
+import ec.edu.uce.erp.ejb.persistence.vo.RegistroAsistenciaVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAsistencia;
 
 @Stateless
@@ -207,17 +208,29 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 
 	/*RegistroAsistencia*/
 	@Override
-	public void createOrUpdateRegistroAsistencia(RegistroDTO registro) throws SeguridadesException
+	public void createOrUpdateRegistroAsistencia(RegistroAsistenciaVO registroAsistencia) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateRegistroAsistencia");
 		try {
-			if(registro.getRasCodigo()!=null)
-				asistenciaFactoryDAO.getRegistroDAOImpl().update(registro);
+			EmpleadoDTO empleado=asistenciaFactoryDAO.getEmpleadoDAOImpl().findByCredentials(registroAsistencia.getEmpleadoDTO());
+			if(empleado!=null)
+			{	
+				
+				if(registroAsistencia.getRegistroDTO().getRasCodigo()!=null)
+					asistenciaFactoryDAO.getRegistroDAOImpl().update(registroAsistencia.getRegistroDTO());
+				else
+				{
+					registroAsistencia.getRegistroDTO().setAsiEmpleado(empleado);
+					asistenciaFactoryDAO.getRegistroDAOImpl().create(registroAsistencia.getRegistroDTO());
+				}
+			}
 			else
-				asistenciaFactoryDAO.getRegistroDAOImpl().create(registro);
+			{
+				throw new SeguridadesException("Datos incorrectos");
+			}
 		}catch(Exception e){
 			slf4jLogger.info("Error al readFalta {}", e.getMessage());
-			throw new SeguridadesException("No se pudo obtener falta de la base de datos");	
+			throw new SeguridadesException("No se pudo encontraro datos de empleado");	
 		}
 	}
 	
