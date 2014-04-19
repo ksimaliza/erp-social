@@ -11,4 +11,6 @@ public interface EmpleadoDAO extends AbstractFacade<EmpleadoDTO> {
 	List<EmpleadoListDTO> findAll(EmpleadoListDTO empleado)
 			throws SeguridadesException;
 
+	EmpleadoDTO findByCredentials(EmpleadoDTO empleado) throws SeguridadesException;
+
 }

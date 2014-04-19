@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.persistence.dao.FaltaDAO;
-import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaListDTO;
 
