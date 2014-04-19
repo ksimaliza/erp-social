@@ -9,6 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.RegistroDTO;
+import ec.edu.uce.erp.ejb.persistence.vo.RegistroAsistenciaVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAsistencia;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
@@ -30,6 +33,15 @@ public class RegistroAsistenciaController extends BaseController {
 	private RegistroAsistenciaDataManager registroAsistenciaDataManager;
 	
 	
+	public RegistroAsistenciaDataManager getRegistroAsistenciaDataManager() {
+		return registroAsistenciaDataManager;
+	}
+
+	public void setRegistroAsistenciaDataManager(
+			RegistroAsistenciaDataManager registroAsistenciaDataManager) {
+		this.registroAsistenciaDataManager = registroAsistenciaDataManager;
+	}
+
 	@EJB
 	private ServicioAsistencia servicioAsistencia;
 	
@@ -39,12 +51,21 @@ public class RegistroAsistenciaController extends BaseController {
 	{
 		slf4jLogger.info("registrar");
 		try {
-			servicioAsistencia.createOrUpdateRegistroAsistencia(registroAsistenciaDataManager.getRegistro());
+			RegistroAsistenciaVO registroAsistenciaVO=new RegistroAsistenciaVO();
+			registroAsistenciaVO.setEmpleadoDTO(registroAsistenciaDataManager.getEmpleado());
+			registroAsistenciaVO.setRegistroDTO(registroAsistenciaDataManager.getRegistro());
+			servicioAsistencia.createOrUpdateRegistroAsistencia(registroAsistenciaVO);
+			clear();
 			MensajesWebController.aniadirMensajeInformacion("Guardado Exitosamente");
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 	}
-	
+
+	private void clear()
+	{
+		registroAsistenciaDataManager.setEmpleado(new EmpleadoDTO());
+		registroAsistenciaDataManager.setRegistro(new RegistroDTO());
+	}
 }
