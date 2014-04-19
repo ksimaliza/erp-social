@@ -82,7 +82,7 @@ public class EmpleadoDAOImpl extends AbstractFacadeImpl<EmpleadoDTO> implements 
 	{
 		List<Predicate> criteriaList = new ArrayList<Predicate>();
 		Predicate predicate = null;
-		EmpleadoDTO result;
+		EmpleadoDTO result = null;
 		
 		try {
 			CriteriaBuilder cb=entityManager.getCriteriaBuilder();
@@ -110,7 +110,8 @@ public class EmpleadoDAOImpl extends AbstractFacadeImpl<EmpleadoDTO> implements 
 				cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 
 			TypedQuery<EmpleadoDTO> typedQuery = entityManager.createQuery(select);
-			result = typedQuery.getSingleResult();
+			if(!typedQuery.getResultList().isEmpty())
+				result = typedQuery.getResultList().get(0);	
 
 		} catch (Exception e) {
 			slf4jLogger.info("No se pudo obtener los parametros de la BD {}", e);
