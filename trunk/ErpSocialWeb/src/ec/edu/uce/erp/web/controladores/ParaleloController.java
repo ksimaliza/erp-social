@@ -23,7 +23,7 @@ import ec.edu.uce.erp.web.datamanager.ParaleloDataManager;
 
 public class ParaleloController {
 	
-private static final Logger slf4jLogger = LoggerFactory.getLogger(ParaleloController.class);
+	private static final Logger slf4jLogger = LoggerFactory.getLogger(ParaleloController.class);
 	
 	@EJB
 	private ServicioMatricula servicioMatricula;
