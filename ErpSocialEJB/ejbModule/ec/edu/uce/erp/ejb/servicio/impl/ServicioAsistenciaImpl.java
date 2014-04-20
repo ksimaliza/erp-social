@@ -1,5 +1,7 @@
 package ec.edu.uce.erp.ejb.servicio.impl;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -162,10 +164,10 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 				faltaVO.getFalta().setAsiEmpleado(empleado);
 				return asistenciaFactoryDAO.getFaltaDAOImpl().update(faltaVO.getFalta());
 			}
-				else {
-					empleado = asistenciaFactoryDAO.getEmpleadoDAOImpl().find(faltaVO.getEmpleado().getAemCodigo());
-					faltaVO.getFalta().setAsiEmpleado(empleado);
-					return asistenciaFactoryDAO.getFaltaDAOImpl().create(faltaVO.getFalta());
+			else {
+				empleado = asistenciaFactoryDAO.getEmpleadoDAOImpl().find(faltaVO.getEmpleado().getAemCodigo());
+				faltaVO.getFalta().setAsiEmpleado(empleado);
+				return asistenciaFactoryDAO.getFaltaDAOImpl().create(faltaVO.getFalta());
 			} 
 		}		
 		catch (Exception e) {
@@ -206,22 +208,75 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		return listResultado;
 	}
 
+
+	/*Permiso*/
+	@Override
+	public PermisoDTO createOrUpdatePermiso(PermisoVO permisoVO) throws SeguridadesException
+	{
+		slf4jLogger.info("createOrUpdatePermiso");
+		EmpleadoDTO empleado;
+		try {
+			if(permisoVO.getPermiso().getPerCodigo()!=null){
+				empleado = asistenciaFactoryDAO.getEmpleadoDAOImpl().find(permisoVO.getEmpleado().getAemCodigo());
+				permisoVO.getPermiso().setAsiEmpleado(empleado);
+				return asistenciaFactoryDAO.getPermisoDAOImpl().update(permisoVO.getPermiso());
+			}
+			else{
+				empleado = asistenciaFactoryDAO.getEmpleadoDAOImpl().find(permisoVO.getEmpleado().getAemCodigo());
+				permisoVO.getPermiso().setAsiEmpleado(empleado);
+				return asistenciaFactoryDAO.getPermisoDAOImpl().create(permisoVO.getPermiso());
+			}
+		} catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdatePermiso {}", e.toString());
+			throw new SeguridadesException(e);
+		}		
+	}
+	
+	
+	@Override
+	public void deletePermiso(PermisoDTO permisoDTO) throws SeguridadesException
+	{
+		slf4jLogger.info("deletePermiso");
+		try {
+		if(permisoDTO.getPerCodigo()!=null)
+			asistenciaFactoryDAO.getPermisoDAOImpl().remove(permisoDTO);		
+		else 
+			throw new SeguridadesException("no existe una coincidencia");
+		} catch (Exception e) {
+			slf4jLogger.info("error al deletePermiso {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+	}
+			
+	
 	/*RegistroAsistencia*/
 	@Override
-	public void createOrUpdateRegistroAsistencia(RegistroAsistenciaVO registroAsistencia) throws SeguridadesException
+	public RegistroDTO createOrUpdateRegistroAsistencia(RegistroAsistenciaVO registroAsistencia) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateRegistroAsistencia");
+		RegistroDTO registro=null;
 		try {
 			EmpleadoDTO empleado=asistenciaFactoryDAO.getEmpleadoDAOImpl().findByCredentials(registroAsistencia.getEmpleadoDTO());
 			if(empleado!=null)
 			{	
-				
-				if(registroAsistencia.getRegistroDTO().getRasCodigo()!=null)
-					asistenciaFactoryDAO.getRegistroDAOImpl().update(registroAsistencia.getRegistroDTO());
-				else
+				registro= asistenciaFactoryDAO.getRegistroDAOImpl().getUltimate(empleado);
+				if(registro!=null)
 				{
+					if(registro.getRasHoraSalida()!=null){
+						registroAsistencia.getRegistroDTO().setAsiEmpleado(empleado);
+						registroAsistencia.getRegistroDTO().setRasHoraInicio(new Timestamp(new Date().getTime()));
+						registro= asistenciaFactoryDAO.getRegistroDAOImpl().create(registroAsistencia.getRegistroDTO());					
+					}
+					else{
+						registro.setRasHoraSalida(new Timestamp(new Date().getTime()));
+						registro= asistenciaFactoryDAO.getRegistroDAOImpl().update(registro);
+					}
+				}
+				else{
 					registroAsistencia.getRegistroDTO().setAsiEmpleado(empleado);
-					asistenciaFactoryDAO.getRegistroDAOImpl().create(registroAsistencia.getRegistroDTO());
+					registroAsistencia.getRegistroDTO().setRasHoraInicio(new Timestamp(new Date().getTime()));
+					registro=asistenciaFactoryDAO.getRegistroDAOImpl().create(registroAsistencia.getRegistroDTO());					
 				}
 			}
 			else
@@ -232,8 +287,25 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 			slf4jLogger.info("Error al readFalta {}", e.getMessage());
 			throw new SeguridadesException("No se pudo encontraro datos de empleado");	
 		}
+		return registro;
 	}
 	
+	
+	@Override
+	public void deleteRegistro(RegistroDTO registroDTO) throws SeguridadesException
+	{
+		slf4jLogger.info("deleteRegistro");
+		try {
+		if(registroDTO.getRasCodigo()!=null)
+			asistenciaFactoryDAO.getRegistroDAOImpl().remove(registroDTO);		
+		else 
+			throw new SeguridadesException("no existe una coincidencia");
+		} catch (Exception e) {
+			slf4jLogger.info("error al deleteRegistro {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+	}
 	
 	
 	
@@ -271,6 +343,7 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		
 	}
 	
+	/*Horario Empleado*/
 	@Override
 	public HorarioEmpleadoDTO createOrUpdateHorarioEmpleado(HorarioEmpleadoDTO horarioempleadoDTO) throws SeguridadesException
 	{
@@ -304,80 +377,7 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		
 	}
 	
-	
-	/*Permiso*/
-	@Override
-	public PermisoDTO createOrUpdatePermiso(PermisoVO permisoVO) throws SeguridadesException
-	{
-		slf4jLogger.info("createOrUpdatePermiso");
-		EmpleadoDTO empleado;
-		try {
-		if(permisoVO.getPermiso().getPerCodigo()!=null){
-			empleado = asistenciaFactoryDAO.getEmpleadoDAOImpl().update(permisoVO.getEmpleado());
-			return asistenciaFactoryDAO.getPermisoDAOImpl().update(permisoVO.getPermiso());
-		}
-			else
-		{
-			empleado = asistenciaFactoryDAO.getEmpleadoDAOImpl().create(permisoVO.getEmpleado());
-			permisoVO.getPermiso().setAsiEmpleado(empleado);
-			return asistenciaFactoryDAO.getPermisoDAOImpl().create(permisoVO.getPermiso());
-		}} catch (Exception e) {
-			slf4jLogger.info("error al createOrUpdatePermiso {}", e.toString());
-			throw new SeguridadesException(e);
-		}
-		
-	}
-	
-	
-	@Override
-	public void deletePermiso(PermisoDTO permisoDTO) throws SeguridadesException
-	{
-		slf4jLogger.info("deletePermiso");
-		try {
-		if(permisoDTO.getPerCodigo()!=null)
-			asistenciaFactoryDAO.getPermisoDAOImpl().remove(permisoDTO);		
-		else 
-			throw new SeguridadesException("no existe una coincidencia");
-		} catch (Exception e) {
-			slf4jLogger.info("error al deletePermiso {}", e.toString());
-			throw new SeguridadesException(e);
-		}
-		
-	}
-	
-	@Override
-	public RegistroDTO createOrUpdateRegistro(RegistroDTO registroDTO) throws SeguridadesException
-	{
-		slf4jLogger.info("createOrUpdateRegistro");
-		try {
-		if(registroDTO.getRasCodigo()!=null)
-			return asistenciaFactoryDAO.getRegistroDAOImpl().update(registroDTO);
-		else
-			return asistenciaFactoryDAO.getRegistroDAOImpl().create(registroDTO);
-		} catch (Exception e) {
-			slf4jLogger.info("error al createOrUpdateRegistro {}", e.toString());
-			throw new SeguridadesException(e);
-		}
-		
-	}
-	
-	
-	@Override
-	public void deleteRegistro(RegistroDTO registroDTO) throws SeguridadesException
-	{
-		slf4jLogger.info("deleteRegistro");
-		try {
-		if(registroDTO.getRasCodigo()!=null)
-			asistenciaFactoryDAO.getRegistroDAOImpl().remove(registroDTO);		
-		else 
-			throw new SeguridadesException("no existe una coincidencia");
-		} catch (Exception e) {
-			slf4jLogger.info("error al deleteRegistro {}", e.toString());
-			throw new SeguridadesException(e);
-		}
-		
-	}
-	
+	/*Tipo*/
 	@Override
 	public TipoDTO createOrUpdateTipo(TipoDTO tipoDTO) throws SeguridadesException
 	{

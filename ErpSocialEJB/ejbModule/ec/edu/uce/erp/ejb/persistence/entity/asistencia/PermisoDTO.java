@@ -24,6 +24,9 @@ public class PermisoDTO implements Serializable {
 	@Column(name="per_fecha")
 	private Timestamp perFecha;
 
+	@Column(name="per_descripcion")
+	private String perDescripcion;
+
 	//bi-directional many-to-one association to EmpleadoDTO
 	@ManyToOne
 	@JoinColumn(name="per_empleado")
@@ -46,6 +49,14 @@ public class PermisoDTO implements Serializable {
 
 	public void setPerFecha(Timestamp perFecha) {
 		this.perFecha = perFecha;
+	}
+
+	public String getPerDescripcion() {
+		return perDescripcion;
+	}
+
+	public void setPerDescripcion(String perDescripcion) {
+		this.perDescripcion = perDescripcion;
 	}
 
 	public EmpleadoDTO getAsiEmpleado() {

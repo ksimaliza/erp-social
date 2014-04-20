@@ -45,7 +45,7 @@ public class RegistroDAOImpl extends AbstractFacadeImpl<RegistroDTO> implements 
 		
 			CriteriaQuery<RegistroDTO> select = cq.select(from);
 			
-			predicate=cb.equal(from.get("rasmpleado"), empleado);
+			predicate=cb.equal(from.get("asiEmpleado"), empleado);
 			criteriaList.add(predicate);
 	
 			cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
@@ -54,7 +54,8 @@ public class RegistroDAOImpl extends AbstractFacadeImpl<RegistroDTO> implements 
 			
 			TypedQuery<RegistroDTO> typedQuery = entityManager.createQuery(select);
 			
-			result = typedQuery.getResultList().get(0);	
+			if(!typedQuery.getResultList().isEmpty())
+				result = typedQuery.getResultList().get(0);	
 
 		} catch (Exception e) {
 			slf4jLogger.info("No se pudo obtener los parametros de la BD {}", e);
