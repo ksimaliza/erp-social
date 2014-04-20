@@ -49,8 +49,9 @@
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}" actionListener="#{faltaController.registrarFalta}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaMateria.hide()"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoFalta.hide()"
 					process="@this,pnlNuevoFalta" update="pnlNuevoFalta,:formFalta:pnlMessages,:formFalta:tabla"/>
+					
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoFalta.hide();" type="button" />
 			</p:panel>
 		</h:form>

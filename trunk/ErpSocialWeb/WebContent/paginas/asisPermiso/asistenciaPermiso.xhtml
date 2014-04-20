@@ -24,33 +24,52 @@
 						</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:panel id="pnlBuscarPermiso" header="#{i18n['erp.asistencia.permiso.buscar']}">
+			
+			
+			<p:panel id="pnlBuscar" header="#{i18n['erp.asistencia.empleado.buscar']}">
 				<table class="formulario">
+					<tr >
+						<td width="30%"><h:outputLabel value="#{i18n['erp.asistencia.empleado.nombres']}" /> </td>
+					<td width="70%">
+							<p:inputText id="txtNombreBuscar"
+								value="#{permisoDataManager.permisoBuscar.perNombres}" />
+						</td>
+					
+					</tr>
+					
 					<tr>
-						<td><h:outputLabel value="Nombre" /> </td>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.asistencia.empleado.apellidos']}" /> </td>
+					<td width="70%">
+							<p:inputText id="txtApellidosBuscar"
+								value="#{permisoDataManager.permisoBuscar.perApellidos}" />
+						</td>
+					
 					</tr>
 				</table>
 			</p:panel>
 
 
 
-<p:dataTable id="tablaPermiso"
-	
-	rowIndexVar="rowIndex"
-	paginator="true" rows="5" paginatorPosition="bottom"
-	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-	rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.asistencia.permiso.lista']}">
-	<f:facet name="header">
-		#{i18n['erp.asistencia.permiso.lista']}
-	</f:facet>
-	<p:column headerText="#" styleClass="centered" width="5%">
-		#{rowIndex+1}
-	</p:column>
+
+			<p:dataTable id="tablaPermiso"
+				
+				rowIndexVar="rowIndex"
+				paginator="true" rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.asistencia.permiso.lista']}">
+				<f:facet name="header">
+					#{i18n['erp.asistencia.permiso.lista']}
+				</f:facet>
+				<p:column headerText="#" styleClass="centered" width="5%">
+					#{rowIndex+1}
+				</p:column>
 
 			</p:dataTable>			
 	
 </h:form>			
 		
+	
+	
 		
 <ui:include src="dialogNuevoPermiso.xhtml" />		
 		
