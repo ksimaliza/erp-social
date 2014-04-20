@@ -44,9 +44,6 @@ public interface ServicioAsistencia {
 
 	void deletePermiso(PermisoDTO permisoDTO) throws SeguridadesException;
 
-	RegistroDTO createOrUpdateRegistro(RegistroDTO registroDTO)
-			throws SeguridadesException;
-
 	void deleteRegistro(RegistroDTO registroDTO) throws SeguridadesException;
 
 	TipoDTO createOrUpdateTipo(TipoDTO tipoDTO) throws SeguridadesException;
@@ -76,7 +73,7 @@ public interface ServicioAsistencia {
 	EmpleadoDTO readEmpleadoByCredentials(EmpleadoDTO empleado)
 			throws SeguridadesException;
 
-	void createOrUpdateRegistroAsistencia(
+	RegistroDTO createOrUpdateRegistroAsistencia(
 			RegistroAsistenciaVO registroAsistencia)
 			throws SeguridadesException;
 
