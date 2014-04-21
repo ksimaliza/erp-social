@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpNuevaPartidaBautizo" header="#{i18n['erp.despacho.partida.bautizo.registrar']}" resizable="false" draggable="false"
+		widgetVar="dlgNuevaPartidaBautizo" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<p:scrollPanel style="height:500px" mode="native">
+				<h:form id="formNuevaPartidaBautizo" styleClass="formulario">
+			<p:panel id="pnlNuevaPartidaBautizo">
+				<table class="formulario">
+												
+						<tr>
+						
+						<td width="30%">
+							<h:outputLabel for="txtCiBau" value="#{i18n['erp.despacho.partida.bautizo.cedula.bautizado']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCiBau"  style="width: 70%"
+							required="true" label="#{i18n['erp.despacho.partida.bautizo.cedula.bautizado']}">
+							<f:validateLength maximum="10" minimum="10"/>
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+						
+						</p:inputText>
+						
+						</td>
+						</tr>
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNomBau" value="#{i18n['erp.despacho.partida.bautizo.nombres.bautizado']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNomBau" style="width: 100%"
+								required="true" />
+						</td>	
+					</tr>
+					
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApeBau" value="#{i18n['erp.despacho.partida.bautizo.apellidos.bautizado']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApeBau" style="width: 100%"
+								required="true" />
+						</td>	
+					</tr>
+						
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFechaBautizo" value="#{i18n['erp.despacho.partida.bautizo.fecha.bautizo']}" />
+						</td>
+						<td width="70%">
+							<p:calendar id="txtFechaBautizo" style="width: 100%" navigator="true"   showOn="button" required="true"/>
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFechaCurso" value="#{i18n['erp.despacho.partida.bautizo.fecha.curso']}" />
+						</td>
+						<td width="70%">
+							<p:calendar id="txtFechaCurso" style="width: 100%" navigator="true"   showOn="button" required="true"/>
+						</td>	
+					</tr>
+					
+										
+							
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtSacerdote" value="#{i18n['erp.despacho.partida.bautizo.sacerdote']}" />
+						</td>
+						<td>
+							<h:selectOneListbox for="listboxSacerdote" value="#{i18n['erp.despacho.partida.bautizo.sacerdote']}" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCertificado" value="#{i18n['erp.despacho.partida.bautizo.certificado']}" />
+						</td>
+						<td>
+							<h:selectOneListbox for="listboxCertificado" value="#{i18n['erp.despacho.partida.bautizo.certificado']}" />
+						</td>
+					</tr>	
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtProv" value="#{i18n['erp.despacho.partida.bautizo.provincia']}" />
+						</td>
+						<td>
+							<h:selectOneListbox for="listboxProvincia" value="#{i18n['erp.despacho.partida.bautizo.provincia']}" />
+						</td>
+					</tr>
+					
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCiudad" value="#{i18n['erp.despacho.partida.bautizo.ciudad']}" />
+						</td>
+						<td>
+							<h:selectOneListbox for="listboxCiudad" value="#{i18n['erp.despacho.partida.bautizo.ciudad']}" />
+						</td>
+					</tr>					
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCanton" value="#{i18n['erp.despacho.partida.bautizo.canton']}" />
+						</td>
+						<td>
+							<h:selectOneListbox for="listboxCanton" value="#{i18n['erp.despacho.partida.bautizo.canton']}" />
+						</td>
+					</tr>					
+					
+					
+				</table>
+			</p:panel>
+			
+			<p:panel id="pnlDatosPadrino">
+				<table class="formulario">
+												
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCiPad" value="#{i18n['erp.despacho.partida.bautizo.cedula.padrino']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCiPad"  style="width: 70%"
+							required="true" label="#{i18n['erp.despacho.partida.bautizo.cedula.padrino']}">
+							<f:validateLength maximum="10" minimum="10"/>
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+						
+						</p:inputText>
+						
+						</td>
+					</tr>
+						
+						
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNomPad" value="#{i18n['erp.despacho.partida.bautizo.nombres.padrino']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNomPad" style="width: 100%"
+								 required="true" />
+						</td>	
+					</tr>
+						
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApePad" value="#{i18n['erp.despacho.partida.bautizo.apellidos.padrino']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApePad" style="width: 100%"
+								 required="true" />
+						</td>	
+					</tr>
+					
+					
+					
+				</table>
+			</p:panel>
+			
+				<p:panel id="pnlDatosMadrina">
+				<table class="formulario">
+												
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCiMad" value="#{i18n['erp.despacho.partida.bautizo.cedula.madrina']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCiMad"  style="width: 70%"
+							required="true" label="#{i18n['erp.despacho.partida.bautizo.cedula.madrina']}">
+							<f:validateLength maximum="10" minimum="10"/>
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+						
+						</p:inputText>
+						
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNomMad" value="#{i18n['erp.despacho.partida.bautizo.nombres.madrina']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNomMad" style="width: 100%"  
+								 required="true" />
+						</td>	
+					</tr>
+					
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApeMad" value="#{i18n['erp.despacho.partida.bautizo.apellidos.madrina']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApeMad" style="width: 100%"  
+								 required="true" />
+						</td>	
+					</tr>
+					
+					
+					
+				</table>
+			</p:panel>
+					
+				<p:panel id="pnlDatos">
+				<table class="formulario">
+												
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNotaM" value="#{i18n['erp.despacho.partida.bautizo.nota.marginal']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNotaM" style="width: 100%"  required="true"/>
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtTomo" value="#{i18n['erp.despacho.partida.bautizo.tomo']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtTomo" style="width: 100%"  
+								 required="true" />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtActa" value="#{i18n['erp.despacho.partida.bautizo.acta']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtActa"  style="width: 100%"
+							required="true" label="#{i18n['erp.despacho.partida.bautizo.acta']}">
+							
+						</p:inputText>
+						
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtPagina" value="#{i18n['erp.despacho.partida.bautizo.pagina']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtPagina" style="width: 100%"  
+								 required="true" />
+						</td>	
+					</tr>
+					
+					
+				</table>
+			</p:panel>
+		
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgPartidaBautizo.hide()"
+					process="@this,pnlNuevaPartidaBautizo" update="pnlNuevaPartidaBautizo,:formPartidaBautizo:pnlMessages,:formPartidaBautizo:tablaPartidaBautizo"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaPartidaBautizo.hide()" type="button" />
+			</p:panel>
+	</h:form>
+	</p:scrollPanel>
+	
+	</p:dialog>
+	
+</ui:composition>

@@ -7,11 +7,11 @@
 	template="/WEB-INF/templates/template.xhtml">
 	
 <ui:define name="title">
-		<h3><h:outputLabel	value="#{i18n['erp.despacho.eucaristia.pagina.titulo']}" /></h3>
+		<h3><h:outputLabel	value="#{i18n['erp.despacho.partida.confirmacion.pagina.titulo']}" /></h3>
 	</ui:define>	
 	
-			<ui:define name="content">
-		<h:form id="formEucaristia">
+	<ui:define name="content">
+		<h:form id="formPartidaConfirmacion">
 		
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
 			
@@ -19,65 +19,76 @@
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
 					</p:commandButton>
-					<p:commandButton id="btnNuevaEucaristia" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevaEucaristia.show()">
+					<p:commandButton id="btnNuevaPartidaConfirmacion" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevaPartidaConfirmacion.show()">
 						</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:panel id="pnlBuscarEucaristia" header="#{i18n['erp.despacho.eucaristia.buscar']}">
+			<p:panel id="pnlBuscarPartidaConfirmacion" header="#{i18n['erp.despacho.partida.confirmacion.buscar']}">
 				<table class="formulario">
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtFecha" value="#{i18n['erp.despacho.eucaristia.fechahora']}" />
+							<h:outputLabel for="txtNomCom" value="#{i18n['erp.despacho.partida.confirmacion.nombres']}" />
 						</td>
 						<td width="70%">
-							<p:inputMask id="txtFecha"  mask="99/99/9999 99:99"/>
+							<p:inputText id="txtNomCom" 
+								/>
 						</td>	
 					</tr>
+					
+					
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtSacerdote" value="#{i18n['erp.despacho.eucaristia.sacerdote']}" />
+							<h:outputLabel for="txtApeCom" value="#{i18n['erp.despacho.partida.confirmacion.apellidos']}" />
 						</td>
-						<td>
-							<h:selectOneListbox for="listboxSacerdote" value="#{i18n['erp.despacho.eucaristia.sacerdote']}" />
-						</td>
+						<td width="70%">
+							<p:inputText id="txtApeCom" 
+								 />
+						</td>	
 					</tr>
-					
 				</table>
 			</p:panel>
 <p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
 					
 					value="#{i18n['label.buscar']}" 
-					process="@this,pnlBuscarEucaristia"
-					update=":formEucaristia:pnlMessages,tablaEucaristia,pnlBuscarEucaristia " />
+					process="@this,pnlBuscarPartidaConfirmacion"
+					update=":formPartidaConfirmacion:pnlMessages,tablaPartidaConfirmacion,pnlBuscarPartidaConfirmacion " />
 			</p:panel>
 
 
-<p:dataTable id="tablaEucaristia"
+<p:dataTable id="tablaPartidaConfirmacion"
 	
 	rowIndexVar="rowIndex"
 	paginator="true" rows="5" paginatorPosition="bottom"
 	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-	rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.despacho.eucaristia.lista']}">
+	rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.despacho.partida.comunion.lista']}">
 	<f:facet name="header">
-		#{i18n['erp.despacho.eucaristia.lista']}
+		#{i18n['erp.despacho.partida.comunion.lista']}
 	</f:facet>
 	<p:column headerText="#" styleClass="centered" width="5%">
 		#{rowIndex+1}
 	</p:column>
-	<p:column headerText="#{i18n['erp.despacho.eucaristia.fechahora']}" width="35%">
+	<p:column headerText="#{i18n['erp.despacho.partida.confirmacion.cedula']}" width="35%">
 					<h:outputText  />
 				</p:column>
-							
-				<p:column headerText="#{i18n['erp.despacho.eucaristia.intencion']}" width="40%">
-					<h:outputText  />
-				</p:column>
-				
-				<p:column headerText="#{i18n['erp.despacho.eucaristia.sacerdote']}" width="40%">
+				<p:column headerText="#{i18n['erp.despacho.partida.confirmacion.apellidos']}" width="40%">
 					<h:outputText  />
 				</p:column>
 				
-				<p:column headerText="#{i18n['erp.despacho.eucaristia.valor']}" width="40%">
+				<p:column headerText="#{i18n['erp.despacho.partida.confirmacion.nombres']}" width="40%">
+					<h:outputText  />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.partida.confirmacion.fecha']}" width="40%">
+					<h:outputText  />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.partida.confirmacion.lugar']}" width="40%">
+					<h:outputText  />
+				</p:column>
+				
+				
+				<p:column headerText="#{i18n['erp.despacho.partida.confirmacion.sacerdote']}" width="40%">
 					<h:outputText  />
 				</p:column>
 			
@@ -85,9 +96,9 @@
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
-							oncomplete="dlgEditarEucaristia.show()"
+							oncomplete="dlgEditarPartidaConfirmacion.show()"
 							
-							process="@this" update=":formEditarEucaristia:pnlEditarEucaristia">
+							process="@this" update=":formEditarPartidaConfirmacion:pnlEditarPartidaConfirmacion">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
 					</h:panelGroup>
@@ -95,7 +106,7 @@
 			</p:dataTable>			
 	
 	</h:form>			
-		<ui:include src="dialogNuevaEucaristia.xhtml" />
+	<ui:include src="dialogNuevaPartidaConfirmacion.xhtml" />
 		
 		
 </ui:define>		

@@ -7,11 +7,11 @@
 	template="/WEB-INF/templates/template.xhtml">
 	
 <ui:define name="title">
-		<h3><h:outputLabel	value="#{i18n['erp.despacho.eucaristia.pagina.titulo']}" /></h3>
+		<h3><h:outputLabel	value="#{i18n['erp.despacho.exhumacion.pagina.titulo']}" /></h3>
 	</ui:define>	
 	
 			<ui:define name="content">
-		<h:form id="formEucaristia">
+		<h:form id="formExhumacion">
 		
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
 			
@@ -19,65 +19,76 @@
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
 					</p:commandButton>
-					<p:commandButton id="btnNuevaEucaristia" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevaEucaristia.show()">
+					<p:commandButton id="btnNuevaExhumacion" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevaExhumacion.show()">
 						</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:panel id="pnlBuscarEucaristia" header="#{i18n['erp.despacho.eucaristia.buscar']}">
+			<p:panel id="pnlBuscarExhumacion" header="#{i18n['erp.despacho.exhumacion.buscar']}">
 				<table class="formulario">
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtFecha" value="#{i18n['erp.despacho.eucaristia.fechahora']}" />
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.despacho.exhumacion.nombres']}" />
 						</td>
-						<td width="70%">
-							<p:inputMask id="txtFecha"  mask="99/99/9999 99:99"/>
-						</td>	
+						<td>
+							<h:inputText for="txtNombre" label="#{i18n['erp.despacho.exhumacion.nombres']}" />
+						</td>
 					</tr>
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtSacerdote" value="#{i18n['erp.despacho.eucaristia.sacerdote']}" />
+							<h:outputLabel for="txtApe" value="#{i18n['erp.despacho.exhumacion.apellidos']}" />
 						</td>
 						<td>
-							<h:selectOneListbox for="listboxSacerdote" value="#{i18n['erp.despacho.eucaristia.sacerdote']}" />
+							<h:inputText for="txtApe" label="#{i18n['erp.despacho.exhumacion.apellidos']}" />
 						</td>
 					</tr>
-					
 				</table>
 			</p:panel>
 <p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
 					
 					value="#{i18n['label.buscar']}" 
-					process="@this,pnlBuscarEucaristia"
-					update=":formEucaristia:pnlMessages,tablaEucaristia,pnlBuscarEucaristia " />
+					process="@this,pnlBuscarExhumacion"
+					update=":formExhumacion:pnlMessages,tablaExhumacion,pnlBuscarExhumacion " />
 			</p:panel>
 
 
-<p:dataTable id="tablaEucaristia"
+<p:dataTable id="tablaExhumacion"
 	
 	rowIndexVar="rowIndex"
 	paginator="true" rows="5" paginatorPosition="bottom"
 	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-	rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.despacho.eucaristia.lista']}">
+	rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.despacho.exhumacion.lista']}">
 	<f:facet name="header">
-		#{i18n['erp.despacho.eucaristia.lista']}
+		#{i18n['erp.despacho.exhumacion.lista']}
 	</f:facet>
 	<p:column headerText="#" styleClass="centered" width="5%">
 		#{rowIndex+1}
 	</p:column>
-	<p:column headerText="#{i18n['erp.despacho.eucaristia.fechahora']}" width="35%">
+	<p:column headerText="#{i18n['erp.despacho.exhumacion.cedula']}" width="35%">
 					<h:outputText  />
 				</p:column>
-							
-				<p:column headerText="#{i18n['erp.despacho.eucaristia.intencion']}" width="40%">
+				<p:column headerText="#{i18n['erp.despacho.exhumacion.nombres']}" width="40%">
+					<h:outputText  />
+				</p:column>
+				<p:column headerText="#{i18n['erp.despacho.exhumacion.apellidos']}" width="40%">
+					<h:outputText  />
+				</p:column>
+				<p:column headerText="#{i18n['erp.despacho.exhumacion.fecha.exhumacion']}" width="40%">
+					<h:outputText  />
+				</p:column>
+				<p:column headerText="#{i18n['erp.despacho.exhumacion.fecha.cepelio']}" width="40%">
 					<h:outputText  />
 				</p:column>
 				
-				<p:column headerText="#{i18n['erp.despacho.eucaristia.sacerdote']}" width="40%">
+				<p:column headerText="#{i18n['erp.despacho.exhumacion.tomo']}" width="40%">
 					<h:outputText  />
 				</p:column>
 				
-				<p:column headerText="#{i18n['erp.despacho.eucaristia.valor']}" width="40%">
+				<p:column headerText="#{i18n['erp.despacho.exhumacion.acta']}" width="40%">
+					<h:outputText  />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.exhumacion.pagina']}" width="40%">
 					<h:outputText  />
 				</p:column>
 			
@@ -85,9 +96,9 @@
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
-							oncomplete="dlgEditarEucaristia.show()"
+							oncomplete="dlgEditarExhumacion.show()"
 							
-							process="@this" update=":formEditarEucaristia:pnlEditarEucaristia">
+							process="@this" update=":formEditarExhumacion:pnlEditarExhumacion">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
 					</h:panelGroup>
@@ -95,7 +106,7 @@
 			</p:dataTable>			
 	
 	</h:form>			
-		<ui:include src="dialogNuevaEucaristia.xhtml" />
+		<ui:include src="dialogNuevaExhumacion.xhtml" />
 		
 		
 </ui:define>		

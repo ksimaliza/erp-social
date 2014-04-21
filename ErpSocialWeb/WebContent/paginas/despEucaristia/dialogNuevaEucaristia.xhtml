@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpNuevaEucaristia" header="#{i18n['erp.despacho.eucaristia.registrar']}" resizable="false" draggable="false"
+		widgetVar="dlgNuevaEucaristia" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<h:form id="formNuevaEucaristia" styleClass="formulario">
+			<p:panel id="pnlNuevaEucaristia">
+				<table class="formulario">
+												
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFecha" value="#{i18n['erp.despacho.eucaristia.fechahora']}" />
+						</td>
+						<td width="70%">
+							<p:inputMask id="txtFecha" style="width: 100%"  required="true" mask="99/99/9999 99:99"/>
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtIntencion" value="#{i18n['erp.despacho.eucaristia.intencion']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtIntencion" style="width: 100%"
+								required="true" />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtSacerdote" value="#{i18n['erp.despacho.eucaristia.sacerdote']}" />
+						</td>
+						<td>
+							<h:selectOneListbox for="listboxSacerdote" value="#{i18n['erp.despacho.eucaristia.sacerdote']}" />
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtValor" value="#{i18n['erp.despacho.eucaristia.valor']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtValor" style="width: 100%" onkeypress="return isNumberKey(event)"
+								 label="#{i18n['erp.despacho.eucaristia.valor']}">
+						
+						</p:inputText>
+						</td>	
+					</tr>
+					
+					
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEucaristia.hide()"
+					process="@this,pnlNuevaEucaristia" update="pnlNuevaEucaristia,:formEucaristia:pnlMessages,:formEucaristia:tablaEucaristia"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaEucaristia.hide()" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>
