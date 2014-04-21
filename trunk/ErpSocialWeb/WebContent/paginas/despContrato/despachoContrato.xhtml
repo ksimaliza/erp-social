@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	
+<ui:define name="title">
+		<h3><h:outputLabel	value="#{i18n['erp.despacho.contrato.pagina.titulo']}" /></h3>
+	</ui:define>	
+	
+			<ui:define name="content">
+		<h:form id="formContrato">
+		
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
+					</p:commandButton>
+					<p:commandButton id="btnNuevoContrato" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevoContrato.show()">
+						</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panel id="pnlBuscarContrato" header="#{i18n['erp.despacho.contrato.buscar']}">
+				<table class="formulario">
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.despacho.contrato.nombres']}" />
+						</td>
+						<td>
+							<h:inputText for="txtNombre" label="#{i18n['erp.despacho.contrato.nombres']}" />
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApe" value="#{i18n['erp.despacho.contrato.apellidos']}" />
+						</td>
+						<td>
+							<h:inputText for="txtApe" label="#{i18n['erp.despacho.contrato.apellidos']}" />
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombreBen" value="#{i18n['erp.despacho.contrato.nombres.beneficiario']}" />
+						</td>
+						<td>
+							<h:inputText for="txtNombreBen" label="#{i18n['erp.despacho.contrato.nombres.beneficiario']}" />
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApeBen" value="#{i18n['erp.despacho.contrato.apellidos.beneficiario']}" />
+						</td>
+						<td>
+							<h:inputText for="txtApeBen" label="#{i18n['erp.despacho.contrato.apellidos.beneficiario']}" />
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscarContrato"
+					update=":formContrato:pnlMessages,tablaContrato,pnlBuscarContrato " />
+			</p:panel>
+
+
+<p:dataTable id="tablaContrato"
+	
+	rowIndexVar="rowIndex"
+	paginator="true" rows="5" paginatorPosition="bottom"
+	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.despacho.contrato.lista']}">
+	<f:facet name="header">
+		#{i18n['erp.despacho.contrato.lista']}
+	</f:facet>
+	<p:column headerText="#" styleClass="centered" width="5%">
+		#{rowIndex+1}
+	</p:column>
+	<p:column headerText="#{i18n['erp.despacho.contrato.cedula']}" width="35%">
+					<h:outputText  />
+				</p:column>
+				<p:column headerText="#{i18n['erp.despacho.contrato.cedula.beneficiario']}" width="40%">
+					<h:outputText  />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.contrato.nombres.beneficiario']}" width="40%">
+					<h:outputText  />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.contrato.apellidos.beneficiario']}" width="40%">
+					<h:outputText  />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.contrato.fecha.inicio']}" width="40%">
+					<h:outputText  />
+				</p:column>
+			
+			<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.editar']}"
+							oncomplete="dlgEditarContrato.show()"
+							
+							process="@this" update=":formEditarContrato:pnlEditarContrato">
+							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+						</p:commandLink>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.editar']}"
+							oncomplete="dlgNuevoPagoContrato.show()"
+							
+							process="@this" update=":formNuevoPagoContrato:pnlNuevoPagoContrato">
+							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+						</p:commandLink>
+					</h:panelGroup>
+					</p:column>
+			</p:dataTable>			
+	
+	</h:form>			
+		<ui:include src="dialogNuevoContrato.xhtml" />
+		
+		
+</ui:define>		
+	
+</ui:composition>

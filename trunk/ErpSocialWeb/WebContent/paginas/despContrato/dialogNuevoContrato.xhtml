@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpNuevoContrato" header="#{i18n['erp.despacho.contrato.registrar']}" resizable="false" draggable="false"
+		widgetVar="dlgNuevoContrato" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<h:form id="formNuevoContrato" styleClass="formulario">
+			<p:panel id="pnlNuevoContrato">
+				<table class="formulario">
+												
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCi" value="#{i18n['erp.despacho.contrato.cedula']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCi" style="width: 70%" 
+								 required="true" >
+							<f:validateLength maximum="10" minimum="10"/>
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+						</p:inputText>
+						</td>	
+					</tr>
+											
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombres" value="#{i18n['erp.despacho.contrato.nombres']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombres" label="#{i18n['erp.despacho.contrato.nombres']}" style="width: 70%"/>
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApellidos" value="#{i18n['erp.despacho.contrato.apellidos']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApellidos" label="#{i18n['erp.despacho.contrato.apellidos']}" style="width: 70%" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCiBen" value="#{i18n['erp.despacho.contrato.cedula.beneficiario']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCiBen" style="width: 70%" 
+								 required="true" >
+							<f:validateLength maximum="10" minimum="10"/>
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+						</p:inputText>
+						</td>	
+					</tr>
+											
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombresBen" value="#{i18n['erp.despacho.contrato.nombres.beneficiario']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombresBen" label="#{i18n['erp.despacho.contrato.nombres.beneficiario']}" style="width: 70%"/>
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApellidosBen" value="#{i18n['erp.despacho.contrato.apellidos.beneficiario']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApellidosBen" label="#{i18n['erp.despacho.contrato.apellidos.beneficiario']}" style="width: 70%" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFechaInicio" value="#{i18n['erp.despacho.contrato.fecha.inicio']}" />
+						</td>
+						<td width="70%">
+							<p:calendar id="txtFechaInicio" style="width: 70%" navigator="true"   showOn="button" required="true"/>
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFechaFinalizacion" value="#{i18n['erp.despacho.contrato.fecha.fin']}" />
+						</td>
+						<td width="70%">
+							<p:calendar id="txtFechaFinalizacion" style="width: 70%" navigator="true"   showOn="button" required="true"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtTipo" value="#{i18n['erp.despacho.contrato.tipo']}" />
+						</td>
+						<td width="70%">
+							<h:selectOneListbox id="listboxTipo" value="#{i18n['erp.despacho.contrato.tipo']}" style="width: 70%" />
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtSeccionNicho" value="#{i18n['erp.despacho.contrato.seccion.nicho']}" />
+						</td>
+						<td width="70%">
+							<h:selectOneListbox id="listboxSeccionNicho" value="#{i18n['erp.despacho.contrato.seccion.nicho']}" style="width: 70%" />
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNumNicho" value="#{i18n['erp.despacho.contrato.numero.nicho']}" />
+						</td>
+						<td width="70%">
+							<h:selectOneListbox id="listboxNumNicho" value="#{i18n['erp.despacho.contrato.numero.nicho']}" style="width: 70%" />
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtTipoNicho" value="#{i18n['erp.despacho.contrato.tipo.nicho']}" />
+						</td>
+						<td width="70%">
+							<h:selectOneListbox id="listboxTipoNicho" value="#{i18n['erp.despacho.contrato.tipo.nicho']}" style="width: 70%" />
+						</td>
+					</tr>
+					
+									
+												
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNivelNicho" value="#{i18n['erp.despacho.contrato.nivel.nicho']}" />
+						</td>
+						<td width="70%">
+							<h:selectOneListbox for="listboxNivelNicho" value="#{i18n['erp.despacho.contrato.nivel.nicho']}" style="width: 70%"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtAñosArrend" value="#{i18n['erp.despacho.contrato.anios.arrendamiento']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtAñosArrend" style="width: 70%" 
+								 label="#{i18n['erp.despacho.contrato.anios.arrendamiento']}">
+						</p:inputText>
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFormaPago" value="#{i18n['erp.despacho.contrato.forma.pago']}" />
+						</td>
+						<td width="70%">
+							<h:selectOneListbox for="listboxFormaPago" value="#{i18n['erp.despacho.contrato.forma.pago']}" style="width: 70%"/>
+						</td>
+					</tr>
+					
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtObs" value="#{i18n['erp.despacho.contrato.observacion']}" />
+						</td>
+						<td width="70%">
+							<p:inputTextarea id="txtObs" style="width: 70%" 
+								 label="#{i18n['erp.despacho.contrato.observacion']}">
+						</p:inputTextarea>
+						</td>	
+					</tr>
+					
+									
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgContrato.hide()"
+					process="@this,pnlNuevoContrato" update="pnlNuevoContrato,:formContrato:pnlMessages,:formContrato:tablaContrato"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoContrato.hide()" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>

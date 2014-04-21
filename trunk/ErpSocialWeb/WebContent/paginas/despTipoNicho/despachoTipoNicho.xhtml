@@ -7,11 +7,11 @@
 	template="/WEB-INF/templates/template.xhtml">
 	
 <ui:define name="title">
-		<h3><h:outputLabel	value="#{i18n['erp.despacho.eucaristia.pagina.titulo']}" /></h3>
+		<h3><h:outputLabel	value="#{i18n['erp.despacho.tipo.nicho.pagina.titulo']}" /></h3>
 	</ui:define>	
 	
 			<ui:define name="content">
-		<h:form id="formEucaristia">
+		<h:form id="formTipoNicho">
 		
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
 			
@@ -19,75 +19,59 @@
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
 					</p:commandButton>
-					<p:commandButton id="btnNuevaEucaristia" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevaEucaristia.show()">
+					<p:commandButton id="btnNuevoTipoNicho" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevoTipoNicho.show()">
 						</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:panel id="pnlBuscarEucaristia" header="#{i18n['erp.despacho.eucaristia.buscar']}">
+			<p:panel id="pnlBuscarTipoNicho" header="#{i18n['erp.despacho.tipo.nicho.buscar']}">
 				<table class="formulario">
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtFecha" value="#{i18n['erp.despacho.eucaristia.fechahora']}" />
+							<h:outputLabel for="txtNomTipoNicho" value="#{i18n['erp.despacho.tipo.nicho.nombre']}" />
 						</td>
 						<td width="70%">
-							<p:inputMask id="txtFecha"  mask="99/99/9999 99:99"/>
+							<p:inputText id="txtNomTipoNicho"  />
 						</td>	
 					</tr>
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtSacerdote" value="#{i18n['erp.despacho.eucaristia.sacerdote']}" />
-						</td>
-						<td>
-							<h:selectOneListbox for="listboxSacerdote" value="#{i18n['erp.despacho.eucaristia.sacerdote']}" />
-						</td>
-					</tr>
-					
+										
 				</table>
 			</p:panel>
 <p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
 					
 					value="#{i18n['label.buscar']}" 
-					process="@this,pnlBuscarEucaristia"
-					update=":formEucaristia:pnlMessages,tablaEucaristia,pnlBuscarEucaristia " />
+					process="@this,pnlBuscarTipoNicho"
+					update=":formTipoNicho:pnlMessages,tablaTipoNicho,pnlBuscarTipoNicho " />
 			</p:panel>
 
 
-<p:dataTable id="tablaEucaristia"
+<p:dataTable id="tablaTipoNicho"
 	
 	rowIndexVar="rowIndex"
 	paginator="true" rows="5" paginatorPosition="bottom"
 	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-	rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.despacho.eucaristia.lista']}">
+	rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.despacho.tipo.nicho.lista']}">
 	<f:facet name="header">
-		#{i18n['erp.despacho.eucaristia.lista']}
+		#{i18n['erp.despacho.tipo.nicho.lista']}
 	</f:facet>
 	<p:column headerText="#" styleClass="centered" width="5%">
 		#{rowIndex+1}
 	</p:column>
-	<p:column headerText="#{i18n['erp.despacho.eucaristia.fechahora']}" width="35%">
+	<p:column headerText="#{i18n['erp.despacho.tipo.nicho.nombre']}" width="35%">
 					<h:outputText  />
 				</p:column>
 							
-				<p:column headerText="#{i18n['erp.despacho.eucaristia.intencion']}" width="40%">
+				<p:column headerText="#{i18n['erp.despacho.tipo.nicho.descripcion']}" width="40%">
 					<h:outputText  />
 				</p:column>
-				
-				<p:column headerText="#{i18n['erp.despacho.eucaristia.sacerdote']}" width="40%">
-					<h:outputText  />
-				</p:column>
-				
-				<p:column headerText="#{i18n['erp.despacho.eucaristia.valor']}" width="40%">
-					<h:outputText  />
-				</p:column>
-			
+											
 			<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
-							oncomplete="dlgEditarEucaristia.show()"
+							oncomplete="dlgEditarTipoNicho.show()"
 							
-							process="@this" update=":formEditarEucaristia:pnlEditarEucaristia">
+							process="@this" update=":formEditarTipoNicho:pnlEditarTipoNicho">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
 					</h:panelGroup>
@@ -95,7 +79,7 @@
 			</p:dataTable>			
 	
 	</h:form>			
-		<ui:include src="dialogNuevaEucaristia.xhtml" />
+		<ui:include src="dialogNuevoTipoNicho.xhtml" />
 		
 		
 </ui:define>		

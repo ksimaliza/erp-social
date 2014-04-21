@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	
+<ui:define name="title">
+		<h3><h:outputLabel	value="#{i18n['erp.despacho.partida.matrimonio.pagina.titulo']}" /></h3>
+	</ui:define>	
+	
+	<ui:define name="content">
+		<h:form id="formPartidaMatrimonio">
+		
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
+					</p:commandButton>
+					<p:commandButton id="btnNuevaPartidaMatrimonio" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevaPartidaMatrimonio.show()">
+						</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panel id="pnlBuscarPartidaMatrimonio" header="#{i18n['erp.despacho.partida.matrimonio.buscar']}">
+				<table class="formulario">
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNom" value="#{i18n['erp.despacho.partida.matrimonio.nombresnovia']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNom" 
+								/>
+						</td>	
+					</tr>
+					
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApe" value="#{i18n['erp.despacho.partida.matrimonio.apellidosnovia']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApe" 
+								 />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNomCom" value="#{i18n['erp.despacho.partida.matrimonio.nombresnovio']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNomCom" 
+								/>
+						</td>	
+					</tr>
+					
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApeCom" value="#{i18n['erp.despacho.partida.matrimonio.apellidosnovio']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApeCom" 
+								 />
+						</td>	
+					</tr>
+				</table>
+			</p:panel>
+<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscarPartidaMatrimonio"
+					update=":formPartidaMatrimonio:pnlMessages,tablaPartidaMatrimonio,pnlBuscarPartidaMatrimonio " />
+			</p:panel>
+
+
+<p:dataTable id="tablaPartidaMatrimonio"
+	
+	rowIndexVar="rowIndex"
+	paginator="true" rows="5" paginatorPosition="bottom"
+	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.despacho.partida.comunion.lista']}">
+	<f:facet name="header">
+		#{i18n['erp.despacho.partida.comunion.lista']}
+	</f:facet>
+	<p:column headerText="#" styleClass="centered" width="5%">
+		#{rowIndex+1}
+	</p:column>
+	
+				<p:column headerText="#{i18n['erp.despacho.partida.matrimonio.apellidosnovio']}" width="40%">
+					<h:outputText  />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.partida.matrimonio.nombresnovio']}" width="40%">
+					<h:outputText  />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.partida.matrimonio.apellidosnovia']}" width="40%">
+					<h:outputText  />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.partida.matrimonio.nombresnovia']}" width="40%">
+					<h:outputText  />
+				</p:column>
+								<p:column headerText="#{i18n['erp.despacho.partida.matrimonio.fecha']}" width="40%">
+					<h:outputText  />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.partida.matrimonio.lugar']}" width="40%">
+					<h:outputText  />
+				</p:column>
+				
+				
+				<p:column headerText="#{i18n['erp.despacho.partida.matrimonio.sacerdote']}" width="40%">
+					<h:outputText  />
+				</p:column>
+			
+			<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.editar']}"
+							oncomplete="dlgEditarPartidaMatrimonio.show()"
+							
+							process="@this" update=":formEditarPartidaMatrimonio:pnlEditarPartidaMatrimonio">
+							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+						</p:commandLink>
+					</h:panelGroup>
+					</p:column>
+			</p:dataTable>			
+	
+	</h:form>			
+	<ui:include src="dialogNuevaPartidaMatrimonio.xhtml" />
+		
+		
+</ui:define>		
+	
+</ui:composition>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpNuevaDefuncion" header="#{i18n['erp.despacho.defuncion.registrar']}" resizable="false" draggable="false"
+		widgetVar="dlgNuevaDefuncion" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<h:form id="formNuevaDefuncion" styleClass="formulario">
+			<p:panel id="pnlNuevaDefuncion">
+				<table class="formulario">
+												
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCi" value="#{i18n['erp.despacho.defuncion.cedula']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCi" style="width: 70%" 
+								 required="true" >
+							<f:validateLength maximum="10" minimum="10"/>
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+						</p:inputText>
+						</td>	
+					</tr>
+											
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombres" value="#{i18n['erp.despacho.defuncion.nombres']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombres" label="#{i18n['erp.despacho.defuncion.nombres']}" style="width: 70%"/>
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApellidos" value="#{i18n['erp.despacho.defuncion.apellidos']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApellidos" label="#{i18n['erp.despacho.defuncion.apellidos']}" style="width: 70%" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtEstadoCivil" value="#{i18n['erp.despacho.defuncion.estado.civil']}" />
+						</td>
+						<td width="70%">
+							<h:selectOneListbox id="listboxEstadoCivil" value="#{i18n['erp.despacho.defuncion.estado.civil']}" style="width: 70%" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtConyuge" value="#{i18n['erp.despacho.defuncion.conyuge']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtConyuge" style="width: 70%" 
+								 label="#{i18n['erp.despacho.defuncion.conyuge']}">
+						</p:inputText>
+						</td>	
+					</tr>
+					
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtSacerdote" value="#{i18n['erp.despacho.defuncion.sacerdote']}" />
+						</td>
+						<td width="70%">
+							<h:selectOneListbox for="listboxSacerdote" value="#{i18n['erp.despacho.defuncion.sacerdote']}" style="width: 70%"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCausaMuerte" value="#{i18n['erp.despacho.defuncion.causa.muerte']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCausaMuerte" style="width: 70%" 
+								 label="#{i18n['erp.despacho.defuncion.causa.muerte']}">
+						</p:inputText>
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFechaFallecimiento" value="#{i18n['erp.despacho.defuncion.fecha.muerte']}" />
+						</td>
+						<td width="70%">
+							<p:calendar id="txtFechaFallecimiento" style="width: 70%" navigator="true"   showOn="button" required="true"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFechaCepelio" value="#{i18n['erp.despacho.defuncion.fecha.cepelio']}" />
+						</td>
+						<td width="70%">
+							<p:calendar id="txtFechaCepelio" style="width: 70%" navigator="true"   showOn="button" required="true"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtDoctor" value="#{i18n['erp.despacho.defuncion.doctor']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtDoctor" style="width: 70%" 
+								 label="#{i18n['erp.despacho.defuncion.doctor']}">
+						</p:inputText>
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtProvincia" value="#{i18n['erp.despacho.defuncion.provincia.muerte']}" />
+						</td>
+						<td width="70%">
+							<h:selectOneListbox for="listBoxProvincia" value="#{i18n['erp.despacho.defuncion.provincia.muerte']}" style="width: 70%" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCanton" value="#{i18n['erp.despacho.defuncion.canton.muerte']}" />
+						</td>
+						<td width="70%">
+							<h:selectOneListbox for="listBoxCanton" value="#{i18n['erp.despacho.defuncion.canton.muerte']}" style="width: 70%" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtParroquia" value="#{i18n['erp.despacho.defuncion.parroquia.muerte']}" />
+						</td>
+						<td width="70%">
+							<h:selectOneListbox for="listBoxParroquia" value="#{i18n['erp.despacho.defuncion.parroquia.muerte']}" style="width: 70%" />
+						</td>
+					</tr>
+					
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtTomo" value="#{i18n['erp.despacho.defuncion.tomo']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtTomo" style="width: 70%" 
+								 label="#{i18n['erp.despacho.defuncion.tomo']}">
+						</p:inputText>
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtActa" value="#{i18n['erp.despacho.defuncion.acta']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtActa" style="width: 70%" 
+								 label="#{i18n['erp.despacho.defuncion.acta']}">
+						</p:inputText>
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtPagina" value="#{i18n['erp.despacho.defuncion.pagina']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtPagina" style="width: 70%" 
+								onkeypress="return isNumberKey(event)" label="#{i18n['erp.despacho.defuncion.pagina']}">
+						</p:inputText>
+						</td>	
+					</tr>
+					
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgDefuncion.hide()"
+					process="@this,pnlNuevaDefuncion" update="pnlNuevaDefuncion,:formDefuncion:pnlMessages,:formDefuncion:tablaDefuncion"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaDefuncion.hide()" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>
