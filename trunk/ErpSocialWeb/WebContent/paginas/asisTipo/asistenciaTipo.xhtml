@@ -7,12 +7,12 @@
 	template="/WEB-INF/templates/template.xhtml">
 	
 	<ui:define name="title">
-		<h3><h:outputLabel	value="#{i18n['erp.asistencia.parametro.pagina.titulo']}" /></h3>
+		<h3><h:outputLabel	value="#{i18n['erp.asistencia.tipo.pagina.titulo']}" /></h3>
 	</ui:define>	
 
 	
 	<ui:define name="content">
-		<h:form id="formParametro">
+		<h:form id="formTipo">
 		
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
 			
@@ -20,16 +20,18 @@
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
 					</p:commandButton>
+					<p:commandButton id="btnNuevoTipo" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevoTipo.show()">
+						</p:commandButton>
 					</p:toolbarGroup>
 			</p:toolbar>
 			
-			<p:panel id="pnlBuscar" header="#{i18n['erp.asistencia.parametro.buscar']}">
+			<p:panel id="pnlBuscar" header="#{i18n['erp.asistencia.tipo.buscar']}">
 				<table class="formulario">
 					<tr >
-						<td width="30%"><h:outputLabel value="#{i18n['erp.asistencia.parametro.descripcion']}" /> </td>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.asistencia.tipo.descripcion']}" /> </td>
 					<td width="70%">
 							<p:inputText id="txtDescripBuscar"
-								value="#{parametroAsistenciaDataManager.parametroBuscar.pasDescripcion}" />
+								value="#{tipoDataManager.tipoBuscar.tipDescripcion}" />
 						</td>
 					
 					</tr>
@@ -39,42 +41,36 @@
 
 			<p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
-					actionListener="#{parametroAsistenciaController.buscarParametros()}"
+					actionListener="#{tipoController.buscarTipo}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscar"
-					update=":formParametro:pnlMessages,tabla,pnlBuscar" />
+					update=":formTipo:pnlMessages,tabla,pnlBuscar" />
 			</p:panel>
 
 
 			<p:dataTable id="tabla"  rowIndexVar="rowIndex" paginator="true" rows="5" paginatorPosition="bottom"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.asistencia.parametro.lista']}" value="#{parametroAsistenciaDataManager.listParametro}" var="par">
+				rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.asistencia.tipo.lista']}" value="#{tipoDataManager.listTipo}" var="tipo">
 				
 				<f:facet name="header">
-					#{i18n['erp.asistencia.parametro.lista']}
+					#{i18n['erp.asistencia.tipo.lista']}
 				</f:facet>
 				<p:column headerText="#" styleClass="centered" width="5%">
 					#{rowIndex+1}
 				</p:column>
 
-				<p:column headerText="#{i18n['erp.asistencia.parametro.descripcion']}" width="40%">
-					<h:outputText value="#{par.pasDescripcion}" />
+				<p:column headerText="#{i18n['erp.asistencia.tipo.descripcion']}" width="40%">
+					<h:outputText value="#{tipo.tipDescripcion}" />
 				</p:column>								
 
-				<p:column headerText="#{i18n['erp.asistencia.parametro.valor']}" width="35%">
-						<h:outputText value="#{par.pasValor}" />
-				</p:column>
-				
-				<p:column headerText="#{i18n['erp.asistencia.parametro.entidad']}" width="40%">
-					<h:outputText value="#{par.pasEntidad}" />
-				</p:column>				
+							
 		<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
-							oncomplete="dlgEditarParametro.show()"
-							actionListener="#{parametroAsistenciaController.cargarDatosParametro(par)}"
-							process="@this" update=":formEditarParametro:pnlEditarParametro">
+							oncomplete="dlgEditarTipo.show()"
+							actionListener="#{tipoController.cargarDatosTipo(tipo)}"
+							process="@this" update=":formEditarTipo:pnlEditarTipo">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
 					</h:panelGroup>
@@ -82,7 +78,8 @@
 			</p:dataTable>			
 	
 </h:form>			
-			<ui:include src="dialogEditarParametro.xhtml" />	
+			<ui:include src="dialogNuevoTipo.xhtml" />
+			<ui:include src="dialogEditarTipo.xhtml" />
 		
 	</ui:define>
 </ui:composition>

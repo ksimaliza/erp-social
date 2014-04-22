@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpNuevoTipo" header="#{i18n['erp.asistencia.tipo.registrar']}" resizable="false" draggable="false"
+		widgetVar="dlgNuevoTipo" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<h:form id="formNuevoTipo" styleClass="formulario">
+			<p:panel id="pnlNuevoTipo">
+				<table class="formulario">
+					
+									
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtDescrip" value="#{i18n['erp.asistencia.tipo.descripcion']}" />
+							
+						</td>
+						<td width="70%">
+							<p:inputTextarea id="txtDescrip" style="width: 100%" value="#{tipoDataManager.tipoInsertar.tipDescripcion}"
+								required="true" label="#{i18n['erp.asistencia.tipo.descripcion']}" />
+							
+						</td>
+					</tr>
+					
+									
+					
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}" actionListener="#{tipoController.registrarTipo}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoTipo.hide()"
+					process="@this,pnlNuevoTipo" update="pnlNuevoTipo,:formTipo:pnlMessages,:formTipo:tabla"/>
+					
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoTipo.hide();" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>
