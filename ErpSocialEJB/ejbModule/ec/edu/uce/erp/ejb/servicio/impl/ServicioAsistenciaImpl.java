@@ -25,6 +25,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioEmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.RegistroDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.TipoDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EmpleadoVO;
@@ -249,6 +250,20 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		
 	}
 			
+	
+	@Override
+	public List<PermisoListDTO> readPermiso(PermisoListDTO permiso) throws SeguridadesException {
+		slf4jLogger.info("readPermiso");
+		List<PermisoListDTO> listResultado = null;
+		try {
+			listResultado = asistenciaFactoryDAO.getPermisoDAOImpl().findAll(permiso);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al readFalta {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener falta de la base de datos");
+		}
+		return listResultado;
+	}
+
 	
 	/*RegistroAsistencia*/
 	@Override

@@ -13,6 +13,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioEmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.RegistroDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.TipoDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EmpleadoVO;
@@ -75,6 +76,9 @@ public interface ServicioAsistencia {
 
 	RegistroDTO createOrUpdateRegistroAsistencia(
 			RegistroAsistenciaVO registroAsistencia)
+			throws SeguridadesException;
+
+	List<PermisoListDTO> readPermiso(PermisoListDTO permiso)
 			throws SeguridadesException;
 
 
