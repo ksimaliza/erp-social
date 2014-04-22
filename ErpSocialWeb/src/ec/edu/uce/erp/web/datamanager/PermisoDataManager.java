@@ -34,6 +34,8 @@ public class PermisoDataManager extends BaseDataManager{
 	
 	private PermisoListDTO permisoBuscar;
 	
+	private List<PermisoListDTO> permisoList;
+ 	
 	private Date fechaPermiso;
 	
 	private Object empleadoCodigo;
@@ -47,6 +49,8 @@ public class PermisoDataManager extends BaseDataManager{
 		permisoBuscar=new PermisoListDTO();
 		
 		empleadoList=new ArrayList<EmpleadoListDTO>();
+		
+		permisoList=new ArrayList<PermisoListDTO>();
 	}
 
 	public PermisoDTO getPermiso() {
@@ -95,6 +99,14 @@ public class PermisoDataManager extends BaseDataManager{
 
 	public void setEmpleado(EmpleadoDTO empleado) {
 		this.empleado = empleado;
+	}
+
+	public List<PermisoListDTO> getPermisoList() {
+		return permisoList;
+	}
+
+	public void setPermisoList(List<PermisoListDTO> permisoList) {
+		this.permisoList = permisoList;
 	}
 
 	
