@@ -11,4 +11,27 @@
 	</ui:define>	
 
 
+	<ui:define name="content">
+		<h:form id="formFalta">
+		
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+
+			<table>
+				<tr>
+					<td>
+						<h:outputText value="Dia no laboral:" />
+					</td>
+					<td>
+						<p:commandButton value="Sabados y Domingos"/>
+					</td>
+				</tr>
+			</table>
+					
+			<p:schedule id="schedule" value="#{scheduleController.eventModel}" widgetVar="myschedule">
+							
+			</p:schedule>
+			
+		</h:form>
+		</ui:define>
+
 </ui:composition>
