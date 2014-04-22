@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.PermisoVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAsistencia;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
@@ -25,7 +26,8 @@ import ec.edu.uce.erp.web.datamanager.PermisoDataManager;
 @ViewScoped
 @ManagedBean (name = "permisoController")
 public class PermisoController {
-private static final Logger slf4jLogger = LoggerFactory.getLogger(PermisoController.class);
+	
+	private static final Logger slf4jLogger = LoggerFactory.getLogger(PermisoController.class);
 	
 	@EJB
 	private ServicioAsistencia servicioAsistencia;
@@ -90,6 +92,23 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PermisoControl
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 	}
-	
+
+	public void buscar() {
+		slf4jLogger.info("buscar");
+		List<PermisoListDTO> listResultado=new ArrayList<PermisoListDTO>();
+		try {
+			listResultado = this.servicioAsistencia.readPermiso(permisoDataManager.getPermisoBuscar());
+			
+			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.permisoDataManager.setPermisoList(listResultado);
+			}
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscar el empleado {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+	}
+
 	
 }
