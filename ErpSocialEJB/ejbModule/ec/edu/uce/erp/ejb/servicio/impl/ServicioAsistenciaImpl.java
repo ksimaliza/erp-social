@@ -24,6 +24,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioEmpleadoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.ParametroDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.RegistroDTO;
@@ -411,6 +412,19 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 	
 	
 	@Override
+	public List<TipoDTO> buscarTipo(TipoDTO tipo) throws SeguridadesException {
+		List<TipoDTO> listTipo = null;
+		try {
+			listTipo = asistenciaFactoryDAO.getTipoDAOImpl().buscarTodos();
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarTipo {}" , e.getMessage());
+			throw new SeguridadesException(e);
+		}
+		return listTipo;
+	}
+	
+	
+	@Override
 	public void deleteTipo(TipoDTO tipoDTO) throws SeguridadesException
 	{
 		slf4jLogger.info("deleteTipo");
@@ -425,6 +439,20 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		}
 		
 	}
+	
+	
+	
+	@Override
+	public TipoDTO obtenerTipoPorId(Integer id) throws SeguridadesException {
+		slf4jLogger.info("obtenerTipoPorId");
+		
+		TipoDTO tipo=new TipoDTO();
+		
+		tipo = asistenciaFactoryDAO.getTipoDAOImpl().find(id);
+		
+		return tipo;
+	}
+
 
 
 	@Override
@@ -433,5 +461,47 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public List<ParametroDTO> buscarParametro(ParametroDTO parametro) throws SeguridadesException {
+		List<ParametroDTO> listParametro = null;
+		try {
+			listParametro = asistenciaFactoryDAO.getParametroDAOImpl().buscarTodos();
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarParametrosCriterios {}" , e.getMessage());
+			throw new SeguridadesException(e);
+		}
+		return listParametro;
+	}
 
+	@Override
+	@TransactionAttribute (TransactionAttributeType.REQUIRED)
+	public ParametroDTO actualizarParametroAsistencia(ParametroDTO parametro) throws SeguridadesException {
+		ParametroDTO parametroUpdate = null;
+		
+		try {
+			parametroUpdate = asistenciaFactoryDAO.getParametroDAOImpl().update(parametro);
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al actualizarParametro {}" , e.getMessage());
+			throw new SeguridadesException(e);
+		}
+		
+		return parametroUpdate;
+	}
+	
+	@Override
+	public ParametroDTO obtenerParametroPorId(Integer id) throws SeguridadesException {
+		slf4jLogger.info("obtenerParametroPorId");
+		
+		ParametroDTO par=new ParametroDTO();
+		
+		par = asistenciaFactoryDAO.getParametroDAOImpl().find(id);
+		
+		return par;
+	}
+	
 }
+	
+
+

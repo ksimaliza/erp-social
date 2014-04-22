@@ -10,7 +10,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.EmpleadoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.FaltaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HorarioDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HorarioEmpleadoDAO;
-import ec.edu.uce.erp.ejb.persistence.dao.ParametroDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.ParametroAsistenciaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PermisoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.RegistroDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.TipoDAO;
@@ -19,7 +19,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.impl.EmpleadoDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.FaltaDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.HorarioDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.HorarioEmpleadoDAOImpl;
-import ec.edu.uce.erp.ejb.persistence.dao.impl.ParametroDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.ParametroAsistenciaDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.PermisoDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.RegistroDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.TipoDAOImpl;
@@ -35,7 +35,7 @@ public class AsistenciaFactoryDAOImpl implements AsistenciaFactoryDAO {
 	private FaltaDAO faltaDAO;
 	private HorarioDAO horarioDAO;
 	private HorarioEmpleadoDAO horarioempleadoDAO;
-	private ParametroDAO parametroDAO;
+	private ParametroAsistenciaDAO parametroDAO;
 	private PermisoDAO permisoDAO;
 	private RegistroDAO registroDAO;
 	private TipoDAO tipoDAO;
@@ -87,10 +87,10 @@ public class AsistenciaFactoryDAOImpl implements AsistenciaFactoryDAO {
 	}
 	
 	@Override
-	public ParametroDAO getParametroDAOImpl()
+	public ParametroAsistenciaDAO getParametroDAOImpl()
 	{
 		if (parametroDAO == null) {
-			parametroDAO = new ParametroDAOImpl(entityManager);
+			parametroDAO = new ParametroAsistenciaDAOImpl(entityManager);
 		}
 		return parametroDAO;
 	}
