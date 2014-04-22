@@ -242,28 +242,38 @@
 							<h:outputLabel for="txtProv" value="#{i18n['erp.despacho.partida.bautizo.provincia']}" />
 						</td>
 						<td>
-							<p:inputText id="listboxProvincia" label="#{i18n['erp.despacho.partida.bautizo.provincia']}" />
+							<p:selectOneMenu id="sumProvincia"  filter="true" required="true">
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								
+							</p:selectOneMenu>
 						</td>
 					</tr>
-					
-					
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtCiudad" value="#{i18n['erp.despacho.partida.bautizo.ciudad']}" />
-						</td>
-						<td>
-							<p:inputText id="txtCiudad" label="#{i18n['erp.despacho.partida.bautizo.ciudad']}" />
-						</td>
-					</tr>					
 					
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtCanton" value="#{i18n['erp.despacho.partida.bautizo.canton']}" />
 						</td>
 						<td>
-							<p:inputText id="txtCanton" label="#{i18n['erp.despacho.partida.bautizo.canton']}" />
+							<p:selectOneMenu id="Canton"  filter="true" required="true">
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								
+							</p:selectOneMenu>
 						</td>
-					</tr>		
+					</tr>	
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCiudad" value="#{i18n['erp.despacho.partida.bautizo.ciudad']}" />
+						</td>
+						<td>
+							<p:selectOneMenu id="Ciudad"  filter="true" required="true">
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								
+							</p:selectOneMenu>
+						</td>
+					</tr>					
+					
+						
 					
 					
 					<tr>
@@ -271,9 +281,10 @@
 							<h:outputLabel for="txtFechaBautizo" value="#{i18n['erp.despacho.partida.bautizo.fecha.bautizo']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtFechaBautizo"   required="true"/>
-						</td>	
-					</tr>			
+							<p:calendar id="FechaBautizo" style="width: 100%" required="true" showOn="button" label="#{i18n['erp.despacho.partida.bautizo.fecha.bautizo']}" />
+						</td>
+					</tr>
+								
 				</table>
 			</p:panel>
 		

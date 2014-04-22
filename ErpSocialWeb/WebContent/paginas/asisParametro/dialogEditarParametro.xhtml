@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpEditarParametro" header="#{i18n['erp.asistencia.parametro.editar']}" resizable="false" draggable="false"
+		widgetVar="dlgEditarParametro" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<h:form id="formEditarParametro" styleClass="formulario">
+			<p:panel id="pnlEditarParametro">
+				<table class="formulario">
+					
+									
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtDescrip" value="#{i18n['erp.asistencia.parametro.descripcion']}" />
+							
+						</td>
+						<td width="70%">
+							<p:inputTextarea id="txtDescrip" style="width: 100%" value="#{parametroAsistenciaDataManager.parametroActualizar.pasDescripcion}"
+								required="true" label="#{i18n['erp.asistencia.parametro.descripcion']}" />
+							
+						</td>
+					</tr>
+					
+										
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtValor" value="#{i18n['erp.asistencia.parametro.valor']}" />
+							
+						</td>
+						<td width="70%">
+							<p:inputText id="txtValor" style="width: 100%" value="#{parametroAsistenciaDataManager.parametroActualizar.pasValor}"
+								required="true" label="#{i18n['erp.asistencia.parametro.valor']}" />
+							 	
+						</td>
+					</tr>
+					
+										
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtEntidad" value="#{i18n['erp.asistencia.parametro.entidad']}" />
+							
+						</td>
+						<td width="70%">
+							<p:inputText id="txtEntidad" style="width: 100%" value="#{parametroAsistenciaDataManager.parametroActualizar.pasEntidad}"
+								required="true" label="#{i18n['erp.asistencia.parametro.entidad']}" />
+								
+						</td>
+					</tr>
+					
+					
+					
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}" actionListener="#{parametroAsistenciaController.actualizarParametro}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarParametro.hide()"
+					process="@this,pnlEditarParametro" update="pnlEditarParametro,:formParametro:pnlMessages,:formParametro:tabla"/>
+					
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarParametro.hide();" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>
