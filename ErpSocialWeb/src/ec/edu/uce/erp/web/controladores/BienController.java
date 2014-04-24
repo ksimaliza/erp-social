@@ -53,6 +53,7 @@ public class BienController extends BaseController{
 		
 		try {
 			
+			this.bienDataManager.getBienInstancia().setEmrPk(this.bienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
 			this.bienDataManager.getBienInstancia().setCatBienPk(this.bienDataManager.getIdCategoriaBienSeleccionado());
 			this.bienDataManager.getBienInstancia().setLinBienPk(this.bienDataManager.getIdLineaBienSeleccionado());
 			Bien nuevoBien = servicioInventario.registrarBien(this.bienDataManager.getBienInstancia());

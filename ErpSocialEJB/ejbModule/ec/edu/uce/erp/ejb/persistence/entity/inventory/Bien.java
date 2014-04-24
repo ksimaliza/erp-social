@@ -20,9 +20,10 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
+import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
 import ec.edu.uce.erp.ejb.persistence.entity.Ingreso;
-import ec.edu.uce.erp.ejb.persistence.entity.Transaccion;
 import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaUtil;
 
 
@@ -92,6 +93,10 @@ public class Bien extends AuditoriaUtil implements Serializable {
 	@Column(name="mar_bien_pk")
 	private Integer marBienPk;
 	
+	@NotNull (message="El bien debe estar asignado a una empresa")
+	@Column(name="emr_pk")
+	private Integer emrPk;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({
 		@JoinColumn(name="cat_bien_pk", referencedColumnName="cat_bien_pk", unique=false, nullable=true, insertable=false, updatable=false),
@@ -104,6 +109,13 @@ public class Bien extends AuditoriaUtil implements Serializable {
 		@JoinColumn(name="mar_bien_pk", referencedColumnName="mar_bien_pk", unique=false, nullable=true, insertable=false, updatable=false)
 		})
 	private MarcaBien marcaBien;
+	
+	//bi-directional many-to-one association to Empresa
+	@ManyToOne
+	@JoinColumns({
+		@JoinColumn(name="emr_pk", referencedColumnName="emr_pk", unique=false, nullable=true, insertable=false, updatable=false)
+	})
+	private Empresa empresaTbl;
 
 	//bi-directional many-to-one association to DetalleBien detalleBienTbl1
 	/**
@@ -481,6 +493,34 @@ public class Bien extends AuditoriaUtil implements Serializable {
 	 */
 	public void setMarcaBien(MarcaBien marcaBien) {
 		this.marcaBien = marcaBien;
+	}
+
+	/**
+	 * @return the emrPk
+	 */
+	public Integer getEmrPk() {
+		return emrPk;
+	}
+
+	/**
+	 * @param emrPk the emrPk to set
+	 */
+	public void setEmrPk(Integer emrPk) {
+		this.emrPk = emrPk;
+	}
+
+	/**
+	 * @return the empresaTbl
+	 */
+	public Empresa getEmpresaTbl() {
+		return empresaTbl;
+	}
+
+	/**
+	 * @param empresaTbl the empresaTbl to set
+	 */
+	public void setEmpresaTbl(Empresa empresaTbl) {
+		this.empresaTbl = empresaTbl;
 	}
 
 }

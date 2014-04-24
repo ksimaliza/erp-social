@@ -321,6 +321,8 @@ public class ServicioInventarioImpl implements ServicioInventario{
 	public Bien registrarBien(Bien bien) throws SeguridadesException {
 		Bien bienNuevo = null;
 		try {
+			
+			bien.setBieEstado(ESTADO_ACTIVO);
 			bienNuevo = inventarioFactory.getBienDAOImpl().create(bien);
 			inventarioFactory.getHistoricoTransaccioneDAOImpl()
 					.registrarHistoricoTransaccion(

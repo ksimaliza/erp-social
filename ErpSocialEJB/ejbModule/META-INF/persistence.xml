@@ -71,7 +71,7 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.TipoCertificado</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.TipoDocumento</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.TipoEmpresa</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.Transaccion</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.Transaccion</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.TransicionEstados</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Vacaciones</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.ValidacionDocumento</class>
@@ -106,6 +106,7 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoListDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.view.VistaBien</class>
 		<properties>
 			<property name="hibernate.connection.username" value="postgres" />
 			<property name="hibernate.connection.password" value="root" />

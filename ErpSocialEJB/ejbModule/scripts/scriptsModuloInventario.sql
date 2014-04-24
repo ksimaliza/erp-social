@@ -257,6 +257,9 @@ add column LIN_BIEN_PK INT4 null;
 alter table BIEN_TBL
 add column MAR_BIEN_PK INT4 null;
 
+ALTER TABLE BIEN_TBL
+ADD COLUMN EMR_PK INT4 null;
+
 alter table BIEN_TBL
    add constraint FK_BIEN_TBL_REFERENCE_LINEA_BI foreign key (LIN_BIEN_PK, CAT_BIEN_PK)
       references LINEA_BIEN_TBL (LIN_BIEN_PK, CAT_BIEN_PK)
@@ -266,3 +269,31 @@ alter table BIEN_TBL
    add constraint FK_BIEN_TBL_REFERENCE_MARCA_BI foreign key (MAR_BIEN_PK)
       references MARCA_BIEN_TBL (MAR_BIEN_PK)
       on delete restrict on update restrict;
+      
+alter table BIEN_TBL
+   add constraint FK_BIEN_TBL_REFERENCE_EMPRESA_ foreign key (EMR_PK)
+      references EMPRESA_TBL (EMR_PK)
+      on delete restrict on update restrict;
+
+/*==============================================================*/
+/* alter: TRANSACCION_TBL                                    */
+/*==============================================================*/
+ALTER TABLE TRANSACCION_TBL
+ADD COLUMN TRA_FECHA_INICIO TIMESTAMP NULL;
+
+ALTER TABLE TRANSACCION_TBL
+ADD COLUMN TRA_FECHA_FIN TIMESTAMP NULL;
+
+/*==============================================================*/
+/* Vista bien                                  */
+/*==============================================================*/
+create view bien_view as
+select bie_pk, emr_pk, cab_bien_est_fk, det_bien_est_nivel1, cab_bien_tip_bie_fk, det_bien_tip_bie_nivel1, det_bien_est_conserv_nivel1_fk,
+bie_nombre, bie_modelo, bie_color, bie_costo_venta, bie_fecha_asig, bie_ubicacion, bie_notas, bie_estado,
+b.cat_bien_pk, cb.cat_bien_descripcion, cb.cat_bien_estado,
+b.lin_bien_pk, lb.lin_bien_descripcion, lb.lin_bien_estado,
+b.mar_bien_pk, mb.mar_bien_descripcion, mb.mar_bien_estado
+from bien_tbl b
+inner join categoria_bien_tbl cb on cb.cat_bien_pk=b.cat_bien_pk
+inner join linea_bien_tbl lb on lb.lin_bien_pk = b.lin_bien_pk and lb.cat_bien_pk = cb.cat_bien_pk
+inner join marca_bien_tbl mb on mb.mar_bien_pk = b.mar_bien_pk;

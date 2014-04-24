@@ -22,19 +22,27 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:panel id="pnlBuscarProveedor" header="#{i18n['erp.proveedor.buscar']}">
-				<table>
+				<table class="formulario">
 					<tr>
-						<td><h:outputLabel for="txtNombre" value="#{i18n['erp.proveedor.nombre']}" /></td>
-						<td>
-							<p:inputText id="txtNombre"
+						<td width="20%"><h:outputLabel for="txtNombre" value="#{i18n['erp.proveedor.nombre']}" /></td>
+						<td width="80%">
+							<p:inputText id="txtNombre" style="width: 50%"
 								value="#{proveedorDataManager.proveedorBuscar.provNombre}" />
 						</td>
 					</tr>
 					<tr>
 						<td><h:outputLabel for="txtApellido" value="#{i18n['erp.proveedor.apellido']}" /></td>
 						<td>
-							<p:inputText id="txtApellido"
+							<p:inputText id="txtApellido" style="width: 50%"
 								value="#{proveedorDataManager.proveedorBuscar.provApellido}" />
+						</td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="txtCi" value="#{i18n['erp.proveedor.ci']}" /></td>
+						<td>
+							<p:inputText id="txtCi" style="width: 50%" maxlength="13"
+								onkeypress="return soloEnteros(this, event)"
+								value="#{proveedorDataManager.proveedorBuscar.provDocumentoIdentificacion}" />
 						</td>
 					</tr>
 					<tr>
