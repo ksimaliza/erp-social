@@ -16,17 +16,17 @@
 					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
 					<p:commandButton id="btnNuevoUsuario" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoUsuario.show()"/>
 					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
-						image="exportExcel" disabled="#{empty usuarioDataManager.listaUsuario}">
+						icon="exportExcel" disabled="#{empty usuarioDataManager.listaUsuario}">
 						<p:dataExporter type="xls" target="tablaUsuarios" fileName="usuarios" postProcessor="#{usuarioController.postProcessXLS}"/>
 					</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:panel id="pnlBuscarUsuario" header="#{i18n['erp.usuario.buscar']}">
-				<table>
+			<p:panel id="pnlBuscarUsuario" header="#{i18n['erp.usuario.buscar']}" styleClass="formulario">
+				<table class="formulario">
 					<tr>
-						<td><h:outputLabel for="txtNombre" value="#{i18n['erp.usuario.nombre']}" /></td>
-						<td>
-							<p:inputText id="txtNombre"
+						<td width="30%"><h:outputLabel for="txtNombre" value="#{i18n['erp.usuario.nombre']}" /></td>
+						<td width="70%">
+							<p:inputText id="txtNombre" style="width: 60%"
 								value="#{usuarioDataManager.usuarioBuscar.nombresUsuario}" />
 						</td>
 					</tr>

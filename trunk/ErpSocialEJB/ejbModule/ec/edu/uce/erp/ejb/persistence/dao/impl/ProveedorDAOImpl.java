@@ -75,12 +75,12 @@ public class ProveedorDAOImpl extends AbstractFacadeImpl<Proveedor> implements P
 			}
 			
 //			//por ci de proveedor
-//			if (StringUtils.isNotBlank(usuario.getCiUsuario())) {
-//				Expression<String> ciUsuario = 
-//						criteriaBuilder.upper(criteriaBuilder.literal(UtilAplication.appendStringBuilder("%", usuario.getCiUsuario(), "%").toString()));
-//				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromUsuario.<String>get("ciUsuario")), ciUsuario);
-//				criteriaList.add(predicate);
-//			}
+			if (StringUtils.isNotBlank(proveedor.getProvDocumentoIdentificacion())) {
+				Expression<String> ciUsuario = 
+						criteriaBuilder.upper(criteriaBuilder.literal(UtilAplication.appendStringBuilder("%", proveedor.getProvDocumentoIdentificacion(), "%").toString()));
+				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromProveedor.<String>get("provDocumentoIdentificacion")), ciUsuario);
+				criteriaList.add(predicate);
+			}
 			
 			//por estado
 			if (StringUtils.isNotBlank(proveedor.getProvEstado())) {

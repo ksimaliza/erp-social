@@ -1,6 +1,7 @@
-package ec.edu.uce.erp.ejb.persistence.entity;
+package ec.edu.uce.erp.ejb.persistence.entity.inventory;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,9 +18,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import ec.edu.uce.erp.ejb.persistence.entity.inventory.Bien;
-import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien;
-
 
 /**
  * The persistent class for the transaccion_tbl database table.
@@ -32,7 +30,7 @@ public class Transaccion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="TRANSACCION_TBL_TRAPK_GENERATOR", sequenceName="TRANSACCION_TBL_TRA_PK_SEQ")
+	@SequenceGenerator(name="TRANSACCION_TBL_TRAPK_GENERATOR", sequenceName="TRANSACCION_TBL_TRA_PK_SEQ", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="TRANSACCION_TBL_TRAPK_GENERATOR")
 	@Column(name="tra_pk")
 	private Integer traPk;
@@ -49,6 +47,12 @@ public class Transaccion implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name="tra_fecha")
 	private Date traFecha;
+	
+	@Column(name="tra_fecha_inicio")
+	private Timestamp fechaInicio;
+	
+	@Column(name="tra_fecha_fin")
+	private Timestamp fechaFin;
 
 	//bi-directional many-to-one association to Bien
 	@ManyToOne
@@ -120,6 +124,34 @@ public class Transaccion implements Serializable {
 
 	public void setDetalleBienTbl(DetalleBien detalleBienTbl) {
 		this.detalleBienTbl = detalleBienTbl;
+	}
+
+	/**
+	 * @return the fechaInicio
+	 */
+	public Timestamp getFechaInicio() {
+		return fechaInicio;
+	}
+
+	/**
+	 * @param fechaInicio the fechaInicio to set
+	 */
+	public void setFechaInicio(Timestamp fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+
+	/**
+	 * @return the fechaFin
+	 */
+	public Timestamp getFechaFin() {
+		return fechaFin;
+	}
+
+	/**
+	 * @param fechaFin the fechaFin to set
+	 */
+	public void setFechaFin(Timestamp fechaFin) {
+		this.fechaFin = fechaFin;
 	}
 
 }

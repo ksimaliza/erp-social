@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.Bien;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaUtil;
@@ -101,6 +102,9 @@ public class Empresa extends AuditoriaUtil implements Serializable {
 	//bi-directional many-to-one association to Usuario
 	@OneToMany(mappedBy="empresaTbl")
 	private List<Usuario> segtUsuarios;
+	
+	@OneToMany(mappedBy="empresaTbl")
+	private List<Bien> bienTbls;
 
 	public Empresa() {
 	}
@@ -344,6 +348,20 @@ public class Empresa extends AuditoriaUtil implements Serializable {
 		segtUsuario.setEmpresaTbl(null);
 
 		return segtUsuario;
+	}
+
+	/**
+	 * @return the bienTbls
+	 */
+	public List<Bien> getBienTbls() {
+		return bienTbls;
+	}
+
+	/**
+	 * @param bienTbls the bienTbls to set
+	 */
+	public void setBienTbls(List<Bien> bienTbls) {
+		this.bienTbls = bienTbls;
 	}
 
 }
