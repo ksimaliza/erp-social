@@ -66,24 +66,6 @@ public class Bien extends AuditoriaUtil implements Serializable {
 	@Column(name="bie_ubicacion")
 	private String bieUbicacion;
 	
-	@Column(name="cab_bien_tip_bie_fk")
-	private String cabCatalogoTipoBien;
-	
-	@Column(name="det_bien_tip_bie_nivel1")
-	private String detCatalogoTipoBien;
-	
-	@Column(name="cab_bien_est_fk")
-	private String cabEstadoBien;
-	
-	@Column(name="det_bien_est_nivel1")
-	private String detEstadoBien;
-	
-	@Column(name="cab_bien_est_conserv_fk")
-	private String cabEstadoConservacion;
-	
-	@Column(name="det_bien_est_conserv_nivel1_fk")
-	private String detEstadoConservacion;
-	
 	@Column(name="cat_bien_pk")
 	private Integer catBienPk;
 	
@@ -117,38 +99,16 @@ public class Bien extends AuditoriaUtil implements Serializable {
 	})
 	private Empresa empresaTbl;
 
-	//bi-directional many-to-one association to DetalleBien detalleBienTbl1
-	/**
-	 * Tipo del bien: Ingresado, asignado, reasignado, devuelto se manejar dentro de un cat&acute;logo
-	 */
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumns({
-		@JoinColumn(name="cab_bien_tip_bie_fk", referencedColumnName="cab_bien_fk", unique=false, nullable=true, insertable=false, updatable=false),
-		@JoinColumn(name="det_bien_tip_bie_nivel1", referencedColumnName="det_bien_nivel1", unique=false, nullable=true, insertable=false, updatable=false)
-		})
-	private DetalleBien dcTipoBien;
-
-	//bi-directional many-to-one association to DetalleBien
-	/**
-	 * Estado del bien: Se definira como activo, inactivo dentro de un catalogo.
-	 */
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name="cab_bien_est_fk", referencedColumnName="cab_bien_fk", unique=false, nullable=true, insertable=false, updatable=false),
-		@JoinColumn(name="det_bien_est_nivel1", referencedColumnName="det_bien_nivel1", unique=false, nullable=true, insertable=false, updatable=false)
-		})
-	private DetalleBien dcEstadoBien;
-
-	//bi-directional many-to-one association to DetalleBien
-	/**
-	 * Estado de Conservacion.- Se manejara dentro de una catalogo bueno, malo, regular.
-	 */
-	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name="cab_bien_est_conserv_fk", referencedColumnName="cab_bien_fk", unique=false, nullable=true, insertable=false, updatable=false),
-		@JoinColumn(name="det_bien_est_conserv_nivel1_fk", referencedColumnName="det_bien_nivel1", unique=false, nullable=true, insertable=false, updatable=false)
-		})
-	private DetalleBien dcEstadoConservacion;
+//	//bi-directional many-to-one association to DetalleBien
+//	/**
+//	 * Estado del bien: Se definira como activo, inactivo dentro de un catalogo.
+//	 */
+//	@ManyToOne
+//	@JoinColumns({
+//		@JoinColumn(name="cab_bien_est_fk", referencedColumnName="cab_bien_fk", unique=false, nullable=true, insertable=false, updatable=false),
+//		@JoinColumn(name="det_bien_est_nivel1", referencedColumnName="det_bien_nivel1", unique=false, nullable=true, insertable=false, updatable=false)
+//		})
+//	private DetalleBien dcEstadoBien;
 
 	//bi-directional many-to-one association to Inventario
 	@ManyToOne
@@ -285,131 +245,20 @@ public class Bien extends AuditoriaUtil implements Serializable {
 		return transaccionTbl;
 	}
 
-	/**
-	 * @return the cabCatalogoTipoBien
-	 */
-	public String getCabCatalogoTipoBien() {
-		return cabCatalogoTipoBien;
-	}
+//	/**
+//	 * @return the dcEstadoBien
+//	 */
+//	public DetalleBien getDcEstadoBien() {
+//		return dcEstadoBien;
+//	}
+//
+//	/**
+//	 * @param dcEstadoBien the dcEstadoBien to set
+//	 */
+//	public void setDcEstadoBien(DetalleBien dcEstadoBien) {
+//		this.dcEstadoBien = dcEstadoBien;
+//	}
 
-	/**
-	 * @param cabCatalogoTipoBien the cabCatalogoTipoBien to set
-	 */
-	public void setCabCatalogoTipoBien(String cabCatalogoTipoBien) {
-		this.cabCatalogoTipoBien = cabCatalogoTipoBien;
-	}
-
-	/**
-	 * @return the detCatalogoTipoBien
-	 */
-	public String getDetCatalogoTipoBien() {
-		return detCatalogoTipoBien;
-	}
-
-	/**
-	 * @param detCatalogoTipoBien the detCatalogoTipoBien to set
-	 */
-	public void setDetCatalogoTipoBien(String detCatalogoTipoBien) {
-		this.detCatalogoTipoBien = detCatalogoTipoBien;
-	}
-
-	/**
-	 * @return the dcTipoBien
-	 */
-	public DetalleBien getDcTipoBien() {
-		return dcTipoBien;
-	}
-
-	/**
-	 * @param dcTipoBien the dcTipoBien to set
-	 */
-	public void setDcTipoBien(DetalleBien dcTipoBien) {
-		this.dcTipoBien = dcTipoBien;
-	}
-
-	/**
-	 * @return the dcEstadoBien
-	 */
-	public DetalleBien getDcEstadoBien() {
-		return dcEstadoBien;
-	}
-
-	/**
-	 * @param dcEstadoBien the dcEstadoBien to set
-	 */
-	public void setDcEstadoBien(DetalleBien dcEstadoBien) {
-		this.dcEstadoBien = dcEstadoBien;
-	}
-
-	/**
-	 * @return the cabEstadoBien
-	 */
-	public String getCabEstadoBien() {
-		return cabEstadoBien;
-	}
-
-	/**
-	 * @param cabEstadoBien the cabEstadoBien to set
-	 */
-	public void setCabEstadoBien(String cabEstadoBien) {
-		this.cabEstadoBien = cabEstadoBien;
-	}
-
-	/**
-	 * @return the detEstadoBien
-	 */
-	public String getDetEstadoBien() {
-		return detEstadoBien;
-	}
-
-	/**
-	 * @param detEstadoBien the detEstadoBien to set
-	 */
-	public void setDetEstadoBien(String detEstadoBien) {
-		this.detEstadoBien = detEstadoBien;
-	}
-
-	/**
-	 * @return the cabEstadoConservacion
-	 */
-	public String getCabEstadoConservacion() {
-		return cabEstadoConservacion;
-	}
-
-	/**
-	 * @param cabEstadoConservacion the cabEstadoConservacion to set
-	 */
-	public void setCabEstadoConservacion(String cabEstadoConservacion) {
-		this.cabEstadoConservacion = cabEstadoConservacion;
-	}
-
-	/**
-	 * @return the detEstadoConservacion
-	 */
-	public String getDetEstadoConservacion() {
-		return detEstadoConservacion;
-	}
-
-	/**
-	 * @param detEstadoConservacion the detEstadoConservacion to set
-	 */
-	public void setDetEstadoConservacion(String detEstadoConservacion) {
-		this.detEstadoConservacion = detEstadoConservacion;
-	}
-
-	/**
-	 * @return the dcEstadoConservacion
-	 */
-	public DetalleBien getDcEstadoConservacion() {
-		return dcEstadoConservacion;
-	}
-
-	/**
-	 * @param dcEstadoConservacion the dcEstadoConservacion to set
-	 */
-	public void setDcEstadoConservacion(DetalleBien dcEstadoConservacion) {
-		this.dcEstadoConservacion = dcEstadoConservacion;
-	}
 
 	/**
 	 * @return the bieNotas

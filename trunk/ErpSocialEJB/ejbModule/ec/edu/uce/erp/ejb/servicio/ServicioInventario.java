@@ -15,6 +15,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.MarcaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
+import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
 
 /**
  * @author
@@ -172,7 +173,7 @@ public interface ServicioInventario {
 	 * @return
 	 * @throws SeguridadesException
 	 */
-	Bien registrarBien (Bien bien) throws SeguridadesException;
+	VistaBien registrarBien (Bien bien) throws SeguridadesException;
 	
 	/**
 	 * Actualizar <code>Bien</code> en la BD
@@ -189,4 +190,12 @@ public interface ServicioInventario {
 	 * @throws SeguridadesException
 	 */
 	List<Bien> buscarBienCriterios (Bien bien) throws SeguridadesException;
+	
+	/**
+	 * Buscar <code>VistaBien</code> en la BD por diferentes criterios
+	 * @param vistaBien
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	List<VistaBien> buscarVistaBienCriterios (VistaBien vistaBien) throws SeguridadesException;
 }

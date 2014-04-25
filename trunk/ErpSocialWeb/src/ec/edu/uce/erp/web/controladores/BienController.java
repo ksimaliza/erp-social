@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Bien;
+import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
@@ -56,10 +57,12 @@ public class BienController extends BaseController{
 			this.bienDataManager.getBienInstancia().setEmrPk(this.bienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
 			this.bienDataManager.getBienInstancia().setCatBienPk(this.bienDataManager.getIdCategoriaBienSeleccionado());
 			this.bienDataManager.getBienInstancia().setLinBienPk(this.bienDataManager.getIdLineaBienSeleccionado());
-			Bien nuevoBien = servicioInventario.registrarBien(this.bienDataManager.getBienInstancia());
+			VistaBien vistaBien = servicioInventario.registrarBien(this.bienDataManager.getBienInstancia());
 			
-			if (nuevoBien != null) {
-				this.bienDataManager.getListBien().add(nuevoBien);
+			if (vistaBien != null) {
+//				this.bienDataManager.getListBien().add(nuevoBien);
+				this.bienDataManager.getListVistaBien().add(vistaBien);
+				this.bienDataManager.setBienInstancia(new Bien());
 				MensajesWebController.aniadirMensajeInformacion("erp.mensaje.registro.exito");
 			}
 			
@@ -74,17 +77,20 @@ public class BienController extends BaseController{
 	}
 	
 	public void buscarBienes () {
+		
 		slf4jLogger.info("buscarBienes");
 		
 		try {
-			List<Bien> listBien = servicioInventario.buscarBienCriterios(this.bienDataManager.getBienBuscar());
 			
-			if (CollectionUtils.isNotEmpty(listBien)) {
-				this.bienDataManager.getListBien().clear();
-				this.bienDataManager.setListBien(listBien);
+			this.bienDataManager.getVistaBienBuscar().setEmrPk(this.bienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
+			List<VistaBien> listVistaBien = servicioInventario.buscarVistaBienCriterios(this.bienDataManager.getVistaBienBuscar());
+			
+			this.bienDataManager.getListVistaBien().clear();
+			if (CollectionUtils.isNotEmpty(listVistaBien)) {
+				this.bienDataManager.setListVistaBien(listVistaBien);
 			} else {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-				this.bienDataManager.getListBien().clear();
+				
 			}
 			
 		} catch (SeguridadesException e) {
@@ -92,5 +98,6 @@ public class BienController extends BaseController{
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
 	}
+
 	
 }

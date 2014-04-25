@@ -171,20 +171,20 @@ INSERT INTO detalle_bien_tbl(
             cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
     VALUES ('TIBIE', 'DEVUE', 'Devuelto', '1');
     
--- Estado del bien: Se definira como activo, inactivo dentro de un catalogo.
--- Cabecera catalogo
-INSERT INTO cabecera_bien_tbl(
-cab_bien_pk, cab_bien_descripcion, cab_bien_archivo) VALUES 
-('ESBIE', 'Estado del bien: Se definira como activo, inactivo', 'N/A');
-
--- Detalle catalogo
-INSERT INTO detalle_bien_tbl(
-            cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
-    VALUES ('ESBIE', 'ACTIV', 'Activo', '1');
-
-INSERT INTO detalle_bien_tbl(
-            cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
-    VALUES ('ESBIE', 'INACT', 'Inactivo', '1');
+---- Estado del bien: Se definira como activo, inactivo dentro de un catalogo.
+---- Cabecera catalogo
+--INSERT INTO cabecera_bien_tbl(
+--cab_bien_pk, cab_bien_descripcion, cab_bien_archivo) VALUES 
+--('ESBIE', 'Estado del bien: Se definira como activo, inactivo', 'N/A');
+--
+---- Detalle catalogo
+--INSERT INTO detalle_bien_tbl(
+--            cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
+--    VALUES ('ESBIE', 'ACTIV', 'Activo', '1');
+--
+--INSERT INTO detalle_bien_tbl(
+--            cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
+--    VALUES ('ESBIE', 'INACT', 'Inactivo', '1');
     
 -- Estado de Conservacion.- Se manejara dentro de una catalogo bueno, malo, regular.
 -- Cabecera catalogo
@@ -247,7 +247,19 @@ create table MARCA_BIEN_TBL (
 /*==============================================================*/
 /* alter: BIEN_TBL                                    */
 /*==============================================================*/
-      
+
+alter table bien_tbl
+drop column cab_bien_est_fk;
+
+alter table bien_tbl
+drop column det_bien_est_nivel1;
+
+alter table bien_tbl
+drop column cab_bien_tip_bie_fk, 
+drop column det_bien_tip_bie_nivel1,
+drop column cab_bien_est_conserv_fk,
+drop column det_bien_est_conserv_nivel1_fk;
+
 alter table BIEN_TBL
 add column CAT_BIEN_PK INT4 null;
 
@@ -284,16 +296,35 @@ ADD COLUMN TRA_FECHA_INICIO TIMESTAMP NULL;
 ALTER TABLE TRANSACCION_TBL
 ADD COLUMN TRA_FECHA_FIN TIMESTAMP NULL;
 
+ALTER TABLE TRANSACCION_TBL
+ADD COLUMN CAB_BIEN_TIP_BIE_FK  VARCHAR(5)           null,
+ADD COLUMN DET_BIEN_TIP_BIE_NIVEL1 VARCHAR(5)           null,
+ADD COLUMN CAB_BIEN_EST_CONSERV_FK VARCHAR(5)           null,
+ADD COLUMN DET_BIEN_EST_CONSERV_NIVEL1_FK VARCHAR(5)           null;
+
+alter table TRANSACCION_TBL
+   add constraint FK_BIEN_TBL_RELATIONS_DET_BIE foreign key (CAB_BIEN_TIP_BIE_FK, DET_BIEN_TIP_BIE_NIVEL1)
+      references DETALLE_BIEN_TBL (CAB_BIEN_FK, DET_BIEN_NIVEL1)
+      on delete restrict on update restrict;
+
+alter table TRANSACCION_TBL
+   add constraint FK_BIEN_TBL_RELATIONS_DET_CON foreign key (CAB_BIEN_EST_CONSERV_FK, DET_BIEN_EST_CONSERV_NIVEL1_FK)
+      references DETALLE_BIEN_TBL (CAB_BIEN_FK, DET_BIEN_NIVEL1)
+      on delete restrict on update restrict;
+
+
 /*==============================================================*/
 /* Vista bien                                  */
 /*==============================================================*/
 create view bien_view as
-select bie_pk, emr_pk, cab_bien_est_fk, det_bien_est_nivel1, cab_bien_tip_bie_fk, det_bien_tip_bie_nivel1, det_bien_est_conserv_nivel1_fk,
+select bie_pk, emr_pk, 
 bie_nombre, bie_modelo, bie_color, bie_costo_venta, bie_fecha_asig, bie_ubicacion, bie_notas, bie_estado,
 b.cat_bien_pk, cb.cat_bien_descripcion, cb.cat_bien_estado,
 b.lin_bien_pk, lb.lin_bien_descripcion, lb.lin_bien_estado,
-b.mar_bien_pk, mb.mar_bien_descripcion, mb.mar_bien_estado
+b.mar_bien_pk, mb.mar_bien_descripcion, mb.mar_bien_estado,
+t.cab_bien_tip_bie_fk, t.det_bien_tip_bie_nivel1, t.cab_bien_est_conserv_fk, t.det_bien_est_conserv_nivel1_fk
 from bien_tbl b
 inner join categoria_bien_tbl cb on cb.cat_bien_pk=b.cat_bien_pk
 inner join linea_bien_tbl lb on lb.lin_bien_pk = b.lin_bien_pk and lb.cat_bien_pk = cb.cat_bien_pk
-inner join marca_bien_tbl mb on mb.mar_bien_pk = b.mar_bien_pk;
+inner join marca_bien_tbl mb on mb.mar_bien_pk = b.mar_bien_pk
+left join transaccion_tbl t on t.bie_fk = b.bie_pk;
