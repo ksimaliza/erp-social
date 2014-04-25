@@ -1,9 +1,16 @@
 package ec.edu.uce.erp.ejb.persistence.view;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -45,14 +52,17 @@ public class VistaBien implements Serializable {
 	@Column(name="bie_ubicacion")
 	private String bieUbicacion;
 
-	@Column(name="cab_bien_est_fk")
-	private String cabBienEstFk;
+//	@Column(name="cab_bien_est_fk")
+//	private String cabBienEstFk;
+	
+	@Column(name = "cab_bien_est_conserv_fk")
+	private String cabBienEstConservFk;
 
 	@Column(name="cab_bien_tip_bie_fk")
 	private String cabBienTipBieFk;
 
-	@Column(name="cat_bien_descripcion")
-	private String catBienDescripcion;
+	@Column(name="cat_bien_nombre")
+	private String catBienNombre;
 
 	@Column(name="cat_bien_estado")
 	private String catBienEstado;
@@ -63,8 +73,8 @@ public class VistaBien implements Serializable {
 	@Column(name="det_bien_est_conserv_nivel1_fk")
 	private String detBienEstConservNivel1Fk;
 
-	@Column(name="det_bien_est_nivel1")
-	private String detBienEstNivel1;
+//	@Column(name="det_bien_est_nivel1")
+//	private String detBienEstNivel1;
 
 	@Column(name="det_bien_tip_bie_nivel1")
 	private String detBienTipBieNivel1;
@@ -72,8 +82,8 @@ public class VistaBien implements Serializable {
 	@Column(name="emr_pk")
 	private Integer emrPk;
 
-	@Column(name="lin_bien_descripcion")
-	private String linBienDescripcion;
+	@Column(name="lin_bien_nombre")
+	private String linBienNombre;
 
 	@Column(name="lin_bien_estado")
 	private String linBienEstado;
@@ -81,8 +91,8 @@ public class VistaBien implements Serializable {
 	@Column(name="lin_bien_pk")
 	private Integer linBienPk;
 
-	@Column(name="mar_bien_descripcion")
-	private String marBienDescripcion;
+	@Column(name="mar_bien_nombre")
+	private String marBienNombre;
 
 	@Column(name="mar_bien_estado")
 	private String marBienEstado;
@@ -165,13 +175,13 @@ public class VistaBien implements Serializable {
 		this.bieUbicacion = bieUbicacion;
 	}
 
-	public String getCabBienEstFk() {
-		return this.cabBienEstFk;
-	}
-
-	public void setCabBienEstFk(String cabBienEstFk) {
-		this.cabBienEstFk = cabBienEstFk;
-	}
+//	public String getCabBienEstFk() {
+//		return this.cabBienEstFk;
+//	}
+//
+//	public void setCabBienEstFk(String cabBienEstFk) {
+//		this.cabBienEstFk = cabBienEstFk;
+//	}
 
 	public String getCabBienTipBieFk() {
 		return this.cabBienTipBieFk;
@@ -179,14 +189,6 @@ public class VistaBien implements Serializable {
 
 	public void setCabBienTipBieFk(String cabBienTipBieFk) {
 		this.cabBienTipBieFk = cabBienTipBieFk;
-	}
-
-	public String getCatBienDescripcion() {
-		return this.catBienDescripcion;
-	}
-
-	public void setCatBienDescripcion(String catBienDescripcion) {
-		this.catBienDescripcion = catBienDescripcion;
 	}
 
 	public String getCatBienEstado() {
@@ -213,13 +215,13 @@ public class VistaBien implements Serializable {
 		this.detBienEstConservNivel1Fk = detBienEstConservNivel1Fk;
 	}
 
-	public String getDetBienEstNivel1() {
-		return this.detBienEstNivel1;
-	}
-
-	public void setDetBienEstNivel1(String detBienEstNivel1) {
-		this.detBienEstNivel1 = detBienEstNivel1;
-	}
+//	public String getDetBienEstNivel1() {
+//		return this.detBienEstNivel1;
+//	}
+//
+//	public void setDetBienEstNivel1(String detBienEstNivel1) {
+//		this.detBienEstNivel1 = detBienEstNivel1;
+//	}
 
 	public String getDetBienTipBieNivel1() {
 		return this.detBienTipBieNivel1;
@@ -235,14 +237,6 @@ public class VistaBien implements Serializable {
 
 	public void setEmrPk(Integer emrPk) {
 		this.emrPk = emrPk;
-	}
-
-	public String getLinBienDescripcion() {
-		return this.linBienDescripcion;
-	}
-
-	public void setLinBienDescripcion(String linBienDescripcion) {
-		this.linBienDescripcion = linBienDescripcion;
 	}
 
 	public String getLinBienEstado() {
@@ -261,14 +255,6 @@ public class VistaBien implements Serializable {
 		this.linBienPk = linBienPk;
 	}
 
-	public String getMarBienDescripcion() {
-		return this.marBienDescripcion;
-	}
-
-	public void setMarBienDescripcion(String marBienDescripcion) {
-		this.marBienDescripcion = marBienDescripcion;
-	}
-
 	public String getMarBienEstado() {
 		return this.marBienEstado;
 	}
@@ -283,6 +269,62 @@ public class VistaBien implements Serializable {
 
 	public void setMarBienPk(Integer marBienPk) {
 		this.marBienPk = marBienPk;
+	}
+
+	/**
+	 * @return the cabBienEstConservFk
+	 */
+	public String getCabBienEstConservFk() {
+		return cabBienEstConservFk;
+	}
+
+	/**
+	 * @param cabBienEstConservFk the cabBienEstConservFk to set
+	 */
+	public void setCabBienEstConservFk(String cabBienEstConservFk) {
+		this.cabBienEstConservFk = cabBienEstConservFk;
+	}
+
+	/**
+	 * @return the catBienNombre
+	 */
+	public String getCatBienNombre() {
+		return catBienNombre;
+	}
+
+	/**
+	 * @param catBienNombre the catBienNombre to set
+	 */
+	public void setCatBienNombre(String catBienNombre) {
+		this.catBienNombre = catBienNombre;
+	}
+
+	/**
+	 * @return the linBienNombre
+	 */
+	public String getLinBienNombre() {
+		return linBienNombre;
+	}
+
+	/**
+	 * @param linBienNombre the linBienNombre to set
+	 */
+	public void setLinBienNombre(String linBienNombre) {
+		this.linBienNombre = linBienNombre;
+	}
+
+	/**
+	 * @return the marBienNombre
+	 */
+	public String getMarBienNombre() {
+		return marBienNombre;
+	}
+
+	/**
+	 * @param marBienNombre the marBienNombre to set
+	 */
+	public void setMarBienNombre(String marBienNombre) {
+		this.marBienNombre = marBienNombre;
 	}
 
 }

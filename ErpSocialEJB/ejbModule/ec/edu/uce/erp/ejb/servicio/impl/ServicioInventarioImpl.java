@@ -12,11 +12,15 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.common.enums.EnumTipoBien;
 import ec.edu.uce.erp.common.enums.EnumTipoTransaccion;
+import ec.edu.uce.erp.common.util.ConstantesApplication;
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.dao.factory.InventarioFactory;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Bien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CabeceraBien;
@@ -25,7 +29,9 @@ import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.MarcaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.Transaccion;
 import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaDTO;
+import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 
 /**
@@ -318,22 +324,45 @@ public class ServicioInventarioImpl implements ServicioInventario{
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public Bien registrarBien(Bien bien) throws SeguridadesException {
-		Bien bienNuevo = null;
+	public VistaBien registrarBien(Bien bien) throws SeguridadesException {
+		
 		try {
 			
 			bien.setBieEstado(ESTADO_ACTIVO);
-			bienNuevo = inventarioFactory.getBienDAOImpl().create(bien);
+			Bien bienNuevo = inventarioFactory.getBienDAOImpl().create(bien);
+			
+			if (bienNuevo != null) {
+				Transaccion transaccion = new Transaccion();
+				transaccion.setCabCatalogoTipoBien(ConstantesApplication.CAB_CAT_TIPO_BIEN);
+				transaccion.setDetCatalogoTipoBien(EnumTipoBien.INGRESADO.getId());
+				transaccion.setBienTbl(bienNuevo);
+				transaccion.setFechaInicio(UtilAplication.obtenerFechaActual());
+				transaccion.setTraEstado(ESTADO_ACTIVO);
+				inventarioFactory.getTransaccionDAOImpl().create(transaccion);
+			}
+			
 			inventarioFactory.getHistoricoTransaccioneDAOImpl()
 					.registrarHistoricoTransaccion(
 							new AuditoriaDTO(bien.getUsuarioRegistro()
 									.getIdUsuario(), ServicioInventarioImpl.class.getName(), "registrarBien", EnumTipoTransaccion.CREATE));
 			
+			VistaBien vistaBienBuscar = new VistaBien();
+			vistaBienBuscar.setBiePk(bienNuevo.getBiePk());
+			vistaBienBuscar.setEmrPk(bienNuevo.getEmrPk());
+			
+			List<VistaBien> listVistaBien = inventarioFactory.getVistaBienDAOImpl().obtenerVistaBienCriterios(vistaBienBuscar);
+			
+			if (CollectionUtils.isNotEmpty(listVistaBien)) {
+				
+				return listVistaBien.iterator().next();
+			}
+			
 		} catch (Exception e) {
 			slf4jLogger.info("error al registrarBien {}", e.getCause().getMessage());
 			throw new SeguridadesException(e);
 		}
-		return bienNuevo;
+		
+		return null;
 	}
 
 	@Override
@@ -366,6 +395,20 @@ public class ServicioInventarioImpl implements ServicioInventario{
 		}
 		
 		return listBien;
+	}
+
+	@Override
+	public List<VistaBien> buscarVistaBienCriterios(VistaBien vistaBien) throws SeguridadesException {
+		List<VistaBien> listVistaBien = null;
+		
+		try {
+			listVistaBien = inventarioFactory.getVistaBienDAOImpl().obtenerVistaBienCriterios(vistaBien);
+		} catch (Exception e) {
+			slf4jLogger.info("error al buscarVistaBienCriterios {}", e.getCause().getMessage());
+			throw new SeguridadesException(e);
+		}
+		
+		return listVistaBien;
 	}
 
 }

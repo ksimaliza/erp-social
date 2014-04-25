@@ -27,13 +27,13 @@
 						<td><h:outputLabel for="txtNombre" value="#{i18n['erp.bien.nombre']}" /></td>
 						<td>
 							<p:inputText id="txtNombre"
-								value="#{bienDataManager.bienBuscar.bieNombre}" />
+								value="#{bienDataManager.vistaBienBuscar.bieNombre}" />
 						</td>
 					</tr>
 					<tr>
 						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
 						<td>
-							<p:selectOneMenu id="inputEstado" value="#{bienDataManager.bienBuscar.bieEstado}">
+							<p:selectOneMenu id="inputEstado" value="#{bienDataManager.vistaBienBuscar.bieEstado}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
 								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{bienDataManager.estadoActivo}"/>
 								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{bienDataManager.estadoInactivo}"/>
@@ -50,8 +50,8 @@
 					update="pnlMessages,tablaBienes,pnlBuscarBien,toolbar" />
 			</p:panel>
 			<p:dataTable id="tablaBienes"
-				value="#{bienDataManager.listBien}"
-				var="bien" rowIndexVar="rowIndex"
+				value="#{bienDataManager.listVistaBien}"
+				var="vistaBien" rowIndexVar="rowIndex"
 				paginator="true" rows="5" paginatorPosition="bottom"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
@@ -68,55 +68,55 @@
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.codigo']}" />
 					</f:facet>
-					<h:outputText value="#{bien.biePk}" />
+					<h:outputText value="#{vistaBien.biePk}" />
 				</p:column>
 				<p:column width="10%">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.categoria']}" />
 					</f:facet>
-					<h:outputText value="#{bien.lineaBien.categoriaBienTbl.catBienNombre}" />
+					<h:outputText value="#{vistaBien.catBienNombre}" />
 				</p:column>
 				<p:column width="10%">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.linea']}" />
 					</f:facet>
-					<h:outputText value="#{bien.lineaBien.linBienNombre}" />
+					<h:outputText value="#{vistaBien.linBienNombre}" />
 				</p:column>
 				<p:column width="10%">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.marca.material']}" />
 					</f:facet>
-					<h:outputText value="#{bien.marcaBien.marBienNombre}" />
+					<h:outputText value="#{vistaBien.marBienNombre}" />
 				</p:column>
 				<p:column width="10%">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.modelo']}" />
 					</f:facet>
-					<h:outputText value="#{bien.bieModelo}" />
+					<h:outputText value="#{vistaBien.bieModelo}" />
 				</p:column>
 				<p:column width="10%">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.color']}" />
 					</f:facet>
-					<h:outputText value="#{bien.bieColor}" />
+					<h:outputText value="#{vistaBien.bieColor}" />
 				</p:column>
 				<p:column width="10%">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.fecha.asignacion']}" />
 					</f:facet>
-					<h:outputText value="#{bien.bieFechaAsig}" />
+					<h:outputText value="#{vistaBien.bieFechaAsig}" />
 				</p:column>
 				<p:column width="10%">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.ubicacion']}" />
 					</f:facet>
-					<h:outputText value="#{bien.bieUbicacion}" />
+					<h:outputText value="#{vistaBien.bieUbicacion}" />
 				</p:column>
 				<p:column width="10%">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.nombre']}" />
 					</f:facet>
-					<h:outputText value="#{bien.bieNombre}" />
+					<h:outputText value="#{vistaBien.bieNombre}" />
 				</p:column>
 				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%" exportable="false">
 					<h:panelGroup>
