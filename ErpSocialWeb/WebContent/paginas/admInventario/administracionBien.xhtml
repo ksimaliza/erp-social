@@ -123,11 +123,13 @@
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							process="@this"
-							oncomplete="dlgEditarBien.show()"
-							update=":formEditarBien:pnlEditarBien">
+							oncomplete="dlgEditarBien.show()" update=":formEditarBien:pnlEditarBien"
+							action="#{bienController.asignarDatosBienDesdeVista(vistaBien)}">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
-							<f:setPropertyActionListener target="#{bienDataManager.bienEditar}" value="#{bien}" />
 						</p:commandLink>
+						<p:commandLink value="Asignar" title="Asignar"/>
+						<p:commandLink value="  Traslado" title="Asignar"/>
+						<p:commandLink value="  Dar baja" title="Asignar"/>
 					</h:panelGroup>
 					<!-- <h:panelGroup>
 						<h:outputText value="&#160;|&#160;" />

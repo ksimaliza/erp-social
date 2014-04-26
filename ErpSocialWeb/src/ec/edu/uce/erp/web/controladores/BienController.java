@@ -74,6 +74,24 @@ public class BienController extends BaseController{
 	
 	public void editarBien () {
 		slf4jLogger.info("editarBien");
+		try {
+			
+			this.bienDataManager.getBienEditar().setCatBienPk(this.bienDataManager.getIdCategoriaBienSeleccionado());
+			this.bienDataManager.getBienEditar().setLinBienPk(this.bienDataManager.getIdLineaBienSeleccionado());
+			this.bienDataManager.getBienEditar().setUsuarioRegistro(this.bienDataManager.getUsuarioSession());
+			VistaBien vistaBienUpdate = servicioInventario.actualizarBien(this.bienDataManager.getBienEditar());
+			
+			if (vistaBienUpdate != null) {
+				MensajesWebController.aniadirMensajeInformacion("erp.mensaje.update.exito");
+				int posicion = this.bienDataManager.getListVistaBien().indexOf(this.bienDataManager.getVistaBienEditar());
+				this.bienDataManager.getListVistaBien().remove(this.bienDataManager.getVistaBienEditar());
+				this.bienDataManager.getListVistaBien().add(posicion, vistaBienUpdate);
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("error al editarBien {}", e.getCause().getMessage());
+			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
+		}
 	}
 	
 	public void buscarBienes () {
@@ -98,6 +116,33 @@ public class BienController extends BaseController{
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
 	}
-
+	
+	public void asignarDatosBienDesdeVista(VistaBien vistaBien) {
+		
+		slf4jLogger.info("asignarDatosBienDesdeVista");
+		try {
+			
+			Bien bienBuscar = new Bien();
+			bienBuscar.setBiePk(vistaBien.getBiePk());
+			bienBuscar.setEmrPk(vistaBien.getEmrPk());
+			this.bienDataManager.setVistaBienEditar(vistaBien);
+			List<Bien> listBien = servicioInventario.buscarBienCriterios(bienBuscar);
+			
+			if (CollectionUtils.isNotEmpty(listBien) && listBien.size()==1) {
+				
+				Bien bienEditar = listBien.iterator().next();
+				this.bienDataManager.setIdCategoriaBienSeleccionado(bienEditar.getCatBienPk());
+				this.bienDataManager.setIdLineaBienSeleccionado(bienEditar.getLinBienPk());
+				this.bienDataManager.cargarDcLineaBien();
+				this.bienDataManager.setBienEditar(bienEditar);
+			} 
+			
+		} catch (SeguridadesException e) {
+			
+			slf4jLogger.info("error al asignarDatosBienDesdeVista {}", e.getCause().getMessage());
+			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
+		}
+		
+	}
 	
 }

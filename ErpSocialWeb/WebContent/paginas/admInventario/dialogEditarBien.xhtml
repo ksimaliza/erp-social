@@ -18,7 +18,7 @@
 						<td  width="70%">
 							<p:selectOneMenu id="txtTipoBien" panelStyle="width: 20%"
 								required="true" label="#{i18n['erp.bien.tipo']}"
-								value="#{bienDataManager.bienInstancia.detCatalogoTipoBien}" >
+								value="#{bienDataManager.bienEditar.detCatalogoTipoBien}" >
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
 								<f:selectItems value="#{bienDataManager.dcTipoBien}"/>
 							</p:selectOneMenu>
@@ -35,6 +35,7 @@
 								value="#{bienDataManager.idCategoriaBienSeleccionado}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
 								<f:selectItems value="#{bienDataManager.dcCategoriaBien}"/>
+								<p:ajax event="change" process="@this" update="txtLinea" listener="#{bienDataManager.cargarDcLineaBien}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
@@ -44,9 +45,11 @@
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td  width="70%">
-							<p:selectOneMenu id="txtLinea" panelStyle="width: 20%"
-								required="false" label="#{i18n['erp.bien.linea']}">
-								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+							<p:selectOneMenu id="txtLinea" style="width: 100%"
+								required="true" label="#{i18n['erp.bien.linea']}"
+								value="#{bienDataManager.idLineaBienSeleccionado}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{bienDataManager.dcLineaBien}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
@@ -56,9 +59,11 @@
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td  width="70%">
-							<p:selectOneMenu id="txtMarcaMaterial" panelStyle="width: 20%"
-								required="false" label="#{i18n['erp.bien.marca.material']}">
+							<p:selectOneMenu id="txtMarcaMaterial" style="width: 100%"
+								required="false" label="#{i18n['erp.bien.marca.material']}"
+								value="#{bienDataManager.bienEditar.marBienPk}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItems value="#{bienDataManager.dcMarcaBien}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
@@ -69,7 +74,7 @@
 						</td>
 						<td>
 							<p:inputText id="txtColor" style="width: 90%" required="true"
-								value="#{bienDataManager.bienInstancia.bieColor}" label="#{i18n['erp.bien.color']}" />
+								value="#{bienDataManager.bienEditar.bieColor}" label="#{i18n['erp.bien.color']}" />
 						</td>
 					</tr>
 					<tr>
@@ -79,7 +84,7 @@
 						</td>
 						<td>
 							<p:inputText id="txtNota" style="width: 90%" required="true"
-								value="#{bienDataManager.bienInstancia.bieNotas}" label="#{i18n['erp.bien.nota']}" />
+								value="#{bienDataManager.bienEditar.bieNotas}" label="#{i18n['erp.bien.nota']}" />
 						</td>
 					</tr>
 					<tr>
@@ -89,7 +94,7 @@
 						</td>
 						<td>
 							<p:inputText id="txtCodigo" style="width: 90%" required="true"
-								value="#{bienDataManager.bienInstancia.bieNotas}" label="#{i18n['erp.bien.codigo']}" />
+								value="#{bienDataManager.bienEditar.bieNotas}" label="#{i18n['erp.bien.codigo']}" />
 						</td>
 					</tr>
 					<tr>
@@ -99,14 +104,14 @@
 						</td>
 						<td>
 							<p:inputText id="txtNombre" style="width: 90%" required="true"
-								value="#{bienDataManager.bienInstancia.bieNombre}" label="#{i18n['erp.bien.nombre']}" />
+								value="#{bienDataManager.bienEditar.bieNombre}" label="#{i18n['erp.bien.nombre']}" />
 						</td>
 					</tr>
 				</table>
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnActualizar" value="#{i18n['label.actualizar']}"
-					actionListener="#{bienController.editarBien()}"
+					actionListener="#{bienController.editarBien}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarBien.hide()"
 					process="@this,pnlEditarBien" update="pnlEditarBien,:formBien:tablaBienes,:formBien:pnlMessages"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarBien.hide();" type="button" />

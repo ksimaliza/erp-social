@@ -181,7 +181,7 @@ public interface ServicioInventario {
 	 * @return
 	 * @throws SeguridadesException
 	 */
-	Bien actualizarBien (Bien bien) throws SeguridadesException;
+	VistaBien actualizarBien (Bien bien) throws SeguridadesException;
 	
 	/**
 	 * Buscar <code>Bien</code> en la BD por diferentes criterios
