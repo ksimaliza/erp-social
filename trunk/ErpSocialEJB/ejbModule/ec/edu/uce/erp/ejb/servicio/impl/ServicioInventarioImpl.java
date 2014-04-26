@@ -367,20 +367,33 @@ public class ServicioInventarioImpl implements ServicioInventario{
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public Bien actualizarBien(Bien bien) throws SeguridadesException {
-		Bien bienUpdate = null;
+	public VistaBien actualizarBien(Bien bien) throws SeguridadesException {
+		
 		try {
-			bienUpdate = inventarioFactory.getBienDAOImpl().update(bien);
+			
+			Bien bienUpdate = inventarioFactory.getBienDAOImpl().update(bien);
 			inventarioFactory.getHistoricoTransaccioneDAOImpl()
 					.registrarHistoricoTransaccion(
 							new AuditoriaDTO(bien.getUsuarioRegistro()
 									.getIdUsuario(), ServicioInventarioImpl.class.getName(), "actualizarBien", EnumTipoTransaccion.UPDATE));
 			
+			VistaBien vistaBienBuscar = new VistaBien();
+			vistaBienBuscar.setBiePk(bienUpdate.getBiePk());
+			vistaBienBuscar.setEmrPk(bienUpdate.getEmrPk());
+			
+			List<VistaBien> listVistaBien = inventarioFactory.getVistaBienDAOImpl().obtenerVistaBienCriterios(vistaBienBuscar);
+			
+			if (CollectionUtils.isNotEmpty(listVistaBien)) {
+				
+				return listVistaBien.iterator().next();
+			}
+			
 		} catch (Exception e) {
 			slf4jLogger.info("error al actualizarBien {}", e.getCause().getMessage());
 			throw new SeguridadesException(e);
 		}
-		return bienUpdate;
+		
+		return null;
 	}
 
 	@Override

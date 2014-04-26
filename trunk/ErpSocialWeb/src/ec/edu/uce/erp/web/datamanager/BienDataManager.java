@@ -45,6 +45,7 @@ public class BienDataManager extends BaseDataManager{
 	private List<Bien> listBien;
 	
 	private VistaBien vistaBienBuscar;
+	private VistaBien vistaBienEditar;
 	private List<VistaBien> listVistaBien;
 	
 //	private List<SelectItem> dcTipoBien;
@@ -76,7 +77,7 @@ public class BienDataManager extends BaseDataManager{
 	
 		try {
 			
-			if (idCategoriaBienSeleccionado!=null && idCategoriaBienSeleccionado!=0) {
+			if (idCategoriaBienSeleccionado!=null && idCategoriaBienSeleccionado>0) {
 				
 				slf4jLogger.info("cargarDcLineaBien");
 				
@@ -291,5 +292,20 @@ public class BienDataManager extends BaseDataManager{
 	public void setVistaBienBuscar(VistaBien vistaBienBuscar) {
 		this.vistaBienBuscar = vistaBienBuscar;
 	}
+
+	/**
+	 * @return the vistaBienEditar
+	 */
+	public VistaBien getVistaBienEditar() {
+		return vistaBienEditar;
+	}
+
+	/**
+	 * @param vistaBienEditar the vistaBienEditar to set
+	 */
+	public void setVistaBienEditar(VistaBien vistaBienEditar) {
+		this.vistaBienEditar = vistaBienEditar;
+	}
+
 	
 }
