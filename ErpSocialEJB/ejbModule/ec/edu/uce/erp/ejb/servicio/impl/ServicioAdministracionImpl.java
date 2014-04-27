@@ -22,6 +22,7 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.dao.factory.FactoryDAO;
 import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogo;
+import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
 import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Menu;
@@ -407,8 +408,10 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 			Persona persona = this.asignarDatosPersona(usuarioNuevo);
 			persona.setSegtUsuario(new Usuario());
 			persona.getSegtUsuario().setIdUsuario(usuarioNuevo.getIdUsuario());
-			
 			factoryDAO.getPersonaDAOImpl().create(persona);
+			
+			Empleado empleado = this.asignarDatosEmpleado(persona, usuario.getEmpresaTbl());
+			factoryDAO.getEmpleadoeDAOImpl().create(empleado);
 			
 			factoryDAO.getHistoricoTransaccioneDAOImpl()
 					.registrarHistoricoTransaccion(new AuditoriaDTO(usuario.getUsuarioRegistro()
@@ -431,6 +434,15 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		persona.setPerEmail(usuario.getEmailUsuario());
 		
 		return persona;
+	}
+	
+	private Empleado asignarDatosEmpleado (Persona persona, Empresa empresa) {
+		
+		Empleado empleado = new Empleado();
+		empleado.setEmrFk(empresa.getEmrPk());
+		empleado.setPerFk(persona.getPerPk());
+		empleado.setEmpEstado(ConstantesApplication.ESTADO_ACTIVO);
+		return empleado;
 	}
 	
 	/**

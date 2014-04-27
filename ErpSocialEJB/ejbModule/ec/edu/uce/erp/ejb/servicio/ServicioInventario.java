@@ -8,6 +8,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Bien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CabeceraBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CategoriaBien;
@@ -167,6 +168,8 @@ public interface ServicioInventario {
 	 * Servicio para administracion de bien
 	 */
 	
+	List<EmpleadoListDTO> obtenerEmpleadosEmpresa (EmpleadoListDTO vistaEmpleado) throws SeguridadesException;
+	
 	/**
 	 * Registrar <code>Bien</code> en la BD
 	 * @param bien
@@ -198,4 +201,12 @@ public interface ServicioInventario {
 	 * @throws SeguridadesException
 	 */
 	List<VistaBien> buscarVistaBienCriterios (VistaBien vistaBien) throws SeguridadesException;
+	
+	/**
+	 * Asignar <code>Bien</code> a un funcionario 
+	 * @param vistaBien
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	VistaBien asignarBien (VistaBien vistaBien) throws SeguridadesException;
 }

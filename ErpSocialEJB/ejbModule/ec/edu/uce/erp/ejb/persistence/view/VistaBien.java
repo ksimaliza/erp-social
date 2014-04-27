@@ -11,6 +11,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 
 /**
@@ -99,6 +100,12 @@ public class VistaBien implements Serializable {
 
 	@Column(name="mar_bien_pk")
 	private Integer marBienPk;
+	
+	@Transient
+	private Boolean npVerAsignarBien = Boolean.FALSE;
+	
+	@Transient
+	private Boolean npVerTrasladoBien = Boolean.FALSE;
 
 	public VistaBien() {
 	}
@@ -325,6 +332,34 @@ public class VistaBien implements Serializable {
 	 */
 	public void setMarBienNombre(String marBienNombre) {
 		this.marBienNombre = marBienNombre;
+	}
+
+	/**
+	 * @return the npVerTrasladoBien
+	 */
+	public Boolean getNpVerTrasladoBien() {
+		return npVerTrasladoBien;
+	}
+
+	/**
+	 * @param npVerTrasladoBien the npVerTrasladoBien to set
+	 */
+	public void setNpVerTrasladoBien(Boolean npVerTrasladoBien) {
+		this.npVerTrasladoBien = npVerTrasladoBien;
+	}
+
+	/**
+	 * @return the npVerAsignarBien
+	 */
+	public Boolean getNpVerAsignarBien() {
+		return npVerAsignarBien;
+	}
+
+	/**
+	 * @param npVerAsignarBien the npVerAsignarBien to set
+	 */
+	public void setNpVerAsignarBien(Boolean npVerAsignarBien) {
+		this.npVerAsignarBien = npVerAsignarBien;
 	}
 
 }

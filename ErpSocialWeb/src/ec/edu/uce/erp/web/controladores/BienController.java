@@ -57,6 +57,8 @@ public class BienController extends BaseController{
 			this.bienDataManager.getBienInstancia().setEmrPk(this.bienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
 			this.bienDataManager.getBienInstancia().setCatBienPk(this.bienDataManager.getIdCategoriaBienSeleccionado());
 			this.bienDataManager.getBienInstancia().setLinBienPk(this.bienDataManager.getIdLineaBienSeleccionado());
+			this.bienDataManager.getBienInstancia().setNpIdDcEstadoConservacion(this.bienDataManager.getIdDcEstadoConservacionSelec());
+			
 			VistaBien vistaBien = servicioInventario.registrarBien(this.bienDataManager.getBienInstancia());
 			
 			if (vistaBien != null) {
@@ -133,6 +135,7 @@ public class BienController extends BaseController{
 				Bien bienEditar = listBien.iterator().next();
 				this.bienDataManager.setIdCategoriaBienSeleccionado(bienEditar.getCatBienPk());
 				this.bienDataManager.setIdLineaBienSeleccionado(bienEditar.getLinBienPk());
+				this.bienDataManager.setIdDcEstadoConservacionSelec(vistaBien.getDetBienEstConservNivel1Fk());
 				this.bienDataManager.cargarDcLineaBien();
 				this.bienDataManager.setBienEditar(bienEditar);
 			} 
@@ -142,6 +145,12 @@ public class BienController extends BaseController{
 			slf4jLogger.info("error al asignarDatosBienDesdeVista {}", e.getCause().getMessage());
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
+		
+	}
+	
+	public void asignarBien () {
+		slf4jLogger.info("asignarBien");
+		
 		
 	}
 	

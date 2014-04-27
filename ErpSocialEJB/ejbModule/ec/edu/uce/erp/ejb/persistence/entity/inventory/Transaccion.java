@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
+
 
 /**
  * The persistent class for the transaccion_tbl database table.
@@ -54,11 +56,36 @@ public class Transaccion implements Serializable {
 	
 	@Column(name="tra_fecha_fin")
 	private Timestamp fechaFin;
+	
+	@Column(name="bie_fk")
+	private Integer bieFk;
+	
+	@Column(name = "emp_asignado_fk")
+	private Integer empAsignadoFk;
+	
+	@Column(name = "emp_reasignado_fk")
+	private Integer empReasignadoFk;
 
 	//bi-directional many-to-one association to Bien
 	@ManyToOne
-	@JoinColumn(name="bie_fk")
+	@JoinColumns({
+		@JoinColumn(name="bie_fk", referencedColumnName="bie_pk", unique=false, nullable=true, insertable=false, updatable=false)
+	})
 	private Bien bienTbl;
+	
+	//bi-directional many-to-one association to Empleado
+	@ManyToOne
+	@JoinColumns({
+		@JoinColumn(name="emp_asignado_fk", referencedColumnName="emp_pk", unique=false, nullable=true, insertable=false, updatable=false)
+	})
+	private Empleado empleadoAsignadoTbl;
+	
+	//bi-directional many-to-one association to Empleado
+	@ManyToOne
+	@JoinColumns({
+		@JoinColumn(name="emp_reasignado_fk", referencedColumnName="emp_pk", unique=false, nullable=true, insertable=false, updatable=false)
+	})
+	private Empleado empleadoReasignadoTbl;
 
 	//bi-directional many-to-one association to DetalleBien
 	@ManyToOne
@@ -305,6 +332,48 @@ public class Transaccion implements Serializable {
 	 */
 	public void setDcTipoBien(DetalleBien dcTipoBien) {
 		this.dcTipoBien = dcTipoBien;
+	}
+
+	/**
+	 * @return the bieFk
+	 */
+	public Integer getBieFk() {
+		return bieFk;
+	}
+
+	/**
+	 * @param bieFk the bieFk to set
+	 */
+	public void setBieFk(Integer bieFk) {
+		this.bieFk = bieFk;
+	}
+
+	/**
+	 * @return the empReasignadoFk
+	 */
+	public Integer getEmpReasignadoFk() {
+		return empReasignadoFk;
+	}
+
+	/**
+	 * @param empReasignadoFk the empReasignadoFk to set
+	 */
+	public void setEmpReasignadoFk(Integer empReasignadoFk) {
+		this.empReasignadoFk = empReasignadoFk;
+	}
+
+	/**
+	 * @return the empleadoReasignadoTbl
+	 */
+	public Empleado getEmpleadoReasignadoTbl() {
+		return empleadoReasignadoTbl;
+	}
+
+	/**
+	 * @param empleadoReasignadoTbl the empleadoReasignadoTbl to set
+	 */
+	public void setEmpleadoReasignadoTbl(Empleado empleadoReasignadoTbl) {
+		this.empleadoReasignadoTbl = empleadoReasignadoTbl;
 	}
 
 }

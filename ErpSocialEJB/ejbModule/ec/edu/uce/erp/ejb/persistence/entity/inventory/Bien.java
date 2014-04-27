@@ -20,6 +20,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
@@ -79,6 +80,9 @@ public class Bien extends AuditoriaUtil implements Serializable {
 	@Column(name="emr_pk")
 	private Integer emrPk;
 	
+	@Column(name="bie_codigo")
+	private String bieCodigo;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumns({
 		@JoinColumn(name="cat_bien_pk", referencedColumnName="cat_bien_pk", unique=false, nullable=true, insertable=false, updatable=false),
@@ -109,6 +113,9 @@ public class Bien extends AuditoriaUtil implements Serializable {
 //		@JoinColumn(name="det_bien_est_nivel1", referencedColumnName="det_bien_nivel1", unique=false, nullable=true, insertable=false, updatable=false)
 //		})
 //	private DetalleBien dcEstadoBien;
+	
+	@Transient
+	private String npIdDcEstadoConservacion;
 
 	//bi-directional many-to-one association to Inventario
 	@ManyToOne
@@ -370,6 +377,34 @@ public class Bien extends AuditoriaUtil implements Serializable {
 	 */
 	public void setEmpresaTbl(Empresa empresaTbl) {
 		this.empresaTbl = empresaTbl;
+	}
+
+	/**
+	 * @return the bieCodigo
+	 */
+	public String getBieCodigo() {
+		return bieCodigo;
+	}
+
+	/**
+	 * @param bieCodigo the bieCodigo to set
+	 */
+	public void setBieCodigo(String bieCodigo) {
+		this.bieCodigo = bieCodigo;
+	}
+
+	/**
+	 * @return the npIdDcEstadoConservacion
+	 */
+	public String getNpIdDcEstadoConservacion() {
+		return npIdDcEstadoConservacion;
+	}
+
+	/**
+	 * @param npIdDcEstadoConservacion the npIdDcEstadoConservacion to set
+	 */
+	public void setNpIdDcEstadoConservacion(String npIdDcEstadoConservacion) {
+		this.npIdDcEstadoConservacion = npIdDcEstadoConservacion;
 	}
 
 }

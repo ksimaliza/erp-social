@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -48,6 +49,12 @@ public class Empleado implements Serializable {
 
 	@Column(name="emp_estado")
 	private String empEstado;
+	
+	@Column(name="emr_fk")
+	private Integer emrFk;
+	
+	@Column(name="per_fk")
+	private Integer perFk;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="emp_fecha_ingreso")
@@ -59,17 +66,27 @@ public class Empleado implements Serializable {
 
 	//bi-directional many-to-one association to Empresa
 	@ManyToOne
-	@JoinColumn(name="emr_fk")
+	@JoinColumns({
+		@JoinColumn(name="emr_fk", referencedColumnName="emr_pk", unique=false, nullable=true, insertable=false, updatable=false)
+	})
 	private Empresa empresaTbl;
 
 	//bi-directional many-to-one association to Persona
 	@ManyToOne
-	@JoinColumn(name="per_fk")
+	@JoinColumns({
+		@JoinColumn(name="per_fk", referencedColumnName="per_pk", unique=false, nullable=true, insertable=false, updatable=false)
+	})
 	private Persona personaTbl;
 
 	//bi-directional many-to-one association to Inventario
 	@OneToMany(mappedBy="empleadoTbl")
 	private List<Inventario> inventarioTbls;
+	
+	//TODO pendiente la relacion de regreso para con la tabla transaccion
+	
+//	//bi-directional many-to-one association to Transaccion
+//	@OneToMany(mappedBy="empleadoAsignadoTbl")
+//	private List<Transaccion> transaccionTbls;
 
 	public Empleado() {
 	}
@@ -180,6 +197,34 @@ public class Empleado implements Serializable {
 		inventarioTbl.setEmpleadoTbl(null);
 
 		return inventarioTbl;
+	}
+
+	/**
+	 * @return the emrFk
+	 */
+	public Integer getEmrFk() {
+		return emrFk;
+	}
+
+	/**
+	 * @param emrFk the emrFk to set
+	 */
+	public void setEmrFk(Integer emrFk) {
+		this.emrFk = emrFk;
+	}
+
+	/**
+	 * @return the perFk
+	 */
+	public Integer getPerFk() {
+		return perFk;
+	}
+
+	/**
+	 * @param perFk the perFk to set
+	 */
+	public void setPerFk(Integer perFk) {
+		this.perFk = perFk;
 	}
 
 }

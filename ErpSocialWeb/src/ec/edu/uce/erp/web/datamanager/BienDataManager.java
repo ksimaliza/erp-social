@@ -54,9 +54,12 @@ public class BienDataManager extends BaseDataManager{
 	private List<SelectItem> dcCategoriaBien;
 	private List<SelectItem> dcLineaBien;
 	private List<SelectItem> dcMarcaBien;
+	private List<SelectItem> dcEmpleadosEmpresa;
 	
 	private Integer idCategoriaBienSeleccionado;
 	private Integer idLineaBienSeleccionado;
+	private String idDcEstadoConservacionSelec;
+	private Integer idCustudioAsignado;
 	
 	public BienDataManager () {
 		super();
@@ -231,6 +234,25 @@ public class BienDataManager extends BaseDataManager{
 	}
 	
 	/**
+	 * @return the dcMarcaBien
+	 */
+	public List<SelectItem> getDcEmpleadosEmpresa() {
+		
+		try {
+			if (CollectionUtils.isEmpty(dcEmpleadosEmpresa)) {
+				slf4jLogger.info("cargar dcEmpleadosEmpresa");
+				dcEmpleadosEmpresa = UtilSelectItems.getInstancia().cargarSelectItemMarcaBien(servicioInventario);
+			}
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("error al cargar getDcEmpleadosEmpresa {}", e.getCause().getMessage());
+			e.printStackTrace();
+		}
+		
+		return dcEmpleadosEmpresa;
+	}
+	
+	
+	/**
 	 * @return the idCategoriaBienSeleccionado
 	 */
 	public Integer getIdCategoriaBienSeleccionado() {
@@ -305,6 +327,34 @@ public class BienDataManager extends BaseDataManager{
 	 */
 	public void setVistaBienEditar(VistaBien vistaBienEditar) {
 		this.vistaBienEditar = vistaBienEditar;
+	}
+
+	/**
+	 * @return the idDcEstadoConservacionSelec
+	 */
+	public String getIdDcEstadoConservacionSelec() {
+		return idDcEstadoConservacionSelec;
+	}
+
+	/**
+	 * @param idDcEstadoConservacionSelec the idDcEstadoConservacionSelec to set
+	 */
+	public void setIdDcEstadoConservacionSelec(String idDcEstadoConservacionSelec) {
+		this.idDcEstadoConservacionSelec = idDcEstadoConservacionSelec;
+	}
+
+	/**
+	 * @return the idCustudioAsignado
+	 */
+	public Integer getIdCustudioAsignado() {
+		return idCustudioAsignado;
+	}
+
+	/**
+	 * @param idCustudioAsignado the idCustudioAsignado to set
+	 */
+	public void setIdCustudioAsignado(Integer idCustudioAsignado) {
+		this.idCustudioAsignado = idCustudioAsignado;
 	}
 
 	

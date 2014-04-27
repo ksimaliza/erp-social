@@ -6,24 +6,23 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpEditarBien" header="#{i18n['erp.bien.editar']}" 
-		widgetVar="dlgEditarBien" modal="true" minWidth="500" width="500" appendTo="@(body)" draggable="false">
+		widgetVar="dlgEditarBien" modal="true" minWidth="550" width="550" appendTo="@(body)" draggable="false">
 		<h:form id="formEditarBien" styleClass="formulario">
 			<p:panel id="pnlEditarBien" >
 				<table class="formulario">
-					<!-- <tr>
+					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtTipoBien" value="#{i18n['erp.bien.tipo']}" />
+							<h:outputLabel for="txtTipoBien" value="#{i18n['erp.bien.estado.conservacion']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td  width="70%">
-							<p:selectOneMenu id="txtTipoBien" panelStyle="width: 20%"
-								required="true" label="#{i18n['erp.bien.tipo']}"
-								value="#{bienDataManager.bienEditar.detCatalogoTipoBien}" >
-								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
-								<f:selectItems value="#{bienDataManager.dcTipoBien}"/>
+							<p:selectOneMenu id="txtTipoBien" style="width: 100%"
+								required="true" label="#{i18n['erp.bien.estado.conservacion']}"
+								value="#{bienDataManager.idDcEstadoConservacionSelec}" >
+								<f:selectItems value="#{bienDataManager.dcEstadoConservacion}"/>
 							</p:selectOneMenu>
 						</td>
-					</tr> -->
+					</tr>
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="selectCategoria" value="#{i18n['erp.bien.categoria']}" />
