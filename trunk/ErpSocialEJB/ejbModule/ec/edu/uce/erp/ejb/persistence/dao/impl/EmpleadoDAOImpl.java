@@ -3,6 +3,7 @@ package ec.edu.uce.erp.ejb.persistence.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -21,6 +22,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.EmpleadoDAO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
 
+@Stateless
 public class EmpleadoDAOImpl extends AbstractFacadeImpl<EmpleadoDTO> implements EmpleadoDAO{
 
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(EmpleadoDAOImpl.class);
@@ -61,7 +63,13 @@ public class EmpleadoDAOImpl extends AbstractFacadeImpl<EmpleadoDTO> implements 
 			predicate = cb.like(cb.upper(from.<String>get("perApellidos")), apellido);
 			criteriaList.add(predicate);
 		}
-				
+		
+		//por empresa
+		if (empleado.getEmpPk()!= null && empleado.getEmpPk()>0) {
+			predicate = cb.equal(from.get("empPk"), empleado.getEmpPk());
+			criteriaList.add(predicate);
+		}
+		
 		if(criteriaList!=null && criteriaList.size()>0)
 			cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		

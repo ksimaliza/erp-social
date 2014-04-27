@@ -31,6 +31,33 @@
 						</td>
 					</tr>
 					<tr>
+						<td width="30%">
+							<h:outputLabel for="selectCategoria" value="#{i18n['erp.bien.categoria']}" />
+						</td>
+						<td  width="70%">
+							<p:selectOneMenu id="selectCategoria"
+								style="width: 100%" label="#{i18n['erp.bien.categoria']}"
+								value="#{bienDataManager.idCategoriaBienSeleccionado}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItems value="#{bienDataManager.dcCategoriaBien}"/>
+								<p:ajax event="change" process="@this" update="txtLinea" listener="#{bienDataManager.cargarDcLineaBien}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtLinea" value="#{i18n['erp.bien.linea']}" />
+						</td>
+						<td  width="70%">
+							<p:selectOneMenu id="txtLinea"
+								style="width: 100%" label="#{i18n['erp.bien.linea']}"
+								value="#{bienDataManager.idLineaBienSeleccionado}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{bienDataManager.dcLineaBien}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
 						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
 						<td>
 							<p:selectOneMenu id="inputEstado" value="#{bienDataManager.vistaBienBuscar.bieEstado}">
@@ -118,7 +145,7 @@
 					</f:facet>
 					<h:outputText value="#{vistaBien.bieNombre}" />
 				</p:column>
-				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%" exportable="false">
+				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="20%" exportable="false">
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
@@ -127,37 +154,20 @@
 							action="#{bienController.asignarDatosBienDesdeVista(vistaBien)}">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
-						<p:commandLink value="Asignar" title="Asignar"/>
-						<p:commandLink value="  Traslado" title="Asignar"/>
-						<p:commandLink value="  Dar baja" title="Asignar"/>
-					</h:panelGroup>
-					<!-- <h:panelGroup>
-						<h:outputText value="&#160;|&#160;" />
-					</h:panelGroup>
-					<h:panelGroup>
-						<p:commandLink styleClass="no-decor"
-							title="#{i18n['label.activar']}"
-							rendered="#{marcaBien.marBienEstado eq marcaBienDataManager.estadoInactivo}"
-							oncomplete="dlgActivar.show()">
-							<h:graphicImage value="/resources/img/tick.png" alt="#{i18n['label.activar']}"/>
-							<f:setPropertyActionListener target="#{marcaBienDataManager.marcaBienEditar}" value="#{marcaBien}" />
+						<p:commandLink value="Asignar" title="Asignar" rendered="#{vistaBien.npVerAsignarBien}"
+							oncomplete="dlgAsignarBien.show()" update=":formAsignarBien:pnlAsignarBien">
+							<f:setPropertyActionListener target="#{bienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
 						</p:commandLink>
+						<p:commandLink value="  Traslado" title="Traslado" rendered="#{vistaBien.npVerTrasladoBien}"/>
+						<p:commandLink value="  Dar baja" title="Dar baja"/>
 					</h:panelGroup>
-					<h:panelGroup>
-						<p:commandLink styleClass="no-decor"
-							title="#{i18n['label.desabilitar']}"
-							rendered="#{marcaBien.marBienEstado eq marcaBienDataManager.estadoActivo}"
-							oncomplete="dlgDesactivar.show()">
-							<h:graphicImage value="/resources/img/delete.png" alt="#{i18n['label.desabilitar']}"/>
-							<f:setPropertyActionListener target="#{marcaBienDataManager.marcaBienEditar}" value="#{marcaBien}" />
-						</p:commandLink>
-					</h:panelGroup> -->
 				</p:column>
 			</p:dataTable>
 		</h:form>
 		
 		<ui:include src="dialogNuevoBien.xhtml" />
 		<ui:include src="dialogEditarBien.xhtml" />
+		<ui:include src="dialogAsignarBien.xhtml" />
 		
 	</ui:define>
 </ui:composition>

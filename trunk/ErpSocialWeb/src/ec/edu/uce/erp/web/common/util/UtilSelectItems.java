@@ -19,6 +19,7 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.common.util.UtilReflection;
 import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogo;
 import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogoPK;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CabeceraBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CategoriaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien;
@@ -234,6 +235,22 @@ public final class UtilSelectItems {
 		if (CollectionUtils.isNotEmpty(listMarcaBien)) {
 			listSelectItem = this.cargarSelectItemsGenerico(listMarcaBien, "marBienPk", "marBienNombre");
 		}
+		
+		return listSelectItem;
+	}
+	
+	public List<SelectItem> cargarSelectItemEmpleados (ServicioInventario servicioInventario, Integer emrPk) throws SeguridadesException {
+		
+		slf4jLogger.info("cargarSelectItemEmpleados");
+		
+		List<SelectItem> listSelectItem = new ArrayList<SelectItem>();
+		
+		EmpleadoListDTO vistaEmpleado = new EmpleadoListDTO();
+//		vistaEmpleado.setE
+		
+//		if (CollectionUtils.isNotEmpty(listMarcaBien)) {
+//			listSelectItem = this.cargarSelectItemsGenerico(listMarcaBien, "marBienPk", "marBienNombre");
+//		}
 		
 		return listSelectItem;
 	}

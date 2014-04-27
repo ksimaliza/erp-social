@@ -272,6 +272,9 @@ add column MAR_BIEN_PK INT4 null;
 ALTER TABLE BIEN_TBL
 ADD COLUMN EMR_PK INT4 null;
 
+alter table bien_tbl
+add column bie_codigo varchar (50) null;
+
 alter table BIEN_TBL
    add constraint FK_BIEN_TBL_REFERENCE_LINEA_BI foreign key (LIN_BIEN_PK, CAT_BIEN_PK)
       references LINEA_BIEN_TBL (LIN_BIEN_PK, CAT_BIEN_PK)
@@ -310,6 +313,23 @@ alter table TRANSACCION_TBL
 alter table TRANSACCION_TBL
    add constraint FK_BIEN_TBL_RELATIONS_DET_CON foreign key (CAB_BIEN_EST_CONSERV_FK, DET_BIEN_EST_CONSERV_NIVEL1_FK)
       references DETALLE_BIEN_TBL (CAB_BIEN_FK, DET_BIEN_NIVEL1)
+      on delete restrict on update restrict;
+      
+
+alter table transaccion_tbl
+add column emp_asignado_fk integer null;
+
+alter table transaccion_tbl
+add column emp_reasignado_fk integer null;
+
+alter table transaccion_tbl
+   add constraint FK_TRANSACCION_TBL_REF_EMPLEADO_ASIG foreign key (emp_asignado_fk)
+      references empleado_tbl (emp_pk)
+      on delete restrict on update restrict;
+      
+alter table transaccion_tbl
+   add constraint FK_TRANSACCION_TBL_REF_EMPLEADO_REASIG foreign key (emp_reasignado_fk)
+      references empleado_tbl (emp_pk)
       on delete restrict on update restrict;
 
 

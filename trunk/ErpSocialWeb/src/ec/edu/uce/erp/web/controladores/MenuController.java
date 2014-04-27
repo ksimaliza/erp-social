@@ -114,6 +114,7 @@ public class MenuController extends BaseController {
 		try {
 			
 			this.menuDataManager.getMenuEditar().setSegtModulos(this.asignarModulosSeleccionados());
+			this.menuDataManager.getMenuEditar().setUsuarioRegistro(this.menuDataManager.getUsuarioSession());
 			this.servicioAdministracion.actualizarMenu(this.menuDataManager.getMenuEditar());
 			this.menuDataManager.setMenuEditar(new Menu());
 			MensajesWebController.aniadirMensajeInformacion("erp.menu.informacion.actualizar");

@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.persistence.dao.MenuDAO;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Menu;
 
@@ -59,18 +60,19 @@ public class MenuDAOImpl extends AbstractFacadeImpl<Menu> implements MenuDAO{
 			criteriaList = new ArrayList<Predicate>();
 			
 			//por nombre 
-			if (StringUtils.isNotEmpty(menuDTO.getNombreMenu())) {
+			if (StringUtils.isNotBlank(menuDTO.getNombreMenu())) {
+				
 				Expression<String> nombreMenu = 
-						criteriaBuilder.upper(criteriaBuilder.literal(menuDTO.getNombreMenu()));
-				predicate = criteriaBuilder.equal(criteriaBuilder.upper(fromMenu.<String>get("nombreMenu")), nombreMenu);
+						criteriaBuilder.upper(criteriaBuilder.literal(UtilAplication.appendStringBuilder("%", menuDTO.getNombreMenu(), "%").toString()));
+				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromMenu.<String>get("nombreMenu")), nombreMenu);
 				criteriaList.add(predicate);
 			}
 			
 			//por url
-			if (StringUtils.isNotEmpty(menuDTO.getUrlMenu())) {
+			if (StringUtils.isNotBlank(menuDTO.getUrlMenu())) {
 				Expression<String> urlMenu = 
-						criteriaBuilder.upper(criteriaBuilder.literal(menuDTO.getUrlMenu()));
-				predicate = criteriaBuilder.equal(criteriaBuilder.upper(fromMenu.<String>get("urlMenu")), urlMenu);
+						criteriaBuilder.upper(criteriaBuilder.literal((UtilAplication.appendStringBuilder("%", menuDTO.getUrlMenu(), "%").toString())));
+				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromMenu.<String>get("urlMenu")), urlMenu);
 				criteriaList.add(predicate);
 			}
 			
