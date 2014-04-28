@@ -24,7 +24,7 @@
 						</td>
 						<td>
 							<p:inputText id="txtUbicacion" style="width: 100%" required="true"
-								value="#{bienDataManager.bienInstancia.bieCodigo}" label="#{i18n['erp.bien.ubicacion']}" />
+								value="#{bienDataManager.vistaBienEditar.bieUbicacion}" label="#{i18n['erp.bien.ubicacion']}" />
 						</td>
 					</tr>
 					<tr>
@@ -34,7 +34,7 @@
 						</td>
 						<td>
 							<p:inputText id="txtCodigo" style="width: 100%" required="true"
-								value="#{bienDataManager.bienInstancia.bieCodigo}" label="#{i18n['erp.bien.codigo']}" />
+								value="#{bienDataManager.vistaBienEditar.bieCodigo}" label="#{i18n['erp.bien.codigo']}" />
 						</td>
 					</tr>
 					<tr>
@@ -47,7 +47,8 @@
 								label="#{i18n['erp.bien.custodio']}" required="true"
 								value="#{bienDataManager.idCustudioAsignado}" >
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
-								<f:selectItems value="#{bienDataManager.dcEstadoConservacion}"/>
+								<f:selectItem itemValue="1" itemLabel="bodegaUno"/>
+								<f:selectItem itemValue="2" itemLabel="bodega2"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
@@ -55,7 +56,7 @@
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
-					actionListener="#{bienController.registrarBien}"
+					actionListener="#{bienController.asignarBien}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgAsignarBien.hide()"
 					process="@this,pnlAsignarBien" update="pnlAsignarBien,:formBien:tablaBienes,:formBien:pnlMessages"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgAsignarBien.hide();" type="button" />

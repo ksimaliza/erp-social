@@ -376,4 +376,32 @@ public class Transaccion implements Serializable {
 		this.empleadoReasignadoTbl = empleadoReasignadoTbl;
 	}
 
+	/**
+	 * @return the empAsignadoFk
+	 */
+	public Integer getEmpAsignadoFk() {
+		return empAsignadoFk;
+	}
+
+	/**
+	 * @param empAsignadoFk the empAsignadoFk to set
+	 */
+	public void setEmpAsignadoFk(Integer empAsignadoFk) {
+		this.empAsignadoFk = empAsignadoFk;
+	}
+
+	/**
+	 * @return the empleadoAsignadoTbl
+	 */
+	public Empleado getEmpleadoAsignadoTbl() {
+		return empleadoAsignadoTbl;
+	}
+
+	/**
+	 * @param empleadoAsignadoTbl the empleadoAsignadoTbl to set
+	 */
+	public void setEmpleadoAsignadoTbl(Empleado empleadoAsignadoTbl) {
+		this.empleadoAsignadoTbl = empleadoAsignadoTbl;
+	}
+
 }
