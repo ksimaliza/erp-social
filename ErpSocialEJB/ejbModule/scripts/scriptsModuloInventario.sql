@@ -336,13 +336,16 @@ alter table transaccion_tbl
 /*==============================================================*/
 /* Vista bien                                  */
 /*==============================================================*/
+drop if exists view bien_view;
 create view bien_view as
 select bie_pk, emr_pk, 
-bie_nombre, bie_modelo, bie_color, bie_costo_venta, bie_fecha_asig, bie_ubicacion, bie_notas, bie_estado,
-b.cat_bien_pk, cb.cat_bien_descripcion, cb.cat_bien_estado,
-b.lin_bien_pk, lb.lin_bien_descripcion, lb.lin_bien_estado,
-b.mar_bien_pk, mb.mar_bien_descripcion, mb.mar_bien_estado,
-t.cab_bien_tip_bie_fk, t.det_bien_tip_bie_nivel1, t.cab_bien_est_conserv_fk, t.det_bien_est_conserv_nivel1_fk
+b.bie_nombre, b.bie_modelo, b.bie_color, bie_costo_venta, bie_fecha_asig, bie_ubicacion, bie_notas, bie_estado,
+b.cat_bien_pk, b.bie_codigo,
+b.lin_bien_pk, lb.lin_bien_nombre, lb.lin_bien_estado,
+b.mar_bien_pk, mb.mar_bien_nombre, mb.mar_bien_estado,
+cb.cat_bien_nombre, cb.cat_bien_estado,
+t.cab_bien_tip_bie_fk, t.det_bien_tip_bie_nivel1, t.cab_bien_est_conserv_fk, 
+t.det_bien_est_conserv_nivel1_fk, t.tra_estado, t.emp_asignado_fk, t.emp_reasignado_fk
 from bien_tbl b
 inner join categoria_bien_tbl cb on cb.cat_bien_pk=b.cat_bien_pk
 inner join linea_bien_tbl lb on lb.lin_bien_pk = b.lin_bien_pk and lb.cat_bien_pk = cb.cat_bien_pk

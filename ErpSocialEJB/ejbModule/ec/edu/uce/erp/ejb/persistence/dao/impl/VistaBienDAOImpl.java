@@ -106,9 +106,15 @@ public class VistaBienDAOImpl extends AbstractFacadeImpl<VistaBien> implements V
 				criteriaList.add(predicate);
 			}
 			
-			//por estado
+			//por estado del bien
 			if (StringUtils.isNotBlank(vistaBien.getBieEstado())) {
 				predicate = criteriaBuilder.equal(fromVistaBien.get("bieEstado"), vistaBien.getBieEstado());
+				criteriaList.add(predicate);
+			}
+			
+			//por estado de la tabla transaccion (estados del bien)
+			if (StringUtils.isNotBlank(vistaBien.getTraEstado())) {
+				predicate = criteriaBuilder.equal(fromVistaBien.get("traEstado"), vistaBien.getTraEstado());
 				criteriaList.add(predicate);
 			}
 			

@@ -101,6 +101,18 @@ public class VistaBien implements Serializable {
 	@Column(name="mar_bien_pk")
 	private Integer marBienPk;
 	
+	@Column(name="tra_estado")
+	private String traEstado;
+	
+	@Column(name = "emp_asignado_fk")
+	private Integer empAsignadoFk;
+	
+	@Column(name = "emp_reasignado_fk")
+	private Integer empReasignadoFk;
+	
+	@Column(name="bie_codigo")
+	private String bieCodigo;
+	
 	@Transient
 	private Boolean npVerAsignarBien = Boolean.FALSE;
 	
@@ -360,6 +372,62 @@ public class VistaBien implements Serializable {
 	 */
 	public void setNpVerAsignarBien(Boolean npVerAsignarBien) {
 		this.npVerAsignarBien = npVerAsignarBien;
+	}
+
+	/**
+	 * @return the traEstado
+	 */
+	public String getTraEstado() {
+		return traEstado;
+	}
+
+	/**
+	 * @param traEstado the traEstado to set
+	 */
+	public void setTraEstado(String traEstado) {
+		this.traEstado = traEstado;
+	}
+
+	/**
+	 * @return the empAsignadoFk
+	 */
+	public Integer getEmpAsignadoFk() {
+		return empAsignadoFk;
+	}
+
+	/**
+	 * @param empAsignadoFk the empAsignadoFk to set
+	 */
+	public void setEmpAsignadoFk(Integer empAsignadoFk) {
+		this.empAsignadoFk = empAsignadoFk;
+	}
+
+	/**
+	 * @return the empReasignadoFk
+	 */
+	public Integer getEmpReasignadoFk() {
+		return empReasignadoFk;
+	}
+
+	/**
+	 * @param empReasignadoFk the empReasignadoFk to set
+	 */
+	public void setEmpReasignadoFk(Integer empReasignadoFk) {
+		this.empReasignadoFk = empReasignadoFk;
+	}
+
+	/**
+	 * @return the bieCodigo
+	 */
+	public String getBieCodigo() {
+		return bieCodigo;
+	}
+
+	/**
+	 * @param bieCodigo the bieCodigo to set
+	 */
+	public void setBieCodigo(String bieCodigo) {
+		this.bieCodigo = bieCodigo;
 	}
 
 }

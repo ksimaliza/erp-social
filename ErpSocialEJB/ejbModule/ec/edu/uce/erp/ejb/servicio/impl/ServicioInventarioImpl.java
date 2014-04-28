@@ -371,11 +371,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 							new AuditoriaDTO(bien.getUsuarioRegistro()
 									.getIdUsuario(), ServicioInventarioImpl.class.getName(), "registrarBien", EnumTipoTransaccion.CREATE));
 			
-			VistaBien vistaBienBuscar = new VistaBien();
-			vistaBienBuscar.setBiePk(bienNuevo.getBiePk());
-			vistaBienBuscar.setEmrPk(bienNuevo.getEmrPk());
-			
-			List<VistaBien> listVistaBien = inventarioFactory.getVistaBienDAOImpl().obtenerVistaBienCriterios(vistaBienBuscar);
+			List<VistaBien> listVistaBien = obtenerVistaDesdeBien(bienNuevo);
 			
 			if (CollectionUtils.isNotEmpty(listVistaBien)) {
 				
@@ -418,11 +414,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 							new AuditoriaDTO(bien.getUsuarioRegistro()
 									.getIdUsuario(), ServicioInventarioImpl.class.getName(), "actualizarBien", EnumTipoTransaccion.UPDATE));
 			
-			VistaBien vistaBienBuscar = new VistaBien();
-			vistaBienBuscar.setBiePk(bienUpdate.getBiePk());
-			vistaBienBuscar.setEmrPk(bienUpdate.getEmrPk());
-			
-			List<VistaBien> listVistaBien = inventarioFactory.getVistaBienDAOImpl().obtenerVistaBienCriterios(vistaBienBuscar);
+			List<VistaBien> listVistaBien = obtenerVistaDesdeBien(bienUpdate);
 			
 			if (CollectionUtils.isNotEmpty(listVistaBien)) {
 				
@@ -435,6 +427,16 @@ public class ServicioInventarioImpl implements ServicioInventario {
 		}
 		
 		return null;
+	}
+
+	private List<VistaBien> obtenerVistaDesdeBien(Bien bienBuscar) throws SeguridadesException {
+		
+		VistaBien vistaBienBuscar = new VistaBien();
+		vistaBienBuscar.setBiePk(bienBuscar.getBiePk());
+		vistaBienBuscar.setEmrPk(bienBuscar.getEmrPk());
+		
+		List<VistaBien> listVistaBien = inventarioFactory.getVistaBienDAOImpl().obtenerVistaBienCriterios(vistaBienBuscar);
+		return listVistaBien;
 	}
 
 	@Override
@@ -462,12 +464,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 			
 			if (CollectionUtils.isNotEmpty(listVistaBien)) {
 				for (VistaBien vista : listVistaBien) {
-					if (vista.getDetBienTipBieNivel1().equals(EnumTipoBien.INGRESADO.getId())) {
-						vista.setNpVerAsignarBien(Boolean.TRUE);
-					}
-					if (vista.getDetBienTipBieNivel1().equals(EnumTipoBien.ASIGNADO.getId())) {
-						vista.setNpVerTrasladoBien(Boolean.TRUE);
-					}
+					this.asignarPropiedadesNoPersitentesVistaBien(vista);
 				}
 			}
 			
@@ -478,45 +475,75 @@ public class ServicioInventarioImpl implements ServicioInventario {
 		
 		return listVistaBien;
 	}
+	
+	private void asignarPropiedadesNoPersitentesVistaBien(VistaBien vistaBien) {
+		if (vistaBien.getDetBienTipBieNivel1().equals(EnumTipoBien.INGRESADO.getId())) {
+			vistaBien.setNpVerAsignarBien(Boolean.TRUE);
+		}
+		if (vistaBien.getDetBienTipBieNivel1().equals(EnumTipoBien.ASIGNADO.getId())) {
+			vistaBien.setNpVerTrasladoBien(Boolean.TRUE);
+		}
+	}
 
 	@Override
 	public VistaBien asignarBien(VistaBien vistaBien) throws SeguridadesException {
 		
-		//obtener el estado actual de la tabla transaccion
-		Transaccion transaccionBuscar = new Transaccion();
-		transaccionBuscar.setBieFk(vistaBien.getBiePk());
-		transaccionBuscar.setTraEstado(ESTADO_ACTIVO);
-		List<Transaccion> listTransaccion = inventarioFactory.getTransaccionDAOImpl().obtenerTransaccionCriterios(transaccionBuscar);
-		
-		if (CollectionUtils.isNotEmpty(listTransaccion) && listTransaccion.size() == 1) {
+		try {
+			//obtener el estado actual de la tabla transaccion
+			Transaccion transaccionBuscar = new Transaccion();
+			transaccionBuscar.setBieFk(vistaBien.getBiePk());
+			transaccionBuscar.setTraEstado(ESTADO_ACTIVO);
+			List<Transaccion> listTransaccion = inventarioFactory.getTransaccionDAOImpl().obtenerTransaccionCriterios(transaccionBuscar);
 			
-			Transaccion transaccionActual = listTransaccion.iterator().next();
-			
-			// el estado del bien debe ser ingresado
-			if (transaccionActual != null && transaccionActual.getDetCatalogoTipoBien().equals(EnumTipoBien.INGRESADO.getId())) {
+			if (CollectionUtils.isNotEmpty(listTransaccion) && listTransaccion.size() == 1) {
 				
-				//inactivar el estado actual antes de crear el nuevo
-				transaccionActual.setTraEstado(ESTADO_INACTIVO);
-				transaccionActual.setFechaFin(UtilAplication.obtenerFechaActual());
-				inventarioFactory.getTransaccionDAOImpl().update(transaccionActual);
+				Transaccion transaccionActual = listTransaccion.iterator().next();
 				
-				// crear el nuevo estado en la tabla transaccion
-				Transaccion transaccionNuevo = new Transaccion();
-				transaccionNuevo.setCabCatalogoTipoBien(ConstantesApplication.CAB_CAT_TIPO_BIEN);
-				transaccionNuevo.setDetCatalogoTipoBien(EnumTipoBien.ASIGNADO.getId());
-				transaccionNuevo.setCabEstadoConservacion(transaccionActual.getCabEstadoConservacion());
-				transaccionNuevo.setDetEstadoConservacion(transaccionActual.getDetEstadoConservacion());
-				transaccionNuevo.setBieFk(vistaBien.getBiePk());
-				transaccionNuevo.setFechaInicio(UtilAplication.obtenerFechaActual());
-				transaccionNuevo.setTraEstado(ESTADO_ACTIVO);
-				inventarioFactory.getTransaccionDAOImpl().create(transaccionNuevo);
-				
+				// el estado del bien debe ser ingresado
+				if (transaccionActual != null && transaccionActual.getDetCatalogoTipoBien().equals(EnumTipoBien.INGRESADO.getId())) {
+					
+					//inactivar el estado actual antes de crear el nuevo
+					transaccionActual.setTraEstado(ESTADO_INACTIVO);
+					transaccionActual.setFechaFin(UtilAplication.obtenerFechaActual());
+					inventarioFactory.getTransaccionDAOImpl().update(transaccionActual);
+					
+					// crear el nuevo estado en la tabla transaccion
+					Transaccion transaccionNuevo = new Transaccion();
+					transaccionNuevo.setCabCatalogoTipoBien(ConstantesApplication.CAB_CAT_TIPO_BIEN);
+					transaccionNuevo.setDetCatalogoTipoBien(EnumTipoBien.ASIGNADO.getId());
+					transaccionNuevo.setCabEstadoConservacion(transaccionActual.getCabEstadoConservacion());
+					transaccionNuevo.setDetEstadoConservacion(transaccionActual.getDetEstadoConservacion());
+					transaccionNuevo.setBieFk(vistaBien.getBiePk());
+					transaccionNuevo.setFechaInicio(UtilAplication.obtenerFechaActual());
+					transaccionNuevo.setTraEstado(ESTADO_ACTIVO);
+					transaccionNuevo.setEmpAsignadoFk(vistaBien.getEmpAsignadoFk());
+					inventarioFactory.getTransaccionDAOImpl().create(transaccionNuevo);
+					
+					Bien bienBuscar = new Bien();
+					bienBuscar.setBiePk(vistaBien.getBiePk());
+					bienBuscar.setEmrPk(vistaBien.getEmrPk());
+					
+					Bien bienActual = inventarioFactory.getBienDAOImpl().buscarBienCriterios(bienBuscar).iterator().next();
+					bienActual.setBieUbicacion(vistaBien.getBieUbicacion());
+					bienActual.setBieCodigo(vistaBien.getBieCodigo());
+					inventarioFactory.getBienDAOImpl().update(bienActual);
+					
+					List<VistaBien> listVistaBien = obtenerVistaDesdeBien(bienBuscar);
+					
+					if (CollectionUtils.isNotEmpty(listVistaBien)) {
+						VistaBien vistaBienActual = listVistaBien.iterator().next();
+						this.asignarPropiedadesNoPersitentesVistaBien(vistaBienActual);
+						return vistaBienActual;
+					}
+					
+				}
 			}
+		} catch (Exception e) {
+			slf4jLogger.info("error al asignarBien {}", e.getCause().getMessage());
+			throw new SeguridadesException(e);
 		}
 		
 		return null;
 	}
-
-	
 
 }

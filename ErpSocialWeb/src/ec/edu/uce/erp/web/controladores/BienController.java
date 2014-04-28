@@ -103,6 +103,7 @@ public class BienController extends BaseController{
 		try {
 			
 			this.bienDataManager.getVistaBienBuscar().setEmrPk(this.bienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
+			this.bienDataManager.getVistaBienBuscar().setTraEstado(this.bienDataManager.getEstadoActivo());
 			List<VistaBien> listVistaBien = servicioInventario.buscarVistaBienCriterios(this.bienDataManager.getVistaBienBuscar());
 			
 			this.bienDataManager.getListVistaBien().clear();
@@ -149,8 +150,25 @@ public class BienController extends BaseController{
 	}
 	
 	public void asignarBien () {
+		
 		slf4jLogger.info("asignarBien");
 		
+		try {
+			
+			this.bienDataManager.getVistaBienEditar().setEmpAsignadoFk(this.bienDataManager.getIdCustudioAsignado());
+			VistaBien vistaBien = servicioInventario.asignarBien(this.bienDataManager.getVistaBienEditar());
+			
+			if (vistaBien != null) {
+				int posicion = this.bienDataManager.getListVistaBien().indexOf(this.bienDataManager.getVistaBienEditar());
+				this.bienDataManager.getListVistaBien().remove(this.bienDataManager.getVistaBienEditar());
+				this.bienDataManager.getListVistaBien().add(posicion, vistaBien);
+				MensajesWebController.aniadirMensajeInformacion("Bien asignado correctamente");
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("error al asignarBien {}", e.getCause().getMessage());
+			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
+		}
 		
 	}
 	
