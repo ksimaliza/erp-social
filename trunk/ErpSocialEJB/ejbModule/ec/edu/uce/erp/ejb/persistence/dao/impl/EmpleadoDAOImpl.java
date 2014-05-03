@@ -66,7 +66,7 @@ public class EmpleadoDAOImpl extends AbstractFacadeImpl<EmpleadoDTO> implements 
 		
 		//por empresa
 		if (empleado.getEmpPk()!= null && empleado.getEmpPk()>0) {
-			predicate = cb.equal(from.get("empPk"), empleado.getEmpPk());
+			predicate = cb.equal(from.get("emrPk"), empleado.getEmrPk());
 			criteriaList.add(predicate);
 		}
 		
