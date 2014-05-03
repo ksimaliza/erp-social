@@ -40,6 +40,39 @@ public class EmpleadoListDTO implements Serializable {
 	@Column(name="emp_pk")
 	private Integer empPk;
 
+	@Column(name="emr_celular")
+	private String emrCelular;
+
+	@Column(name="emr_direccion")
+	private String emrDireccion;
+
+	@Column(name="emr_email")
+	private String emrEmail;
+
+	@Column(name="emr_estado")
+	private String emrEstado;
+
+	@Column(name="emr_foto")
+	private String emrFoto;
+
+	@Column(name="emr_nombre")
+	private String emrNombre;
+
+	@Column(name="emr_pagina")
+	private String emrPagina;
+
+	@Column(name="emr_pk")
+	private Integer emrPk;
+
+	@Column(name="emr_ruc")
+	private String emrRuc;
+
+	@Column(name="emr_telefono")
+	private String emrTelefono;
+
+	@Column(name="hol_ent_sal_fk")
+	private Integer holEntSalFk;
+
 	@Column(name="per_apellidos")
 	private String perApellidos;
 
@@ -70,6 +103,9 @@ public class EmpleadoListDTO implements Serializable {
 
 	@Column(name="per_telefono")
 	private String perTelefono;
+
+	@Column(name="tip_empresa_fk")
+	private Integer tipEmpresaFk;
 
 	public EmpleadoListDTO() {
 	}
@@ -136,6 +172,94 @@ public class EmpleadoListDTO implements Serializable {
 
 	public void setEmpPk(Integer empPk) {
 		this.empPk = empPk;
+	}
+
+	public String getEmrCelular() {
+		return this.emrCelular;
+	}
+
+	public void setEmrCelular(String emrCelular) {
+		this.emrCelular = emrCelular;
+	}
+
+	public String getEmrDireccion() {
+		return this.emrDireccion;
+	}
+
+	public void setEmrDireccion(String emrDireccion) {
+		this.emrDireccion = emrDireccion;
+	}
+
+	public String getEmrEmail() {
+		return this.emrEmail;
+	}
+
+	public void setEmrEmail(String emrEmail) {
+		this.emrEmail = emrEmail;
+	}
+
+	public String getEmrEstado() {
+		return this.emrEstado;
+	}
+
+	public void setEmrEstado(String emrEstado) {
+		this.emrEstado = emrEstado;
+	}
+
+	public String getEmrFoto() {
+		return this.emrFoto;
+	}
+
+	public void setEmrFoto(String emrFoto) {
+		this.emrFoto = emrFoto;
+	}
+
+	public String getEmrNombre() {
+		return this.emrNombre;
+	}
+
+	public void setEmrNombre(String emrNombre) {
+		this.emrNombre = emrNombre;
+	}
+
+	public String getEmrPagina() {
+		return this.emrPagina;
+	}
+
+	public void setEmrPagina(String emrPagina) {
+		this.emrPagina = emrPagina;
+	}
+
+	public Integer getEmrPk() {
+		return this.emrPk;
+	}
+
+	public void setEmrPk(Integer emrPk) {
+		this.emrPk = emrPk;
+	}
+
+	public String getEmrRuc() {
+		return this.emrRuc;
+	}
+
+	public void setEmrRuc(String emrRuc) {
+		this.emrRuc = emrRuc;
+	}
+
+	public String getEmrTelefono() {
+		return this.emrTelefono;
+	}
+
+	public void setEmrTelefono(String emrTelefono) {
+		this.emrTelefono = emrTelefono;
+	}
+
+	public Integer getHolEntSalFk() {
+		return this.holEntSalFk;
+	}
+
+	public void setHolEntSalFk(Integer holEntSalFk) {
+		this.holEntSalFk = holEntSalFk;
 	}
 
 	public String getPerApellidos() {
@@ -216,6 +340,14 @@ public class EmpleadoListDTO implements Serializable {
 
 	public void setPerTelefono(String perTelefono) {
 		this.perTelefono = perTelefono;
+	}
+
+	public Integer getTipEmpresaFk() {
+		return this.tipEmpresaFk;
+	}
+
+	public void setTipEmpresaFk(Integer tipEmpresaFk) {
+		this.tipEmpresaFk = tipEmpresaFk;
 	}
 
 }
