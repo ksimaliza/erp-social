@@ -6,8 +6,6 @@ package ec.edu.uce.erp.web.controladores;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -50,7 +48,6 @@ public class BienController extends BaseController{
 	
 	public BienController () {}
 	
-	@TransactionAttribute (TransactionAttributeType.REQUIRED)
 	public void registrarBien () {
 		
 		slf4jLogger.info("registrarBien");
@@ -187,6 +184,13 @@ public class BienController extends BaseController{
 			
 			this.bienDataManager.getVistaBienEditar().setEmpReasignadoFk(this.bienDataManager.getIdCustudioReasignado());
 			VistaBien vistaBien = servicioInventario.reasignarBien(this.bienDataManager.getVistaBienEditar());
+			
+			if (vistaBien != null) {
+				int posicion = this.bienDataManager.getListVistaBien().indexOf(this.bienDataManager.getVistaBienEditar());
+				this.bienDataManager.getListVistaBien().remove(this.bienDataManager.getVistaBienEditar());
+				this.bienDataManager.getListVistaBien().add(posicion, vistaBien);
+				MensajesWebController.aniadirMensajeInformacion("Bien reasignado correctamente");
+			}
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("error al asignarBien {}", e.getCause().getMessage());
