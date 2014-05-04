@@ -10,6 +10,7 @@ import javax.ejb.Local;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogo;
 import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Menu;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Parametro;
@@ -183,6 +184,14 @@ public interface ServicioAdministracion {
 	 * @throws SeguridadesException
 	 */
 	List<Usuario> buscarUsuarios (Usuario usuario) throws SeguridadesException;
+	
+	/**
+	 * Buscar <code>Empleado</code> en la base de datos
+	 * @param empleadoListDTO
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	List<EmpleadoListDTO> obtenerEmpleadoEmpresa (EmpleadoListDTO empleadoListDTO) throws SeguridadesException;
 	
 	/*
 	 * Servicio para administracion de catalogos

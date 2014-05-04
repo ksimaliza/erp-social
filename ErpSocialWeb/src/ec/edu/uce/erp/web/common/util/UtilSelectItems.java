@@ -245,12 +245,13 @@ public final class UtilSelectItems {
 		
 		List<SelectItem> listSelectItem = new ArrayList<SelectItem>();
 		
-		EmpleadoListDTO vistaEmpleado = new EmpleadoListDTO();
-//		vistaEmpleado.setE
+		EmpleadoListDTO empleadoListDTO = new EmpleadoListDTO();
+		empleadoListDTO.setEmrPk(emrPk);
 		
-//		if (CollectionUtils.isNotEmpty(listMarcaBien)) {
-//			listSelectItem = this.cargarSelectItemsGenerico(listMarcaBien, "marBienPk", "marBienNombre");
-//		}
+		List<EmpleadoListDTO> listEmpleadoList = servicioInventario.obtenerEmpleadoEmpresa(empleadoListDTO);
+		if (CollectionUtils.isNotEmpty(listEmpleadoList)) {
+			listSelectItem = this.cargarSelectItemsGenerico(listEmpleadoList, "empPk", "nombresCompletosEmpleado");
+		}
 		
 		return listSelectItem;
 	}

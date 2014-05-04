@@ -59,8 +59,9 @@
 								label="#{i18n['erp.bien.custodio']}" required="true"
 								value="#{bienDataManager.idCustudioAsignado}" >
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
-								<f:selectItem itemValue="1" itemLabel="bodegaUno"/>
-								<f:selectItem itemValue="2" itemLabel="bodega2"/>
+								<!-- <f:selectItem itemValue="1" itemLabel="bodegaUno"/>
+								<f:selectItem itemValue="2" itemLabel="bodega2"/> -->
+								<f:selectItems value="#{bienDataManager.dcEmpleadosEmpresa}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>

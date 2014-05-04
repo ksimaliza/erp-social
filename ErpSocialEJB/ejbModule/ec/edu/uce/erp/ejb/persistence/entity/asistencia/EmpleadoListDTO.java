@@ -1,8 +1,16 @@
 package ec.edu.uce.erp.ejb.persistence.entity.asistencia;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 
 /**
@@ -25,7 +33,8 @@ public class EmpleadoListDTO implements Serializable {
 	@Column(name="aem_codigo_registro")
 	private String aemCodigoRegistro;
 
-	@Column(name="aem_empleado")
+//	@Column(name="aem_empleado")
+	@Transient
 	private Integer aemEmpleado;
 
 	@Column(name="aem_estado")
@@ -106,10 +115,14 @@ public class EmpleadoListDTO implements Serializable {
 
 	@Column(name="tip_empresa_fk")
 	private Integer tipEmpresaFk;
+	
+	@Transient
+	private String nombresCompletosEmpleado;
 
 	public EmpleadoListDTO() {
 	}
-
+	
+	
 	public String getAemClave() {
 		return this.aemClave;
 	}
@@ -348,6 +361,18 @@ public class EmpleadoListDTO implements Serializable {
 
 	public void setTipEmpresaFk(Integer tipEmpresaFk) {
 		this.tipEmpresaFk = tipEmpresaFk;
+	}
+	
+	public String getNombresCompletosEmpleado () {
+		return new StringBuilder().append(this.perNombres).append(" ").append(this.perApellidos).toString();
+	}
+
+
+	/**
+	 * @param nombresCompletosEmpleado the nombresCompletosEmpleado to set
+	 */
+	public void setNombresCompletosEmpleado(String nombresCompletosEmpleado) {
+		this.nombresCompletosEmpleado = nombresCompletosEmpleado;
 	}
 
 }

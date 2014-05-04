@@ -25,6 +25,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogo;
 import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
 import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Menu;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Parametro;
@@ -508,6 +509,23 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		return usuariosCol;
 	}
 	
+	@Override
+	public List<EmpleadoListDTO> obtenerEmpleadoEmpresa(EmpleadoListDTO empleadoListDTO) throws SeguridadesException {
+		slf4jLogger.info("obtenerEmpleadoEmpresa");
+		
+		List<EmpleadoListDTO> empleadoCol = null;
+		
+		try {
+			empleadoCol = factoryDAO.getEmpleadoDAOImpl().findAll(empleadoListDTO);
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al obtenerEmpleadoEmpresa {}" , e.getMessage());
+			throw new SeguridadesException("Error al obtenerEmpleadoEmpresa");
+		}
+		
+		return empleadoCol;
+	}
+	
 	/*
 	 * Servicio para administracion de catalogos del modulo de inventarios
 	 */
@@ -564,6 +582,5 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		
 		return parametroUpdate;
 	}
-	
 	
 }
