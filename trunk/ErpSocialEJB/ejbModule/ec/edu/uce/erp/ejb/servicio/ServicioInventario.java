@@ -209,4 +209,12 @@ public interface ServicioInventario {
 	 * @throws SeguridadesException
 	 */
 	VistaBien asignarBien (VistaBien vistaBien) throws SeguridadesException;
+	
+	/**
+	 * Buscar <code>Empleado</code> en la base de datos
+	 * @param empleadoListDTO
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	List<EmpleadoListDTO> obtenerEmpleadoEmpresa (EmpleadoListDTO empleadoListDTO) throws SeguridadesException;
 }

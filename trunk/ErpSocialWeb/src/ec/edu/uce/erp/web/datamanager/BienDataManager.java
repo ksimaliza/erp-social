@@ -241,7 +241,7 @@ public class BienDataManager extends BaseDataManager{
 		try {
 			if (CollectionUtils.isEmpty(dcEmpleadosEmpresa)) {
 				slf4jLogger.info("cargar dcEmpleadosEmpresa");
-				dcEmpleadosEmpresa = UtilSelectItems.getInstancia().cargarSelectItemMarcaBien(servicioInventario);
+				dcEmpleadosEmpresa = UtilSelectItems.getInstancia().cargarSelectItemEmpleados(servicioInventario, getUsuarioSession().getEmpresaTbl().getEmrPk());
 			}
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("error al cargar getDcEmpleadosEmpresa {}", e.getCause().getMessage());

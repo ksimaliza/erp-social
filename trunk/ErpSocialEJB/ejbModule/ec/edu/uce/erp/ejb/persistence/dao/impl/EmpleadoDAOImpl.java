@@ -65,13 +65,25 @@ public class EmpleadoDAOImpl extends AbstractFacadeImpl<EmpleadoDTO> implements 
 		}
 		
 		//por empresa
-		if (empleado.getEmpPk()!= null && empleado.getEmpPk()>0) {
+		if (empleado.getEmrPk()!= null && empleado.getEmrPk()>0) {
 			predicate = cb.equal(from.get("emrPk"), empleado.getEmrPk());
 			criteriaList.add(predicate);
 		}
 		
 		if(criteriaList!=null && criteriaList.size()>0)
 			cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
+		
+		
+		/*
+		 * 
+		 * criteriaQuery.where(criteriaBuilder.and(criteriaList.toArray(new Predicate[0])));
+			criteriaQuery.orderBy(criteriaBuilder.asc(fromUsuario.get("fechaRegistro")));
+			
+			TypedQuery<Usuario> typedQuery = entityManager.createQuery(criteriaQuery);
+			
+			usuarioCol = typedQuery.getResultList();
+		 * 
+		 */
 		
 		TypedQuery<EmpleadoListDTO> typedQuery = entityManager.createQuery(select);
 		resultado = typedQuery.getResultList();

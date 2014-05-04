@@ -546,5 +546,22 @@ public class ServicioInventarioImpl implements ServicioInventario {
 		
 		return null;
 	}
+	
+	@Override
+	public List<EmpleadoListDTO> obtenerEmpleadoEmpresa(EmpleadoListDTO empleadoListDTO) throws SeguridadesException {
+		slf4jLogger.info("obtenerEmpleadoEmpresa");
+		
+		List<EmpleadoListDTO> empleadoCol = null;
+		
+		try {
+			empleadoCol = inventarioFactory.getEmpleadoDAOImpl().findAll(empleadoListDTO);
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al obtenerEmpleadoEmpresa {}" , e.getMessage());
+			throw new SeguridadesException("Error al obtenerEmpleadoEmpresa");
+		}
+		
+		return empleadoCol;
+	}
 
 }
