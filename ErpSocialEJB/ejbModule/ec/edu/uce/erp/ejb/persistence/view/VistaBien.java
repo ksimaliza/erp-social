@@ -112,6 +112,10 @@ public class VistaBien implements Serializable {
 	
 	@Column(name="bie_codigo")
 	private String bieCodigo;
+
+	@Transient
+	@Temporal(TemporalType.DATE)
+	private Date bieFechaReasig;
 	
 	@Transient
 	private Boolean npVerAsignarBien = Boolean.FALSE;
@@ -428,6 +432,20 @@ public class VistaBien implements Serializable {
 	 */
 	public void setBieCodigo(String bieCodigo) {
 		this.bieCodigo = bieCodigo;
+	}
+
+	/**
+	 * @return the bieFechaReasig
+	 */
+	public Date getBieFechaReasig() {
+		return bieFechaReasig;
+	}
+
+	/**
+	 * @param bieFechaReasig the bieFechaReasig to set
+	 */
+	public void setBieFechaReasig(Date bieFechaReasig) {
+		this.bieFechaReasig = bieFechaReasig;
 	}
 
 }

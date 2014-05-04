@@ -8,7 +8,6 @@ import java.util.List;
 import javax.ejb.Local;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
-import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Bien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CabeceraBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CategoriaBien;
@@ -17,6 +16,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.MarcaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
+import ec.edu.uce.erp.ejb.persistence.view.VistaEmpleado;
 
 /**
  * @author
@@ -168,8 +168,6 @@ public interface ServicioInventario {
 	 * Servicio para administracion de bien
 	 */
 	
-	List<EmpleadoListDTO> obtenerEmpleadosEmpresa (EmpleadoListDTO vistaEmpleado) throws SeguridadesException;
-	
 	/**
 	 * Registrar <code>Bien</code> en la BD
 	 * @param bien
@@ -211,10 +209,18 @@ public interface ServicioInventario {
 	VistaBien asignarBien (VistaBien vistaBien) throws SeguridadesException;
 	
 	/**
-	 * Buscar <code>Empleado</code> en la base de datos
-	 * @param empleadoListDTO
+	 * Reasignar <code>Bien</code> a un funcionario 
+	 * @param vistaBien
 	 * @return
 	 * @throws SeguridadesException
 	 */
-	List<EmpleadoListDTO> obtenerEmpleadoEmpresa (EmpleadoListDTO empleadoListDTO) throws SeguridadesException;
+	VistaBien reasignarBien (VistaBien vistaBien) throws SeguridadesException;
+	
+	/**
+	 * Buscar <code>VistaEmpleado</code> en la base de datos
+	 * @param vistaEmpleado
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	List<VistaEmpleado> obtenerEmpleadoEmpresa (VistaEmpleado vistaEmpleado) throws SeguridadesException;
 }

@@ -6,6 +6,8 @@ package ec.edu.uce.erp.web.controladores;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -48,6 +50,7 @@ public class BienController extends BaseController{
 	
 	public BienController () {}
 	
+	@TransactionAttribute (TransactionAttributeType.REQUIRED)
 	public void registrarBien () {
 		
 		slf4jLogger.info("registrarBien");
@@ -58,7 +61,7 @@ public class BienController extends BaseController{
 			this.bienDataManager.getBienInstancia().setCatBienPk(this.bienDataManager.getIdCategoriaBienSeleccionado());
 			this.bienDataManager.getBienInstancia().setLinBienPk(this.bienDataManager.getIdLineaBienSeleccionado());
 			this.bienDataManager.getBienInstancia().setNpIdDcEstadoConservacion(this.bienDataManager.getIdDcEstadoConservacionSelec());
-			
+			this.bienDataManager.getBienInstancia().setUsuarioRegistro(this.bienDataManager.getUsuarioSession());
 			VistaBien vistaBien = servicioInventario.registrarBien(this.bienDataManager.getBienInstancia());
 			
 			if (vistaBien != null) {
@@ -168,6 +171,32 @@ public class BienController extends BaseController{
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("error al asignarBien {}", e.getCause().getMessage());
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
+		}
+		
+	}
+	
+	public void reasignarBien () {
+		
+		slf4jLogger.info("reasignarBien");
+		
+		try {
+			
+			this.bienDataManager.getVistaBienEditar().setEmpReasignadoFk(this.bienDataManager.getIdCustudioReasignado());
+			VistaBien vistaBien = servicioInventario.reasignarBien(this.bienDataManager.getVistaBienEditar());
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("error al asignarBien {}", e.getCause().getMessage());
+			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
+		}
+		
+	}
+	
+	public void validarAsignacionCustodio () {
+		slf4jLogger.info("validarAsignacionCustodio");
+		
+		if (bienDataManager.getVistaBienEditar().getEmpAsignadoFk().intValue() == bienDataManager.getIdCustudioReasignado().intValue()){
+			MensajesWebController.aniadirMensajeError("El custodio a reemplazar no puede ser el mismo");
+			bienDataManager.setIdCustudioReasignado(0);
 		}
 		
 	}

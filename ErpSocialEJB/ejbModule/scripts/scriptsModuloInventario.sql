@@ -336,7 +336,7 @@ alter table transaccion_tbl
 /*==============================================================*/
 /* Vista bien                                  */
 /*==============================================================*/
-drop if exists view bien_view;
+DROP view IF EXISTS bien_view;
 create view bien_view as
 select bie_pk, emr_pk, 
 b.bie_nombre, b.bie_modelo, b.bie_color, bie_costo_venta, bie_fecha_asig, bie_ubicacion, bie_notas, bie_estado,
@@ -351,3 +351,17 @@ inner join categoria_bien_tbl cb on cb.cat_bien_pk=b.cat_bien_pk
 inner join linea_bien_tbl lb on lb.lin_bien_pk = b.lin_bien_pk and lb.cat_bien_pk = cb.cat_bien_pk
 inner join marca_bien_tbl mb on mb.mar_bien_pk = b.mar_bien_pk
 left join transaccion_tbl t on t.bie_fk = b.bie_pk;
+
+
+/*==============================================================*/
+/* Vista Empleado                                  */
+/*==============================================================*/
+DROP view IF EXISTS empleado_view;
+CREATE VIEW empleado_view as
+ SELECT per.per_pk, per.per_ci, per.per_nombres, per.per_apellidos, per.per_direccion, per.per_telefono, per.per_celular,
+    per.per_email, per.per_foto, emp.emp_codigo, emp.emp_pk, emr.emr_pk, emr.tip_empresa_fk,
+    emr.emr_nombre, emr.emr_direccion, emr.emr_ruc, emp.emr_fk
+   FROM empleado_tbl emp
+   inner JOIN persona_tbl per ON emp.per_fk = per.per_pk
+   inner JOIN empresa_tbl emr ON emr.emr_pk = emp.emr_fk;
+
