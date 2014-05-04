@@ -457,11 +457,18 @@ public class ServicioInventarioImpl implements ServicioInventario {
 	}
 	
 	private void asignarPropiedadesNoPersitentesVistaBien(VistaBien vistaBien) {
+		
 		if (vistaBien.getDetBienTipBieNivel1().equals(EnumTipoBien.INGRESADO.getId())) {
 			vistaBien.setNpVerAsignarBien(Boolean.TRUE);
 		}
-		if (vistaBien.getDetBienTipBieNivel1().equals(EnumTipoBien.ASIGNADO.getId())) {
+		
+		if (vistaBien.getDetBienTipBieNivel1().equals(EnumTipoBien.ASIGNADO.getId()) || 
+				vistaBien.getDetBienTipBieNivel1().equals(EnumTipoBien.REASIGNADO.getId())) {
 			vistaBien.setNpVerTrasladoBien(Boolean.TRUE);
+		}
+		
+		if (!vistaBien.getDetBienTipBieNivel1().equals(EnumTipoBien.DEVUELTO.getId())) {
+			vistaBien.setNpVerBajaBien(Boolean.TRUE);
 		}
 	}
 
