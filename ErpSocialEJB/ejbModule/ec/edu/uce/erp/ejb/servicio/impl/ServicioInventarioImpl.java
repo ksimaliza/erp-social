@@ -327,7 +327,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 	
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
-	public VistaBien registrarBien(Bien bien) throws SeguridadesException {
+	public Bien registrarBien(Bien bien) throws SeguridadesException {
 		
 		try {
 			
@@ -351,20 +351,28 @@ public class ServicioInventarioImpl implements ServicioInventario {
 							new AuditoriaDTO(bien.getUsuarioRegistro()
 									.getIdUsuario(), ServicioInventarioImpl.class.getName(), "registrarBien", EnumTipoTransaccion.CREATE));
 			
-			List<VistaBien> listVistaBien = obtenerVistaDesdeBien(bienNuevo);
+//			List<VistaBien> listVistaBien = obtenerVistaDesdeBien(bienNuevo);
+//			
+//			if (CollectionUtils.isNotEmpty(listVistaBien)) {
+//				
+//				return listVistaBien.iterator().next();
+//			}
 			
-			if (CollectionUtils.isNotEmpty(listVistaBien)) {
-				
-				return listVistaBien.iterator().next();
-			}
+			return bienNuevo;
 			
 		} catch (Exception e) {
 			slf4jLogger.info("error al registrarBien {}", e.getCause().getMessage());
 			throw new SeguridadesException(e);
 		}
 		
-		return null;
 	}
+	
+//	private VistaBien asignarDatosVistaBien(Bien bien) {
+//		VistaBien vistaBien = new VistaBien();
+//		vistaBien.setBieCodigo(bien.getBieCodigo());
+//		vistaBien.setBieColor(bien.getBieColor());
+//		return vistaBien;
+//	}
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
