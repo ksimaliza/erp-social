@@ -12,24 +12,24 @@ import ec.edu.uce.erp.ejb.persistence.dao.BienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.CabeceraBienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.CategoriaBienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.DetalleBienDAO;
-import ec.edu.uce.erp.ejb.persistence.dao.EmpleadoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HistoricoTransaccioneDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.LineaBienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.MarcaBienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ProveedorDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.TransaccionDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.VistaBienDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.VistaEmpleadoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.BienDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.CabeceraBienDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.CategoriaBienDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.DetalleBienDAOImpl;
-import ec.edu.uce.erp.ejb.persistence.dao.impl.EmpleadoDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.HistoricoTransaccioneDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.LineaBienDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.MarcaBienDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.ProveedorDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.TransaccionDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.VistaBienDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.VistaEmpleadoDAOImpl;
 
 /**
  * @author 
@@ -54,8 +54,8 @@ public class InventarioFactoryImpl implements InventarioFactory{
 	private TransaccionDAO transaccionDAO;
 	
 	private VistaBienDAO vistaBienDAO;
+	private VistaEmpleadoDAO vistaEmpleadoDAO;
 	
-	private EmpleadoDAO empleadoDAO;
 
 	@Override
 	public ProveedorDAO getProveedorDAOImpl() {
@@ -139,11 +139,11 @@ public class InventarioFactoryImpl implements InventarioFactory{
 	}
 
 	@Override
-	public EmpleadoDAO getEmpleadoDAOImpl() {
-		if (empleadoDAO == null) {
-			empleadoDAO = new EmpleadoDAOImpl(entityManager);
+	public VistaEmpleadoDAO getVistaEmpleadoDAOImpl() {
+		if (vistaEmpleadoDAO == null) {
+			vistaEmpleadoDAO = new VistaEmpleadoDAOImpl(entityManager);
 		}
-		return empleadoDAO;
+		return vistaEmpleadoDAO;
 	}
 
 }

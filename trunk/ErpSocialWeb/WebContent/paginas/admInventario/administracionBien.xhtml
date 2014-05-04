@@ -158,7 +158,10 @@
 							oncomplete="dlgAsignarBien.show()" update=":formAsignarBien:pnlAsignarBien">
 							<f:setPropertyActionListener target="#{bienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
 						</p:commandLink>
-						<p:commandLink value="  Traslado" title="Traslado" rendered="#{vistaBien.npVerTrasladoBien}"/>
+						<p:commandLink value="  Traslado" title="Traslado" rendered="#{vistaBien.npVerTrasladoBien}"
+							oncomplete="dlgReasignarBien.show()" update=":formReasignarBien:pnlReasignarBien">
+							<f:setPropertyActionListener target="#{bienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
+						</p:commandLink>
 						<p:commandLink value="  Dar baja" title="Dar baja"/>
 					</h:panelGroup>
 				</p:column>
@@ -168,6 +171,7 @@
 		<ui:include src="dialogNuevoBien.xhtml" />
 		<ui:include src="dialogEditarBien.xhtml" />
 		<ui:include src="dialogAsignarBien.xhtml" />
+		<ui:include src="dialogReasignarBien.xhtml" />
 		
 	</ui:define>
 </ui:composition>

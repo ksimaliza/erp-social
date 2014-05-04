@@ -24,7 +24,6 @@ import ec.edu.uce.erp.common.util.ConstantesApplication;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.dao.factory.InventarioFactory;
-import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Bien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CabeceraBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CategoriaBien;
@@ -35,6 +34,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Transaccion;
 import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaDTO;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
+import ec.edu.uce.erp.ejb.persistence.view.VistaEmpleado;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 
 /**
@@ -326,26 +326,6 @@ public class ServicioInventarioImpl implements ServicioInventario {
 	 */
 	
 	@Override
-	public List<EmpleadoListDTO> obtenerEmpleadosEmpresa(EmpleadoListDTO vistaEmpleado) throws SeguridadesException {
-		List<EmpleadoListDTO> listVistaEmpleado = null;
-		
-		try {
-			
-			if (vistaEmpleado.getEmpPk() == null) {
-				throw new SeguridadesException("El codigo de la empresa es necesario para obtener los empleados");
-			} else {
-				listVistaEmpleado = inventarioFactory.getEmpleadoDAOImpl().findAll(vistaEmpleado);
-			}
-			
-		} catch (Exception e) {
-			slf4jLogger.info("error al buscarMarcaBienCriterios {}", e.getCause().getMessage());
-			throw new SeguridadesException(e);
-		}
-		
-		return listVistaEmpleado;
-	}
-	
-	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public VistaBien registrarBien(Bien bien) throws SeguridadesException {
 		
@@ -360,7 +340,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 				transaccion.setDetCatalogoTipoBien(EnumTipoBien.INGRESADO.getId());
 				transaccion.setCabEstadoConservacion(ConstantesApplication.CAB_CAT_ESTADO_CONSERVACION);
 				transaccion.setDetEstadoConservacion(bien.getNpIdDcEstadoConservacion());
-				transaccion.setBienTbl(bienNuevo);
+				transaccion.setBieFk(bienNuevo.getBiePk());
 				transaccion.setFechaInicio(UtilAplication.obtenerFechaActual());
 				transaccion.setTraEstado(ESTADO_ACTIVO);
 				inventarioFactory.getTransaccionDAOImpl().create(transaccion);
@@ -486,6 +466,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 	}
 
 	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public VistaBien asignarBien(VistaBien vistaBien) throws SeguridadesException {
 		
 		try {
@@ -548,20 +529,88 @@ public class ServicioInventarioImpl implements ServicioInventario {
 	}
 	
 	@Override
-	public List<EmpleadoListDTO> obtenerEmpleadoEmpresa(EmpleadoListDTO empleadoListDTO) throws SeguridadesException {
+	public VistaBien reasignarBien(VistaBien vistaBien) throws SeguridadesException {
+		try {
+			//obtener el estado actual de la tabla transaccion
+			Transaccion transaccionBuscar = new Transaccion();
+			transaccionBuscar.setBieFk(vistaBien.getBiePk());
+			transaccionBuscar.setTraEstado(ESTADO_ACTIVO);
+			List<Transaccion> listTransaccion = inventarioFactory.getTransaccionDAOImpl().obtenerTransaccionCriterios(transaccionBuscar);
+			
+			if (CollectionUtils.isNotEmpty(listTransaccion) && listTransaccion.size() == 1) {
+				
+				Transaccion transaccionActual = listTransaccion.iterator().next();
+				
+				// el estado del bien debe ser ingresado
+				if (transaccionActual != null && transaccionActual.getDetCatalogoTipoBien().equals(EnumTipoBien.ASIGNADO.getId())) {
+					
+					//inactivar el estado actual antes de crear el nuevo
+					transaccionActual.setTraEstado(ESTADO_INACTIVO);
+					transaccionActual.setFechaFin(UtilAplication.obtenerFechaActual());
+					inventarioFactory.getTransaccionDAOImpl().update(transaccionActual);
+					
+					// crear el nuevo estado en la tabla transaccion
+					Transaccion transaccionNuevo = new Transaccion();
+					transaccionNuevo.setCabCatalogoTipoBien(ConstantesApplication.CAB_CAT_TIPO_BIEN);
+					transaccionNuevo.setDetCatalogoTipoBien(EnumTipoBien.REASIGNADO.getId());
+					transaccionNuevo.setCabEstadoConservacion(transaccionActual.getCabEstadoConservacion());
+					transaccionNuevo.setDetEstadoConservacion(transaccionActual.getDetEstadoConservacion());
+					transaccionNuevo.setBieFk(vistaBien.getBiePk());
+					transaccionNuevo.setFechaInicio(UtilAplication.obtenerFechaActual());
+					transaccionNuevo.setTraEstado(ESTADO_ACTIVO);
+					transaccionNuevo.setEmpAsignadoFk(vistaBien.getEmpAsignadoFk());
+					transaccionNuevo.setEmpReasignadoFk(vistaBien.getEmpReasignadoFk());
+					inventarioFactory.getTransaccionDAOImpl().create(transaccionNuevo);
+					
+					Bien bienBuscar = new Bien();
+					bienBuscar.setBiePk(vistaBien.getBiePk());
+					bienBuscar.setEmrPk(vistaBien.getEmrPk());
+					
+//					Bien bienActual = inventarioFactory.getBienDAOImpl().buscarBienCriterios(bienBuscar).iterator().next();
+//					bienActual.setBieUbicacion(vistaBien.getBieUbicacion());
+//					bienActual.setBieCodigo(vistaBien.getBieCodigo());
+//					bienActual.setBieFechaAsig(vistaBien.getBieFechaAsig());
+//					inventarioFactory.getBienDAOImpl().update(bienActual);
+					
+					List<VistaBien> listVistaBien = obtenerVistaDesdeBien(bienBuscar);
+					
+					if (CollectionUtils.isNotEmpty(listVistaBien)) {
+						VistaBien vistaBienActual = listVistaBien.iterator().next();
+						this.asignarPropiedadesNoPersitentesVistaBien(vistaBienActual);
+						return vistaBienActual;
+					}
+					
+				}
+			} else {
+				throw new SeguridadesException("El bien tiene mas de un estado activo");
+			}
+			
+		} catch (Exception e) {
+			slf4jLogger.info("error al asignarBien {}", e.getCause().getMessage());
+			throw new SeguridadesException(e);
+		}
+		
+		return null;
+	}
+	
+	@Override
+	public List<VistaEmpleado> obtenerEmpleadoEmpresa(VistaEmpleado vistaEmpleado) throws SeguridadesException {
 		slf4jLogger.info("obtenerEmpleadoEmpresa");
 		
-		List<EmpleadoListDTO> empleadoCol = null;
+		List<VistaEmpleado> vistaEmpleadoCol = null;
 		
 		try {
-			empleadoCol = inventarioFactory.getEmpleadoDAOImpl().findAll(empleadoListDTO);
+			vistaEmpleadoCol = inventarioFactory.getVistaEmpleadoDAOImpl().obtenerVistaEmpleadoCriterios(vistaEmpleado);
 			
 		} catch (Exception e) {
 			slf4jLogger.info("Error al obtenerEmpleadoEmpresa {}" , e.getMessage());
 			throw new SeguridadesException("Error al obtenerEmpleadoEmpresa");
 		}
 		
-		return empleadoCol;
+		return vistaEmpleadoCol;
 	}
 
+	
+
 }
+ 

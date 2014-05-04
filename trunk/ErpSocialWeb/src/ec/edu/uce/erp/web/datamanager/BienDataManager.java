@@ -60,6 +60,7 @@ public class BienDataManager extends BaseDataManager{
 	private Integer idLineaBienSeleccionado;
 	private String idDcEstadoConservacionSelec;
 	private Integer idCustudioAsignado;
+	private Integer idCustudioReasignado;
 	
 	public BienDataManager () {
 		super();
@@ -355,6 +356,20 @@ public class BienDataManager extends BaseDataManager{
 	 */
 	public void setIdCustudioAsignado(Integer idCustudioAsignado) {
 		this.idCustudioAsignado = idCustudioAsignado;
+	}
+
+	/**
+	 * @return the idCustudioReasignado
+	 */
+	public Integer getIdCustudioReasignado() {
+		return idCustudioReasignado;
+	}
+
+	/**
+	 * @param idCustudioReasignado the idCustudioReasignado to set
+	 */
+	public void setIdCustudioReasignado(Integer idCustudioReasignado) {
+		this.idCustudioReasignado = idCustudioReasignado;
 	}
 
 	

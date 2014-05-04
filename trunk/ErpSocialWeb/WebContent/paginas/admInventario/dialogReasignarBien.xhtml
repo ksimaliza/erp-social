@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpReasignarBien" header="#{i18n['erp.bien.reasignar']}" 
+		widgetVar="dlgReasignarBien" modal="true" minWidth="500" width="500" appendTo="@(body)" draggable="false">
+		<h:form id="formReasignarBien" styleClass="formulario">
+			<p:panel id="pnlReasignarBien" >
+				<table class="formulario">
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.nombre']}" />
+						</td>
+						<td width="70%">
+							<h:outputText id="txtNombre" value="#{bienDataManager.vistaBienEditar.bieNombre}" />
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCodigo" value="#{i18n['erp.bien.codigo']}" />
+						</td>
+						<td width="70%">
+							<h:outputText id="txtCodigo" value="#{bienDataManager.vistaBienEditar.bieCodigo}" />
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.fecha.reasignacion']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td width="70%">
+							<p:calendar id="popupCal" required="true" pattern="yyyy-mm-dd"
+								value="#{bienDataManager.vistaBienEditar.bieFechaReasig}" label="#{i18n['erp.bien.fecha.reasignacion']}" showOn="button">
+								<f:convertDateTime pattern="yyyy-mm-dd" />
+							</p:calendar>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtCustodio" value="#{i18n['erp.bien.custodio']}" />
+						</td>
+						<td>
+							<p:selectOneMenu id="txtCustodio" style="width: 100%"
+								label="#{i18n['erp.bien.custodio']}" value="#{bienDataManager.vistaBienEditar.empAsignadoFk}" disabled="true">
+								<f:selectItems value="#{bienDataManager.dcEmpleadosEmpresa}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtCustodioRe" value="#{i18n['erp.bien.custodio.reemplazar']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:selectOneMenu id="txtCustodioRe" style="width: 100%"
+								label="#{i18n['erp.bien.custodio']}" required="true"
+								value="#{bienDataManager.idCustudioReasignado}" >
+								<f:selectItem itemValue="0" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItems value="#{bienDataManager.dcEmpleadosEmpresa}"/>
+								<p:ajax listener="#{bienController.validarAsignacionCustodio}" update=":formBien:pnlMessages,txtCustodioRe" event="change" process="@this"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{bienController.reasignarBien}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgReasignarBien.hide()"
+					process="@this,pnlReasignarBien" update="pnlReasignarBien,:formBien:tablaBienes,:formBien:pnlMessages"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgReasignarBien.hide();" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>

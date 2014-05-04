@@ -19,7 +19,6 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.common.util.UtilReflection;
 import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogo;
 import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogoPK;
-import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CabeceraBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.CategoriaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien;
@@ -27,6 +26,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBienPK;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.MarcaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
+import ec.edu.uce.erp.ejb.persistence.view.VistaEmpleado;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 
@@ -245,12 +245,12 @@ public final class UtilSelectItems {
 		
 		List<SelectItem> listSelectItem = new ArrayList<SelectItem>();
 		
-		EmpleadoListDTO empleadoListDTO = new EmpleadoListDTO();
-		empleadoListDTO.setEmrPk(emrPk);
+		VistaEmpleado vistaEmpleado = new VistaEmpleado();
+		vistaEmpleado.setEmrPk(emrPk);
 		
-		List<EmpleadoListDTO> listEmpleadoList = servicioInventario.obtenerEmpleadoEmpresa(empleadoListDTO);
-		if (CollectionUtils.isNotEmpty(listEmpleadoList)) {
-			listSelectItem = this.cargarSelectItemsGenerico(listEmpleadoList, "empPk", "nombresCompletosEmpleado");
+		List<VistaEmpleado> listVistaEmpleado = servicioInventario.obtenerEmpleadoEmpresa(vistaEmpleado);
+		if (CollectionUtils.isNotEmpty(listVistaEmpleado)) {
+			listSelectItem = this.cargarSelectItemsGenerico(listVistaEmpleado, "empPk", "nombresCompletos");
 		}
 		
 		return listSelectItem;
