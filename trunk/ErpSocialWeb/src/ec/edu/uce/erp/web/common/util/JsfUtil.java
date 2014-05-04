@@ -50,4 +50,7 @@ public class JsfUtil {
 				.getExternalContext().getContext();
 		return ctx.getContextPath();
 	}
+	
+	
+	
 }
