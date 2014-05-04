@@ -162,7 +162,7 @@
 							oncomplete="dlgReasignarBien.show()" update=":formReasignarBien:pnlReasignarBien">
 							<f:setPropertyActionListener target="#{bienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
 						</p:commandLink>
-						<p:commandLink value="  Dar baja" title="Dar baja"/>
+						<p:commandLink value="  Dar baja" title="Dar baja" rendered="#{vistaBien.npVerBajaBien}"/>
 					</h:panelGroup>
 				</p:column>
 			</p:dataTable>

@@ -122,6 +122,9 @@ public class VistaBien implements Serializable {
 	
 	@Transient
 	private Boolean npVerTrasladoBien = Boolean.FALSE;
+	
+	@Transient
+	private Boolean npVerBajaBien = Boolean.FALSE;
 
 	public VistaBien() {
 	}
@@ -446,6 +449,20 @@ public class VistaBien implements Serializable {
 	 */
 	public void setBieFechaReasig(Date bieFechaReasig) {
 		this.bieFechaReasig = bieFechaReasig;
+	}
+
+	/**
+	 * @return the npVerBajaBien
+	 */
+	public Boolean getNpVerBajaBien() {
+		return npVerBajaBien;
+	}
+
+	/**
+	 * @param npVerBajaBien the npVerBajaBien to set
+	 */
+	public void setNpVerBajaBien(Boolean npVerBajaBien) {
+		this.npVerBajaBien = npVerBajaBien;
 	}
 
 }
