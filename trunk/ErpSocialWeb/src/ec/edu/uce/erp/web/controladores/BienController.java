@@ -62,11 +62,15 @@ public class BienController extends BaseController{
 			this.bienDataManager.getBienInstancia().setLinBienPk(this.bienDataManager.getIdLineaBienSeleccionado());
 			this.bienDataManager.getBienInstancia().setNpIdDcEstadoConservacion(this.bienDataManager.getIdDcEstadoConservacionSelec());
 			this.bienDataManager.getBienInstancia().setUsuarioRegistro(this.bienDataManager.getUsuarioSession());
-			VistaBien vistaBien = servicioInventario.registrarBien(this.bienDataManager.getBienInstancia());
+			Bien bienNuevo = servicioInventario.registrarBien(this.bienDataManager.getBienInstancia());
 			
-			if (vistaBien != null) {
-//				this.bienDataManager.getListBien().add(nuevoBien);
-				this.bienDataManager.getListVistaBien().add(vistaBien);
+			if (bienNuevo != null) {
+				VistaBien vistaBien = new VistaBien();
+				vistaBien.setBiePk(bienNuevo.getBiePk());
+				vistaBien.setBieEstado(this.bienDataManager.getEstadoActivo());
+				vistaBien.setEmrPk(this.bienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
+				List<VistaBien> listVistaBien = this.servicioInventario.buscarVistaBienCriterios(vistaBien);
+				this.bienDataManager.getListVistaBien().add(listVistaBien.iterator().next());
 				this.bienDataManager.setBienInstancia(new Bien());
 				MensajesWebController.aniadirMensajeInformacion("erp.mensaje.registro.exito");
 			}

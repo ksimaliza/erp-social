@@ -174,7 +174,7 @@ public interface ServicioInventario {
 	 * @return
 	 * @throws SeguridadesException
 	 */
-	VistaBien registrarBien (Bien bien) throws SeguridadesException;
+	Bien registrarBien (Bien bien) throws SeguridadesException;
 	
 	/**
 	 * Actualizar <code>Bien</code> en la BD
