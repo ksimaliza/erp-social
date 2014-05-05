@@ -1,6 +1,7 @@
 package ec.edu.uce.erp.ejb.servicio.impl;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import javax.ejb.TransactionAttributeType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.common.util.CalendarUtil;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.dao.factory.AsistenciaFactoryDAO;
 import ec.edu.uce.erp.ejb.dao.factory.FactoryDAO;
@@ -29,6 +31,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.RegistroDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.TipoDTO;
+import ec.edu.uce.erp.ejb.persistence.util.dto.AnioDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EmpleadoVO;
 import ec.edu.uce.erp.ejb.persistence.vo.FaltaVO;
 import ec.edu.uce.erp.ejb.persistence.vo.PermisoVO;
@@ -501,6 +504,31 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		return par;
 	}
 	
+	
+	/*Anio*/
+	@Override
+	public List<AnioDTO> readAnioActual() throws SeguridadesException
+	{
+		List<AnioDTO> anioList=new ArrayList<AnioDTO>();
+		AnioDTO anioDTO;
+		anioDTO=new AnioDTO();
+		anioDTO.setCodigo(CalendarUtil.getYear());
+		anioDTO.setDescripcion(String.valueOf(CalendarUtil.getYear()));
+		anioList.add(anioDTO);
+		return anioList;
+	}
+	
+	public void createDiaNoLaboralSabadoDomingo()
+	{
+//		while (fechaInicial.before(fechaFinal) || fechaInicial.equals(fechaFinal)) {
+//
+//			//si el dia de la semana de la fecha minima es diferente de sabado o domingo
+//			if (fechaInicial.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY
+//			fechaInicial.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY) {
+//			//se aumentan los dias de diferencia entre min y max
+//			diffDays++;
+//			}
+	}
 }
 	
 
