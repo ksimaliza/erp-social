@@ -24,6 +24,18 @@
 					<td>
 						<p:commandButton value="Sabados y Domingos"/>
 					</td>
+					<td>
+						<h:outputLabel for="selectAnio" value="#{i18n['erp.asistencia.seleccione.anio']}" />
+					</td>
+					<td>
+						<p:selectOneMenu id="selectAnio"
+							value="#{diaLaboralDataManager.anio}"
+							label="#{i18n['erp.asistencia.seleccione.anio']}">
+							<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+							<f:selectItems value="#{selectItemsController.catalogoListAnio}"/>
+						</p:selectOneMenu>
+					</td>
+					
 				</tr>
 			</table>
 					
