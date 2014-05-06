@@ -114,6 +114,7 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 			return matriculaFactoryDAO.getEstudianteDAOImpl().update(estudiantevo.getEstudiante());
 		}
 		else{
+			estudiantevo.getEstudiante().setEstEstado("Inscrito");
 			personanueva= factoryDAO.getPersonaDAOImpl().create(estudiantevo.getPersona());
 			estudiantevo.getEstudiante().setEstPersona(personanueva.getPerPk());
 			return matriculaFactoryDAO.getEstudianteDAOImpl().create(estudiantevo.getEstudiante());

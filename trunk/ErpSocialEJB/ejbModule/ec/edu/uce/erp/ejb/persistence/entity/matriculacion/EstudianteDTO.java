@@ -24,6 +24,10 @@ public class EstudianteDTO implements Serializable {
 	@Column(name="est_persona")
 	private Integer estPersona;
 
+	@Column(name="est_estado")
+	private String estEstado;
+
+	
 	//bi-directional many-to-one association to EstudianteRepresentanteDTO
 	@OneToMany(mappedBy="matEstudiante")
 	private List<EstudianteRepresentanteDTO> matEstudianteRepresentantes;
@@ -49,6 +53,14 @@ public class EstudianteDTO implements Serializable {
 
 	public void setEstPersona(Integer estPersona) {
 		this.estPersona = estPersona;
+	}
+
+	public String getEstEstado() {
+		return estEstado;
+	}
+
+	public void setEstEstado(String estEstado) {
+		this.estEstado = estEstado;
 	}
 
 	public List<EstudianteRepresentanteDTO> getMatEstudianteRepresentantes() {
