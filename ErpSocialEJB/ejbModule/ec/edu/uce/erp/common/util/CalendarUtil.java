@@ -55,6 +55,14 @@ public class CalendarUtil {
 		} 
 		 return newTime;
 	}
+	
+	public static Date addDay(Date date, int days)
+    {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, days); //minus number would decrement the days
+        return cal.getTime();
+    }
 
 	
 	
@@ -64,6 +72,18 @@ public class CalendarUtil {
 		java.util.Date d = null;
 		try {
 			d = df.parse(time);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return d;
+	}
+
+	public static Date convertStringtoDate(String date)
+	{
+		SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date d = null;
+		try {
+			d = df.parse(date);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
