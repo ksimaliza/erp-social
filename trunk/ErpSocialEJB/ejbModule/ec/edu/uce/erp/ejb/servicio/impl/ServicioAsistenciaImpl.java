@@ -2,6 +2,7 @@ package ec.edu.uce.erp.ejb.servicio.impl;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -518,16 +519,24 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		return anioList;
 	}
 	
-	public void createDiaNoLaboralSabadoDomingo()
+	public void createDiaNoLaboralSabadoDomingo(int year)
 	{
-//		while (fechaInicial.before(fechaFinal) || fechaInicial.equals(fechaFinal)) {
-//
+		
+		Date fechaInicial= CalendarUtil.convertStringtoDate(String.valueOf(year)+"-01-01");
+		Date fechaFinal= CalendarUtil.convertStringtoDate(String.valueOf(year)+"-01-31");
+		while (fechaInicial.before(fechaFinal) || fechaInicial.equals(fechaFinal)) {
+
+			Calendar aux= CalendarUtil.getDate(new Timestamp(fechaInicial.getTime()));
+			
 //			//si el dia de la semana de la fecha minima es diferente de sabado o domingo
-//			if (fechaInicial.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY
-//			fechaInicial.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY) {
+			if (aux.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY&& aux.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY) {
 //			//se aumentan los dias de diferencia entre min y max
+			
 //			diffDays++;
-//			}
+			
+			}
+			fechaInicial=CalendarUtil.addDay(fechaFinal, 1);
+		}
 	}
 }
 	
