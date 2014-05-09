@@ -26,33 +26,61 @@
 			</p:toolbar>
 			<p:panel id="pnlBuscarNivel" header="#{i18n['erp.matricula.nivel.buscar']}">
 				<table class="formulario">
-					<tr>
-						<td><h:outputLabel value="Nombre" /> </td>
+					
+						<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.nivel.descripcion']}" /> </td>
+					<td width="70%">
+							<p:inputText id="txtDescripcionBuscar"
+								value="#{nivelDataManager.nivelBuscar.nivDescaripcion}" />
+						</td>
+					
 					</tr>
+					
 				</table>
 			</p:panel>
 
-
+<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{nivelController.buscarNivel}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscarNivel"
+					update=":formNivel:pnlMessages,tablaNivel,pnlBuscarNivel" />
+			</p:panel>
 
 <p:dataTable id="tablaNivel"
-	
+	value="#{nivelDataManager.nivelDTOs}" var="niveles"
 	rowIndexVar="rowIndex"
 	paginator="true" rows="5" paginatorPosition="bottom"
 	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-	rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.matricula.materia.lista']}">
+	rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.matricula.nivel.lista']}">
 	<f:facet name="header">
 		#{i18n['erp.matricula.nivel.lista']}
 	</f:facet>
 	<p:column headerText="#" styleClass="centered" width="5%">
 		#{rowIndex+1}
 	</p:column>
-
+<p:column headerText="#{i18n['erp.matricula.nivel.descripcion']}" width="35%">
+					<h:outputText value="#{niveles.nivDescaripcion}" />
+				</p:column>
+				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.editar']}"
+							oncomplete="dlgEditarNivel.show()"
+							actionListener="#{nivelController.cargarDatosNivel(niveles)}"
+							process="@this" update=":formEditarNivel:pnlEditarNivel">
+							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+						</p:commandLink>
+					</h:panelGroup>
+					</p:column>
+								
 			</p:dataTable>			
 	
 </h:form>			
 		
 		
 <ui:include src="dialogNuevoNivel.xhtml" />		
+<ui:include src="dialogEditarNivel.xhtml" />	
 		
 	</ui:define>
 </ui:composition>

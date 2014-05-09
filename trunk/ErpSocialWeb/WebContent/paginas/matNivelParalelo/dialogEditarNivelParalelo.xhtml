@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpEditarNivelParalelo" header="#{i18n['erp.matricula.nivel.paralelo.editar']}" resizable="false" draggable="false"
+		widgetVar="dlgEditarNivelParalelo" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<h:form id="formEditarNivelParalelo" styleClass="formulario">
+			<p:panel id="pnlEditarNivelParalelo">
+				<table class="formulario">
+					
+					<tr >
+						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.nivel.paralelo.nivel']}" /> </td>
+					<td>
+					<p:selectOneMenu id="nivel" value="#{nivelParaleloDataManager.nivelList}" filter="true" required="true">
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{nivelParaleloController.nivelParaleloDataManager.nivelList}" var="nivpar" itemLabel="#{nivpar.nivDescaripcion} " itemValue="#{nivpar.nivCodigo}"/>
+							</p:selectOneMenu>
+					</td>
+					</tr>
+					
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.nivel.paralelo.paralelo']}" /> </td>
+					<td>
+					<p:selectOneMenu id="paralelo" value="#{nivelParaleloDataManager.nivelParaleloList}" filter="true" required="true">
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{nivelParaleloController.nivelParaleloDataManager.paraleloList}" var="nivpar" itemLabel="#{nivpar.parDescripcion} " itemValue="#{nivpar.parCodigo}"/>
+							</p:selectOneMenu>
+					</td>
+					
+					</tr>
+					
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{nivelParaleloController.registrarNivelParalelo}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNivelParalelo.hide()"
+					process="@this,pnlEditarNivelParalelo" update="pnlEditarNivelParalelo,:formNivelParalelo:pnlMessages,:formNivelParalelo:tablaNivelParalelo"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarNivelParalelo.hide()" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>

@@ -17,7 +17,7 @@
 							
 						</td>
 						<td width="70%">
-							<p:inputTextarea id="txtDir" style="width: 100%" autoResize="false"  value="#{NivelDataManager.nivelInstancia.nivDescaripcion}"
+							<p:inputTextarea id="txtDir" style="width: 100%" autoResize="false"  value="#{nivelDataManager.nivelInstancia.nivDescaripcion}"
 								required="true" label="#{i18n['erp.matricula.nivel.descripcion']}"/>
 						</td>
 					</tr>
@@ -27,7 +27,7 @@
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
-					actionListener="#{NivelController.registrarNivel()}"
+					actionListener="#{nivelController.registrarNivel}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoNivel.hide()"
 					process="@this,pnlEditarNivel" update="pnlEditarNivel,:formNivel:pnlMessages,:formNivel:tablaNivel"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarNivel.hide();" type="button" />
