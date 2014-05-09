@@ -80,12 +80,6 @@ public interface ServicioAsistencia {
 			RegistroAsistenciaVO registroAsistencia)
 			throws SeguridadesException;
 
-	List<PermisoListDTO> readPermiso(PermisoListDTO permiso)
-			throws SeguridadesException;
-
-	List<TipoDTO> buscarTipo(TipoDTO tipo) throws SeguridadesException;
-
-	TipoDTO obtenerTipoPorId(Integer id) throws SeguridadesException;
 
 	List<ParametroDTO> buscarParametro(ParametroDTO parametro)
 			throws SeguridadesException;
@@ -93,10 +87,17 @@ public interface ServicioAsistencia {
 	ParametroDTO actualizarParametroAsistencia(ParametroDTO parametro)
 			throws SeguridadesException;
 
+
+	List<PermisoListDTO> readPermiso(PermisoListDTO permiso)
+			throws SeguridadesException;
+
 	ParametroDTO obtenerParametroPorId(Integer id) throws SeguridadesException;
 
-	List<AnioDTO> readAnioActual() throws SeguridadesException;
+	TipoDTO obtenerTipoPorId(Integer id) throws SeguridadesException;
 
+	List<TipoDTO> buscarTipo(TipoDTO tipo) throws SeguridadesException;
+
+	List<AnioDTO> readAnioActual() throws SeguridadesException;
 
 
 }

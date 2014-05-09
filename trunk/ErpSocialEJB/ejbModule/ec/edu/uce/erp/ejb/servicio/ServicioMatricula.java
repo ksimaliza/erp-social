@@ -6,6 +6,7 @@ import javax.ejb.Local;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
@@ -13,6 +14,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MateriaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NotaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParcialDTO;
@@ -135,6 +137,21 @@ public interface ServicioMatricula {
 			throws SeguridadesException;
 
 	PeriodoDTO obtenerPeriodoPorId(Integer id) throws SeguridadesException;
+
+	List<NivelParaleloListDTO> readNivelParalelo(
+			NivelParaleloListDTO nivelParalelo) throws SeguridadesException;
+
+	NivelParaleloDTO obtenerNivelParaleloPorId(Integer idNivel,
+			Integer idParalelo) throws SeguridadesException;
+
+	AsinacionDTO createOrUpdateAsinacion(AsinacionDTO asinacionDTO)
+			throws SeguridadesException;
+
+	List<AsinacionListDTO> readAsinacion(AsinacionListDTO asinacion)
+			throws SeguridadesException;
+
+	AsinacionDTO obtenerAsinacionPorId(Integer idNivPar, Integer idProf,
+			Integer idMateria, Integer idPeriodo) throws SeguridadesException;
 
 	
 

@@ -18,7 +18,7 @@ public class ParaleloDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="MAT_PARALELO_PARCODIGO_GENERATOR", sequenceName="MAT_PARALELO_PAR_CODIGO_SEQ")
+	@SequenceGenerator(name="MAT_PARALELO_PARCODIGO_GENERATOR", sequenceName="MAT_PARALELO_PAR_CODIGO_SEQ" , allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MAT_PARALELO_PARCODIGO_GENERATOR")
 	@Column(name="par_codigo")
 	private Integer parCodigo;
