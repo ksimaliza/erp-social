@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	
+	<ui:define name="title">
+		<h3><h:outputLabel	value="#{i18n['erp.matricula.nivel.paralelo.pagina.titulo']}" /></h3>
+	</ui:define>	
+
+	
+	<ui:define name="content">
+		<h:form id="formNivelParalelo">
+		
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
+					</p:commandButton>
+					<p:commandButton id="btnNuevoNivelParalelo" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevoNivelParalelo.show()">
+						</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:panel id="pnlBuscar" header="#{i18n['erp.matricula.nivel.paralelo.buscar']}">
+				<table class="formulario">
+					
+				</table>
+			</p:panel>
+
+			<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{nivelParaleloController.buscar}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscar"
+					update=":formNivelParalelo:pnlMessages,tablaNivelParalelo,pnlBuscar" />
+			</p:panel>
+
+
+			<p:dataTable id="tablaNivelParalelo" rowIndexVar="rowIndex" paginator="true" rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.matricula.nivel.paralelo.lista']}" value="#{nivelParaleloDataManager.nivelParaleloList}" var="nivpar">
+				
+				<f:facet name="header">
+					#{i18n['erp.matricula.nivel.paralelo.lista']}
+				</f:facet>
+				<p:column headerText="#" styleClass="centered" width="5%">
+					#{rowIndex+1}
+				</p:column>
+
+				<p:column headerText="#{i18n['erp.matricula.nivel.paralelo.nivel']}" width="40%">
+					<h:outputText value="#{nivpar.nivDescaripcion}" />
+				</p:column>								
+
+				<p:column headerText="#{i18n['erp.matricula.nivel.paralelo.paralelo']}" width="35%">
+						<h:outputText value="#{nivpar.parDescripcion}" />
+				</p:column>
+			<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.editar']}"
+							oncomplete="dlgEditarNuevoNivelParalelo.show()"
+							actionListener="#{nivelParaleloController.cargarDatosNivelParalelo(nivpar)}"
+							process="@this" update=":formEditarNivelParalelo:pnlEditarNivelParalelo">
+							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+						</p:commandLink>
+					</h:panelGroup>
+					</p:column>	
+							
+
+			</p:dataTable>			
+	
+</h:form>			
+		
+		
+<ui:include src="dialogNuevoNivelParalelo.xhtml" />		
+		
+	</ui:define>
+</ui:composition>
