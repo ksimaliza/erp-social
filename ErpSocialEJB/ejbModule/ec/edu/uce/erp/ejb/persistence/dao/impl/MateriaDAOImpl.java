@@ -33,6 +33,7 @@ public class MateriaDAOImpl extends AbstractFacadeImpl<MateriaDTO> implements Ma
 		super(entityManager);
 		
 	}
+	
 	@Override
 	public List<MateriaDTO> obtenerMateria(MateriaDTO materia) throws SeguridadesException {
 		

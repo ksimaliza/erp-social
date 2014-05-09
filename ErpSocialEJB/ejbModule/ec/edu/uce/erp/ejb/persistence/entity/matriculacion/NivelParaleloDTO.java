@@ -18,7 +18,7 @@ public class NivelParaleloDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="MAT_NIVEL_PARALELO_NPACODIGO_GENERATOR", sequenceName="MAT_NIVEL_PARALELO_NPA_CODIGO_SEQ")
+	@SequenceGenerator(name="MAT_NIVEL_PARALELO_NPACODIGO_GENERATOR", sequenceName="MAT_NIVEL_PARALELO_NPA_CODIGO_SEQ" , allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MAT_NIVEL_PARALELO_NPACODIGO_GENERATOR")
 	@Column(name="npa_codigo")
 	private Integer npaCodigo;

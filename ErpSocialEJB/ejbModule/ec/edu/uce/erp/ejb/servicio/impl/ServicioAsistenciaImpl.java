@@ -417,9 +417,10 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 	
 	@Override
 	public List<TipoDTO> buscarTipo(TipoDTO tipo) throws SeguridadesException {
+		slf4jLogger.info("buscarTipo");
 		List<TipoDTO> listTipo = null;
 		try {
-			listTipo = asistenciaFactoryDAO.getTipoDAOImpl().buscarTodos();
+			listTipo = asistenciaFactoryDAO.getTipoDAOImpl().obtenerTipo(tipo);
 		} catch (Exception e) {
 			slf4jLogger.info("Error al buscarTipo {}" , e.getMessage());
 			throw new SeguridadesException(e);

@@ -13,6 +13,7 @@ import ec.edu.uce.erp.ejb.dao.factory.FactoryDAO;
 import ec.edu.uce.erp.ejb.dao.factory.MatriculaFactoryDAO;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
@@ -20,6 +21,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MateriaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NotaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParcialDTO;
@@ -44,64 +46,79 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(ServicioMatriculaImpl.class);
 	
 	@Override
-	public AsinacionDTO createOrUpdateAsignacion(AsinacionDTO asinacionDTO) throws SeguridadesException
+	public AsinacionDTO createOrUpdateAsinacion(AsinacionDTO asinacionDTO) throws SeguridadesException
 	{
-		slf4jLogger.info("createOrUpdateAsignacion");
+		slf4jLogger.info("createOrUpdateAsinacion");
+		NivelParaleloDTO nivelParalelo;
+		ProfesorDTO profesor;
+		MateriaDTO materia;
+		PeriodoDTO periodo;
+		
 		try {
-		if(asinacionDTO.getAsiCodigo()!=null)
-			return matriculaFactoryDAO.getAsinacionDAOImpl().update(asinacionDTO);
-		else
-			return matriculaFactoryDAO.getAsinacionDAOImpl().create(asinacionDTO);
-		} catch (Exception e) {
-			slf4jLogger.info("error al createOrUpdateAsignacion {}", e.toString());
+			if(asinacionDTO.getAsiCodigo()!=null){
+				nivelParalelo= matriculaFactoryDAO.getNivelParaleloDAOImpl().find(asinacionDTO.getMatNivelParalelo().getNpaCodigo());
+				profesor= matriculaFactoryDAO.getProfesorDAOImpl().find(asinacionDTO.getMatProfesor().getProCodigo());
+				materia=matriculaFactoryDAO.getMateriaDAOImpl().find(asinacionDTO.getMatMateria().getMtrCodigo());
+				periodo=matriculaFactoryDAO.getPeriodoDAOImpl().find(asinacionDTO.getMatPeriodo().getPerCodigo());
+				asinacionDTO.setMatNivelParalelo(nivelParalelo);
+				asinacionDTO.setMatProfesor(profesor);
+				asinacionDTO.setMatMateria(materia);
+				asinacionDTO.setMatPeriodo(periodo);
+				return matriculaFactoryDAO.getAsinacionDAOImpl().update(asinacionDTO);
+									
+							}
+			else {
+				
+				nivelParalelo= matriculaFactoryDAO.getNivelParaleloDAOImpl().find(asinacionDTO.getMatNivelParalelo().getNpaCodigo());
+				profesor= matriculaFactoryDAO.getProfesorDAOImpl().find(asinacionDTO.getMatProfesor().getProCodigo());
+				materia=matriculaFactoryDAO.getMateriaDAOImpl().find(asinacionDTO.getMatMateria().getMtrCodigo());
+				periodo=matriculaFactoryDAO.getPeriodoDAOImpl().find(asinacionDTO.getMatPeriodo().getPerCodigo());
+				asinacionDTO.setMatNivelParalelo(nivelParalelo);
+				asinacionDTO.setMatProfesor(profesor);
+				asinacionDTO.setMatMateria(materia);
+				asinacionDTO.setMatPeriodo(periodo);
+				return matriculaFactoryDAO.getAsinacionDAOImpl().update(asinacionDTO);
+				
+							
+			} 
+		}		
+		catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdateAsinacion {}", e.toString());
 			throw new SeguridadesException(e);
 		}
 		
 	}
 	
-	
-	@Override
-	public void deleteAsinacion(AsinacionDTO asinacionDTO) throws SeguridadesException
-	{
-		slf4jLogger.info("deleteEstudiante");
-		try {
-		if(asinacionDTO.getAsiCodigo()!=null)
-			matriculaFactoryDAO.getAsinacionDAOImpl().remove(asinacionDTO);		
-		else 
-			throw new SeguridadesException("no existe una coincidencia");
-		} catch (Exception e) {
-			slf4jLogger.info("error al deleteEstudiante {}", e.toString());
-			throw new SeguridadesException(e);
-		}
 		
+	
+	
+	@Override
+	public List<AsinacionListDTO> readAsinacion(AsinacionListDTO asinacion) throws SeguridadesException {
+		slf4jLogger.info("readAsinacion");
+		List<AsinacionListDTO> listResultado = null;
+		try {
+			listResultado = matriculaFactoryDAO.getAsinacionDAOImpl().findAll(asinacion);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al readAsinacion {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener readAsinacion de la base de datos");
+		}
+		return listResultado;
 	}
 	
 	@Override
-	public List<AsinacionDTO> buscarAsinacion(AsinacionDTO asinacion) throws SeguridadesException {
-		slf4jLogger.info("buscarAsinacion");
-		List<AsinacionDTO> listAsinacion = null;
-		try {
-			//listAsinacion = matriculaFactoryDAO.getAsinacionDAOImpl().obtenerAsinacion(asinacion);
-		} catch (Exception e) {
-			slf4jLogger.info("Error al buscarAsinacion {}", e.getMessage());
-			throw new SeguridadesException("No se pudo obtener las empresas de la base de datos");
-		}
-		return listAsinacion;
+	public AsinacionDTO obtenerAsinacionPorId(Integer idNivPar, Integer idProf, Integer idMateria, Integer idPeriodo) throws SeguridadesException {
+		slf4jLogger.info("obtenerAsinacionPorId");
+		
+		AsinacionDTO asinacion=new AsinacionDTO();
+		
+		
+		asinacion.setMatNivelParalelo(matriculaFactoryDAO.getNivelParaleloDAOImpl().find(idNivPar));
+		asinacion.setMatProfesor(matriculaFactoryDAO.getProfesorDAOImpl().find(idProf));
+		asinacion.setMatMateria(matriculaFactoryDAO.getMateriaDAOImpl().find(idMateria));
+		asinacion.setMatPeriodo(matriculaFactoryDAO.getPeriodoDAOImpl().find(idPeriodo));
+				
+		return  asinacion;
 	}
-	
-	@Override
-	public AsinacionDTO buscarAsinacionid(Integer id) throws SeguridadesException {
-		slf4jLogger.info("buscarAsinacionid");
-		AsinacionDTO asinacionencontrada;
-		try {
-			asinacionencontrada = matriculaFactoryDAO.getAsinacionDAOImpl().find(id);
-		} catch (Exception e) {
-			slf4jLogger.info("Error al buscarAsinacion {}", e.getMessage());
-			throw new SeguridadesException("No se pudo obtener las asinaciones de la base de datos");
-		}
-		return asinacionencontrada;
-	}
-	
 	
 	@Override
 	public EstudianteDTO createOrUpdateEstudiante(EstudianteVO estudiantevo) throws SeguridadesException
@@ -308,7 +325,6 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 			slf4jLogger.info("Error al buscarMateria {}", e.getMessage());
 			throw new SeguridadesException("No se pudo buscarNivel de la base de datos");
 		}
-		
 		return listnivel;
 	}
 	
@@ -326,14 +342,29 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	@Override
 	public NivelParaleloDTO createOrUpdateNivelParalelo(NivelParaleloDTO nivelParaleloDTO) throws SeguridadesException
 	{
-		slf4jLogger.info("createOrUpdateMateria");
+		slf4jLogger.info("createOrUpdateNivelParalelo");
+		NivelDTO nivel;
+		ParaleloDTO paralelo;
+		
 		try {
-		if(nivelParaleloDTO.getNpaCodigo()!=null)
-			return matriculaFactoryDAO.getNivelParaleloDAOImpl().update(nivelParaleloDTO);
-		else
-			return matriculaFactoryDAO.getNivelParaleloDAOImpl().create(nivelParaleloDTO);
-		} catch (Exception e) {
-			slf4jLogger.info("error al createOrUpdateMateria {}", e.toString());
+			if(nivelParaleloDTO.getNpaCodigo()!=null){
+				nivel = matriculaFactoryDAO.getNivelDAOImpl().find(nivelParaleloDTO.getMatNivel().getNivCodigo());
+				paralelo = matriculaFactoryDAO.getParaleloDAOImpl().find(nivelParaleloDTO.getMatParalelo().getParCodigo());
+				nivelParaleloDTO.setMatNivel(nivel);
+				nivelParaleloDTO.setMatParalelo(paralelo);
+				return matriculaFactoryDAO.getNivelParaleloDAOImpl().update(nivelParaleloDTO);
+			}
+			else {
+				nivel = matriculaFactoryDAO.getNivelDAOImpl().find(nivelParaleloDTO.getMatNivel().getNivCodigo());
+				paralelo = matriculaFactoryDAO.getParaleloDAOImpl().find(nivelParaleloDTO.getMatParalelo().getParCodigo());
+				nivelParaleloDTO.setMatNivel(nivel);
+				nivelParaleloDTO.setMatParalelo(paralelo);
+				return matriculaFactoryDAO.getNivelParaleloDAOImpl().create(nivelParaleloDTO);
+				
+			} 
+		}		
+		catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdateNivelParalelo {}", e.toString());
 			throw new SeguridadesException(e);
 		}
 		
@@ -356,8 +387,30 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		
 	}
 	
+	@Override
+	public List<NivelParaleloListDTO> readNivelParalelo(NivelParaleloListDTO nivelParalelo) throws SeguridadesException {
+		slf4jLogger.info("readNivelParalelo");
+		List<NivelParaleloListDTO> listResultado = null;
+		try {
+			listResultado = matriculaFactoryDAO.getNivelParaleloDAOImpl().findAll(nivelParalelo);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al readNivelParalelo {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener NivelParalelo de la base de datos");
+		}
+		return listResultado;
+	}
 	
-	
+	@Override
+	public NivelParaleloDTO obtenerNivelParaleloPorId(Integer idNivel, Integer idParalelo) throws SeguridadesException {
+		slf4jLogger.info("obtenerRepresentantePorId");
+		
+		NivelParaleloDTO niv=new NivelParaleloDTO();
+		
+		niv.setMatNivel(matriculaFactoryDAO.getNivelDAOImpl().find(idNivel));
+		niv.setMatParalelo(matriculaFactoryDAO.getParaleloDAOImpl().find(idParalelo));
+		
+		return  niv;
+	}
 	
 	@Override
 	public NotaDTO createOrUpdateNota(NotaDTO notaDTO) throws SeguridadesException
@@ -675,6 +728,46 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		rep.setRepresentante(matriculaFactoryDAO.getRepresentanteDAOImpl().find(Idrepresentante));
 		rep.setPersona(factoryDAO.getPersonaDAOImpl().find(Idpersona));
 		return rep;
+	}
+
+
+
+
+	@Override
+	public AsinacionDTO createOrUpdateAsignacion(AsinacionDTO asinacionDTO)
+			throws SeguridadesException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+	@Override
+	public void deleteAsinacion(AsinacionDTO asinacionDTO)
+			throws SeguridadesException {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Override
+	public List<AsinacionDTO> buscarAsinacion(AsinacionDTO asinacion)
+			throws SeguridadesException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+	@Override
+	public AsinacionDTO buscarAsinacionid(Integer id)
+			throws SeguridadesException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
