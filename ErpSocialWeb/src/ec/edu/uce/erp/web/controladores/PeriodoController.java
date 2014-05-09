@@ -33,6 +33,10 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PeriodoControl
 		this.periodoDataManager = periodoDataManager;
 	}
 	
+	public PeriodoDataManager getPeriodoDataManager() {
+		return periodoDataManager;
+	}
+
 	public PeriodoController ()
 	{
 		

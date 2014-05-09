@@ -22,6 +22,16 @@ public class PeriodoDataManager extends BaseDataManager {
 	private PeriodoDTO periodoEditar;
 	private PeriodoDTO periodoBuscar;
 	
+	private int periodoCod;
+	
+public int getPeriodoCod() {
+		return periodoCod;
+	}
+
+	public void setPeriodoCod(int periodoCod) {
+		this.periodoCod = periodoCod;
+	}
+
 private java.util.List<PeriodoDTO> periodoLista; 
 	
 	@PostConstruct

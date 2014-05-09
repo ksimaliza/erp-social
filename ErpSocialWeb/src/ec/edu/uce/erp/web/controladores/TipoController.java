@@ -52,7 +52,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(TipoController
 				TipoDTO tipoNuevo = this.servicioAsistencia.createOrUpdateTipo(this.tipoDataManager.getTipoInsertar());
 				if (tipoNuevo != null) {
 					tipoDataManager.setTipoInsertar(new TipoDTO());
-					MensajesWebController.aniadirMensajeInformacion("erp.matricula.tipo.registrar.exito");
+					MensajesWebController.aniadirMensajeInformacion("erp.asistencia.tipo.registrar.exito");
 				}
 				
 			} catch (SeguridadesException e) {
@@ -69,7 +69,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(TipoController
 			
 			try {
 								
-				listaTipo = this.servicioAsistencia.buscarTipo(tipoDataManager.getTipoBuscar());
+				listaTipo = this.servicioAsistencia.buscarTipo(tipoDataManager.gettipoBuscar());
 				
 				if (CollectionUtils.isEmpty(listaTipo) && listaTipo.size()==0) {
 					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");

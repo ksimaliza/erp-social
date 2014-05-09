@@ -23,6 +23,7 @@ public class ParaleloDataManager extends BaseDataManager{
 	private ParaleloDTO paraleloEditar;
 	private ParaleloDTO paraleloBuscar;
 	private List<ParaleloDTO> paraleloDTOs;
+	private int paraleloCod;
 	
 	@PostConstruct
 	public void inicializarObjetos () {
@@ -64,6 +65,14 @@ public class ParaleloDataManager extends BaseDataManager{
 
 	public void setParaleloDTOs(List<ParaleloDTO> paraleloDTOs) {
 		this.paraleloDTOs = paraleloDTOs;
+	}
+
+	public int getParaleloCod() {
+		return paraleloCod;
+	}
+
+	public void setParaleloCod(int paraleloCod) {
+		this.paraleloCod = paraleloCod;
 	}
 	
 	

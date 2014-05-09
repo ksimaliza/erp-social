@@ -37,6 +37,7 @@ public class DocenteDataManager extends BaseDataManager {
 	private Persona personaInstancia;
 	private Persona personaEditar;
 	private Persona personaBuscar;
+	private int docenteCod;
 	
 
 
@@ -113,6 +114,14 @@ public class DocenteDataManager extends BaseDataManager {
 
 	public void setListaDocenteListDTOs(List<DocenteListDTO> listaDocenteListDTOs) {
 		this.listaDocenteListDTOs = listaDocenteListDTOs;
+	}
+
+	public int getDocenteCod() {
+		return docenteCod;
+	}
+
+	public void setDocenteCod(int docenteCod) {
+		this.docenteCod = docenteCod;
 	}
 
 	

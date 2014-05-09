@@ -2,6 +2,7 @@ package ec.edu.uce.erp.web.controladores;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -38,6 +39,11 @@ public class ParaleloController {
 public ParaleloController() {
 		
 	}
+@PostConstruct
+private void init()
+{
+	buscarParalelo();
+}
 	
 /*
  * Medodos
@@ -92,6 +98,10 @@ public void cargarDatosParalelo (ParaleloDTO paralelo) {
 		slf4jLogger.info("Error al cargarDatosParalelo seleccionado {}", e.getMessage());
 		MensajesWebController.aniadirMensajeError("Error al cargarDatosParalelo seleccionado");
 	}
+}
+
+public ParaleloDataManager getParaleloDataManager() {
+	return paraleloDataManager;
 }
 
 

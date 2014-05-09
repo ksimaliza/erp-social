@@ -34,6 +34,11 @@ public class MateriaController {
 	}
 	
 
+	public MateriaDataManager getMateriaDataManager() {
+		return materiaDataManager;
+	}
+
+
 	public MateriaController() {
 		
 	}

@@ -23,7 +23,7 @@ public class TipoDataManager extends BaseController {
 	
 	private TipoDTO tipoInsertar;
 	private TipoDTO tipoActualizar;
-	private TipoDTO TipoBuscar;
+	private TipoDTO tipoBuscar;
 	private List<TipoDTO> listTipo;
 	
 	
@@ -33,7 +33,7 @@ public class TipoDataManager extends BaseController {
 		slf4jLogger.info("inicializarObjetos");
 		this.tipoInsertar = new TipoDTO();		
 		this.tipoActualizar = new TipoDTO();
-		this.TipoBuscar = new TipoDTO();
+		this.tipoBuscar = new TipoDTO();
 			
 	}
 
@@ -58,13 +58,13 @@ public class TipoDataManager extends BaseController {
 	}
 
 
-	public TipoDTO getTipoBuscar() {
-		return TipoBuscar;
+	public TipoDTO gettipoBuscar() {
+		return tipoBuscar;
 	}
 
 
 	public void setTipoBuscar(TipoDTO tipoBuscar) {
-		TipoBuscar = tipoBuscar;
+		this.tipoBuscar = tipoBuscar;
 	}
 
 

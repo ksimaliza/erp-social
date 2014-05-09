@@ -104,6 +104,21 @@ public class DocenteController {
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosDocente seleccionado");
 		}
 	}
+
+
+	public ServicioMatricula getServicioMatricula() {
+		return servicioMatricula;
+	}
+
+
+	public void setServicioMatricula(ServicioMatricula servicioMatricula) {
+		this.servicioMatricula = servicioMatricula;
+	}
+
+
+	public DocenteDataManager getDocenteDataManager() {
+		return docenteDataManager;
+	}
 	
 	
 
