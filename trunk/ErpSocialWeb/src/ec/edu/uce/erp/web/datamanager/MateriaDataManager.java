@@ -24,6 +24,8 @@ public class MateriaDataManager extends BaseDataManager{
 	private MateriaDTO materiaBuscar;
 	private List<MateriaDTO> materiaDTOs;
 	
+	private int materiaCod;
+	
 	@PostConstruct
 	public void inicializarObjetos () {
 		
@@ -64,6 +66,14 @@ public class MateriaDataManager extends BaseDataManager{
 
 	public void setMateriaDTOs(List<MateriaDTO> materiaDTOs) {
 		this.materiaDTOs = materiaDTOs;
+	}
+
+	public int getMateriaCod() {
+		return materiaCod;
+	}
+
+	public void setMateriaCod(int materiaCod) {
+		this.materiaCod = materiaCod;
 	}
 	
 	

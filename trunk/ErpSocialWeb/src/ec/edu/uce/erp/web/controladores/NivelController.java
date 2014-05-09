@@ -1,10 +1,14 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.util.List;
+
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,24 +19,30 @@ import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.datamanager.NivelDataManager;
 
 @ViewScoped
-@ManagedBean (name = "NivelController")
+@ManagedBean (name = "nivelController")
 public class NivelController {
 
-private static final Logger slf4jLogger = LoggerFactory.getLogger(PerfilController.class);
+private static final Logger slf4jLogger = LoggerFactory.getLogger(NivelController.class);
 	
 	@EJB
 	private ServicioMatricula servicioMatricula;
 	
-	@ManagedProperty(value="#{NivelDataManager}")
+	@ManagedProperty(value="#{nivelDataManager}")
 	private NivelDataManager nivelDataManager;
 	
 	public void setNivelDataManager(NivelDataManager nivelDataManager) {
 		this.nivelDataManager = nivelDataManager;
 	}
 	
+	
 public NivelController() {
 		
 	}
+@PostConstruct
+private void init()
+{
+	buscarNivel();
+}
 	
 	/*
 	 * Medodos
@@ -54,4 +64,45 @@ public NivelController() {
 		}
 		
 	}
+	
+	
+	public void buscarNivel () {
+		slf4jLogger.info("buscarNivel");
+		
+		List<NivelDTO> listaNivel=null;
+		
+		try {
+							
+			listaNivel = this.servicioMatricula.buscarNivel(nivelDataManager.getNivelBuscar());
+			
+			if (CollectionUtils.isEmpty(listaNivel) && listaNivel.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.nivelDataManager.setNivelDTOs(listaNivel);
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarNivel {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
+	public void cargarDatosNivel (NivelDTO nivel) {
+		try {
+			NivelDTO nivelEncontrado = servicioMatricula.obtenerNivelPorId(nivel.getNivCodigo());
+			
+			this.nivelDataManager.setNivelInstancia(nivelEncontrado);
+									
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al cargar los cargarDatosNivel seleccionado {}", e.getMessage());
+			MensajesWebController.aniadirMensajeError("Error al cargarDatosMateria seleccionado");
+		}
+	}
+
+
+	public NivelDataManager getNivelDataManager() {
+		return nivelDataManager;
+	}
+	
 }
