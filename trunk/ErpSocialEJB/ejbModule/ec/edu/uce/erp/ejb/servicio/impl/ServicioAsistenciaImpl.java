@@ -525,18 +525,15 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 	{
 		
 		Date fechaInicial= CalendarUtil.convertStringtoDate(String.valueOf(year)+"-01-01");
-		Date fechaFinal= CalendarUtil.convertStringtoDate(String.valueOf(year)+"-01-31");
-		while (fechaInicial.before(fechaFinal) || fechaInicial.equals(fechaFinal)) {
+		Date fechaFinal= CalendarUtil.convertStringtoDate(String.valueOf(year)+"-12-31");
+		
+		while (fechaInicial.before(fechaFinal)) {
 
 			Calendar aux= CalendarUtil.getDate(new Timestamp(fechaInicial.getTime()));
-			
-//			//si el dia de la semana de la fecha minima es diferente de sabado o domingo
-			if (aux.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY&& aux.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY) {
-			
-
-			
+			if (aux.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY|| aux.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
+				System.out.println(fechaInicial);
 			}
-			fechaInicial=CalendarUtil.addDay(fechaFinal, 1);
+			fechaInicial=CalendarUtil.addDay(fechaInicial, 1);
 		}
 	}
 }
