@@ -4,6 +4,7 @@
 package ec.edu.uce.erp.web.datamanager;
 
 import static ec.edu.uce.erp.common.util.CatalogoCabeceraConstantes.ID_CAB_CATALOGO_ESTADO_CONSERVACION;
+import static ec.edu.uce.erp.common.util.CatalogoCabeceraConstantes.ID_CAB_CATALOGO_TIPO_BIEN;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,7 @@ public class BienDataManager extends BaseDataManager{
 	private List<VistaBien> listVistaBien;
 	private List<VistaTransaccion> listVistaTransaccion;
 	
-//	private List<SelectItem> dcTipoBien;
+	private List<SelectItem> dcTipoBien;
 //	private List<SelectItem> dcEstadoBien;
 	private List<SelectItem> dcEstadoConservacion;
 	private List<SelectItem> dcCategoriaBien;
@@ -61,6 +62,7 @@ public class BienDataManager extends BaseDataManager{
 	private Integer idCategoriaBienSeleccionado;
 	private Integer idLineaBienSeleccionado;
 	private String idDcEstadoConservacionSelec;
+	private String idDcTipoBienSelec;
 	private Integer idCustudioAsignado;
 	private Integer idCustudioReasignado;
 	
@@ -69,7 +71,6 @@ public class BienDataManager extends BaseDataManager{
 		this.bienInstancia = new Bien();
 		this.bienInstancia.setUsuarioRegistro(getUsuarioSession());
 		this.bienEditar = new Bien();
-//		this.bienBuscar = new Bien();
 		this.listBien = new ArrayList<Bien>();
 		
 		this.vistaBienBuscar = new VistaBien();
@@ -162,31 +163,19 @@ public class BienDataManager extends BaseDataManager{
 		this.listBien = listBien;
 	}
 
-//	/**
-//	 * @return the dcTipoBien
-//	 * @throws SeguridadesException 
-//	 */
-//	public List<SelectItem> getDcTipoBien() throws SeguridadesException {
-//		
-//		if (CollectionUtils.isEmpty(dcTipoBien)) {
-//			slf4jLogger.info("cargar catalogoTipoBien");
-//			dcTipoBien = UtilSelectItems.getInstancia().cargarSelectItemsDetBien(ID_CAB_CATALOGO_TIPO_BIEN, servicioInventario);
-//		}
-//		
-//		return dcTipoBien;
-//	}
-
-//	/**
-//	 * @return the dcEstadoBien
-//	 */
-//	public List<SelectItem> getDcEstadoBien() throws SeguridadesException {
-//		
-//		if (CollectionUtils.isEmpty(dcEstadoBien)) {
-//			slf4jLogger.info("cargar getDcEstadoBien");
-//			dcEstadoBien = UtilSelectItems.getInstancia().cargarSelectItemsDetBien(ID_CAB_CATALOGO_ESTADO_BIEN, servicioInventario);
-//		}
-//		return dcEstadoBien;
-//	}
+	/**
+	 * @return the dcTipoBien
+	 * @throws SeguridadesException 
+	 */
+	public List<SelectItem> getDcTipoBien() throws SeguridadesException {
+		
+		if (CollectionUtils.isEmpty(dcTipoBien)) {
+			slf4jLogger.info("cargar catalogoTipoBien");
+			dcTipoBien = UtilSelectItems.getInstancia().cargarSelectItemsDetBien(ID_CAB_CATALOGO_TIPO_BIEN, servicioInventario);
+		}
+		
+		return dcTipoBien;
+	}
 
 	/**
 	 * @return the dcEstadoConservacion
@@ -254,6 +243,17 @@ public class BienDataManager extends BaseDataManager{
 		return dcEmpleadosEmpresa;
 	}
 	
+	public void refrescarObjetos () {
+		this.limpiarSeleccionCatalogos();
+		this.bienInstancia=new Bien();
+	}
+	
+	private void limpiarSeleccionCatalogos () {
+		this.idDcEstadoConservacionSelec=null;
+		this.idDcTipoBienSelec = null;
+		this.idCategoriaBienSeleccionado=0;
+		this.idLineaBienSeleccionado=0;
+	}
 	
 	/**
 	 * @return the idCategoriaBienSeleccionado
@@ -386,6 +386,20 @@ public class BienDataManager extends BaseDataManager{
 	 */
 	public void setListVistaTransaccion(List<VistaTransaccion> listVistaTransaccion) {
 		this.listVistaTransaccion = listVistaTransaccion;
+	}
+
+	/**
+	 * @return the idDcTipoBienSelec
+	 */
+	public String getIdDcTipoBienSelec() {
+		return idDcTipoBienSelec;
+	}
+
+	/**
+	 * @param idDcTipoBienSelec the idDcTipoBienSelec to set
+	 */
+	public void setIdDcTipoBienSelec(String idDcTipoBienSelec) {
+		this.idDcTipoBienSelec = idDcTipoBienSelec;
 	}
 	
 }

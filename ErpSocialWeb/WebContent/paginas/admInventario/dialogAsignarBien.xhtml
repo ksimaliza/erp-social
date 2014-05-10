@@ -6,24 +6,24 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpAsignarBien" header="#{i18n['erp.bien.asignar']}" 
-		widgetVar="dlgAsignarBien" modal="true" minWidth="500" width="500" appendTo="@(body)" draggable="false">
+		widgetVar="dlgAsignarBien" modal="true" minWidth="550" width="550" appendTo="@(body)" draggable="false">
 		<h:form id="formAsignarBien" styleClass="formulario">
 			<p:panel id="pnlAsignarBien" >
 				<table class="formulario">
 					<tr>
-						<td width="30%">
+						<td width="25%">
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.nombre']}" />
 						</td>
-						<td width="70%">
+						<td width="75%">
 							<h:outputText id="txtNombre" value="#{bienDataManager.vistaBienEditar.bieNombre}" />
 						</td>
 					</tr> 
 					<tr>
-						<td width="30%">
+						<td>
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.fecha.asignacion']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
-						<td width="70%">
+						<td>
 							<p:calendar id="popupCal" required="true" pattern="yyyy-mm-dd"
 								value="#{bienDataManager.vistaBienEditar.bieFechaAsig}" label="#{i18n['erp.bien.fecha.asignacion']}" showOn="button">
 								<f:convertDateTime pattern="yyyy-mm-dd" />
@@ -59,8 +59,6 @@
 								label="#{i18n['erp.bien.custodio']}" required="true"
 								value="#{bienDataManager.idCustudioAsignado}" >
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
-								<!-- <f:selectItem itemValue="1" itemLabel="bodegaUno"/>
-								<f:selectItem itemValue="2" itemLabel="bodega2"/> -->
 								<f:selectItems value="#{bienDataManager.dcEmpleadosEmpresa}"/>
 							</p:selectOneMenu>
 						</td>
@@ -70,12 +68,10 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{bienController.asignarBien}"
-					onclick="dlgAsignarBien.hide()" ajax="false"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgAsignarBien.hide()"
 					process="@this,pnlAsignarBien" update="pnlAsignarBien,:formBien:tablaBienes,:formBien:pnlMessages"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgAsignarBien.hide();" type="button" />
+				<p:commandButton value="#{i18n['label.cancelar']}" type="button" onclick="dlgAsignarBien.hide();"/>
 			</p:panel>
 		</h:form>
 	</p:dialog>
-	
 </ui:composition>
