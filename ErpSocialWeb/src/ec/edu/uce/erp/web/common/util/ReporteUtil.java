@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.util.UtilAplication;
 
 /**
- * @author wilmer
+ * @author
  *
  */
 public class ReporteUtil {
@@ -98,7 +98,7 @@ public class ReporteUtil {
 	 * M&eacute;todo gen&eacute;rico para compilar el reporte con la data que se obtiene de la aplicaci&oacute;n
 	 * @param facesContext
 	 * @param listaObjeto
-	 * @param nombreArchivo
+	 * @param nombreArchivo Nombre del archivo .jrxml que se va ha compilar
 	 * @return
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
