@@ -65,6 +65,11 @@ public class BienController extends BaseController{
 			this.bienDataManager.getBienInstancia().setLinBienPk(this.bienDataManager.getIdLineaBienSeleccionado());
 			this.bienDataManager.getBienInstancia().setNpIdDcEstadoConservacion(this.bienDataManager.getIdDcEstadoConservacionSelec());
 			this.bienDataManager.getBienInstancia().setUsuarioRegistro(this.bienDataManager.getUsuarioSession());
+			if (this.bienDataManager.getBienInstancia().getMarBienPk().intValue()==0) {
+				this.bienDataManager.getBienInstancia().setMarBienPk(null);
+			}
+			this.bienDataManager.getBienInstancia().setBiePk(null);
+			
 			Bien bienNuevo = servicioInventario.registrarBien(this.bienDataManager.getBienInstancia());
 			
 			if (bienNuevo != null) {
@@ -159,7 +164,7 @@ public class BienController extends BaseController{
 		
 	}
 	
-	public void asignarBien () {
+	public String asignarBien () {
 		
 		slf4jLogger.info("asignarBien");
 		
@@ -182,6 +187,8 @@ public class BienController extends BaseController{
 			slf4jLogger.info("error al asignarBien {}", e.getCause().getMessage());
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
+		
+		return "administracionBien";
 		
 	}
 	
