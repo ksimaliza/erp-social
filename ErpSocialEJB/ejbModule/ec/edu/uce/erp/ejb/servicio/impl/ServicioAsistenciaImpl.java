@@ -520,6 +520,7 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		return anioList;
 	}
 	
+	
 	public void createDiaNoLaboralSabadoDomingo(int year)
 	{
 		
@@ -531,9 +532,8 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 			
 //			//si el dia de la semana de la fecha minima es diferente de sabado o domingo
 			if (aux.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY&& aux.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY) {
-//			//se aumentan los dias de diferencia entre min y max
 			
-//			diffDays++;
+
 			
 			}
 			fechaInicial=CalendarUtil.addDay(fechaFinal, 1);
