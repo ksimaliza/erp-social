@@ -17,6 +17,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.inventory.MarcaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
 import ec.edu.uce.erp.ejb.persistence.view.VistaEmpleado;
+import ec.edu.uce.erp.ejb.persistence.view.VistaTransaccion;
 
 /**
  * @author
@@ -215,6 +216,14 @@ public interface ServicioInventario {
 	 * @throws SeguridadesException
 	 */
 	VistaBien reasignarBien (VistaBien vistaBien) throws SeguridadesException;
+	
+	/**
+	 * Buscar <code>VistaTransaccion</code> en la BD por diferentes criterios
+	 * @param vistaTransaccion
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	List<VistaTransaccion> obtenerVistaTransaccionCriterios (VistaTransaccion vistaTransaccion) throws SeguridadesException;
 	
 	/**
 	 * Buscar <code>VistaEmpleado</code> en la base de datos

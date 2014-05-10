@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpTrazabilidadBien" header="#{i18n['erp.bien.trazabilidad']}" 
+		widgetVar="dlgTrazabilidadBien" modal="true" minWidth="500" width="500" appendTo="@(body)" draggable="false">
+		<h:form id="formTrazabilidadBien" styleClass="formulario">
+			<p:panel id="pnlTrazabilidadBien" >
+				<table class="formulario">
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.nombre']}" />
+						</td>
+						<td width="70%">
+							<h:outputText id="txtNombre" value="#{bienDataManager.vistaBienEditar.bieNombre}" />
+						</td>
+						<td width="30%">
+							<h:outputLabel for="txtCodigo" value="#{i18n['erp.bien.codigo']}" />
+						</td>
+						<td width="70%">
+							<h:outputText id="txtCodigo" value="#{bienDataManager.vistaBienEditar.bieCodigo}" />
+						</td>
+					</tr>
+				</table>
+				<p:dataTable id="dataTableTrazabilidad" value="#{bienDataManager.listVistaTransaccion}" var="transaccion">
+				
+					<f:facet name="header">
+						<h:outputText value="#i18n['erp.bien.tranzabilidad.lista']" />
+					</f:facet>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#i18n['erp.bien.fecha.asignacion']" />
+						</f:facet>
+						<h:outputText value="#{transaccion.traFechaInicio}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#i18n['erp.bien.fecha.asignacion']" />
+						</f:facet>
+						<h:outputText value="#{transaccion.tipBieDescripcion}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#i18n['erp.bien.fecha.asignacion']" />
+						</f:facet>
+						<h:outputText value="#{transaccion.nombreEmpAsignado}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#i18n['erp.bien.fecha.asignacion']" />
+						</f:facet>
+						<h:outputText value="#{transaccion.nombreEmpReasignado}" />
+					</p:column>
+				
+				</p:dataTable>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{bienController.reasignarBien}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgTrazabilidadBien.hide()"
+					process="@this,pnlTrazabilidadBien" update="pnlTrazabilidadBien,:formBien:tablaBienes,:formBien:pnlMessages"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgTrazabilidadBien.hide();" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>

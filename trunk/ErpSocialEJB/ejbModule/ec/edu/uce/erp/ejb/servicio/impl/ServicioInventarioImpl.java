@@ -35,6 +35,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.inventory.Transaccion;
 import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaDTO;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
 import ec.edu.uce.erp.ejb.persistence.view.VistaEmpleado;
+import ec.edu.uce.erp.ejb.persistence.view.VistaTransaccion;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 
 /**
@@ -609,6 +610,22 @@ public class ServicioInventarioImpl implements ServicioInventario {
 	}
 	
 	@Override
+	public List<VistaTransaccion> obtenerVistaTransaccionCriterios(VistaTransaccion vistaTransaccion) throws SeguridadesException {
+		
+		slf4jLogger.info("obtenerVistaTransaccionCriterios");
+		List<VistaTransaccion> listVistaTransaccion = null;
+		
+		try {
+			listVistaTransaccion = inventarioFactory.getVistaTransaccionDAOImpl().obtenerVistaTransaccionCriterios(vistaTransaccion);
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al obtenerVistaTransaccionCriterios {}" , e.getMessage());
+			throw new SeguridadesException("Error al obtenerVistaTransaccionCriterios");
+		}
+		return listVistaTransaccion;
+	}
+	
+	@Override
 	public List<VistaEmpleado> obtenerEmpleadoEmpresa(VistaEmpleado vistaEmpleado) throws SeguridadesException {
 		slf4jLogger.info("obtenerEmpleadoEmpresa");
 		
@@ -624,8 +641,6 @@ public class ServicioInventarioImpl implements ServicioInventario {
 		
 		return vistaEmpleadoCol;
 	}
-
 	
-
 }
  

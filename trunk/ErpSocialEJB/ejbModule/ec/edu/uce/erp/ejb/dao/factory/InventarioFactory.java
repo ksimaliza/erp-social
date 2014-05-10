@@ -16,6 +16,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.ProveedorDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.TransaccionDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.VistaBienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.VistaEmpleadoDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.VistaTransaccionDAO;
 
 /**
  * @author
@@ -45,5 +46,7 @@ public interface InventarioFactory {
 	VistaBienDAO getVistaBienDAOImpl();
 	
 	VistaEmpleadoDAO getVistaEmpleadoDAOImpl();
+	
+	VistaTransaccionDAO getVistaTransaccionDAOImpl();
 	
 }
