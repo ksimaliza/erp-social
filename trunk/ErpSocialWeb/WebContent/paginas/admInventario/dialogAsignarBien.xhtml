@@ -70,6 +70,7 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{bienController.asignarBien}"
+					onclick="dlgAsignarBien.hide()" ajax="false"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgAsignarBien.hide()"
 					process="@this,pnlAsignarBien" update="pnlAsignarBien,:formBien:tablaBienes,:formBien:pnlMessages"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgAsignarBien.hide();" type="button" />
