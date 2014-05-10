@@ -60,7 +60,7 @@ public class CalendarUtil {
     {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        cal.add(Calendar.DATE, days); //minus number would decrement the days
+        cal.add(Calendar.DAY_OF_YEAR, days);
         return cal.getTime();
     }
 
