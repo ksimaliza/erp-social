@@ -23,6 +23,7 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Perfil;
+import ec.edu.uce.erp.ejb.persistence.util.dto.AnioDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioAsistencia;
 
@@ -149,34 +150,34 @@ public class SelectItemsController extends BaseController {
 /**
  * Comentado por no esta subido la clase AnioDTO
  */
-//	/**
-//	 * 
-//	 * @return catalogoListAnio
-//	 */
-//	public List<SelectItem> getCatalogoListAnio() {
-//		
-//		if (CollectionUtils.isEmpty(this.catalogoListAnio)) {
-//			slf4jLogger.info("cargar catalogoListAnio");
-//			
-//			try {
-//				List<AnioDTO> listAnio = servicioAsistencia.readAnioActual();
-//				
-//				CollectionUtils.collect(listAnio, new Transformer() {
-//					@Override
-//					public Object transform(final Object arg0) {
-//						final AnioDTO anioDTO = (AnioDTO)arg0;
-//						return new SelectItem(anioDTO.getCodigo(),anioDTO.getDescripcion());
-//					}
-//				}, catalogoListAnio);
-//				
-//			} catch (SeguridadesException e) {
-//				slf4jLogger.info("error al cargar catalogo anio {}", e.getMessage());
-//				MensajesWebController.aniadirMensajeError("Error al cargar catalogo anio");
-//			}
-//			
-//		}
-//		
-//		return catalogoListAnio;
-//	}
+	/**
+	 * 
+	 * @return catalogoListAnio
+	 */
+	public List<SelectItem> getCatalogoListAnio() {
+		
+		if (CollectionUtils.isEmpty(this.catalogoListAnio)) {
+			slf4jLogger.info("cargar catalogoListAnio");
+			
+			try {
+				List<AnioDTO> listAnio = servicioAsistencia.readAnioActual();
+				
+				CollectionUtils.collect(listAnio, new Transformer() {
+					@Override
+					public Object transform(final Object arg0) {
+						final AnioDTO anioDTO = (AnioDTO)arg0;
+						return new SelectItem(anioDTO.getCodigo(),anioDTO.getDescripcion());
+					}
+				}, catalogoListAnio);
+				
+			} catch (SeguridadesException e) {
+				slf4jLogger.info("error al cargar catalogo anio {}", e.getMessage());
+				MensajesWebController.aniadirMensajeError("Error al cargar catalogo anio");
+			}
+			
+		}
+		
+		return catalogoListAnio;
+	}
 	
 }
