@@ -91,6 +91,7 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParcialDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.view.VistaHistoricoTransaccion</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaNoLaboralDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioDTO</class>
