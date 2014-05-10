@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Bien;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
+import ec.edu.uce.erp.ejb.persistence.view.VistaTransaccion;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
@@ -205,6 +206,20 @@ public class BienController extends BaseController{
 		if (bienDataManager.getVistaBienEditar().getEmpAsignadoFk().intValue() == bienDataManager.getIdCustudioReasignado().intValue()){
 			MensajesWebController.aniadirMensajeError("El custodio a reemplazar no puede ser el mismo");
 			bienDataManager.setIdCustudioReasignado(0);
+		}
+		
+	}
+	
+	public void obtenerTrazabilidadBien () {
+		slf4jLogger.info("obtenerTrazabilidadBien");
+		
+		try {
+			VistaTransaccion vistaTransaccion = new VistaTransaccion();
+			vistaTransaccion.setBieFk(bienDataManager.getVistaBienEditar().getBiePk());
+			bienDataManager.setListVistaTransaccion(servicioInventario.obtenerVistaTransaccionCriterios(vistaTransaccion));
+		} catch (SeguridadesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}

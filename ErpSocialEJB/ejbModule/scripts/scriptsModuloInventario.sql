@@ -358,10 +358,26 @@ left join transaccion_tbl t on t.bie_fk = b.bie_pk;
 /*==============================================================*/
 DROP view IF EXISTS empleado_view;
 CREATE VIEW empleado_view as
- SELECT per.per_pk, per.per_ci, per.per_nombres, per.per_apellidos, per.per_direccion, per.per_telefono, per.per_celular,
+SELECT per.per_pk, per.per_ci, per.per_nombres, per.per_apellidos, (per.per_nombres || ' ' || per.per_apellidos) as nombres_completos, per.per_direccion, per.per_telefono, per.per_celular,
     per.per_email, per.per_foto, emp.emp_codigo, emp.emp_pk, emr.emr_pk, emr.tip_empresa_fk,
     emr.emr_nombre, emr.emr_direccion, emr.emr_ruc, emp.emr_fk
    FROM empleado_tbl emp
    inner JOIN persona_tbl per ON emp.per_fk = per.per_pk
    inner JOIN empresa_tbl emr ON emr.emr_pk = emp.emr_fk;
+
+/*==============================================================*/
+/* Vista transaccion para llevar la trazabilidad del bien       */
+/*==============================================================*/
+DROP view IF EXISTS transaccion_view;
+CREATE VIEW transaccion_view as
+select t.tra_pk, t.bie_fk, tra_estado, t.tra_fecha_inicio, t.tra_fecha_fin, t.cab_bien_tip_bie_fk, t.det_bien_tip_bie_nivel1, 
+dbtb.det_bien_descripcion as tip_bie_descripcion, t.cab_bien_est_conserv_fk, t.det_bien_est_conserv_nivel1_fk, 
+dbec.det_bien_descripcion as est_conserv_descripcion, t.emp_asignado_fk, eva.nombres_completos as nombre_emp_asignado,
+t.emp_reasignado_fk, evra.nombres_completos as nombre_emp_reasignado
+from transaccion_tbl t
+left join detalle_bien_tbl dbtb on dbtb.cab_bien_fk = t.cab_bien_tip_bie_fk and dbtb.det_bien_nivel1 = t.det_bien_tip_bie_nivel1
+left join detalle_bien_tbl dbec on dbec.cab_bien_fk = t.cab_bien_est_conserv_fk and dbec.det_bien_nivel1= t.det_bien_est_conserv_nivel1_fk
+left join empleado_view eva on eva.emp_pk = t.emp_asignado_fk
+left join empleado_view evra on evra.emp_pk = t.emp_reasignado_fk
+order by t.tra_fecha_inicio asc;
 

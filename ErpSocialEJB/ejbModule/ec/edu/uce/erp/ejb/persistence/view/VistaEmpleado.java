@@ -71,6 +71,9 @@ public class VistaEmpleado implements Serializable {
 	@Column(name="tip_empresa_fk")
 	private Integer tipEmpresaFk;
 
+	@Column(name="nombres_completos")
+	private String nombresCompletos;
+
 	public VistaEmpleado() {
 	}
 
@@ -209,9 +212,19 @@ public class VistaEmpleado implements Serializable {
 	public void setTipEmpresaFk(Integer tipEmpresaFk) {
 		this.tipEmpresaFk = tipEmpresaFk;
 	}
-	
-	public String getNombresCompletos () {
-		return new StringBuilder().append(this.perNombres).append(" ").append(this.perNombres).toString();
+
+	/**
+	 * @return the nombresCompletos
+	 */
+	public String getNombresCompletos() {
+		return nombresCompletos;
 	}
 
+	/**
+	 * @param nombresCompletos the nombresCompletos to set
+	 */
+	public void setNombresCompletos(String nombresCompletos) {
+		this.nombresCompletos = nombresCompletos;
+	}
+	
 }

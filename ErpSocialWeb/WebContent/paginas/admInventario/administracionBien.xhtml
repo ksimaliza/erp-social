@@ -163,6 +163,11 @@
 							<f:setPropertyActionListener target="#{bienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
 						</p:commandLink>
 						<p:commandLink value="  Dar baja" title="Dar baja" rendered="#{vistaBien.npVerBajaBien}"/>
+						<p:commandLink value="  Trazabilidad" title="Trazabilidad"
+							action="#{bienController.obtenerTrazabilidadBien}"
+							oncomplete="dlgTrazabilidadBien.show()" update=":formTrazabilidadBien:pnlTrazabilidadBien">
+							<f:setPropertyActionListener target="#{bienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
+						</p:commandLink>
 					</h:panelGroup>
 				</p:column>
 			</p:dataTable>
@@ -172,6 +177,7 @@
 		<ui:include src="dialogEditarBien.xhtml" />
 		<ui:include src="dialogAsignarBien.xhtml" />
 		<ui:include src="dialogReasignarBien.xhtml" />
+		<ui:include src="dialogTrazabilidadBien.xhtml" />
 		
 	</ui:define>
 </ui:composition>
