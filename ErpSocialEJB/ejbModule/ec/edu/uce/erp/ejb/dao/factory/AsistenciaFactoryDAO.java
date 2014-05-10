@@ -3,6 +3,7 @@ package ec.edu.uce.erp.ejb.dao.factory;
 import javax.ejb.Local;
 
 import ec.edu.uce.erp.ejb.persistence.dao.DiaDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.DiaNoLaboralDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.EmpleadoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.FaltaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HorarioDAO;
@@ -32,6 +33,8 @@ public interface AsistenciaFactoryDAO {
 	RegistroDAO getRegistroDAOImpl();
 
 	TipoDAO getTipoDAOImpl();
+
+	DiaNoLaboralDAO getDiaNoLaboralDAOImpl();
 
 	
 	
