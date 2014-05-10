@@ -14,6 +14,7 @@ import javax.faces.bean.ViewScoped;
 import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -119,6 +120,11 @@ public class BienController extends BaseController{
 			
 			this.bienDataManager.getVistaBienBuscar().setEmrPk(this.bienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
 			this.bienDataManager.getVistaBienBuscar().setTraEstado(this.bienDataManager.getEstadoActivo());
+			
+			if (StringUtils.isNotBlank(bienDataManager.getIdDcTipoBienSelec())) {
+				this.bienDataManager.getVistaBienBuscar().setDetBienTipBieNivel1(bienDataManager.getIdDcTipoBienSelec());
+			}
+			
 			List<VistaBien> listVistaBien = servicioInventario.buscarVistaBienCriterios(this.bienDataManager.getVistaBienBuscar());
 			
 			this.bienDataManager.getListVistaBien().clear();
@@ -177,9 +183,6 @@ public class BienController extends BaseController{
 				int posicion = this.bienDataManager.getListVistaBien().indexOf(this.bienDataManager.getVistaBienEditar());
 				this.bienDataManager.getListVistaBien().remove(this.bienDataManager.getVistaBienEditar());
 				this.bienDataManager.getListVistaBien().add(posicion, vistaBien);
-				ActaBienDTO actaBienDTO = new ActaBienDTO();
-				actaBienDTO.setTituloActa("Acta Asignacion del Bien");
-				this.generarActaBien(actaBienDTO);
 				MensajesWebController.aniadirMensajeInformacion("Bien asignado correctamente");
 			}
 			
@@ -205,9 +208,6 @@ public class BienController extends BaseController{
 				int posicion = this.bienDataManager.getListVistaBien().indexOf(this.bienDataManager.getVistaBienEditar());
 				this.bienDataManager.getListVistaBien().remove(this.bienDataManager.getVistaBienEditar());
 				this.bienDataManager.getListVistaBien().add(posicion, vistaBien);
-				ActaBienDTO actaBienDTO = new ActaBienDTO();
-				actaBienDTO.setTituloActa("Acta Reasignacion del Bien");
-				this.generarActaBien(actaBienDTO);
 				MensajesWebController.aniadirMensajeInformacion("Bien reasignado correctamente");
 			}
 			
@@ -242,14 +242,20 @@ public class BienController extends BaseController{
 		
 	}
 	
-	public void generarActaBien (ActaBienDTO actaBienDTO) {
+	public void generarActaBien () {
 		
 		List<ActaBienDTO> listActaBien = new ArrayList<ActaBienDTO>();
+		ActaBienDTO actaBienDTO = new ActaBienDTO();
+		actaBienDTO.setTituloActa("Acta bienes");
 		listActaBien.add(actaBienDTO);
 		
 		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), listActaBien, "actaAsignacionBien");
 		ReporteUtil.generarReporte(jasperPrint, "pdf", "actaBien");
 		
+	}
+	
+	public void reiniciarObjetos () {
+		this.bienDataManager.refrescarObjetos();
 	}
 	
 }

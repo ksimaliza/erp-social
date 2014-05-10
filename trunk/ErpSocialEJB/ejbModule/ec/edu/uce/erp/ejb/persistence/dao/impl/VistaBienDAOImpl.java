@@ -19,6 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.common.util.ConstantesApplication;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.persistence.dao.VistaBienDAO;
@@ -76,6 +77,16 @@ public class VistaBienDAOImpl extends AbstractFacadeImpl<VistaBien> implements V
 				Expression<String> nombreBien = 
 						criteriaBuilder.upper(criteriaBuilder.literal(UtilAplication.appendStringBuilder("%", vistaBien.getBieNombre(), "%").toString()));
 				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromVistaBien.<String>get("bieNombre")), nombreBien);
+				criteriaList.add(predicate);
+			}
+			
+			//por categoria
+			if (StringUtils.isNotBlank(vistaBien.getDetBienTipBieNivel1())) {
+				predicate = criteriaBuilder.equal(fromVistaBien.get("detBienTipBieNivel1"), vistaBien.getDetBienTipBieNivel1());
+				criteriaList.add(predicate);
+				predicate = null;
+				vistaBien.setCabBienTipBieFk(ConstantesApplication.CAB_CAT_TIPO_BIEN);
+				predicate = criteriaBuilder.equal(fromVistaBien.get("cabBienTipBieFk"), vistaBien.getCabBienTipBieFk());
 				criteriaList.add(predicate);
 			}
 			

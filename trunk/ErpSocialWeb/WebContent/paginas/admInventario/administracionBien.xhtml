@@ -16,7 +16,7 @@
 					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
 					<p:commandButton id="btnNuevoBien" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoBien.show()"/>
 					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
-						icon="exportExcel" disabled="#{empty bienDataManager.listBien}">
+						icon="exportExcel" disabled="#{empty bienDataManager.listVistaBien}">
 						<p:dataExporter type="xls" target="tablaBienes" fileName="productos" postProcessor="#{bienController.postProcessXLS}"/>
 					</p:commandButton>
 				</p:toolbarGroup>
@@ -28,6 +28,19 @@
 						<td>
 							<p:inputText id="txtNombre"
 								value="#{bienDataManager.vistaBienBuscar.bieNombre}" />
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="selectTipoIngresoBien" value="#{i18n['erp.bien.tipo.transaccion']}" />
+						</td>
+						<td  width="70%">
+							<p:selectOneMenu id="selectTipoIngresoBien"
+								style="width: 100%" label="#{i18n['erp.bien.categoria']}"
+								value="#{bienDataManager.idDcTipoBienSelec}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItems value="#{bienDataManager.dcTipoBien}"/>
+							</p:selectOneMenu>
 						</td>
 					</tr>
 					<tr>
@@ -167,6 +180,12 @@
 							action="#{bienController.obtenerTrazabilidadBien}"
 							oncomplete="dlgTrazabilidadBien.show()" update=":formTrazabilidadBien:pnlTrazabilidadBien">
 							<f:setPropertyActionListener target="#{bienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
+						</p:commandLink>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.imprimir']}"
+							process="@this" ajax="false"
+							action="#{bienController.generarActaBien}">
+							<h:graphicImage value="/resources/img/pdf.png" alt="#{i18n['label.imprimir']}"/>
 						</p:commandLink>
 					</h:panelGroup>
 				</p:column>

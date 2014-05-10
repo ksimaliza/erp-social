@@ -68,6 +68,15 @@
 					</tr>
 					<tr>
 						<td>
+							<h:outputLabel for="txtModelo" value="#{i18n['erp.bien.modelo']}" />
+						</td>
+						<td>
+							<p:inputText id="txtModelo" style="width: 100%" required="true"
+								value="#{bienDataManager.bienEditar.bieModelo}" label="#{i18n['erp.bien.modelo']}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
 							<h:outputLabel for="txtColor" value="#{i18n['erp.bien.color']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
@@ -86,7 +95,7 @@
 								value="#{bienDataManager.bienEditar.bieNotas}" label="#{i18n['erp.bien.nota']}" />
 						</td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td>
 							<h:outputLabel for="txtCodigo" value="#{i18n['erp.bien.codigo']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
@@ -95,7 +104,7 @@
 							<p:inputText id="txtCodigo" style="width: 90%" required="true"
 								value="#{bienDataManager.bienEditar.bieNotas}" label="#{i18n['erp.bien.codigo']}" />
 						</td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td>
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.nombre']}" />
