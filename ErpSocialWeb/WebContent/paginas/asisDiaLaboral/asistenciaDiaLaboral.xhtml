@@ -22,7 +22,7 @@
 						<h:outputText value="Dia no laboral:" />
 					</td>
 					<td>
-						<p:commandButton value="Sabados y Domingos"/>
+						<p:commandButton value="Sabados y Domingos" actionListener="#{diaLaboralController.sabadoDomingo}"/>
 					</td>
 					<td>
 						<h:outputLabel for="selectAnio" value="#{i18n['erp.asistencia.seleccione.anio']}" />
