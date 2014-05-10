@@ -6,6 +6,7 @@ import javax.persistence.PersistenceContext;
 
 import ec.edu.uce.erp.ejb.dao.factory.AsistenciaFactoryDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.DiaDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.DiaNoLaboralDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.EmpleadoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.FaltaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HorarioDAO;
@@ -15,6 +16,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.PermisoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.RegistroDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.TipoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.DiaDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.DiaNoLaboralDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.EmpleadoDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.FaltaDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.HorarioDAOImpl;
@@ -39,7 +41,7 @@ public class AsistenciaFactoryDAOImpl implements AsistenciaFactoryDAO {
 	private PermisoDAO permisoDAO;
 	private RegistroDAO registroDAO;
 	private TipoDAO tipoDAO;
-	
+	private DiaNoLaboralDAO diaNoLaboralDAO;
 	
 	@Override
 	public DiaDAO getDiaDAOImpl()
@@ -121,4 +123,14 @@ public class AsistenciaFactoryDAOImpl implements AsistenciaFactoryDAO {
 		}
 		return tipoDAO;
 	}
+	
+	@Override
+	public DiaNoLaboralDAO getDiaNoLaboralDAOImpl()
+	{
+		if (diaNoLaboralDAO == null) {
+			diaNoLaboralDAO = new DiaNoLaboralDAOImpl(entityManager);
+		}
+		return diaNoLaboralDAO;
+	}
+
 }

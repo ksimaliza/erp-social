@@ -21,6 +21,7 @@ import ec.edu.uce.erp.ejb.dao.factory.FactoryDAO;
 import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaNoLaboralDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaDTO;
@@ -520,21 +521,31 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		return anioList;
 	}
 	
-	
-	public void createDiaNoLaboralSabadoDomingo(int year)
+	@Override
+	public void createDiaNoLaboralSabadoDomingo(int year) throws SeguridadesException
 	{
 		
 		Date fechaInicial= CalendarUtil.convertStringtoDate(String.valueOf(year)+"-01-01");
 		Date fechaFinal= CalendarUtil.convertStringtoDate(String.valueOf(year)+"-12-31");
-		
-		while (fechaInicial.before(fechaFinal)) {
-
-			Calendar aux= CalendarUtil.getDate(new Timestamp(fechaInicial.getTime()));
-			if (aux.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY|| aux.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
-				System.out.println(fechaInicial);
+		DiaNoLaboralDTO diaNo;
+		try {
+			while (fechaInicial.before(fechaFinal)) {
+	
+				Calendar aux= CalendarUtil.getDate(new Timestamp(fechaInicial.getTime()));
+				if (aux.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY|| aux.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
+					diaNo=new DiaNoLaboralDTO();
+					diaNo.setDnlAnio(year);
+					diaNo.setDnlMes(CalendarUtil.getMonth(new Timestamp(fechaInicial.getTime())));
+					diaNo.setDnlDia(CalendarUtil.getDay(new Timestamp(fechaInicial.getTime())));
+					asistenciaFactoryDAO.getDiaNoLaboralDAOImpl().create(diaNo);
+				}
+				fechaInicial=CalendarUtil.addDay(fechaInicial, 1);
 			}
-			fechaInicial=CalendarUtil.addDay(fechaInicial, 1);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al actualizarParametro {}" , e.getMessage());
+			throw new SeguridadesException(e);
 		}
+
 	}
 }
 	

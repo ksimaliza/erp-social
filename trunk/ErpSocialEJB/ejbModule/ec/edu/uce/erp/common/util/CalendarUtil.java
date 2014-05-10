@@ -110,6 +110,13 @@ public class CalendarUtil {
 		return month + 1;
 	}
 
+	public static int getDay(Timestamp da) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(da);
+		int day = cal.get(Calendar.DAY_OF_MONTH);
+		return day + 1;
+	}
+
 	public static int getMonth() {
 		Calendar cal = Calendar.getInstance();
 		int month = cal.get(Calendar.MONTH);

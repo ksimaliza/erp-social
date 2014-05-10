@@ -99,5 +99,7 @@ public interface ServicioAsistencia {
 
 	List<AnioDTO> readAnioActual() throws SeguridadesException;
 
+	void createDiaNoLaboralSabadoDomingo(int year) throws SeguridadesException;
+
 
 }
