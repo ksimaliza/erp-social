@@ -22,7 +22,6 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Bien;
 import ec.edu.uce.erp.ejb.persistence.util.dto.ActaBienDTO;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
-import ec.edu.uce.erp.ejb.persistence.view.VistaTransaccion;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
@@ -170,77 +169,77 @@ public class BienController extends BaseController{
 		
 	}
 	
-	public String asignarBien () {
-		
-		slf4jLogger.info("asignarBien");
-		
-		try {
-			
-			this.bienDataManager.getVistaBienEditar().setEmpAsignadoFk(this.bienDataManager.getIdCustudioAsignado());
-			VistaBien vistaBien = servicioInventario.asignarBien(this.bienDataManager.getVistaBienEditar());
-			
-			if (vistaBien != null) {
-				int posicion = this.bienDataManager.getListVistaBien().indexOf(this.bienDataManager.getVistaBienEditar());
-				this.bienDataManager.getListVistaBien().remove(this.bienDataManager.getVistaBienEditar());
-				this.bienDataManager.getListVistaBien().add(posicion, vistaBien);
-				MensajesWebController.aniadirMensajeInformacion("Bien asignado correctamente");
-			}
-			
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("error al asignarBien {}", e.getCause().getMessage());
-			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
-		}
-		
-		return "administracionBien";
-		
-	}
-	
-	public void reasignarBien () {
-		
-		slf4jLogger.info("reasignarBien");
-		
-		try {
-			
-			this.bienDataManager.getVistaBienEditar().setEmpReasignadoFk(this.bienDataManager.getIdCustudioReasignado());
-			VistaBien vistaBien = servicioInventario.reasignarBien(this.bienDataManager.getVistaBienEditar());
-			
-			if (vistaBien != null) {
-				int posicion = this.bienDataManager.getListVistaBien().indexOf(this.bienDataManager.getVistaBienEditar());
-				this.bienDataManager.getListVistaBien().remove(this.bienDataManager.getVistaBienEditar());
-				this.bienDataManager.getListVistaBien().add(posicion, vistaBien);
-				MensajesWebController.aniadirMensajeInformacion("Bien reasignado correctamente");
-			}
-			
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("error al asignarBien {}", e.getCause().getMessage());
-			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
-		}
-		
-	}
-	
-	public void validarAsignacionCustodio () {
-		slf4jLogger.info("validarAsignacionCustodio");
-		
-		if (bienDataManager.getVistaBienEditar().getEmpAsignadoFk().intValue() == bienDataManager.getIdCustudioReasignado().intValue()){
-			MensajesWebController.aniadirMensajeError("El custodio a reemplazar no puede ser el mismo");
-			bienDataManager.setIdCustudioReasignado(0);
-		}
-		
-	}
-	
-	public void obtenerTrazabilidadBien () {
-		slf4jLogger.info("obtenerTrazabilidadBien");
-		
-		try {
-			VistaTransaccion vistaTransaccion = new VistaTransaccion();
-			vistaTransaccion.setBieFk(bienDataManager.getVistaBienEditar().getBiePk());
-			bienDataManager.setListVistaTransaccion(servicioInventario.obtenerVistaTransaccionCriterios(vistaTransaccion));
-		} catch (SeguridadesException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
+//	public String asignarBien () {
+//		
+//		slf4jLogger.info("asignarBien");
+//		
+//		try {
+//			
+//			this.bienDataManager.getVistaBienEditar().setEmpAsignadoFk(this.bienDataManager.getIdCustudioAsignado());
+//			VistaBien vistaBien = servicioInventario.asignarBien(this.bienDataManager.getVistaBienEditar());
+//			
+//			if (vistaBien != null) {
+//				int posicion = this.bienDataManager.getListVistaBien().indexOf(this.bienDataManager.getVistaBienEditar());
+//				this.bienDataManager.getListVistaBien().remove(this.bienDataManager.getVistaBienEditar());
+//				this.bienDataManager.getListVistaBien().add(posicion, vistaBien);
+//				MensajesWebController.aniadirMensajeInformacion("Bien asignado correctamente");
+//			}
+//			
+//		} catch (SeguridadesException e) {
+//			slf4jLogger.info("error al asignarBien {}", e.getCause().getMessage());
+//			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
+//		}
+//		
+//		return "administracionBien";
+//		
+//	}
+//	
+//	public void reasignarBien () {
+//		
+//		slf4jLogger.info("reasignarBien");
+//		
+//		try {
+//			
+//			this.bienDataManager.getVistaBienEditar().setEmpReasignadoFk(this.bienDataManager.getIdCustudioReasignado());
+//			VistaBien vistaBien = servicioInventario.reasignarBien(this.bienDataManager.getVistaBienEditar());
+//			
+//			if (vistaBien != null) {
+//				int posicion = this.bienDataManager.getListVistaBien().indexOf(this.bienDataManager.getVistaBienEditar());
+//				this.bienDataManager.getListVistaBien().remove(this.bienDataManager.getVistaBienEditar());
+//				this.bienDataManager.getListVistaBien().add(posicion, vistaBien);
+//				MensajesWebController.aniadirMensajeInformacion("Bien reasignado correctamente");
+//			}
+//			
+//		} catch (SeguridadesException e) {
+//			slf4jLogger.info("error al asignarBien {}", e.getCause().getMessage());
+//			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
+//		}
+//		
+//	}
+//	
+//	public void validarAsignacionCustodio () {
+//		slf4jLogger.info("validarAsignacionCustodio");
+//		
+//		if (bienDataManager.getVistaBienEditar().getEmpAsignadoFk().intValue() == bienDataManager.getIdCustudioReasignado().intValue()){
+//			MensajesWebController.aniadirMensajeError("El custodio a reemplazar no puede ser el mismo");
+//			bienDataManager.setIdCustudioReasignado(0);
+//		}
+//		
+//	}
+//	
+//	public void obtenerTrazabilidadBien () {
+//		slf4jLogger.info("obtenerTrazabilidadBien");
+//		
+//		try {
+//			VistaTransaccion vistaTransaccion = new VistaTransaccion();
+//			vistaTransaccion.setBieFk(bienDataManager.getVistaBienEditar().getBiePk());
+//			bienDataManager.setListVistaTransaccion(servicioInventario.obtenerVistaTransaccionCriterios(vistaTransaccion));
+//		} catch (SeguridadesException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//	}
 	
 	public void generarActaBien () {
 		

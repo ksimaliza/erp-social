@@ -3,6 +3,8 @@
  */
 package ec.edu.uce.erp.ejb.persistence.dao.impl;
 
+import static ec.edu.uce.erp.common.util.ConstantesApplication.ESTADO_INVALIDO;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +26,6 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.persistence.dao.VistaBienDAO;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
-
 /**
  * @author 
  *
@@ -80,8 +81,8 @@ public class VistaBienDAOImpl extends AbstractFacadeImpl<VistaBien> implements V
 				criteriaList.add(predicate);
 			}
 			
-			//por categoria
-			if (StringUtils.isNotBlank(vistaBien.getDetBienTipBieNivel1())) {
+			//por tipo transaccion
+			if (StringUtils.isNotBlank(vistaBien.getDetBienTipBieNivel1()) && !vistaBien.getDetBienTipBieNivel1().equals(ESTADO_INVALIDO)) {
 				predicate = criteriaBuilder.equal(fromVistaBien.get("detBienTipBieNivel1"), vistaBien.getDetBienTipBieNivel1());
 				criteriaList.add(predicate);
 				predicate = null;

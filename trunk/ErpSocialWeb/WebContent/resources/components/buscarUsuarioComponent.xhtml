@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<head>
+<title>Not present in rendered output</title>
+
+</head>
+<body>
+	<composite:interface>
+		<composite:attribute name="update" required="false" default="" />
+		<composite:attribute name="render" required="true" default="" />
+		<composite:attribute name="controller" required="true" />
+	</composite:interface>
+
+	<composite:implementation>
+		<ui:param name="controller" value="#{cc.attrs.controller}"/>
+		<p:panel id="pnlBuscarUsuario">
+			<table class="formulario">
+				<tr>
+					<td width="30%">
+						<h:outputLabel for="txtNombre" value="#{i18n['erp.asistencia.empleado.nombres']}" /> 
+					</td>
+					<td width="70%">
+						<p:inputText id="txtNombre" style="width: 90%" 
+							value="#{controller.vistaEmpleado.perNombres}" label="#{i18n['erp.asistencia.empleado.nombres']}" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h:outputLabel for="txtApellido" value="#{i18n['erp.asistencia.empleado.apellidos']}" />
+					</td>
+					<td>
+						<p:inputText id="txtApellido" style="width: 90%"
+							value="#{controller.vistaEmpleado.perApellidos}"
+							label="#{i18n['erp.asistencia.empleado.apellidos']}" />
+					</td>
+				</tr>
+				
+			</table>
+		</p:panel>
+		<p:panel id="pnlBotones">
+			<p:commandButton id="btnBuscar" value="#{i18n['label.guardar']}"
+				actionListener="#{controller.buscarEmpleados}"
+				process="@this,pnlBuscarUsuario" update="pnlBuscarUsuario"/>
+		</p:panel>
+	</composite:implementation>
+</body>
+</html>
