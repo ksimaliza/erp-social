@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="title">
-		<h3><h:outputLabel	value="#{i18n['erp.bien.pagina.titulo']}" /></h3>
+		<h3><h:outputLabel	value="#{i18n['erp.bien.transacciones.pagina.titulo']}" /></h3>
 	</ui:define>
 	<ui:define name="content">
 		<h:form id="formBien">
@@ -14,20 +14,21 @@
 			<p:toolbar id="toolbar">
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
-					<p:commandButton id="btnNuevoBien" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoBien.show()"/>
+					<!-- <p:commandButton id="btnNuevoBien" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoBien.show()"/> -->
 					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
-						icon="exportExcel" disabled="#{empty bienDataManager.listVistaBien}">
-						<p:dataExporter type="xls" target="tablaBienes" fileName="productos" postProcessor="#{bienController.postProcessXLS}"/>
+						icon="exportExcel" disabled="#{empty vistaBienDataManager.listVistaBien}">
+						<p:dataExporter type="xls" target="tablaBienes" fileName="productos" postProcessor="#{transaccionBienController.postProcessXLS}"/>
 					</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:panel id="pnlBuscarBien" header="#{i18n['erp.bien.buscar']}">
 				<table>
 					<tr>
-						<td><h:outputLabel for="txtNombre" value="#{i18n['erp.bien.nombre']}" /></td>
+						<td><h:outputLabel for="txtNombreCustodio" value="#{i18n['label.custodio']}" /></td>
 						<td>
-							<p:inputText id="txtNombre"
-								value="#{bienDataManager.vistaBienBuscar.bieNombre}" />
+							<p:inputText id="txtNombreCustodio" 
+								value="#{vistaBienDataManager.vistaBienBuscar.empAsignadoFk}" />
+							<p:commandLink value="buscar" oncomplete="dlgBuscarUsuario.show()"/>
 						</td>
 					</tr>
 					<tr>
@@ -37,9 +38,9 @@
 						<td  width="70%">
 							<p:selectOneMenu id="selectTipoIngresoBien"
 								style="width: 100%" label="#{i18n['erp.bien.categoria']}"
-								value="#{bienDataManager.idDcTipoBienSelec}">
-								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
-								<f:selectItems value="#{bienDataManager.dcTipoBien}"/>
+								value="#{vistaBienDataManager.idDcTipoBienSelec}">
+								<f:selectItem itemValue="#{vistaBienDataManager.estadoInvalido}" itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{vistaBienDataManager.dcTipoBien}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
@@ -50,10 +51,10 @@
 						<td  width="70%">
 							<p:selectOneMenu id="selectCategoria"
 								style="width: 100%" label="#{i18n['erp.bien.categoria']}"
-								value="#{bienDataManager.idCategoriaBienSeleccionado}">
-								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
-								<f:selectItems value="#{bienDataManager.dcCategoriaBien}"/>
-								<p:ajax event="change" process="@this" update="txtLinea" listener="#{bienDataManager.cargarDcLineaBien}"/>
+								value="#{vistaBienDataManager.idCategoriaBienSeleccionado}">
+								<f:selectItem itemValue="-1" itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{vistaBienDataManager.dcCategoriaBien}"/>
+								<p:ajax event="change" process="@this" update="txtLinea" listener="#{vistaBienDataManager.cargarDcLineaBien}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
@@ -64,33 +65,33 @@
 						<td  width="70%">
 							<p:selectOneMenu id="txtLinea"
 								style="width: 100%" label="#{i18n['erp.bien.linea']}"
-								value="#{bienDataManager.idLineaBienSeleccionado}">
-								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}"/>
-								<f:selectItems value="#{bienDataManager.dcLineaBien}"/>
+								value="#{vistaBienDataManager.idLineaBienSeleccionado}">
+								<f:selectItem itemValue="-1" itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{vistaBienDataManager.dcLineaBien}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
-					<tr>
+				<!-- 	<tr>
 						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
 						<td>
-							<p:selectOneMenu id="inputEstado" value="#{bienDataManager.vistaBienBuscar.bieEstado}">
+							<p:selectOneMenu id="inputEstado" value="#{vistaBienDataManager.vistaBienBuscar.bieEstado}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
-								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{bienDataManager.estadoActivo}"/>
-								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{bienDataManager.estadoInactivo}"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{vistaBienDataManager.estadoActivo}"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{vistaBienDataManager.estadoInactivo}"/>
 							</p:selectOneMenu>
 						</td>
-					</tr>
+					</tr> -->
 				</table>
 			</p:panel>
 			<p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
-					actionListener="#{bienController.buscarBienes}"
+					actionListener="#{transaccionBienController.buscarVistaBien}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarBien"
 					update="pnlMessages,tablaBienes,pnlBuscarBien,toolbar" />
 			</p:panel>
 			<p:dataTable id="tablaBienes"
-				value="#{bienDataManager.listVistaBien}"
+				value="#{vistaBienDataManager.listVistaBien}"
 				var="vistaBien" rowIndexVar="rowIndex"
 				paginator="true" rows="5" paginatorPosition="bottom"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -160,43 +161,44 @@
 				</p:column>
 				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="20%" exportable="false">
 					<h:panelGroup>
-						<p:commandLink styleClass="no-decor"
+						<!-- <p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							process="@this"
 							oncomplete="dlgEditarBien.show()" update=":formEditarBien:pnlEditarBien"
-							action="#{bienController.asignarDatosBienDesdeVista(vistaBien)}">
+							action="#{transaccionBienController.asignarDatosBienDesdeVista(vistaBien)}">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
-						</p:commandLink>
-						<!-- <p:commandLink value="Asignar" title="Asignar" rendered="#{vistaBien.npVerAsignarBien}"
+						</p:commandLink> -->
+						<p:commandLink value="Asignar" title="Asignar" rendered="#{vistaBien.npVerAsignarBien}"
 							oncomplete="dlgAsignarBien.show()" update=":formAsignarBien:pnlAsignarBien">
-							<f:setPropertyActionListener target="#{bienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
+							<f:setPropertyActionListener target="#{vistaBienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
 						</p:commandLink>
 						<p:commandLink value="  Traslado" title="Traslado" rendered="#{vistaBien.npVerTrasladoBien}"
 							oncomplete="dlgReasignarBien.show()" update=":formReasignarBien:pnlReasignarBien">
-							<f:setPropertyActionListener target="#{bienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
+							<f:setPropertyActionListener target="#{vistaBienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
 						</p:commandLink>
 						<p:commandLink value="  Dar baja" title="Dar baja" rendered="#{vistaBien.npVerBajaBien}"/>
 						<p:commandLink value="  Trazabilidad" title="Trazabilidad"
-							action="#{bienController.obtenerTrazabilidadBien}"
+							action="#{transaccionBienController.obtenerTrazabilidadBien}"
 							oncomplete="dlgTrazabilidadBien.show()" update=":formTrazabilidadBien:pnlTrazabilidadBien">
-							<f:setPropertyActionListener target="#{bienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
+							<f:setPropertyActionListener target="#{vistaBienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
 						</p:commandLink>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.imprimir']}"
 							process="@this" ajax="false"
-							action="#{bienController.generarActaBien}">
+							action="#{transaccionBienController.generarActaBien}">
 							<h:graphicImage value="/resources/img/pdf.png" alt="#{i18n['label.imprimir']}"/>
-						</p:commandLink> -->
+						</p:commandLink>
 					</h:panelGroup>
 				</p:column>
 			</p:dataTable>
 		</h:form>
 		
-		<ui:include src="dialogNuevoBien.xhtml" />
-		<ui:include src="dialogEditarBien.xhtml" />
-		<!-- <ui:include src="dialogAsignarBien.xhtml" />
+		<!-- <ui:include src="dialogNuevoBien.xhtml" />
+		<ui:include src="dialogEditarBien.xhtml" /> -->
+		<ui:include src="dialogAsignarBien.xhtml" />
 		<ui:include src="dialogReasignarBien.xhtml" />
-		<ui:include src="dialogTrazabilidadBien.xhtml" /> -->
+		<ui:include src="dialogTrazabilidadBien.xhtml" />
+		<ui:include src="dialogBuscarUsuario.xhtml" />
 		
 	</ui:define>
 </ui:composition>

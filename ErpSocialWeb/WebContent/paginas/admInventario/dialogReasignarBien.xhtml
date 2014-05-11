@@ -15,7 +15,7 @@
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.nombre']}" />
 						</td>
 						<td width="70%">
-							<h:outputText id="txtNombre" value="#{bienDataManager.vistaBienEditar.bieNombre}" />
+							<h:outputText id="txtNombre" value="#{vistaBienDataManager.vistaBienEditar.bieNombre}" />
 						</td>
 					</tr>
 					<tr>
@@ -23,7 +23,7 @@
 							<h:outputLabel for="txtCodigo" value="#{i18n['erp.bien.codigo']}" />
 						</td>
 						<td width="70%">
-							<h:outputText id="txtCodigo" value="#{bienDataManager.vistaBienEditar.bieCodigo}" />
+							<h:outputText id="txtCodigo" value="#{vistaBienDataManager.vistaBienEditar.bieCodigo}" />
 						</td>
 					</tr>
 					<tr>
@@ -33,7 +33,7 @@
 						</td>
 						<td width="70%">
 							<p:calendar id="popupCal" required="true" pattern="yyyy-mm-dd"
-								value="#{bienDataManager.vistaBienEditar.bieFechaReasig}" label="#{i18n['erp.bien.fecha.reasignacion']}" showOn="button">
+								value="#{vistaBienDataManager.vistaBienEditar.bieFechaReasig}" label="#{i18n['erp.bien.fecha.reasignacion']}" showOn="button">
 								<f:convertDateTime pattern="yyyy-mm-dd" />
 							</p:calendar>
 						</td>
@@ -44,8 +44,8 @@
 						</td>
 						<td>
 							<p:selectOneMenu id="txtCustodio" style="width: 100%"
-								label="#{i18n['erp.bien.custodio']}" value="#{bienDataManager.vistaBienEditar.empAsignadoFk}" disabled="true">
-								<f:selectItems value="#{bienDataManager.dcEmpleadosEmpresa}"/>
+								label="#{i18n['erp.bien.custodio']}" value="#{vistaBienDataManager.vistaBienEditar.empAsignadoFk}" disabled="true">
+								<f:selectItems value="#{vistaBienDataManager.dcEmpleadosEmpresa}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
@@ -57,10 +57,10 @@
 						<td>
 							<p:selectOneMenu id="txtCustodioRe" style="width: 100%"
 								label="#{i18n['erp.bien.custodio']}" required="true"
-								value="#{bienDataManager.idCustudioReasignado}" >
+								value="#{vistaBienDataManager.idCustudioReasignado}" >
 								<f:selectItem itemValue="0" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
-								<f:selectItems value="#{bienDataManager.dcEmpleadosEmpresa}"/>
-								<p:ajax listener="#{bienController.validarAsignacionCustodio}" update=":formBien:pnlMessages,txtCustodioRe" event="change" process="@this"/>
+								<f:selectItems value="#{vistaBienDataManager.dcEmpleadosEmpresa}"/>
+								<p:ajax listener="#{transaccionBienController.validarAsignacionCustodio}" update=":formBien:pnlMessages,txtCustodioRe" event="change" process="@this"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
@@ -68,7 +68,7 @@
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
-					actionListener="#{bienController.reasignarBien}"
+					actionListener="#{transaccionBienController.reasignarBien}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgReasignarBien.hide()"
 					process="@this,pnlReasignarBien" update="pnlReasignarBien,:formBien:tablaBienes,:formBien:pnlMessages"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgReasignarBien.hide();" type="button" />
