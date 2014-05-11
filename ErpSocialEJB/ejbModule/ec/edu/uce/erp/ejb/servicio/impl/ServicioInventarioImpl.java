@@ -610,6 +610,12 @@ public class ServicioInventarioImpl implements ServicioInventario {
 	}
 	
 	@Override
+	public VistaBien darBajaBien(VistaBien vistaBien) throws SeguridadesException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
 	public List<VistaTransaccion> obtenerVistaTransaccionCriterios(VistaTransaccion vistaTransaccion) throws SeguridadesException {
 		
 		slf4jLogger.info("obtenerVistaTransaccionCriterios");
