@@ -151,19 +151,19 @@ public void registrarNivelParalelo () {
 		
 	}
 	
-//	public void cargarDatosNivelParalelo (NivelParaleloListDTO nivelParalelo) {
-//		try {
-//			
-//			NivelParaleloDTO nivelEncontrado=servicioMatricula.obtenerNivelParaleloPorId(nivelParalelo.getNpaNivel(), nivelParalelo.getNpaParalelo());
-//			this.nivelParaleloDataManager.setNivelInsertar(nivelEncontrado.getMatNivel());
-//			this.nivelParaleloDataManager.setParaleloInsertar(nivelEncontrado.getMatParalelo());
-//			
-//							
-//		} catch (SeguridadesException e) {
-//			slf4jLogger.info("Error al cargar los datos del nivelparalelo seleccionado {}", e.getMessage());
-//			MensajesWebController.aniadirMensajeError("Error al cargar los datos del nivelparalelo seleccionado");
-//		}
-//	}
+	public void cargarDatosNivelParalelo (NivelParaleloListDTO nivelParalelo) {
+		try {
+			
+			NivelParaleloDTO nivelEncontrado=servicioMatricula.obtenerNivelParaleloPorId(nivelParalelo.getNpaNivel(), nivelParalelo.getNpaParalelo());
+			this.nivelParaleloDataManager.setNivelCodigo(nivelEncontrado.getMatNivel().getNivCodigo());
+			this.nivelParaleloDataManager.setParaleloCodigo(nivelEncontrado.getMatParalelo().getParCodigo());
+			
+							
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al cargar los datos del nivelparalelo seleccionado {}", e.getMessage());
+			MensajesWebController.aniadirMensajeError("Error al cargar los datos del nivelparalelo seleccionado");
+		}
+	}
 
 
 }

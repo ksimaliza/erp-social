@@ -3,6 +3,7 @@ package ec.edu.uce.erp.web.controladores;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -15,6 +16,12 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MateriaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
@@ -45,19 +52,42 @@ private static final long serialVersionUID = 1L;
 	public AsinacionController () {}
 	
 	
+	@PostConstruct
+	private void init(){
+		
+		//buscar();
+		buscarNivelParalelo();
+		buscarDocente();
+		buscarMateria();
+		buscarPeriodo();
+	}
+	
 public void registrarAsinacion () {
 		
 		slf4jLogger.info("registrarAsinacion");
-		AsinacionDTO asinacion=new AsinacionDTO();
+		AsinacionDTO asinacion;
+		NivelParaleloDTO nivelParalelo;
+		ProfesorDTO profesor;
+		MateriaDTO materia;
+		PeriodoDTO periodo;
+		
 		try {
-			asinacionDataManager.getNivelParaleloInsertar().setNpaCodigo(asinacionDataManager.getNivelParaleloInsertar().getNpaCodigo());
-			asinacionDataManager.getProfesorInsertar().setProCodigo(asinacionDataManager.getProfesorInsertar().getProCodigo());
-			asinacionDataManager.getMateriaInsertar().setMtrCodigo(asinacionDataManager.getMateriaInsertar().getMtrCodigo());
-			asinacionDataManager.getPeriodoInsertar().setPerCodigo(asinacionDataManager.getPeriodoInsertar().getPerCodigo());
-			asinacion.setMatNivelParalelo(asinacionDataManager.getNivelParaleloInsertar());
-			asinacion.setMatProfesor(asinacionDataManager.getProfesorInsertar());
-			asinacion.setMatMateria(asinacionDataManager.getMateriaInsertar());
-			asinacion.setMatPeriodo(asinacionDataManager.getPeriodoInsertar());
+			
+			asinacion = new AsinacionDTO();
+			nivelParalelo = new NivelParaleloDTO();
+			profesor = new ProfesorDTO();
+			materia = new MateriaDTO();
+			periodo = new PeriodoDTO();
+			
+			nivelParalelo.setNpaCodigo(asinacionDataManager.getNivelParaleloInsertar().getNpaCodigo());
+			profesor.setProCodigo(asinacionDataManager.getNivelParaleloCodigo());
+			materia.setMtrCodigo(asinacionDataManager.getMateriaCodigo());
+			periodo.setPerCodigo(asinacionDataManager.getPeriodoCodigo());
+							
+			asinacion.setMatNivelParalelo(nivelParalelo);
+			asinacion.setMatProfesor(profesor);
+			asinacion.setMatMateria(materia);
+			asinacion.setMatPeriodo(periodo);
 						
 			AsinacionDTO asinacionNueva=this.servicioMatricula.createOrUpdateAsinacion(asinacion);
 						
@@ -109,5 +139,101 @@ public void registrarAsinacion () {
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosAsinacion seleccionado");
 		}
 	}
+	
+
+	
+	public void buscarNivelParalelo() {
+		slf4jLogger.info("buscarNivelParalelo");
+		List<NivelParaleloListDTO> listResultado=new ArrayList<NivelParaleloListDTO>();
+		try {
+			
+			listResultado = this.servicioMatricula.readNivelParalelo(new NivelParaleloListDTO());
+						
+			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.asinacionDataManager.setNivelParaleloList(listResultado);
+				
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscar el NivelParalelo {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+	}
+	
+	
+	public void buscarDocente () {
+		slf4jLogger.info("buscarDocente");
+		
+		List<DocenteListDTO> listadocentes=null;
+		
+		try {
+							
+			listadocentes = this.servicioMatricula.buscarProfesor(new DocenteListDTO());
+			
+			if (CollectionUtils.isEmpty(listadocentes) && listadocentes.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.asinacionDataManager.setProfesorList(listadocentes);
+				
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarDocente {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
+	public void buscarMateria () {
+		slf4jLogger.info("buscarMateria");
+		
+		List<MateriaDTO> listamaterias=null;
+		
+		try {
+							
+			listamaterias = this.servicioMatricula.buscarMateria(new MateriaDTO());
+			
+			if (CollectionUtils.isEmpty(listamaterias) && listamaterias.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.asinacionDataManager.setMateriaList(listamaterias);
+				
+						
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarMateria {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
+	public void buscarPeriodo () {
+		slf4jLogger.info("buscarPeriodo");
+		
+		List<PeriodoDTO> listaperiodos=null;
+		
+		try {
+							
+			listaperiodos = this.servicioMatricula.buscarPeriodo(new PeriodoDTO());
+			
+			if (CollectionUtils.isEmpty(listaperiodos) && listaperiodos.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.asinacionDataManager.setPeriodoList(listaperiodos);
+				
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarPeriodo {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
+	
+
 	
 }
