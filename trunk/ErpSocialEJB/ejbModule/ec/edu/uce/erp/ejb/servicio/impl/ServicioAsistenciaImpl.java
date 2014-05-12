@@ -524,7 +524,6 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 	@Override
 	public void createDiaNoLaboralSabadoDomingo(int year) throws SeguridadesException
 	{
-		
 		Date fechaInicial= CalendarUtil.convertStringtoDate(String.valueOf(year)+"-01-01");
 		Date fechaFinal= CalendarUtil.convertStringtoDate(String.valueOf(year)+"-12-31");
 		DiaNoLaboralDTO diaNo;
@@ -545,7 +544,17 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 			slf4jLogger.info("Error al actualizarParametro {}" , e.getMessage());
 			throw new SeguridadesException(e);
 		}
-
+	}
+	
+	@Override
+	public List<DiaNoLaboralDTO> readDiaNoLaboral(int year) throws SeguridadesException
+	{
+		try {
+			return asistenciaFactoryDAO.getDiaNoLaboralDAOImpl().getAll(year);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al actualizarParametro {}" , e.getMessage());
+			throw new SeguridadesException(e);
+		}		
 	}
 }
 	

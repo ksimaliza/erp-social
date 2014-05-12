@@ -6,6 +6,7 @@ import javax.ejb.Local;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaNoLaboralDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaDTO;
@@ -100,6 +101,9 @@ public interface ServicioAsistencia {
 	List<AnioDTO> readAnioActual() throws SeguridadesException;
 
 	void createDiaNoLaboralSabadoDomingo(int year) throws SeguridadesException;
+
+	List<DiaNoLaboralDTO> readDiaNoLaboral(int year)
+			throws SeguridadesException;
 
 
 }
