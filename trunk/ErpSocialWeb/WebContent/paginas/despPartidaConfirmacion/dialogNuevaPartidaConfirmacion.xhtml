@@ -12,7 +12,7 @@
 			<p:panel id="pnlNuevaPartidaConfirmacion">
 				<table class="formulario">
 												
-						<tr>
+					<tr>
 						
 						<td width="30%">
 							<h:outputLabel for="txtCiBau" value="#{i18n['erp.despacho.partida.comunion.cedula']}" />
@@ -22,12 +22,12 @@
 							required="true" label="#{i18n['erp.despacho.partida.comunion.cedula']}">
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-						
 						</p:inputText>
 						
 						</td>
-						</tr>
-						<tr>
+					</tr>
+					
+					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtNom" value="#{i18n['erp.despacho.partida.confirmacion.nombres']}" />
 						</td>
@@ -36,7 +36,6 @@
 								required="true" />
 						</td>	
 					</tr>
-					
 					
 					<tr>
 						<td width="30%">
@@ -48,7 +47,7 @@
 						</td>	
 					</tr>
 						
-						<tr>
+					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtFechaConfirmacion" value="#{i18n['erp.despacho.partida.confirmacion.fecha']}" />
 						</td>
@@ -66,14 +65,12 @@
 						</td>	
 					</tr>
 					
-										
-							
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtSacerdote" value="#{i18n['erp.despacho.partida.confirmacion.sacerdote']}" />
+							<h:outputLabel value="#{i18n['erp.despacho.partida.confirmacion.sacerdote']}" />
 						</td>
 						<td>
-							<h:selectOneListbox for="listboxSacerdote" value="#{i18n['erp.despacho.partida.confirmacion.sacerdote']}" />
+							<h:selectOneListbox value="#{i18n['erp.despacho.partida.confirmacion.sacerdote']}" />
 						</td>
 					</tr>
 					
@@ -90,38 +87,57 @@
 					
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtCertificado" value="#{i18n['erp.despacho.partida.confirmacion.certificado']}" />
+							<h:outputLabel value="#{i18n['erp.despacho.partida.confirmacion.certificado']}" />
 						</td>
 						<td>
-							<h:selectOneListbox for="listboxCertificado" value="#{i18n['erp.despacho.partida.confirmacion.certificado']}" />
+							<h:selectOneListbox/>
 						</td>
 					</tr>					
+
+					<tr>
+						<td width="30%">
+							<h:outputLabel value="#{i18n['erp.despacho.partida.confirmacion.estado']}" />
+						</td>
+						<td>
+							<h:selectOneListbox/>
+						</td>
+					</tr>					
+
 					
 				</table>
 			</p:panel>
 			
 			<p:panel id="pnlDatosPadrino">
 				<table class="formulario">
-												
-						<tr>
+
+					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtCiPad" value="#{i18n['erp.despacho.partida.confirmacion.cedula.padrino']}" />
+							<h:outputLabel value="#{i18n['erp.despacho.partida.confirmacion.tipo.padrino']}" />
+						</td>
+						<td width="70%">
+							<p:selectOneMenu/>
+						</td>	
+					</tr>
+
+												
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCiPad" value="#{i18n['erp.despacho.partida.confirmacion.cedula.padrino.madrina']}" />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiPad"  style="width: 70%"
 							required="true" label="#{i18n['erp.despacho.partida.confirmacion.cedula.padrino']}">
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-						
 						</p:inputText>
 						
 						</td>
 					</tr>
 						
 						
-						<tr>
+					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtNomPad" value="#{i18n['erp.despacho.partida.confirmacion.nombres.padrino']}" />
+							<h:outputLabel for="txtNomPad" value="#{i18n['erp.despacho.partida.confirmacion.nombres.padrino.madrina']}" />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomPad" style="width: 100%"
@@ -129,9 +145,9 @@
 						</td>	
 					</tr>
 						
-						<tr>
+					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtApePad" value="#{i18n['erp.despacho.partida.confirmacion.apellidos.padrino']}" />
+							<h:outputLabel for="txtApePad" value="#{i18n['erp.despacho.partida.confirmacion.apellidos.padrino.madrina']}" />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApePad" style="width: 100%"
@@ -139,57 +155,14 @@
 						</td>	
 					</tr>
 					
-					
-					
 				</table>
 			</p:panel>
 			
-				<p:panel id="pnlDatosMadrina">
+					
+			<p:panel id="pnlDatos">
 				<table class="formulario">
 												
 					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtCiMad" value="#{i18n['erp.despacho.partida.confirmacion.cedula.madrina']}" />
-						</td>
-						<td width="70%">
-							<p:inputText id="txtCiMad"  style="width: 100%"
-							required="true" label="#{i18n['erp.despacho.partida.confirmacion.cedula.madrina']}">
-							<f:validateLength maximum="10" minimum="10"/>
-							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-						
-						</p:inputText>
-						
-						</td>
-					</tr>
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtNomMad" value="#{i18n['erp.despacho.partida.confirmacion.nombres.madrina']}" />
-						</td>
-						<td width="70%">
-							<p:inputText id="txtNomMad" style="width: 100%"  
-								 required="true" />
-						</td>	
-					</tr>
-					
-						<tr>
-						<td width="30%">
-							<h:outputLabel for="txtApeMad" value="#{i18n['erp.despacho.partida.confirmacion.apellidos.madrina']}" />
-						</td>
-						<td width="70%">
-							<p:inputText id="txtApeMad" style="width: 100%"  
-								 required="true" />
-						</td>	
-					</tr>
-					
-					
-					
-				</table>
-			</p:panel>
-					
-				<p:panel id="pnlDatos">
-				<table class="formulario">
-												
-						<tr>
 						<td width="30%">
 							<h:outputLabel for="txtNotaM" value="#{i18n['erp.despacho.partida.confirmacion.nota.marginal']}" />
 						</td>

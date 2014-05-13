@@ -11,15 +11,24 @@
 			<p:panel id="pnlNuevaEucaristia">
 				<table class="formulario">
 												
-						<tr>
+					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtFecha" value="#{i18n['erp.despacho.eucaristia.fechahora']}" />
+							<h:outputLabel for="txtFecha" value="#{i18n['erp.despacho.eucaristia.fecha']}" />
 						</td>
 						<td width="70%">
-							<p:inputMask id="txtFecha" style="width: 100%"  required="true" mask="99/99/9999 99:99"/>
+							<p:calendar showOn="button" pattern="yyyy/MM/dd"/>
 						</td>	
 					</tr>
-					
+
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFecha" value="#{i18n['erp.despacho.eucaristia.hora']}" />
+						</td>
+						<td width="70%">
+							<p:inputMask id="txtFecha" style="width: 100%"  required="true" mask="99:99"/>
+						</td>	
+					</tr>
+			
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtIntencion" value="#{i18n['erp.despacho.eucaristia.intencion']}" />
