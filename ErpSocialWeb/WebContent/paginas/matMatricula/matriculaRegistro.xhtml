@@ -6,5 +6,85 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/template.xhtml">
 	
+	<ui:define name="title">
+			<h3><h:outputLabel	value="#{i18n['erp.matricula.registro.pagina.titulo']}" /></h3>
+	</ui:define>	
 
+	
+	<ui:define name="content">
+		<h:form id="formRegistro">
+		
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
+					</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panel id="pnlBuscarMatricula" header="#{i18n['erp.matricula.registro.buscar']}">
+				<table class="formulario">
+					
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.registro.estudiante']}"  /> </td>
+						<td><p:selectOneMenu id="estu" value="#{matriculaDataManager.estudianteCodigo}" filter="true" required="true">
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{matriculaController.matriculaDataManager.estudianteList}" var="estudiante" itemLabel="#{estudiante.perApellidos} #{estudiante.perNombres} " itemValue="#{estudiante.estCodigo}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFecha" value="#{i18n['erp.matricula.registro.fecha']}" />
+						</td>
+						<td width="70%">
+							<p:calendar id="txtFecha" style="width: 100%" navigator="true" value="#{matriculaDataManager.fechaInsertar}"  showOn="button" required="true"/>
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.registro.nivel']}"  /> </td>
+						<td><p:selectOneMenu id="nivel" value="#{matriculaDataManager.nivelCodigo}" filter="true" required="true">
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{matriculaController.matriculaDataManager.nivelList}" var="nivel" itemLabel="#{nivel.nivDescaripcion} " itemValue="#{nivel.nivCodigo}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.registro.paralelo']}"  /> </td>
+						<td><p:selectOneMenu id="paralelo" value="#{matriculaDataManager.paraleloCodigo}" filter="true" required="true">
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{matriculaController.matriculaDataManager.paraleloList}" var="paralelo" itemLabel="#{paralelo.parDescripcion}" itemValue="#{paralelo.parCodigo}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					
+					
+					
+					
+				</table>
+		
+</p:panel>
+
+			<p:dataTable id="tablaRegistro"
+				
+				rowIndexVar="rowIndex"
+				paginator="true" rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.matricula.registro.lista']}">
+				<f:facet name="header">
+					#{i18n['erp.matricula.registro.lista']}
+				</f:facet>
+				<p:column headerText="#" styleClass="centered" width="5%">
+					#{rowIndex+1}
+				</p:column>
+				
+						
+				
+			</p:dataTable>			
+		</h:form>			
+		
+	</ui:define>		
+	
 </ui:composition>	
