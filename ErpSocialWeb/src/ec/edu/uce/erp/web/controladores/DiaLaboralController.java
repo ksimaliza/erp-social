@@ -1,5 +1,8 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,7 +13,6 @@ import javax.faces.bean.ViewScoped;
 
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
-import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,12 +30,7 @@ import ec.edu.uce.erp.web.datamanager.DiaLaboralDataManager;
 public class DiaLaboralController extends BaseController{
 
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	
-	
 	
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(DiaLaboralController.class);
 	
@@ -57,7 +54,7 @@ public class DiaLaboralController extends BaseController{
 	
 	private ScheduleModel eventModel;
     
-    private ScheduleEvent event = new DefaultScheduleEvent();
+    //private ScheduleEvent event = new DefaultScheduleEvent();
 	
 	public DiaLaboralController() {
 	
@@ -69,12 +66,16 @@ public class DiaLaboralController extends BaseController{
 		sabadoDomingoLoad();
 	}
 	
+    public ScheduleModel getEventModel() {
+        return eventModel;
+    }
 	
 	public void sabadoDomingo()
 	{
 		slf4jLogger.info("sabadoDomingo");
 		try {
 			servicioAsistencia.createDiaNoLaboralSabadoDomingo(Integer.valueOf(diaLaboralDataManager.getAnio().toString()));
+			sabadoDomingoLoad();
 			MensajesWebController.aniadirMensajeInformacion("Generado Exitosamente");
 		} catch (SeguridadesException e) {
 			MensajesWebController.aniadirMensajeInformacion(e.toString());
@@ -84,14 +85,30 @@ public class DiaLaboralController extends BaseController{
 	private void sabadoDomingoLoad()
 	{
 		List<DiaNoLaboralDTO> listNoLaboral;
+		String anio, mes, dia;
+		SimpleDateFormat dateFormat;
+		Date desde,hasta;
 		try {
+			
+			dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			listNoLaboral= servicioAsistencia.readDiaNoLaboral(CalendarUtil.getYear());
 			eventModel=new  DefaultScheduleModel();
-			//eventModel.addEvent(new DefaultScheduleEvent("Hola", start, end));
+			for(DiaNoLaboralDTO diaNo:listNoLaboral)
+			{
+				anio=diaNo.getDnlAnio().toString();
+				mes=diaNo.getDnlMes().toString().length()==1?"0"+diaNo.getDnlMes().toString():diaNo.getDnlMes().toString();
+				dia=diaNo.getDnlDia().toString().length()==1?"0"+diaNo.getDnlDia().toString():diaNo.getDnlDia().toString();
+				desde=dateFormat.parse(anio+"-"+mes+"-"+dia+" 01:00:00");
+				hasta=dateFormat.parse(anio+"-"+mes+"-"+dia+" 23:00:00");
+				eventModel.addEvent(new DefaultScheduleEvent("No laboral", desde,hasta));
+			}
 		} catch (SeguridadesException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MensajesWebController.aniadirMensajeError(e.toString());
+		} catch (ParseException e) {
+			MensajesWebController.aniadirMensajeError(e.toString());
 		}
 	}
+	
+	
 	
 }
