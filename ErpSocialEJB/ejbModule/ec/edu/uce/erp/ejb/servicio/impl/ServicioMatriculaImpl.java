@@ -77,7 +77,7 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 				asinacionDTO.setMatProfesor(profesor);
 				asinacionDTO.setMatMateria(materia);
 				asinacionDTO.setMatPeriodo(periodo);
-				return matriculaFactoryDAO.getAsinacionDAOImpl().update(asinacionDTO);
+				return matriculaFactoryDAO.getAsinacionDAOImpl().create(asinacionDTO);
 				
 							
 			} 
