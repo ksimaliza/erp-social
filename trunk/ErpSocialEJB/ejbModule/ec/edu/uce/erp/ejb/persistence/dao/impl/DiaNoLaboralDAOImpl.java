@@ -33,7 +33,7 @@ public class DiaNoLaboralDAOImpl extends AbstractFacadeImpl<DiaNoLaboralDTO> imp
 	@Override
 	public List<DiaNoLaboralDTO> getAll(int year) throws SeguridadesException
 	{
-		slf4jLogger.info("obtenerDetalleCatalogoCriterios");
+		slf4jLogger.info("getAll");
 		
 		List<DiaNoLaboralDTO> list = null;
 		
@@ -52,7 +52,7 @@ public class DiaNoLaboralDAOImpl extends AbstractFacadeImpl<DiaNoLaboralDTO> imp
 						
 			//por anio
 			if (year!=0) {
-				predicate = criteriaBuilder.equal(fromUsuario.get("detCatalogoEstado"), year);
+				predicate = criteriaBuilder.equal(fromUsuario.get("dnlAnio"), year);
 				criteriaList.add(predicate);
 			}
 			
@@ -63,7 +63,7 @@ public class DiaNoLaboralDAOImpl extends AbstractFacadeImpl<DiaNoLaboralDTO> imp
 			list = typedQuery.getResultList();
 			
 		} catch (Exception e) {
-			slf4jLogger.info("error al obtenerDetalleCatalogoCriterios {}", e.toString());
+			slf4jLogger.info("error al getAll {}", e.toString());
 			throw new SeguridadesException(e);
 		}
 		
