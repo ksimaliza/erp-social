@@ -80,7 +80,7 @@ public class AsinacionListDTO implements Serializable {
 
 	@Column(name="det_ubicacion_nivel4_fk")
 	private String detUbicacionNivel4Fk;
-
+	@Id
 	@Column(name="id_usuario")
 	private Integer idUsuario;
 
@@ -107,7 +107,7 @@ public class AsinacionListDTO implements Serializable {
 
 	@Column(name="per_ci")
 	private String perCi;
-@Id
+
 	@Column(name="per_codigo")
 	private Integer perCodigo;
 

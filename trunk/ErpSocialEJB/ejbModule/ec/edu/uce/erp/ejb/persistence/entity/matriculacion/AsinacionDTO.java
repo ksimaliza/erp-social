@@ -16,7 +16,7 @@ public class AsinacionDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="MAT_ASINACION_ASICODIGO_GENERATOR", sequenceName="MAT_ASINACION_ASI_CODIGO_SEQ")
+	@SequenceGenerator(name="MAT_ASINACION_ASICODIGO_GENERATOR", sequenceName="MAT_ASINACION_ASI_CODIGO_SEQ",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MAT_ASINACION_ASICODIGO_GENERATOR")
 	@Column(name="asi_codigo")
 	private Integer asiCodigo;
