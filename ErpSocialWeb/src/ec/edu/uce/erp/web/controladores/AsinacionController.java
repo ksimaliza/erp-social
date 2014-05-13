@@ -62,7 +62,7 @@ private static final long serialVersionUID = 1L;
 		buscarPeriodo();
 	}
 	
-public void registrarAsinacion () {
+	public void registrarAsinacion () {
 		
 		slf4jLogger.info("registrarAsinacion");
 		AsinacionDTO asinacion;
@@ -79,7 +79,7 @@ public void registrarAsinacion () {
 			materia = new MateriaDTO();
 			periodo = new PeriodoDTO();
 			
-			nivelParalelo.setNpaCodigo(asinacionDataManager.getNivelParaleloInsertar().getNpaCodigo());
+			nivelParalelo.setNpaCodigo(asinacionDataManager.getNivelParaleloCodigo());
 			profesor.setProCodigo(asinacionDataManager.getNivelParaleloCodigo());
 			materia.setMtrCodigo(asinacionDataManager.getMateriaCodigo());
 			periodo.setPerCodigo(asinacionDataManager.getPeriodoCodigo());
