@@ -27,10 +27,10 @@
 				<table class="formulario">
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtFecha" value="#{i18n['erp.despacho.eucaristia.fechahora']}" />
+							<h:outputLabel for="txtFecha" value="#{i18n['erp.despacho.eucaristia.fecha']}" />
 						</td>
 						<td width="70%">
-							<p:inputMask id="txtFecha"  mask="99/99/9999 99:99"/>
+							<p:calendar showOn="button" pattern="yyyy/MM/dd"/>
 						</td>	
 					</tr>
 					<tr>
@@ -38,23 +38,22 @@
 							<h:outputLabel for="txtSacerdote" value="#{i18n['erp.despacho.eucaristia.sacerdote']}" />
 						</td>
 						<td>
-							<h:selectOneListbox for="listboxSacerdote" value="#{i18n['erp.despacho.eucaristia.sacerdote']}" />
+							<h:selectOneListbox for="listboxSacerdote"/>
 						</td>
 					</tr>
 					
 				</table>
 			</p:panel>
-<p:panel id="botonesBuscar">
+			
+			<p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
-					
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarEucaristia"
 					update=":formEucaristia:pnlMessages,tablaEucaristia,pnlBuscarEucaristia " />
 			</p:panel>
 
 
-<p:dataTable id="tablaEucaristia"
-	
+<p:dataTable id="tablaEucaristia"	
 	rowIndexVar="rowIndex"
 	paginator="true" rows="5" paginatorPosition="bottom"
 	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

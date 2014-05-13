@@ -12,8 +12,7 @@
 			<p:panel id="pnlNuevaPartidaBautizo">
 				<table class="formulario">
 												
-						<tr>
-						
+					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtCiBau" value="#{i18n['erp.despacho.partida.bautizo.cedula.bautizado']}" />
 						</td>
@@ -26,8 +25,9 @@
 						</p:inputText>
 						
 						</td>
-						</tr>
-						<tr>
+					</tr>
+					
+					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtNomBau" value="#{i18n['erp.despacho.partida.bautizo.nombres.bautizado']}" />
 						</td>
@@ -36,7 +36,6 @@
 								required="true" />
 						</td>	
 					</tr>
-					
 					
 					<tr>
 						<td width="30%">
@@ -48,7 +47,7 @@
 						</td>	
 					</tr>
 						
-						<tr>
+					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtFechaBautizo" value="#{i18n['erp.despacho.partida.bautizo.fecha.bautizo']}" />
 						</td>
@@ -65,43 +64,50 @@
 							<p:calendar id="txtFechaCurso" style="width: 100%" navigator="true"   showOn="button" required="true"/>
 						</td>	
 					</tr>
-					
-										
+
+					<tr>
+						<td width="30%">
+							<h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.estado']}" />
+						</td>
+						<td>
+							<h:selectOneListbox />
+						</td>
+					</tr>					
 							
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtSacerdote" value="#{i18n['erp.despacho.partida.bautizo.sacerdote']}" />
+							<h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.sacerdote']}" />
 						</td>
 						<td>
-							<h:selectOneListbox for="listboxSacerdote" value="#{i18n['erp.despacho.partida.bautizo.sacerdote']}" />
+							<h:selectOneListbox />
 						</td>
 					</tr>
 					
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtCertificado" value="#{i18n['erp.despacho.partida.bautizo.certificado']}" />
+							<h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.certificado']}" />
 						</td>
 						<td>
-							<h:selectOneListbox for="listboxCertificado" value="#{i18n['erp.despacho.partida.bautizo.certificado']}" />
+							<h:selectOneListbox value="#{i18n['erp.despacho.partida.bautizo.certificado']}" />
 						</td>
 					</tr>	
 					
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtProv" value="#{i18n['erp.despacho.partida.bautizo.provincia']}" />
+							<h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.provincia']}" />
 						</td>
 						<td>
-							<h:selectOneListbox for="listboxProvincia" value="#{i18n['erp.despacho.partida.bautizo.provincia']}" />
+							<h:selectOneListbox value="#{i18n['erp.despacho.partida.bautizo.provincia']}" />
 						</td>
 					</tr>
 					
 					
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtCiudad" value="#{i18n['erp.despacho.partida.bautizo.ciudad']}" />
+							<h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.ciudad']}" />
 						</td>
 						<td>
-							<h:selectOneListbox for="listboxCiudad" value="#{i18n['erp.despacho.partida.bautizo.ciudad']}" />
+							<h:selectOneListbox value="#{i18n['erp.despacho.partida.bautizo.ciudad']}" />
 						</td>
 					</tr>					
 					
