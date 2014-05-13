@@ -528,16 +528,26 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		Date fechaFinal= CalendarUtil.convertStringtoDate(String.valueOf(year)+"-12-31");
 		DiaNoLaboralDTO diaNo;
 		try {
+			
+			if(!asistenciaFactoryDAO.getDiaNoLaboralDAOImpl().getAll(year).isEmpty())
+			{
+				throw new Exception("Ya se ha generado para este año");
+			}
+			
+			Calendar aux=Calendar.getInstance();
 			while (fechaInicial.before(fechaFinal)) {
 	
-				Calendar aux= CalendarUtil.getDate(new Timestamp(fechaInicial.getTime()));
+				aux= CalendarUtil.getDate(new Timestamp(fechaInicial.getTime()));
+				
 				if (aux.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY|| aux.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
+										
 					diaNo=new DiaNoLaboralDTO();
 					diaNo.setDnlAnio(year);
 					diaNo.setDnlMes(CalendarUtil.getMonth(new Timestamp(fechaInicial.getTime())));
 					diaNo.setDnlDia(CalendarUtil.getDay(new Timestamp(fechaInicial.getTime())));
 					asistenciaFactoryDAO.getDiaNoLaboralDAOImpl().create(diaNo);
 				}
+				
 				fechaInicial=CalendarUtil.addDay(fechaInicial, 1);
 			}
 		} catch (Exception e) {
@@ -552,7 +562,7 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		try {
 			return asistenciaFactoryDAO.getDiaNoLaboralDAOImpl().getAll(year);
 		} catch (Exception e) {
-			slf4jLogger.info("Error al actualizarParametro {}" , e.getMessage());
+			slf4jLogger.info("Error al readDiaNoLaboral {}" , e.getMessage());
 			throw new SeguridadesException(e);
 		}		
 	}

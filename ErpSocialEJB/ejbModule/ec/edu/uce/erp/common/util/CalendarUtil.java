@@ -114,7 +114,7 @@ public class CalendarUtil {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(da);
 		int day = cal.get(Calendar.DAY_OF_MONTH);
-		return day + 1;
+		return day;
 	}
 
 	public static int getMonth() {
@@ -138,7 +138,7 @@ public class CalendarUtil {
 	}
 
 	public static Calendar getDate(Timestamp time) {
-		Calendar cal = GregorianCalendar.getInstance();
+		Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(time.getTime());
 		return cal;
 	}
