@@ -22,7 +22,7 @@
 						<h:outputText value="Dia no laboral:" />
 					</td>
 					<td>
-						<p:commandButton value="Sabados y Domingos" actionListener="#{diaLaboralController.sabadoDomingo}"/>
+						<p:commandButton value="Sabados y Domingos" actionListener="#{diaLaboralController.sabadoDomingo}" update="schedule"/>
 					</td>
 					<td>
 						<h:outputLabel for="selectAnio" value="#{i18n['erp.asistencia.seleccione.anio']}" />
@@ -30,7 +30,7 @@
 					<td>
 						<p:selectOneMenu id="selectAnio"
 							value="#{diaLaboralDataManager.anio}"
-							label="#{i18n['erp.asistencia.seleccione.anio']}">
+							label="#{i18n['erp.asistencia.seleccione.anio']}" required="true">
 							<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
 							<f:selectItems value="#{selectItemsController.catalogoListAnio}"/>
 						</p:selectOneMenu>
@@ -39,7 +39,7 @@
 				</tr>
 			</table>
 					
-			<p:schedule id="schedule" value="#{scheduleController.eventModel}" widgetVar="myschedule">
+			<p:schedule id="schedule" value="#{diaLaboralController.eventModel}" widgetVar="myschedule">
 							
 			</p:schedule>
 			
