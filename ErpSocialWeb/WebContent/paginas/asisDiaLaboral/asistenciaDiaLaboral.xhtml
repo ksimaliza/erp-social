@@ -14,7 +14,7 @@
 	<ui:define name="content">
 		<h:form id="formFalta">
 		
-			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true" widgetVar="message"/>
 
 			<table>
 				<tr>
@@ -40,10 +40,29 @@
 			</table>
 					
 			<p:schedule id="schedule" value="#{diaLaboralController.eventModel}" widgetVar="myschedule">
-							
+				<p:ajax event="dateSelect" update=":dialog:eventDetails" listener="#{diaLaboralController.onDateSelect}" oncomplete="PF('eventDialog').show()" />	
 			</p:schedule>
 			
-		</h:form>
+			</h:form>
+			
+			 <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip" closeOnEscape="true" modal="true" appendTo="@(body)">
+				 <h:form id="dialog">
+	        		<h:panelGrid id="eventDetails" columns="2">
+	
+			            <h:outputLabel for="fecha" value="Fecha:" />
+			            <p:calendar id="fecha" value="#{diaLaboralDataManager.fecha}" pattern="yyyy-MM-dd" showOn="button" disabled="true"/>
+			 
+			            <h:outputLabel for="obs" value="Observacion:" />
+			            <p:inputText id="obs" value="#{diaLaboralDataManager.diaNoLaboral.dnlObservacion}"/>
+			            
+			            <p:commandButton id="addButton" value="Guardar" actionListener="#{diaLaboralController.agregarDia}" oncomplete="if (args &amp;&amp; !args.validationFailed) eventDialog.hide();PF('myschedule').update();" update=":formFalta:pnlMessages"/>
+			            <p:commandButton type="reset" value="Cancelar" />
+			            
+		        	</h:panelGrid>
+		        </h:form>
+    		</p:dialog>
+			
+		
 		</ui:define>
 
 </ui:composition>
