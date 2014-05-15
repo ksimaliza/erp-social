@@ -118,36 +118,31 @@ INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
     VALUES ('Matricula Asinacion', 'Matricula Asinacion', '/paginas/matAsinacion/matriculaAsinacion.xhtml', '2014-06-06');
     
     
-    
- --Menu(18)    
+---Asistencia    
+ 	--Menu(18)    
 INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
     VALUES ('Asistencia Empleado', 'Asistencia Empleado', '/paginas/asisEmpleado/asistenciaEmpleado.xhtml', '2014-06-06'); 
-   
- --Menu(19)    
+ 	--Menu(19)    
 INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
     VALUES ('Asistencia Falta', 'Asistencia Falta', '/paginas/asisFalta/asistenciaFalta.xhtml', '2014-06-06');    
-    
     --Menu(20)    
 INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
     VALUES ('Asistencia Parametro', 'Asistencia Parametro', '/paginas/asisParametro/asistenciaParametro.xhtml', '2014-06-06');
-    
-     --Menu(21)    
+    --Menu(21)    
 INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
     VALUES ('Asistencia Tipo', 'Asistencia Tipo', '/paginas/asisTipo/asistenciaTipo.xhtml', '2014-06-06');
-    
-    
-    
-    
---Menu(22)
+	--Menu(22)
 INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
     VALUES ('Asistencia Permiso', 'Asistencia Permiso', '/paginas/asisPermiso/asistenciaPermiso.xhtml', '2014-06-06');
-    
---Menu(23)    
+	--Menu(23)    
 INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
-    VALUES ('Asistencia Día Laboral', 'Asistencia Día Laboral', '/paginas/asisDiaLaboral/asistenciaDiaLaboral.xhtml', '2014-06-06');    
+    VALUES ('Asistencia Día Laboral', 'Asistencia Día Laboral', '/paginas/asisDiaLaboral/asistenciaDiaLaboral.xhtml', '2014-06-06');
+    --Menu
+INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
+    VALUES ('Asistencia Horario', 'Asistencia Horario', '/paginas/asisHorario/asistenciaHorario.xhtml', '2014-06-06');    
 
 
-    
+--Eucaristia    
  --Menu(24)    
 INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
     VALUES ('Despacho Eucaristia', 'Despacho Eucaristia', '/paginas/despEucaristia/despachoEucaristia.xhtml', '2014-06-06');    
