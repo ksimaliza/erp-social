@@ -1,5 +1,6 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,8 +12,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
+import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +57,7 @@ public class DiaLaboralController extends BaseController{
 	
 	private ScheduleModel eventModel;
     
-    //private ScheduleEvent event = new DefaultScheduleEvent();
+    private ScheduleEvent event = new DefaultScheduleEvent();
 	
 	public DiaLaboralController() {
 	
@@ -66,10 +69,21 @@ public class DiaLaboralController extends BaseController{
 		sabadoDomingoLoad();
 	}
 	
-    public ScheduleModel getEventModel() {
+    public ScheduleEvent getEvent() {
+		return event;
+	}
+
+
+	public void setEvent(ScheduleEvent event) {
+		this.event = event;
+	}
+
+
+	public ScheduleModel getEventModel() {
         return eventModel;
     }
 	
+    
 	public void sabadoDomingo()
 	{
 		slf4jLogger.info("sabadoDomingo");
@@ -100,7 +114,7 @@ public class DiaLaboralController extends BaseController{
 				dia=diaNo.getDnlDia().toString().length()==1?"0"+diaNo.getDnlDia().toString():diaNo.getDnlDia().toString();
 				desde=dateFormat.parse(anio+"-"+mes+"-"+dia+" 01:00:00");
 				hasta=dateFormat.parse(anio+"-"+mes+"-"+dia+" 23:00:00");
-				eventModel.addEvent(new DefaultScheduleEvent("No laboral", desde,hasta));
+				eventModel.addEvent(new DefaultScheduleEvent(diaNo.getDnlObservacion(), desde,hasta));
 			}
 		} catch (SeguridadesException e) {
 			MensajesWebController.aniadirMensajeError(e.toString());
@@ -109,6 +123,28 @@ public class DiaLaboralController extends BaseController{
 		}
 	}
 	
+	public void agregarDia()
+	{		
+		try {
+			diaLaboralDataManager.getDiaNoLaboral().setDnlAnio(CalendarUtil.getYear(new Timestamp(this.event.getStartDate().getTime())));
+			diaLaboralDataManager.getDiaNoLaboral().setDnlMes(CalendarUtil.getMonth(new Timestamp(this.event.getStartDate().getTime())));
+			diaLaboralDataManager.getDiaNoLaboral().setDnlDia(CalendarUtil.getDay(new Timestamp(this.event.getStartDate().getTime())));
+			servicioAsistencia.createDiaNoLaboral(diaLaboralDataManager.getDiaNoLaboral());
+			diaLaboralDataManager.setDiaNoLaboral(new DiaNoLaboralDTO());
+			sabadoDomingoLoad();
+			MensajesWebController.aniadirMensajeError("Guardado Exitosamente");
+		} catch (SeguridadesException e) {
+			MensajesWebController.aniadirMensajeError(e.toString());
+		}
+	}
 	
-	
+    public void onDateSelect(SelectEvent selectEvent) {
+        try {
+            event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
+			diaLaboralDataManager.setFecha(event.getStartDate());
+		} catch (Exception e) {
+			MensajesWebController.aniadirMensajeError(e.toString());
+		}
+    }
+
 }
