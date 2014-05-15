@@ -545,6 +545,7 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 					diaNo.setDnlAnio(year);
 					diaNo.setDnlMes(CalendarUtil.getMonth(new Timestamp(fechaInicial.getTime())));
 					diaNo.setDnlDia(CalendarUtil.getDay(new Timestamp(fechaInicial.getTime())));
+					diaNo.setDnlObservacion("Fin de Semana");
 					asistenciaFactoryDAO.getDiaNoLaboralDAOImpl().create(diaNo);
 				}
 				
@@ -566,6 +567,19 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 			throw new SeguridadesException(e);
 		}		
 	}
+	
+	
+	@Override
+	public void createDiaNoLaboral(DiaNoLaboralDTO diaNoLaboral) throws SeguridadesException
+	{
+		try {
+			asistenciaFactoryDAO.getDiaNoLaboralDAOImpl().create(diaNoLaboral);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al createDiaNoLaboral {}" , e.getMessage());
+			throw new SeguridadesException(e);
+		}
+	}
+
 }
 	
 

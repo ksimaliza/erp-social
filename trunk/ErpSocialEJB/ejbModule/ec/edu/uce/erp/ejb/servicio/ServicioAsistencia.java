@@ -1,5 +1,6 @@
 package ec.edu.uce.erp.ejb.servicio;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -103,6 +104,9 @@ public interface ServicioAsistencia {
 	void createDiaNoLaboralSabadoDomingo(int year) throws SeguridadesException;
 
 	List<DiaNoLaboralDTO> readDiaNoLaboral(int year)
+			throws SeguridadesException;
+
+	void createDiaNoLaboral(DiaNoLaboralDTO diaNoLaboral)
 			throws SeguridadesException;
 
 
