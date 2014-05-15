@@ -32,6 +32,10 @@ public class DiaNoLaboralDTO implements Serializable {
 	@Column(name="dnl_mes")
 	private Integer dnlMes;
 
+	@Column(name="dnl_observacion")
+	private String dnlObservacion;
+	
+	
 	public DiaNoLaboralDTO() {
 	}
 
@@ -73,6 +77,14 @@ public class DiaNoLaboralDTO implements Serializable {
 
 	public void setDnlMes(Integer dnlMes) {
 		this.dnlMes = dnlMes;
+	}
+
+	public String getDnlObservacion() {
+		return dnlObservacion;
+	}
+
+	public void setDnlObservacion(String dnlObservacion) {
+		this.dnlObservacion = dnlObservacion;
 	}
 
 }
