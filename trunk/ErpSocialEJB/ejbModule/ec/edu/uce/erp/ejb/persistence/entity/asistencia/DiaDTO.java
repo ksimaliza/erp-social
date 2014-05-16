@@ -2,7 +2,6 @@ package ec.edu.uce.erp.ejb.persistence.entity.asistencia;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -22,17 +21,12 @@ public class DiaDTO implements Serializable {
 	@Column(name="dia_codigo")
 	private Integer diaCodigo;
 
-	@Column(name="dia_fecha")
-	private Timestamp diaFecha;
+	@Column(name="dia_descripcion")
+	private String diaDescripcion;
 
 	//bi-directional many-to-one association to HorarioDTO
 	@OneToMany(mappedBy="asiDia")
 	private List<HorarioDTO> asiHorarios;
-
-	//bi-directional many-to-one association to TipoDTO
-	@ManyToOne
-	@JoinColumn(name="dia_tipo")
-	private TipoDTO asiTipo;
 
 	public DiaDTO() {
 	}
@@ -45,12 +39,12 @@ public class DiaDTO implements Serializable {
 		this.diaCodigo = diaCodigo;
 	}
 
-	public Timestamp getDiaFecha() {
-		return this.diaFecha;
+	public String getDiaDescripcion() {
+		return this.diaDescripcion;
 	}
 
-	public void setDiaFecha(Timestamp diaFecha) {
-		this.diaFecha = diaFecha;
+	public void setDiaDescripcion(String diaDescripcion) {
+		this.diaDescripcion = diaDescripcion;
 	}
 
 	public List<HorarioDTO> getAsiHorarios() {
@@ -73,14 +67,6 @@ public class DiaDTO implements Serializable {
 		asiHorario.setAsiDia(null);
 
 		return asiHorario;
-	}
-
-	public TipoDTO getAsiTipo() {
-		return this.asiTipo;
-	}
-
-	public void setAsiTipo(TipoDTO asiTipo) {
-		this.asiTipo = asiTipo;
 	}
 
 }

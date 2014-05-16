@@ -90,6 +90,14 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NotaDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParcialDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.view.VistaHistoricoTransaccion</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.CategoriaBien</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBienPK</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.MarcaBien</class>
+		<class>ec.edu.uce.erp.ejb.persistence.view.VistaBien</class>
+		<class>ec.edu.uce.erp.ejb.persistence.view.VistaEmpleado</class>
+		<class>ec.edu.uce.erp.ejb.persistence.view.VistaTransaccion</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaNoLaboralDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO</class>
@@ -100,17 +108,9 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.RegistroDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.TipoDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.CategoriaBien</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBienPK</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.MarcaBien</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoListDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.view.VistaBien</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.view.VistaEmpleado</class>
-		<class>ec.edu.uce.erp.ejb.persistence.view.VistaTransaccion</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionListDTO</class>
 		<properties>
 			<property name="hibernate.connection.username" value="postgres" />
 			<property name="hibernate.connection.password" value="root" />

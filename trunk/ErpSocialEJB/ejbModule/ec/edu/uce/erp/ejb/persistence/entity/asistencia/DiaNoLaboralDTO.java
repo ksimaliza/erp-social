@@ -34,8 +34,7 @@ public class DiaNoLaboralDTO implements Serializable {
 
 	@Column(name="dnl_observacion")
 	private String dnlObservacion;
-	
-	
+
 	public DiaNoLaboralDTO() {
 	}
 
@@ -80,7 +79,7 @@ public class DiaNoLaboralDTO implements Serializable {
 	}
 
 	public String getDnlObservacion() {
-		return dnlObservacion;
+		return this.dnlObservacion;
 	}
 
 	public void setDnlObservacion(String dnlObservacion) {

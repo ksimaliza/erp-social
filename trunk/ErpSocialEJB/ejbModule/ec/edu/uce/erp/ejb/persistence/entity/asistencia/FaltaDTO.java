@@ -24,9 +24,6 @@ public class FaltaDTO implements Serializable {
 	@Column(name="fal_fecha")
 	private Timestamp falFecha;
 
-	@Column(name="fal_descripcion")
-	private String falDescripcion;
-	
 	//bi-directional many-to-one association to EmpleadoDTO
 	@ManyToOne
 	@JoinColumn(name="fal_empleado")
@@ -57,14 +54,6 @@ public class FaltaDTO implements Serializable {
 
 	public void setAsiEmpleado(EmpleadoDTO asiEmpleado) {
 		this.asiEmpleado = asiEmpleado;
-	}
-
-	public String getFalDescripcion() {
-		return falDescripcion;
-	}
-
-	public void setFalDescripcion(String falDescripcion) {
-		this.falDescripcion = falDescripcion;
 	}
 
 }
