@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpNuevoTipo" header="Horario" resizable="false" draggable="false"
+		widgetVar="dlgNuevo" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		
+		<h:form id="formNuevo" styleClass="formulario">
+			<p:panel id="pnlNuevo">
+				<table class="formulario">
+
+					<tr>
+						<td><h:outputText value="Tipo: " /></td>
+						<td><p:selectOneMenu/></td>
+					</tr>
+
+					<tr>
+						<td><h:outputText value="Dia: " /></td>
+						<td><p:selectOneMenu/></td>					
+					</tr>
+
+					<tr>
+						<td><h:outputText value="Hora Inicio: " /></td>
+						<td><p:inputMask mask="99:99"/></td>
+						
+						<td><h:outputText value="Hora Fin: " /></td>
+						<td><p:inputMask mask="99:99"/></td>					
+					</tr>
+					
+				</table>
+			</p:panel>
+		</h:form>
+		
+	</p:dialog>
+</ui:composition>			
