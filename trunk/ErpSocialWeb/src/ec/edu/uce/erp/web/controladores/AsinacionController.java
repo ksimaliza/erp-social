@@ -19,7 +19,6 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MateriaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
@@ -144,10 +143,10 @@ private static final long serialVersionUID = 1L;
 	
 	public void buscarNivelParalelo() {
 		slf4jLogger.info("buscarNivelParalelo");
-		List<NivelParaleloListDTO> listResultado=new ArrayList<NivelParaleloListDTO>();
+		List<NivelParaleloDTO> listResultado=new ArrayList<NivelParaleloDTO>();
 		try {
 			
-			listResultado = this.servicioMatricula.readNivelParalelo(new NivelParaleloListDTO());
+			listResultado = this.servicioMatricula.buscarNivelParalelo(new NivelParaleloDTO());
 						
 			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
@@ -198,9 +197,7 @@ private static final long serialVersionUID = 1L;
 			if (CollectionUtils.isEmpty(listamaterias) && listamaterias.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
-				this.asinacionDataManager.setMateriaList(listamaterias);
-				
-						
+				this.asinacionDataManager.setMateriaList(listamaterias);	
 			}
 			
 		} catch (SeguridadesException e) {

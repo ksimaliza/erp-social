@@ -91,9 +91,9 @@ public void registrarNivelParalelo () {
 	
 	public void buscar() {
 		slf4jLogger.info("buscarNivelParalelo");
-		List<NivelParaleloListDTO> listResultado=new ArrayList<NivelParaleloListDTO>();
+		List<NivelParaleloDTO> listResultado=new ArrayList<NivelParaleloDTO>();
 		try {
-			listResultado = this.servicioMatricula.readNivelParalelo(nivelParaleloDataManager.getNivelParaleloBuscar());
+			listResultado = this.servicioMatricula.buscarNivelParalelo(nivelParaleloDataManager.getNivelParaleloBuscar());
 			
 			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");

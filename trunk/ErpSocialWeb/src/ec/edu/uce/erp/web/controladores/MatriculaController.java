@@ -1,5 +1,6 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -13,13 +14,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
+import ec.edu.uce.erp.ejb.persistence.vo.MatriculaVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
-import ec.edu.uce.erp.web.datamanager.AsinacionDataManager;
 import ec.edu.uce.erp.web.datamanager.MatriculaDataManager;
 
 @ViewScoped
@@ -56,13 +60,37 @@ public class MatriculaController extends BaseController {
 			//buscar();
 			buscarEstudiantes();
 			buscarNivel();
-			buscarParalelo();
+			
 			
 		}
 		
-		
-		
-		
+		public void registrarMatricula () {
+			
+			slf4jLogger.info("registrarMatricula");
+			MatriculaVO matriculaVO;			
+			MatriculaDTO matriculaDTO;
+			EstudianteDTO estudianteDTO;
+			try {
+				matriculaVO=new MatriculaVO();
+				matriculaDTO=new MatriculaDTO();
+				estudianteDTO=new EstudianteDTO();
+				
+				estudianteDTO.setEstCodigo(matriculaDataManager.getEstudianteCodigo());
+				matriculaDTO.setMatEstudiante(estudianteDTO);
+				matriculaDTO.setRegFecha(new Timestamp(matriculaDataManager.getFechaInsertar().getTime()));
+				
+				
+				matriculaVO.setMatricula(matriculaDTO);
+				matriculaVO.setAsignacion(matriculaDataManager.getAsinacionList());
+				
+				servicioMatricula.createOrUpdateMatricula(matriculaVO);	
+				MensajesWebController.aniadirMensajeInformacion("erp.matricula.registrar.exito");
+			} catch (SeguridadesException e) {
+				slf4jLogger.info(e.toString());
+				MensajesWebController.aniadirMensajeError(e.getMessage());
+			}
+			
+		}
 		
 		
 		public void buscarEstudiantes () {
@@ -87,30 +115,7 @@ public class MatriculaController extends BaseController {
 			}
 			
 		}
-		
-		public void buscarParalelo () {
-			slf4jLogger.info("buscarParalelo");
-			
-			List<ParaleloDTO> listaparalelo=null;
-			
-			try {
-								
-				listaparalelo = this.servicioMatricula.buscarParalelo(new ParaleloDTO());
-				
-				if (CollectionUtils.isEmpty(listaparalelo) && listaparalelo.size()==0) {
-					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-				} else {
-					this.matriculaDataManager.setParaleloList(listaparalelo);
-			
-				}
-				
-			} catch (SeguridadesException e) {
-				slf4jLogger.info("Error al buscarParalelo {} ", e);
-				MensajesWebController.aniadirMensajeError(e.getMessage());
-			}
-			
-		}
-		
+	
 		public void buscarNivel () {
 			slf4jLogger.info("buscarNivel");
 			
@@ -133,4 +138,59 @@ public class MatriculaController extends BaseController {
 			
 		}
 		
+		public void buscarNivelParalelo () {
+			slf4jLogger.info("buscarNivelParalelo");
+			
+			List<NivelParaleloDTO> listaNivelParalelo=null;
+			NivelParaleloDTO nivelParaleloDTO;
+			NivelDTO nivelDTO;
+			try {
+				nivelParaleloDTO=new NivelParaleloDTO();
+				nivelDTO=new NivelDTO();
+				nivelDTO.setNivCodigo(matriculaDataManager.getNivelCodigo());
+				nivelParaleloDTO.setMatNivel(nivelDTO);
+				listaNivelParalelo = this.servicioMatricula.buscarNivelParalelo(nivelParaleloDTO);
+				
+				//servicioMatricula.readAsinacion(asinacion)
+				
+				if (CollectionUtils.isEmpty(listaNivelParalelo) && listaNivelParalelo.size()==0) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.matriculaDataManager.setNivelParaleloList(listaNivelParalelo);
+					
+				}
+				
+			} catch (SeguridadesException e) {
+				slf4jLogger.info("Error al buscarNivel {} ", e);
+				MensajesWebController.aniadirMensajeError(e.getMessage());
+			}
+			
+		}
+		
+		
+		public void buscarAsignacion()
+		{
+			AsinacionListDTO asinacionListDTO;
+			List<AsinacionListDTO> asinacionListDTOs=null; 
+			
+			try {
+				asinacionListDTO=new AsinacionListDTO();
+				asinacionListDTO.setNpaNivel(matriculaDataManager.getNivelCodigo());
+				asinacionListDTO.setNpaParalelo(matriculaDataManager.getParaleloCodigo());
+				asinacionListDTOs = this.servicioMatricula.readAsinacion(asinacionListDTO);
+				
+				
+				if (CollectionUtils.isEmpty(asinacionListDTOs) && asinacionListDTOs.size()==0) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.matriculaDataManager.setAsinacionList(asinacionListDTOs);
+				}
+				
+			
+			
+			} catch (SeguridadesException e) {
+				slf4jLogger.info("Error al buscar asignacion {} ", e);
+				MensajesWebController.aniadirMensajeError(e.getMessage());
+			}
+		}
 }

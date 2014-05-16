@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 
@@ -24,12 +24,12 @@ public class NivelParaleloDataManager extends BaseController{
 	private static final long serialVersionUID = 1L;
 	
 		
-	private List<NivelParaleloListDTO> nivelParaleloList;
+	private List<NivelParaleloDTO> nivelParaleloList;
 	
 	private int nivelCodigo;
 	private int paraleloCodigo;
 
-	private NivelParaleloListDTO nivelParaleloBuscar;
+	private NivelParaleloDTO nivelParaleloBuscar;
 	
 	private List<NivelDTO> nivelList;
 	
@@ -43,26 +43,26 @@ public class NivelParaleloDataManager extends BaseController{
 	public void inicializarObjetos () {
 		slf4jLogger.info("inicializarObjetos");
 		
-		nivelParaleloList=new ArrayList<NivelParaleloListDTO>();
-		nivelParaleloBuscar=new NivelParaleloListDTO();
+		nivelParaleloList=new ArrayList<NivelParaleloDTO>();
+		nivelParaleloBuscar=new NivelParaleloDTO();
 		paraleloList=new ArrayList<ParaleloDTO>();
 		nivelList= new ArrayList<NivelDTO>();		
 	}
 
 	
-	public List<NivelParaleloListDTO> getNivelParaleloList() {
+	public List<NivelParaleloDTO> getNivelParaleloList() {
 		return nivelParaleloList;
 	}
 	
-	public void setNivelParaleloList(List<NivelParaleloListDTO> nivelParaleloList) {
+	public void setNivelParaleloList(List<NivelParaleloDTO> nivelParaleloList) {
 		this.nivelParaleloList = nivelParaleloList;
 	}
 	
-	public NivelParaleloListDTO getNivelParaleloBuscar() {
+	public NivelParaleloDTO getNivelParaleloBuscar() {
 		return nivelParaleloBuscar;
 	}
 	
-	public void setNivelParaleloBuscar(NivelParaleloListDTO nivelParaleloBuscar) {
+	public void setNivelParaleloBuscar(NivelParaleloDTO nivelParaleloBuscar) {
 		this.nivelParaleloBuscar = nivelParaleloBuscar;
 	}
 	
