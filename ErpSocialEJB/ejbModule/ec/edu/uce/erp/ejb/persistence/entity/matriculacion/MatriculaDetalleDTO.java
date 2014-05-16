@@ -17,7 +17,7 @@ public class MatriculaDetalleDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="MAT_MATRICULA_DETALLE_MATCODIGO_GENERATOR", sequenceName="MAT_MATRICULA_DETALLE_MAT_CODIGO_SEQ")
+	@SequenceGenerator(name="MAT_MATRICULA_DETALLE_MATCODIGO_GENERATOR", sequenceName="MAT_MATRICULA_DETALLE_MAT_CODIGO_SEQ",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MAT_MATRICULA_DETALLE_MATCODIGO_GENERATOR")
 	@Column(name="mat_codigo")
 	private Integer matCodigo;

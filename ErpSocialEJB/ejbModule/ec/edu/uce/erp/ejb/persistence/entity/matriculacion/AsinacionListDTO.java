@@ -30,65 +30,17 @@ public class AsinacionListDTO implements Serializable {
 	@Column(name="asi_profesor")
 	private Integer asiProfesor;
 
-	@Column(name="cab_catalogo_est_fk")
-	private String cabCatalogoEstFk;
-
-	@Column(name="cab_catalogo_fun_fk")
-	private String cabCatalogoFunFk;
-
-	@Column(name="cab_catalogo_gen_fk")
-	private String cabCatalogoGenFk;
-
-	@Column(name="cab_catalogo_nes_fk")
-	private String cabCatalogoNesFk;
-
-	@Column(name="cab_catalogo_pro_fk")
-	private String cabCatalogoProFk;
-
-	@Column(name="cab_catalogo_tip_fk")
-	private String cabCatalogoTipFk;
-
-	@Column(name="cab_ubicacion_fk")
-	private String cabUbicacionFk;
-
-	@Column(name="det_catalogo_est_nivel1_fk")
-	private String detCatalogoEstNivel1Fk;
-
-	@Column(name="det_catalogo_fun_nivel1_fk")
-	private String detCatalogoFunNivel1Fk;
-
-	@Column(name="det_catalogo_gen_nivel1_fk")
-	private String detCatalogoGenNivel1Fk;
-
-	@Column(name="det_catalogo_nes_nivel1_fk")
-	private String detCatalogoNesNivel1Fk;
-
-	@Column(name="det_catalogo_pro_nivel1_fk")
-	private String detCatalogoProNivel1Fk;
-
-	@Column(name="det_catalogo_tip_nivel1_fk")
-	private String detCatalogoTipNivel1Fk;
-
-	@Column(name="det_ubicacion_nivel1_fk")
-	private String detUbicacionNivel1Fk;
-
-	@Column(name="det_ubicacion_nivel2_fk")
-	private String detUbicacionNivel2Fk;
-
-	@Column(name="det_ubicacion_nivel3_fk")
-	private String detUbicacionNivel3Fk;
-
-	@Column(name="det_ubicacion_nivel4_fk")
-	private String detUbicacionNivel4Fk;
-	@Id
-	@Column(name="id_usuario")
-	private Integer idUsuario;
-
 	@Column(name="mtr_codigo")
 	private Integer mtrCodigo;
 
 	@Column(name="mtr_nombe")
 	private String mtrNombe;
+
+	@Column(name="niv_codigo")
+	private Integer nivCodigo;
+
+	@Column(name="niv_descaripcion")
+	private String nivDescaripcion;
 
 	@Column(name="npa_codigo")
 	private Integer npaCodigo;
@@ -98,6 +50,12 @@ public class AsinacionListDTO implements Serializable {
 
 	@Column(name="npa_paralelo")
 	private Integer npaParalelo;
+
+	@Column(name="par_codigo")
+	private Integer parCodigo;
+
+	@Column(name="par_descripcion")
+	private String parDescripcion;
 
 	@Column(name="per_apellidos")
 	private String perApellidos;
@@ -129,7 +87,8 @@ public class AsinacionListDTO implements Serializable {
 
 	@Column(name="per_nombres")
 	private String perNombres;
-
+	
+	@Id
 	@Column(name="per_pk")
 	private Integer perPk;
 
@@ -185,150 +144,6 @@ public class AsinacionListDTO implements Serializable {
 		this.asiProfesor = asiProfesor;
 	}
 
-	public String getCabCatalogoEstFk() {
-		return this.cabCatalogoEstFk;
-	}
-
-	public void setCabCatalogoEstFk(String cabCatalogoEstFk) {
-		this.cabCatalogoEstFk = cabCatalogoEstFk;
-	}
-
-	public String getCabCatalogoFunFk() {
-		return this.cabCatalogoFunFk;
-	}
-
-	public void setCabCatalogoFunFk(String cabCatalogoFunFk) {
-		this.cabCatalogoFunFk = cabCatalogoFunFk;
-	}
-
-	public String getCabCatalogoGenFk() {
-		return this.cabCatalogoGenFk;
-	}
-
-	public void setCabCatalogoGenFk(String cabCatalogoGenFk) {
-		this.cabCatalogoGenFk = cabCatalogoGenFk;
-	}
-
-	public String getCabCatalogoNesFk() {
-		return this.cabCatalogoNesFk;
-	}
-
-	public void setCabCatalogoNesFk(String cabCatalogoNesFk) {
-		this.cabCatalogoNesFk = cabCatalogoNesFk;
-	}
-
-	public String getCabCatalogoProFk() {
-		return this.cabCatalogoProFk;
-	}
-
-	public void setCabCatalogoProFk(String cabCatalogoProFk) {
-		this.cabCatalogoProFk = cabCatalogoProFk;
-	}
-
-	public String getCabCatalogoTipFk() {
-		return this.cabCatalogoTipFk;
-	}
-
-	public void setCabCatalogoTipFk(String cabCatalogoTipFk) {
-		this.cabCatalogoTipFk = cabCatalogoTipFk;
-	}
-
-	public String getCabUbicacionFk() {
-		return this.cabUbicacionFk;
-	}
-
-	public void setCabUbicacionFk(String cabUbicacionFk) {
-		this.cabUbicacionFk = cabUbicacionFk;
-	}
-
-	public String getDetCatalogoEstNivel1Fk() {
-		return this.detCatalogoEstNivel1Fk;
-	}
-
-	public void setDetCatalogoEstNivel1Fk(String detCatalogoEstNivel1Fk) {
-		this.detCatalogoEstNivel1Fk = detCatalogoEstNivel1Fk;
-	}
-
-	public String getDetCatalogoFunNivel1Fk() {
-		return this.detCatalogoFunNivel1Fk;
-	}
-
-	public void setDetCatalogoFunNivel1Fk(String detCatalogoFunNivel1Fk) {
-		this.detCatalogoFunNivel1Fk = detCatalogoFunNivel1Fk;
-	}
-
-	public String getDetCatalogoGenNivel1Fk() {
-		return this.detCatalogoGenNivel1Fk;
-	}
-
-	public void setDetCatalogoGenNivel1Fk(String detCatalogoGenNivel1Fk) {
-		this.detCatalogoGenNivel1Fk = detCatalogoGenNivel1Fk;
-	}
-
-	public String getDetCatalogoNesNivel1Fk() {
-		return this.detCatalogoNesNivel1Fk;
-	}
-
-	public void setDetCatalogoNesNivel1Fk(String detCatalogoNesNivel1Fk) {
-		this.detCatalogoNesNivel1Fk = detCatalogoNesNivel1Fk;
-	}
-
-	public String getDetCatalogoProNivel1Fk() {
-		return this.detCatalogoProNivel1Fk;
-	}
-
-	public void setDetCatalogoProNivel1Fk(String detCatalogoProNivel1Fk) {
-		this.detCatalogoProNivel1Fk = detCatalogoProNivel1Fk;
-	}
-
-	public String getDetCatalogoTipNivel1Fk() {
-		return this.detCatalogoTipNivel1Fk;
-	}
-
-	public void setDetCatalogoTipNivel1Fk(String detCatalogoTipNivel1Fk) {
-		this.detCatalogoTipNivel1Fk = detCatalogoTipNivel1Fk;
-	}
-
-	public String getDetUbicacionNivel1Fk() {
-		return this.detUbicacionNivel1Fk;
-	}
-
-	public void setDetUbicacionNivel1Fk(String detUbicacionNivel1Fk) {
-		this.detUbicacionNivel1Fk = detUbicacionNivel1Fk;
-	}
-
-	public String getDetUbicacionNivel2Fk() {
-		return this.detUbicacionNivel2Fk;
-	}
-
-	public void setDetUbicacionNivel2Fk(String detUbicacionNivel2Fk) {
-		this.detUbicacionNivel2Fk = detUbicacionNivel2Fk;
-	}
-
-	public String getDetUbicacionNivel3Fk() {
-		return this.detUbicacionNivel3Fk;
-	}
-
-	public void setDetUbicacionNivel3Fk(String detUbicacionNivel3Fk) {
-		this.detUbicacionNivel3Fk = detUbicacionNivel3Fk;
-	}
-
-	public String getDetUbicacionNivel4Fk() {
-		return this.detUbicacionNivel4Fk;
-	}
-
-	public void setDetUbicacionNivel4Fk(String detUbicacionNivel4Fk) {
-		this.detUbicacionNivel4Fk = detUbicacionNivel4Fk;
-	}
-
-	public Integer getIdUsuario() {
-		return this.idUsuario;
-	}
-
-	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
-	}
-
 	public Integer getMtrCodigo() {
 		return this.mtrCodigo;
 	}
@@ -343,6 +158,22 @@ public class AsinacionListDTO implements Serializable {
 
 	public void setMtrNombe(String mtrNombe) {
 		this.mtrNombe = mtrNombe;
+	}
+
+	public Integer getNivCodigo() {
+		return this.nivCodigo;
+	}
+
+	public void setNivCodigo(Integer nivCodigo) {
+		this.nivCodigo = nivCodigo;
+	}
+
+	public String getNivDescaripcion() {
+		return this.nivDescaripcion;
+	}
+
+	public void setNivDescaripcion(String nivDescaripcion) {
+		this.nivDescaripcion = nivDescaripcion;
 	}
 
 	public Integer getNpaCodigo() {
@@ -367,6 +198,22 @@ public class AsinacionListDTO implements Serializable {
 
 	public void setNpaParalelo(Integer npaParalelo) {
 		this.npaParalelo = npaParalelo;
+	}
+
+	public Integer getParCodigo() {
+		return this.parCodigo;
+	}
+
+	public void setParCodigo(Integer parCodigo) {
+		this.parCodigo = parCodigo;
+	}
+
+	public String getParDescripcion() {
+		return this.parDescripcion;
+	}
+
+	public void setParDescripcion(String parDescripcion) {
+		this.parDescripcion = parDescripcion;
 	}
 
 	public String getPerApellidos() {
