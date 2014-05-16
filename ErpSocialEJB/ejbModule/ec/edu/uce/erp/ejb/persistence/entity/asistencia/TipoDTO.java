@@ -24,13 +24,13 @@ public class TipoDTO implements Serializable {
 	@Column(name="tip_descripcion")
 	private String tipDescripcion;
 
-	//bi-directional many-to-one association to DiaDTO
-	@OneToMany(mappedBy="asiTipo")
-	private List<DiaDTO> asiDias;
-
 	//bi-directional many-to-one association to HorarioEmpleadoDTO
 	@OneToMany(mappedBy="asiTipo")
 	private List<HorarioEmpleadoDTO> asiHorarioEmpleados;
+
+	//bi-directional many-to-one association to HorarioDTO
+	@OneToMany(mappedBy="asiTipo")
+	private List<HorarioDTO> asiHorarios;
 
 	public TipoDTO() {
 	}
@@ -49,28 +49,6 @@ public class TipoDTO implements Serializable {
 
 	public void setTipDescripcion(String tipDescripcion) {
 		this.tipDescripcion = tipDescripcion;
-	}
-
-	public List<DiaDTO> getAsiDias() {
-		return this.asiDias;
-	}
-
-	public void setAsiDias(List<DiaDTO> asiDias) {
-		this.asiDias = asiDias;
-	}
-
-	public DiaDTO addAsiDia(DiaDTO asiDia) {
-		getAsiDias().add(asiDia);
-		asiDia.setAsiTipo(this);
-
-		return asiDia;
-	}
-
-	public DiaDTO removeAsiDia(DiaDTO asiDia) {
-		getAsiDias().remove(asiDia);
-		asiDia.setAsiTipo(null);
-
-		return asiDia;
 	}
 
 	public List<HorarioEmpleadoDTO> getAsiHorarioEmpleados() {
@@ -93,6 +71,28 @@ public class TipoDTO implements Serializable {
 		asiHorarioEmpleado.setAsiTipo(null);
 
 		return asiHorarioEmpleado;
+	}
+
+	public List<HorarioDTO> getAsiHorarios() {
+		return this.asiHorarios;
+	}
+
+	public void setAsiHorarios(List<HorarioDTO> asiHorarios) {
+		this.asiHorarios = asiHorarios;
+	}
+
+	public HorarioDTO addAsiHorario(HorarioDTO asiHorario) {
+		getAsiHorarios().add(asiHorario);
+		asiHorario.setAsiTipo(this);
+
+		return asiHorario;
+	}
+
+	public HorarioDTO removeAsiHorario(HorarioDTO asiHorario) {
+		getAsiHorarios().remove(asiHorario);
+		asiHorario.setAsiTipo(null);
+
+		return asiHorario;
 	}
 
 }

@@ -32,6 +32,11 @@ public class HorarioDTO implements Serializable {
 	@JoinColumn(name="hor_dia")
 	private DiaDTO asiDia;
 
+	//bi-directional many-to-one association to TipoDTO
+	@ManyToOne
+	@JoinColumn(name="hor_tipo")
+	private TipoDTO asiTipo;
+
 	public HorarioDTO() {
 	}
 
@@ -65,6 +70,14 @@ public class HorarioDTO implements Serializable {
 
 	public void setAsiDia(DiaDTO asiDia) {
 		this.asiDia = asiDia;
+	}
+
+	public TipoDTO getAsiTipo() {
+		return this.asiTipo;
+	}
+
+	public void setAsiTipo(TipoDTO asiTipo) {
+		this.asiTipo = asiTipo;
 	}
 
 }
