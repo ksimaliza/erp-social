@@ -19,7 +19,7 @@ public class MatriculaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="MAT_MATRICULA_REGCODIGO_GENERATOR", sequenceName="MAT_MATRICULA_REG_CODIGO_SEQ")
+	@SequenceGenerator(name="MAT_MATRICULA_REGCODIGO_GENERATOR", sequenceName="MAT_MATRICULA_REG_CODIGO_SEQ",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MAT_MATRICULA_REGCODIGO_GENERATOR")
 	@Column(name="reg_codigo")
 	private Integer regCodigo;

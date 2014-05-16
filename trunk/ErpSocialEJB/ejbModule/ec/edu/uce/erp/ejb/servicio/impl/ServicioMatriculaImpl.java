@@ -19,9 +19,9 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MateriaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDetalleDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NotaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParcialDTO;
@@ -30,6 +30,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EstudianteVO;
+import ec.edu.uce.erp.ejb.persistence.vo.MatriculaVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ProfesorVO;
 import ec.edu.uce.erp.ejb.persistence.vo.RepresentanteVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
@@ -388,17 +389,22 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	}
 	
 	@Override
-	public List<NivelParaleloListDTO> readNivelParalelo(NivelParaleloListDTO nivelParalelo) throws SeguridadesException {
-		slf4jLogger.info("readNivelParalelo");
-		List<NivelParaleloListDTO> listResultado = null;
+	public List<NivelParaleloDTO> buscarNivelParalelo(NivelParaleloDTO nivelParalelo) throws SeguridadesException {
+		slf4jLogger.info("buscarNivelParalelo");
+		List<NivelParaleloDTO> listResultado = null;
 		try {
-			listResultado = matriculaFactoryDAO.getNivelParaleloDAOImpl().findAll(nivelParalelo);
+			listResultado = matriculaFactoryDAO.getNivelParaleloDAOImpl().getAll(nivelParalelo);
 		} catch (Exception e) {
-			slf4jLogger.info("Error al readNivelParalelo {}", e.getMessage());
-			throw new SeguridadesException("No se pudo obtener NivelParalelo de la base de datos");
+			slf4jLogger.info("Error al buscarNivelParalelo {}", e.getMessage());
+			throw new SeguridadesException("No se pudo buscarNivelParalelo de la base de datos");
 		}
 		return listResultado;
 	}
+	
+	
+	
+	
+	
 	
 	@Override
 	public NivelParaleloDTO obtenerNivelParaleloPorId(Integer idNivel, Integer idParalelo) throws SeguridadesException {
@@ -700,8 +706,6 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		return listrepresentantes;
 	}
 	
-	
-	
 	@Override
 	public void deleteRepresentante(RepresentanteDTO representanteDTO) throws SeguridadesException
 	{
@@ -729,8 +733,6 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		rep.setPersona(factoryDAO.getPersonaDAOImpl().find(Idpersona));
 		return rep;
 	}
-
-
 
 
 	@Override
@@ -769,6 +771,33 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public void createOrUpdateMatricula(MatriculaVO matriculaVO) throws SeguridadesException
+	{
+		slf4jLogger.info("createOrUpdateMatricula");
+			
+		AsinacionDTO asinacion;
+		MatriculaDetalleDTO matriculaDetalle;
+		try {
+			
+			MatriculaDTO mat= matriculaFactoryDAO.getMatriculaDAOImpl().create(matriculaVO.getMatricula());
+			for(AsinacionListDTO asig:matriculaVO.getAsignacion())
+			{
+				matriculaDetalle= new MatriculaDetalleDTO();
+				asinacion=matriculaFactoryDAO.getAsinacionDAOImpl().find(asig.getAsiCodigo());
+				matriculaDetalle.setMatAsinacion(asinacion);
+				matriculaDetalle.setMatMatriculaBean(mat);
+				matriculaFactoryDAO.getMatriculaDetalleDAOImpl().create(matriculaDetalle);
+			}
+		}		
+		catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdateMatricula {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+	}
+	
 	
 	
 }

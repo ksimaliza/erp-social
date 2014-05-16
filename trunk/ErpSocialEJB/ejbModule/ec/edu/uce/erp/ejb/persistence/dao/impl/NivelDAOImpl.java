@@ -50,8 +50,6 @@ public class NivelDAOImpl extends AbstractFacadeImpl<NivelDTO> implements NivelD
 		
 		criteriaList = new ArrayList<Predicate>();
 		
-		
-		
 		CriteriaQuery<NivelDTO> select = cq.select(from);
 		
 		//por nombre
@@ -62,7 +60,6 @@ public class NivelDAOImpl extends AbstractFacadeImpl<NivelDTO> implements NivelD
 			predicate = cb.like(cb.upper(from.<String>get("nivDesaripcion")), descNivel);
 			criteriaList.add(predicate);
 		}
-		
 			
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		

@@ -12,9 +12,9 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MateriaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDetalleDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NotaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParcialDTO;
@@ -23,6 +23,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EstudianteVO;
+import ec.edu.uce.erp.ejb.persistence.vo.MatriculaVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ProfesorVO;
 import ec.edu.uce.erp.ejb.persistence.vo.RepresentanteVO;
 
@@ -138,9 +139,6 @@ public interface ServicioMatricula {
 
 	PeriodoDTO obtenerPeriodoPorId(Integer id) throws SeguridadesException;
 
-	List<NivelParaleloListDTO> readNivelParalelo(
-			NivelParaleloListDTO nivelParalelo) throws SeguridadesException;
-
 	NivelParaleloDTO obtenerNivelParaleloPorId(Integer idNivel,
 			Integer idParalelo) throws SeguridadesException;
 
@@ -152,6 +150,16 @@ public interface ServicioMatricula {
 
 	AsinacionDTO obtenerAsinacionPorId(Integer idNivPar, Integer idProf,
 			Integer idMateria, Integer idPeriodo) throws SeguridadesException;
+
+	List<NivelParaleloDTO> buscarNivelParalelo(NivelParaleloDTO nivelParalelo)
+			throws SeguridadesException;
+
+	void createOrUpdateMatricula(MatriculaVO matricula)
+			throws SeguridadesException;
+
+		
+
+	
 
 	
 
