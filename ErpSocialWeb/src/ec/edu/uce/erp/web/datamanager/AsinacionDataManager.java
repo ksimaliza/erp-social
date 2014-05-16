@@ -15,7 +15,6 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MateriaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
@@ -43,7 +42,7 @@ public class AsinacionDataManager extends BaseController {
 
 	private AsinacionListDTO asinacionBuscar;
 	
-	private List<NivelParaleloListDTO> nivelParaleloList;
+	private List<NivelParaleloDTO> nivelParaleloList;
 	
 	private List<DocenteListDTO> profesorList;
 	
@@ -68,7 +67,7 @@ public void inicializarObjetos () {
 	materiaInsertar=new MateriaDTO();
 	periodoInsertar=new PeriodoDTO();
 		asinacionBuscar=new AsinacionListDTO();
-		nivelParaleloList= new ArrayList<NivelParaleloListDTO>();
+		nivelParaleloList= new ArrayList<NivelParaleloDTO>();
 		profesorList= new ArrayList<DocenteListDTO>();
 		materiaList= new ArrayList<MateriaDTO>();
 		periodoList= new ArrayList<PeriodoDTO>();
@@ -132,11 +131,11 @@ public void setAsinacionBuscar(AsinacionListDTO asinacionBuscar) {
 
 
 
-public List<NivelParaleloListDTO> getNivelParaleloList() {
+public List<NivelParaleloDTO> getNivelParaleloList() {
 	return nivelParaleloList;
 }
 
-public void setNivelParaleloList(List<NivelParaleloListDTO> nivelParaleloList) {
+public void setNivelParaleloList(List<NivelParaleloDTO> nivelParaleloList) {
 	this.nivelParaleloList = nivelParaleloList;
 }
 
