@@ -28,7 +28,7 @@
 				<table class="formulario">
 					<tr >
 						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.estudiante.nombres']}" /> </td>
-					<td width="70%">
+						<td width="70%">
 							<p:inputText id="txtNombreBuscar"
 								value="#{estudianteDataManager.estudianteBuscar.perNombres}" />
 						</td>
@@ -37,7 +37,7 @@
 					
 					<tr >
 						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.estudiante.apellidos']}" /> </td>
-					<td width="70%">
+						<td width="70%">
 							<p:inputText id="txtApellidosBuscar"
 								value="#{estudianteDataManager.estudianteBuscar.perApellidos}" />
 						</td>
@@ -45,7 +45,7 @@
 					</tr>
 				</table>
 			</p:panel>
-<p:panel id="botonesBuscar">
+			<p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
 					actionListener="#{estudianteController.buscarEstudiantes}"
 					value="#{i18n['label.buscar']}" 
@@ -53,55 +53,54 @@
 					update=":formEstudiante:pnlMessages,tablaEstudiante,pnlBuscarEstudiante" />
 			</p:panel>
 
-
-<p:dataTable id="tablaEstudiante"
-	value="#{estudianteDataManager.listaEstudianteListDTOs}" var="estudiante"
-	rowIndexVar="rowIndex"
-	paginator="true" rows="5" paginatorPosition="bottom"
-	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-	rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.matricula.estudiante.lista']}">
-	<f:facet name="header">
-		#{i18n['erp.matricula.estudiante.lista']}
-	</f:facet>
-	<p:column headerText="#" styleClass="centered" width="5%">
-		#{rowIndex+1}
-	</p:column>
-	<p:column headerText="#{i18n['erp.matricula.estudiante.nombres']}" width="35%">
-					<h:outputText value="#{estudiante.perNombres}" />
+			<p:dataTable id="tablaEstudiante"
+				value="#{estudianteDataManager.listaEstudianteListDTOs}" var="estudiante"
+				rowIndexVar="rowIndex"
+				paginator="true" rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.matricula.estudiante.lista']}">
+				<f:facet name="header">
+					#{i18n['erp.matricula.estudiante.lista']}
+				</f:facet>
+				<p:column headerText="#" styleClass="centered" width="5%">
+					#{rowIndex+1}
+				</p:column>
+				<p:column headerText="#{i18n['erp.matricula.estudiante.nombres']}" width="35%">
+						<h:outputText value="#{estudiante.perNombres}" />
 				</p:column>
 				<p:column headerText="#{i18n['erp.matricula.estudiante.apellidos']}" width="40%">
 					<h:outputText value="#{estudiante.perApellidos}" />
 				</p:column>
-				
+						
 				<p:column headerText="#{i18n['erp.matricula.estudiante.cedula']}" width="40%">
 					<h:outputText value="#{estudiante.perCi}" />
 				</p:column>
-				
+						
 				<p:column headerText="#{i18n['erp.matricula.estudiante.direccion']}" width="40%">
 					<h:outputText value="#{estudiante.perDireccion}" />
 				</p:column>
-				
+						
 				<p:column headerText="#{i18n['erp.matricula.estudiante.fechanac']}" width="40%">
 					<h:outputText value="#{estudiante.perFechaNac}" />
 				</p:column>
-			
-			<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
+					
+				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
-							title="#{i18n['label.editar']}"
-							oncomplete="dlgEditarEstudiante.show()"
-							actionListener="#{estudianteController.cargarDatosEstudiante(estudiante)}"
-							process="@this" update=":formEditarEstudiante:pnlEditarEstudiante">
-							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+								title="#{i18n['label.editar']}"
+								oncomplete="dlgEditarEstudiante.show()"
+								actionListener="#{estudianteController.cargarDatosEstudiante(estudiante)}"
+								process="@this" update=":formEditarEstudiante:pnlEditarEstudiante">
+								<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
 					</h:panelGroup>
-					</p:column>
+				</p:column>
 			</p:dataTable>			
-	
-	</h:form>			
-		<ui:include src="dialogNuevoEstudiante.xhtml" />
-		<ui:include src="dialogEditarEstudiante.xhtml" />		
-		
-</ui:define>		
-	
+			
+		</h:form>			
+			<ui:include src="dialogNuevoEstudiante.xhtml" />
+			<ui:include src="dialogEditarEstudiante.xhtml" />		
+				
+	</ui:define>		
+			
 </ui:composition>

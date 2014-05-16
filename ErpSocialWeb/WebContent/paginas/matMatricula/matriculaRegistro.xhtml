@@ -22,7 +22,7 @@
 					</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:panel id="pnlBuscarMatricula" header="#{i18n['erp.matricula.registro.buscar']}">
+			<p:panel id="pnlAnadirMatricula" header="#{i18n['erp.matricula.registro.registrar']}">
 				<table class="formulario">
 					
 					<tr>
@@ -47,6 +47,7 @@
 						<td><p:selectOneMenu id="nivel" value="#{matriculaDataManager.nivelCodigo}" filter="true" required="true">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{matriculaController.matriculaDataManager.nivelList}" var="nivel" itemLabel="#{nivel.nivDescaripcion} " itemValue="#{nivel.nivCodigo}"/>
+								<p:ajax listener="#{matriculaController.buscarNivelParalelo}" process="@this" update="paralelo"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
@@ -55,20 +56,26 @@
 						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.registro.paralelo']}"  /> </td>
 						<td><p:selectOneMenu id="paralelo" value="#{matriculaDataManager.paraleloCodigo}" filter="true" required="true">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-								<f:selectItems value="#{matriculaController.matriculaDataManager.paraleloList}" var="paralelo" itemLabel="#{paralelo.parDescripcion}" itemValue="#{paralelo.parCodigo}"/>
+								<f:selectItems value="#{matriculaDataManager.nivelParaleloList}" var="nivelParalelo" itemLabel="#{nivelParalelo.matParalelo.parDescripcion}" itemValue="#{nivelParalelo.matParalelo.parCodigo}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
-					
-					
-					
-					
+										
 				</table>
-		
-</p:panel>
+			
+			</p:panel>
 
-			<p:dataTable id="tablaRegistro"
-				
+			<p:panel id="botonAñadir">
+				<p:commandButton id="btnAnadir"
+					actionListener="#{matriculaController.buscarAsignacion}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlAnadirMatricula"
+					update=":formRegistro:pnlMessages,tablaAsinacion,pnlAnadirMatricula" />
+			</p:panel>
+
+
+			<p:dataTable id="tablaAsinacion"
+				value="#{matriculaDataManager.asinacionList}" var="asig"
 				rowIndexVar="rowIndex"
 				paginator="true" rows="5" paginatorPosition="bottom"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -78,11 +85,30 @@
 				</f:facet>
 				<p:column headerText="#" styleClass="centered" width="5%">
 					#{rowIndex+1}
+				</p:column>	
+				<p:column headerText="#{i18n['erp.matricula.registro.nivel']}" width="35%">
+					<h:outputText value="#{asig.nivDescaripcion}" />
 				</p:column>
-				
+				<p:column headerText="#{i18n['erp.matricula.registro.paralelo']}" width="35%">
+					<h:outputText value="#{asig.parDescripcion}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.matricula.asinacion.profesor']}" width="35%">
+					<h:outputText value="#{asig.perApellidos} #{asig.perNombres}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.matricula.asinacion.materia']}" width="35%">
+					<h:outputText value="#{asig.mtrNombe}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.matricula.asinacion.periodo']}" width="35%">
+					<h:outputText value="#{asig.perDescripcion}" />
+				</p:column>									
+			</p:dataTable>
+			
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{matriculaController.registrarMatricula}"/>
+				<p:commandButton value="#{i18n['label.cancelar']}"  type="button" />
+			</p:panel>
 						
-				
-			</p:dataTable>			
 		</h:form>			
 		
 	</ui:define>		
