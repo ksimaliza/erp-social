@@ -44,6 +44,7 @@ public class VistaBienDataManager extends BaseDataManager{
 	private VistaBien vistaBienEditar;
 	private List<VistaBien> listVistaBien;
 	private VistaEmpleado vistaEmpleadoBuscar;
+	private VistaEmpleado vistaEmpleadoSeleccionado;
 	private List<VistaEmpleado> listVistaEmpleado;
 	
 	private Integer idCustudioAsignado;
@@ -51,6 +52,7 @@ public class VistaBienDataManager extends BaseDataManager{
 	private String idDcTipoBienSelec;
 	private Integer idCategoriaBienSeleccionado;
 	private Integer idLineaBienSeleccionado;
+	private String idCIEmpleadoSeleccionado;
 	
 	private List<VistaTransaccion> listVistaTransaccion;
 	
@@ -66,6 +68,7 @@ public class VistaBienDataManager extends BaseDataManager{
 		this.listVistaTransaccion = new ArrayList<VistaTransaccion>();
 		this.vistaEmpleadoBuscar = new VistaEmpleado();
 		this.dcLineaBien = new ArrayList<SelectItem>();
+		this.listVistaEmpleado = new ArrayList<VistaEmpleado>();
 	}
 	
 	public void limpiarCatalogos () {
@@ -316,6 +319,34 @@ public class VistaBienDataManager extends BaseDataManager{
 	 */
 	public void setListVistaEmpleado(List<VistaEmpleado> listVistaEmpleado) {
 		this.listVistaEmpleado = listVistaEmpleado;
+	}
+
+	/**
+	 * @return the vistaEmpleadoSeleccionado
+	 */
+	public VistaEmpleado getVistaEmpleadoSeleccionado() {
+		return vistaEmpleadoSeleccionado;
+	}
+
+	/**
+	 * @param vistaEmpleadoSeleccionado the vistaEmpleadoSeleccionado to set
+	 */
+	public void setVistaEmpleadoSeleccionado(VistaEmpleado vistaEmpleadoSeleccionado) {
+		this.vistaEmpleadoSeleccionado = vistaEmpleadoSeleccionado;
+	}
+
+	/**
+	 * @param idCIEmpleadoSeleccionado the idCIEmpleadoSeleccionado to set
+	 */
+	public void setIdCIEmpleadoSeleccionado(String idCIEmpleadoSeleccionado) {
+		this.idCIEmpleadoSeleccionado = idCIEmpleadoSeleccionado;
+	}
+
+	/**
+	 * @return the idCIEmpleadoSeleccionado
+	 */
+	public String getIdCIEmpleadoSeleccionado() {
+		return idCIEmpleadoSeleccionado;
 	}
 
 }

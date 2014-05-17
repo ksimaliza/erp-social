@@ -130,6 +130,12 @@ public class VistaBienDAOImpl extends AbstractFacadeImpl<VistaBien> implements V
 				criteriaList.add(predicate);
 			}
 			
+			//por custodio asignado actual
+			if (StringUtils.isNotBlank(vistaBien.getPerCi())) {
+				predicate = criteriaBuilder.equal(fromVistaBien.get("perCi"), vistaBien.getPerCi());
+				criteriaList.add(predicate);
+			}
+			
 			criteriaQuery.where(criteriaBuilder.and(criteriaList.toArray(new Predicate[0])));
 //			criteriaQuery.orderBy(criteriaBuilder.asc(fromVistaBien.get("fechaRegistro")));
 			

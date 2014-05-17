@@ -15,12 +15,14 @@ import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.primefaces.event.SelectEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.util.dto.ActaBienDTO;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
+import ec.edu.uce.erp.ejb.persistence.view.VistaEmpleado;
 import ec.edu.uce.erp.ejb.persistence.view.VistaTransaccion;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
@@ -66,6 +68,7 @@ public class TransaccionBienController extends BaseController{
 			
 			this.vistaBienDataManager.getVistaBienBuscar().setEmrPk(this.vistaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
 			this.vistaBienDataManager.getVistaBienBuscar().setTraEstado(this.vistaBienDataManager.getEstadoActivo());
+			this.vistaBienDataManager.getVistaBienBuscar().setPerCi(this.vistaBienDataManager.getIdCIEmpleadoSeleccionado());
 			
 			if (StringUtils.isNotBlank(this.vistaBienDataManager.getIdDcTipoBienSelec())) {
 				this.vistaBienDataManager.getVistaBienBuscar().setDetBienTipBieNivel1(this.vistaBienDataManager.getIdDcTipoBienSelec());
@@ -123,7 +126,7 @@ public class TransaccionBienController extends BaseController{
 		
 		try {
 			
-			this.vistaBienDataManager.getVistaBienEditar().setEmpReasignadoFk(this.vistaBienDataManager.getIdCustudioReasignado());
+			this.vistaBienDataManager.getVistaBienEditar().setEmpAsignadoFk(this.vistaBienDataManager.getIdCustudioReasignado());
 			VistaBien vistaBien = servicioInventario.reasignarBien(this.vistaBienDataManager.getVistaBienEditar());
 			
 			if (vistaBien != null) {
@@ -177,6 +180,27 @@ public class TransaccionBienController extends BaseController{
 	}
 	
 	public void buscarEmpleado () {
+		slf4jLogger.info("buscarEmpleado");
+		
+		try {
+			this.vistaBienDataManager.getListVistaEmpleado().clear();
+			this.vistaBienDataManager.getVistaEmpleadoBuscar().setEmrFk(this.vistaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
+			List<VistaEmpleado> listVistaEmpleado = servicioInventario.obtenerEmpleadoEmpresa(this.vistaBienDataManager.getVistaEmpleadoBuscar());
+			if (CollectionUtils.isEmpty(listVistaEmpleado)) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.vistaBienDataManager.setListVistaEmpleado(listVistaEmpleado);
+			}
+			
+		} catch (SeguridadesException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void asignarDatosEmpleadoSeleccionado (SelectEvent event) {
+		VistaEmpleado vistaEmpleado = (VistaEmpleado)event.getObject();
+		this.vistaBienDataManager.setIdCIEmpleadoSeleccionado(vistaEmpleado.getPerCi());
 		slf4jLogger.info("buscarEmpleado");
 	}
 	

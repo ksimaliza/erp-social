@@ -239,7 +239,7 @@ public class BienController extends BaseController{
 //			e.printStackTrace();
 //		}
 //		
-//	}
+//	} 
 	
 	public void generarActaBien () {
 		
