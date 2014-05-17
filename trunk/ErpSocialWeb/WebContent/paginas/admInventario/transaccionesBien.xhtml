@@ -27,7 +27,7 @@
 						<td><h:outputLabel for="txtNombreCustodio" value="#{i18n['label.custodio']}" /></td>
 						<td>
 							<p:inputText id="txtNombreCustodio" 
-								value="#{vistaBienDataManager.vistaBienBuscar.empAsignadoFk}" />
+								value="#{vistaBienDataManager.idCIEmpleadoSeleccionado}" />
 							<p:commandLink value="buscar" oncomplete="dlgBuscarUsuario.show()"/>
 						</td>
 					</tr>

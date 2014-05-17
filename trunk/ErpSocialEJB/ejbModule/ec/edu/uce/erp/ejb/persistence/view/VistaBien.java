@@ -113,6 +113,13 @@ public class VistaBien implements Serializable {
 	@Column(name="bie_codigo")
 	private String bieCodigo;
 
+	
+	@Column(name="nombres_completos")
+	private String nombresCompletos;
+	
+	@Column(name="per_ci")
+	private String perCi;
+	
 	@Transient
 	@Temporal(TemporalType.DATE)
 	private Date bieFechaReasig;
@@ -463,6 +470,34 @@ public class VistaBien implements Serializable {
 	 */
 	public void setNpVerBajaBien(Boolean npVerBajaBien) {
 		this.npVerBajaBien = npVerBajaBien;
+	}
+
+	/**
+	 * @return the nombresCompletos
+	 */
+	public String getNombresCompletos() {
+		return nombresCompletos;
+	}
+
+	/**
+	 * @param nombresCompletos the nombresCompletos to set
+	 */
+	public void setNombresCompletos(String nombresCompletos) {
+		this.nombresCompletos = nombresCompletos;
+	}
+
+	/**
+	 * @return the perCi
+	 */
+	public String getPerCi() {
+		return perCi;
+	}
+
+	/**
+	 * @param perCi the perCi to set
+	 */
+	public void setPerCi(String perCi) {
+		this.perCi = perCi;
 	}
 
 }

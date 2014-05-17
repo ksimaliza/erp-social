@@ -563,6 +563,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 					//inactivar el estado actual antes de crear el nuevo
 					transaccionActual.setTraEstado(ESTADO_INACTIVO);
 					transaccionActual.setFechaFin(UtilAplication.obtenerFechaActual());
+					transaccionActual.setEmpReasignadoFk(vistaBien.getEmpAsignadoFk());
 					inventarioFactory.getTransaccionDAOImpl().update(transaccionActual);
 					
 					// crear el nuevo estado en la tabla transaccion
@@ -575,7 +576,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 					transaccionNuevo.setFechaInicio(UtilAplication.obtenerFechaActual());
 					transaccionNuevo.setTraEstado(ESTADO_ACTIVO);
 					transaccionNuevo.setEmpAsignadoFk(vistaBien.getEmpAsignadoFk());
-					transaccionNuevo.setEmpReasignadoFk(vistaBien.getEmpReasignadoFk());
+//					transaccionNuevo.setEmpReasignadoFk(vistaBien.getEmpReasignadoFk());
 					inventarioFactory.getTransaccionDAOImpl().create(transaccionNuevo);
 					
 					Bien bienBuscar = new Bien();

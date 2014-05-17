@@ -41,20 +41,41 @@
 						</td>
 					</tr>
 				</table>
-				<p:dataTable value="#{vistaBienDataManager.listVistaEmpleado}" var="vistaEmpleado">
-				
+				<p:panel id="pnlBotones">
+					<p:commandButton id="btnGuardar" value="#{i18n['label.buscar']}"
+						actionListener="#{transaccionBienController.buscarEmpleado}"
+						process="@this,pnlBuscarEmpleado" update="pnlBuscarEmpleado"/>
+					<!-- <p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgBuscarUsuario.hide();" type="button" /> -->
+				</p:panel>
+				<p:dataTable value="#{vistaBienDataManager.listVistaEmpleado}" rowKey="#{vistaEmpleado.empPk}"
+					var="vistaEmpleado" selectionMode="single">
 					
-				
+					<p:ajax event="rowSelect" listener="#{transaccionBienController.asignarDatosEmpleadoSeleccionado}"
+						update=":formBien:txtNombreCustodio" oncomplete="dlgBuscarUsuario.hide()" />
+					<f:facet name="header">
+						<h:outputLabel value="Empleados Encontrados" />
+					</f:facet>
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Nombres" />
+						</f:facet>
+						<h:outputText value="#{vistaEmpleado.nombresCompletos}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Codigo" />
+						</f:facet>
+						<h:outputText value="#{vistaEmpleado.empCodigo}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Cedula" />
+						</f:facet>
+						<h:outputText value="#{vistaEmpleado.perCi}" />
+					</p:column>
 				</p:dataTable>
 			</p:panel>
 			
-			<p:panel id="pnlBotones">
-				<p:commandButton id="btnGuardar" value="#{i18n['label.buscar']}"
-					actionListener="#{transaccionBienController.buscarEmpleado}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgBuscarUsuario.hide()"
-					process="@this,pnlBuscarEmpleado" update="pnlBuscarEmpleado"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgBuscarUsuario.hide();" type="button" />
-			</p:panel>
 		</h:form>
 	</p:dialog>
 	
