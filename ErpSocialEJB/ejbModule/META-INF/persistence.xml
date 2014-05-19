@@ -111,6 +111,7 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoListDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO</class>
 		<properties>
 			<property name="hibernate.connection.username" value="postgres" />
 			<property name="hibernate.connection.password" value="root" />
