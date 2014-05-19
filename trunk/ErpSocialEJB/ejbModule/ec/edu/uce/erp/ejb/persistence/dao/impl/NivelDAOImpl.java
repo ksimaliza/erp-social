@@ -52,12 +52,12 @@ public class NivelDAOImpl extends AbstractFacadeImpl<NivelDTO> implements NivelD
 		
 		CriteriaQuery<NivelDTO> select = cq.select(from);
 		
-		//por nombre
+		//por descripcion
 		if (!StringUtils.isEmpty(nivel.getNivDescaripcion())) {
 			Expression<String> descNivel = 
 					cb.upper(cb.literal
 							(UtilAplication.concatenarPorcenteje(nivel.getNivDescaripcion())));
-			predicate = cb.like(cb.upper(from.<String>get("nivDesaripcion")), descNivel);
+			predicate = cb.like(cb.upper(from.<String>get("nivDescaripcion")), descNivel);
 			criteriaList.add(predicate);
 		}
 			

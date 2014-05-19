@@ -1,9 +1,15 @@
 package ec.edu.uce.erp.ejb.persistence.entity.matriculacion;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Array;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -20,8 +26,9 @@ public class EstudianteListDTO implements Serializable {
 	private Integer estCodigo;
 
 	@Column(name="est_estado")
-	private Array estEstado;
+	private String estEstado;
 
+		
 	@Column(name="est_persona")
 	private Integer estPersona;
 
@@ -68,11 +75,11 @@ public class EstudianteListDTO implements Serializable {
 		this.estCodigo = estCodigo;
 	}
 
-	public Array getEstEstado() {
+	public String getEstEstado() {
 		return this.estEstado;
 	}
 
-	public void setEstEstado(Array estEstado) {
+	public void setEstEstado(String estEstado) {
 		this.estEstado = estEstado;
 	}
 
