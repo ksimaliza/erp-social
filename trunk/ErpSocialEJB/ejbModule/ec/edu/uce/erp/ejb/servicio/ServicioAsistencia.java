@@ -1,6 +1,5 @@
 package ec.edu.uce.erp.ejb.servicio;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -20,6 +19,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.RegistroDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.TipoDTO;
 import ec.edu.uce.erp.ejb.persistence.util.dto.AnioDTO;
+import ec.edu.uce.erp.ejb.persistence.util.dto.TiempoDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EmpleadoVO;
 import ec.edu.uce.erp.ejb.persistence.vo.FaltaVO;
 import ec.edu.uce.erp.ejb.persistence.vo.PermisoVO;
@@ -108,6 +108,10 @@ public interface ServicioAsistencia {
 
 	void createDiaNoLaboral(DiaNoLaboralDTO diaNoLaboral)
 			throws SeguridadesException;
+
+	List<TiempoDTO> readMinute() throws SeguridadesException;
+
+	List<TiempoDTO> readHour() throws SeguridadesException;
 
 
 }
