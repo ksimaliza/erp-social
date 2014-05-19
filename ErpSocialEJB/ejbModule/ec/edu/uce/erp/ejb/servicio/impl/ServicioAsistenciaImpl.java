@@ -34,6 +34,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.RegistroDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.TipoDTO;
 import ec.edu.uce.erp.ejb.persistence.util.dto.AnioDTO;
+import ec.edu.uce.erp.ejb.persistence.util.dto.TiempoDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EmpleadoVO;
 import ec.edu.uce.erp.ejb.persistence.vo.FaltaVO;
 import ec.edu.uce.erp.ejb.persistence.vo.PermisoVO;
@@ -578,6 +579,48 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 			slf4jLogger.info("Error al createDiaNoLaboral {}" , e.getMessage());
 			throw new SeguridadesException(e);
 		}
+	}
+	
+	@Override
+	public List<TiempoDTO> readHour() throws SeguridadesException
+	{
+		List<TiempoDTO> listParametro = null;
+		TiempoDTO tiempo;
+		try {
+			listParametro =new ArrayList<TiempoDTO>();
+			for(int i=0;i<=23;i++)
+			{
+				tiempo=new TiempoDTO();
+				tiempo.setCodigo(String.valueOf(i).toString().length()==1?"0"+String.valueOf(i):String.valueOf(i));
+				tiempo.setDescripcion(String.valueOf(i).toString().length()==1?"0"+String.valueOf(i):String.valueOf(i));
+				listParametro.add(tiempo);
+			}
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarParametrosCriterios {}" , e.getMessage());
+			throw new SeguridadesException(e);
+		}
+		return listParametro;
+	}
+
+	@Override
+	public List<TiempoDTO> readMinute() throws SeguridadesException
+	{
+		List<TiempoDTO> listParametro = null;
+		TiempoDTO tiempo;
+		try {
+			listParametro =new ArrayList<TiempoDTO>();
+			for(int i=0;i<=59;i++)
+			{
+				tiempo=new TiempoDTO();
+				tiempo.setCodigo(String.valueOf(i).toString().length()==1?"0"+String.valueOf(i):String.valueOf(i));
+				tiempo.setDescripcion(String.valueOf(i).toString().length()==1?"0"+String.valueOf(i):String.valueOf(i));
+				listParametro.add(tiempo);
+			}
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarParametrosCriterios {}" , e.getMessage());
+			throw new SeguridadesException(e);
+		}
+		return listParametro;		
 	}
 
 }
