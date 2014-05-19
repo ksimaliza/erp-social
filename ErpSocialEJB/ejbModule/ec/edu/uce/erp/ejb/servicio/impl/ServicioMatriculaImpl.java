@@ -325,7 +325,7 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		try {
 			listnivel = matriculaFactoryDAO.getNivelDAOImpl().obtenerNivel(nivelDTO);
 		} catch (Exception e) {
-			slf4jLogger.info("Error al buscarMateria {}", e.getMessage());
+			slf4jLogger.info("Error al buscarNivel {}", e.getMessage());
 			throw new SeguridadesException("No se pudo buscarNivel de la base de datos");
 		}
 		return listnivel;
