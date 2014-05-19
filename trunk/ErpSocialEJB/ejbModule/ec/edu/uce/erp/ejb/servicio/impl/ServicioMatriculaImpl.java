@@ -130,12 +130,14 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		if(estudiantevo.getEstudiante().getEstCodigo()!=null){
 			personanueva= factoryDAO.getPersonaDAOImpl().update(estudiantevo.getPersona());
 			return matriculaFactoryDAO.getEstudianteDAOImpl().update(estudiantevo.getEstudiante());
+			
 		}
 		else{
 			estudiantevo.getEstudiante().setEstEstado("Inscrito");
 			personanueva= factoryDAO.getPersonaDAOImpl().create(estudiantevo.getPersona());
 			estudiantevo.getEstudiante().setEstPersona(personanueva.getPerPk());
 			return matriculaFactoryDAO.getEstudianteDAOImpl().create(estudiantevo.getEstudiante());
+			
 		}
 		} catch (Exception e) {
 			slf4jLogger.info("error al createOrUpdateEstudiante {}", e.toString());
