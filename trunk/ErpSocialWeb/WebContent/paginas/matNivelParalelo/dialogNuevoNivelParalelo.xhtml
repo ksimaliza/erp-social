@@ -16,19 +16,19 @@
 					<td>
 					<p:selectOneMenu id="nivel" value="#{nivelParaleloDataManager.nivelCodigo}" filter="true" required="true">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-								<f:selectItems value="#{nivelParaleloController.nivelParaleloDataManager.nivelList}" var="nivpar" itemLabel="#{nivpar.nivDescaripcion} " itemValue="#{nivpar.nivCodigo}"/>
+								<f:selectItems value="#{nivelParaleloController.nivelParaleloDataManager.nivelList}" var="niv" itemLabel="#{niv.nivDescaripcion} " itemValue="#{niv.nivCodigo}"/>
 							</p:selectOneMenu>
 					</td>
 					</tr>
 					
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.nivel.paralelo.paralelo']}" /> </td>
-					<td>
-					<p:selectOneMenu id="paralelo" value="#{nivelParaleloDataManager.paraleloCodigo}" filter="true" required="true">
+						<td>
+							<p:selectOneMenu id="paralelo" value="#{nivelParaleloDataManager.paraleloCodigo}" filter="true" required="true">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{nivelParaleloDataManager.paraleloList}" var="par" itemLabel="#{par.parDescripcion} " itemValue="#{par.parCodigo}"/>
 							</p:selectOneMenu>
-					</td>
+						</td>
 					
 					</tr>
 					
@@ -37,7 +37,7 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{nivelParaleloController.registrarNivelParalelo}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNivelParalelo.hide()"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoNivelParalelo.hide()"
 					process="@this,pnlNuevoNivelParalelo" update="pnlNuevoNivelParalelo,:formNivelParalelo:pnlMessages,:formNivelParalelo:tablaNivelParalelo"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoNivelParalelo.hide()" type="button" />
 			</p:panel>

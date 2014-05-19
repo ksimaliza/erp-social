@@ -27,25 +27,23 @@
 			
 			<p:panel id="pnlBuscar" header="#{i18n['erp.matricula.nivel.paralelo.buscar']}">
 				<table class="formulario">
-					<tr >
+					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.nivel.paralelo.nivel']}"  /> </td>
-					<td>
-					<p:selectOneMenu id="nivel" value="#{nivelParaleloDataManager.nivelCodigo}" filter="true" >
+						<td><p:selectOneMenu id="nivel" value="#{nivelParaleloDataManager.nivelCodigo}" filter="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-								<f:selectItems value="#{nivelParaleloController.nivelParaleloDataManager.nivelList}" var="nivpar" itemLabel="#{nivpar.nivDescaripcion} " itemValue="#{nivpar.nivCodigo}"/>
+								<f:selectItems value="#{nivelParaleloController.nivelParaleloDataManager.nivelList}" var="nivel" itemLabel="#{nivel.nivDescaripcion} " itemValue="#{nivel.nivCodigo}"/>
+								<p:ajax listener="#{matriculaController.buscarNivelParalelo}" process="@this" update="paralelo"/>
 							</p:selectOneMenu>
-					</td>
+						</td>
 					</tr>
 					
 					<tr>
-						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.nivel.paralelo.paralelo']}" /> </td>
-					<td>
-					<p:selectOneMenu id="paralelo" value="#{nivelParaleloDataManager.paraleloCodigo}" filter="true" >
+						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.nivel.paralelo.paralelo']}"  /> </td>
+						<td><p:selectOneMenu id="paralelo" value="#{nivelParaleloDataManager.paraleloCodigo}" filter="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-								<f:selectItems value="#{nivelParaleloDataManager.paraleloList}" var="par" itemLabel="#{par.parDescripcion} " itemValue="#{par.parCodigo}"/>
+								<f:selectItems value="#{nivelParaleloDataManager.nivelParaleloList}" var="nivelParalelo" itemLabel="#{nivelParalelo.matParalelo.parDescripcion}" itemValue="#{nivelParalelo.matParalelo.parCodigo}"/>
 							</p:selectOneMenu>
-					</td>
-					
+						</td>
 					</tr>
 				</table>
 			</p:panel>
@@ -71,17 +69,17 @@
 				</p:column>
 
 				<p:column headerText="#{i18n['erp.matricula.nivel.paralelo.nivel']}" width="40%">
-					<h:outputText value="#{nivpar.nivDescaripcion}" />
+					<h:outputText value="#{nivpar.matNivel.nivDescaripcion}" />
 				</p:column>								
 
 				<p:column headerText="#{i18n['erp.matricula.nivel.paralelo.paralelo']}" width="35%">
-						<h:outputText value="#{nivpar.parDescripcion}" />
+						<h:outputText value="#{nivpar.matParalelo.parDescripcion}" />
 				</p:column>
 			<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
-							oncomplete="dlgEditarNuevoNivelParalelo.show()"
+							oncomplete="dlgEditarEditarNivelParalelo.show()"
 							actionListener="#{nivelParaleloController.cargarDatosNivelParalelo(nivpar)}"
 							process="@this" update=":formEditarNivelParalelo:pnlEditarNivelParalelo">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>

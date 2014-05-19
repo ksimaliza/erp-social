@@ -101,7 +101,7 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{representanteController.registrarRepresentante}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgRepresentante.hide()"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarRepresentante.hide()"
 					process="@this,pnlEditarRepresentante" update="pnlEditarRepresentante,:formRepresentante:pnlMessages,:formRepresentante:tablaRepresentante"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarRepresentante.hide()" type="button" />
 			</p:panel>

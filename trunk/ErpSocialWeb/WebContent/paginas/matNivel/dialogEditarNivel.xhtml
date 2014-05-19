@@ -28,7 +28,7 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{nivelController.registrarNivel}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoNivel.hide()"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarNivel.hide()"
 					process="@this,pnlEditarNivel" update="pnlEditarNivel,:formNivel:pnlMessages,:formNivel:tablaNivel"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarNivel.hide();" type="button" />
 			</p:panel>
