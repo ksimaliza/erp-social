@@ -28,7 +28,7 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{periodoController.registrarPeriodo()}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoPeriodo.hide()"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarPeriodo.hide()"
 					process="@this,pnlEditarPeriodo" update="pnlEditarPeriodo,:formPeriodo:pnlMessages,:formPeriodo:tablaPeriodo"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarPeriodo.hide();" type="button" />
 			</p:panel>

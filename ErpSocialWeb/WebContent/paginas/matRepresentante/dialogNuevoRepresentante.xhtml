@@ -17,16 +17,14 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCi" value="#{representanteDataManager.personaInstancia.perCi}" style="width: 100%"
-							required="true" label="#{i18n['erp.matricula.representante.cedula']}">
-							<f:validateLength maximum="10" minimum="10"/>
-							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-						
-						</p:inputText>
-						
+								required="true" label="#{i18n['erp.matricula.representante.cedula']}">
+								<f:validateLength maximum="10" minimum="10"/>
+								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+							</p:inputText>
 						</td>
 						</tr>
-						<tr>
 						
+					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtNombres" value="#{i18n['erp.matricula.representante.nombres']}" />
 						</td>
@@ -35,6 +33,7 @@
 								style="width: 100%" required="true" label="#{i18n['erp.matricula.representante.nombres']}" />
 						</td>
 					</tr>
+					
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtApe" value="#{i18n['erp.matricula.representante.apellidos']}"  />
@@ -43,8 +42,7 @@
 							<p:inputText id="txtApe" style="width: 100%" 
 								value="#{representanteDataManager.personaInstancia.perApellidos}" label="#{i18n['erp.matricula.representante.apellidos']}"/>
 							
-						</td>
-						
+						</td>	
 					</tr>
 					
 					<tr>
@@ -101,7 +99,7 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{representanteController.registrarRepresentante}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgRepresentante.hide()"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoRepresentante.hide()"
 					process="@this,pnlNuevoRepresentante" update="pnlNuevoRepresentante,:formRepresentante:pnlMessages,:formRepresentante:tablaRepresentante"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoRepresentante.hide()" type="button" />
 			</p:panel>
