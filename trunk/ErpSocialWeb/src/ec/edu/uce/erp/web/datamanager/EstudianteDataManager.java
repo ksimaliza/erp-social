@@ -31,7 +31,7 @@ public class EstudianteDataManager extends BaseDataManager {
 		private Persona estudiantePersonaInsertar;
 		private Persona estudiantePersonaEditar;
 		private Persona estudiantePersonaBuscar;
-		
+		private int estadoCodigo;
 				
 		@PostConstruct
 		public void inicializarObjetos () {
@@ -106,6 +106,14 @@ public class EstudianteDataManager extends BaseDataManager {
 		public void setListaEstudianteListDTOs(
 				List<EstudianteListDTO> listaEstudianteListDTOs) {
 			this.listaEstudianteListDTOs = listaEstudianteListDTOs;
+		}
+
+		public int getEstadoCodigo() {
+			return estadoCodigo;
+		}
+
+		public void setEstadoCodigo(int estadoCodigo) {
+			this.estadoCodigo = estadoCodigo;
 		}
 
 		

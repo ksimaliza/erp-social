@@ -34,6 +34,9 @@ public class NivelParaleloDataManager extends BaseController{
 	private List<NivelDTO> nivelList;
 	
 	private List<ParaleloDTO> paraleloList;
+
+	
+	
 	
 	public NivelParaleloDataManager() {
 		
