@@ -15,7 +15,8 @@
 
 					<tr>
 						<td><h:outputText value="Tipo: " /></td>
-						<td><p:selectOneMenu/></td>
+						<td><p:selectOneMenu>
+							</p:selectOneMenu></td>
 					</tr>
 
 					<tr>
@@ -25,14 +26,27 @@
 
 					<tr>
 						<td><h:outputText value="Hora Inicio: " /></td>
-						<td><p:selectOneMenu/></td>
+						<td><p:selectOneMenu>
+							<f:selectItem itemLabel="----"/>
+							<f:selectItems value="#{horarioController.horarioDataManager.horaDesde}" var="hor" itemLabel="#{hor.descripcion}" itemValue="#{hor.codigo}"/>
+						</p:selectOneMenu> </td>
 						<td>:</td>
-						<td><p:selectOneMenu/></td>
+						<td><p:selectOneMenu>
+							<f:selectItem itemLabel="----"/>
+							<f:selectItems value="#{horarioDataManager.minutoDesde}" var="hor" itemLabel="#{hor.descripcion}" itemValue="#{hor.codigo}"/>
+						</p:selectOneMenu></td>
+						
 						
 						<td><h:outputText value="Hora Fin: " /></td>
-						<td><p:selectOneMenu/></td>
+						<td><p:selectOneMenu>
+							<f:selectItem itemLabel="----"/>
+							<f:selectItems value="#{horarioDataManager.horaHasta}" var="hor" itemLabel="#{hor.descripcion}" itemValue="#{hor.codigo}"/>
+						</p:selectOneMenu></td>
 						<td>:</td>
-						<td><p:selectOneMenu/></td>					
+						<td><p:selectOneMenu>
+							<f:selectItem itemLabel="----"/>
+							<f:selectItems value="#{horarioDataManager.minutoDesde}" var="hor" itemLabel="#{hor.descripcion}" itemValue="#{hor.codigo}"/>
+						</p:selectOneMenu></td>					
 					</tr>
 					
 				</table>
