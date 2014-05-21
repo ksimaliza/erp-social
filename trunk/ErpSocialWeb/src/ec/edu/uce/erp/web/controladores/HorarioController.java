@@ -1,10 +1,12 @@
 package ec.edu.uce.erp.web.controladores;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.servicio.ServicioAsistencia;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.datamanager.HorarioDataManager;
@@ -25,6 +27,15 @@ public class HorarioController extends BaseController{
 	@ManagedProperty(value="#{horarioDataManager}")
 	private HorarioDataManager horarioDataManager;
 	
+	public HorarioController() {
+	
+	}
+	
+	@PostConstruct
+	private void init()
+	{
+		timesRead();
+	}
 	
 	public HorarioDataManager getHorarioDataManager() {
 		return horarioDataManager;
@@ -40,4 +51,16 @@ public class HorarioController extends BaseController{
 		
 	}
 	
+	
+	public void timesRead()
+	{
+		try {
+			horarioDataManager.setHoraDesde(servicioAsistencia.readHour());
+			horarioDataManager.setHoraHasta(servicioAsistencia.readHour());
+			horarioDataManager.setMinutoDesde(servicioAsistencia.readMinute());
+			horarioDataManager.setMinutoHasta(servicioAsistencia.readMinute());
+		} catch (SeguridadesException e) {
+			e.printStackTrace();
+		}
+	}
 }

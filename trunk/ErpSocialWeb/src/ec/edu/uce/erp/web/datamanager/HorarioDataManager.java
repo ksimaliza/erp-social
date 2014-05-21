@@ -1,11 +1,13 @@
 package ec.edu.uce.erp.web.datamanager;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+
+import ec.edu.uce.erp.ejb.persistence.util.dto.TiempoDTO;
 
 
 @SessionScoped
@@ -18,33 +20,61 @@ public class HorarioDataManager implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	
-	private Map<String, String> horaDesde;
-	private Map<String, String> horaHasta;
+	private List<TiempoDTO> horaDesde;
+	private List<TiempoDTO> horaHasta;
 	
-	private Map<String, String> minutoDesde;
-	private Map<String, String> minutiHasta;
+	private List<TiempoDTO> minutoDesde;
+	private List<TiempoDTO> minutoHasta;
 	
 	
 	public HorarioDataManager() {
-		horaDesde=new HashMap<String, String>();
-		horaHasta=new HashMap<String, String>();
+		horaDesde=new ArrayList<TiempoDTO>();
+		horaHasta=new ArrayList<TiempoDTO>();
+		
+		minutoDesde=new ArrayList<TiempoDTO>();
+		minutoHasta=new ArrayList<TiempoDTO>();
 	}
 
-	public Map<String, String> getHoraDesde() {
+
+	public List<TiempoDTO> getHoraDesde() {
 		return horaDesde;
 	}
 
-	public void setHoraDesde(Map<String, String> horaDesde) {
+
+	public void setHoraDesde(List<TiempoDTO> horaDesde) {
 		this.horaDesde = horaDesde;
 	}
 
-	public Map<String, String> getHoraHasta() {
+
+	public List<TiempoDTO> getHoraHasta() {
 		return horaHasta;
 	}
 
-	public void setHoraHasta(Map<String, String> horaHasta) {
+
+	public void setHoraHasta(List<TiempoDTO> horaHasta) {
 		this.horaHasta = horaHasta;
 	}
+
+
+	public List<TiempoDTO> getMinutoDesde() {
+		return minutoDesde;
+	}
+
+
+	public void setMinutoDesde(List<TiempoDTO> minutoDesde) {
+		this.minutoDesde = minutoDesde;
+	}
+
+
+	public List<TiempoDTO> getMinutoHasta() {
+		return minutoHasta;
+	}
+
+
+	public void setMinutoHasta(List<TiempoDTO> minutoHasta) {
+		this.minutoHasta = minutoHasta;
+	}
+
 	
 	
 }
