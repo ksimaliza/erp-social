@@ -468,6 +468,24 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	@Override
+	public ParametroDTO createOrUpdateParametro(ParametroDTO parametroDTO) throws SeguridadesException
+	{
+		slf4jLogger.info("createOrUpdateParametro");
+		try {
+		if(parametroDTO.getPasCodigo()!=null)
+			return asistenciaFactoryDAO.getParametroDAOImpl().update(parametroDTO);
+		else
+			return asistenciaFactoryDAO.getParametroDAOImpl().create(parametroDTO);
+		} catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdateParametro {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+	}
+	
+	
 	
 	@Override
 	public List<ParametroDTO> buscarParametro(ParametroDTO parametro) throws SeguridadesException {
