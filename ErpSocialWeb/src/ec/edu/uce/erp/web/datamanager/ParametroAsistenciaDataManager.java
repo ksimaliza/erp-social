@@ -27,6 +27,9 @@ public class ParametroAsistenciaDataManager extends BaseController {
 	private ParametroDTO parametroBuscar;
 	private List<ParametroDTO> listParametro;
 	
+	private ParametroDTO parametroInsertar;
+	
+	
 	public ParametroAsistenciaDataManager() {
 		
 	}
@@ -37,6 +40,7 @@ public class ParametroAsistenciaDataManager extends BaseController {
 		parametroBuscar=new ParametroDTO();
 		parametroActualizar=new ParametroDTO();
 		listParametro = new ArrayList<ParametroDTO>();
+		parametroInsertar= new ParametroDTO();
 		
 	}
 
@@ -62,6 +66,14 @@ public class ParametroAsistenciaDataManager extends BaseController {
 
 	public void setListParametro(List<ParametroDTO> listParametro) {
 		this.listParametro = listParametro;
+	}
+
+	public ParametroDTO getParametroInsertar() {
+		return parametroInsertar;
+	}
+
+	public void setParametroInsertar(ParametroDTO parametroInsertar) {
+		this.parametroInsertar = parametroInsertar;
 	}
 
 

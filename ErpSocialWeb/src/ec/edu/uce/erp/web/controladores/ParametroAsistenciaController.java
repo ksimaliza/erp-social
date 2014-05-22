@@ -48,6 +48,23 @@ private static final long serialVersionUID = 1L;
 		
 	}
 	
+	
+public void registrarParametro () {
+		
+		slf4jLogger.info("registrarParametro");
+		try {
+			ParametroDTO parametroNuevo = this.servicioAsistencia.createOrUpdateParametro(this.parametroAsistenciaDataManager.getParametroInsertar());
+			if (parametroNuevo != null) {
+				parametroAsistenciaDataManager.setParametroInsertar(new ParametroDTO());
+				MensajesWebController.aniadirMensajeInformacion("erp.matricula.parametro.registrar.exito");
+			}
+		} catch (SeguridadesException e) {
+			slf4jLogger.info(e.toString());
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
 	public void buscarParametros () {
 		slf4jLogger.info("buscarParametros");
 		
