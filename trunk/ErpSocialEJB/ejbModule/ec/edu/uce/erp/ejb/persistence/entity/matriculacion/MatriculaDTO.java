@@ -30,7 +30,7 @@ public class MatriculaDTO implements Serializable {
 	//bi-directional many-to-one association to EstudianteDTO
 	@ManyToOne
 	@JoinColumn(name="reg_estudiante")
-	private EstudianteDTO matEstudiante;
+	private EstudianteDTO regEstudiante;
 
 	//bi-directional many-to-one association to MatriculaDetalleDTO
 	@OneToMany(mappedBy="matMatriculaBean")
@@ -56,11 +56,11 @@ public class MatriculaDTO implements Serializable {
 	}
 
 	public EstudianteDTO getMatEstudiante() {
-		return this.matEstudiante;
+		return this.regEstudiante;
 	}
 
 	public void setMatEstudiante(EstudianteDTO matEstudiante) {
-		this.matEstudiante = matEstudiante;
+		this.regEstudiante = matEstudiante;
 	}
 
 	public List<MatriculaDetalleDTO> getMatMatriculaDetalles() {

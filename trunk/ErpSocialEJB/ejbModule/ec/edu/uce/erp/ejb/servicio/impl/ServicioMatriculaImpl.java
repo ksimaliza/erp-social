@@ -58,10 +58,12 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		PeriodoDTO periodo;
 		
 		try {
-			nivelParalelo= new NivelParaleloDTO();
+			
 			if(asinacionDTO.getAsiCodigo()!=null){
-				nivelDTO=matriculaFactoryDAO.getNivelDAOImpl().find(asinacionDTO.getMatNivelParalelo().getMatNivel());
-				paraleloDTO=matriculaFactoryDAO.getParaleloDAOImpl().find(asinacionDTO.getMatNivelParalelo().getMatParalelo());
+				
+				nivelParalelo= new NivelParaleloDTO();
+				nivelDTO=matriculaFactoryDAO.getNivelDAOImpl().find(asinacionDTO.getMatNivelParalelo().getMatNivel().getNivCodigo());
+				paraleloDTO=matriculaFactoryDAO.getParaleloDAOImpl().find(asinacionDTO.getMatNivelParalelo().getMatParalelo().getParCodigo());
 				profesor= matriculaFactoryDAO.getProfesorDAOImpl().find(asinacionDTO.getMatProfesor().getProCodigo());
 				materia=matriculaFactoryDAO.getMateriaDAOImpl().find(asinacionDTO.getMatMateria().getMtrCodigo());
 				periodo=matriculaFactoryDAO.getPeriodoDAOImpl().find(asinacionDTO.getMatPeriodo().getPerCodigo());
@@ -76,9 +78,10 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 							}
 			else {
 				
-				nivelDTO=matriculaFactoryDAO.getNivelDAOImpl().find(asinacionDTO.getMatNivelParalelo().getMatNivel());
-				paraleloDTO=matriculaFactoryDAO.getParaleloDAOImpl().find(asinacionDTO.getMatNivelParalelo().getMatParalelo());
-				nivelParalelo= matriculaFactoryDAO.getNivelParaleloDAOImpl().find(asinacionDTO.getMatNivelParalelo().getNpaCodigo());
+				nivelParalelo= new NivelParaleloDTO();
+				nivelDTO=matriculaFactoryDAO.getNivelDAOImpl().find(asinacionDTO.getMatNivelParalelo().getMatNivel().getNivCodigo());
+				paraleloDTO=matriculaFactoryDAO.getParaleloDAOImpl().find(asinacionDTO.getMatNivelParalelo().getMatParalelo().getParCodigo());
+				
 				profesor= matriculaFactoryDAO.getProfesorDAOImpl().find(asinacionDTO.getMatProfesor().getProCodigo());
 				materia=matriculaFactoryDAO.getMateriaDAOImpl().find(asinacionDTO.getMatMateria().getMtrCodigo());
 				periodo=matriculaFactoryDAO.getPeriodoDAOImpl().find(asinacionDTO.getMatPeriodo().getPerCodigo());
@@ -114,20 +117,7 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		return listResultado;
 	}
 	
-	@Override
-	public AsinacionDTO obtenerAsinacionPorId(Integer idNivPar, Integer idProf, Integer idMateria, Integer idPeriodo) throws SeguridadesException {
-		slf4jLogger.info("obtenerAsinacionPorId");
-		
-		AsinacionDTO asinacion=new AsinacionDTO();
-		
-		
-		asinacion.setMatNivelParalelo(matriculaFactoryDAO.getNivelParaleloDAOImpl().find(idNivPar));
-		asinacion.setMatProfesor(matriculaFactoryDAO.getProfesorDAOImpl().find(idProf));
-		asinacion.setMatMateria(matriculaFactoryDAO.getMateriaDAOImpl().find(idMateria));
-		asinacion.setMatPeriodo(matriculaFactoryDAO.getPeriodoDAOImpl().find(idPeriodo));
-				
-		return  asinacion;
-	}
+	
 	
 	@Override
 	public EstudianteDTO createOrUpdateEstudiante(EstudianteVO estudiantevo) throws SeguridadesException
@@ -276,6 +266,19 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		
 	}
 	
+	@Override
+	public MatriculaDTO readMatricula(MatriculaDTO matricula) throws SeguridadesException {
+		slf4jLogger.info("readMatricula");
+		MatriculaDTO Resultado = null;
+		try {
+			Resultado = matriculaFactoryDAO.getMatriculaDAOImpl().getAll(matricula);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al readAsinacion {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener readMatricula de la base de datos");
+		}
+		return Resultado;
+	}
+	
 	
 	@Override
 	public void deleteMatricula(MatriculaDTO matriculaDTO) throws SeguridadesException
@@ -292,6 +295,9 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		}
 		
 	}
+	
+	
+	
 	
 	@Override
 	public NivelDTO createOrUpdateNivel(NivelDTO nivelDTO) throws SeguridadesException
