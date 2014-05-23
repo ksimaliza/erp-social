@@ -21,7 +21,7 @@ public class NivelDTO implements Serializable {
 	
 	@Column(name="niv_codigo")
 	private Integer nivCodigo;
-
+	
 	@Column(name="niv_descaripcion")
 	private String nivDescaripcion;
 

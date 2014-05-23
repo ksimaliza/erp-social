@@ -12,7 +12,6 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MateriaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDetalleDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NotaDTO;
@@ -148,13 +147,14 @@ public interface ServicioMatricula {
 	List<AsinacionListDTO> readAsinacion(AsinacionListDTO asinacion)
 			throws SeguridadesException;
 
-	AsinacionDTO obtenerAsinacionPorId(Integer idNivPar, Integer idProf,
-			Integer idMateria, Integer idPeriodo) throws SeguridadesException;
-
+	
 	List<NivelParaleloDTO> buscarNivelParalelo(NivelParaleloDTO nivelParalelo)
 			throws SeguridadesException;
 
 	void createOrUpdateMatricula(MatriculaVO matricula)
+			throws SeguridadesException;
+
+	MatriculaDTO readMatricula(MatriculaDTO matricula)
 			throws SeguridadesException;
 
 		

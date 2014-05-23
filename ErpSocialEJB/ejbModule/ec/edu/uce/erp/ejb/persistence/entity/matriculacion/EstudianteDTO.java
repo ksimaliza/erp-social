@@ -33,7 +33,7 @@ public class EstudianteDTO implements Serializable {
 	private List<EstudianteRepresentanteDTO> matEstudianteRepresentantes;
 
 	//bi-directional many-to-one association to MatriculaDTO
-	@OneToMany(mappedBy="matEstudiante")
+	@OneToMany(mappedBy="regEstudiante")
 	private List<MatriculaDTO> matMatriculas;
 
 	public EstudianteDTO() {
