@@ -18,6 +18,7 @@ public class NivelDTO implements Serializable {
 	@Id
 	@SequenceGenerator(name="MAT_NIVEL_NIVCODIGO_GENERATOR", sequenceName="MAT_NIVEL_NIV_CODIGO_SEQ", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MAT_NIVEL_NIVCODIGO_GENERATOR")
+	
 	@Column(name="niv_codigo")
 	private Integer nivCodigo;
 
