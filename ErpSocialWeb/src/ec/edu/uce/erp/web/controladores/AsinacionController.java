@@ -1,6 +1,5 @@
 package ec.edu.uce.erp.web.controladores;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -18,7 +17,9 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MateriaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
@@ -55,10 +56,11 @@ private static final long serialVersionUID = 1L;
 	private void init(){
 		
 		//buscar();
-		buscarNivelParalelo();
+		buscarNivel();
 		buscarDocente();
 		buscarMateria();
 		buscarPeriodo();
+		
 	}
 	
 	public void registrarAsinacion () {
@@ -66,6 +68,8 @@ private static final long serialVersionUID = 1L;
 		slf4jLogger.info("registrarAsinacion");
 		AsinacionDTO asinacion;
 		NivelParaleloDTO nivelParalelo;
+		NivelDTO nivelDTO;
+		ParaleloDTO paraleloDTO;
 		ProfesorDTO profesor;
 		MateriaDTO materia;
 		PeriodoDTO periodo;
@@ -77,9 +81,16 @@ private static final long serialVersionUID = 1L;
 			profesor = new ProfesorDTO();
 			materia = new MateriaDTO();
 			periodo = new PeriodoDTO();
+			nivelDTO = new NivelDTO();
+			paraleloDTO= new ParaleloDTO();
 			
-			nivelParalelo.setNpaCodigo(asinacionDataManager.getNivelParaleloCodigo());
-			profesor.setProCodigo(asinacionDataManager.getNivelParaleloCodigo());
+			nivelDTO.setNivCodigo(asinacionDataManager.getNivelCodigo());
+			paraleloDTO.setParCodigo(asinacionDataManager.getParaleloCodigo());
+						
+			nivelParalelo.setMatNivel(nivelDTO);
+			nivelParalelo.setMatParalelo(paraleloDTO);
+			
+			profesor.setProCodigo(asinacionDataManager.getProfesorCodigo());
 			materia.setMtrCodigo(asinacionDataManager.getMateriaCodigo());
 			periodo.setPerCodigo(asinacionDataManager.getPeriodoCodigo());
 							
@@ -88,14 +99,15 @@ private static final long serialVersionUID = 1L;
 			asinacion.setMatMateria(materia);
 			asinacion.setMatPeriodo(periodo);
 						
-			AsinacionDTO asinacionNueva=this.servicioMatricula.createOrUpdateAsinacion(asinacion);
+			//AsinacionDTO asinacionNueva=
+					this.servicioMatricula.createOrUpdateAsinacion(asinacion);
 						
-			if (asinacionNueva != null) {
+			//if (asinacionNueva != null) {
 				
-				asinacionDataManager.setAsinacionInsertar(new AsinacionDTO());
+				//asinacionDataManager.setAsinacionInsertar(new AsinacionDTO());
 				MensajesWebController.aniadirMensajeInformacion("erp.matricula.asinacion.registrar.exito");
 							
-			}
+			//}
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
@@ -105,21 +117,29 @@ private static final long serialVersionUID = 1L;
 	}
 	
 	
-	public void buscar() {
-		slf4jLogger.info("buscarAsinacion");
-		List<AsinacionListDTO> listResultado=new ArrayList<AsinacionListDTO>();
+	public void buscarAsignacion()
+	{
+		AsinacionListDTO asinacionListDTO;
+		List<AsinacionListDTO> asinacionListDTOs=null; 
+		
 		try {
-			listResultado = this.servicioMatricula.readAsinacion(asinacionDataManager.getAsinacionBuscar());
+			asinacionListDTO=new AsinacionListDTO();
+			asinacionListDTO.setNpaNivel(asinacionDataManager.getNivelCodigo());
+			asinacionListDTO.setNpaParalelo(asinacionDataManager.getParaleloCodigo());
+			asinacionListDTOs = this.servicioMatricula.readAsinacion(asinacionListDTO);
 			
-			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
+			
+			if (CollectionUtils.isEmpty(asinacionListDTOs) && asinacionListDTOs.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
-			this.asinacionDataManager.setAsinacionList(listResultado);
+				this.asinacionDataManager.setAsinacionList(asinacionListDTOs);
 				
 			}
 			
+		
+		
 		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscar el buscarAsinacion {} ", e);
+			slf4jLogger.info("Error al buscar asignacion {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 	}
@@ -141,26 +161,54 @@ private static final long serialVersionUID = 1L;
 	
 
 	
-	public void buscarNivelParalelo() {
+	public void buscarNivelParalelo () {
 		slf4jLogger.info("buscarNivelParalelo");
-		List<NivelParaleloDTO> listResultado=new ArrayList<NivelParaleloDTO>();
+		
+		List<NivelParaleloDTO> listaNivelParalelo=null;
+		NivelParaleloDTO nivelParaleloDTO;
+		NivelDTO nivelDTO;
 		try {
-			
-			listResultado = this.servicioMatricula.buscarNivelParalelo(new NivelParaleloDTO());
-						
-			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
+			nivelParaleloDTO=new NivelParaleloDTO();
+			nivelDTO=new NivelDTO();
+			nivelDTO.setNivCodigo(asinacionDataManager.getNivelCodigo());
+			nivelParaleloDTO.setMatNivel(nivelDTO);
+			listaNivelParalelo = this.servicioMatricula.buscarNivelParalelo(nivelParaleloDTO);
+							
+			if (CollectionUtils.isEmpty(listaNivelParalelo) && listaNivelParalelo.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
-				this.asinacionDataManager.setNivelParaleloList(listResultado);
+				this.asinacionDataManager.setNivelParaleloList(listaNivelParalelo);				
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarNivel {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
+	public void buscarNivel () {
+		slf4jLogger.info("buscarNivel");
+		
+		List<NivelDTO> listaNivel=null;
+		
+		try {
+							
+			listaNivel = this.servicioMatricula.buscarNivel(new NivelDTO());
+			
+			if (CollectionUtils.isEmpty(listaNivel) && listaNivel.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.asinacionDataManager.setNivelList(listaNivel);
 				
 			}
 			
 		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscar el NivelParalelo {} ", e);
+			slf4jLogger.info("Error al buscarNivel {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
+		
 	}
-	
 	
 	public void buscarDocente () {
 		slf4jLogger.info("buscarDocente");
