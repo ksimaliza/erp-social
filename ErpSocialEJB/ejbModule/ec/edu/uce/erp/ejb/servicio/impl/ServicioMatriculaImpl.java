@@ -51,16 +51,22 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	{
 		slf4jLogger.info("createOrUpdateAsinacion");
 		NivelParaleloDTO nivelParalelo;
+		NivelDTO nivelDTO;
+		ParaleloDTO paraleloDTO;
 		ProfesorDTO profesor;
 		MateriaDTO materia;
 		PeriodoDTO periodo;
 		
 		try {
+			nivelParalelo= new NivelParaleloDTO();
 			if(asinacionDTO.getAsiCodigo()!=null){
-				nivelParalelo= matriculaFactoryDAO.getNivelParaleloDAOImpl().find(asinacionDTO.getMatNivelParalelo().getNpaCodigo());
+				nivelDTO=matriculaFactoryDAO.getNivelDAOImpl().find(asinacionDTO.getMatNivelParalelo().getMatNivel());
+				paraleloDTO=matriculaFactoryDAO.getParaleloDAOImpl().find(asinacionDTO.getMatNivelParalelo().getMatParalelo());
 				profesor= matriculaFactoryDAO.getProfesorDAOImpl().find(asinacionDTO.getMatProfesor().getProCodigo());
 				materia=matriculaFactoryDAO.getMateriaDAOImpl().find(asinacionDTO.getMatMateria().getMtrCodigo());
 				periodo=matriculaFactoryDAO.getPeriodoDAOImpl().find(asinacionDTO.getMatPeriodo().getPerCodigo());
+				nivelParalelo.setMatNivel(nivelDTO);
+				nivelParalelo.setMatParalelo(paraleloDTO);		
 				asinacionDTO.setMatNivelParalelo(nivelParalelo);
 				asinacionDTO.setMatProfesor(profesor);
 				asinacionDTO.setMatMateria(materia);
@@ -70,10 +76,14 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 							}
 			else {
 				
+				nivelDTO=matriculaFactoryDAO.getNivelDAOImpl().find(asinacionDTO.getMatNivelParalelo().getMatNivel());
+				paraleloDTO=matriculaFactoryDAO.getParaleloDAOImpl().find(asinacionDTO.getMatNivelParalelo().getMatParalelo());
 				nivelParalelo= matriculaFactoryDAO.getNivelParaleloDAOImpl().find(asinacionDTO.getMatNivelParalelo().getNpaCodigo());
 				profesor= matriculaFactoryDAO.getProfesorDAOImpl().find(asinacionDTO.getMatProfesor().getProCodigo());
 				materia=matriculaFactoryDAO.getMateriaDAOImpl().find(asinacionDTO.getMatMateria().getMtrCodigo());
 				periodo=matriculaFactoryDAO.getPeriodoDAOImpl().find(asinacionDTO.getMatPeriodo().getPerCodigo());
+				nivelParalelo.setMatNivel(nivelDTO);
+				nivelParalelo.setMatParalelo(paraleloDTO);
 				asinacionDTO.setMatNivelParalelo(nivelParalelo);
 				asinacionDTO.setMatProfesor(profesor);
 				asinacionDTO.setMatMateria(materia);
@@ -91,8 +101,6 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	}
 	
 		
-	
-	
 	@Override
 	public List<AsinacionListDTO> readAsinacion(AsinacionListDTO asinacion) throws SeguridadesException {
 		slf4jLogger.info("readAsinacion");
