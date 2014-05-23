@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
@@ -55,6 +54,7 @@ private static final long serialVersionUID = 1L;
 		//buscar();
 		buscarParalelo();
 		buscarNivel();
+		buscarNivelParalelo();
 	}
 	
 public void registrarNivelParalelo () {
@@ -151,19 +151,38 @@ public void registrarNivelParalelo () {
 		
 	}
 	
-	public void cargarDatosNivelParalelo (NivelParaleloListDTO nivelParalelo) {
+	
+	public void buscarNivelParalelo () {
+		slf4jLogger.info("buscarNivelParalelo");
+		
+		List<NivelParaleloDTO> listaNivelParalelo=null;
+		NivelParaleloDTO nivelParaleloDTO;
+		NivelDTO nivelDTO;
 		try {
+			nivelParaleloDTO=new NivelParaleloDTO();
+			nivelDTO=new NivelDTO();
+			nivelDTO.setNivCodigo(nivelParaleloDataManager.getNivelCodigo());
+			nivelParaleloDTO.setMatNivel(nivelDTO);
+			listaNivelParalelo = this.servicioMatricula.buscarNivelParalelo(nivelParaleloDTO);
 			
-			NivelParaleloDTO nivelEncontrado=servicioMatricula.obtenerNivelParaleloPorId(nivelParalelo.getNpaNivel(), nivelParalelo.getNpaParalelo());
-			this.nivelParaleloDataManager.setNivelCodigo(nivelEncontrado.getMatNivel().getNivCodigo());
-			this.nivelParaleloDataManager.setParaleloCodigo(nivelEncontrado.getMatParalelo().getParCodigo());
+			//servicioMatricula.readAsinacion(asinacion)
 			
-							
+			if (CollectionUtils.isEmpty(listaNivelParalelo) && listaNivelParalelo.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.nivelParaleloDataManager.setNivelParaleloList(listaNivelParalelo);
+				
+			}
+			
 		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al cargar los datos del nivelparalelo seleccionado {}", e.getMessage());
-			MensajesWebController.aniadirMensajeError("Error al cargar los datos del nivelparalelo seleccionado");
+			slf4jLogger.info("Error al buscarNivelParalelo {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
+		
 	}
+	
+	
+	
 
 
 }

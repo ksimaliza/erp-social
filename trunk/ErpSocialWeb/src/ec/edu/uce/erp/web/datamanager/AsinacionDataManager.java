@@ -14,7 +14,9 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MateriaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
@@ -31,7 +33,8 @@ public class AsinacionDataManager extends BaseController {
 	private ProfesorDTO profesorInsertar;
 	private MateriaDTO materiaInsertar;	
 	private PeriodoDTO periodoInsertar;
-	private int nivelParaleloCodigo;
+	private int nivelCodigo;
+	private int paraleloCodigo;
 	private int profesorCodigo;
 	private int materiaCodigo;
 	private int periodoCodigo;
@@ -42,16 +45,27 @@ public class AsinacionDataManager extends BaseController {
 
 	private AsinacionListDTO asinacionBuscar;
 	
-	private List<NivelParaleloDTO> nivelParaleloList;
+	private List<NivelDTO> nivelList;
+	
+	private List<ParaleloDTO> paraleloList;
 	
 	private List<DocenteListDTO> profesorList;
 	
-private List<MateriaDTO> materiaList;
+	private List<MateriaDTO> materiaList;
 	
 	private List<PeriodoDTO> periodoList;
+	private List<NivelParaleloDTO> nivelParaleloList;
 	
 	
 	
+public List<NivelParaleloDTO> getNivelParaleloList() {
+		return nivelParaleloList;
+	}
+
+	public void setNivelParaleloList(List<NivelParaleloDTO> nivelParaleloList) {
+		this.nivelParaleloList = nivelParaleloList;
+	}
+
 public AsinacionDataManager() {
 	
 		
@@ -67,7 +81,6 @@ public void inicializarObjetos () {
 	materiaInsertar=new MateriaDTO();
 	periodoInsertar=new PeriodoDTO();
 		asinacionBuscar=new AsinacionListDTO();
-		nivelParaleloList= new ArrayList<NivelParaleloDTO>();
 		profesorList= new ArrayList<DocenteListDTO>();
 		materiaList= new ArrayList<MateriaDTO>();
 		periodoList= new ArrayList<PeriodoDTO>();
@@ -130,17 +143,6 @@ public void setAsinacionBuscar(AsinacionListDTO asinacionBuscar) {
 }
 
 
-
-public List<NivelParaleloDTO> getNivelParaleloList() {
-	return nivelParaleloList;
-}
-
-public void setNivelParaleloList(List<NivelParaleloDTO> nivelParaleloList) {
-	this.nivelParaleloList = nivelParaleloList;
-}
-
-
-
 public List<DocenteListDTO> getProfesorList() {
 	return profesorList;
 }
@@ -165,12 +167,20 @@ public void setPeriodoList(List<PeriodoDTO> periodoList) {
 	this.periodoList = periodoList;
 }
 
-public int getNivelParaleloCodigo() {
-	return nivelParaleloCodigo;
+public int getNivelCodigo() {
+	return nivelCodigo;
 }
 
-public void setNivelParaleloCodigo(int nivelParaleloCodigo) {
-	this.nivelParaleloCodigo = nivelParaleloCodigo;
+public void setNivelCodigo(int nivelCodigo) {
+	this.nivelCodigo = nivelCodigo;
+}
+
+public int getParaleloCodigo() {
+	return paraleloCodigo;
+}
+
+public void setParaleloCodigo(int paraleloCodigo) {
+	this.paraleloCodigo = paraleloCodigo;
 }
 
 public int getProfesorCodigo() {
@@ -195,6 +205,22 @@ public int getPeriodoCodigo() {
 
 public void setPeriodoCodigo(int periodoCodigo) {
 	this.periodoCodigo = periodoCodigo;
+}
+
+public List<NivelDTO> getNivelList() {
+	return nivelList;
+}
+
+public void setNivelList(List<NivelDTO> nivelList) {
+	this.nivelList = nivelList;
+}
+
+public List<ParaleloDTO> getParaleloList() {
+	return paraleloList;
+}
+
+public void setParaleloList(List<ParaleloDTO> paraleloList) {
+	this.paraleloList = paraleloList;
 }
 
 
