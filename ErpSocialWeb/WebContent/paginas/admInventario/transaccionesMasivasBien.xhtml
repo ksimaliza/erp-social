@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="title">
+		<h3><h:outputLabel	value="#{i18n['erp.bien.transacciones.masivas.pagina.titulo']}" /></h3>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="formBien">
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			<p:toolbar id="toolbar">
+				<p:toolbarGroup align="left">
+					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
+					<!-- <p:commandButton id="btnNuevoBien" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoBien.show()"/> -->
+					<!-- <p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
+						icon="exportExcel" disabled="#{empty vistaBienDataManager.listVistaBien}">
+						<p:dataExporter type="xls" target="tablaBienes" fileName="productos" postProcessor="#{transaccionBienController.postProcessXLS}"/>
+					</p:commandButton> -->
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panel id="pnlBuscarBien" header="#{i18n['erp.bien.buscar']}">
+				<table>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombreCustodio" value="#{i18n['label.custodio']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombreCustodio" 
+								value="#{vistaBienDataManager.idCIEmpleadoSeleccionado}" />
+							<p:commandLink value="buscar" oncomplete="dlgBuscarUsuario.show()"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="selectCategoria" value="#{i18n['erp.bien.categoria']}" />
+						</td>
+						<td>
+							<p:selectOneMenu id="selectCategoria"
+								style="width: 100%" label="#{i18n['erp.bien.categoria']}"
+								value="#{vistaBienDataManager.idCategoriaBienSeleccionado}">
+								<f:selectItem itemValue="-1" itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{vistaBienDataManager.dcCategoriaBien}"/>
+								<p:ajax event="change" process="@this" update="txtLinea" listener="#{vistaBienDataManager.cargarDcLineaBien}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtLinea" value="#{i18n['erp.bien.linea']}" />
+						</td>
+						<td>
+							<p:selectOneMenu id="txtLinea"
+								style="width: 100%" label="#{i18n['erp.bien.linea']}"
+								value="#{vistaBienDataManager.idLineaBienSeleccionado}">
+								<f:selectItem itemValue="-1" itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{vistaBienDataManager.dcLineaBien}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{transaccionMasivaBienController.buscarVistaBien}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscarBien"
+					update="pnlMessages,pickListBienes,pnlBuscarBien,toolbar" />
+			</p:panel>
+			<p:pickList id="pickListBienes" 
+				value="#{transaccionMasivaBienController.dualListVistaBien}"
+				var="vistaBien" converter="#{vistaBien}" itemValue="#{vistaBien}" itemLabel="#{vistaBien.bieNombre}"/>
+		</h:form>
+		
+		<!-- <ui:include src="dialogNuevoBien.xhtml" />
+		<ui:include src="dialogEditarBien.xhtml" /> -->
+		<!-- <ui:include src="dialogAsignarBien.xhtml" />
+		<ui:include src="dialogReasignarBien.xhtml" />
+		<ui:include src="dialogTrazabilidadBien.xhtml" /> -->
+		<ui:include src="dialogBuscarUsuario.xhtml" /> 
+		
+	</ui:define>
+</ui:composition>

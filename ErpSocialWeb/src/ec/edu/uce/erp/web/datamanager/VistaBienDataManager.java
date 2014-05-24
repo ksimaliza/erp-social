@@ -46,6 +46,7 @@ public class VistaBienDataManager extends BaseDataManager{
 	private VistaEmpleado vistaEmpleadoBuscar;
 	private VistaEmpleado vistaEmpleadoSeleccionado;
 	private List<VistaEmpleado> listVistaEmpleado;
+	private List<VistaBien> listVistaBienEditar;
 	
 	private Integer idCustudioAsignado;
 	private Integer idCustudioReasignado;
@@ -65,6 +66,7 @@ public class VistaBienDataManager extends BaseDataManager{
 		this.vistaBienBuscar = new VistaBien();
 		this.vistaBienEditar = new VistaBien();
 		this.listVistaBien = new ArrayList<VistaBien>();
+		this.listVistaBienEditar = new ArrayList<VistaBien>();
 		this.listVistaTransaccion = new ArrayList<VistaTransaccion>();
 		this.vistaEmpleadoBuscar = new VistaEmpleado();
 		this.dcLineaBien = new ArrayList<SelectItem>();
@@ -209,12 +211,11 @@ public class VistaBienDataManager extends BaseDataManager{
 	public void cargarDcLineaBien () {
 		
 		try {
+			this.dcLineaBien.clear();
 			
 			if (idCategoriaBienSeleccionado!=null && idCategoriaBienSeleccionado>0) {
 				
 				slf4jLogger.info("cargarDcLineaBien");
-				
-				this.dcLineaBien.clear();
 				
 				LineaBien lineaBien = new LineaBien();
 				lineaBien.setCatBienPk(idCategoriaBienSeleccionado);
@@ -347,6 +348,20 @@ public class VistaBienDataManager extends BaseDataManager{
 	 */
 	public String getIdCIEmpleadoSeleccionado() {
 		return idCIEmpleadoSeleccionado;
+	}
+
+	/**
+	 * @return the listVistaBienEditar
+	 */
+	public List<VistaBien> getListVistaBienEditar() {
+		return listVistaBienEditar;
+	}
+
+	/**
+	 * @param listVistaBienEditar the listVistaBienEditar to set
+	 */
+	public void setListVistaBienEditar(List<VistaBien> listVistaBienEditar) {
+		this.listVistaBienEditar = listVistaBienEditar;
 	}
 
 }
