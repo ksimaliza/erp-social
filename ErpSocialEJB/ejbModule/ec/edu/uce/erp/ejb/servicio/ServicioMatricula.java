@@ -154,7 +154,7 @@ public interface ServicioMatricula {
 	void createOrUpdateMatricula(MatriculaVO matricula)
 			throws SeguridadesException;
 
-	MatriculaDTO readMatricula(MatriculaDTO matricula)
+	List<MatriculaDTO> readMatricula(MatriculaDTO matricula)
 			throws SeguridadesException;
 
 		
