@@ -70,6 +70,7 @@ public class MatriculaController extends BaseController {
 			MatriculaVO matriculaVO;			
 			MatriculaDTO matriculaDTO;
 			EstudianteDTO estudianteDTO;
+			
 			try {
 				matriculaVO=new MatriculaVO();
 				matriculaDTO=new MatriculaDTO();
@@ -83,11 +84,18 @@ public class MatriculaController extends BaseController {
 				matriculaVO.setMatricula(matriculaDTO);
 				matriculaVO.setAsignacion(matriculaDataManager.getAsinacionList());
 				
-				servicioMatricula.createOrUpdateMatricula(matriculaVO);	
-				MensajesWebController.aniadirMensajeInformacion("erp.matricula.registrar.exito");
-			} catch (SeguridadesException e) {
-				slf4jLogger.info(e.toString());
-				MensajesWebController.aniadirMensajeError(e.getMessage());
+				if (servicioMatricula.readMatricula(matriculaDTO)!=null)
+				{
+					MensajesWebController.aniadirMensajeInformacion("El estudiante ya esta matriculado");
+				}
+				else
+				{
+					servicioMatricula.createOrUpdateMatricula(matriculaVO);	
+					MensajesWebController.aniadirMensajeInformacion("erp.matricula.registrar.exito");
+				}
+				} catch (SeguridadesException e) {
+					slf4jLogger.info(e.toString());
+					MensajesWebController.aniadirMensajeError(e.getMessage());
 			}
 			
 		}
