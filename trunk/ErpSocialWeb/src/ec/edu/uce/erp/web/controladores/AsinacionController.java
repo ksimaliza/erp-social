@@ -160,14 +160,8 @@ private static final long serialVersionUID = 1L;
 			nivelDTO=new NivelDTO();
 			nivelDTO.setNivCodigo(asinacionDataManager.getNivelCodigo());
 			nivelParaleloDTO.setMatNivel(nivelDTO);
-			listaNivelParalelo = this.servicioMatricula.buscarNivelParalelo(nivelParaleloDTO);
-							
-			if (CollectionUtils.isEmpty(listaNivelParalelo) && listaNivelParalelo.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.asinacionDataManager.setNivelParaleloList(listaNivelParalelo);				
-			}
-			
+			listaNivelParalelo = this.servicioMatricula.buscarNivelParalelo(nivelParaleloDTO);							
+			this.asinacionDataManager.setNivelParaleloList(listaNivelParalelo);				
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarNivel {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
