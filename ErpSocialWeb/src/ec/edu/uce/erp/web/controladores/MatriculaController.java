@@ -1,6 +1,7 @@
 package ec.edu.uce.erp.web.controladores;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -56,12 +57,9 @@ public class MatriculaController extends BaseController {
 		
 		@PostConstruct
 		private void init(){
-			
 			//buscar();
 			buscarEstudiantes();
 			buscarNivel();
-			
-			
 		}
 		
 		public void registrarMatricula () {
@@ -70,11 +68,13 @@ public class MatriculaController extends BaseController {
 			MatriculaVO matriculaVO;			
 			MatriculaDTO matriculaDTO;
 			EstudianteDTO estudianteDTO;
+			List<MatriculaDTO> matriculado; 
 			
 			try {
 				matriculaVO=new MatriculaVO();
 				matriculaDTO=new MatriculaDTO();
 				estudianteDTO=new EstudianteDTO();
+				matriculado= new ArrayList<MatriculaDTO>();
 				
 				estudianteDTO.setEstCodigo(matriculaDataManager.getEstudianteCodigo());
 				matriculaDTO.setMatEstudiante(estudianteDTO);
@@ -84,7 +84,9 @@ public class MatriculaController extends BaseController {
 				matriculaVO.setMatricula(matriculaDTO);
 				matriculaVO.setAsignacion(matriculaDataManager.getAsinacionList());
 				
-				if (servicioMatricula.readMatricula(matriculaDTO)!=null)
+				matriculado=servicioMatricula.readMatricula(matriculaDTO);
+				
+				if (matriculado.size()>0)
 				{
 					MensajesWebController.aniadirMensajeInformacion("El estudiante ya esta matriculado");
 				}
@@ -159,14 +161,9 @@ public class MatriculaController extends BaseController {
 				nivelParaleloDTO.setMatNivel(nivelDTO);
 				listaNivelParalelo = this.servicioMatricula.buscarNivelParalelo(nivelParaleloDTO);
 				
-				//servicioMatricula.readAsinacion(asinacion)
-				
-				if (CollectionUtils.isEmpty(listaNivelParalelo) && listaNivelParalelo.size()==0) {
-					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-				} else {
-					this.matriculaDataManager.setNivelParaleloList(listaNivelParalelo);
+				this.matriculaDataManager.setNivelParaleloList(listaNivelParalelo);
 					
-				}
+				
 				
 			} catch (SeguridadesException e) {
 				slf4jLogger.info("Error al buscarNivel {} ", e);
