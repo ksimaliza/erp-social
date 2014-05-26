@@ -50,50 +50,15 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	public AsinacionDTO createOrUpdateAsinacion(AsinacionDTO asinacionDTO) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateAsinacion");
-		NivelParaleloDTO nivelParalelo;
-		NivelDTO nivelDTO;
-		ParaleloDTO paraleloDTO;
-		ProfesorDTO profesor;
-		MateriaDTO materia;
-		PeriodoDTO periodo;
 		
 		try {
-			
+			//lleno el atribuno Nivel Paralelo para insertar asiganacion
+			asinacionDTO.setMatNivelParalelo(matriculaFactoryDAO.getNivelParaleloDAOImpl().getAll(asinacionDTO.getMatNivelParalelo()).get(0));
 			if(asinacionDTO.getAsiCodigo()!=null){
-				
-				nivelParalelo= new NivelParaleloDTO();
-				nivelDTO=matriculaFactoryDAO.getNivelDAOImpl().find(asinacionDTO.getMatNivelParalelo().getMatNivel().getNivCodigo());
-				paraleloDTO=matriculaFactoryDAO.getParaleloDAOImpl().find(asinacionDTO.getMatNivelParalelo().getMatParalelo().getParCodigo());
-				profesor= matriculaFactoryDAO.getProfesorDAOImpl().find(asinacionDTO.getMatProfesor().getProCodigo());
-				materia=matriculaFactoryDAO.getMateriaDAOImpl().find(asinacionDTO.getMatMateria().getMtrCodigo());
-				periodo=matriculaFactoryDAO.getPeriodoDAOImpl().find(asinacionDTO.getMatPeriodo().getPerCodigo());
-				nivelParalelo.setMatNivel(nivelDTO);
-				nivelParalelo.setMatParalelo(paraleloDTO);		
-				asinacionDTO.setMatNivelParalelo(nivelParalelo);
-				asinacionDTO.setMatProfesor(profesor);
-				asinacionDTO.setMatMateria(materia);
-				asinacionDTO.setMatPeriodo(periodo);
-				return matriculaFactoryDAO.getAsinacionDAOImpl().update(asinacionDTO);
-									
-							}
+				return matriculaFactoryDAO.getAsinacionDAOImpl().update(asinacionDTO);									
+			}
 			else {
-				
-				nivelParalelo= new NivelParaleloDTO();
-				nivelDTO=matriculaFactoryDAO.getNivelDAOImpl().find(asinacionDTO.getMatNivelParalelo().getMatNivel().getNivCodigo());
-				paraleloDTO=matriculaFactoryDAO.getParaleloDAOImpl().find(asinacionDTO.getMatNivelParalelo().getMatParalelo().getParCodigo());
-				
-				profesor= matriculaFactoryDAO.getProfesorDAOImpl().find(asinacionDTO.getMatProfesor().getProCodigo());
-				materia=matriculaFactoryDAO.getMateriaDAOImpl().find(asinacionDTO.getMatMateria().getMtrCodigo());
-				periodo=matriculaFactoryDAO.getPeriodoDAOImpl().find(asinacionDTO.getMatPeriodo().getPerCodigo());
-				nivelParalelo.setMatNivel(nivelDTO);
-				nivelParalelo.setMatParalelo(paraleloDTO);
-				asinacionDTO.setMatNivelParalelo(nivelParalelo);
-				asinacionDTO.setMatProfesor(profesor);
-				asinacionDTO.setMatMateria(materia);
-				asinacionDTO.setMatPeriodo(periodo);
-				return matriculaFactoryDAO.getAsinacionDAOImpl().create(asinacionDTO);
-				
-							
+				return matriculaFactoryDAO.getAsinacionDAOImpl().create(asinacionDTO);				
 			} 
 		}		
 		catch (Exception e) {
