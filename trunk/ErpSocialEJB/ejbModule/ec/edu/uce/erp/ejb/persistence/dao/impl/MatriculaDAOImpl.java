@@ -30,11 +30,11 @@ public class MatriculaDAOImpl extends AbstractFacadeImpl<MatriculaDTO> implement
 	}
 	
 	@Override
-	public MatriculaDTO getAll(MatriculaDTO matricula) throws SeguridadesException
+	public List<MatriculaDTO> getAll(MatriculaDTO matricula) throws SeguridadesException
 	{
 		slf4jLogger.info("getAll");
 		
-		MatriculaDTO resultado = null;
+		List<MatriculaDTO> resultado = null;
 		
 		List<Predicate> criteriaList = new ArrayList<Predicate>();
 		Predicate predicate = null;
@@ -54,7 +54,7 @@ public class MatriculaDAOImpl extends AbstractFacadeImpl<MatriculaDTO> implement
 				cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 			
 			TypedQuery<MatriculaDTO> typedQuery = entityManager.createQuery(cq);
-			resultado = typedQuery.getSingleResult();
+			resultado = typedQuery.getResultList();
 			
 			criteriaList = new ArrayList<Predicate>();
 		} catch (Exception e) {

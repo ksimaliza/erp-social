@@ -267,16 +267,16 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	}
 	
 	@Override
-	public MatriculaDTO readMatricula(MatriculaDTO matricula) throws SeguridadesException {
+	public List<MatriculaDTO> readMatricula(MatriculaDTO matricula) throws SeguridadesException {
 		slf4jLogger.info("readMatricula");
-		MatriculaDTO Resultado = null;
+		List<MatriculaDTO> resultado = null;
 		try {
-			Resultado = matriculaFactoryDAO.getMatriculaDAOImpl().getAll(matricula);
+			resultado = matriculaFactoryDAO.getMatriculaDAOImpl().getAll(matricula);
 		} catch (Exception e) {
 			slf4jLogger.info("Error al readAsinacion {}", e.getMessage());
 			throw new SeguridadesException("No se pudo obtener readMatricula de la base de datos");
 		}
-		return Resultado;
+		return resultado;
 	}
 	
 	
