@@ -99,15 +99,18 @@ private static final long serialVersionUID = 1L;
 			asinacion.setMatMateria(materia);
 			asinacion.setMatPeriodo(periodo);
 						
-			//AsinacionDTO asinacionNueva=
-					this.servicioMatricula.createOrUpdateAsinacion(asinacion);
-						
-			//if (asinacionNueva != null) {
+			AsinacionDTO asinacionNueva=this.servicioMatricula.createOrUpdateAsinacion(asinacion);
+			MensajesWebController.aniadirMensajeInformacion("erp.matricula.asinacion.registrar.exito");			
+			if (asinacionNueva != null) {
+				asinacionDataManager.setAsinacionInsertar(new AsinacionDTO());
+				asinacionDataManager.setNivelParaleloInsertar(new NivelParaleloDTO());
+				asinacionDataManager.setProfesorInsertar(new ProfesorDTO());
+				asinacionDataManager.setMateriaInsertar(new MateriaDTO());
+				asinacionDataManager.setPeriodoInsertar(new PeriodoDTO());
 				
-				//asinacionDataManager.setAsinacionInsertar(new AsinacionDTO());
 				MensajesWebController.aniadirMensajeInformacion("erp.matricula.asinacion.registrar.exito");
 							
-			//}
+			}
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
@@ -144,22 +147,7 @@ private static final long serialVersionUID = 1L;
 		}
 	}
 	
-	public void cargarDatosAsinacion (AsinacionDTO asinacion) {
-		try {
-			
-			AsinacionDTO asinacionEncontrada=servicioMatricula.obtenerAsinacionPorId(asinacion.getMatNivelParalelo().getNpaCodigo(), asinacion.getMatProfesor().getProCodigo(), asinacion.getMatMateria().getMtrCodigo(), asinacion.getMatPeriodo().getPerCodigo());
-			this.asinacionDataManager.setNivelParaleloInsertar(asinacionEncontrada.getMatNivelParalelo());
-			this.asinacionDataManager.setProfesorInsertar(asinacionEncontrada.getMatProfesor());
-			this.asinacionDataManager.setMateriaInsertar(asinacionEncontrada.getMatMateria());
-			this.asinacionDataManager.setPeriodoInsertar(asinacionEncontrada.getMatPeriodo());			
-							
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al cargarDatosAsinacion seleccionado {}", e.getMessage());
-			MensajesWebController.aniadirMensajeError("Error al cargarDatosAsinacion seleccionado");
-		}
-	}
 	
-
 	
 	public void buscarNivelParalelo () {
 		slf4jLogger.info("buscarNivelParalelo");
