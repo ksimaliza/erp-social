@@ -641,6 +641,56 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		return listParametro;		
 	}
 
+	
+	@Override
+	public List<TiempoDTO> readDay() throws SeguridadesException
+	{
+		List<TiempoDTO> listParametro = null;
+		TiempoDTO tiempo;
+		try {
+			listParametro =new ArrayList<TiempoDTO>();
+			tiempo=new TiempoDTO();
+			tiempo.setCodigo("1");
+			tiempo.setDescripcion("Lunes");
+			listParametro.add(tiempo);
+			
+			tiempo=new TiempoDTO();
+			tiempo.setCodigo("2");
+			tiempo.setDescripcion("Martes");
+			listParametro.add(tiempo);
+
+			tiempo=new TiempoDTO();
+			tiempo.setCodigo("3");
+			tiempo.setDescripcion("Miesrcoles");
+			listParametro.add(tiempo);
+
+			tiempo=new TiempoDTO();
+			tiempo.setCodigo("4");
+			tiempo.setDescripcion("Jueves");
+			listParametro.add(tiempo);
+
+			tiempo=new TiempoDTO();
+			tiempo.setCodigo("5");
+			tiempo.setDescripcion("Viernes");
+			listParametro.add(tiempo);
+
+			tiempo=new TiempoDTO();
+			tiempo.setCodigo("6");
+			tiempo.setDescripcion("Sábado");
+			listParametro.add(tiempo);
+
+			tiempo=new TiempoDTO();
+			tiempo.setCodigo("7");
+			tiempo.setDescripcion("Domingo");
+			listParametro.add(tiempo);
+
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarParametrosCriterios {}" , e.getMessage());
+			throw new SeguridadesException(e);
+		}
+		return listParametro;		
+	}
+
 }
 	
 
