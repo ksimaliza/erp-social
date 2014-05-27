@@ -84,6 +84,19 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 			throw new SeguridadesException(e);
 		}
 	}
+
+	@Override
+	public List<DiaDTO> readDiaAll() throws SeguridadesException
+	{
+		slf4jLogger.info("readDiaAll");
+		try {
+			return asistenciaFactoryDAO.getDiaDAOImpl().getByAnd(new DiaDTO());
+		} catch (Exception e) {
+			slf4jLogger.info("error al readDiaAll {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+	}
+
 	
 	/*Empleado*/
 	@Override
