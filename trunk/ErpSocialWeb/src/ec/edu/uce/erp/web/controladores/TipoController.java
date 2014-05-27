@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.TipoDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAsistencia;
+import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.datamanager.TipoDataManager;
 
@@ -21,8 +22,13 @@ import ec.edu.uce.erp.web.datamanager.TipoDataManager;
 @ViewScoped
 @ManagedBean (name = "tipoController")
 
-public class TipoController {
+public class TipoController extends BaseController {
 	
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 private static final Logger slf4jLogger = LoggerFactory.getLogger(TipoController.class);
 	
 	@EJB
