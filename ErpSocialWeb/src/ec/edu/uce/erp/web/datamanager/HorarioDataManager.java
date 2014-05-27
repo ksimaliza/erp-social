@@ -7,6 +7,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.TipoDTO;
 import ec.edu.uce.erp.ejb.persistence.util.dto.TiempoDTO;
 
@@ -37,8 +38,8 @@ public class HorarioDataManager implements Serializable{
 	private List<TipoDTO> tipoList;
 	private String tipoCode;
 	
-	private List<TiempoDTO> diaList;
-	private String diaCoda;
+	private List<DiaDTO> diaList;
+	private int diaCode;
 	
 	
 	public HorarioDataManager() {
@@ -49,6 +50,8 @@ public class HorarioDataManager implements Serializable{
 		minutoHasta=new ArrayList<TiempoDTO>();
 		
 		tipoList=new ArrayList<TipoDTO>();
+		
+		diaList=new ArrayList<DiaDTO>();
 	}
 
 
@@ -152,24 +155,26 @@ public class HorarioDataManager implements Serializable{
 	}
 
 
-	public List<TiempoDTO> getDiaList() {
+	public List<DiaDTO> getDiaList() {
 		return diaList;
 	}
 
 
-	public void setDiaList(List<TiempoDTO> diaList) {
+	public void setDiaList(List<DiaDTO> diaList) {
 		this.diaList = diaList;
 	}
 
 
-	public String getDiaCoda() {
-		return diaCoda;
+	public int getDiaCode() {
+		return diaCode;
 	}
 
 
-	public void setDiaCoda(String diaCoda) {
-		this.diaCoda = diaCoda;
+	public void setDiaCode(int diaCode) {
+		this.diaCode = diaCode;
 	}
+
+
 
 
 		

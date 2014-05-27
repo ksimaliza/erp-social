@@ -60,7 +60,9 @@ public class HorarioController extends BaseController{
 			horarioDataManager.setMinutoDesde(servicioAsistencia.readMinute());
 			horarioDataManager.setMinutoHasta(servicioAsistencia.readMinute());
 			
-			horarioDataManager.setDiaList(servicioAsistencia.readDay());
+			horarioDataManager.setDiaList(servicioAsistencia.readDiaAll());
+			
+			
 		} catch (SeguridadesException e) {
 			e.printStackTrace();
 		}
