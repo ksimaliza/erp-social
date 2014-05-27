@@ -114,6 +114,8 @@ public interface ServicioAsistencia{
 	List<TiempoDTO> readDay() throws SeguridadesException;
 
 	List<DiaDTO> readDiaAll() throws SeguridadesException;
+
+	List<TipoDTO> readAllTipo() throws SeguridadesException;
 	
 
 }

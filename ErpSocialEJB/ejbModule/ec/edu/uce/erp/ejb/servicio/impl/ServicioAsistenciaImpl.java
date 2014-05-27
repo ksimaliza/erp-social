@@ -442,7 +442,20 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		}
 		return listTipo;
 	}
-	
+
+	@Override
+	public List<TipoDTO> readAllTipo() throws SeguridadesException {
+		slf4jLogger.info("buscarTipo");
+		List<TipoDTO> listTipo = null;
+		try {
+			listTipo = asistenciaFactoryDAO.getTipoDAOImpl().obtenerTipo(new TipoDTO());
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarTipo {}" , e.getMessage());
+			throw new SeguridadesException(e);
+		}
+		return listTipo;
+	}
+
 	
 	@Override
 	public void deleteTipo(TipoDTO tipoDTO) throws SeguridadesException
