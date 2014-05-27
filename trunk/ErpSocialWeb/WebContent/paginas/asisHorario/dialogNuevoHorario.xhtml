@@ -15,15 +15,17 @@
 
 					<tr>
 						<td><h:outputText value="Tipo: " /></td>
-						<td><p:selectOneMenu>
-							</p:selectOneMenu></td>
+						<td><p:selectOneMenu value="#{horarioDataManager.tipoCode}">
+							<f:selectItem itemLabel="----"/>
+							<f:selectItems value="#{horarioController.horarioDataManager.tipoList}" var="tip" itemLabel="#{tip.tipDescripcion}" itemValue="#{tip.tipCodigo}"/>						
+							</p:selectOneMenu></td>					
 					</tr>
 
 					<tr>
 						<td><h:outputText value="Dia: " /></td>
-						<td><p:selectOneMenu value="#{horarioDataManager.diaCoda}">
+						<td><p:selectOneMenu value="#{horarioDataManager.diaCode}">
 							<f:selectItem itemLabel="----"/>
-							<f:selectItems value="#{horarioController.horarioDataManager.diaList}" var="dia" itemLabel="#{dia.descripcion}" itemValue="#{dia.codigo}"/>						
+							<f:selectItems value="#{horarioDataManager.diaList}" var="dia" itemLabel="#{dia.diaDescripcion}" itemValue="#{dia.diaCodigo}"/>						
 							</p:selectOneMenu></td>					
 					</tr>
 
