@@ -112,6 +112,18 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ExumacionDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NivelNichoDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PrimeraComunionDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.TipoNichoDTO</class>
 		<properties>
 			<property name="hibernate.connection.username" value="postgres" />
 			<property name="hibernate.connection.password" value="root" />
