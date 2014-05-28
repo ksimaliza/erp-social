@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpNuevaSepultura" header="#{i18n['erp.despacho.sepultura.registrar']}" resizable="false" draggable="false"
+		widgetVar="dlgNuevaSepultura" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<h:form id="formNuevaSepultura" styleClass="formulario">
+			<p:panel id="pnlNuevaSepultura">
+				<table class="formulario">
+					
+					<tr >
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.sepultura.difunto']}"  /> </td>
+					<td>
+					<p:selectOneMenu id="difunto"  filter="true" required="true">
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								
+					</p:selectOneMenu>
+					</td>
+					</tr>
+					
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.sepultura.beneficiario']}" /> </td>
+						<td>
+							<p:selectOneMenu id="beneficiario"  filter="true" required="true">
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								
+							</p:selectOneMenu>
+						</td>
+					
+					</tr>
+					
+						<tr >
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.sepultura.tipo_contrato']}"  /> </td>
+					<td>
+					<p:selectOneMenu id="tipoContrato"  filter="true" required="true">
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								
+					</p:selectOneMenu>
+					</td>
+					</tr>
+					
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.sepultura.tipo_nicho']}" /> </td>
+						<td>
+							<p:selectOneMenu id="tipoNicho"  filter="true" required="true">
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								
+							</p:selectOneMenu>
+						</td>
+					
+					</tr>
+					
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.sepultura.numero_nicho']}" /> </td>
+						<td>
+							<p:selectOneMenu id="numeroNicho"  filter="true" required="true">
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								
+							</p:selectOneMenu>
+						</td>
+					
+					</tr>
+					
+					
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.sepultura.nivel_nicho']}" /> </td>
+						<td>
+							<p:selectOneMenu id="nivelNicho"  filter="true" required="true">
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								
+							</p:selectOneMenu>
+						</td>
+					
+					</tr>
+					
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.sepultura.estado_nicho']}" /> </td>
+						<td>
+							<p:selectOneMenu id="estadoNicho"  filter="true" required="true">
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								
+							</p:selectOneMenu>
+						</td>
+					
+					</tr>
+					
+					<tr>
+						
+						<td width="30%">
+							<h:outputLabel for="txtObservacion" value="#{i18n['erp.despacho.sepultura.observacion']}" />
+						</td>
+						<td width="70%">
+							<p:inputTextarea id="txtObservacion" style="width: 100%"
+							required="true" label="#{i18n['erp.despacho.sepultura.observacion']}" 
+								 />
+						</td>
+					</tr>
+					
+					
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaSepultura.hide()"
+					process="@this,pnlNuevaSepultura" update="pnlNuevaSepultura,:formSepultura:pnlMessages,:formSepultura:tablaSepultura"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaSepultura.hide()" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>
