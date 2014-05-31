@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpEditarSacerdote" header="#{i18n['erp.despacho.sacerdote.registrar']}" resizable="false" draggable="false"
+		widgetVar="dlgEditarSacerdote" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<h:form id="formEditarSacerdote" styleClass="formulario">
+			<p:panel id="pnlEditarSacerdote">
+				<table class="formulario">
+									
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFoto" value="#{i18n['erp.despacho.sacerdote.foto']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtFoto" value="#{sacerdoteDataManager.sacerdotePersonaInsertar.perFoto}" style="width: 100%"
+							required="true" label="#{i18n['erp.despacho.sacerdote.foto']}">			
+							</p:inputText>
+						</td>
+					</tr>
+					
+					<tr>	
+						<td width="30%">
+							<h:outputLabel for="txtCi" value="#{i18n['erp.despacho.sacerdote.cedula']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCi" value="#{sacerdoteDataManager.sacerdotePersonaInsertar.perCi}" style="width: 100%"
+								required="true" label="#{i18n['erp.despacho.sacerdote.cedula']}">
+								<f:validateLength maximum="10" minimum="10"/>
+								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+							</p:inputText>			
+						</td>
+					</tr>
+						
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombres" value="#{i18n['erp.despacho.sacerdote.nombres']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombres" value="#{sacerdoteDataManager.sacerdotePersonaInsertar.perNombres}"
+								style="width: 100%" required="true" label="#{i18n['erp.despacho.sacerdote.nombres']}" />
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApe" value="#{i18n['erp.despacho.sacerdote.apellidos']}"  />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApe" style="width: 100%" 
+								value="#{sacerdoteDataManager.sacerdotePersonaInsertar.perApellidos}" label="#{i18n['erp.despacho.sacerdote.apellidos']}"/>
+							
+						</td>
+						
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFecNac" value="#{i18n['erp.despacho.sacerdote.fechanac']}" />
+						</td>
+						<td width="70%">
+							<p:calendar id="txtFecNac" style="width: 100%" navigator="true" value="#{sacerdoteDataManager.sacerdotePersonaInsertar.perFechaNac}"  showOn="button" required="true"/>
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtDir" value="#{i18n['erp.despacho.sacerdote.direccion']}" />
+						</td>
+						<td width="70%">
+							<p:inputTextarea id="txtDir" style="width: 100%" autoResize="false" 
+								value="#{sacerdoteDataManager.sacerdotePersonaInsertar.perDireccion}" label="#{i18n['erp.despacho.sacerdote.direccion']}" required="true" />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtTelefono" value="#{i18n['erp.despacho.sacerdote.telefono']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtTelefono" style="width: 100%"
+								value="#{sacerdoteDataManager.sacerdotePersonaInsertar.perTelefono}" label="#{i18n['erp.despacho.sacerdote.telefono']}" onkeypress="return isNumberKey(event)" />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCelular" value="#{i18n['erp.despacho.sacerdote.celular']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCelular" style="width: 100%"
+								value="#{sacerdoteDataManager.sacerdotePersonaInsertar.perCelular}" label="#{i18n['erp.despacho.sacerdote.celular']}" onkeypress="return isNumberKey(event)" />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtEmail" value="#{i18n['erp.despacho.sacerdote.email']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtEmail" style="width: 100%"
+								 value="#{sacerdoteDataManager.sacerdotePersonaInsertar.perEmail}" label="#{i18n['erp.despacho.sacerdote.email']}">
+								<f:validator validatorId="ec.edu.uce.erp.web.validador.EmailValidator" />
+							</p:inputText>
+						</td>	
+					</tr>
+					
+										
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{sacerdoteController.registrarSacerdote}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarSacerdote.hide()"
+					process="@this,pnlEditarSacerdote" update="pnlEditarSacerdote,:formSacerdote:pnlMessages,:formSacerdote:tablaSacerdote"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarSacerdote.hide()" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+</ui:composition>

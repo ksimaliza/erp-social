@@ -13,6 +13,23 @@
 												
 						<tr>
 						<td width="30%">
+							<h:outputLabel for="txtNumeroContrato" value="#{i18n['erp.despacho.contrato.cedula']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNumeroContrato" style="width: 70%" 
+								 required="true" >
+							<f:validateLength maximum="10" minimum="10"/>
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+						</p:inputText>
+						</td>	
+					</tr>
+					<p:commandButton id="btnBuscar" value="Buscar" icon="ui-icon-disk" >
+						
+						</p:commandButton>
+						
+						
+						<tr>
+						<td width="30%">
 							<h:outputLabel for="txtCi" value="#{i18n['erp.despacho.contrato.cedula']}" />
 						</td>
 						<td width="70%">
@@ -165,40 +182,40 @@
 					</tr>
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtValorTotal" value="#{i18n['erp.despacho.contrato.valor.total']}" />
+							<h:outputLabel for="txtValorTotal" value="#{i18n['erp.despacho.contrato.pago.valor.total']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtValorTotal" label="#{i18n['erp.despacho.contrato.valor.total']}" style="width: 70%"/>
+							<p:inputText id="txtValorTotal" label="#{i18n['erp.despacho.contrato.pago.valor.total']}" style="width: 70%"/>
 						</td>
 					</tr>
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtValMan" value="#{i18n['erp.despacho.contrato.valor.mantenimiento']}" />
+							<h:outputLabel for="txtValMan" value="#{i18n['erp.despacho.contrato.pago.valor.mantenimiento']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtValMan" label="#{i18n['erp.despacho.contrato.valor.mantenimiento']}" style="width: 70%"/>
+							<p:inputText id="txtValMan" label="#{i18n['erp.despacho.contrato.pago.valor.mantenimiento']}" style="width: 70%"/>
 						</td>
 					</tr>
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtMensualidades" value="#{i18n['erp.despacho.contrato.numero.mensualidades']}" />
+							<h:outputLabel for="txtMensualidades" value="#{i18n['erp.despacho.contrato.pago.mensualidades']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtMensualidades" label="#{i18n['erp.despacho.contrato.numero.mensualidades']}" style="width: 70%"/>
+							<p:inputText id="txtMensualidades" label="#{i18n['erp.despacho.contrato.pago.mensualidades']}" style="width: 70%"/>
 						</td>
 					</tr>
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtMonto" value="#{i18n['erp.despacho.contrato.monto']}" />
+							<h:outputLabel for="txtMonto" value="#{i18n['erp.despacho.contrato.pago.monto']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtMonto" label="#{i18n['erp.despacho.contrato.monto']}" style="width: 70%"/>
+							<p:inputText id="txtMonto" label="#{i18n['erp.despacho.contrato.pago.monto']}" style="width: 70%"/>
 						</td>
 					</tr>
 					
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtFechaPago" value="#{i18n['erp.despacho.contrato.fecha.pago']}" />
+							<h:outputLabel for="txtFechaPago" value="#{i18n['erp.despacho.contrato.pago.fecha.pago']}" />
 						</td>
 						<td width="70%">
 							<p:calendar id="txtFechaPago" style="width: 70%" navigator="true"   showOn="button" required="true"/>
