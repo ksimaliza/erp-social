@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpNuevoDoctor" header="#{i18n['erp.despacho.doctor.registrar']}" resizable="false" draggable="false"
+		widgetVar="dlgNuevoDoctor" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<h:form id="formNuevoDoctor" styleClass="formulario">
+			<p:panel id="pnlNuevoDoctor">
+				<table class="formulario">
+									
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFoto" value="#{i18n['erp.despacho.doctor.foto']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtFoto" value="#{doctorDataManager.doctorPersonaInsertar.perFoto}" style="width: 100%"
+							required="true" label="#{i18n['erp.despacho.doctor.foto']}">			
+							</p:inputText>
+						</td>
+					</tr>
+					
+					<tr>	
+						<td width="30%">
+							<h:outputLabel for="txtCi" value="#{i18n['erp.despacho.doctor.cedula']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCi" value="#{doctorDataManager.doctorPersonaInsertar.perCi}" style="width: 100%"
+								required="true" label="#{i18n['erp.despacho.doctor.cedula']}">
+								<f:validateLength maximum="10" minimum="10"/>
+								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+							</p:inputText>			
+						</td>
+					</tr>
+						
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombres" value="#{i18n['erp.despacho.doctor.nombres']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombres" value="#{doctorDataManager.doctorPersonaInsertar.perNombres}"
+								style="width: 100%" required="true" label="#{i18n['erp.despacho.doctor.nombres']}" />
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApe" value="#{i18n['erp.despacho.doctor.apellidos']}"  />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApe" style="width: 100%" 
+								value="#{doctorDataManager.doctorPersonaInsertar.perApellidos}" label="#{i18n['erp.despacho.doctor.apellidos']}"/>
+							
+						</td>
+						
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFecNac" value="#{i18n['erp.despacho.doctor.fechanac']}" />
+						</td>
+						<td width="70%">
+							<p:calendar id="txtFecNac" style="width: 100%" navigator="true" value="#{doctorDataManager.doctorPersonaInsertar.perFechaNac}"  showOn="button" required="true"/>
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtDir" value="#{i18n['erp.despacho.doctor.direccion']}" />
+						</td>
+						<td width="70%">
+							<p:inputTextarea id="txtDir" style="width: 100%" autoResize="false" 
+								value="#{doctorDataManager.doctorPersonaInsertar.perDireccion}" label="#{i18n['erp.despacho.doctor.direccion']}" required="true" />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtTelefono" value="#{i18n['erp.despacho.doctor.telefono']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtTelefono" style="width: 100%"
+								value="#{doctorDataManager.doctorPersonaInsertar.perTelefono}" label="#{i18n['erp.despacho.doctor.telefono']}" onkeypress="return isNumberKey(event)" />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCelular" value="#{i18n['erp.despacho.doctor.celular']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCelular" style="width: 100%"
+								value="#{doctorDataManager.doctorPersonaInsertar.perCelular}" label="#{i18n['erp.despacho.doctor.celular']}" onkeypress="return isNumberKey(event)" />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtEmail" value="#{i18n['erp.despacho.doctor.email']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtEmail" style="width: 100%"
+								 value="#{doctorDataManager.doctorPersonaInsertar.perEmail}" label="#{i18n['erp.despacho.doctor.email']}">
+								<f:validator validatorId="ec.edu.uce.erp.web.validador.EmailValidator" />
+							</p:inputText>
+						</td>	
+					</tr>
+					
+										
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{doctorController.registrarDoctor}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoDoctor.hide()"
+					process="@this,pnlNuevoDoctor" update="pnlNuevoDoctor,:formDoctor:pnlMessages,:formDoctor:tablaDoctor"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoDoctor.hide()" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+</ui:composition>

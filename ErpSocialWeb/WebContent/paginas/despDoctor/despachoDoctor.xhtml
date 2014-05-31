@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	
+<ui:define name="title">
+		<h3><h:outputLabel	value="#{i18n['erp.despacho.doctor.pagina.titulo']}" /></h3>
+	</ui:define>	
+
+	
+<ui:define name="content">
+		<h:form id="formDoctor">
+		
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
+					</p:commandButton>
+					<p:commandButton id="btnNuevoDoctor" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevoDoctor.show()">
+						</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panel id="pnlBuscarDoctor" header="#{i18n['erp.despacho.doctor.buscar']}">
+				<table class="formulario">
+					<tr >
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.doctor.nombres']}" /> </td>
+						<td width="70%">
+							<p:inputText id="txtNombreBuscar"
+								value="#{doctorDataManager.doctorBuscar.perNombres}" />
+						</td>
+					
+					</tr>
+					
+					<tr >
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.doctor.apellidos']}" /> </td>
+						<td width="70%">
+							<p:inputText id="txtApellidosBuscar"
+								value="#{doctorDataManager.doctorBuscar.perApellidos}" />
+						</td>
+					
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{doctorController.buscarDoctor}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscarDoctor"
+					update=":formDoctor:pnlMessages,tablaDoctor,pnlBuscarDoctor" />
+			</p:panel>
+
+			<p:dataTable id="tablaDoctor"
+				value="#{doctorDataManager.doctorListDTOs}" var="doctor"
+				rowIndexVar="rowIndex"
+				paginator="true" rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.despacho.doctor.lista']}">
+				<f:facet name="header">
+					#{i18n['erp.despacho.doctor.lista']}
+				</f:facet>
+				<p:column headerText="#" styleClass="centered" width="5%">
+					#{rowIndex+1}
+				</p:column>
+				<p:column headerText="#{i18n['erp.despacho.doctor.nombres']}" width="35%">
+						<h:outputText value="#{doctor.perNombres}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.despacho.doctor.apellidos']}" width="40%">
+					<h:outputText value="#{doctor.perApellidos}" />
+				</p:column>
+						
+				<p:column headerText="#{i18n['erp.despacho.doctor.cedula']}" width="40%">
+					<h:outputText value="#{doctor.perCi}" />
+				</p:column>
+						
+				<p:column headerText="#{i18n['erp.despacho.doctor.direccion']}" width="40%">
+					<h:outputText value="#{doctor.perDireccion}" />
+				</p:column>
+						
+				<p:column headerText="#{i18n['erp.despacho.doctor.fechanac']}" width="40%">
+					<h:outputText value="#{doctor.perFechaNac}" />
+				</p:column>
+								
+				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+								title="#{i18n['label.editar']}"
+								oncomplete="dlgEditarDoctor.show()"
+								actionListener="#{doctorController.cargarDatosDoctor(doctor)}"
+								process="@this" update=":formEditarDoctor:pnlEditarDoctor">
+								<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+						</p:commandLink>
+					</h:panelGroup>
+				</p:column>
+			</p:dataTable>			
+			
+		</h:form>			
+			<ui:include src="dialogNuevoDoctor.xhtml" />
+			<ui:include src="dialogEditarDoctor.xhtml" />		
+				
+	</ui:define>		
+			
+</ui:composition>

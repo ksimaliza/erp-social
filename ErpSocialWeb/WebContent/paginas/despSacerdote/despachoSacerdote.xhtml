@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	
+<ui:define name="title">
+		<h3><h:outputLabel	value="#{i18n['erp.despacho.sacerdote.pagina.titulo']}" /></h3>
+	</ui:define>	
+
+	
+<ui:define name="content">
+		<h:form id="formSacerdote">
+		
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
+					</p:commandButton>
+					<p:commandButton id="btnNuevoSacerdote" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevoSacerdote.show()">
+						</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panel id="pnlBuscarSacerdote" header="#{i18n['erp.despacho.sacerdote.buscar']}">
+				<table class="formulario">
+					<tr >
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.sacerdote.nombres']}" /> </td>
+						<td width="70%">
+							<p:inputText id="txtNombreBuscar"
+								value="#{sacerdoteDataManager.sacerdoteBuscar.perNombres}" />
+						</td>
+					
+					</tr>
+					
+					<tr >
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.sacerdote.apellidos']}" /> </td>
+						<td width="70%">
+							<p:inputText id="txtApellidosBuscar"
+								value="#{sacerdoteDataManager.sacerdoteBuscar.perApellidos}" />
+						</td>
+					
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{sacerdoteController.buscarSacerdote}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscarSacerdote"
+					update=":formSacerdote:pnlMessages,tablaSacerdote,pnlBuscarSacerdote" />
+			</p:panel>
+
+			<p:dataTable id="tablaSacerdote"
+				value="#{sacerdoteDataManager.sacerdoteListDTOs}" var="sacerdote"
+				rowIndexVar="rowIndex"
+				paginator="true" rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.despacho.sacerdote.lista']}">
+				<f:facet name="header">
+					#{i18n['erp.despacho.sacerdote.lista']}
+				</f:facet>
+				<p:column headerText="#" styleClass="centered" width="5%">
+					#{rowIndex+1}
+				</p:column>
+				<p:column headerText="#{i18n['erp.despacho.sacerdote.nombres']}" width="35%">
+						<h:outputText value="#{sacerdote.perNombres}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.despacho.sacerdote.apellidos']}" width="40%">
+					<h:outputText value="#{sacerdote.perApellidos}" />
+				</p:column>
+						
+				<p:column headerText="#{i18n['erp.despacho.sacerdote.cedula']}" width="40%">
+					<h:outputText value="#{sacerdote.perCi}" />
+				</p:column>
+						
+				<p:column headerText="#{i18n['erp.despacho.sacerdote.direccion']}" width="40%">
+					<h:outputText value="#{sacerdote.perDireccion}" />
+				</p:column>
+						
+				<p:column headerText="#{i18n['erp.despacho.sacerdote.fechanac']}" width="40%">
+					<h:outputText value="#{sacerdote.perFechaNac}" />
+				</p:column>
+								
+				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+								title="#{i18n['label.editar']}"
+								oncomplete="dlgEditarSacerdote.show()"
+								actionListener="#{sacerdoteController.cargarDatosSacerdote(sacerdote)}"
+								process="@this" update=":formEditarSacerdote:pnlEditarSacerdote">
+								<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+						</p:commandLink>
+					</h:panelGroup>
+				</p:column>
+			</p:dataTable>			
+			
+		</h:form>			
+			<ui:include src="dialogNuevoSacerdote.xhtml" />
+			<ui:include src="dialogEditarSacerdote.xhtml" />		
+				
+	</ui:define>		
+			
+</ui:composition>
