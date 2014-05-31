@@ -117,6 +117,9 @@ INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
 INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
     VALUES ('Matricula Asinacion', 'Matricula Asinacion', '/paginas/matAsinacion/matriculaAsinacion.xhtml', '2014-06-06');
     
+       --Menu(45)    
+INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
+    VALUES ('Matricula Registro', 'Matricula Registro', '/paginas/matMatricula/matriculaRegistro.xhtml', '2014-06-06');
     
 ---Asistencia    
  	--Menu(18)    
@@ -197,6 +200,14 @@ INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
 --Menu(37)    
 INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
     VALUES ('Despacho Pago Contrato', 'Despacho Pago Contrato', '/paginas/despPagoContrato/despachoPagoContrato.xhtml', '2014-06-06');
+
+--Menu(46)
+    INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
+    VALUES ('Despacho Sacerdote', 'Despacho Sacerdote', '/paginas/despSacerdote/despachoSacerdote.xhtml', '2014-06-06');
+    
+--Menu(47)
+    INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
+    VALUES ('Despacho Doctor', 'Despacho Doctor', '/paginas/despDoctor/despachoDoctor.xhtml', '2014-06-06');    
     
 --Menu(38)    
 INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
@@ -322,7 +333,19 @@ INSERT INTO segt_modulo_menu (id_modulo,id_menu)
 VALUES (7,43);     
     
 INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (7,44);     
+VALUES (7,44);   
+
+INSERT INTO segt_modulo_menu (id_modulo,id_menu)
+VALUES (5,45);   
+
+INSERT INTO segt_modulo_menu (id_modulo,id_menu)
+VALUES (6,46);   
+
+INSERT INTO segt_modulo_menu (id_modulo,id_menu)
+VALUES (6,47);   
+
+
+
     
 
 

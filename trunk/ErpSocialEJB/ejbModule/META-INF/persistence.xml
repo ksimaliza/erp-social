@@ -124,6 +124,11 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PrimeraComunionDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.TipoNichoDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CostoDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorListDTO</class>
 		<properties>
 			<property name="hibernate.connection.username" value="postgres" />
 			<property name="hibernate.connection.password" value="root" />

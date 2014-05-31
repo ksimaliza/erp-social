@@ -24,7 +24,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
 
 public class EstudianteDAOImpl extends AbstractFacadeImpl<EstudianteDTO> implements EstudianteDAO {
 
-	private static final Logger slf4jLogger = LoggerFactory.getLogger(EmpresaDAOImpl.class);
+	private static final Logger slf4jLogger = LoggerFactory.getLogger(EstudianteDAOImpl.class);
 	
 	public EstudianteDAOImpl() {
 		super();
