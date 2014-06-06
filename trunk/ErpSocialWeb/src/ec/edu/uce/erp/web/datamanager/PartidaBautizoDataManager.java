@@ -13,7 +13,9 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 @SessionScoped
@@ -32,7 +34,10 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 	private Date fechaApCInsertar;
 	private int provinciaCodigo;
 	private BautizoDTO bautizoDTO;
-
+	private int sacerdoteCodigo;
+	private int doctorCodigo;
+	private List<SacerdoteListDTO> sacerdoteListDTO;
+	private List<DoctorListDTO> doctorListDTO;
 	
 	@PostConstruct
 	public void inicializarObjetos () {
@@ -120,6 +125,40 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 	public void setBautizoDTO(BautizoDTO bautizoDTO) {
 		this.bautizoDTO = bautizoDTO;
 	}
+
+	public int getSacerdoteCodigo() {
+		return sacerdoteCodigo;
+	}
+
+	public void setSacerdoteCodigo(int sacerdoteCodigo) {
+		this.sacerdoteCodigo = sacerdoteCodigo;
+	}
+
+	public int getDoctorCodigo() {
+		return doctorCodigo;
+	}
+
+	public void setDoctorCodigo(int doctorCodigo) {
+		this.doctorCodigo = doctorCodigo;
+	}
+
+	public List<SacerdoteListDTO> getSacerdoteListDTO() {
+		return sacerdoteListDTO;
+	}
+
+	public void setSacerdoteListDTO(List<SacerdoteListDTO> sacerdoteListDTO) {
+		this.sacerdoteListDTO = sacerdoteListDTO;
+	}
+
+	public List<DoctorListDTO> getDoctorListDTO() {
+		return doctorListDTO;
+	}
+
+	public void setDoctorListDTO(List<DoctorListDTO> doctorListDTO) {
+		this.doctorListDTO = doctorListDTO;
+	}
+
+
 
 
 	
