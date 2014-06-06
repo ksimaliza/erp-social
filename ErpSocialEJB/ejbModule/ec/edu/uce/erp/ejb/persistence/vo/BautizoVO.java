@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 
 public class BautizoVO implements Serializable{
@@ -13,8 +14,11 @@ public class BautizoVO implements Serializable{
 	private Persona bautizado;
 	private Persona padrino;
 	private Persona madrina;
+	private Persona sacerdotePersona;
+	private Persona doctorVOPersona;
 	private BautizoDTO bautizo;
 	private SacerdoteDTO sacerdote;
+	private DoctorDTO doctorVO;
 
 	public BautizoVO() {
 	
@@ -23,6 +27,9 @@ public class BautizoVO implements Serializable{
 		madrina=new Persona();
 		bautizo=new BautizoDTO();
 		sacerdote= new SacerdoteDTO();
+		doctorVO=new DoctorDTO();
+		sacerdotePersona=new Persona();
+		doctorVOPersona=new Persona();
 		
 	}
 
@@ -65,7 +72,32 @@ public class BautizoVO implements Serializable{
 	public void setSacerdote(SacerdoteDTO sacerdote) {
 		this.sacerdote = sacerdote;
 	}
-	
+
+	public DoctorDTO getDoctorVO() {
+		return doctorVO;
+	}
+
+	public void setDoctorVO(DoctorDTO doctorVO) {
+		this.doctorVO = doctorVO;
+	}
+
+	public Persona getSacerdotePersona() {
+		return sacerdotePersona;
+	}
+
+	public void setSacerdotePersona(Persona sacerdotePersona) {
+		this.sacerdotePersona = sacerdotePersona;
+	}
+
+	public Persona getDoctorVOPersona() {
+		return doctorVOPersona;
+	}
+
+	public void setDoctorVOPersona(Persona doctorVOPersona) {
+		this.doctorVOPersona = doctorVOPersona;
+	}
+
+
 	
 	
 }

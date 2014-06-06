@@ -36,38 +36,63 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	public BautizoDTO createOrUpdateBautizo(BautizoVO bautizoVO) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateBautizo");
-		Persona bautizado;
+		Persona bautizadoPersona;
 		Persona padrino;
 		Persona madrina;
 		SacerdoteDTO sacerdote;
+		DoctorDTO doctor;
+		 
+		List<Persona> listPersona;
+			
 		try {
-		if(bautizoVO.getBautizo().getBauCodigo()!=null){
-			bautizado= factoryDAO.getPersonaDAOImpl().update(bautizoVO.getBautizado());
-			padrino= factoryDAO.getPersonaDAOImpl().update(bautizoVO.getPadrino());
-			madrina= factoryDAO.getPersonaDAOImpl().update(bautizoVO.getMadrina());
-			sacerdote= eucaristiaFactoryDAO.getSacerdoteDAOImpl().update(bautizoVO.getSacerdote());
-					
-			bautizoVO.getBautizado().setPerPk(bautizado.getPerPk());
-			bautizoVO.getPadrino().setPerPk(padrino.getPerPk());
-			bautizoVO.getMadrina().setPerPk(madrina.getPerPk());
-			bautizoVO.getSacerdote().setSacPersona(sacerdote.getSacPersona());
-			return  eucaristiaFactoryDAO.getBautizoDAOImpl().update(bautizoVO.getBautizo());
+			bautizadoPersona = bautizoVO.getBautizado();
+			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(bautizadoPersona);
+			if(listPersona.size()<=0)
+				bautizadoPersona=factoryDAO.getPersonaDAOImpl().create(bautizadoPersona);
+			else
+				bautizadoPersona=listPersona.get(0);
 			
-		}
-		else{
-			bautizado= factoryDAO.getPersonaDAOImpl().create(bautizoVO.getBautizado());
-			padrino= factoryDAO.getPersonaDAOImpl().create(bautizoVO.getPadrino());
-			madrina= factoryDAO.getPersonaDAOImpl().create(bautizoVO.getMadrina());
-			sacerdote= eucaristiaFactoryDAO.getSacerdoteDAOImpl().create(bautizoVO.getSacerdote());
-			bautizoVO.getBautizado().setPerPk(bautizado.getPerPk());
-			bautizoVO.getPadrino().setPerPk(padrino.getPerPk());
-			bautizoVO.getMadrina().setPerPk(madrina.getPerPk());
-			bautizoVO.getSacerdote().setSacPersona(sacerdote.getSacPersona());
-			return  eucaristiaFactoryDAO.getBautizoDAOImpl().create(bautizoVO.getBautizo());
+			padrino=bautizoVO.getPadrino();
+			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(padrino);
+			if(listPersona.size()<=0)
+				padrino=factoryDAO.getPersonaDAOImpl().create(padrino);
+			else
+				padrino=listPersona.get(0);
 			
-		}
+			madrina=bautizoVO.getMadrina();
+			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(madrina);
+			if(listPersona.size()<=0)
+				madrina=factoryDAO.getPersonaDAOImpl().create(madrina);
+			else
+				madrina=listPersona.get(0);
+
+			bautizoVO.getBautizo().setBauBautizado(bautizadoPersona.getPerPk());
+			bautizoVO.getBautizo().setBauPadrino(padrino.getPerPk());
+			bautizoVO.getBautizo().setBauMadrina(madrina.getPerPk());
+			
+			if(bautizoVO.getBautizo().getBauCodigo()!=null){
+				sacerdote= eucaristiaFactoryDAO.getSacerdoteDAOImpl().find(bautizoVO.getSacerdote().getSacCodigo());	
+				doctor=eucaristiaFactoryDAO.getDoctorDAOImpl().find(bautizoVO.getDoctorVO().getDocCodigo());					
+							
+								
+				bautizoVO.getBautizo().setEucSacerdote(sacerdote);
+				bautizoVO.getBautizo().setBauCertificadoPor(doctor.getDocCodigo());
+				
+				return  eucaristiaFactoryDAO.getBautizoDAOImpl().update(bautizoVO.getBautizo());
+			
+			}
+			else{
+				sacerdote= eucaristiaFactoryDAO.getSacerdoteDAOImpl().find(bautizoVO.getSacerdote().getSacCodigo());	
+				doctor=eucaristiaFactoryDAO.getDoctorDAOImpl().find(bautizoVO.getDoctorVO().getDocCodigo());
+				
+				bautizoVO.getBautizo().setEucSacerdote(sacerdote);
+				bautizoVO.getBautizo().setBauCertificadoPor(doctor.getDocCodigo());
+				
+				return  eucaristiaFactoryDAO.getBautizoDAOImpl().create(bautizoVO.getBautizo());
+				
+			}
 		} catch (Exception e) {
-			slf4jLogger.info("error al createOrUpdateEstudiante {}", e.toString());
+			slf4jLogger.info("error al createOrUpdateBautizo {}", e.toString());
 			throw new SeguridadesException(e);
 		}
 		

@@ -87,9 +87,9 @@ public class Empresa extends AuditoriaUtil implements Serializable {
 	@JoinColumn(name="tip_empresa_fk")
 	private TipoEmpresa tipoEmpresaTbl;
 
-	//bi-directional many-to-one association to Eucaristia
-	@OneToMany(mappedBy="empresaTbl")
-	private List<Eucaristia> eucaristiaTbls;
+//	//bi-directional many-to-one association to Eucaristia
+//	@OneToMany(mappedBy="empresaTbl")
+//	private List<Eucaristia> eucaristiaTbls;
 
 	//bi-directional many-to-one association to PersonaEmpresa
 	@OneToMany(mappedBy="empresaTbl")
@@ -276,27 +276,27 @@ public class Empresa extends AuditoriaUtil implements Serializable {
 		this.tipoEmpresaTbl = tipoEmpresaTbl;
 	}
 
-	public List<Eucaristia> getEucaristiaTbls() {
-		return this.eucaristiaTbls;
-	}
-
-	public void setEucaristiaTbls(List<Eucaristia> eucaristiaTbls) {
-		this.eucaristiaTbls = eucaristiaTbls;
-	}
-
-	public Eucaristia addEucaristiaTbl(Eucaristia eucaristiaTbl) {
-		getEucaristiaTbls().add(eucaristiaTbl);
-		eucaristiaTbl.setEmpresaTbl(this);
-
-		return eucaristiaTbl;
-	}
-
-	public Eucaristia removeEucaristiaTbl(Eucaristia eucaristiaTbl) {
-		getEucaristiaTbls().remove(eucaristiaTbl);
-		eucaristiaTbl.setEmpresaTbl(null);
-
-		return eucaristiaTbl;
-	}
+//	public List<Eucaristia> getEucaristiaTbls() {
+//		return this.eucaristiaTbls;
+//	}
+//
+//	public void setEucaristiaTbls(List<Eucaristia> eucaristiaTbls) {
+//		this.eucaristiaTbls = eucaristiaTbls;
+//	}
+//
+//	public Eucaristia addEucaristiaTbl(Eucaristia eucaristiaTbl) {
+//		getEucaristiaTbls().add(eucaristiaTbl);
+//		eucaristiaTbl.setEmpresaTbl(this);
+//
+//		return eucaristiaTbl;
+//	}
+//
+//	public Eucaristia removeEucaristiaTbl(Eucaristia eucaristiaTbl) {
+//		getEucaristiaTbls().remove(eucaristiaTbl);
+//		eucaristiaTbl.setEmpresaTbl(null);
+//
+//		return eucaristiaTbl;
+//	}
 
 	public List<PersonaEmpresa> getPersonaEmpresaTbls() {
 		return this.personaEmpresaTbls;

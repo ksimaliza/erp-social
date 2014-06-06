@@ -39,7 +39,6 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.EstadoDocumento</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.EstudianteMatriculaTbl</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Estudiante</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.Eucaristia</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Folio</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.FormatoDocumento</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.HolguraEntradaSalida</class>
