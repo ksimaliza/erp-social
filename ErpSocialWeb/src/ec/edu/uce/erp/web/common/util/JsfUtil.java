@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.UUID;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
@@ -16,9 +17,7 @@ public class JsfUtil {
 		String pathDir,pathFile = null;
 		File f;
 		try {
-			//date=String.valueOf(CalendarUtil.getYear())+"\\"+String.valueOf(CalendarUtil.getMonth())+"\\"+String.valueOf(CalendarUtil.getDay());
-			
-			pathDir=MessageProvider.getInstancia().getValue("com.corvustec.redxxi.path.web")+"\\images\\tmp\\upload\\";
+			pathDir=getRealPath()+"\\images\\tmp\\upload\\";
 			pathFile=pathDir+"\\"+fileName;
 			
 			f= new File(pathFile);
@@ -32,7 +31,7 @@ public class JsfUtil {
 			fos.write(bytefile);
 			fos.close();
 			if(fileName.split("\\.")[1].equals("pdf"))
-				pathFile=getContextPath()+"\\images\\tmp\\upload\\"+fileName;
+				pathFile="\\images\\tmp\\upload\\"+fileName;
 			else
 				pathFile="\\images\\tmp\\upload\\"+fileName;
 			pathFile=pathFile.replace('\\', '/');
@@ -51,6 +50,16 @@ public class JsfUtil {
 		return ctx.getContextPath();
 	}
 	
+	public static String getRandomName(String extension)
+	{
+		return UUID.randomUUID().toString()+"."+extension;	
+	}
 	
-	
+	public static String getRealPath()
+	{
+		ServletContext ctx = (ServletContext) FacesContext.getCurrentInstance()
+				.getExternalContext().getContext();
+		String deploymentDirectoryPath = ctx.getRealPath("/");
+		return deploymentDirectoryPath;
+	}
 }
