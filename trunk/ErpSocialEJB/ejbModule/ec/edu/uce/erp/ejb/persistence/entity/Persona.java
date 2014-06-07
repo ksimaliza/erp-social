@@ -60,6 +60,9 @@ public class Persona implements Serializable {
 	@Column(name="per_foto")
 	private String perFoto;
 
+	@Column(name="per_foto_byte")
+	private byte[] perFotoByte;
+	
 	@Column(name="per_nombres")
 	private String perNombres;
 
@@ -235,6 +238,14 @@ public class Persona implements Serializable {
 
 	public void setPerTelefono(String perTelefono) {
 		this.perTelefono = perTelefono;
+	}
+
+	public byte[] getPerFotoByte() {
+		return perFotoByte;
+	}
+
+	public void setPerFotoByte(byte[] perFotoByte) {
+		this.perFotoByte = perFotoByte;
 	}
 
 	public List<Empleado> getEmpleadoTbls() {
