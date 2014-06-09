@@ -10,4 +10,7 @@ public interface ParametroAsistenciaDAO extends AbstractFacade<ParametroDTO> {
 	List<ParametroDTO> findAll(ParametroDTO parametro)
 			throws SeguridadesException;
 
+	List<ParametroDTO> getByAnd(ParametroDTO objetoDTO)
+			throws SeguridadesException;
+
 }

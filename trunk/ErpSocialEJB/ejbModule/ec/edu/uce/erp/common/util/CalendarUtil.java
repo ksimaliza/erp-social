@@ -147,4 +147,20 @@ public class CalendarUtil {
 		Calendar calendar = Calendar.getInstance();
 		return new Timestamp(calendar.getTimeInMillis());
 	}
+	
+	public static String extractTime(Timestamp timestamp)
+	{
+		Date date = new Date(timestamp.getTime());
+		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+		String formattedDate = sdf.format(date);
+		return formattedDate;
+	}
+	
+	public static String extractTime(Date date)
+	{
+		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+		String formattedDate = sdf.format(date);
+		return formattedDate;
+	}
+
 }
