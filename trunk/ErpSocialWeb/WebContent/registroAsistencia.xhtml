@@ -20,6 +20,12 @@
 	<p:panel id="pnlDatos">
 		<table class="center">
 			<tr>
+				<td width="100%" colspan="2">
+					<p:messages id="messages" autoUpdate="true" closable="true" />
+				</td>
+			</tr>
+			
+			<tr>
 				<td width="30%">
 					<h:outputLabel for="txtUsuario" value="#{i18n['erp.asistencia.empleado.usuario']}" />
 				</td>
@@ -45,6 +51,7 @@
 					<p:inputText id="txtCodigo" style="width: 100%" value="#{registroAsistenciaDataManager.empleado.aemCodigoRegistro}" required="true"/>
 				</td>						
 			</tr>
+			
 			<tr>
 				<td colspan="2">
 					<p:commandButton value="#{i18n['label.guardar']}" actionListener="#{registroAsistenciaController.registrar}" update="pnlMessagesG,pnlDatos" process="pnlDatos"/>
