@@ -33,6 +33,7 @@ public class RegistroDTO implements Serializable {
 	@Column(name="ras_tipo_salida")
 	private Integer rasTipoSalida;
 
+	
 	//bi-directional many-to-one association to EmpleadoDTO
 	@ManyToOne
 	@JoinColumn(name="ras_empleado")

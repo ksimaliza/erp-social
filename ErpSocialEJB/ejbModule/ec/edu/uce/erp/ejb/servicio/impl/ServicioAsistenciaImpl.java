@@ -20,6 +20,7 @@ import ec.edu.uce.erp.ejb.dao.factory.AsistenciaFactoryDAO;
 import ec.edu.uce.erp.ejb.dao.factory.FactoryDAO;
 import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.CatalogoAsistenciaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaNoLaboralDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO;
@@ -118,10 +119,11 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 				//empleadoVO.getPersona().setSegtUsuario(new Usuario());
 				personanueva=factoryDAO.getPersonaDAOImpl().create(empleadoVO.getPersona());
 				empleadoVO.getEmpleado().setPersonaTbl(personanueva);
+				empleadoVO.getEmpleado().setPerFk(personanueva.getPerPk());
 				empleadonuevo=factoryDAO.getEmpleadoeDAOImpl().create(empleadoVO.getEmpleado());
 				empleadoVO.getEmpleadoDTO().setAemEmpleado(empleadonuevo.getEmpPk());
 				return asistenciaFactoryDAO.getEmpleadoDAOImpl().create(empleadoVO.getEmpleadoDTO());
-			} 
+			}
 		}
 		catch (Exception e) {
 			slf4jLogger.info("error al createOrUpdateEmpleado {}", e.toString());
@@ -291,8 +293,10 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 	{
 		slf4jLogger.info("createOrUpdateRegistroAsistencia");
 		RegistroDTO registro=null;
+		String hora;
+		EmpleadoDTO empleado;
 		try {
-			EmpleadoDTO empleado=asistenciaFactoryDAO.getEmpleadoDAOImpl().findByCredentials(registroAsistencia.getEmpleadoDTO());
+			empleado=asistenciaFactoryDAO.getEmpleadoDAOImpl().findByCredentials(registroAsistencia.getEmpleadoDTO());
 			if(empleado!=null)
 			{	
 				registro= asistenciaFactoryDAO.getRegistroDAOImpl().getUltimate(empleado);
@@ -301,6 +305,7 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 					if(registro.getRasHoraSalida()!=null){
 						registroAsistencia.getRegistroDTO().setAsiEmpleado(empleado);
 						registroAsistencia.getRegistroDTO().setRasHoraInicio(new Timestamp(new Date().getTime()));
+						hora=CalendarUtil.extractTime(registroAsistencia.getRegistroDTO().getRasHoraInicio());
 						registro= asistenciaFactoryDAO.getRegistroDAOImpl().create(registroAsistencia.getRegistroDTO());					
 					}
 					else{
