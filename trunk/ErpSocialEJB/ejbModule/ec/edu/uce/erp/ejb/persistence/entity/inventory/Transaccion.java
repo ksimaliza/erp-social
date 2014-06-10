@@ -67,21 +67,21 @@ public class Transaccion implements Serializable {
 	private Integer empReasignadoFk;
 
 	//bi-directional many-to-one association to Bien
-	@ManyToOne
+	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumns({
 		@JoinColumn(name="bie_fk", referencedColumnName="bie_pk", unique=false, nullable=true, insertable=false, updatable=false)
 	})
 	private Bien bienTbl;
 	
 	//bi-directional many-to-one association to Empleado
-	@ManyToOne
+	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumns({
 		@JoinColumn(name="emp_asignado_fk", referencedColumnName="emp_pk", unique=false, nullable=true, insertable=false, updatable=false)
 	})
 	private Empleado empleadoAsignadoTbl;
 	
 	//bi-directional many-to-one association to Empleado
-	@ManyToOne
+	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumns({
 		@JoinColumn(name="emp_reasignado_fk", referencedColumnName="emp_pk", unique=false, nullable=true, insertable=false, updatable=false)
 	})
