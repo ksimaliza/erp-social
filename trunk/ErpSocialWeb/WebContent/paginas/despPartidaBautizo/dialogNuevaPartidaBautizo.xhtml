@@ -8,7 +8,9 @@
 	<p:dialog id="popUpNuevaPartidaBautizo" header="#{i18n['erp.despacho.partida.bautizo.registrar']}" resizable="false" draggable="false"
 		widgetVar="dlgNuevaPartidaBautizo" modal="true" width="500" minWidth="500" appendTo="@(body)">
 		<p:scrollPanel style="height:500px" mode="native">
-				<h:form id="formNuevaPartidaBautizo" styleClass="formulario">
+		
+		<h:form id="formNuevaPartidaBautizo" styleClass="formulario">
+		
 			<p:panel id="pnlNuevaPartidaBautizo">
 				<table class="formulario">
 												
@@ -22,8 +24,8 @@
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" >
 							</f:validator>
-							 <p:ajax event="blur" update="txtApeBau"/>
-							 <p:ajax event="blur" update="txtNomBau"/>
+<!-- 							 <p:ajax event="blur" update="txtApeBau"/> -->
+<!-- 							 <p:ajax event="blur" update="txtNomBau"/> -->
 							</p:inputText>
 						</td>
 					</tr>
@@ -149,8 +151,8 @@
 							required="true" label="#{i18n['erp.despacho.partida.bautizo.cedula.padrino']}" value="#{partidaBautizoDataManager.padrinoInsertar.perCi}">
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-							<p:ajax event="blur" update="txtNomPad"/>
-							 <p:ajax event="blur" update="txtApePad"/>
+<!-- 							<p:ajax event="blur" update="txtNomPad"/> -->
+<!-- 							 <p:ajax event="blur" update="txtApePad"/> -->
 							</p:inputText>
 											
 						</td>
@@ -194,8 +196,8 @@
 							required="true" label="#{i18n['erp.despacho.partida.bautizo.cedula.madrina']}" value="#{partidaBautizoDataManager.madrinaInsertar.perCi}">
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-							<p:ajax event="blur" update="txtNomMad"/>
-							 <p:ajax event="blur" update="txtApeMad"/>
+<!-- 							<p:ajax event="blur" update="txtNomMad"/> -->
+<!-- 							 <p:ajax event="blur" update="txtApeMad"/> -->
 						
 						</p:inputText>
 						
@@ -278,7 +280,7 @@
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{partidaBautizoController.registrarBautizo}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaPartidaBautizo.hide()"
-					process="@this,pnlNuevaPartidaBautizo" update="pnlNuevaPartidaBautizo,:formPartidaBautizo:pnlMessages,:formPartidaBautizo:tablaPartidaBautizo"/>
+					process="@this,pnlNuevaPartidaBautizo,pnlDatosPadrino,pnlDatosMadrina,pnlDatos" update="pnlNuevaPartidaBautizo,:formPartidaBautizo:pnlMessages,:formPartidaBautizo:tablaPartidaBautizo"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaPartidaBautizo.hide()" type="button" />
 			</p:panel>
 	</h:form>
