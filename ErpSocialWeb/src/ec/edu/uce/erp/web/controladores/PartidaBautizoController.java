@@ -21,14 +21,22 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.BautizoVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
+import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.datamanager.PartidaBautizoDataManager;
 
 @ViewScoped
 @ManagedBean (name = "partidaBautizoController")
 
-public class PartidaBautizoController {
-private static final Logger slf4jLogger = LoggerFactory.getLogger(PartidaBautizoController.class);
+public class PartidaBautizoController extends BaseController{
+	
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private static final Logger slf4jLogger = LoggerFactory.getLogger(PartidaBautizoController.class);
+	
 	
 	@EJB
 	private ServicioEucaristia servicioEucaristia;
@@ -71,6 +79,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PartidaBautizo
 			bautizoDTO.setBautizado(partidaBautizoDataManager.getBautizadoInsertar());
 			bautizoDTO.setMadrina(partidaBautizoDataManager.getMadrinaInsertar());
 			bautizoDTO.setPadrino(partidaBautizoDataManager.getPadrinoInsertar());
+			
 			bautizoDTO.setBautizo(partidaBautizoDataManager.getBautizoDTO());
 			
 			

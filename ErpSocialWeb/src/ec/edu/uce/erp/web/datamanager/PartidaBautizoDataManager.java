@@ -22,7 +22,9 @@ import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 @ManagedBean (name = "partidaBautizoDataManager")
 
 public class PartidaBautizoDataManager extends BaseDataManager{
+	
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(PerfilDataManager.class);
+	
 	private static final long serialVersionUID = 1L;
 	
 	private  Persona bautizadoInsertar;
@@ -33,7 +35,9 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 	private Date fechaBautizoInsertar;
 	private Date fechaApCInsertar;
 	private int provinciaCodigo;
+	
 	private BautizoDTO bautizoDTO;
+	
 	private int sacerdoteCodigo;
 	private int doctorCodigo;
 	private List<SacerdoteListDTO> sacerdoteListDTO;
