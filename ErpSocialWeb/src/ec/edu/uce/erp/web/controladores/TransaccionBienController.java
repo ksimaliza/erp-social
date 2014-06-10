@@ -133,6 +133,7 @@ public class TransaccionBienController extends BaseController{
 				int posicion = this.vistaBienDataManager.getListVistaBien().indexOf(this.vistaBienDataManager.getVistaBienEditar());
 				this.vistaBienDataManager.getListVistaBien().remove(this.vistaBienDataManager.getVistaBienEditar());
 				this.vistaBienDataManager.getListVistaBien().add(posicion, vistaBien);
+				this.vistaBienDataManager.setIdCustudioReasignado(0);
 				MensajesWebController.aniadirMensajeInformacion("Bien reasignado correctamente");
 			}
 			

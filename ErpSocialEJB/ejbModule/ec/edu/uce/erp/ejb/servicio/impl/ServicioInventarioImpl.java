@@ -557,8 +557,9 @@ public class ServicioInventarioImpl implements ServicioInventario {
 				
 				Transaccion transaccionActual = listTransaccion.iterator().next();
 				
-				// el estado del bien debe ser ingresado
-				if (transaccionActual != null && transaccionActual.getDetCatalogoTipoBien().equals(EnumTipoBien.ASIGNADO.getId())) {
+				// el estado del bien debe ser ingresado o reasignado
+				if (transaccionActual != null
+						&& (transaccionActual.getDetCatalogoTipoBien().equals(EnumTipoBien.ASIGNADO.getId()) || transaccionActual.getDetCatalogoTipoBien().equals(EnumTipoBien.REASIGNADO.getId()))) {
 					
 					//inactivar el estado actual antes de crear el nuevo
 					transaccionActual.setTraEstado(ESTADO_INACTIVO);
