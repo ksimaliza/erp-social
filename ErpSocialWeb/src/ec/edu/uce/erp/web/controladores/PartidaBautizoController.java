@@ -1,5 +1,6 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -68,27 +69,28 @@ public class PartidaBautizoController extends BaseController{
 	public void registrarBautizo () {
 		
 		slf4jLogger.info("registrarBautizo");
-		BautizoVO bautizoDTO;
+		BautizoVO bautizoVO;
 		SacerdoteDTO sacerdoteDTO;
 		DoctorDTO doctorDTO;
 		try {
 			
-			bautizoDTO=new BautizoVO();
+			bautizoVO=new BautizoVO();
 			sacerdoteDTO=new SacerdoteDTO();
 			doctorDTO=new DoctorDTO();
-			bautizoDTO.setBautizado(partidaBautizoDataManager.getBautizadoInsertar());
-			bautizoDTO.setMadrina(partidaBautizoDataManager.getMadrinaInsertar());
-			bautizoDTO.setPadrino(partidaBautizoDataManager.getPadrinoInsertar());
+			bautizoVO.setBautizado(partidaBautizoDataManager.getBautizadoInsertar());
+			bautizoVO.setMadrina(partidaBautizoDataManager.getMadrinaInsertar());
+			bautizoVO.setPadrino(partidaBautizoDataManager.getPadrinoInsertar());
 			
-			bautizoDTO.setBautizo(partidaBautizoDataManager.getBautizoDTO());
+			bautizoVO.setBautizo(partidaBautizoDataManager.getBautizoDTO());
 			
 			
 			sacerdoteDTO.setSacCodigo(partidaBautizoDataManager.getSacerdoteCodigo());
-			bautizoDTO.setSacerdote(sacerdoteDTO);
+			bautizoVO.setSacerdote(sacerdoteDTO);
 			doctorDTO.setDocCodigo(partidaBautizoDataManager.getDoctorCodigo());
-			bautizoDTO.setDoctorVO(doctorDTO);
-			
-			BautizoDTO bautizoNuevo=this.servicioEucaristia.createOrUpdateBautizo(bautizoDTO);
+			bautizoVO.setDoctorVO(doctorDTO);
+			bautizoVO.getBautizo().setBauFechaAprobacionCruso(new Timestamp(partidaBautizoDataManager.getFechaApCInsertar().getTime()));
+			bautizoVO.getBautizo().setBauFechaBautizo(new Timestamp(partidaBautizoDataManager.getFechaBautizoInsertar().getTime()));
+			BautizoDTO bautizoNuevo=this.servicioEucaristia.createOrUpdateBautizo(bautizoVO);
 						
 			if (bautizoNuevo != null) {
 				partidaBautizoDataManager.setBautizadoInsertar(new Persona());
