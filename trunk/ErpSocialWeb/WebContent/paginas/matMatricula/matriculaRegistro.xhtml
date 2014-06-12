@@ -24,6 +24,20 @@
 			</p:toolbar>
 			<p:panel id="pnlAnadirMatricula" header="#{i18n['erp.matricula.registro.registrar']}">
 				<table class="formulario">
+
+					<tr>
+						<td width="100%" colspan="2"><p:graphicImage id="image" height="80" cache="false" value="#{matriculaDataManager.matriculaInsertar.regFoto}"/></td>
+					</tr>
+				
+					<tr>
+						<td width="30%">
+							<h:outputLabel value="Foto Estudiante:" />
+						</td>
+						<td width="70%">
+							    <p:fileUpload fileUploadListener="#{matriculaController.handleFileUpload}" mode="advanced" dragDropSupport="true"
+                     				 update="formRegistro:image" auto="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Seleccionar" process="@this"/>
+						</td>
+					</tr>
 					
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.registro.estudiante']}"  /> </td>
