@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.event.FileUploadEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +20,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.ProfesorVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
+import ec.edu.uce.erp.web.common.util.JsfUtil;
 import ec.edu.uce.erp.web.datamanager.DocenteDataManager;
 
 
@@ -33,14 +35,18 @@ public class DocenteController {
 	@ManagedProperty(value="#{docenteDataManager}")
 	private DocenteDataManager docenteDataManager;
 	
-	
-	public void setDocenteDataManager(DocenteDataManager docenteDataManager) {
-		this.docenteDataManager = docenteDataManager;
-	}
+
 	
 
 	public DocenteController () {}
-	
+
+	public DocenteDataManager getDocenteDataManager() {
+		return docenteDataManager;
+	}
+
+	public void setDocenteDataManager(DocenteDataManager docenteDataManager) {
+		this.docenteDataManager = docenteDataManager;
+	}
 	
 	/*
 	 * Medodos
@@ -106,21 +112,11 @@ public class DocenteController {
 	}
 
 
-	public ServicioMatricula getServicioMatricula() {
-		return servicioMatricula;
-	}
-
-
-	public void setServicioMatricula(ServicioMatricula servicioMatricula) {
-		this.servicioMatricula = servicioMatricula;
-	}
-
-
-	public DocenteDataManager getDocenteDataManager() {
-		return docenteDataManager;
-	}
 	
-	
+	public void handleFileUpload(FileUploadEvent event) {
+		docenteDataManager.getPersonaInstancia().setPerFoto(JsfUtil.saveToDiskUpdload(event.getFile().getContents(), JsfUtil.getRandomName(event.getFile().getFileName().split("\\.")[1])));
+		docenteDataManager.getPersonaInstancia().setPerFotoByte(event.getFile().getContents());
+    }
 
 	
 	
