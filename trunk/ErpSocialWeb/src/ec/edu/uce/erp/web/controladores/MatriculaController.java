@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.event.FileUploadEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +26,7 @@ import ec.edu.uce.erp.ejb.persistence.vo.MatriculaVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
+import ec.edu.uce.erp.web.common.util.JsfUtil;
 import ec.edu.uce.erp.web.datamanager.MatriculaDataManager;
 
 @ViewScoped
@@ -66,25 +68,25 @@ public class MatriculaController extends BaseController {
 			
 			slf4jLogger.info("registrarMatricula");
 			MatriculaVO matriculaVO;			
-			MatriculaDTO matriculaDTO;
+			
 			EstudianteDTO estudianteDTO;
 			List<MatriculaDTO> matriculado; 
 			
 			try {
 				matriculaVO=new MatriculaVO();
-				matriculaDTO=new MatriculaDTO();
+				
 				estudianteDTO=new EstudianteDTO();
 				matriculado= new ArrayList<MatriculaDTO>();
 				
 				estudianteDTO.setEstCodigo(matriculaDataManager.getEstudianteCodigo());
-				matriculaDTO.setMatEstudiante(estudianteDTO);
-				matriculaDTO.setRegFecha(new Timestamp(matriculaDataManager.getFechaInsertar().getTime()));
+				matriculaDataManager.getMatriculaInsertar().setMatEstudiante(estudianteDTO);
+				matriculaDataManager.getMatriculaInsertar().setRegFecha(new Timestamp(matriculaDataManager.getFechaInsertar().getTime()));
 				
 				
-				matriculaVO.setMatricula(matriculaDTO);
+				matriculaVO.setMatricula(matriculaDataManager.getMatriculaInsertar());
 				matriculaVO.setAsignacion(matriculaDataManager.getAsinacionList());
 				
-				matriculado=servicioMatricula.readMatricula(matriculaDTO);
+				matriculado=servicioMatricula.readMatricula(matriculaDataManager.getMatriculaInsertar());
 				
 				if (matriculado.size()>0)
 				{
@@ -198,4 +200,11 @@ public class MatriculaController extends BaseController {
 				MensajesWebController.aniadirMensajeError(e.getMessage());
 			}
 		}
+		
+		
+		public void handleFileUpload(FileUploadEvent event) {
+			matriculaDataManager.getMatriculaInsertar().setRegFoto(JsfUtil.saveToDiskUpdload(event.getFile().getContents(), JsfUtil.getRandomName(event.getFile().getFileName().split("\\.")[1])));
+			matriculaDataManager.getMatriculaInsertar().setRegFotoByte(event.getFile().getContents());
+	    }
+
 }
