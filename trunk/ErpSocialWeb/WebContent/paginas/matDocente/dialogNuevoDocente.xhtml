@@ -7,17 +7,24 @@
 	
 	<p:dialog id="popUpNuevoDocente" header="#{i18n['erp.matricula.docente.registrar']}" resizable="false" draggable="false"
 		widgetVar="dlgNuevoDocente" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		
 		<h:form id="formNuevoDocente" styleClass="formulario">
+		
 			<p:panel id="pnlNuevoDocente">
+			
 				<table class="formulario">
 					<tr>
+						<td width="100%" colspan="2"><p:graphicImage id="image" height="80" cache="false" value="#{docenteDataManager.personaInstancia.perFoto}"/></td>
+					</tr>
+				
+					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtFoto" value="#{i18n['erp.matricula.docente.foto']}" />
+							<h:outputLabel value="#{i18n['erp.asistencia.empleado.foto']}" />
 						</td>
-						<td width="70%"> 
-							<p:inputText id="txtFoto" style="width: 100%"  value="#{docenteDataManager.personaInstancia.perFoto}"
-								 />
-						</td>	
+						<td width="70%">
+							    <p:fileUpload fileUploadListener="#{docenteController.handleFileUpload}" mode="advanced" dragDropSupport="true"
+                     				 update="formNuevoDocente:image" auto="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Seleccionar" process="@this"/>
+						</td>
 					</tr>
 					
 					
@@ -27,16 +34,15 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCi" style="width: 100%" value="#{docenteDataManager.personaInstancia.perCi}"
-							required="true" label="#{i18n['erp.matricula.docente.cedula']}">
+								required="true" label="#{i18n['erp.matricula.docente.cedula']}">
 								<f:validateLength maximum="10" minimum="10"/>
-							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-								
-								</p:inputText>
+								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+							</p:inputText>
 						</td>
 						
-						</tr>	
+					</tr>	
 							
-							<tr>
+					<tr>
 						
 						<td width="30%">
 							<h:outputLabel for="txtNombres" value="#{i18n['erp.matricula.docente.nombres']}" />
@@ -65,7 +71,7 @@
 						</td>
 						<td width="70%">
 							<p:calendar id="txtFecNac" style="width: 100%"  value="#{docenteDataManager.personaInstancia.perFechaNac}" 
-								showOn="button" required="true" />
+								showOn="button" required="true" navigator="true"/>
 						</td>	
 					</tr>
 					
