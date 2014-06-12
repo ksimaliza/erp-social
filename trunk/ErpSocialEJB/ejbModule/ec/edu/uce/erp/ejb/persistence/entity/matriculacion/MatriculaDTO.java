@@ -27,6 +27,12 @@ public class MatriculaDTO implements Serializable {
 	@Column(name="reg_fecha")
 	private Timestamp regFecha;
 
+	@Column(name="reg_foto")
+	private String regFoto;
+
+	@Column(name="reg_foto_byte")
+	private byte[] regFotoByte;
+
 	//bi-directional many-to-one association to EstudianteDTO
 	@ManyToOne
 	@JoinColumn(name="reg_estudiante")
@@ -53,6 +59,22 @@ public class MatriculaDTO implements Serializable {
 
 	public void setRegFecha(Timestamp regFecha) {
 		this.regFecha = regFecha;
+	}
+
+	public String getRegFoto() {
+		return regFoto;
+	}
+
+	public void setRegFoto(String regFoto) {
+		this.regFoto = regFoto;
+	}
+
+	public byte[] getRegFotoByte() {
+		return regFotoByte;
+	}
+
+	public void setRegFotoByte(byte[] regFotoByte) {
+		this.regFotoByte = regFotoByte;
 	}
 
 	public EstudianteDTO getMatEstudiante() {

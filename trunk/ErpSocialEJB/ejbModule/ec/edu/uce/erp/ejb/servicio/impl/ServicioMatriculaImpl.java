@@ -91,11 +91,13 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		Persona personanueva;
 		try {
 		if(estudiantevo.getEstudiante().getEstCodigo()!=null){
+			slf4jLogger.info("Update");
 			personanueva= factoryDAO.getPersonaDAOImpl().update(estudiantevo.getPersona());
+			estudiantevo.getEstudiante().setEstPersona(personanueva.getPerPk());
 			return matriculaFactoryDAO.getEstudianteDAOImpl().update(estudiantevo.getEstudiante());
-			
 		}
 		else{
+			slf4jLogger.info("Insert");
 			estudiantevo.getEstudiante().setEstEstado("Inscrito");
 			personanueva= factoryDAO.getPersonaDAOImpl().create(estudiantevo.getPersona());
 			estudiantevo.getEstudiante().setEstPersona(personanueva.getPerPk());
