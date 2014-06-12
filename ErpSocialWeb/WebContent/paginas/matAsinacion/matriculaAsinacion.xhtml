@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	
+	<ui:define name="title">
+		<h3><h:outputLabel	value="#{i18n['erp.matricula.asinacion.pagina.titulo']}" /></h3>
+	</ui:define>	
+
+	
+	<ui:define name="content">
+		<h:form id="formAsinacion">
+		
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
+					</p:commandButton>
+					<p:commandButton id="btnNuevaAsinacion" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevaAsinacion.show()">
+						</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:panel id="pnlBuscar" header="#{i18n['erp.matricula.asinacion.buscar']}">
+				<table class="formulario">
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.asinacion.nivel']}"  /> </td>
+						<td><p:selectOneMenu id="nivel" value="#{asinacionDataManager.nivelCodigo}" filter="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{asinacionController.asinacionDataManager.nivelList}" var="nivel" itemLabel="#{nivel.nivDescaripcion} " itemValue="#{nivel.nivCodigo}"/>
+								<p:ajax listener="#{asinacionController.buscarNivelParalelo}" process="@this" update="paralelo"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.asinacion.paralelo']}"  /> </td>
+						<td><p:selectOneMenu id="paralelo" value="#{asinacionDataManager.paraleloCodigo}" filter="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{asinacionController.asinacionDataManager.nivelParaleloList}" var="nivelParalelo" itemLabel="#{nivelParalelo.matParalelo.parDescripcion}" itemValue="#{nivelParalelo.matParalelo.parCodigo}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					
+					
+					
+				</table>
+			</p:panel>
+
+			<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{asinacionController.buscarAsignacion}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscar"
+					update=":formAsinacion:pnlMessages,tablaAsinacion,pnlBuscar" />
+			</p:panel>
+
+
+			<p:dataTable id="tablaAsinacion" rowIndexVar="rowIndex" paginator="true" rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.matricula.nivel.paralelo.lista']}" value="#{asinacionDataManager.asinacionList}" var="asinacion">
+				
+				<f:facet name="header">
+					#{i18n['erp.matricula.asinacion.lista']}
+				</f:facet>
+				<p:column headerText="#" styleClass="centered" width="5%">
+					#{rowIndex+1}
+				</p:column>
+
+				<p:column headerText="#{i18n['erp.matricula.asinacion.nivel']} - #{i18n['erp.matricula.asinacion.paralelo']} " width="40%">
+					<h:outputText value="#{asinacion.nivDescaripcion}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.matricula.asinacion.paralelo']} - #{i18n['erp.matricula.asinacion.paralelo']} " width="40%">
+					<h:outputText value="#{asinacion.parDescripcion}" />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.matricula.asinacion.profesor']}" width="35%">
+						<h:outputText value="#{asinacion.perApellidos}   #{asinacion.perNombres} " />
+				</p:column>
+				<p:column headerText="#{i18n['erp.matricula.asinacion.materia']}" width="35%">
+						<h:outputText value="#{asinacion.mtrNombe}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.matricula.asinacion.periodo']}" width="35%">
+						<h:outputText value="#{asinacion.perDescripcion}" />
+				</p:column>
+				
+			
+							
+
+			</p:dataTable>			
+	
+</h:form>			
+		
+		
+<ui:include src="dialogNuevaAsinacion.xhtml" />		
+		
+	</ui:define>
+</ui:composition>
