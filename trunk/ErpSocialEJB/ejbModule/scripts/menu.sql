@@ -120,6 +120,11 @@ INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
        --Menu(45)    
 INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
     VALUES ('Matricula Registro', 'Matricula Registro', '/paginas/matMatricula/matriculaRegistro.xhtml', '2014-06-06');
+
+--Menu(45)    
+INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
+    VALUES ('Matricula Reporte Curso', 'Matricula Reporte Curso', '/paginas/matReporte/matReporteCurso.xhtml', '2014-06-06');
+    
     
 ---Asistencia    
  	--Menu(18)    
