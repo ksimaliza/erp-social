@@ -10,6 +10,7 @@ import javax.ejb.Local;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogo;
 import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
+import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Menu;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
@@ -224,5 +225,7 @@ public interface ServicioAdministracion {
 	 * @throws SeguridadesException
 	 */
 	Parametro actualizarParametro (Parametro parametro) throws SeguridadesException;
+
+	List<Persona> buscarPersona(Persona persona) throws SeguridadesException;
 
 }

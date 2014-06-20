@@ -6,11 +6,16 @@ import javax.ejb.Local;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.BautizoVO;
+import ec.edu.uce.erp.ejb.persistence.vo.ConfirmacionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.DoctorVO;
 import ec.edu.uce.erp.ejb.persistence.vo.SacerdoteVO;
 
@@ -36,6 +41,26 @@ public interface ServicioEucaristia {
 			throws SeguridadesException;
 
 	DoctorVO obtenerDoctorPorId(Integer Idpersona, Integer Iddoctor)
+			throws SeguridadesException;
+
+	List<BautizoListDTO> buscarPartidaBautizo(BautizoListDTO bautizoListDTO)
+			throws SeguridadesException;
+
+	BautizoVO obtenerBautizoPorId(Integer idBautizado, Integer idBautizo)
+			throws SeguridadesException;
+
+	ConfirmacionDTO createOrUpdateConfirmacion(ConfirmacionVO confirmacionVO)
+			throws SeguridadesException;
+
+	List<ConfirmacionListDTO> buscarPartidaConfirmacion(
+			ConfirmacionListDTO confirmacionListDTO)
+			throws SeguridadesException;
+
+	ConfirmacionVO obtenerConfirmacionPorId(Integer idConfirmado,
+			Integer idConfirmacion) throws SeguridadesException;
+
+	List<CatalogoEucaristiaDTO> buscarCatalogo(
+			CatalogoEucaristiaDTO catalogoEucaristiaDTO)
 			throws SeguridadesException;
 
 }

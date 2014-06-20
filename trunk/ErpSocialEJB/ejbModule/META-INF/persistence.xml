@@ -129,6 +129,9 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.CatalogoAsistenciaDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionListDTO</class>
 		<properties>
 			<property name="hibernate.connection.username" value="postgres" />
 			<property name="hibernate.connection.password" value="root" />
@@ -136,6 +139,6 @@
 			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
 			<property name="hibernate.show_sql" value="true"/>
 		</properties>
-<!-- 		<validation-mode>CALLBACK</validation-mode> -->
+
 	</persistence-unit>
 </persistence>

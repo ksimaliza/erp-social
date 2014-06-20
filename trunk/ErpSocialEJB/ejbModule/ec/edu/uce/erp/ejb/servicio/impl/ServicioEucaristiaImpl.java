@@ -13,11 +13,16 @@ import ec.edu.uce.erp.ejb.dao.factory.EucaristiaFactoryDAO;
 import ec.edu.uce.erp.ejb.dao.factory.FactoryDAO;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.BautizoVO;
+import ec.edu.uce.erp.ejb.persistence.vo.ConfirmacionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.DoctorVO;
 import ec.edu.uce.erp.ejb.persistence.vo.SacerdoteVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -202,5 +207,121 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		return doctor;
 	}
 	
+	@Override
+	public List<BautizoListDTO> buscarPartidaBautizo(BautizoListDTO bautizoListDTO) throws SeguridadesException {
+		slf4jLogger.info("buscarPartidaBautizo");
+		List<BautizoListDTO> listBautizo = null;
+		try {
+			listBautizo=eucaristiaFactoryDAO.getBautizoDAOImpl().obtenerBautizo(bautizoListDTO);
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarPartidaBautizo {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener los Bautizados de la base de datos");
+		}
+		
+		return listBautizo;
+	}
+	
+	@Override
+	public BautizoVO obtenerBautizoPorId(Integer idBautizado, Integer idBautizo) throws SeguridadesException {
+		slf4jLogger.info("obtenerBautizoPorId");
+		
+		BautizoVO bautizo =new BautizoVO();
+		bautizo.setBautizado(factoryDAO.getPersonaDAOImpl().find(idBautizado));
+		bautizo.setBautizo(eucaristiaFactoryDAO.getBautizoDAOImpl().find(idBautizo));
+		
+		return bautizo;
+	}
+	
+	
+	@Override
+	public ConfirmacionDTO createOrUpdateConfirmacion(ConfirmacionVO confirmacionVO) throws SeguridadesException
+	{
+		slf4jLogger.info("createOrUpdateConfirmacion");
+		Persona confirmadoPersona;
+		Persona mad_pad;
+		SacerdoteDTO sacerdote;
+				 
+		List<Persona> listPersona;
+			
+		try {
+			confirmadoPersona = confirmacionVO.getConfirmado();
+			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(confirmadoPersona);
+			if(listPersona.size()<=0)
+				confirmadoPersona=factoryDAO.getPersonaDAOImpl().create(confirmadoPersona);
+			else
+				confirmadoPersona=listPersona.get(0);
+			
+			mad_pad=confirmacionVO.getMad_pad();
+			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(mad_pad);
+			if(listPersona.size()<=0)
+				mad_pad=factoryDAO.getPersonaDAOImpl().create(mad_pad);
+			else
+				mad_pad=listPersona.get(0);
+			
+			confirmacionVO.getConfirmacion().setConConfirmado(confirmadoPersona.getPerPk());
+			confirmacionVO.getConfirmacion().setConPadrino(mad_pad.getPerPk());
+						
+			if(confirmacionVO.getConfirmacion().getConCodigo()!=null){
+				sacerdote= eucaristiaFactoryDAO.getSacerdoteDAOImpl().find(confirmacionVO.getSacerdote().getSacCodigo());	
+				
+				confirmacionVO.getConfirmacion().setEucSacerdote(sacerdote);
+						
+				return  eucaristiaFactoryDAO.getConfirmacionDAOImpl().update(confirmacionVO.getConfirmacion());
+			
+			}
+			else{
+				sacerdote= eucaristiaFactoryDAO.getSacerdoteDAOImpl().find(confirmacionVO.getSacerdote().getSacCodigo());	
+				confirmacionVO.getConfirmacion().setEucSacerdote(sacerdote);				
+				return  eucaristiaFactoryDAO.getConfirmacionDAOImpl().create(confirmacionVO.getConfirmacion());
+				
+			}
+		} catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdateConfirmacion {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+		
+	}
+	
+	@Override
+	public List<ConfirmacionListDTO> buscarPartidaConfirmacion(ConfirmacionListDTO confirmacionListDTO) throws SeguridadesException {
+		slf4jLogger.info("buscarPartidaConfirmacion");
+		List<ConfirmacionListDTO> listConfirmacion = null;
+		try {
+			listConfirmacion=eucaristiaFactoryDAO.getConfirmacionDAOImpl().obtenerConfirmacion(confirmacionListDTO);
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarPartidaConfirmacion {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener buscarPartidaConfirmacion de la base de datos");
+		}
+		
+		return listConfirmacion;
+	}
+	
+	@Override
+	public ConfirmacionVO obtenerConfirmacionPorId(Integer idConfirmado, Integer idConfirmacion) throws SeguridadesException {
+		slf4jLogger.info("obtenerConfirmacionPorId");
+		
+		ConfirmacionVO confirmacion =new ConfirmacionVO();
+		confirmacion.setConfirmado(factoryDAO.getPersonaDAOImpl().find(idConfirmado));
+		confirmacion.setConfirmacion(eucaristiaFactoryDAO.getConfirmacionDAOImpl().find(idConfirmacion));	
+		
+		return confirmacion;
+	}
+	
+	@Override
+	public List<CatalogoEucaristiaDTO> buscarCatalogo(CatalogoEucaristiaDTO catalogoEucaristiaDTO) throws SeguridadesException {
+		slf4jLogger.info("buscarCatalogo");
+		List<CatalogoEucaristiaDTO> listCatalogo = null;
+		try {
+			listCatalogo = eucaristiaFactoryDAO.getCatalogoDAOImpl().getAll(catalogoEucaristiaDTO);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarCatalogo {}", e.getMessage());
+			throw new SeguridadesException("No se pudo buscarCatalogo de la base de datos");
+		}
+		
+		return listCatalogo;
+	}
 	
 }

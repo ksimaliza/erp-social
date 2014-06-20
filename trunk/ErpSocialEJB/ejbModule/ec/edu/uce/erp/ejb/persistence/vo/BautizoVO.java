@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 
@@ -19,6 +20,9 @@ public class BautizoVO implements Serializable{
 	private BautizoDTO bautizo;
 	private SacerdoteDTO sacerdote;
 	private DoctorDTO doctorVO;
+	private CatalogoEucaristiaDTO provincia;
+	private CatalogoEucaristiaDTO ciudad;
+	private CatalogoEucaristiaDTO canton;
 
 	public BautizoVO() {
 	
@@ -30,7 +34,9 @@ public class BautizoVO implements Serializable{
 		doctorVO=new DoctorDTO();
 		sacerdotePersona=new Persona();
 		doctorVOPersona=new Persona();
-		
+		provincia=new CatalogoEucaristiaDTO();
+		canton=new CatalogoEucaristiaDTO();
+		ciudad=new CatalogoEucaristiaDTO();
 	}
 
 	public Persona getBautizado() {
@@ -95,6 +101,30 @@ public class BautizoVO implements Serializable{
 
 	public void setDoctorVOPersona(Persona doctorVOPersona) {
 		this.doctorVOPersona = doctorVOPersona;
+	}
+
+	public CatalogoEucaristiaDTO getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(CatalogoEucaristiaDTO provincia) {
+		this.provincia = provincia;
+	}
+
+	public CatalogoEucaristiaDTO getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(CatalogoEucaristiaDTO ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	public CatalogoEucaristiaDTO getCanton() {
+		return canton;
+	}
+
+	public void setCanton(CatalogoEucaristiaDTO canton) {
+		this.canton = canton;
 	}
 
 
