@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
@@ -23,7 +25,7 @@ import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 public class PartidaBautizoDataManager extends BaseDataManager{
 	
-	private static final Logger slf4jLogger = LoggerFactory.getLogger(PerfilDataManager.class);
+	private static final Logger slf4jLogger = LoggerFactory.getLogger(PartidaBautizoDataManager.class);
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -35,6 +37,12 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 	private Date fechaBautizoInsertar;
 	private Date fechaApCInsertar;
 	private int provinciaCodigo;
+	private int cantonCodigo;
+	private int ciudadCodigo;
+	private List<CatalogoEucaristiaDTO> catalogoEucaristiaDTOs;
+	
+		
+	private List<Persona> bautizadoListDTO;
 	
 	private BautizoDTO bautizoDTO;
 	
@@ -42,6 +50,11 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 	private int doctorCodigo;
 	private List<SacerdoteListDTO> sacerdoteListDTO;
 	private List<DoctorListDTO> doctorListDTO;
+	private List<CatalogoEucaristiaDTO> provinciasEucaristiaDTOs;
+	private List<CatalogoEucaristiaDTO> cantonEucaristiaDTOs;
+	private List<CatalogoEucaristiaDTO> ciudadEucaristiaDTOs;
+	
+	
 	
 	@PostConstruct
 	public void inicializarObjetos () {
@@ -54,9 +67,64 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 		fechaBautizoInsertar=new Date();
 		fechaApCInsertar=new Date();
 		bautizoDTO=new BautizoDTO();
+		this.bautizadoListDTO=new ArrayList<Persona>();
+		this.bautizoListDTO=new BautizoListDTO();
+		this.bautizoListDTOs=new ArrayList<BautizoListDTO>();
+		this.catalogoEucaristiaDTOs=new ArrayList<CatalogoEucaristiaDTO>();
+		
 		
 			
 	}
+	
+	public int getCantonCodigo() {
+		return cantonCodigo;
+	}
+
+	public void setCantonCodigo(int cantonCodigo) {
+		this.cantonCodigo = cantonCodigo;
+	}
+
+	public int getCiudadCodigo() {
+		return ciudadCodigo;
+	}
+
+	public void setCiudadCodigo(int ciudadCodigo) {
+		this.ciudadCodigo = ciudadCodigo;
+	}
+
+	public List<CatalogoEucaristiaDTO> getProvinciasEucaristiaDTOs() {
+		return provinciasEucaristiaDTOs;
+	}
+
+	public void setProvinciasEucaristiaDTOs(
+			List<CatalogoEucaristiaDTO> provinciasEucaristiaDTOs) {
+		this.provinciasEucaristiaDTOs = provinciasEucaristiaDTOs;
+	}
+
+	public List<CatalogoEucaristiaDTO> getCantonEucaristiaDTOs() {
+		return cantonEucaristiaDTOs;
+	}
+
+	public void setCantonEucaristiaDTOs(
+			List<CatalogoEucaristiaDTO> cantonEucaristiaDTOs) {
+		this.cantonEucaristiaDTOs = cantonEucaristiaDTOs;
+	}
+
+	public List<CatalogoEucaristiaDTO> getCiudadEucaristiaDTOs() {
+		return ciudadEucaristiaDTOs;
+	}
+
+	public void setCiudadEucaristiaDTOs(
+			List<CatalogoEucaristiaDTO> ciudadEucaristiaDTOs) {
+		this.ciudadEucaristiaDTOs = ciudadEucaristiaDTOs;
+	}
+
+	private BautizoListDTO bautizoListDTO;
+	private List<BautizoListDTO> bautizoListDTOs;
+	
+	
+	
+	
 
 	public int getProvinciaCodigo() {
 		return provinciaCodigo;
@@ -161,6 +229,41 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 	public void setDoctorListDTO(List<DoctorListDTO> doctorListDTO) {
 		this.doctorListDTO = doctorListDTO;
 	}
+
+	public List<Persona> getBautizadoListDTO() {
+		return bautizadoListDTO;
+	}
+
+	public void setBautizadoListDTO(List<Persona> bautizadoListDTO) {
+		this.bautizadoListDTO = bautizadoListDTO;
+	}
+
+	public BautizoListDTO getBautizoListDTO() {
+		return bautizoListDTO;
+	}
+
+	public void setBautizoListDTO(BautizoListDTO bautizoListDTO) {
+		this.bautizoListDTO = bautizoListDTO;
+	}
+
+	public List<BautizoListDTO> getBautizoListDTOs() {
+		return bautizoListDTOs;
+	}
+
+	public void setBautizoListDTOs(List<BautizoListDTO> bautizoListDTOs) {
+		this.bautizoListDTOs = bautizoListDTOs;
+	}
+
+	public List<CatalogoEucaristiaDTO> getCatalogoEucaristiaDTOs() {
+		return catalogoEucaristiaDTOs;
+	}
+
+	public void setCatalogoEucaristiaDTOs(
+			List<CatalogoEucaristiaDTO> catalogoEucaristiaDTOs) {
+		this.catalogoEucaristiaDTOs = catalogoEucaristiaDTOs;
+	}
+
+
 
 
 
