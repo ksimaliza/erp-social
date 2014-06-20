@@ -31,7 +31,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomBau" 
-								/>
+								value="#{partidaBautizoDataManager.bautizoListDTO.perNombres}" />
 						</td>	
 					</tr>
 					
@@ -41,14 +41,24 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApeBau" 
-								 />
+								value="#{partidaBautizoDataManager.bautizoListDTO.perApellidos}" />
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCiBau" value="#{i18n['erp.despacho.partida.bautizo.cedula.bautizado']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCiBau" 
+								value="#{partidaBautizoDataManager.bautizoListDTO.perCi}" />
 						</td>	
 					</tr>
 				</table>
 			</p:panel>
 <p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
-					
+					actionListener="#{partidaBautizoController.buscarPartidaBautizo}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarPartidaBautizo"
 					update=":formPartidaBautizo:pnlMessages,tablaPartidaBautizo,pnlBuscarPartidaBautizo " />
@@ -56,7 +66,7 @@
 
 
 <p:dataTable id="tablaPartidaBautizo"
-	
+	value="#{partidaBautizoDataManager.bautizoListDTOs}" var="bautizo"
 	rowIndexVar="rowIndex"
 	paginator="true" rows="5" paginatorPosition="bottom"
 	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -68,27 +78,46 @@
 		#{rowIndex+1}
 	</p:column>
 	<p:column headerText="#{i18n['erp.despacho.partida.bautizo.cedula.bautizado']}" width="35%">
-					<h:outputText  />
+					<h:outputText value="#{bautizo.perCi}" />
 				</p:column>
 				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.apellidos.bautizado']}" width="40%">
-					<h:outputText  />
+					<h:outputText value="#{bautizo.perApellidos}" />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.nombres.bautizado']}" width="40%">
-					<h:outputText  />
+				<h:outputText value="#{bautizo.perNombres}" />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.fecha.bautizo']}" width="40%">
-					<h:outputText  />
+					<h:outputText value="#{bautizo.bauFechaBautizo}" />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.fecha.curso']}" width="40%">
+					<h:outputText value="#{bautizo.bauFechaAprobacionCruso}" />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.provincia']}" width="40%">
-					<h:outputText  />
+					<h:outputText value="#{bautizo.bauProvincia}" />
 				</p:column>
 				
-				
 				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.sacerdote']}" width="40%">
-					<h:outputText  />
+					<h:outputText value="#{bautizo.bauSacerdote}" />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.nota.marginal']}" width="40%">
+					<h:outputText value="#{bautizo.bauNotaMarginal}" />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.tomo']}" width="40%">
+					<h:outputText value="#{bautizo.bauToma}" />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.acta']}" width="40%">
+					<h:outputText value="#{bautizo.bauActa}" />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.pagina']}" width="40%">
+					<h:outputText value="#{bautizo.bauPagina}" />
 				</p:column>
 			
 			<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
@@ -96,7 +125,7 @@
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarPartidaBautizo.show()"
-							
+							actionListener="#{partidaBautizoController.cargarDatosBautizo(bautizo)}"
 							process="@this" update=":formEditarPartidaBautizo:pnlEditarPartidaBautizo">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
@@ -106,7 +135,7 @@
 	
 	</h:form>			
 	<ui:include src="dialogNuevaPartidaBautizo.xhtml" />
-		
+	<ui:include src="dialogEditarPartidaBautizo.xhtml" />	
 		
 </ui:define>		
 	
