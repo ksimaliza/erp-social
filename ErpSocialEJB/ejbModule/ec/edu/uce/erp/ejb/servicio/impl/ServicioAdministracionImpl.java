@@ -583,4 +583,17 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		return parametroUpdate;
 	}
 	
+	@Override
+	public List<Persona> buscarPersona(Persona persona) throws SeguridadesException {
+		slf4jLogger.info("buscarPersona");
+		List<Persona> listPersonas = null;
+		try {
+			listPersonas = factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(persona);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarPersona {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener buscarPersona de la base de datos");
+		}
+		
+		return listPersonas;
+	}
 }

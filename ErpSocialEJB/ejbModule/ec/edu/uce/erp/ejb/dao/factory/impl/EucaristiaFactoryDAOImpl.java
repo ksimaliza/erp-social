@@ -6,6 +6,7 @@ import javax.persistence.PersistenceContext;
 
 import ec.edu.uce.erp.ejb.dao.factory.EucaristiaFactoryDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.BautizoDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.CatalogoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ConfirmacionDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ContratoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.DefuncionDAO;
@@ -19,6 +20,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.PrimeraComunionDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.SacerdoteDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.TipoNichoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.BautizoDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.CatalogoDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.ConfirmacionDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.ContratoDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.DefuncionDAOImpl;
@@ -51,6 +53,8 @@ public class EucaristiaFactoryDAOImpl implements EucaristiaFactoryDAO {
 	private SacerdoteDAO sacerdoteDAO;
 	private TipoNichoDAO tipoNichoDAO;
 	private DoctorDAO doctorDAO;
+	private CatalogoDAO catalogoDAO;
+	
 	
 	@Override
 	public BautizoDAO getBautizoDAOImpl()
@@ -167,5 +171,14 @@ public class EucaristiaFactoryDAOImpl implements EucaristiaFactoryDAO {
 			doctorDAO = new DoctorDAOImpl(entityManager);
 		}
 		return doctorDAO;
+	}
+	
+	@Override
+	public CatalogoDAO getCatalogoDAOImpl()
+	{
+		if (catalogoDAO == null) {
+			catalogoDAO = new CatalogoDAOImpl(entityManager);
+		}
+		return catalogoDAO;
 	}
 }
