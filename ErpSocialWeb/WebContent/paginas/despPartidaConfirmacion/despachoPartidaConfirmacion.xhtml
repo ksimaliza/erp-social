@@ -27,77 +27,87 @@
 				<table class="formulario">
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtNomCom" value="#{i18n['erp.despacho.partida.confirmacion.nombres']}" />
+							<h:outputLabel for="txtNomConf" value="#{i18n['erp.despacho.partida.confirmacion.nombres']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNomCom" 
-								/>
+							<p:inputText id="txtNomConf" 
+								value="#{partidaConfirmacionDataManager.confirmacionListDTO.perNombres}" />
 						</td>	
 					</tr>
 					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApeConf" value="#{i18n['erp.despacho.partida.confirmacion.apellidos']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApeConf" 
+								value="#{partidaConfirmacionDataManager.confirmacionListDTO.perApellidos}" />
+						</td>	
+					</tr>
 					
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtApeCom" value="#{i18n['erp.despacho.partida.confirmacion.apellidos']}" />
+							<h:outputLabel for="txtCiConf" value="#{i18n['erp.despacho.partida.confirmacion.cedula']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtApeCom" 
-								 />
+							<p:inputText id="txtCiConf" 
+								value="#{partidaConfirmacionDataManager.confirmacionListDTO.perCi}" />
 						</td>	
 					</tr>
 				</table>
 			</p:panel>
-<p:panel id="botonesBuscar">
-				<p:commandButton id="btnBuscar"
-					
-					value="#{i18n['label.buscar']}" 
-					process="@this,pnlBuscarPartidaConfirmacion"
-					update=":formPartidaConfirmacion:pnlMessages,tablaPartidaConfirmacion,pnlBuscarPartidaConfirmacion " />
-			</p:panel>
+	<p:panel id="botonesBuscar">
+					<p:commandButton id="btnBuscar"
+						actionListener="#{partidaConfirmacionController.buscarPartidaConfirmacion}"
+						value="#{i18n['label.buscar']}" 
+						process="@this,pnlBuscarPartidaConfirmacion"
+						update=":formPartidaConfirmacion:pnlMessages,tablaPartidaConfirmacion,pnlBuscarPartidaConfirmacion " />
+	</p:panel>
 
 
 <p:dataTable id="tablaPartidaConfirmacion"
-	
+	value="#{partidaConfirmacionDataManager.confirmacionListDTOs}" var="confirmacion"
 	rowIndexVar="rowIndex"
 	paginator="true" rows="5" paginatorPosition="bottom"
 	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-	rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.despacho.partida.comunion.lista']}">
+	rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.despacho.partida.confirmacion.lista']}">
 	<f:facet name="header">
-		#{i18n['erp.despacho.partida.comunion.lista']}
+		#{i18n['erp.despacho.partida.confirmacion.lista']}
 	</f:facet>
 	<p:column headerText="#" styleClass="centered" width="5%">
 		#{rowIndex+1}
 	</p:column>
 	<p:column headerText="#{i18n['erp.despacho.partida.confirmacion.cedula']}" width="35%">
-					<h:outputText  />
+				<h:outputText  value="#{confirmacion.perCi}" />
 				</p:column>
 				<p:column headerText="#{i18n['erp.despacho.partida.confirmacion.apellidos']}" width="40%">
-					<h:outputText  />
+					<h:outputText  value="#{confirmacion.perApellidos}" />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.confirmacion.nombres']}" width="40%">
-					<h:outputText  />
+					<h:outputText value="#{confirmacion.perNombres}"  />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.confirmacion.fecha']}" width="40%">
-					<h:outputText  />
+					<h:outputText value="#{confirmacion.conFecha}"  />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.confirmacion.lugar']}" width="40%">
-					<h:outputText  />
+					<h:outputText  value="#{confirmacion.conLugar}" />
 				</p:column>
-				
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.confirmacion.sacerdote']}" width="40%">
-					<h:outputText  />
+					<h:outputText  value="#{confirmacion.sacPersona}" />
 				</p:column>
+				
+				
 			
 			<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarPartidaConfirmacion.show()"
-							
+							actionListener="#{partidaConfirmacionController.cargarDatosConfirmacion(confirmacion)}"					
 							process="@this" update=":formEditarPartidaConfirmacion:pnlEditarPartidaConfirmacion">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
@@ -107,7 +117,7 @@
 	
 	</h:form>			
 	<ui:include src="dialogNuevaPartidaConfirmacion.xhtml" />
-		
+	<ui:include src="dialogEditarPartidaConfirmacion.xhtml" />	
 		
 </ui:define>		
 	
