@@ -205,6 +205,30 @@ INSERT INTO detalle_bien_tbl(
             cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
     VALUES ('ESCON', 'REGUL', 'Regular', '1');
 
+-- Tipo de baja.- Se manejara dentro de una catalogo Tipo del bajas: Perdida, robo, total, donación
+-- Cabecera catalogo
+INSERT INTO cabecera_bien_tbl(
+cab_bien_pk, cab_bien_descripcion, cab_bien_archivo) VALUES 
+('TIBAJ', 'Tipo del bajas: Perdida, robo, total, donación.', 'N/A');
+
+
+-- Detalle catalogo
+INSERT INTO detalle_bien_tbl(
+            cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
+    VALUES ('TIBAJ', 'PERDI', 'Perdida', '1');
+
+INSERT INTO detalle_bien_tbl(
+            cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
+    VALUES ('TIBAJ', 'ROBO', 'Robo', '1');
+
+INSERT INTO detalle_bien_tbl(
+            cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
+    VALUES ('TIBAJ', 'TOTAL', 'Total', '1');
+
+INSERT INTO detalle_bien_tbl(
+            cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
+    VALUES ('TIBAJ', 'DONAC', 'Donación', '1');
+
 /*==============================================================*/
 /* Table: CATEGORIA_BIEN_TBL                                    */
 /*==============================================================*/

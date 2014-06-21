@@ -6,47 +6,47 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpNuevoBien" header="#{i18n['erp.bien.registrar']}" 
-		widgetVar="dlgNuevoBien" modal="true" minWidth="550" width="550" appendTo="@(body)" draggable="false">
-		<h:form id="formNuevoBien" styleClass="formulario">
-			<p:panel id="pnlNuevoBien" >
-				<table class="formulario">
+		widgetVar="dlgNuevoBien" modal="true" minWidth="600" width="600" appendTo="@(body)" draggable="false">
+		<h:form id="formNuevoBien">
+			<p:panel id="pnlNuevoBien">
+				<table>
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtTipoBien" value="#{i18n['erp.bien.estado.conservacion']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
-						<td  width="70%">
+						<td width="70%">
 							<p:selectOneMenu id="txtTipoBien" style="width: 100%"
 								required="true" label="#{i18n['erp.bien.estado.conservacion']}"
 								value="#{bienDataManager.idDcEstadoConservacionSelec}" >
-								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{bienDataManager.dcEstadoConservacion}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
 					<tr>
-						<td width="30%">
+						<td>
 							<h:outputLabel for="selectCategoria" value="#{i18n['erp.bien.categoria']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
-						<td  width="70%">
+						<td>
 							<p:selectOneMenu id="selectCategoria" style="width: 100%"
 								required="true" label="#{i18n['erp.bien.categoria']}"
 								value="#{bienDataManager.idCategoriaBienSeleccionado}">
-								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{bienDataManager.dcCategoriaBien}"/>
-								<p:ajax event="change" process="@this" update="txtLinea" listener="#{bienDataManager.cargarDcLineaBien}"/>
+								<p:ajax event="change" process="@this" immediate="true" update="txtLinea" listener="#{bienDataManager.cargarDcLineaBien}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
 					<tr>
-						<td width="30%">
+						<td>
 							<h:outputLabel for="txtLinea" value="#{i18n['erp.bien.linea']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
-						<td  width="70%">
+						<td>
 							<p:selectOneMenu id="txtLinea" style="width: 100%"
-								label="#{i18n['erp.bien.linea']}"
+								label="#{i18n['erp.bien.linea']}" required="true"
 								value="#{bienDataManager.idLineaBienSeleccionado}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{bienDataManager.dcLineaBien}"/>
@@ -54,14 +54,14 @@
 						</td>
 					</tr>
 					<tr>
-						<td width="30%">
+						<td>
 							<h:outputLabel for="txtMarcaMaterial" value="#{i18n['erp.bien.marca.material']}" />
 						</td>
-						<td  width="70%">
+						<td>
 							<p:selectOneMenu id="txtMarcaMaterial" style="width: 100%"
 								required="false" label="#{i18n['erp.bien.marca.material']}"
 								value="#{bienDataManager.bienInstancia.marBienPk}">
-								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{bienDataManager.dcMarcaBien}"/>
 							</p:selectOneMenu>
 						</td>
@@ -112,7 +112,7 @@
 					actionListener="#{bienController.registrarBien}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoBien.hide()"
 					process="@this,pnlNuevoBien" update="pnlNuevoBien,:formBien:tablaBienes,:formBien:pnlMessages"/>
-				<p:commandButton value="#{i18n['label.cancelar']}"
+				<p:commandButton value="#{i18n['label.cancelar']}" immediate="true"
 					actionListener="#{bienController.reiniciarObjetos}" oncomplete="dlgNuevoBien.hide();" />
 			</p:panel>
 		</h:form>

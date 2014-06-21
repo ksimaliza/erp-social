@@ -34,7 +34,7 @@
 						<td width="30%">
 							<h:outputLabel for="selectTipoIngresoBien" value="#{i18n['erp.bien.tipo.transaccion']}" />
 						</td>
-						<td  width="70%">
+						<td width="70%">
 							<p:selectOneMenu id="selectTipoIngresoBien"
 								style="width: 100%" label="#{i18n['erp.bien.categoria']}"
 								value="#{bienDataManager.idDcTipoBienSelec}">
@@ -104,12 +104,12 @@
 					</f:facet>
 					<h:outputText value="#{rowIndex+1}"/>
 				</p:column>
-				<p:column width="10%">
+				<!-- <p:column width="10%">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.codigo']}" />
 					</f:facet>
 					<h:outputText value="#{vistaBien.bieCodigo}" />
-				</p:column>
+				</p:column> -->
 				<p:column width="10%">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.categoria']}" />
@@ -140,18 +140,18 @@
 					</f:facet>
 					<h:outputText value="#{vistaBien.bieColor}" />
 				</p:column>
-				<p:column width="10%">
+				<!-- <p:column width="10%">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.fecha.asignacion']}" />
 					</f:facet>
 					<h:outputText value="#{vistaBien.bieFechaAsig}" />
-				</p:column>
-				<p:column width="10%">
+				</p:column> -->
+				<!-- <p:column width="10%">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.ubicacion']}" />
 					</f:facet>
 					<h:outputText value="#{vistaBien.bieUbicacion}" />
-				</p:column>
+				</p:column> -->
 				<p:column width="10%">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.nombre']}" />
