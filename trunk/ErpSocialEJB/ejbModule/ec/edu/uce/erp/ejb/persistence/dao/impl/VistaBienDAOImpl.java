@@ -73,6 +73,14 @@ public class VistaBienDAOImpl extends AbstractFacadeImpl<VistaBien> implements V
 				criteriaList.add(predicate);
 			}
 			
+			//por codigo del bien
+			if (StringUtils.isNotBlank(vistaBien.getBieCodigo())) {
+				Expression<String> codigoBien = 
+						criteriaBuilder.upper(criteriaBuilder.literal(UtilAplication.appendStringBuilder("%", vistaBien.getBieCodigo(), "%").toString()));
+				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromVistaBien.<String>get("bieCodigo")), codigoBien);
+				criteriaList.add(predicate);
+			}
+			
 			//por nombre del bien
 			if (StringUtils.isNotBlank(vistaBien.getBieNombre())) {
 				Expression<String> nombreBien = 

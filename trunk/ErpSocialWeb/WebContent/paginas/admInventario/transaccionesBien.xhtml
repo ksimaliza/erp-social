@@ -24,6 +24,12 @@
 			<p:panel id="pnlBuscarBien" header="#{i18n['erp.bien.buscar']}">
 				<table>
 					<tr>
+						<td><h:outputLabel for="txtCodigoBien" value="#{i18n['label.codigo']}" /></td>
+						<td>
+							<p:inputText id="txtCodigoBien" value="#{vistaBienDataManager.vistaBienBuscar.bieCodigo}" />
+						</td>
+					</tr>
+					<tr>
 						<td><h:outputLabel for="txtNombreCustodio" value="#{i18n['label.custodio']}" /></td>
 						<td>
 							<p:inputText id="txtNombreCustodio" 
