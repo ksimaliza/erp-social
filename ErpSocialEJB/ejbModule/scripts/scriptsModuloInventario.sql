@@ -347,6 +347,9 @@ alter table transaccion_tbl
 add column emp_reasignado_fk integer null;
 
 alter table transaccion_tbl
+add column tra_descripcion VARCHAR(250) null;
+
+alter table transaccion_tbl
    add constraint FK_TRANSACCION_TBL_REF_EMPLEADO_ASIG foreign key (emp_asignado_fk)
       references empleado_tbl (emp_pk)
       on delete restrict on update restrict;
@@ -369,7 +372,7 @@ b.lin_bien_pk, lb.lin_bien_nombre, lb.lin_bien_estado,
 b.mar_bien_pk, mb.mar_bien_nombre, mb.mar_bien_estado,
 cb.cat_bien_nombre, cb.cat_bien_estado,
 t.cab_bien_tip_bie_fk, t.det_bien_tip_bie_nivel1, t.cab_bien_est_conserv_fk, 
-t.det_bien_est_conserv_nivel1_fk, t.tra_estado, t.emp_asignado_fk, t.emp_reasignado_fk,
+t.det_bien_est_conserv_nivel1_fk, t.tra_estado, t.emp_asignado_fk, t.emp_reasignado_fk, t.tra_descripcion,
 per.per_ci, (per.per_nombres || ' ' || per.per_apellidos) as nombres_completos
 from bien_tbl b
 inner join categoria_bien_tbl cb on cb.cat_bien_pk=b.cat_bien_pk

@@ -4,6 +4,7 @@
 package ec.edu.uce.erp.web.datamanager;
 
 import static ec.edu.uce.erp.common.util.CatalogoCabeceraConstantes.ID_CAB_CATALOGO_TIPO_BIEN;
+import static ec.edu.uce.erp.common.util.CatalogoCabeceraConstantes.ID_CAB_CAT_BAJA_BIEN;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,7 @@ public class VistaBienDataManager extends BaseDataManager{
 	private Integer idCustudioAsignado;
 	private Integer idCustudioReasignado;
 	private String idDcTipoBienSelec;
+	private String idDcBajaBienSelec;
 	private Integer idCategoriaBienSeleccionado;
 	private Integer idLineaBienSeleccionado;
 	private String idCIEmpleadoSeleccionado;
@@ -61,6 +63,7 @@ public class VistaBienDataManager extends BaseDataManager{
 	private List<SelectItem> dcCategoriaBien;
 	private List<SelectItem> dcLineaBien;
 	private List<SelectItem> dcEmpleadosEmpresa;
+	private List<SelectItem> dcBajaBien;
 	
 	public VistaBienDataManager () {
 		this.vistaBienBuscar = new VistaBien();
@@ -188,6 +191,20 @@ public class VistaBienDataManager extends BaseDataManager{
 		}
 		
 		return dcTipoBien;
+	}
+	
+	/**
+	 * @return the dcTipoBien
+	 * @throws SeguridadesException 
+	 */
+	public List<SelectItem> getDcBajaBien() throws SeguridadesException {
+		
+		if (CollectionUtils.isEmpty(dcBajaBien)) {
+			slf4jLogger.info("cargar catalogoTipoBien");
+			dcBajaBien = UtilSelectItems.getInstancia().cargarSelectItemsDetBien(ID_CAB_CAT_BAJA_BIEN, servicioInventario);
+		}
+		
+		return dcBajaBien;
 	}
 	
 	/**
@@ -364,4 +381,19 @@ public class VistaBienDataManager extends BaseDataManager{
 		this.listVistaBienEditar = listVistaBienEditar;
 	}
 
+	/**
+	 * @return the idDcBajaBienSelec
+	 */
+	public String getIdDcBajaBienSelec() {
+		return idDcBajaBienSelec;
+	}
+
+	/**
+	 * @param idDcBajaBienSelec the idDcBajaBienSelec to set
+	 */
+	public void setIdDcBajaBienSelec(String idDcBajaBienSelec) {
+		this.idDcBajaBienSelec = idDcBajaBienSelec;
+	}
+
 }
+

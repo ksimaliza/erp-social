@@ -46,6 +46,9 @@ public class Transaccion implements Serializable {
 
 	@Column(name="tra_estado")
 	private String traEstado;
+	
+	@Column(name="tra_descripcion")
+	private String traDescripcion;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="tra_fecha")

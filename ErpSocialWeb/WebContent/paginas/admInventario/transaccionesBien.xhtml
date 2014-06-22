@@ -182,7 +182,10 @@
 							oncomplete="dlgReasignarBien.show()" update=":formReasignarBien:pnlReasignarBien">
 							<f:setPropertyActionListener target="#{vistaBienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
 						</p:commandLink>
-						<p:commandLink value="  Dar baja" title="Dar baja" rendered="#{vistaBien.npVerBajaBien}"/>
+						<p:commandLink value="  Dar baja" title="Dar baja" rendered="#{vistaBien.npVerBajaBien}"
+							oncomplete="dlgBajaBien.show()" update=":formBajaBien:pnlBajaBien">
+							<f:setPropertyActionListener target="#{vistaBienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
+						</p:commandLink>
 						<p:commandLink value="  Trazabilidad" title="Trazabilidad"
 							action="#{transaccionBienController.obtenerTrazabilidadBien}"
 							oncomplete="dlgTrazabilidadBien.show()" update=":formTrazabilidadBien:pnlTrazabilidadBien">
@@ -202,6 +205,7 @@
 		<!-- <ui:include src="dialogNuevoBien.xhtml" />
 		<ui:include src="dialogEditarBien.xhtml" /> -->
 		<ui:include src="dialogAsignarBien.xhtml" />
+		<ui:include src="dialogBajaBien.xhtml" />
 		<ui:include src="dialogReasignarBien.xhtml" />
 		<ui:include src="dialogTrazabilidadBien.xhtml" />
 		<ui:include src="dialogBuscarUsuario.xhtml" />

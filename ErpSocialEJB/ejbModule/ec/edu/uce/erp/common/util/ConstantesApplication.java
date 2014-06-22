@@ -31,14 +31,15 @@ public final class ConstantesApplication {
 	public static final String PORCENTAJE = MessagesApplicacion.getString("erp.porcentaje");
 	
 	/**
-	 * cabecera catalogo tipo ingreso bien %
+	 * cabecera catalogo tipo ingreso bien
 	 */
 	public static final String CAB_CAT_TIPO_BIEN = MessagesApplicacion.getString("erp.inventarios.cabecera.catalogo.id.tipoBien");
 	
 	/**
-	 * cabecera catalogo estado conservacion bien %
+	 * cabecera catalogo estado conservacion bien
 	 */
 	public static final String CAB_CAT_ESTADO_CONSERVACION = MessagesApplicacion.getString("erp.inventarios.cabecera.catalogo.id.estadoConservacion");
+	
 	
 	
 }

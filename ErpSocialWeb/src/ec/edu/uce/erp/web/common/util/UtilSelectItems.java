@@ -89,13 +89,6 @@ public final class UtilSelectItems {
 		List<DetalleCatalogo> listDetalleCatalogo = servicioAdministracion.buscarDetalleCatalogoCriterios(detalleCatalogo);
 		
 		if (CollectionUtils.isNotEmpty(listDetalleCatalogo)) {
-//			CollectionUtils.collect(listDetalleCatalogo, new Transformer() {
-//				@Override
-//				public Object transform(final Object arg0) {
-//					final DetalleCatalogo detalleCatalogo = (DetalleCatalogo)arg0;
-//					return new SelectItem(detalleCatalogo.getId().getDetCatalogoNivel1(), detalleCatalogo.getDetCatalogoDescripcion());
-//				}
-//			}, listSelectItem);
 			
 			listSelectItem = this.cargarSelectItemsGenerico(listDetalleCatalogo, "id.detCatalogoNivel1", "detCatalogoDescripcion");
 		}
@@ -115,7 +108,7 @@ public final class UtilSelectItems {
 		
 		slf4jLogger.info("cargarSelectItemsDetBien");
 		
-		List<SelectItem> listSelectItem = new ArrayList<SelectItem>();
+//		List<SelectItem> listSelectItem = new ArrayList<SelectItem>();
 		
 		DetalleBien detalleBien = new DetalleBien();
 		detalleBien.setId(new DetalleBienPK());
@@ -123,17 +116,19 @@ public final class UtilSelectItems {
 		detalleBien.setDetBienEstado(ESTADO_ACTIVO);
 		List<DetalleBien> listDetalleBien = servicioInventario.buscarDetalleBienCriterios(detalleBien);
 		
-		if (CollectionUtils.isNotEmpty(listDetalleBien)) {
-			CollectionUtils.collect(listDetalleBien, new Transformer() {
-				@Override
-				public Object transform(final Object arg0) {
-					final DetalleBien detalleBien = (DetalleBien)arg0;
-					return new SelectItem(detalleBien.getId().getDetBienNivel1(), detalleBien.getDetBienDescripcion());
-				}
-			}, listSelectItem);
-		}
+//		if (CollectionUtils.isNotEmpty(listDetalleBien)) {
+//			CollectionUtils.collect(listDetalleBien, new Transformer() {
+//				@Override
+//				public Object transform(final Object arg0) {
+//					final DetalleBien detalleBien = (DetalleBien)arg0;
+//					return new SelectItem(detalleBien.getId().getDetBienNivel1(), detalleBien.getDetBienDescripcion());
+//				}
+//			}, listSelectItem);
+//		}
 		
-		return listSelectItem;
+		return this.cargarSelectItemsGenerico(listDetalleBien, "id.detBienNivel1", "detBienDescripcion");
+		
+//		return listSelectItem;
 		
 	}
 	
