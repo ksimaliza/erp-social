@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,7 +49,7 @@ public class LineaBien extends AuditoriaUtil implements Serializable {
 
 	
 	//@JoinColumn(name="cab_bien_fk", referencedColumnName="cab_bien_pk", insertable=false, updatable=false)
-	@ManyToOne (fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="cat_bien_pk", referencedColumnName="cat_bien_pk", insertable=false, updatable=false)
 	private CategoriaBien categoriaBienTbl;
 

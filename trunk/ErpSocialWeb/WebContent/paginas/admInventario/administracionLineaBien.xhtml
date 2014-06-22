@@ -86,6 +86,11 @@
 						<h:outputText value="#{i18n['erp.linea.bien.descripcion']}" />
 					</f:facet>
 					<h:outputText value="#{lineaBien.linBienDescripcion}" />
+				</p:column><p:column width="20%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.categoria.linea.bien']}" />
+					</f:facet>
+					<h:outputText value="#{lineaBien.categoriaBienTbl.catBienNombre}" />
 				</p:column>
 				<p:column styleClass="centered" width="10%">
 					<f:facet name="header">

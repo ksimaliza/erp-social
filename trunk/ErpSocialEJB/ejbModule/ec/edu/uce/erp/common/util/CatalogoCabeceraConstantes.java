@@ -39,4 +39,9 @@ public final class CatalogoCabeceraConstantes {
 	 */
 	public static final String ID_CAB_CATALOGO_ESTADO_CONSERVACION = MessagesApplicacion.getString("erp.inventarios.cabecera.catalogo.id.estadoConservacion");
 	
+	/**
+	 * cabecera catalogo baja bien
+	 */
+	public static final String ID_CAB_CAT_BAJA_BIEN = MessagesApplicacion.getString("erp.inventarios.cabecera.catalogo.id.bajaBien");
+	
 }

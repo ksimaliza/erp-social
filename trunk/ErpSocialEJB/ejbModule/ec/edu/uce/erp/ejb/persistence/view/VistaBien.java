@@ -113,6 +113,8 @@ public class VistaBien implements Serializable {
 	@Column(name="bie_codigo")
 	private String bieCodigo;
 
+	@Column(name="tra_descripcion")
+	private String traDescripcion;
 	
 	@Column(name="nombres_completos")
 	private String nombresCompletos;

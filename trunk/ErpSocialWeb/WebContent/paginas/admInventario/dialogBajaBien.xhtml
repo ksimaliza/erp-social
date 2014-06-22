@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpBajaBien" header="#{i18n['erp.bien.baja']}" 
+		widgetVar="dlgBajaBien" modal="true" minWidth="550" width="550" appendTo="@(body)" draggable="false">
+		<h:form id="formBajaBien" styleClass="formulario">
+			<p:panel id="pnlBajaBien" >
+				<table class="formulario">
+				
+					<tr>
+						<td>
+							<h:outputLabel for="txtBaja" value="#{i18n['erp.bien.baja.motivo']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:selectOneMenu id="txtBaja" style="width: 100%" required="true"
+								value="#{vistaBienDataManager.idDcBajaBienSelec}">
+								<f:selectItem itemValue=""
+									itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true" />
+								<f:selectItems value="#{vistaBienDataManager.dcBajaBien}" />
+							</p:selectOneMenu>
+						</td>
+					</tr>
+				
+					<tr>
+						<td width="25%">
+							<h:outputLabel for="txtNombre" value="#{i18n['label.descripcion']}" />
+						</td>
+						<td width="75%">
+							<h:outputText id="txtNombre" value="#{vistaBienDataManager.vistaBienEditar.bieNombre}" />
+						</td>
+					</tr> 
+					<tr>
+						<td>
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.fecha.asignacion']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:calendar id="popupCal" required="true" pattern="yyyy-mm-dd"
+								value="#{vistaBienDataManager.vistaBienEditar.bieFechaAsig}" label="#{i18n['erp.bien.fecha.asignacion']}" showOn="button">
+								<f:convertDateTime pattern="yyyy-mm-dd" />
+							</p:calendar>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtUbicacion" value="#{i18n['erp.bien.ubicacion']}" />
+						</td>
+						<td>
+							<p:inputText id="txtUbicacion" style="width: 100%" required="true"
+								value="#{vistaBienDataManager.vistaBienEditar.bieUbicacion}" label="#{i18n['erp.bien.ubicacion']}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtCodigo" value="#{i18n['erp.bien.codigo']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:inputText id="txtCodigo" style="width: 100%" required="true"
+								value="#{vistaBienDataManager.vistaBienEditar.bieCodigo}" label="#{i18n['erp.bien.codigo']}" />
+						</td>
+					</tr>
+					
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{transaccionBienController.asignarBien}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgBajaBien.hide()"
+					process="@this,pnlBajaBien" update="pnlBajaBien,:formBien:tablaBienes,:formBien:pnlMessages"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" type="button" onclick="dlgBajaBien.hide();"/>
+			</p:panel>
+		</h:form>
+	</p:dialog>
+</ui:composition>
