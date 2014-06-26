@@ -15,6 +15,8 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
+
+import ec.edu.uce.erp.ejb.persistence.vo.LoginVO;
 /**
  * @author 
  *
@@ -90,5 +92,11 @@ public abstract class BaseController implements Serializable{
 
 			cell.setCellStyle(cellStyle);
 		}
+	}
+	
+	protected int getEmpresaCode()
+	{
+		return ((LoginVO)getSessionParameter("loginVO")).getUsuario().getEmpresaTbl().getEmrPk();
+				
 	}
 }
