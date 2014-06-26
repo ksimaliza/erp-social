@@ -97,6 +97,5 @@ public abstract class BaseController implements Serializable{
 	protected int getEmpresaCode()
 	{
 		return ((LoginVO)getSessionParameter("loginVO")).getUsuario().getEmpresaTbl().getEmrPk();
-				
 	}
 }
