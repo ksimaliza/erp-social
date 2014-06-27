@@ -64,16 +64,21 @@ public void registrarNivelParalelo () {
 		ParaleloDTO paralelo;
 		NivelDTO nivel;
 		try {
-			nivelParalelo=new NivelParaleloDTO();
 			
+			nivelParalelo=new NivelParaleloDTO();
 			paralelo=new ParaleloDTO();
 			nivel=new NivelDTO();
 			
+			
+			paralelo.setParEmpresa(getEmpresaCode());
+			nivel.setNivEmpresa(getEmpresaCode());
 			paralelo.setParCodigo(nivelParaleloDataManager.getParaleloCodigo());
 			nivel.setNivCodigo(nivelParaleloDataManager.getNivelCodigo());
 			
+			nivelParalelo.setNpaEmpresa(getEmpresaCode());
 			nivelParalelo.setMatNivel(nivel);
 			nivelParalelo.setMatParalelo(paralelo);
+			
 			
 			NivelParaleloDTO nivelNuevo=this.servicioMatricula.createOrUpdateNivelParalelo(nivelParalelo);
 						
@@ -93,6 +98,7 @@ public void registrarNivelParalelo () {
 		slf4jLogger.info("buscarNivelParalelo");
 		List<NivelParaleloDTO> listResultado=new ArrayList<NivelParaleloDTO>();
 		try {
+			nivelParaleloDataManager.getNivelParaleloBuscar().setNpaEmpresa(getEmpresaCode());
 			listResultado = this.servicioMatricula.buscarNivelParalelo(nivelParaleloDataManager.getNivelParaleloBuscar());
 			
 			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
@@ -112,10 +118,12 @@ public void registrarNivelParalelo () {
 		slf4jLogger.info("buscarParalelo");
 		
 		List<ParaleloDTO> listaparalelo=null;
+		ParaleloDTO paraleloDTO;
 		
 		try {
-							
-			listaparalelo = this.servicioMatricula.buscarParalelo(new ParaleloDTO());
+			paraleloDTO=new ParaleloDTO();
+			paraleloDTO.setParEmpresa(getEmpresaCode());				
+			listaparalelo = this.servicioMatricula.buscarParalelo(paraleloDTO);
 			
 			if (CollectionUtils.isEmpty(listaparalelo) && listaparalelo.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
@@ -132,12 +140,14 @@ public void registrarNivelParalelo () {
 	
 	public void buscarNivel () {
 		slf4jLogger.info("buscarNivel");
-		
+				
 		List<NivelDTO> listaNivel=null;
+		NivelDTO nivelDTO;
 		
 		try {
-							
-			listaNivel = this.servicioMatricula.buscarNivel(new NivelDTO());
+			nivelDTO=new NivelDTO();
+			nivelDTO.setNivEmpresa(getEmpresaCode());				
+			listaNivel = this.servicioMatricula.buscarNivel(nivelDTO);
 			if (CollectionUtils.isEmpty(listaNivel) && listaNivel.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
@@ -161,6 +171,8 @@ public void registrarNivelParalelo () {
 		try {
 			nivelParaleloDTO=new NivelParaleloDTO();
 			nivelDTO=new NivelDTO();
+			nivelParaleloDTO.setNpaEmpresa(getEmpresaCode());
+			nivelDTO.setNivEmpresa(getEmpresaCode());
 			nivelDTO.setNivCodigo(nivelParaleloDataManager.getNivelCodigo());
 			nivelParaleloDTO.setMatNivel(nivelDTO);
 			listaNivelParalelo = this.servicioMatricula.buscarNivelParalelo(nivelParaleloDTO);

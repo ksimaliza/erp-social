@@ -49,6 +49,8 @@ private static final long serialVersionUID = 1L;
 		this.asinacionDataManager = asinacionDataManager;
 	}
 	
+	
+	
 	public AsinacionController () {}
 	
 	
@@ -73,7 +75,7 @@ private static final long serialVersionUID = 1L;
 		ProfesorDTO profesor;
 		MateriaDTO materia;
 		PeriodoDTO periodo;
-		
+				
 		try {
 			
 			asinacion = new AsinacionDTO();
@@ -83,7 +85,9 @@ private static final long serialVersionUID = 1L;
 			periodo = new PeriodoDTO();
 			nivelDTO = new NivelDTO();
 			paraleloDTO= new ParaleloDTO();
+		
 			
+			asinacion.setAsiEmpresa(getEmpresaCode());
 			nivelDTO.setNivCodigo(asinacionDataManager.getNivelCodigo());
 			paraleloDTO.setParCodigo(asinacionDataManager.getParaleloCodigo());
 						
@@ -127,6 +131,7 @@ private static final long serialVersionUID = 1L;
 		
 		try {
 			asinacionListDTO=new AsinacionListDTO();
+			asinacionListDTO.setAsiEmpresa(getEmpresaCode());
 			asinacionListDTO.setNpaNivel(asinacionDataManager.getNivelCodigo());
 			asinacionListDTO.setNpaParalelo(asinacionDataManager.getParaleloCodigo());
 			asinacionListDTOs = this.servicioMatricula.readAsinacion(asinacionListDTO);
@@ -158,6 +163,8 @@ private static final long serialVersionUID = 1L;
 		try {
 			nivelParaleloDTO=new NivelParaleloDTO();
 			nivelDTO=new NivelDTO();
+			nivelParaleloDTO.setNpaEmpresa(getEmpresaCode());
+			nivelDTO.setNivEmpresa(getEmpresaCode());
 			nivelDTO.setNivCodigo(asinacionDataManager.getNivelCodigo());
 			nivelParaleloDTO.setMatNivel(nivelDTO);
 			listaNivelParalelo = this.servicioMatricula.buscarNivelParalelo(nivelParaleloDTO);							
@@ -173,10 +180,13 @@ private static final long serialVersionUID = 1L;
 		slf4jLogger.info("buscarNivel");
 		
 		List<NivelDTO> listaNivel=null;
-		
+		NivelDTO nivelDTO;
 		try {
 							
-			listaNivel = this.servicioMatricula.buscarNivel(new NivelDTO());
+					
+			nivelDTO=new NivelDTO();
+			nivelDTO.setNivEmpresa(getEmpresaCode());
+			listaNivel = this.servicioMatricula.buscarNivel(nivelDTO);
 			
 			if (CollectionUtils.isEmpty(listaNivel) && listaNivel.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
@@ -196,10 +206,14 @@ private static final long serialVersionUID = 1L;
 		slf4jLogger.info("buscarDocente");
 		
 		List<DocenteListDTO> listadocentes=null;
+		DocenteListDTO docenteListDTO;
+		
 		
 		try {
+			docenteListDTO=new DocenteListDTO();
+			docenteListDTO.setProEmpresa(getEmpresaCode());
 							
-			listadocentes = this.servicioMatricula.buscarProfesor(new DocenteListDTO());
+			listadocentes = this.servicioMatricula.buscarProfesor(docenteListDTO);
 			
 			if (CollectionUtils.isEmpty(listadocentes) && listadocentes.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
@@ -219,10 +233,13 @@ private static final long serialVersionUID = 1L;
 		slf4jLogger.info("buscarMateria");
 		
 		List<MateriaDTO> listamaterias=null;
+		MateriaDTO  materiaDTO;
 		
 		try {
 							
-			listamaterias = this.servicioMatricula.buscarMateria(new MateriaDTO());
+			materiaDTO=new MateriaDTO();
+			materiaDTO.setMtrEmpresa(getEmpresaCode());
+			listamaterias = this.servicioMatricula.buscarMateria(materiaDTO);
 			
 			if (CollectionUtils.isEmpty(listamaterias) && listamaterias.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
@@ -241,10 +258,13 @@ private static final long serialVersionUID = 1L;
 		slf4jLogger.info("buscarPeriodo");
 		
 		List<PeriodoDTO> listaperiodos=null;
+		PeriodoDTO periodoDTO;
 		
 		try {
 							
-			listaperiodos = this.servicioMatricula.buscarPeriodo(new PeriodoDTO());
+			periodoDTO=new PeriodoDTO();
+			periodoDTO.setPerEmpresa(getEmpresaCode());
+			listaperiodos = this.servicioMatricula.buscarPeriodo(periodoDTO);
 			
 			if (CollectionUtils.isEmpty(listaperiodos) && listaperiodos.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");

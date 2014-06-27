@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionListDTO;
@@ -152,17 +153,21 @@ public void registrarConfirmacion () {
 		slf4jLogger.info("buscarConfirmado");
 		
 		List<Persona> listaConfirmado=null;
+		BautizoListDTO bautizo=new BautizoListDTO();
+		List<BautizoListDTO> list=null;
 		
 		try {
 			partidaConfirmacionDataManager.getConfirmadoInsertar().setPerNombres(null);
 			partidaConfirmacionDataManager.getConfirmadoInsertar().setPerApellidos(null);
 			listaConfirmado=this.servicioAdministracion.buscarPersona(partidaConfirmacionDataManager.getConfirmadoInsertar());					
+			bautizo.setPerCi(partidaConfirmacionDataManager.getConfirmadoInsertar().getPerCi());
+			list=this.servicioEucaristia.buscarPartidaBautizo(bautizo);
+			
 			if (CollectionUtils.isEmpty(listaConfirmado) && listaConfirmado.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.partidaConfirmacionDataManager.setConfirmadoInsertar(listaConfirmado.get(0));
-				
-							
+				this.partidaConfirmacionDataManager.setBautizoListDTO(list.get(0));			
 			}
 			
 		} catch (SeguridadesException e) {

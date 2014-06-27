@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionListDTO;
@@ -49,6 +50,10 @@ public class PartidaConfirmacionDataManager extends BaseDataManager {
 	
 	private int tipoCodigo;
 	private List<CatalogoEucaristiaDTO> tipoEucaristiaDTOs;
+	private CatalogoEucaristiaDTO provincia;
+	private CatalogoEucaristiaDTO ciudad;
+	private CatalogoEucaristiaDTO canton;
+	private BautizoListDTO bautizoListDTO;
 	
 	@PostConstruct
 	public void inicializarObjetos () {
@@ -64,6 +69,10 @@ public class PartidaConfirmacionDataManager extends BaseDataManager {
 		this.confirmacionListDTO=new ConfirmacionListDTO();
 		this.confirmacionListDTOs=new ArrayList<ConfirmacionListDTO>();
 		this.tipoEucaristiaDTOs=new ArrayList<CatalogoEucaristiaDTO>();
+		this.provincia=new CatalogoEucaristiaDTO();
+		this.ciudad=new CatalogoEucaristiaDTO();
+		this.canton=new CatalogoEucaristiaDTO();
+		this.bautizoListDTO=new BautizoListDTO();
 		
 		
 	}
@@ -186,6 +195,56 @@ public class PartidaConfirmacionDataManager extends BaseDataManager {
 	public void setConfirmacionListDTOs(
 			List<ConfirmacionListDTO> confirmacionListDTOs) {
 		this.confirmacionListDTOs = confirmacionListDTOs;
+	}
+
+
+	public int getTipoCodigo() {
+		return tipoCodigo;
+	}
+
+
+	public void setTipoCodigo(int tipoCodigo) {
+		this.tipoCodigo = tipoCodigo;
+	}
+
+
+	public CatalogoEucaristiaDTO getProvincia() {
+		return provincia;
+	}
+
+
+	public void setProvincia(CatalogoEucaristiaDTO provincia) {
+		this.provincia = provincia;
+	}
+
+
+	public CatalogoEucaristiaDTO getCiudad() {
+		return ciudad;
+	}
+
+
+	public void setCiudad(CatalogoEucaristiaDTO ciudad) {
+		this.ciudad = ciudad;
+	}
+
+
+	public CatalogoEucaristiaDTO getCanton() {
+		return canton;
+	}
+
+
+	public void setCanton(CatalogoEucaristiaDTO canton) {
+		this.canton = canton;
+	}
+
+
+	public BautizoListDTO getBautizoListDTO() {
+		return bautizoListDTO;
+	}
+
+
+	public void setBautizoListDTO(BautizoListDTO bautizoListDTO) {
+		this.bautizoListDTO = bautizoListDTO;
 	}
 	
 	

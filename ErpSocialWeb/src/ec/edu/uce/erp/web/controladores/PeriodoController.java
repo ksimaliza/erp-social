@@ -14,13 +14,19 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
+import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.datamanager.PeriodoDataManager;
 
 @ViewScoped
 @ManagedBean (name = "periodoController")
 
-public class PeriodoController {
+public class PeriodoController extends BaseController {
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 private static final Logger slf4jLogger = LoggerFactory.getLogger(PeriodoController.class);
 	
 	@EJB
@@ -50,6 +56,8 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PeriodoControl
 		
 		slf4jLogger.info("registrarPeriodo");
 		try {
+			
+			periodoDataManager.getPeriodoInstancia().setPerEmpresa(getEmpresaCode());
 			PeriodoDTO periodoNuevo = this.servicioMatricula.createOrUpdatePeriodo(this.periodoDataManager.getPeriodoInstancia());
 			if (periodoNuevo != null) {
 				periodoDataManager.setPeriodoInstancia(new PeriodoDTO());
@@ -70,6 +78,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PeriodoControl
 		
 		try {
 							
+			periodoDataManager.getPeriodoBuscar().setPerEmpresa(getEmpresaCode());
 			listaperiodos = this.servicioMatricula.buscarPeriodo(periodoDataManager.getPeriodoBuscar());
 			
 			if (CollectionUtils.isEmpty(listaperiodos) && listaperiodos.size()==0) {

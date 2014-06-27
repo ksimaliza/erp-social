@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
+import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.datamanager.ParaleloDataManager;
 
@@ -22,8 +23,13 @@ import ec.edu.uce.erp.web.datamanager.ParaleloDataManager;
 @ViewScoped
 @ManagedBean (name = "paraleloController")
 
-public class ParaleloController {
+public class ParaleloController extends BaseController {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(ParaleloController.class);
 	
 	@EJB
@@ -36,15 +42,15 @@ public class ParaleloController {
 		this.paraleloDataManager = paraleloDataManager;
 	}
 	
-public ParaleloController() {
+		public ParaleloController() {
 		
-	}
-@PostConstruct
-private void init()
-{
-	buscarParalelo();
-}
-	
+			}
+		@PostConstruct
+		private void init()
+		{
+			buscarParalelo();
+		}
+			
 /*
  * Medodos
  */
@@ -53,6 +59,7 @@ public void registrarParalelo () {
 	
 	slf4jLogger.info("registrarParalelo");
 	try {
+		paraleloDataManager.getParaleloInstancia().setParEmpresa(getEmpresaCode());
 		ParaleloDTO paraleloNuevo = this.servicioMatricula.createOrUpdateParalelo(this.paraleloDataManager.getParaleloInstancia());
 		if (paraleloNuevo != null) {
 			paraleloDataManager.setParaleloInstancia(new ParaleloDTO());
@@ -72,7 +79,7 @@ public void buscarParalelo () {
 	List<ParaleloDTO> listaparalelo=null;
 	
 	try {
-						
+		paraleloDataManager.getParaleloBuscar().setParEmpresa(getEmpresaCode());				
 		listaparalelo = this.servicioMatricula.buscarParalelo(paraleloDataManager.getParaleloBuscar());
 		
 		if (CollectionUtils.isEmpty(listaparalelo) && listaparalelo.size()==0) {
