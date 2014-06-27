@@ -19,6 +19,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.ProfesorVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
+import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.common.util.JsfUtil;
 import ec.edu.uce.erp.web.datamanager.DocenteDataManager;
@@ -26,7 +27,12 @@ import ec.edu.uce.erp.web.datamanager.DocenteDataManager;
 
 @ViewScoped
 @ManagedBean (name = "docenteController")
-public class DocenteController {
+public class DocenteController extends BaseController{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(DocenteController.class);
 	
 	@EJB
@@ -59,6 +65,8 @@ public class DocenteController {
 		
 		try {
 			profesorVO=new ProfesorVO();
+			
+			docenteDataManager.getProfesorInstancia().setProEmpresa(getEmpresaCode());
 			profesorVO.setProfesor(docenteDataManager.getProfesorInstancia());
 			profesorVO.setPersona(docenteDataManager.getPersonaInstancia());
 			ProfesorDTO profesorNuevo = this.servicioMatricula.createOrUpdateProfesor(profesorVO);
@@ -83,6 +91,7 @@ public class DocenteController {
 		
 		try {
 							
+			docenteDataManager.getProfesorBuscar().setProEmpresa(getEmpresaCode());
 			listadocentes = this.servicioMatricula.buscarProfesor(docenteDataManager.getProfesorBuscar());
 			
 			if (CollectionUtils.isEmpty(listadocentes) && listadocentes.size()==0) {

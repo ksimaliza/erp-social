@@ -19,6 +19,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EstudianteVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
+import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.common.util.JsfUtil;
 import ec.edu.uce.erp.web.datamanager.EstudianteDataManager;
@@ -26,8 +27,14 @@ import ec.edu.uce.erp.web.datamanager.EstudianteDataManager;
 
 @ViewScoped
 @ManagedBean (name = "estudianteController")
-public class EstudianteController {
+public class EstudianteController extends BaseController{
 	
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+
 		private static final Logger slf4jLogger = LoggerFactory.getLogger(EstudianteController.class);
 		
 		@EJB
@@ -57,10 +64,14 @@ public class EstudianteController {
 			
 			slf4jLogger.info("registrarEstudiante");
 			EstudianteVO estudianteVO;
+			
 			try {
 				estudianteVO=new EstudianteVO();
+				estudianteDataManager.getEstudianteInstancia().setEstEmpresa(getEmpresaCode());
 				estudianteVO.setEstudiante(estudianteDataManager.getEstudianteInstancia());
 				estudianteVO.setPersona(estudianteDataManager.getEstudiantePersonaInsertar());
+				
+
 				EstudianteDTO estudianteNuevo = this.servicioMatricula.createOrUpdateEstudiante(estudianteVO);
 				if (estudianteNuevo != null) {
 					estudianteDataManager.setEstudianteInstancia(new EstudianteDTO());
@@ -82,6 +93,7 @@ public class EstudianteController {
 			
 			try {
 								
+				estudianteDataManager.getEstudianteBuscar().setEstEmpresa(getEmpresaCode());
 				listaestudiantes = this.servicioMatricula.buscarEstudiante(estudianteDataManager.getEstudianteBuscar());
 				
 				if (CollectionUtils.isEmpty(listaestudiantes) && listaestudiantes.size()==0) {

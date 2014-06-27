@@ -17,12 +17,18 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.RepresentanteVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
+import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.datamanager.RepresentanteDataManager;
 
 @ViewScoped
 @ManagedBean (name = "representanteController")
-public class RepresentanteController {
+public class RepresentanteController extends BaseController{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(PerfilController.class);
 	
 	@EJB
@@ -46,6 +52,8 @@ public class RepresentanteController {
 		
 		try {
 			representanteVO=new RepresentanteVO();
+			
+			representanteDataManager.getRepresentanteInstancia().setRepEmpresa(getEmpresaCode());
 			representanteVO.setRepresentante(representanteDataManager.getRepresentanteInstancia());
 			representanteVO.setPersona(representanteDataManager.getPersonaInstancia());
 			RepresentanteDTO representanteNuevo = this.servicioMatricula.createOrUpdateRepresentante(representanteVO);
@@ -69,6 +77,7 @@ public class RepresentanteController {
 		
 		try {
 							
+			representanteDataManager.getRepresentanteBuscar().setRepEmpresa(getEmpresaCode());
 			listarepresentante = this.servicioMatricula.buscarRepresentante(representanteDataManager.getRepresentanteBuscar());
 			
 			if (CollectionUtils.isEmpty(listarepresentante) && listarepresentante.size()==0) {

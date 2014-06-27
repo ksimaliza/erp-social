@@ -15,12 +15,18 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
+import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.datamanager.NivelDataManager;
 
 @ViewScoped
 @ManagedBean (name = "nivelController")
-public class NivelController {
+public class NivelController extends BaseController {
+
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 private static final Logger slf4jLogger = LoggerFactory.getLogger(NivelController.class);
 	
@@ -35,14 +41,15 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(NivelControlle
 	}
 	
 	
-public NivelController() {
+		public NivelController() {
+				
+			}
 		
-	}
-@PostConstruct
-private void init()
-{
-	buscarNivel();
-}
+		@PostConstruct
+		private void init()
+		{
+			buscarNivel();
+		}
 	
 	/*
 	 * Medodos
@@ -52,6 +59,7 @@ private void init()
 		
 		slf4jLogger.info("registrarNivel");
 		try {
+			this.nivelDataManager.getNivelInstancia().setNivEmpresa(getEmpresaCode());
 			NivelDTO nivelNuevo = this.servicioMatricula.createOrUpdateNivel(this.nivelDataManager.getNivelInstancia());
 			if (nivelNuevo != null) {
 				nivelDataManager.setNivelInstancia(new NivelDTO());
@@ -72,6 +80,8 @@ private void init()
 		List<NivelDTO> listaNivel=null;
 		
 		try {
+			
+			nivelDataManager.getNivelBuscar().setNivEmpresa(getEmpresaCode());
 							
 			listaNivel = this.servicioMatricula.buscarNivel(nivelDataManager.getNivelBuscar());
 			

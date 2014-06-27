@@ -25,6 +25,7 @@ public class NivelParaleloDataManager extends BaseController{
 	
 		
 	private List<NivelParaleloDTO> nivelParaleloList;
+	private NivelParaleloDTO nivelParaleloInsertar;
 	
 	private int nivelCodigo;
 	private int paraleloCodigo;
@@ -50,6 +51,7 @@ public class NivelParaleloDataManager extends BaseController{
 		nivelParaleloBuscar=new NivelParaleloDTO();
 		paraleloList=new ArrayList<ParaleloDTO>();
 		nivelList= new ArrayList<NivelDTO>();		
+		nivelParaleloInsertar=new NivelParaleloDTO();
 	}
 
 	
@@ -99,6 +101,14 @@ public class NivelParaleloDataManager extends BaseController{
 
 	public void setParaleloCodigo(int paraleloCodigo) {
 		this.paraleloCodigo = paraleloCodigo;
+	}
+
+	public NivelParaleloDTO getNivelParaleloInsertar() {
+		return nivelParaleloInsertar;
+	}
+
+	public void setNivelParaleloInsertar(NivelParaleloDTO nivelParaleloInsertar) {
+		this.nivelParaleloInsertar = nivelParaleloInsertar;
 	}
 
 }

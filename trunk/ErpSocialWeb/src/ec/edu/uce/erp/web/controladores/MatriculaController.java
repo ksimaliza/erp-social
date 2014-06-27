@@ -82,7 +82,7 @@ public class MatriculaController extends BaseController {
 				matriculaDataManager.getMatriculaInsertar().setMatEstudiante(estudianteDTO);
 				matriculaDataManager.getMatriculaInsertar().setRegFecha(new Timestamp(matriculaDataManager.getFechaInsertar().getTime()));
 				
-				
+				matriculaDataManager.getMatriculaInsertar().setRegEmpresa(getEmpresaCode());
 				matriculaVO.setMatricula(matriculaDataManager.getMatriculaInsertar());
 				matriculaVO.setAsignacion(matriculaDataManager.getAsinacionList());
 				
@@ -109,10 +109,14 @@ public class MatriculaController extends BaseController {
 			slf4jLogger.info("buscarEstudiantes");
 			
 			List<EstudianteListDTO> listaestudiantes=null;
+			EstudianteListDTO estudianteListDTO;
 			
 			try {
+				
+				estudianteListDTO=new EstudianteListDTO();
+				estudianteListDTO.setEstEmpresa(getEmpresaCode());
 								
-				listaestudiantes = this.servicioMatricula.buscarEstudiante(new EstudianteListDTO());
+				listaestudiantes = this.servicioMatricula.buscarEstudiante(estudianteListDTO);
 				
 				if (CollectionUtils.isEmpty(listaestudiantes) && listaestudiantes.size()==0) {
 					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
@@ -132,10 +136,14 @@ public class MatriculaController extends BaseController {
 			slf4jLogger.info("buscarNivel");
 			
 			List<NivelDTO> listaNivel=null;
+			NivelDTO nivelDTO;
+			
 			
 			try {
+				nivelDTO=new NivelDTO();
+				nivelDTO.setNivEmpresa(getEmpresaCode());
 								
-				listaNivel = this.servicioMatricula.buscarNivel(new NivelDTO());
+				listaNivel = this.servicioMatricula.buscarNivel(nivelDTO);
 				
 				if (CollectionUtils.isEmpty(listaNivel) && listaNivel.size()==0) {
 					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
@@ -159,7 +167,9 @@ public class MatriculaController extends BaseController {
 			try {
 				nivelParaleloDTO=new NivelParaleloDTO();
 				nivelDTO=new NivelDTO();
+				nivelDTO.setNivEmpresa(getEmpresaCode());
 				nivelDTO.setNivCodigo(matriculaDataManager.getNivelCodigo());
+				nivelParaleloDTO.setNpaEmpresa(getEmpresaCode());
 				nivelParaleloDTO.setMatNivel(nivelDTO);
 				listaNivelParalelo = this.servicioMatricula.buscarNivelParalelo(nivelParaleloDTO);
 				
@@ -182,6 +192,7 @@ public class MatriculaController extends BaseController {
 			
 			try {
 				asinacionListDTO=new AsinacionListDTO();
+				asinacionListDTO.setAsiEmpresa(getEmpresaCode());
 				asinacionListDTO.setNpaNivel(matriculaDataManager.getNivelCodigo());
 				asinacionListDTO.setNpaParalelo(matriculaDataManager.getParaleloCodigo());
 				asinacionListDTOs = this.servicioMatricula.readAsinacion(asinacionListDTO);
