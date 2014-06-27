@@ -18,13 +18,16 @@ public class PeriodoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="MAT_PERIODO_PERCODIGO_GENERATOR", sequenceName="MAT_PERIODO_PER_CODIGO_SEQ")
+	@SequenceGenerator(name="MAT_PERIODO_PERCODIGO_GENERATOR", sequenceName="MAT_PERIODO_PER_CODIGO_SEQ",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MAT_PERIODO_PERCODIGO_GENERATOR")
 	@Column(name="per_codigo")
 	private Integer perCodigo;
 
 	@Column(name="per_descripcion")
 	private String perDescripcion;
+	
+	@Column(name="per_empresa")
+	private Integer perEmpresa;
 
 	//bi-directional many-to-one association to AsinacionDTO
 	@OneToMany(mappedBy="matPeriodo")
@@ -70,5 +73,15 @@ public class PeriodoDTO implements Serializable {
 
 		return matAsinacion;
 	}
+
+	public Integer getPerEmpresa() {
+		return perEmpresa;
+	}
+
+	public void setPerEmpresa(Integer perEmpresa) {
+		this.perEmpresa = perEmpresa;
+	}
+
+
 
 }

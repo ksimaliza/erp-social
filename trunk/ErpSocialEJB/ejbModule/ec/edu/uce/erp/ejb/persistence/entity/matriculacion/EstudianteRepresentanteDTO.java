@@ -1,6 +1,7 @@
 package ec.edu.uce.erp.ejb.persistence.entity.matriculacion;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 
 
@@ -29,6 +30,9 @@ public class EstudianteRepresentanteDTO implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="esr_representante")
 	private RepresentanteDTO matRepresentante;
+	
+	@Column(name="esr_empresa")
+	private Integer esrEmpresa;
 
 	public EstudianteRepresentanteDTO() {
 	}
@@ -57,4 +61,13 @@ public class EstudianteRepresentanteDTO implements Serializable {
 		this.matRepresentante = matRepresentante;
 	}
 
+	public Integer getEsrEmpresa() {
+		return esrEmpresa;
+	}
+
+	public void setEsrEmpresa(Integer esrEmpresa) {
+		this.esrEmpresa = esrEmpresa;
+	}
+
+	
 }

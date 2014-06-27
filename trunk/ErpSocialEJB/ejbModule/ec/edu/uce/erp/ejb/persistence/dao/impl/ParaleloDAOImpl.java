@@ -63,6 +63,11 @@ public class ParaleloDAOImpl extends AbstractFacadeImpl<ParaleloDTO> implements 
 			criteriaList.add(predicate);
 		}
 		
+		//por empresa
+		if (paralelo.getParEmpresa()!=null) {
+			predicate = cb.equal(from.get("parEmpresa"),paralelo.getParEmpresa());
+			criteriaList.add(predicate);
+		}
 			
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		

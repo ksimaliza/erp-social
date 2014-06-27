@@ -11,7 +11,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="mat_docente_vie")
-@NamedQuery(name="DocenteListDTO.findAll", query="SELECT m FROM DocenteListDTO m")
+@NamedQuery(name="DocenteListDTO.findAll", query="SELECT d FROM DocenteListDTO d")
 public class DocenteListDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -49,6 +49,9 @@ public class DocenteListDTO implements Serializable {
 
 	@Column(name="pro_codigo")
 	private Integer proCodigo;
+
+	@Column(name="pro_empresa")
+	private Integer proEmpresa;
 
 	@Column(name="pro_persona")
 	private Integer proPersona;
@@ -142,6 +145,14 @@ public class DocenteListDTO implements Serializable {
 
 	public void setProCodigo(Integer proCodigo) {
 		this.proCodigo = proCodigo;
+	}
+
+	public Integer getProEmpresa() {
+		return this.proEmpresa;
+	}
+
+	public void setProEmpresa(Integer proEmpresa) {
+		this.proEmpresa = proEmpresa;
 	}
 
 	public Integer getProPersona() {

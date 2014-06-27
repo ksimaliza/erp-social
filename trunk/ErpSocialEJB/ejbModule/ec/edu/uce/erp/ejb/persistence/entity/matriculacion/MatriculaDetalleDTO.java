@@ -31,6 +31,9 @@ public class MatriculaDetalleDTO implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="mat_matricula")
 	private MatriculaDTO matMatriculaBean;
+	
+	@Column(name="mat_empresa")
+	private Integer matEmpresa;
 
 	
 	@OneToMany(mappedBy="matMatriculaDetalleBean")
@@ -72,4 +75,13 @@ public class MatriculaDetalleDTO implements Serializable {
 		this.notNotas = notNotas;
 	}
 
+	public Integer getMatEmpresa() {
+		return matEmpresa;
+	}
+
+	public void setMatEmpresa(Integer matEmpresa) {
+		this.matEmpresa = matEmpresa;
+	}
+
+	
 }

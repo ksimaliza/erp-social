@@ -36,6 +36,9 @@ public class NivelParaleloDTO implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="npa_paralelo")
 	private ParaleloDTO matParalelo;
+	
+	@Column(name="npa_empresa")
+	private Integer npaEmpresa;
 
 	public NivelParaleloDTO() {
 	}
@@ -85,5 +88,15 @@ public class NivelParaleloDTO implements Serializable {
 	public void setMatParalelo(ParaleloDTO matParalelo) {
 		this.matParalelo = matParalelo;
 	}
+
+	public Integer getNpaEmpresa() {
+		return npaEmpresa;
+	}
+
+	public void setNpaEmpresa(Integer npaEmpresa) {
+		this.npaEmpresa = npaEmpresa;
+	}
+
+	
 
 }

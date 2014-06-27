@@ -56,6 +56,13 @@ public class NivelParaleloDAOImpl extends AbstractFacadeImpl<NivelParaleloDTO> i
 				criteriaList.add(predicate);
 			}
 			
+			//por empresa
+			if (nivelParalelo.getNpaEmpresa()!=null) {
+				predicate = cb.equal(from.get("npaEmpresa"),nivelParalelo.getNpaEmpresa());
+				criteriaList.add(predicate);
+			}
+			
+			
 			if(criteriaList!=null && criteriaList.size()>0)
 				cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 			

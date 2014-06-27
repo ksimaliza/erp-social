@@ -25,6 +25,9 @@ public class MateriaDTO implements Serializable {
 
 	@Column(name="mtr_nombe")
 	private String mtrNombe;
+	
+	@Column(name="mtr_empresa")
+	private Integer mtrEmpresa;
 
 	//bi-directional many-to-one association to AsinacionDTO
 	@OneToMany(mappedBy="matMateria")
@@ -70,5 +73,15 @@ public class MateriaDTO implements Serializable {
 
 		return matAsinacion;
 	}
+
+	public Integer getMtrEmpresa() {
+		return mtrEmpresa;
+	}
+
+	public void setMtrEmpresa(Integer mtrEmpresa) {
+		this.mtrEmpresa = mtrEmpresa;
+	}
+
+	
 
 }

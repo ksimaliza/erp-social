@@ -32,6 +32,9 @@ public class MatriculaDTO implements Serializable {
 
 	@Column(name="reg_foto_byte")
 	private byte[] regFotoByte;
+	
+	@Column(name="reg_empresa")
+	private Integer regEmpresa;
 
 	//bi-directional many-to-one association to EstudianteDTO
 	@ManyToOne
@@ -100,11 +103,21 @@ public class MatriculaDTO implements Serializable {
 		return matMatriculaDetalle;
 	}
 
+	
+
 	public MatriculaDetalleDTO removeMatMatriculaDetalle(MatriculaDetalleDTO matMatriculaDetalle) {
 		getMatMatriculaDetalles().remove(matMatriculaDetalle);
 		matMatriculaDetalle.setMatMatriculaBean(null);
 
 		return matMatriculaDetalle;
+	}
+
+	public Integer getRegEmpresa() {
+		return regEmpresa;
+	}
+
+	public void setRegEmpresa(Integer regEmpresa) {
+		this.regEmpresa = regEmpresa;
 	}
 
 }

@@ -11,12 +11,15 @@ import java.util.Date;
  */
 @Entity
 @Table(name="mat_asinacion_vie")
-@NamedQuery(name="AsinacionListDTO.findAll", query="SELECT m FROM AsinacionListDTO m")
+@NamedQuery(name="AsinacionListDTO.findAll", query="SELECT a FROM AsinacionListDTO a")
 public class AsinacionListDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="asi_codigo")
 	private Integer asiCodigo;
+
+	@Column(name="asi_empresa")
+	private Integer asiEmpresa;
 
 	@Column(name="asi_materia")
 	private Integer asiMateria;
@@ -33,6 +36,9 @@ public class AsinacionListDTO implements Serializable {
 	@Column(name="mtr_codigo")
 	private Integer mtrCodigo;
 
+	@Column(name="mtr_empresa")
+	private Integer mtrEmpresa;
+
 	@Column(name="mtr_nombe")
 	private String mtrNombe;
 
@@ -42,8 +48,14 @@ public class AsinacionListDTO implements Serializable {
 	@Column(name="niv_descaripcion")
 	private String nivDescaripcion;
 
+	@Column(name="niv_empresa")
+	private Integer nivEmpresa;
+
 	@Column(name="npa_codigo")
 	private Integer npaCodigo;
+
+	@Column(name="npa_empresa")
+	private Integer npaEmpresa;
 
 	@Column(name="npa_nivel")
 	private Integer npaNivel;
@@ -56,6 +68,9 @@ public class AsinacionListDTO implements Serializable {
 
 	@Column(name="par_descripcion")
 	private String parDescripcion;
+
+	@Column(name="par_empresa")
+	private Integer parEmpresa;
 
 	@Column(name="per_apellidos")
 	private String perApellidos;
@@ -78,6 +93,9 @@ public class AsinacionListDTO implements Serializable {
 	@Column(name="per_email")
 	private String perEmail;
 
+	@Column(name="per_empresa")
+	private Integer perEmpresa;
+
 	@Temporal(TemporalType.DATE)
 	@Column(name="per_fecha_nac")
 	private Date perFechaNac;
@@ -87,7 +105,7 @@ public class AsinacionListDTO implements Serializable {
 
 	@Column(name="per_nombres")
 	private String perNombres;
-	
+
 	@Id
 	@Column(name="per_pk")
 	private Integer perPk;
@@ -97,6 +115,9 @@ public class AsinacionListDTO implements Serializable {
 
 	@Column(name="pro_codigo")
 	private Integer proCodigo;
+
+	@Column(name="pro_empresa")
+	private Integer proEmpresa;
 
 	@Column(name="pro_persona")
 	private Integer proPersona;
@@ -110,6 +131,14 @@ public class AsinacionListDTO implements Serializable {
 
 	public void setAsiCodigo(Integer asiCodigo) {
 		this.asiCodigo = asiCodigo;
+	}
+
+	public Integer getAsiEmpresa() {
+		return this.asiEmpresa;
+	}
+
+	public void setAsiEmpresa(Integer asiEmpresa) {
+		this.asiEmpresa = asiEmpresa;
 	}
 
 	public Integer getAsiMateria() {
@@ -152,6 +181,14 @@ public class AsinacionListDTO implements Serializable {
 		this.mtrCodigo = mtrCodigo;
 	}
 
+	public Integer getMtrEmpresa() {
+		return this.mtrEmpresa;
+	}
+
+	public void setMtrEmpresa(Integer mtrEmpresa) {
+		this.mtrEmpresa = mtrEmpresa;
+	}
+
 	public String getMtrNombe() {
 		return this.mtrNombe;
 	}
@@ -176,12 +213,28 @@ public class AsinacionListDTO implements Serializable {
 		this.nivDescaripcion = nivDescaripcion;
 	}
 
+	public Integer getNivEmpresa() {
+		return this.nivEmpresa;
+	}
+
+	public void setNivEmpresa(Integer nivEmpresa) {
+		this.nivEmpresa = nivEmpresa;
+	}
+
 	public Integer getNpaCodigo() {
 		return this.npaCodigo;
 	}
 
 	public void setNpaCodigo(Integer npaCodigo) {
 		this.npaCodigo = npaCodigo;
+	}
+
+	public Integer getNpaEmpresa() {
+		return this.npaEmpresa;
+	}
+
+	public void setNpaEmpresa(Integer npaEmpresa) {
+		this.npaEmpresa = npaEmpresa;
 	}
 
 	public Integer getNpaNivel() {
@@ -214,6 +267,14 @@ public class AsinacionListDTO implements Serializable {
 
 	public void setParDescripcion(String parDescripcion) {
 		this.parDescripcion = parDescripcion;
+	}
+
+	public Integer getParEmpresa() {
+		return this.parEmpresa;
+	}
+
+	public void setParEmpresa(Integer parEmpresa) {
+		this.parEmpresa = parEmpresa;
 	}
 
 	public String getPerApellidos() {
@@ -272,6 +333,14 @@ public class AsinacionListDTO implements Serializable {
 		this.perEmail = perEmail;
 	}
 
+	public Integer getPerEmpresa() {
+		return this.perEmpresa;
+	}
+
+	public void setPerEmpresa(Integer perEmpresa) {
+		this.perEmpresa = perEmpresa;
+	}
+
 	public Date getPerFechaNac() {
 		return this.perFechaNac;
 	}
@@ -318,6 +387,14 @@ public class AsinacionListDTO implements Serializable {
 
 	public void setProCodigo(Integer proCodigo) {
 		this.proCodigo = proCodigo;
+	}
+
+	public Integer getProEmpresa() {
+		return this.proEmpresa;
+	}
+
+	public void setProEmpresa(Integer proEmpresa) {
+		this.proEmpresa = proEmpresa;
 	}
 
 	public Integer getProPersona() {

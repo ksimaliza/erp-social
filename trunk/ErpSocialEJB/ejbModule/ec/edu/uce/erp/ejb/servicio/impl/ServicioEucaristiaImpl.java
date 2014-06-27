@@ -15,13 +15,16 @@ import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ComunionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PrimeraComunionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.BautizoVO;
+import ec.edu.uce.erp.ejb.persistence.vo.ComunionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ConfirmacionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.DoctorVO;
 import ec.edu.uce.erp.ejb.persistence.vo.SacerdoteVO;
@@ -114,8 +117,6 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		if(sacerdoteVO.getSacerdoteDTO().getSacCodigo()!=null){
 			personaNueva=factoryDAO.getPersonaDAOImpl().update(sacerdoteVO.getPersona());
 			return eucaristiaFactoryDAO.getSacerdoteDAOImpl().update(sacerdoteVO.getSacerdoteDTO());
-					
-			
 		}
 		else{
 			personaNueva=factoryDAO.getPersonaDAOImpl().create(sacerdoteVO.getPersona());
@@ -322,6 +323,86 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		}
 		
 		return listCatalogo;
+	}
+	
+	
+	@Override
+	public PrimeraComunionDTO createOrUpdateComunion(ComunionVO comunionVO) throws SeguridadesException
+	{
+		slf4jLogger.info("createOrUpdateComunion");
+		Persona asignadoPersona;
+		Persona mad_pad;
+		SacerdoteDTO sacerdote;
+		DoctorDTO doctor;
+		
+		List<Persona> listPersona;
+			
+		try {
+			asignadoPersona = comunionVO.getAsignado();
+			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(asignadoPersona);
+			if(listPersona.size()<=0)
+				asignadoPersona=factoryDAO.getPersonaDAOImpl().create(asignadoPersona);
+			else
+				asignadoPersona=listPersona.get(0);
+			
+			mad_pad=comunionVO.getMad_pad();
+			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(mad_pad);
+			if(listPersona.size()<=0)
+				mad_pad=factoryDAO.getPersonaDAOImpl().create(mad_pad);
+			else
+				mad_pad=listPersona.get(0);
+			
+			comunionVO.getComunion().setPcoAsignado(asignadoPersona.getPerPk());
+			comunionVO.getComunion().setPcoPadrino(mad_pad.getPerPk());
+									
+			if(comunionVO.getComunion().getPcoCodigo()!=null){
+				sacerdote= eucaristiaFactoryDAO.getSacerdoteDAOImpl().find(comunionVO.getSacerdote().getSacCodigo());	
+				doctor=eucaristiaFactoryDAO.getDoctorDAOImpl().find(comunionVO.getDoctor().getDocCodigo());
+				comunionVO.getComunion().setEucSacerdote(sacerdote);
+				comunionVO.getComunion().setPcoCertificadoPor(doctor.getDocCodigo());									
+				return  eucaristiaFactoryDAO.getPrimeraComunionDAOImpl().update(comunionVO.getComunion());
+				
+			}
+			else{
+				sacerdote= eucaristiaFactoryDAO.getSacerdoteDAOImpl().find(comunionVO.getSacerdote().getSacCodigo());	
+				doctor=eucaristiaFactoryDAO.getDoctorDAOImpl().find(comunionVO.getDoctor().getDocCodigo());
+				comunionVO.getComunion().setEucSacerdote(sacerdote);
+				comunionVO.getComunion().setPcoCertificadoPor(doctor.getDocCodigo());									
+				return  eucaristiaFactoryDAO.getPrimeraComunionDAOImpl().create(comunionVO.getComunion());
+				
+			}
+		} catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdateComunion {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+		
+	}
+	
+	@Override
+	public List<ComunionListDTO> buscarPartidaComunion(ComunionListDTO comunionListDTO) throws SeguridadesException {
+		slf4jLogger.info("buscarPartidaComunion");
+		List<ComunionListDTO> listComunion = null;
+		try {
+			listComunion=eucaristiaFactoryDAO.getPrimeraComunionDAOImpl().obtenerComunion(comunionListDTO);
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarPartidaComunion {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener buscarPartidaComunion de la base de datos");
+		}
+		
+		return listComunion;
+	}
+	
+	@Override
+	public ComunionVO obtenerComunionPorId(Integer idAsignado, Integer idComunion) throws SeguridadesException {
+		slf4jLogger.info("obtenerComunionPorId");
+		
+		ComunionVO comunion =new ComunionVO();
+		comunion.setAsignado(factoryDAO.getPersonaDAOImpl().find(idAsignado));
+		comunion.setComunion(eucaristiaFactoryDAO.getPrimeraComunionDAOImpl().find(idComunion));	
+		
+		return comunion;
 	}
 	
 }

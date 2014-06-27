@@ -1,7 +1,9 @@
 package ec.edu.uce.erp.ejb.persistence.entity.matriculacion;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -44,6 +46,10 @@ public class AsinacionDTO implements Serializable {
 	//bi-directional many-to-one association to MatriculaDetalleDTO
 	@OneToMany(mappedBy="matAsinacion")
 	private List<MatriculaDetalleDTO> matMatriculaDetalles;
+	
+	@Column(name="asi_empresa")
+	private Integer asiEmpresa;
+	
 
 	public AsinacionDTO() {
 	}
@@ -109,5 +115,15 @@ public class AsinacionDTO implements Serializable {
 
 		return matMatriculaDetalle;
 	}
+
+	public Integer getAsiEmpresa() {
+		return asiEmpresa;
+	}
+
+	public void setAsiEmpresa(Integer asiEmpresa) {
+		this.asiEmpresa = asiEmpresa;
+	}
+
+	
 
 }

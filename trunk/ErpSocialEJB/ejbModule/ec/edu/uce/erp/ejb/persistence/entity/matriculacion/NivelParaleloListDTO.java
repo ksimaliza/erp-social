@@ -16,7 +16,8 @@ public class NivelParaleloListDTO implements Serializable {
 
 	@Column(name="niv_descaripcion")
 	private String nivDescaripcion;
-@Id
+	
+	@Id
 	@Column(name="npa_codigo")
 	private Integer npaCodigo;
 
@@ -28,6 +29,9 @@ public class NivelParaleloListDTO implements Serializable {
 
 	@Column(name="par_descripcion")
 	private String parDescripcion;
+	
+	@Column(name="par_empresa")
+	private String parEmpresa;
 
 	public NivelParaleloListDTO() {
 	}
@@ -70,6 +74,14 @@ public class NivelParaleloListDTO implements Serializable {
 
 	public void setParDescripcion(String parDescripcion) {
 		this.parDescripcion = parDescripcion;
+	}
+
+	public String getParEmpresa() {
+		return parEmpresa;
+	}
+
+	public void setParEmpresa(String parEmpresa) {
+		this.parEmpresa = parEmpresa;
 	}
 
 }
