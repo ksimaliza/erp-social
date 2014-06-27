@@ -60,6 +60,12 @@ public class NivelDAOImpl extends AbstractFacadeImpl<NivelDTO> implements NivelD
 			predicate = cb.like(cb.upper(from.<String>get("nivDescaripcion")), descNivel);
 			criteriaList.add(predicate);
 		}
+		
+		//por empresa
+		if (nivel.getNivEmpresa()!=null) {
+			predicate = cb.equal(from.get("nivEmpresa"), nivel.getNivEmpresa());
+			criteriaList.add(predicate);
+		}
 			
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		

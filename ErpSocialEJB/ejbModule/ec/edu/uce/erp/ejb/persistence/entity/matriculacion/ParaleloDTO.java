@@ -25,6 +25,9 @@ public class ParaleloDTO implements Serializable {
 
 	@Column(name="par_descripcion")
 	private String parDescripcion;
+	
+	@Column(name="par_empresa")
+	private Integer parEmpresa;
 
 	//bi-directional many-to-one association to NivelParaleloDTO
 	@OneToMany(mappedBy="matParalelo")
@@ -70,5 +73,15 @@ public class ParaleloDTO implements Serializable {
 
 		return matNivelParalelo;
 	}
+
+	public Integer getParEmpresa() {
+		return parEmpresa;
+	}
+
+	public void setParEmpresa(Integer parEmpresa) {
+		this.parEmpresa = parEmpresa;
+	}
+
+	
 
 }

@@ -51,18 +51,6 @@ public class EstudianteDAOImpl extends AbstractFacadeImpl<EstudianteDTO> impleme
 		criteriaList = new ArrayList<Predicate>();
 		
 		
-		
-		/*if(estudiante.getPerNombres()!=null)
-			cq.where(cb.like(cb.upper(from.get("perNombre").as(String.class)), "%"+estudiante.getPerNombres().toUpperCase()));
-		
-		
-		cq.where(cb.or(cb.like(cb.upper(from.get("perNombre").as(String.class)), "%"+estudiante.getPerNombres().toUpperCase()),cb.like(cb.upper(from.get("perApellidos").as(String.class)), "%"+estudiante.getPerApellidos().toUpperCase())));
-		
-		List<EstudianteListDTO> list=entityManager.createQuery(cq).getResultList();
-		if(list.isEmpty())
-			return null;
-		else
-			return list;*/
 		CriteriaQuery<EstudianteListDTO> select = cq.select(from);
 		
 		//por nombre
@@ -81,6 +69,12 @@ public class EstudianteDAOImpl extends AbstractFacadeImpl<EstudianteDTO> impleme
 					predicate = cb.like(cb.upper(from.<String>get("perApellidos")), apellidoEstudiante);
 					criteriaList.add(predicate);
 				}
+		
+		//por empresa
+			if (estudiante.getEstEmpresa()!=null) {
+					predicate = cb.equal(from.get("estEmpresa"),estudiante.getEstEmpresa());
+					criteriaList.add(predicate);
+			}
 		
 				
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));

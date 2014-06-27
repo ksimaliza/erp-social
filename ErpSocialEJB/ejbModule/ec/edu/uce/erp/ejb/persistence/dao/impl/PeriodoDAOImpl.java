@@ -64,6 +64,11 @@ public class PeriodoDAOImpl extends AbstractFacadeImpl<PeriodoDTO> implements Pe
 			criteriaList.add(predicate);
 		}
 		
+		//por empresa
+				if (periodo.getPerEmpresa()!=null) {
+					predicate = cb.equal(from.get("perEmpresa"), periodo.getPerEmpresa());
+					criteriaList.add(predicate);
+				}
 			
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		

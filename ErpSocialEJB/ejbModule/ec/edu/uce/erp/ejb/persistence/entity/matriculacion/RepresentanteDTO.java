@@ -25,6 +25,9 @@ public class RepresentanteDTO implements Serializable {
 
 	@Column(name="rep_persona")
 	private Integer repPersona;
+	
+	@Column(name="rep_empresa")
+	private Integer repEmpresa;
 
 	//bi-directional many-to-one association to EstudianteRepresentanteDTO
 	@OneToMany(mappedBy="matRepresentante")
@@ -70,5 +73,15 @@ public class RepresentanteDTO implements Serializable {
 
 		return matEstudianteRepresentante;
 	}
+
+	public Integer getRepEmpresa() {
+		return repEmpresa;
+	}
+
+	public void setRepEmpresa(Integer repEmpresa) {
+		this.repEmpresa = repEmpresa;
+	}
+
+
 
 }

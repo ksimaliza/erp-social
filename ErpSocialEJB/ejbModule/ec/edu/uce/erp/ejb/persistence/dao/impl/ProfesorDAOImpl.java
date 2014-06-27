@@ -53,17 +53,6 @@ public class ProfesorDAOImpl extends AbstractFacadeImpl<ProfesorDTO> implements 
 		
 		
 		
-		/*if(estudiante.getPerNombres()!=null)
-			cq.where(cb.like(cb.upper(from.get("perNombre").as(String.class)), "%"+estudiante.getPerNombres().toUpperCase()));
-		
-		
-		cq.where(cb.or(cb.like(cb.upper(from.get("perNombre").as(String.class)), "%"+estudiante.getPerNombres().toUpperCase()),cb.like(cb.upper(from.get("perApellidos").as(String.class)), "%"+estudiante.getPerApellidos().toUpperCase())));
-		
-		List<EstudianteListDTO> list=entityManager.createQuery(cq).getResultList();
-		if(list.isEmpty())
-			return null;
-		else
-			return list;*/
 		CriteriaQuery<DocenteListDTO> select = cq.select(from);
 		
 		//por nombre
@@ -83,6 +72,11 @@ public class ProfesorDAOImpl extends AbstractFacadeImpl<ProfesorDTO> implements 
 					criteriaList.add(predicate);
 				}
 		
+		//por empresa
+				if (docente.getProEmpresa()!=null) {
+					predicate = cb.equal(from.get("proEmpresa"),docente.getProEmpresa());
+					criteriaList.add(predicate);
+				}
 				
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		

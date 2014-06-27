@@ -70,6 +70,11 @@ public class RepresentanteDAOImpl extends AbstractFacadeImpl<RepresentanteDTO> i
 					predicate = cb.like(cb.upper(from.<String>get("perApellidos")), apellidoRepresentante);
 					criteriaList.add(predicate);
 				}
+		//por empresa
+				if (representante.getRepEmpresa()!=null) {
+					predicate = cb.equal(from.get("repEmpresa"), representante.getRepEmpresa());
+					criteriaList.add(predicate);
+				}		
 		
 				
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));

@@ -63,7 +63,12 @@ public class MateriaDAOImpl extends AbstractFacadeImpl<MateriaDTO> implements Ma
 			criteriaList.add(predicate);
 		}
 		
-			
+		//por empresa
+		if (materia.getMtrEmpresa()!=null) {
+			predicate = cb.equal(from.get("mtrEmpresa"),materia.getMtrEmpresa());
+			criteriaList.add(predicate);
+		}
+		
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		
 		TypedQuery<MateriaDTO> typedQuery = entityManager.createQuery(select);

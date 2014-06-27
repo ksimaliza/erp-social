@@ -26,6 +26,9 @@ public class EstudianteDTO implements Serializable {
 
 	@Column(name="est_estado")
 	private String estEstado;
+	
+	@Column(name="est_empresa")
+	private Integer estEmpresa;
 
 	
 	//bi-directional many-to-one association to EstudianteRepresentanteDTO
@@ -106,5 +109,15 @@ public class EstudianteDTO implements Serializable {
 
 		return matMatricula;
 	}
+
+	public Integer getEstEmpresa() {
+		return estEmpresa;
+	}
+
+	public void setEstEmpresa(Integer estEmpresa) {
+		this.estEmpresa = estEmpresa;
+	}
+
+	
 
 }

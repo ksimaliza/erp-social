@@ -25,6 +25,9 @@ public class ProfesorDTO implements Serializable {
 
 	@Column(name="pro_persona")
 	private Integer proPersona;
+	
+	@Column(name="pro_empresa")
+	private Integer proEmpresa;
 
 	//bi-directional many-to-one association to AsinacionDTO
 	@OneToMany(mappedBy="matProfesor")
@@ -70,5 +73,15 @@ public class ProfesorDTO implements Serializable {
 
 		return matAsinacion;
 	}
+
+	public Integer getProEmpresa() {
+		return proEmpresa;
+	}
+
+	public void setProEmpresa(Integer proEmpresa) {
+		this.proEmpresa = proEmpresa;
+	}
+
+	
 
 }

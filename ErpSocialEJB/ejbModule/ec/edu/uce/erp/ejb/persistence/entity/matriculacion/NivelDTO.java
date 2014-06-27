@@ -1,7 +1,9 @@
 package ec.edu.uce.erp.ejb.persistence.entity.matriculacion;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -24,6 +26,9 @@ public class NivelDTO implements Serializable {
 	
 	@Column(name="niv_descaripcion")
 	private String nivDescaripcion;
+	
+	@Column(name="niv_empresa")
+	private Integer nivEmpresa;
 
 	//bi-directional many-to-one association to NivelParaleloDTO
 	@OneToMany(mappedBy="matNivel")
@@ -69,5 +74,16 @@ public class NivelDTO implements Serializable {
 
 		return matNivelParalelo;
 	}
+
+	public Integer getNivEmpresa() {
+		return nivEmpresa;
+	}
+
+	public void setNivEmpresa(Integer nivEmpresa) {
+		this.nivEmpresa = nivEmpresa;
+	}
+
+	
+	
 
 }

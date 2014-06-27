@@ -31,6 +31,9 @@ public class EstudianteListDTO implements Serializable {
 		
 	@Column(name="est_persona")
 	private Integer estPersona;
+	
+	@Column(name="est_empresa")
+	private Integer estEmpresa;
 
 	@Column(name="per_apellidos")
 	private String perApellidos;
@@ -63,6 +66,7 @@ public class EstudianteListDTO implements Serializable {
 
 	@Column(name="per_telefono")
 	private String perTelefono;
+	
 
 	public EstudianteListDTO() {
 	}
@@ -169,6 +173,14 @@ public class EstudianteListDTO implements Serializable {
 
 	public void setPerTelefono(String perTelefono) {
 		this.perTelefono = perTelefono;
+	}
+
+	public Integer getEstEmpresa() {
+		return estEmpresa;
+	}
+
+	public void setEstEmpresa(Integer estEmpresa) {
+		this.estEmpresa = estEmpresa;
 	}
 
 }
