@@ -16,13 +16,13 @@
 						<td width="30%">
 							<h:outputLabel for="txtCiConf" value="#{i18n['erp.despacho.partida.confirmacion.cedula']}" />
 					</td>
-					<td width="70%">
-						<p:inputText id="txtCiConf"  style="width: 100%"
-							required="true"  value="#{partidaConfirmacionDataManager.confirmadoInsertar.perCi}">
-								<f:validateLength maximum="10" minimum="10"/>
-								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-								<p:ajax event="blur" update="txtApeConf,txtNomConf" listener="#{partidaConfirmacionController.buscarConfirmado}" process="@this"/>
-						</p:inputText>
+						<td width="70%">
+							<p:inputText id="txtCiConf"  style="width: 100%"
+								required="true"  value="#{partidaConfirmacionDataManager.confirmadoInsertar.perCi}">
+									<f:validateLength maximum="10" minimum="10"/>
+									<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+									<p:ajax event="blur" update="txtApeConf,txtNomConf,txtProv,txtCiudad,txtCanton,txtFechaBautizo" listener="#{partidaConfirmacionController.buscarConfirmado}" process="@this"/>
+							</p:inputText>
 						
 					</td>
 					</tr>
@@ -66,8 +66,10 @@
 					</tr>
 					
 					<tr >
-						<td width="100%"><h:outputLabel value="#{i18n['erp.despacho.partida.confirmacion.sacerdote']}"  /> </td>
-					<td>
+						<td width="30%">
+							<h:outputLabel value="#{i18n['erp.despacho.partida.confirmacion.sacerdote']}"  /> </td>
+					
+					<td width="70%">
 						<p:selectOneMenu id="sacerdote" value="#{partidaConfirmacionDataManager.sacerdoteCodigo}" filter="true" required="true">
 									<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 									<f:selectItems value="#{partidaConfirmacionController.partidaConfirmacionDataManager.sacerdoteListDTO}" var="sac" itemLabel="#{sac.perNombres} #{sac.perApellidos}" itemValue="#{sac.sacCodigo}"/>
@@ -87,8 +89,8 @@
 					
 					
 					<tr>
-						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
-						<td>
+						<td width="30%"><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
+						<td width="70%">
 							<h:selectOneMenu id="inputEstado" value="erp.despacho.partida.confirmacion.estado">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}" itemValue=""/>
 								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{partidaConfirmacionDataManager.estadoActivo}"/>
@@ -122,7 +124,7 @@
 							<h:outputLabel for="txtCiPad" value="#{i18n['erp.despacho.partida.confirmacion.cedula.padrino.madrina']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtCiPad"  style="width: 70%"
+							<p:inputText id="txtCiPad"  style="width: 100%"
 							required="true" label="#{i18n['erp.despacho.partida.confirmacion.apellidos.padrino.madrina']}" value="#{partidaConfirmacionDataManager.mad_padInsertar.perCi}">
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
@@ -212,8 +214,9 @@
 						<td width="30%">
 							<h:outputLabel for="txtProv" value="#{i18n['erp.despacho.partida.bautizo.provincia']}"  />
 						</td>
-						<td>
-								<h:outputLabel for="txtProv" value="#{partidaBautizoDataManager.bautizoDTO.bauProvincia}"  />
+						<td width="70%">
+							<p:inputText id="txtProv" style="width: 100%"  
+								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.bauProvincia}" disabled="true" />
 						</td>
 					</tr>
 					
@@ -221,8 +224,9 @@
 						<td width="30%">
 							<h:outputLabel for="txtCanton" value="#{i18n['erp.despacho.partida.bautizo.canton']}" />
 						</td>
-						<td>
-							<h:outputLabel for="txtCanton" value="#{partidaBautizoDataManager.bautizoDTO.bauCanton}"  />
+						<td width="70%">
+							<p:inputText id="txtCanton" style="width: 100%"  
+								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.bauCanton}"  disabled="true"/>
 						</td>
 					</tr>	
 					
@@ -230,8 +234,9 @@
 						<td width="30%">
 							<h:outputLabel for="txtCiudad" value="#{i18n['erp.despacho.partida.bautizo.ciudad']}" />
 						</td>
-						<td>
-							<h:outputLabel for="txtCiudad" value="#{partidaBautizoDataManager.bautizoDTO.bauCiudad}"  />
+						<td width="70%">
+							<p:inputText id="txtCiudad" style="width: 100%"  
+								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.bauCiudad}" disabled="true" />
 						</td>
 					</tr>					
 					
@@ -241,7 +246,8 @@
 							<h:outputLabel for="txtFechaBautizo" value="#{i18n['erp.despacho.partida.bautizo.fecha.bautizo']}" />
 						</td>
 						<td width="70%">
-							<h:outputLabel for="txtProv" value="#{partidaBautizoDataManager.bautizoDTO.bauFechaBautizo}"  />
+							<p:inputText id="txtFechaBautizo" style="width: 100%"  
+								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.bauFechaBautizo}" disabled="true"/>
 						</td>
 					</tr>
 								
