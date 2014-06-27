@@ -22,7 +22,7 @@
 							required="true" label="#{i18n['erp.despacho.partida.comunion.cedula']}">
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-							<p:ajax event="blur" update="txtApeBau,txtNomBau" listener="#{partidaBautizoController.buscarBautizado}" process="@this"/>
+							<p:ajax event="blur" update="txtApeBau,txtNomBau" listener="#{partipartidaBautizoController.buscarBautizado}" process="@this"/>
 						</p:inputText>
 						
 						</td>
