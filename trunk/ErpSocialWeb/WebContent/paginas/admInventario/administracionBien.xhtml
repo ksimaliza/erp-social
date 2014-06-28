@@ -19,6 +19,11 @@
 						icon="exportExcel" disabled="#{empty bienDataManager.listVistaBien}">
 						<p:dataExporter type="xls" target="tablaBienes" fileName="productos" postProcessor="#{bienController.postProcessXLS}"/>
 					</p:commandButton>
+					<p:commandButton id="btnPDF" value="#{i18n['label.exportar.pdf']}" ajax="false"
+						actionListener="#{bienController.exportPDF('tablaBienes', 'bienes')}"
+						icon="exportExcel" disabled="#{empty bienDataManager.listVistaBien}">
+						<!-- <p:dataExporter type="pdf" target="tablaBienes" fileName="productos" preProcessor="#{bienController.preProcessPDF}"/> -->
+					</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:panel id="pnlBuscarBien" header="#{i18n['erp.bien.buscar']}">

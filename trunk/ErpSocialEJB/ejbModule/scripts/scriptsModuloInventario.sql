@@ -350,6 +350,9 @@ alter table transaccion_tbl
 add column tra_descripcion VARCHAR(250) null;
 
 alter table transaccion_tbl
+add column tra_num_caso VARCHAR(50) null;
+
+alter table transaccion_tbl
    add constraint FK_TRANSACCION_TBL_REF_EMPLEADO_ASIG foreign key (emp_asignado_fk)
       references empleado_tbl (emp_pk)
       on delete restrict on update restrict;
@@ -358,7 +361,16 @@ alter table transaccion_tbl
    add constraint FK_TRANSACCION_TBL_REF_EMPLEADO_REASIG foreign key (emp_reasignado_fk)
       references empleado_tbl (emp_pk)
       on delete restrict on update restrict;
+      
+      
+ALTER TABLE TRANSACCION_TBL
+ADD COLUMN CAB_BIEN_TIP_BAJ_FK  VARCHAR(5)           null,
+ADD COLUMN DET_BIEN_TIP_BAJ_NIVEL1 VARCHAR(5)           null;
 
+alter table TRANSACCION_TBL
+   add constraint FK_TRANSACCION_TBL_RELATIONS_DET_BIE foreign key (CAB_BIEN_TIP_BAJ_FK, DET_BIEN_TIP_BAJ_NIVEL1)
+      references DETALLE_BIEN_TBL (CAB_BIEN_FK, DET_BIEN_NIVEL1)
+      on delete restrict on update restrict;
 
 /*==============================================================*/
 /* Vista bien                                  */
