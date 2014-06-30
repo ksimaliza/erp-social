@@ -6,19 +6,14 @@ package ec.edu.uce.erp.web.datamanager;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.model.SelectItem;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien;
-import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
-import ec.edu.uce.erp.web.common.util.UtilSelectItems;
 
 /**
  * @author
@@ -36,13 +31,12 @@ public class LineaBienDataManager extends BaseDataManager{
 	private LineaBien lineaBienBuscar;
 	private List<LineaBien> listLineaBien;
 	
-	@EJB
-	public ServicioInventario servicioInventario;
-	
-	private List<SelectItem> dcCategoriaBien;
+//	@EJB
+//	public ServicioInventario servicioInventario;
 	
 	public LineaBienDataManager () {
 		super();
+		slf4jLogger.info("inicializarObjetos");
 		this.lineaBienInstancia = new LineaBien();
 		this.lineaBienInstancia.setUsuarioRegistro(getUsuarioSession());
 		this.lineaBienEditar = new LineaBien();
@@ -105,19 +99,5 @@ public class LineaBienDataManager extends BaseDataManager{
 	public void setListLineaBien(List<LineaBien> listLineaBien) {
 		this.listLineaBien = listLineaBien;
 	}
-
-	/**
-	 * @return the dcCategoriaBien
-	 * @throws SeguridadesException 
-	 */
-	public List<SelectItem> getDcCategoriaBien() throws SeguridadesException {
-		
-		if (dcCategoriaBien == null) {
-			slf4jLogger.info("getDcCategoriaBien");
-			dcCategoriaBien = UtilSelectItems.getInstancia().cargarSelectItemCategoriaBien(servicioInventario);
-		}
-		
-		return dcCategoriaBien;
-	}
-
+	
 }

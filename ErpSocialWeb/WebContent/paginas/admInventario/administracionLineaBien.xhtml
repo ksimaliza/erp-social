@@ -36,7 +36,7 @@
 							<p:selectOneMenu id="inputLineaBien" style="width: 30%"
 								value="#{lineaBienDataManager.lineaBienBuscar.catBienPk}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
-								<f:selectItems value="#{lineaBienDataManager.dcCategoriaBien}"/>
+								<f:selectItems value="#{lineaBienController.dcCategoriaBien}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>

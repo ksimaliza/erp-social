@@ -5,19 +5,23 @@ package ec.edu.uce.erp.web.controladores;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.model.SelectItem;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
+import ec.edu.uce.erp.web.common.util.UtilSelectItems;
 import ec.edu.uce.erp.web.datamanager.LineaBienDataManager;
 
 /**
@@ -37,6 +41,8 @@ public class LineaBienController extends BaseController{
 	@ManagedProperty(value="#{lineaBienDataManager}")
 	private LineaBienDataManager lineaBienDataManager;
 	
+	private List<SelectItem> dcCategoriaBien;
+	
 	/**
 	 * @param lineaBienDataManager the lineaBienDataManager to set
 	 */
@@ -45,6 +51,19 @@ public class LineaBienController extends BaseController{
 	}
 	
 	public LineaBienController () {}
+	
+	@PostConstruct
+	public void inicializarObjetos () {
+		
+		slf4jLogger.info("inicializarObjetos");
+		
+		try {
+			this.setDcCategoriaBien(UtilSelectItems.getInstancia().cargarSelectItemCategoriaBien(servicioInventario));
+		} catch (SeguridadesException e) {
+			MensajesWebController.aniadirMensajeError(e.toString());
+			slf4jLogger.info("Error al cargar la los datos de la pantalla Linea bien {}", e.toString());
+		}
+	}
 	
 	public void registrarLineaBien () {
 		slf4jLogger.info("registrarLineaBien");
@@ -123,5 +142,25 @@ public class LineaBienController extends BaseController{
 		}
 	}
 	
+	/**
+	 * @return the dcCategoriaBien
+	 * @throws SeguridadesException 
+	 */
+	public List<SelectItem> getDcCategoriaBien() throws SeguridadesException {
+		
+//		if (dcCategoriaBien == null) {
+//			slf4jLogger.info("getDcCategoriaBien");
+//			dcCategoriaBien = UtilSelectItems.getInstancia().cargarSelectItemCategoriaBien(servicioInventario);
+//		}
+		
+		return dcCategoriaBien;
+	}
 
+	/**
+	 * @param dcCategoriaBien the dcCategoriaBien to set
+	 */
+	public void setDcCategoriaBien(List<SelectItem> dcCategoriaBien) {
+		this.dcCategoriaBien = dcCategoriaBien;
+	}
+	
 }
