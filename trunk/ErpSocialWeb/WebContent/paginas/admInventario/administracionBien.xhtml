@@ -14,7 +14,8 @@
 			<p:toolbar id="toolbar">
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
-					<p:commandButton id="btnNuevoBien" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoBien.show()"/>
+					<p:commandButton id="btnNuevoBien" value="#{i18n['label.insertar']}" icon="ui-icon-disk"
+						update=":formNuevoBien:pnlNuevoBien" oncomplete="dlgNuevoBien.show()"/>
 					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
 						icon="exportExcel" disabled="#{empty bienDataManager.listVistaBien}">
 						<p:dataExporter type="xls" target="tablaBienes" fileName="productos" postProcessor="#{bienController.postProcessXLS}"/>
@@ -55,10 +56,10 @@
 						<td  width="70%">
 							<p:selectOneMenu id="selectCategoria"
 								style="width: 100%" label="#{i18n['erp.bien.categoria']}"
-								value="#{bienDataManager.idCategoriaBienSeleccionado}">
+								value="#{bienDataManager.idCategoriaBienBuscarSeleccionado}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
-								<f:selectItems value="#{bienDataManager.dcCategoriaBien}"/>
-								<p:ajax event="change" process="@this" update="txtLinea" listener="#{bienDataManager.cargarDcLineaBien}"/>
+								<f:selectItems value="#{bienController.dcCategoriaBien}"/>
+								<p:ajax event="change" process="@this" update="txtLinea" listener="#{bienController.cargarDcLineaBien(bienDataManager.idCategoriaBienBuscarSeleccionado)}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
@@ -71,7 +72,7 @@
 								style="width: 100%" label="#{i18n['erp.bien.linea']}"
 								value="#{bienDataManager.idLineaBienSeleccionado}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}"/>
-								<f:selectItems value="#{bienDataManager.dcLineaBien}"/>
+								<f:selectItems value="#{bienController.dcLineaBien}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>

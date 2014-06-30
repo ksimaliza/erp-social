@@ -51,11 +51,14 @@ public class CategoriaBienController extends BaseController{
 	public void registrarCategoriaBien() {
 		slf4jLogger.info("registrarCategoriaBien");
 		try {
+			
+			this.categoriaBienDataManager.getCategoriaBienInstancia().setUsuarioRegistro(this.categoriaBienDataManager.getUsuarioSession());
 			CategoriaBien categoriaBien = this.servicioInventario.registrarCategoriaBien(this.categoriaBienDataManager.getCategoriaBienInstancia());
 			
 			if (categoriaBien != null) {
 				MensajesWebController.aniadirMensajeInformacion("erp.mensaje.registro.exito");
 				this.categoriaBienDataManager.getListCategoriaBien().add(categoriaBien);
+				this.categoriaBienDataManager.setCategoriaBienInstancia(new CategoriaBien());
 			}
 			
 		} catch (SeguridadesException e) {

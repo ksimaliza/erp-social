@@ -33,9 +33,9 @@
 							<p:selectOneMenu id="selectCategoria" style="width: 100%"
 								required="true" label="#{i18n['erp.bien.categoria']}"
 								value="#{bienDataManager.idCategoriaBienSeleccionado}">
-								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}"/>
-								<f:selectItems value="#{bienDataManager.dcCategoriaBien}"/>
-								<p:ajax event="change" process="@this" immediate="true" update="txtLinea" listener="#{bienDataManager.cargarDcLineaBien}"/>
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItems value="#{bienController.dcCategoriaBien}"/>
+								<p:ajax event="change" process="@this" update="txtLinea" listener="#{bienController.cargarDcLineaBien(bienDataManager.idCategoriaBienSeleccionado)}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
@@ -49,20 +49,21 @@
 								label="#{i18n['erp.bien.linea']}" required="true"
 								value="#{bienDataManager.idLineaBienSeleccionado}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}"/>
-								<f:selectItems value="#{bienDataManager.dcLineaBien}"/>
+								<f:selectItems value="#{bienController.dcLineaBien}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<h:outputLabel for="txtMarcaMaterial" value="#{i18n['erp.bien.marca.material']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
 							<p:selectOneMenu id="txtMarcaMaterial" style="width: 100%"
-								required="false" label="#{i18n['erp.bien.marca.material']}"
+								required="true" label="#{i18n['erp.bien.marca.material']}"
 								value="#{bienDataManager.bienInstancia.marBienPk}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}"/>
-								<f:selectItems value="#{bienDataManager.dcMarcaBien}"/>
+								<f:selectItems value="#{bienController.dcMarcaBien}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>

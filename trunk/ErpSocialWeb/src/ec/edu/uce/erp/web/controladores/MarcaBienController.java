@@ -50,10 +50,12 @@ public class MarcaBienController extends BaseController{
 		slf4jLogger.info("registrarMarcaBien");
 		try {
 			
+			this.marcaBienDataManager.getMarcaBienInstancia().setUsuarioRegistro(this.marcaBienDataManager.getUsuarioSession());
 			MarcaBien marcaBien = servicioInventario.registrarMarcaBien(this.marcaBienDataManager.getMarcaBienInstancia());
 			if (marcaBien != null) {
 				MensajesWebController.aniadirMensajeInformacion("erp.mensaje.registro.exito");
 				this.marcaBienDataManager.getListMarcaBien().add(marcaBien);
+				this.marcaBienDataManager.setMarcaBienInstancia(new MarcaBien());
 			}
 			
 		} catch (Exception e) {

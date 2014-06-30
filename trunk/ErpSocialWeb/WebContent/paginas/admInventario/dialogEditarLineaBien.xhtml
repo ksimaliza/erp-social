@@ -39,7 +39,7 @@
 								required="true" label="#{i18n['erp.categoria.linea.bien']}"
 								value="#{lineaBienDataManager.lineaBienEditar.catBienPk}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
-								<f:selectItems value="#{lineaBienDataManager.dcCategoriaBien}"/>
+								<f:selectItems value="#{lineaBienController.dcCategoriaBien}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>

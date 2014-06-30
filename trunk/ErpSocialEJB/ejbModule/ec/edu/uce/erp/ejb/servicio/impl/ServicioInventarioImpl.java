@@ -224,6 +224,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 		CategoriaBien categoriaBienNuevo = null;
 		try {
 			categoriaBien.setCatBienEstado(ESTADO_ACTIVO);
+			categoriaBien.setCatBienPk(null);
 			categoriaBienNuevo = inventarioFactory.getCategoriaBienDAOImpl().create(categoriaBien);
 			inventarioFactory.getHistoricoTransaccioneDAOImpl()
 					.registrarHistoricoTransaccion(
@@ -275,6 +276,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 	public MarcaBien registrarMarcaBien(MarcaBien marcaBien) throws SeguridadesException {
 		MarcaBien categoriaBienNuevo = null;
 		try {
+			marcaBien.setMarBienPk(null);
 			marcaBien.setMarBienEstado(ESTADO_ACTIVO);
 			categoriaBienNuevo = inventarioFactory.getMarcaBienDAOImpl().create(marcaBien);
 			inventarioFactory.getHistoricoTransaccioneDAOImpl()

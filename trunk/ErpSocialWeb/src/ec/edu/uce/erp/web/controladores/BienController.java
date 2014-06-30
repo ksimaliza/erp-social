@@ -6,10 +6,12 @@ package ec.edu.uce.erp.web.controladores;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.model.SelectItem;
 
 import net.sf.jasperreports.engine.JasperPrint;
 
@@ -20,12 +22,14 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Bien;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien;
 import ec.edu.uce.erp.ejb.persistence.util.dto.ActaBienDTO;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.common.util.ReporteUtil;
+import ec.edu.uce.erp.web.common.util.UtilSelectItems;
 import ec.edu.uce.erp.web.datamanager.BienDataManager;
 
 /**
@@ -45,6 +49,11 @@ public class BienController extends BaseController{
 	@ManagedProperty(value="#{bienDataManager}")
 	private BienDataManager bienDataManager;
 	
+	//catalogos
+	private List<SelectItem> dcCategoriaBien;
+	private List<SelectItem> dcMarcaBien;
+	private List<SelectItem> dcLineaBien;
+	
 	/**
 	 * @param bienDataManager the bienDataManager to set
 	 */
@@ -53,6 +62,19 @@ public class BienController extends BaseController{
 	}
 	
 	public BienController () {}
+	
+	@PostConstruct
+	public void inicializarObjetos () {
+		slf4jLogger.info("inicializarObjetos");
+		try {
+			this.dcLineaBien = new ArrayList<SelectItem>();
+			dcCategoriaBien = UtilSelectItems.getInstancia().cargarSelectItemCategoriaBien(servicioInventario);
+			dcMarcaBien = UtilSelectItems.getInstancia().cargarSelectItemMarcaBien(servicioInventario);
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("error al cargar la pantalla Bienes {}", e.getCause().getMessage());
+			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
+		}
+	}
 	
 	public void registrarBien () {
 		
@@ -157,7 +179,7 @@ public class BienController extends BaseController{
 				this.bienDataManager.setIdCategoriaBienSeleccionado(bienEditar.getCatBienPk());
 				this.bienDataManager.setIdLineaBienSeleccionado(bienEditar.getLinBienPk());
 				this.bienDataManager.setIdDcEstadoConservacionSelec(vistaBien.getDetBienEstConservNivel1Fk());
-				this.bienDataManager.cargarDcLineaBien();
+				this.cargarDcLineaBien(this.bienDataManager.getIdCategoriaBienSeleccionado());
 				this.bienDataManager.setBienEditar(bienEditar);
 			} 
 			
@@ -253,8 +275,76 @@ public class BienController extends BaseController{
 		
 	}
 	
+	public void cargarDcLineaBien (Integer categoriaBienSeleccionado) {
+		
+		try {
+			
+			this.dcLineaBien.clear();
+			if (categoriaBienSeleccionado!=null && categoriaBienSeleccionado>0) {
+				slf4jLogger.info("cargarDcLineaBien");
+				LineaBien lineaBien = new LineaBien();
+				lineaBien.setCatBienPk(categoriaBienSeleccionado);
+				lineaBien.setLinBienEstado(this.bienDataManager.getEstadoActivo());
+				List<LineaBien> listLineaBien = servicioInventario.buscarLineaBienCriterios(lineaBien);
+				if (CollectionUtils.isEmpty(listLineaBien)){
+					MensajesWebController.aniadirMensajeInformacion("La categoria seleccionada no tiene lineas asignadas");
+				} else {
+					this.dcLineaBien.addAll(UtilSelectItems.getInstancia().cargarSelectItemsGenerico(listLineaBien, "linBienPk", "linBienNombre"));
+				}
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("error al cargarDcCategoriaBien {}", e.getCause().getMessage());
+			MensajesWebController.aniadirMensajeError("No se pudo obtener las categorias de la base de datos");
+		}
+	
+	}
+	
 	public void reiniciarObjetos () {
 		this.bienDataManager.refrescarObjetos();
 	}
 	
+
+	/**
+	 * @return the dcCategoriaBien
+	 */
+	public List<SelectItem> getDcCategoriaBien() {
+		return dcCategoriaBien;
+	}
+
+	/**
+	 * @param dcCategoriaBien the dcCategoriaBien to set
+	 */
+	public void setDcCategoriaBien(List<SelectItem> dcCategoriaBien) {
+		this.dcCategoriaBien = dcCategoriaBien;
+	}
+	
+	/**
+	 * @return the dcMarcaBien
+	 */
+	public List<SelectItem> getDcMarcaBien() {
+		return dcMarcaBien;
+	}
+
+	/**
+	 * @param dcMarcaBien the dcMarcaBien to set
+	 */
+	public void setDcMarcaBien(List<SelectItem> dcMarcaBien) {
+		this.dcMarcaBien = dcMarcaBien;
+	}
+	
+	/**
+	 * @return the dcLineaBien
+	 */
+	public List<SelectItem> getDcLineaBien() {
+		return dcLineaBien;
+	}
+
+	/**
+	 * @param dcLineaBien the dcLineaBien to set
+	 */
+	public void setDcLineaBien(List<SelectItem> dcLineaBien) {
+		this.dcLineaBien = dcLineaBien;
+	}
+
 }

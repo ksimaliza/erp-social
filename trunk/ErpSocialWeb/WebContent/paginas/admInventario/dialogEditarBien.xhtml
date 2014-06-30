@@ -33,8 +33,8 @@
 								required="true" label="#{i18n['erp.bien.categoria']}"
 								value="#{bienDataManager.idCategoriaBienSeleccionado}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
-								<f:selectItems value="#{bienDataManager.dcCategoriaBien}"/>
-								<p:ajax event="change" process="@this" update="txtLinea" listener="#{bienDataManager.cargarDcLineaBien}"/>
+								<f:selectItems value="#{bienController.dcCategoriaBien}"/>
+								<p:ajax event="change" process="@this" update="txtLinea" listener="#{bienController.cargarDcLineaBien(bienDataManager.idCategoriaBienSeleccionado)}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
@@ -48,7 +48,7 @@
 								required="true" label="#{i18n['erp.bien.linea']}"
 								value="#{bienDataManager.idLineaBienSeleccionado}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}"/>
-								<f:selectItems value="#{bienDataManager.dcLineaBien}"/>
+								<f:selectItems value="#{bienController.dcLineaBien}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
@@ -62,7 +62,7 @@
 								required="false" label="#{i18n['erp.bien.marca.material']}"
 								value="#{bienDataManager.bienEditar.marBienPk}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
-								<f:selectItems value="#{bienDataManager.dcMarcaBien}"/>
+								<f:selectItems value="#{bienController.dcMarcaBien}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
