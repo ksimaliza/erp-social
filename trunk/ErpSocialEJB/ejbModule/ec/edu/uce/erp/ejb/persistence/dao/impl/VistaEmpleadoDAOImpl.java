@@ -10,13 +10,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.persistence.dao.VistaEmpleadoDAO;
 import ec.edu.uce.erp.ejb.persistence.view.VistaEmpleado;
 
@@ -55,6 +58,27 @@ public class VistaEmpleadoDAOImpl extends AbstractFacadeImpl<VistaEmpleado> impl
 			//por id empresa
 			if (vistaEmpleado.getEmrPk() != null && vistaEmpleado.getEmrPk()>0) {
 				predicate = criteriaBuilder.equal(fromVistaEmpleado.get("emrPk"), vistaEmpleado.getEmrPk());
+				criteriaList.add(predicate);
+			}
+			
+			if (StringUtils.isNotBlank(vistaEmpleado.getPerNombres())) {
+				Expression<String> nombreUsuario = 
+						criteriaBuilder.upper(criteriaBuilder.literal(UtilAplication.appendStringBuilder("%", vistaEmpleado.getPerNombres(), "%").toString()));
+				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromVistaEmpleado.<String>get("perNombres")), nombreUsuario);
+				criteriaList.add(predicate);
+			}
+			
+			if (StringUtils.isNotBlank(vistaEmpleado.getPerApellidos())) {
+				Expression<String> apellidoUsuario = 
+						criteriaBuilder.upper(criteriaBuilder.literal(UtilAplication.appendStringBuilder("%", vistaEmpleado.getPerApellidos(), "%").toString()));
+				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromVistaEmpleado.<String>get("perApellidos")), apellidoUsuario);
+				criteriaList.add(predicate);
+			}
+			
+			if (StringUtils.isNotBlank(vistaEmpleado.getPerCi())) {
+				Expression<String> ciUsuario = 
+						criteriaBuilder.upper(criteriaBuilder.literal(UtilAplication.appendStringBuilder("%", vistaEmpleado.getPerCi(), "%").toString()));
+				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromVistaEmpleado.<String>get("perCi")), ciUsuario);
 				criteriaList.add(predicate);
 			}
 			
