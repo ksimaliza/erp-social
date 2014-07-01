@@ -4,3 +4,7 @@ SELECT setval('erpt_parametro_id_parametro_seq',100);
 INSERT INTO erpt_parametro
 (id_parametro, nombre_parametro, descripcion_parametro, valor_parametro,fecha_registro, estado) VALUES 
 (1, 'Tiempo validez contraseña', 'Tiempo en días de validez contraseña', '30', LOCALTIMESTAMP, '1');
+
+-- columna para ordenar el menu
+alter table segt_menu
+add column orden int null;

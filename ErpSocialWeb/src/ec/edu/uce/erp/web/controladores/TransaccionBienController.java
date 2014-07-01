@@ -205,4 +205,13 @@ public class TransaccionBienController extends BaseController{
 		slf4jLogger.info("buscarEmpleado");
 	}
 	
+	public void limpiarFiltrosBusqueda () {
+		this.vistaBienDataManager.setVistaBienBuscar(new VistaBien());
+		this.vistaBienDataManager.setIdCIEmpleadoSeleccionado(null);
+		this.vistaBienDataManager.setIdDcTipoBienSelec(null);
+		this.vistaBienDataManager.setIdCategoriaBienSeleccionado(null);
+		this.vistaBienDataManager.setIdLineaBienSeleccionado(null);
+		this.vistaBienDataManager.getDcLineaBien().clear();
+	}
+	
 }

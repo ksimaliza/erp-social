@@ -95,6 +95,11 @@
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarBien"
 					update="pnlMessages,tablaBienes,pnlBuscarBien,toolbar" />
+				<p:commandButton id="btnLimpiar"
+					actionListener="#{transaccionBienController.limpiarFiltrosBusqueda}"
+					value="#{i18n['label.limpiar']}" 
+					process="@this,pnlBuscarBien" 
+					update="pnlMessages,tablaBienes,pnlBuscarBien,toolbar" />
 			</p:panel>
 			<p:dataTable id="tablaBienes"
 				value="#{vistaBienDataManager.listVistaBien}"

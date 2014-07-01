@@ -11,16 +11,12 @@
 			<p:panel id="pnlTrazabilidadBien" styleClass="formulario">
 				<table class="formulario">
 					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.nombre']}" />
-						</td>
-						<td width="70%">
+						<td width="50%">
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.nombre']}:&#160;" styleClass="label"/>
 							<h:outputText id="txtNombre" value="#{vistaBienDataManager.vistaBienEditar.bieNombre}" />
 						</td>
-						<td width="30%">
-							<h:outputLabel for="txtCodigo" value="#{i18n['erp.bien.codigo']}" />
-						</td>
-						<td width="70%">
+						<td width="50%">
+							<h:outputLabel for="txtCodigo" value="#{i18n['erp.bien.codigo']}:&#160;" />
 							<h:outputText id="txtCodigo" value="#{vistaBienDataManager.vistaBienEditar.bieCodigo}" />
 						</td>
 					</tr>
