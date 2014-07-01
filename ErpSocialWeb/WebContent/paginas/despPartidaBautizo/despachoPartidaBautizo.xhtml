@@ -97,28 +97,21 @@
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.provincia']}" width="40%">
-					<h:outputText value="#{bautizo.bauProvincia}" />
+					<h:outputText value="#{bautizo.catProvincia}" />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.provincia']}" width="40%">
+					<h:outputText value="#{bautizo.catCanton}" />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.provincia']}" width="40%">
+					<h:outputText value="#{bautizo.catCiudad}" />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.sacerdote']}" width="40%">
-					<h:outputText value="#{bautizo.bauSacerdote}" />
+					<h:outputText value="#{bautizo.sacNombres} #{bautizo.sacApellidos}" />
 				</p:column>
 				
-				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.nota.marginal']}" width="40%">
-					<h:outputText value="#{bautizo.bauNotaMarginal}" />
-				</p:column>
-				
-				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.tomo']}" width="40%">
-					<h:outputText value="#{bautizo.bauToma}" />
-				</p:column>
-				
-				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.acta']}" width="40%">
-					<h:outputText value="#{bautizo.bauActa}" />
-				</p:column>
-				
-				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.pagina']}" width="40%">
-					<h:outputText value="#{bautizo.bauPagina}" />
-				</p:column>
 			
 			<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
 					<h:panelGroup>
