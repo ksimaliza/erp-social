@@ -274,19 +274,25 @@ public class PartidaBautizoController extends BaseController{
 		
 	}
 	
+
 	public void cargarDatosBautizo (BautizoListDTO bautizo) {
 		try {
 			
-			BautizoVO bautizoEncontrado=servicioEucaristia.obtenerBautizoPorId(bautizo.getBauBautizado(), bautizo.getBauCodigo());
+			BautizoVO bautizoEncontrado=servicioEucaristia.obtenerBautizoPorId(bautizo.getBauBautizado(),bautizo.getBauCodigo(),bautizo.getBauMadrina(),bautizo.getBauPadrino(),bautizo.getDocCodigo(),bautizo.getBauSacerdote());
 			this.partidaBautizoDataManager.setBautizadoInsertar(bautizoEncontrado.getBautizado());
 			this.partidaBautizoDataManager.setBautizoDTO(bautizoEncontrado.getBautizo());
+			this.partidaBautizoDataManager.setMadrinaInsertar(bautizoEncontrado.getMadrina());
+			this.partidaBautizoDataManager.setPadrinoInsertar(bautizoEncontrado.getPadrino());
+			this.partidaBautizoDataManager.setSacerdoteCodigo(bautizoEncontrado.getSacerdote().getSacCodigo());
+			this.partidaBautizoDataManager.setDoctorCodigo(bautizoEncontrado.getDoctorVO().getDocCodigo());
 			
 							
 		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al cargar los datos del bautizo seleccionado {}", e.getMessage());
-			MensajesWebController.aniadirMensajeError("Error al cargar los datos del bautizo seleccionado");
+			slf4jLogger.info("Error al cargarDatosConfirmacion {}", e.getMessage());
+			MensajesWebController.aniadirMensajeError("Error al cargarDatosConfirmacion seleccionado");
 		}
 	}
+	
 	
 	public void buscarProvincia () {
 		slf4jLogger.info("buscarCatalogo");
