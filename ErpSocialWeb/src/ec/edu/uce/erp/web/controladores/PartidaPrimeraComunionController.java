@@ -65,7 +65,7 @@ public class PartidaPrimeraComunionController extends BaseController{
 	public void inicializarObjetos () {
 		buscarSacerdote();
 		buscarTipo ();
-		
+		buscarDoctor();
 	}
 	
 public void registrarPrimeraComunion () {
