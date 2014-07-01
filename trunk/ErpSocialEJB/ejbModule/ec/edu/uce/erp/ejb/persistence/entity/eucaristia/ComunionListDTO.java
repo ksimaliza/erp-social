@@ -16,15 +16,6 @@ import java.util.Date;
 public class ComunionListDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="cat_codigo")
-	private Integer catCodigo;
-
-	@Column(name="cat_descripcion")
-	private String catDescripcion;
-
-	@Column(name="cat_predecesor")
-	private Integer catPredecesor;
-
 	@Column(name="pco_acta")
 	private String pcoActa;
 
@@ -37,7 +28,6 @@ public class ComunionListDTO implements Serializable {
 	@Column(name="pco_certificado_por")
 	private Integer pcoCertificadoPor;
 
-	@Id
 	@Column(name="pco_codigo")
 	private Integer pcoCodigo;
 
@@ -96,6 +86,7 @@ public class ComunionListDTO implements Serializable {
 	@Column(name="per_nombres")
 	private String perNombres;
 
+	@Id
 	@Column(name="per_pk")
 	private Integer perPk;
 
@@ -109,30 +100,6 @@ public class ComunionListDTO implements Serializable {
 	private Integer sacPersona;
 
 	public ComunionListDTO() {
-	}
-
-	public Integer getCatCodigo() {
-		return this.catCodigo;
-	}
-
-	public void setCatCodigo(Integer catCodigo) {
-		this.catCodigo = catCodigo;
-	}
-
-	public String getCatDescripcion() {
-		return this.catDescripcion;
-	}
-
-	public void setCatDescripcion(String catDescripcion) {
-		this.catDescripcion = catDescripcion;
-	}
-
-	public Integer getCatPredecesor() {
-		return this.catPredecesor;
-	}
-
-	public void setCatPredecesor(Integer catPredecesor) {
-		this.catPredecesor = catPredecesor;
 	}
 
 	public String getPcoActa() {
