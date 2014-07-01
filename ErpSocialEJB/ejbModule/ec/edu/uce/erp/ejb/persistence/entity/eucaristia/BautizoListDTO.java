@@ -31,7 +31,6 @@ public class BautizoListDTO implements Serializable {
 	@Column(name="bau_ciudad")
 	private Integer bauCiudad;
 
-	@Id
 	@Column(name="bau_codigo")
 	private Integer bauCodigo;
 
@@ -62,12 +61,47 @@ public class BautizoListDTO implements Serializable {
 	@Column(name="bau_toma")
 	private String bauToma;
 
-	
+	@Column(name="cat_canton")
+	private String catCanton;
+
+	@Column(name="cat_ciudad")
+	private String catCiudad;
+
+	@Column(name="cat_provincia")
+	private String catProvincia;
+
+	@Column(name="doc_apellidos")
+	private String docApellidos;
+
+	@Column(name="doc_ci")
+	private String docCi;
+
 	@Column(name="doc_codigo")
 	private Integer docCodigo;
 
+	@Column(name="doc_nombres")
+	private String docNombres;
+
 	@Column(name="doc_persona")
 	private Integer docPersona;
+
+	@Column(name="mad_apellidos")
+	private String madApellidos;
+
+	@Column(name="mad_ci")
+	private String madCi;
+
+	@Column(name="mad_nombres")
+	private String madNombres;
+
+	@Column(name="pad_apellidos")
+	private String padApellidos;
+
+	@Column(name="pad_ci")
+	private String padCi;
+
+	@Column(name="pad_nombres")
+	private String padNombres;
 
 	@Column(name="per_apellidos")
 	private String perApellidos;
@@ -94,16 +128,24 @@ public class BautizoListDTO implements Serializable {
 	@Column(name="per_nombres")
 	private String perNombres;
 
-	
+	@Id
 	@Column(name="per_pk")
 	private Integer perPk;
 
 	@Column(name="per_telefono")
 	private String perTelefono;
 
+	@Column(name="sac_apellidos")
+	private String sacApellidos;
+
+	@Column(name="sac_ci")
+	private String sacCi;
 
 	@Column(name="sac_codigo")
 	private Integer sacCodigo;
+
+	@Column(name="sac_nombres")
+	private String sacNombres;
 
 	@Column(name="sac_persona")
 	private Integer sacPersona;
@@ -231,6 +273,46 @@ public class BautizoListDTO implements Serializable {
 		this.bauToma = bauToma;
 	}
 
+	public String getCatCanton() {
+		return this.catCanton;
+	}
+
+	public void setCatCanton(String catCanton) {
+		this.catCanton = catCanton;
+	}
+
+	public String getCatCiudad() {
+		return this.catCiudad;
+	}
+
+	public void setCatCiudad(String catCiudad) {
+		this.catCiudad = catCiudad;
+	}
+
+	public String getCatProvincia() {
+		return this.catProvincia;
+	}
+
+	public void setCatProvincia(String catProvincia) {
+		this.catProvincia = catProvincia;
+	}
+
+	public String getDocApellidos() {
+		return this.docApellidos;
+	}
+
+	public void setDocApellidos(String docApellidos) {
+		this.docApellidos = docApellidos;
+	}
+
+	public String getDocCi() {
+		return this.docCi;
+	}
+
+	public void setDocCi(String docCi) {
+		this.docCi = docCi;
+	}
+
 	public Integer getDocCodigo() {
 		return this.docCodigo;
 	}
@@ -239,12 +321,68 @@ public class BautizoListDTO implements Serializable {
 		this.docCodigo = docCodigo;
 	}
 
+	public String getDocNombres() {
+		return this.docNombres;
+	}
+
+	public void setDocNombres(String docNombres) {
+		this.docNombres = docNombres;
+	}
+
 	public Integer getDocPersona() {
 		return this.docPersona;
 	}
 
 	public void setDocPersona(Integer docPersona) {
 		this.docPersona = docPersona;
+	}
+
+	public String getMadApellidos() {
+		return this.madApellidos;
+	}
+
+	public void setMadApellidos(String madApellidos) {
+		this.madApellidos = madApellidos;
+	}
+
+	public String getMadCi() {
+		return this.madCi;
+	}
+
+	public void setMadCi(String madCi) {
+		this.madCi = madCi;
+	}
+
+	public String getMadNombres() {
+		return this.madNombres;
+	}
+
+	public void setMadNombres(String madNombres) {
+		this.madNombres = madNombres;
+	}
+
+	public String getPadApellidos() {
+		return this.padApellidos;
+	}
+
+	public void setPadApellidos(String padApellidos) {
+		this.padApellidos = padApellidos;
+	}
+
+	public String getPadCi() {
+		return this.padCi;
+	}
+
+	public void setPadCi(String padCi) {
+		this.padCi = padCi;
+	}
+
+	public String getPadNombres() {
+		return this.padNombres;
+	}
+
+	public void setPadNombres(String padNombres) {
+		this.padNombres = padNombres;
 	}
 
 	public String getPerApellidos() {
@@ -327,12 +465,36 @@ public class BautizoListDTO implements Serializable {
 		this.perTelefono = perTelefono;
 	}
 
+	public String getSacApellidos() {
+		return this.sacApellidos;
+	}
+
+	public void setSacApellidos(String sacApellidos) {
+		this.sacApellidos = sacApellidos;
+	}
+
+	public String getSacCi() {
+		return this.sacCi;
+	}
+
+	public void setSacCi(String sacCi) {
+		this.sacCi = sacCi;
+	}
+
 	public Integer getSacCodigo() {
 		return this.sacCodigo;
 	}
 
 	public void setSacCodigo(Integer sacCodigo) {
 		this.sacCodigo = sacCodigo;
+	}
+
+	public String getSacNombres() {
+		return this.sacNombres;
+	}
+
+	public void setSacNombres(String sacNombres) {
+		this.sacNombres = sacNombres;
 	}
 
 	public Integer getSacPersona() {
