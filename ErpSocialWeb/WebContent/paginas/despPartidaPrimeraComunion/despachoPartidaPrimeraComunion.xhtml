@@ -31,7 +31,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomCom" 
-								/>
+								value="#{partidaPrimeraComunionDataManager.comunionListDTO.perNombres}"/>
 						</td>	
 					</tr>
 					
@@ -42,14 +42,24 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApeCom" 
-								 />
+								 value="#{partidaPrimeraComunionDataManager.comunionListDTO.perApellidos}" />
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCi" value="#{i18n['erp.despacho.partida.comunion.cedula']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCi" 
+								 value="#{partidaPrimeraComunionDataManager.comunionListDTO.perCi}" />
 						</td>	
 					</tr>
 				</table>
 			</p:panel>
 <p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
-					
+					actionListener="#{partidaComunionController.buscarPartidaComunion}"					
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarPartidaPrimeraComunion"
 					update=":formPartidaPrimeraComunion:pnlMessages,tablaPartidaPrimeraComunion,pnlBuscarPartidaPrimeraComunion " />
@@ -57,7 +67,7 @@
 
 
 <p:dataTable id="tablaPartidaPrimeraComunion"
-	
+	value="#{partidaPrimeraComunionDataManager.comunionListDTOs}" var="comunion"
 	rowIndexVar="rowIndex"
 	paginator="true" rows="5" paginatorPosition="bottom"
 	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -69,27 +79,27 @@
 		#{rowIndex+1}
 	</p:column>
 	<p:column headerText="#{i18n['erp.despacho.partida.comunion.cedula']}" width="35%">
-					<h:outputText  />
+					<h:outputText   value="#{comunion.perCi}"/>
 				</p:column>
 				<p:column headerText="#{i18n['erp.despacho.partida.comunion.apellidos']}" width="40%">
-					<h:outputText  />
+					<h:outputText  value="#{comunion.perApellidos}"/>
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.comunion.nombres']}" width="40%">
-					<h:outputText  />
+					<h:outputText value="#{comunion.perNombres}"  />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.comunion.fecha']}" width="40%">
-					<h:outputText  />
+					<h:outputText  value="#{comunion.pcoFechaHora}" />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.comunion.lugar']}" width="40%">
-					<h:outputText  />
+					<h:outputText  value="#{comunion.pcoLugar}"  />
 				</p:column>
 				
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.comunion.sacerdote']}" width="40%">
-					<h:outputText  />
+					<h:outputText  value="#{comunion.sacPersona}" />
 				</p:column>
 			
 			<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
@@ -97,7 +107,7 @@
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarPartidaPrimeraComunion.show()"
-							
+							actionListener="#{partidaComunionController.cargarDatosComunion(comunion)}"
 							process="@this" update=":formEditarPartidaPrimeraComunion:pnlEditarPartidaPrimeraComunion">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
@@ -107,7 +117,7 @@
 	
 	</h:form>			
 	<ui:include src="dialogNuevaPartidaPrimeraComunion.xhtml" />
-		
+	<ui:include src="dialogEditarPartidaPrimeraComunion.xhtml" />	
 		
 </ui:define>		
 	
