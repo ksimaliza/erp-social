@@ -157,6 +157,11 @@ input[class=email] {
 	float: right;
 }
 
+.label {
+	float: left;
+	font: bold;
+}
+
 textarea {
 	resize: none;
 }

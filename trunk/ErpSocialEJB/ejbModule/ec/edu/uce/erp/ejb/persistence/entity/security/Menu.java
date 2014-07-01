@@ -26,7 +26,7 @@ import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaUtil;
 @Entity
 @Table(name="segt_menu")
 @NamedQuery(name="Menu.findAll", query="SELECT m FROM Menu m")
-public class Menu extends AuditoriaUtil implements Serializable {
+public class Menu extends AuditoriaUtil implements Serializable, Comparable<Object> {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -49,6 +49,9 @@ public class Menu extends AuditoriaUtil implements Serializable {
 
 	@Column(name="url_menu")
 	private String urlMenu;
+	
+	@Column(name="orden")
+	private Integer orden;
 
 	//bi-directional many-to-many association to Modulo
 //	@ManyToMany(mappedBy="segtMenus")
@@ -121,6 +124,30 @@ public class Menu extends AuditoriaUtil implements Serializable {
 
 	public void setSegtModulos(List<Modulo> segtModulos) {
 		this.segtModulos = segtModulos;
+	}
+
+	/**
+	 * @return the orden
+	 */
+	public Integer getOrden() {
+		return orden;
+	}
+
+	/**
+	 * @param orden the orden to set
+	 */
+	public void setOrden(Integer orden) {
+		this.orden = orden;
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		Menu menu = (Menu) o;
+		if (menu != null && menu.getOrden()!= null && this.orden!=null) {
+			return this.orden.compareTo(menu.getOrden());
+		} else {
+			return 0;
+		}
 	}
 
 }

@@ -6,6 +6,7 @@ package ec.edu.uce.erp.ejb.servicio.impl;
 import static ec.edu.uce.erp.common.util.ConstantesApplication.ESTADO_ACTIVO;
 
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -81,6 +82,7 @@ public class ServicioLoginImpl implements ServicioLogin{
 				if (CollectionUtils.isNotEmpty(modulosUsuario)) {
 					for (Modulo modulo: modulosUsuario) {
 						modulo.getSegtMenus().size();
+						Collections.sort(modulo.getSegtMenus());
 					}
 					loginVOUsuario.setColModuloUsuario(modulosUsuario);
 				}
