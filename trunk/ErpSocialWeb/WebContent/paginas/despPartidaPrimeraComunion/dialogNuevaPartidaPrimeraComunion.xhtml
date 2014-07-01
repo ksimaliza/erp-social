@@ -15,14 +15,14 @@
 						<tr>
 						
 						<td width="30%">
-							<h:outputLabel for="txtCiBau" value="#{i18n['erp.despacho.partida.comunion.cedula']}" />
+							<h:outputLabel for="txtCiCom" value="#{i18n['erp.despacho.partida.comunion.cedula']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtCiBau"  style="width: 70%"
+							<p:inputText id="txtCiCom"  style="width: 100%"
 							required="true" label="#{i18n['erp.despacho.partida.comunion.cedula']}">
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-							<p:ajax event="blur" update="txtApeBau,txtNomBau" listener="#{partipartidaBautizoController.buscarBautizado}" process="@this"/>
+							<p:ajax event="blur" update="txtApeCom,txtNomCom,txtProv,txtCiudad,txtCanton,txtFechaBautizo" listener="#{partidaComunionController.buscarAsignado}" process="@this"/>
 						</p:inputText>
 						
 						</td>
@@ -30,31 +30,31 @@
 						
 						<tr>
 						<td width="30%">
-							<h:outputLabel for="txtNomBau" value="#{i18n['erp.despacho.partida.comunion.nombres']}" />
+							<h:outputLabel for="txtNomCom" value="#{i18n['erp.despacho.partida.comunion.nombres']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNomBau" style="width: 100%"
-								required="true" />
+							<p:inputText id="txtNomCom" style="width: 100%"
+								required="true" value="#{partidaPrimeraComunionDataManager.asignadoInsertar.perNombres}" />
 						</td>	
 					</tr>
 					
 					
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtApeBau" value="#{i18n['erp.despacho.partida.comunion.apellidos']}" />
+							<h:outputLabel for="txtApeCom" value="#{i18n['erp.despacho.partida.comunion.apellidos']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtApeBau" style="width: 100%"
-								required="true" />
+							<p:inputText id="txtApeCom" style="width: 100%"
+								required="true" value="#{partidaPrimeraComunionDataManager.asignadoInsertar.perApellidos}" />
 						</td>	
 					</tr>
 						
-						<tr>
+					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtFechaPrimeraComunion" value="#{i18n['erp.despacho.partida.comunion.fecha']}" />
+							<h:outputLabel for="txtFechaComunion" value="#{i18n['erp.despacho.partida.comunion.fecha']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFechaPrimeraComunion" style="width: 100%" navigator="true"   showOn="button" required="true"/>
+							<p:calendar id="txtFechaComunion" style="width: 100%" navigator="true"   showOn="button" required="true" value="#{partidaPrimeraComunionDataManager.fechaComunionInsertar}"/>
 						</td>	
 					</tr>
 					
@@ -63,19 +63,22 @@
 							<h:outputLabel for="txtFechaCurso" value="#{i18n['erp.despacho.partida.comunion.fecha.curso']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFechaCurso" style="width: 100%" navigator="true"   showOn="button" required="true"/>
+							<p:calendar id="txtFechaCurso" style="width: 100%" navigator="true"   showOn="button" required="true" value="#{partidaPrimeraComunionDataManager.fechaApComInsertar}"/>
 						</td>	
 					</tr>
 					
 										
 							
-					<tr>
+					<tr >
 						<td width="30%">
-							<h:outputLabel for="txtSacerdote" value="#{i18n['erp.despacho.partida.comunion.sacerdote']}" />
-						</td>
-						<td>
-							<h:selectOneListbox for="listboxSacerdote" value="#{i18n['erp.despacho.partida.comunion.sacerdote']}" />
-						</td>
+							<h:outputLabel value="#{i18n['erp.despacho.partida.comunion.sacerdote']}"  /> </td>
+					
+					<td width="70%">
+						<p:selectOneMenu id="sacerdote" value="#{partidaPrimeraComunionDataManager.sacerdoteCodigo}" filter="true" required="true">
+									<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+									<f:selectItems value="#{partidaComunionController.partidaPrimeraComunionDataManager.sacerdoteListDTO}" var="sac" itemLabel="#{sac.perNombres} #{sac.perApellidos}" itemValue="#{sac.sacCodigo}"/>
+						</p:selectOneMenu>
+					</td>
 					</tr>
 					
 					<tr>
@@ -84,29 +87,22 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtLugar" style="width: 100%"
-								required="true" />
+								required="true" value="#{partidaPrimeraComunionDataManager.primeraComunionInsertar.pcoLugar}" />
 						</td>	
 					</tr>
 					
 					
-					<tr>
+					<tr >
 						<td width="30%">
-							<h:outputLabel for="txtCertificado" value="#{i18n['erp.despacho.partida.comunion.certificado']}" />
-						</td>
-						<td>
-							<h:selectOneListbox/>
-						</td>
-					</tr>					
-
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtCertificado" value="#{i18n['erp.despacho.partida.comunion.estado']}" />
-						</td>
-						<td>
-							<h:selectOneListbox/>
-						</td>
-					</tr>					
-
+							<h:outputLabel value="#{i18n['erp.despacho.partida.comunion.certificado']}"  /> </td>
+					
+					<td width="70%">
+						<p:selectOneMenu id="certificado" value="#{partidaPrimeraComunionDataManager.doctorCodigo}" filter="true" required="true">
+									<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+									<f:selectItems value="#{partidaComunionController.partidaPrimeraComunionDataManager.doctorListDTO}" var="doc" itemLabel="#{doc.perNombres} #{doc.perApellidos}" itemValue="#{doc.docCodigo}"/>
+						</p:selectOneMenu>
+					</td>
+					</tr>
 					
 				</table>
 			</p:panel>
@@ -119,20 +115,23 @@
 							<h:outputLabel value="#{i18n['erp.despacho.partida.tipo.padrino']}" />
 						</td>
 						<td width="70%">
-							<p:selectOneMenu/>
+							<p:selectOneMenu id="padrino" value="#{partidaPrimeraComunionDataManager.tipoCodigo}" filter="true" required="true">
+									<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+									<f:selectItems value="#{partidaComunionController.partidaPrimeraComunionDataManager.tipoEucaristiaDTOs}" var="tipo" itemLabel="#{tipo.catDescripcion} " itemValue="#{tipo.catCodigo}"/>
+							</p:selectOneMenu>
 						</td>	
-					</tr>						
+					</tr>					
 												
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtCiPad" value="#{i18n['erp.despacho.partida.comunion.cedula.padrino.madrina']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtCiPad"  style="width: 70%"
+							<p:inputText id="txtCiPad"  style="width: 100%"
 							required="true" label="#{i18n['erp.despacho.partida.comunion.cedula.padrino.madrina']}">
 							<f:validateLength maximum="10" minimum="10"/>
-							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-						
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" value="#{partidaPrimeraComunionDataManager.mad_padInsertar.perCi}" />
+							<p:ajax event="blur" update="txtApePad,txtNomPad" listener="#{partidaComunionController.buscarMadrina()}" process="@this"/>
 						</p:inputText>
 						
 						</td>
@@ -144,7 +143,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomPad" style="width: 100%"
-								 required="true" />
+								 required="true" value="#{partidaPrimeraComunionDataManager.mad_padInsertar.perNombres}" />
 						</td>	
 					</tr>
 						
@@ -154,7 +153,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApePad" style="width: 100%"
-								 required="true" />
+								 required="true" value="#{partidaPrimeraComunionDataManager.mad_padInsertar.perApellidos}" />
 						</td>	
 					</tr>
 					
@@ -170,7 +169,7 @@
 							<h:outputLabel for="txtNotaM" value="#{i18n['erp.despacho.partida.comunion.nota.marginal']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNotaM" style="width: 100%"  required="true"/>
+							<p:inputText id="txtNotaM" style="width: 100%"  required="true" value="#{partidaPrimeraComunionDataManager.primeraComunionInsertar.pcoNotaMarginal}"/>
 						</td>	
 					</tr>
 					
@@ -180,7 +179,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtTomo" style="width: 100%"  
-								 required="true" />
+								 required="true" value="#{partidaPrimeraComunionDataManager.primeraComunionInsertar.pcoTomo}" />
 						</td>	
 					</tr>
 					<tr>
@@ -189,7 +188,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtActa"  style="width: 100%"
-							required="true" label="#{i18n['erp.despacho.partida.comunion.acta']}">
+							required="true" label="#{i18n['erp.despacho.partida.comunion.acta']}" value="#{partidaPrimeraComunionDataManager.primeraComunionInsertar.pcoActa}">
 							
 						</p:inputText>
 						
@@ -202,7 +201,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtPagina" style="width: 100%"  
-								 required="true" />
+								 required="true" value="#{partidaPrimeraComunionDataManager.primeraComunionInsertar.pcoPagina}" />
 						</td>	
 					</tr>
 					
@@ -215,13 +214,11 @@
 												
 						<tr>
 						<td width="30%">
-							<h:outputLabel for="txtProv" value="#{i18n['erp.despacho.partida.bautizo.provincia']}" />
+							<h:outputLabel for="txtProv" value="#{i18n['erp.despacho.partida.bautizo.provincia']}"  />
 						</td>
-						<td>
-							<p:selectOneMenu id="sumProvincia"  filter="true" required="true">
-								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-								
-							</p:selectOneMenu>
+						<td width="70%">
+							<p:inputText id="txtProv" style="width: 100%"  
+								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.catProvincia}" readonly="true" />
 						</td>
 					</tr>
 					
@@ -229,11 +226,9 @@
 						<td width="30%">
 							<h:outputLabel for="txtCanton" value="#{i18n['erp.despacho.partida.bautizo.canton']}" />
 						</td>
-						<td>
-							<p:selectOneMenu id="Canton"  filter="true" required="true">
-								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-								
-							</p:selectOneMenu>
+						<td width="70%">
+							<p:inputText id="txtCanton" style="width: 100%"  
+								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.catCanton}"  readonly="true"/>
 						</td>
 					</tr>	
 					
@@ -241,26 +236,22 @@
 						<td width="30%">
 							<h:outputLabel for="txtCiudad" value="#{i18n['erp.despacho.partida.bautizo.ciudad']}" />
 						</td>
-						<td>
-							<p:selectOneMenu id="Ciudad"  filter="true" required="true">
-								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-								
-							</p:selectOneMenu>
+						<td width="70%">
+							<p:inputText id="txtCiudad" style="width: 100%"  
+								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.catCiudad}" readonly="true" />
 						</td>
 					</tr>					
 					
-						
-					
-					
+							
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtFechaBautizo" value="#{i18n['erp.despacho.partida.bautizo.fecha.bautizo']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="FechaBautizo" style="width: 100%" required="true" showOn="button" label="#{i18n['erp.despacho.partida.bautizo.fecha.bautizo']}" />
+							<p:inputText id="txtFechaBautizo" style="width: 100%"  
+								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.bauFechaBautizo}" readonly="true"/>
 						</td>
 					</tr>
-					
 				
 					
 						
@@ -271,8 +262,9 @@
 		
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgPartidaPrimeraComunion.hide()"
-					process="@this,pnlNuevaPartidaPrimeraComunion" update="pnlNuevaPartidaPrimeraComunion,:formPartidaPrimeraComunion:pnlMessages,:formPartidaPrimeraComunion:tablaPartidaPrimeraComunion"/>
+					actionListener="#{partidaComunionController.registrarPrimeraComunion}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaPartidaPrimeraComunion.hide()"
+					process="@this,pnlNuevaPartidaPrimeraComunion,pnlDatos,pnlDatosPadrino" update="pnlNuevaPartidaPrimeraComunion,:formPartidaPrimeraComunion:pnlMessages,:formPartidaPrimeraComunion:tablaPartidaPrimeraComunion"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaPartidaPrimeraComunion.hide()" type="button" />
 			</p:panel>
 	</h:form>
