@@ -19,6 +19,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParcialDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepNivelEstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EstudianteVO;
@@ -155,6 +156,10 @@ public interface ServicioMatricula {
 			throws SeguridadesException;
 
 	List<MatriculaDTO> readMatricula(MatriculaDTO matricula)
+			throws SeguridadesException;
+
+	List<RepNivelEstudianteDTO> readNivelEstudiante(
+			RepNivelEstudianteDTO repNivelEstudianteDTO)
 			throws SeguridadesException;
 
 		
