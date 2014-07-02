@@ -11,6 +11,7 @@ import javax.faces.bean.ViewScoped;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepNivelEstudianteDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
@@ -57,6 +58,7 @@ public class ReporteCursoController extends BaseController{
 		try {							
 			listaNivel = this.servicioMatricula.buscarNivel(new NivelDTO());
 			this.reporteCursoDataManager.setNivelList(listaNivel);
+			buscar();
 		} catch (SeguridadesException e) {
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
@@ -75,10 +77,23 @@ public class ReporteCursoController extends BaseController{
 			nivelParaleloDTO.setMatNivel(nivelDTO);
 			listaNivelParalelo = this.servicioMatricula.buscarNivelParalelo(nivelParaleloDTO);			
 			this.reporteCursoDataManager.setNivelParaleloList(listaNivelParalelo);
+			buscar();
 		} catch (SeguridadesException e) {
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 		
 	}
 
+	public void buscar()
+	{
+		RepNivelEstudianteDTO rep;
+		try {
+			rep=new RepNivelEstudianteDTO();
+			rep.setNpaNivel(reporteCursoDataManager.getNivelCodigo());
+			rep.setNpaParalelo(reporteCursoDataManager.getParaleloCodigo());
+			reporteCursoDataManager.setRepNivelEstudianteList(servicioMatricula.readNivelEstudiante(rep));
+		} catch (SeguridadesException e) {
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+	}
 }
