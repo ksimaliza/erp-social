@@ -8,6 +8,7 @@ import javax.faces.bean.SessionScoped;
 
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepNivelEstudianteDTO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 @SessionScoped
@@ -25,10 +26,13 @@ public class ReporteCursoDataManager extends BaseDataManager{
 	private List<NivelParaleloDTO> nivelParaleloList;
 	private List<NivelDTO> nivelList;
 	
+	private List<RepNivelEstudianteDTO> repNivelEstudianteList;
+	
 	public ReporteCursoDataManager() {
 	
 		nivelParaleloList=new ArrayList<NivelParaleloDTO>();
 		nivelList=new ArrayList<NivelDTO>();
+		repNivelEstudianteList=new ArrayList<RepNivelEstudianteDTO>();
 	}
 	
 	public int getParaleloCodigo() {
@@ -58,5 +62,14 @@ public class ReporteCursoDataManager extends BaseDataManager{
 
 	public void setNivelList(List<NivelDTO> nivelList) {
 		this.nivelList = nivelList;
+	}
+
+	public List<RepNivelEstudianteDTO> getRepNivelEstudianteList() {
+		return repNivelEstudianteList;
+	}
+
+	public void setRepNivelEstudianteList(
+			List<RepNivelEstudianteDTO> repNivelEstudianteList) {
+		this.repNivelEstudianteList = repNivelEstudianteList;
 	}
 }

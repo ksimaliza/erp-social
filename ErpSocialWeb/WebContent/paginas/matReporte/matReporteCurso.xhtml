@@ -22,7 +22,7 @@
 						<td><p:selectOneMenu id="nivel" value="#{reporteCursoDataManager.nivelCodigo}" filter="true" required="true">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{reporteCursoController.reporteCursoDataManager.nivelList}" var="nivel" itemLabel="#{nivel.nivDescaripcion} " itemValue="#{nivel.nivCodigo}"/>
-								<p:ajax listener="#{reporteCursoController.buscarNivelParalelo}" process="@this" update="paralelo"/>
+								<p:ajax listener="#{reporteCursoController.buscarNivelParalelo}" process="@this" update="paralelo,tblReporte"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
@@ -32,10 +32,29 @@
 						<td><p:selectOneMenu id="paralelo" value="#{reporteCursoDataManager.paraleloCodigo}" filter="true" required="true">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{reporteCursoDataManager.nivelParaleloList}" var="nivelParalelo" itemLabel="#{nivelParalelo.matParalelo.parDescripcion}" itemValue="#{nivelParalelo.matParalelo.parCodigo}"/>
+								<p:ajax listener="#{reporteCursoController.buscar}" process="@this" update="tblReporte"/>		
 							</p:selectOneMenu>
 						</td>
 					</tr>
 			</table>	
+			
+			
+			<p:dataTable id="tblReporte" value="#{reporteCursoDataManager.repNivelEstudianteList}" var="rep">
+			
+			<p:column headerText="Nombres">
+				<h:outputText value="#{rep.perNombres}" />
+			</p:column>
+
+			<p:column headerText="Apellidos">
+				<h:outputText value="#{rep.perApellidos}" />				
+			</p:column>
+
+			<p:column headerText="Foto">
+				<p:graphicImage value="#{rep.regFoto}" height="45" cache="false"/>
+			</p:column>
+
+			
+			</p:dataTable>
 			
 		</h:form>
 		
