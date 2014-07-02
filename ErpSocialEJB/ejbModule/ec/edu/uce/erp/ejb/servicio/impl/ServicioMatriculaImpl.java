@@ -27,6 +27,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParcialDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepNivelEstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EstudianteVO;
@@ -781,6 +782,19 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		
 	}
 	
-	
+	@Override
+	public List<RepNivelEstudianteDTO> readNivelEstudiante(RepNivelEstudianteDTO repNivelEstudianteDTO) throws SeguridadesException
+	{
+		slf4jLogger.info("buscarRepresentante");
+		List<RepNivelEstudianteDTO> lista = null;
+		try {
+			lista = matriculaFactoryDAO.getRepNivelEstudianteDAOImpl().getByAnd(repNivelEstudianteDTO);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarRepresentante {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener datos de la base de datos");
+		}
+		
+		return lista;
+	}
 	
 }

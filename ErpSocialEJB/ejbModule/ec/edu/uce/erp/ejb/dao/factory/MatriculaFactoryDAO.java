@@ -16,6 +16,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.ParaleloDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ParcialDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PeriodoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ProfesorDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.RepNivelEstudianteDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.RepresentanteDAO;
 
 @Local
@@ -50,5 +51,7 @@ public interface MatriculaFactoryDAO {
 	AsinacionDAO getAsinacionDAOImpl();
 
 	EstudianteListDAO getEstudianteListDAOImpl();
+
+	RepNivelEstudianteDAO getRepNivelEstudianteDAOImpl();
 
 }

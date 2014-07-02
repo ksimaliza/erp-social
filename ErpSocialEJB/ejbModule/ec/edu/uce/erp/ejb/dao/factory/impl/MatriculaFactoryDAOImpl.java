@@ -19,6 +19,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.ParaleloDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ParcialDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PeriodoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ProfesorDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.RepNivelEstudianteDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.RepresentanteDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.AsinacionDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.EstudianteDAOImpl;
@@ -34,6 +35,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.impl.ParaleloDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.ParcialDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.PeriodoDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.ProfesorDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.RepNivelEstudianteDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.RepresentanteDAOImpl;
 
 @Stateless
@@ -57,6 +59,8 @@ public class MatriculaFactoryDAOImpl implements MatriculaFactoryDAO{
 	private ProfesorDAO profesorDAO;
 	private RepresentanteDAO representanteDAO;
 	private EstudianteListDAO estudianteListDAO;
+	
+	private RepNivelEstudianteDAO repNivelEstudianteDAO;
 
 	
 	
@@ -194,6 +198,15 @@ public class MatriculaFactoryDAOImpl implements MatriculaFactoryDAO{
 		}
 		return estudianteListDAO;
 	}
-	
+
+	@Override
+	public RepNivelEstudianteDAO getRepNivelEstudianteDAOImpl()
+	{
+		if (repNivelEstudianteDAO == null) {
+			repNivelEstudianteDAO = new RepNivelEstudianteDAOImpl(entityManager);
+		}
+		return repNivelEstudianteDAO;
+	}
+
 	
 }

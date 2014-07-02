@@ -5,6 +5,10 @@ package ec.edu.uce.erp.common.util;
 
 import static ec.edu.uce.erp.common.util.ConstantesApplication.PORCENTAJE;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
@@ -62,6 +66,33 @@ public final class UtilAplication {
 		// 24 * 3600 * 1000
 		Long total = Long.valueOf(timestamp.getTime()) + numeroDias * 1000L * 60L * 30L * 24L;
 		return new Timestamp(total);
+	}
+
+	
+	public static String saveToDisk(byte[] bytefile,String fileName)
+	{
+		String pathDir,pathFile = null;
+		File f;
+		try {
+			//date=String.valueOf(CalendarUtil.getYear())+"\\"+String.valueOf(CalendarUtil.getMonth())+"\\"+String.valueOf(CalendarUtil.getDay());
+			
+			pathDir="C:\\JavaEE\\jboss-as-7.1.1.Final\\standalone\\deployments\\ErpSocial.ear\\ErpSocialWeb.war\\images\\tmp\\upload\\";
+			pathFile="C:\\JavaEE\\jboss-as-7.1.1.Final\\standalone\\deployments\\ErpSocial.ear\\ErpSocialWeb.war\\"+fileName;
+			
+			f= new File(pathDir);
+			if(!f.exists())
+				f.mkdirs();
+			FileOutputStream fos=new FileOutputStream(pathFile);
+			fos.write(bytefile);
+			fos.close();
+				pathFile=fileName;
+			pathFile=pathFile.replace('\\', '/');
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return pathFile;
 	}
 
 }
