@@ -187,6 +187,10 @@
 							oncomplete="dlgReasignarBien.show()" update=":formReasignarBien:pnlReasignarBien">
 							<f:setPropertyActionListener target="#{vistaBienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
 						</p:commandLink>
+						<p:commandLink value="  Devolver" title="Traslado" rendered="#{vistaBien.npVerDevolverBien}"
+							oncomplete="dlgReasignarBien.show()" update=":formReasignarBien:pnlReasignarBien">
+							<f:setPropertyActionListener target="#{vistaBienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
+						</p:commandLink>
 						<p:commandLink value="  Dar baja" title="Dar baja" rendered="#{vistaBien.npVerBajaBien}"
 							oncomplete="dlgBajaBien.show()" update=":formBajaBien:pnlBajaBien">
 							<f:setPropertyActionListener target="#{vistaBienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
