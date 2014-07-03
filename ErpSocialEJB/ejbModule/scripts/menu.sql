@@ -1,5 +1,9 @@
 --MODULOS
 
+--Modulo(1)    
+ INSERT INTO segt_modulo(id_modulo, nombre_modulo, desc_modulo, fecha_registro, estado) 
+ 	VALUES (1, 'Inventario', 'Inventario', LOCALTIMESTAMP, '1');
+
 --Modulo(2)
 INSERT INTO segt_modulo(nombre_modulo, desc_modulo, fecha_registro, estado)
     VALUES ('Opciones Usuario', 'Opciones Usuario', '2014-06-06', 1);
@@ -7,6 +11,7 @@ INSERT INTO segt_modulo(nombre_modulo, desc_modulo, fecha_registro, estado)
 --Modulo(3)
 INSERT INTO segt_modulo(nombre_modulo, desc_modulo, fecha_registro, estado)
     VALUES ('Control Asistencia', 'Control Asistencia', '2014-06-06', 1);
+    
 --Modulo(4)    
   INSERT INTO segt_modulo(nombre_modulo, desc_modulo, fecha_registro, estado)
     VALUES ('Administración', 'Administración', '2014-06-06', 1);  
@@ -19,36 +24,28 @@ INSERT INTO segt_modulo(nombre_modulo, desc_modulo, fecha_registro, estado)
  INSERT INTO segt_modulo(nombre_modulo, desc_modulo, fecha_registro, estado)
     VALUES ('Despacho Parroquial y Cementerio', 'Despacho Parroquial y Cementerio', '2014-06-06', 1);    
    
---Modulo(7)    
- INSERT INTO segt_modulo(nombre_modulo, desc_modulo, fecha_registro, estado)
-    VALUES ('Administración Inventario', 'Administración Inventario', '2014-06-06', 1);    
+  
  
     
    
 ---Modulo Perfil
-INSERT INTO segt_modulo_perfil(id_perfil, id_modulo)
-    VALUES (1, 2);
-    
-  INSERT INTO segt_modulo_perfil(id_perfil, id_modulo)
-    VALUES (1, 3);
-    
-    
-    INSERT INTO segt_modulo_perfil(id_perfil, id_modulo)
-    VALUES (1, 4);
-    
-    INSERT INTO segt_modulo_perfil(id_perfil, id_modulo)
-    VALUES (1, 5);
-    INSERT INTO segt_modulo_perfil(id_perfil, id_modulo)
-    VALUES (1, 6);
+	INSERT INTO segt_modulo_perfil(id_perfil, id_modulo) VALUES (1, 2);
+  	INSERT INTO segt_modulo_perfil(id_perfil, id_modulo) VALUES (1, 3);  
+    INSERT INTO segt_modulo_perfil(id_perfil, id_modulo)VALUES (1, 4);
+    INSERT INTO segt_modulo_perfil(id_perfil, id_modulo) VALUES (1, 5);
+    INSERT INTO segt_modulo_perfil(id_perfil, id_modulo) VALUES (1, 6);
 
-    INSERT INTO segt_modulo_perfil(id_perfil, id_modulo)
-    VALUES (1, 7);
-
+    --InventarioAdministrador
+		INSERT INTO segt_modulo_perfil(id_perfil, id_modulo) VALUES (1, 1);
+	--InventarioBodega
+		INSERT INTO segt_modulo_perfil(id_perfil, id_modulo) VALUES (2, 1);
    
    
     
 --MENUS    
-    
+  
+--Administracion
+
 --Menu(2)    
 INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
     VALUES ('Cambiar clave', 'Cambiar clave', '/paginas/usuario/cambiarClave.xhtml', '2014-06-06');  
@@ -74,7 +71,9 @@ INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
 INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
     VALUES ('Administrar Menú', 'Administrar Menú', '/paginas/admMenu/administracionMenu.xhtml', '2014-06-06');    
 
+
     
+--Matricula
 --Menu(8)    
 INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
     VALUES ('Matricula Estudiante', 'Matricula Estudiante', '/paginas/matEstudiante/matriculaEstudiante.xhtml', '2014-06-06');    
@@ -214,140 +213,87 @@ INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
     INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
     VALUES ('Despacho Doctor', 'Despacho Doctor', '/paginas/despDoctor/despachoDoctor.xhtml', '2014-06-06');    
     
---Menu(38)    
-INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
-    VALUES ('Administración Catálogos', 'Administración Catálogos', '/paginas/admInventario/catalogosInventario/administracionCatalogos.xhtml', '2014-06-06');
-    
- --Menu(39)    
-INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
-    VALUES ('Administración Bien', 'Administración Bien', '/paginas/admInventario/administracionBien.xhtml', '2014-06-06');
 
-     --Menu(40)    
-INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
-    VALUES ('Administración Ingreso Bien', 'Administración Ingreso Bien', '/paginas/admInventario/administracionIngresoBien.xhtml', '2014-06-06');
+   
+-- Inventario  
     
-   --Menu(41)    
-INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
-    VALUES ('Administración Inventario', 'Administración Inventario', '/paginas/admInventario/administracionInventario.xhtml', '2014-06-06');
-    
-  --Menu(42)    
-INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
-    VALUES ('Administración Línea Bien', 'Administración Línea Bien', '/paginas/admInventario/administracionLineaBien.xhtml', '2014-06-06'); 
- 
-    --Menu(43)    
-INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
-    VALUES ('Administración Marca Bien', 'Administración Marca Bien ', '/paginas/admInventario/administracionMarcaBien.xhtml', '2014-06-06');
-    
-   --Menu(44)    
-INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
-    VALUES ('Administración Proveedor', 'Administración Proveedor', '/paginas/admInventario/administracionProveedor.xhtml', '2014-06-06');  
-    
+INSERT INTO segt_menu (id_menu, nombre_menu, desc_menu, url_menu, fecha_registro, orden) VALUES (1, 'Catalogos', 'Catalogos Inventario', '/paginas/admInventario/catalogosInventario/administracionCatalogos.xhtml',LOCALTIMESTAMP,1);
+INSERT INTO segt_menu (id_menu, nombre_menu, desc_menu, url_menu, fecha_registro, orden) VALUES (48, 'Proveedores', 'Administración de proveedores', '/paginas/admInventario/administracionProveedor.xhtml',LOCALTIMESTAMP,2);
+INSERT INTO segt_menu (id_menu, nombre_menu, desc_menu, url_menu, fecha_registro, orden) VALUES (49, 'Categoria Bien', 'Categoria Bien', '/paginas/admInventario/administracionCategoriaBien.xhtml',LOCALTIMESTAMP,3);
+INSERT INTO segt_menu (id_menu, nombre_menu, desc_menu, url_menu, fecha_registro, orden) VALUES (50, 'Linea Bien', 'Linea Bien', '/paginas/admInventario/administracionLineaBien.xhtml',LOCALTIMESTAMP,4);
+INSERT INTO segt_menu (id_menu, nombre_menu, desc_menu, url_menu, fecha_registro, orden) VALUES (51, 'Marca Bien', 'Marca Bien', '/paginas/admInventario/administracionMarcaBien.xhtml',LOCALTIMESTAMP,5);
+INSERT INTO segt_menu (id_menu, nombre_menu, desc_menu, url_menu, fecha_registro, orden) VALUES (52, 'Bienes', 'Administracion Bienes', '/paginas/admInventario/administracionBien.xhtml',LOCALTIMESTAMP,6);
+INSERT INTO segt_menu (id_menu, nombre_menu, desc_menu, url_menu, fecha_registro, orden) VALUES (53, 'Transacciones bienes', 'Transacciones bienes', '/paginas/admInventario/transaccionesBien.xhtml',LOCALTIMESTAMP,7);
+INSERT INTO segt_menu (id_menu, nombre_menu, desc_menu, url_menu, fecha_registro, orden) VALUES (54, 'Transacciones masivas', 'Transacciones masivas', '/paginas/admInventario/transaccionesMasivasBien.xhtml',LOCALTIMESTAMP,8);
+INSERT INTO segt_menu (id_menu, nombre_menu, desc_menu, url_menu, fecha_registro, orden) VALUES (55, 'Inventario', 'Inventario', '/paginas/admInventario/administracionInventario.xhtml',LOCALTIMESTAMP,9);    
  
     
     
     
---Modulo Menu   
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (2,2);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (3,18);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (3,19);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (3,20);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (3,21);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (3,22);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (3,23);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (4,3);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (4,4);    
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (4,5);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (4,6);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (4,7);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (5,8);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (5,9);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (5,10); 
+--MODULO MENU  
 
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (5,11);
+-----Asistencia
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (2,2);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (3,18);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (3,19);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (3,20);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (3,21);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (3,22);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (3,23);
 
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (5,12);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (5,13);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (5,14);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (5,15);    
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (5,16);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (5,17);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (6,24);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (6,25);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (6,26);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (6,27); 
+-----Administracion
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (4,3);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (4,4);    
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (4,5);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (4,6);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (4,7);
 
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (6,28);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (6,29);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (6,30);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (6,31);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (6,32);    
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (6,33);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (6,34);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (6,35);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (6,36);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (6,37);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (7,38);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (7,39);
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (7,40); 
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (7,41);
+------Matricula
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (5,8);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (5,9);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (5,10); 
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (5,11);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (5,12);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (5,13);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (5,14);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (5,15);    
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (5,16);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (5,17);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (5,45);   
 
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (7,42); 
-    
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (7,43);     
-    
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (7,44);   
+------Eucaristia
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,24);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,25);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,26);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,27); 
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,28);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,29);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,30);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,31);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,32);    
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,33);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,34);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,35);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,36);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,37);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,46);   
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,47);   
 
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (5,45);   
+------Inventario
+INSERT INTO segt_modulo_menu(id_modulo, id_menu) VALUES (1, 1);
+INSERT INTO segt_modulo_menu(id_modulo, id_menu) VALUES (1, 48);
+INSERT INTO segt_modulo_menu(id_modulo, id_menu) VALUES (1, 49);
+INSERT INTO segt_modulo_menu(id_modulo, id_menu) VALUES (1, 50);
+INSERT INTO segt_modulo_menu(id_modulo, id_menu) VALUES (1, 51);
+INSERT INTO segt_modulo_menu(id_modulo, id_menu) VALUES (1, 52);
+INSERT INTO segt_modulo_menu(id_modulo, id_menu) VALUES (1, 53);
+INSERT INTO segt_modulo_menu(id_modulo, id_menu) VALUES (1, 54);
+INSERT INTO segt_modulo_menu(id_modulo, id_menu) VALUES (1, 55);
 
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (6,46);   
 
-INSERT INTO segt_modulo_menu (id_modulo,id_menu)
-VALUES (6,47);   
+--Perfil Bodega(Inventario)
+
+INSERT INTO segt_perfil(id_perfil, nombre_perfil, desc_perfil, fecha_registro, estado) VALUES (1, 'Bodega', 'Perfil para el usuario de la bodega', LOCALTIMESTAMP, '1');
 
 
 
