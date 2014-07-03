@@ -1,5 +1,6 @@
 /*SCRIPTS PARA EL MODULO DE INVENTARIOS*/
 
+---------------------------------INICIO---------------------------------
 /*Agregar columnas faltantes tabla proveedor*/
 -- Email
 alter table proveedor
@@ -24,12 +25,17 @@ alter table proveedor
 add constraint FK_PROVEEDOR_REFERENCE_DETALLE foreign key (cab_catalogo_pais_cuidad, det_catalogo_pais_cuidad)
 references DETALLE_CATALOGO_TBL (CAB_CATALOGO_FK, DET_CATALOGO_NIVEL1)
 on delete restrict on update restrict;
+---------------------------------FIN---------------------------------
 
+---------------------------------INICIO---------------------------------
 /*Agregar columnas faltantes tabla bien*/
 -- Notas
 alter table bien_tbl
 add column bie_notas  VARCHAR(500) null;
+---------------------------------FIN---------------------------------
 
+/*Catalogos*/
+---------------------------------INICIO---------------------------------
 -- crear cabecera catalogo tipo ingreso
 INSERT INTO cabecera_catalogo_tbl
 (cab_catalogo_pk, cab_catalogo_descripcion) VALUES 
@@ -228,7 +234,10 @@ INSERT INTO detalle_bien_tbl(
 INSERT INTO detalle_bien_tbl(
             cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
     VALUES ('TIBAJ', 'DONAC', 'Donación', '1');
+---------------------------------FIN---------------------------------
 
+/*TABLAS ADICIONALES*/
+---------------------------------INICIO---------------------------------
 /*==============================================================*/
 /* Table: CATEGORIA_BIEN_TBL                                    */
 /*==============================================================*/
@@ -267,7 +276,10 @@ create table MARCA_BIEN_TBL (
    MAR_BIEN_ESTADO      VARCHAR(2)           not null,
    constraint PK_MARCA_BIEN_TBL primary key (MAR_BIEN_PK)
 );
+---------------------------------FIN---------------------------------
 
+/*ALTER VARIAS TABLAS*/
+---------------------------------INICIO---------------------------------
 /*==============================================================*/
 /* alter: BIEN_TBL                                    */
 /*==============================================================*/
@@ -362,7 +374,6 @@ alter table transaccion_tbl
       references empleado_tbl (emp_pk)
       on delete restrict on update restrict;
       
-      
 ALTER TABLE TRANSACCION_TBL
 ADD COLUMN CAB_BIEN_TIP_BAJ_FK  VARCHAR(5)           null,
 ADD COLUMN DET_BIEN_TIP_BAJ_NIVEL1 VARCHAR(5)           null;
@@ -371,7 +382,10 @@ alter table TRANSACCION_TBL
    add constraint FK_TRANSACCION_TBL_RELATIONS_DET_BIE foreign key (CAB_BIEN_TIP_BAJ_FK, DET_BIEN_TIP_BAJ_NIVEL1)
       references DETALLE_BIEN_TBL (CAB_BIEN_FK, DET_BIEN_NIVEL1)
       on delete restrict on update restrict;
+---------------------------------FIN---------------------------------
 
+/*VISTAS*/
+---------------------------------INICIO---------------------------------
 /*==============================================================*/
 /* Vista bien                                  */
 /*==============================================================*/
@@ -421,4 +435,4 @@ left join detalle_bien_tbl dbec on dbec.cab_bien_fk = t.cab_bien_est_conserv_fk 
 left join empleado_view eva on eva.emp_pk = t.emp_asignado_fk
 left join empleado_view evra on evra.emp_pk = t.emp_reasignado_fk
 order by t.tra_fecha_inicio asc;
-
+---------------------------------FIN---------------------------------
