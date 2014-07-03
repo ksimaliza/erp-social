@@ -134,6 +134,9 @@ public class VistaBien implements Serializable {
 	
 	@Transient
 	private Boolean npVerBajaBien = Boolean.FALSE;
+	
+	@Transient
+	private Boolean npVerDevolverBien = Boolean.FALSE;
 
 	public VistaBien() {
 	}
@@ -500,6 +503,34 @@ public class VistaBien implements Serializable {
 	 */
 	public void setPerCi(String perCi) {
 		this.perCi = perCi;
+	}
+
+	/**
+	 * @return the traDescripcion
+	 */
+	public String getTraDescripcion() {
+		return traDescripcion;
+	}
+
+	/**
+	 * @param traDescripcion the traDescripcion to set
+	 */
+	public void setTraDescripcion(String traDescripcion) {
+		this.traDescripcion = traDescripcion;
+	}
+
+	/**
+	 * @return the npVerDevolverBien
+	 */
+	public Boolean getNpVerDevolverBien() {
+		return npVerDevolverBien;
+	}
+
+	/**
+	 * @param npVerDevolverBien the npVerDevolverBien to set
+	 */
+	public void setNpVerDevolverBien(Boolean npVerDevolverBien) {
+		this.npVerDevolverBien = npVerDevolverBien;
 	}
 
 }
