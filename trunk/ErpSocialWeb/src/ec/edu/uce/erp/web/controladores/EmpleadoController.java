@@ -17,7 +17,6 @@ import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 import ec.edu.uce.erp.ejb.persistence.vo.EmpleadoVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAsistencia;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
@@ -53,14 +52,12 @@ public class EmpleadoController extends BaseController{
 		
 		slf4jLogger.info("registrarEmpleado");
 		EmpleadoVO empleadoVO;
-		Usuario user = null;
+
 		try {
-			if(getSessionParameter("usuario")!=null)
-				user=(Usuario) getSessionParameter("usuario");
-			else
-				MensajesWebController.aniadirMensajeError("No se ha establecido empresa");
+			empleadoDataManager.getEmpleadoDTOInsertar().setAemEmpresa(getEmpresaCode());
 			empleadoVO=new EmpleadoVO();
-			empleadoDataManager.getEmpleadoInsertar().setEmpresaTbl(user.getEmpresaTbl());
+			empleadoDataManager.getEmpleadoInsertar().setEmrFk(getEmpresaCode());
+			empleadoDataManager.getEmpleadoDTOInsertar().setAemEmpleado(getEmpresaCode());
 			empleadoVO.setEmpleado(empleadoDataManager.getEmpleadoInsertar());
 			empleadoVO.setEmpleadoDTO(empleadoDataManager.getEmpleadoDTOInsertar());
 			empleadoVO.setPersona(empleadoDataManager.getPersonaInsertar());
