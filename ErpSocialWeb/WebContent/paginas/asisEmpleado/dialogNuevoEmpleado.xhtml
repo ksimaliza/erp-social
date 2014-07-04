@@ -6,10 +6,12 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpNuevoEmpleado" header="#{i18n['erp.asistencia.empleado.registrar']}" resizable="false" draggable="false"
-		widgetVar="dlgNuevoEmpleado" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		widgetVar="dlgNuevoEmpleado" modal="true" width="500" minWidth="500" appendTo="@(body)" height="500">
+		<p:scrollPanel>
 		<h:form id="formNuevoEmpleado" styleClass="formulario">
+		
 			<p:panel id="pnlNuevoEmpleado">
-			
+				
 				<table class="formulario">
 				
 					<tr>
@@ -126,6 +128,8 @@
 							<p:inputText id="txtDepartamento" style="width: 100%" value="#{empleadoDataManager.empleadoInsertar.empDepartamento}" required="true"/>
 						</td>						
 					</tr>
+
+
 					
 					<tr>
 						<td width="30%">
@@ -154,6 +158,15 @@
 						</td>						
 					</tr>
 					
+					<tr>
+						<td width="30%">
+							<h:outputLabel value="Estado" />		
+						</td>
+						<td width="70%">
+							<h:selectBooleanCheckbox value="#{empleadoDataManager.empleadoDTOInsertar.aemEstado}" />
+						</td>
+					</tr>
+					
 								
 				</table>
 			</p:panel>
@@ -164,6 +177,7 @@
  				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoEmpleado.hide();" type="button" />
 			</p:panel>
 		</h:form>
+		</p:scrollPanel>
 	</p:dialog>
 	
 </ui:composition>
