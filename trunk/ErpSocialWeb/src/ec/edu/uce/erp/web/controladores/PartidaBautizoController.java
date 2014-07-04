@@ -278,13 +278,10 @@ public class PartidaBautizoController extends BaseController{
 	public void cargarDatosBautizo (BautizoListDTO bautizo) {
 		try {
 			
-			BautizoVO bautizoEncontrado=servicioEucaristia.obtenerBautizoPorId(bautizo.getBauBautizado(),bautizo.getBauCodigo(),bautizo.getBauMadrina(),bautizo.getBauPadrino(),bautizo.getDocCodigo(),bautizo.getBauSacerdote());
+			BautizoVO bautizoEncontrado=servicioEucaristia.obtenerBautizoPorId(bautizo.getBauBautizado(),bautizo.getBauCodigo());
 			this.partidaBautizoDataManager.setBautizadoInsertar(bautizoEncontrado.getBautizado());
 			this.partidaBautizoDataManager.setBautizoDTO(bautizoEncontrado.getBautizo());
-			this.partidaBautizoDataManager.setMadrinaInsertar(bautizoEncontrado.getMadrina());
-			this.partidaBautizoDataManager.setPadrinoInsertar(bautizoEncontrado.getPadrino());
-			this.partidaBautizoDataManager.setSacerdoteCodigo(bautizoEncontrado.getSacerdote().getSacCodigo());
-			this.partidaBautizoDataManager.setDoctorCodigo(bautizoEncontrado.getDoctorVO().getDocCodigo());
+			
 			
 							
 		} catch (SeguridadesException e) {
