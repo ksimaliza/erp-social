@@ -20,6 +20,8 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PrimeraComunionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
@@ -27,6 +29,7 @@ import ec.edu.uce.erp.ejb.persistence.vo.BautizoVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ComunionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ConfirmacionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.DoctorVO;
+import ec.edu.uce.erp.ejb.persistence.vo.MatrimonioVO;
 import ec.edu.uce.erp.ejb.persistence.vo.SacerdoteVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
 
@@ -225,11 +228,12 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	
 	@Override
 	public BautizoVO obtenerBautizoPorId(Integer idBautizado, Integer idBautizo) throws SeguridadesException {
-		slf4jLogger.info("obtenerBautizoPorId");
+		slf4jLogger.info("obtenerComunionPorId");
 		
-		BautizoVO bautizo =new BautizoVO();
+		BautizoVO bautizo=new BautizoVO();
 		bautizo.setBautizado(factoryDAO.getPersonaDAOImpl().find(idBautizado));
 		bautizo.setBautizo(eucaristiaFactoryDAO.getBautizoDAOImpl().find(idBautizo));
+		
 		
 		return bautizo;
 	}
@@ -404,5 +408,121 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		
 		return comunion;
 	}
+	
+	@Override
+	public MatrimonioDTO createOrUpdateMatrimonio(MatrimonioVO matrimonioVO) throws SeguridadesException
+	{
+		slf4jLogger.info("createOrUpdateMatrimonio");
+		Persona novioPersona;
+		Persona noviaPersona;
+		Persona mad_novia;
+		Persona mad_novio;
+		Persona pad_novia;
+		Persona pad_novio;
+		SacerdoteDTO sacerdote;
+				 
+		List<Persona> listPersona;
+			
+		try {
+			novioPersona = matrimonioVO.getNovio();
+			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(novioPersona);
+			if(listPersona.size()<=0)
+				novioPersona=factoryDAO.getPersonaDAOImpl().create(novioPersona);
+			else
+				novioPersona=listPersona.get(0);
+			
+			noviaPersona = matrimonioVO.getNovia();
+			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(noviaPersona);
+			if(listPersona.size()<=0)
+				noviaPersona=factoryDAO.getPersonaDAOImpl().create(noviaPersona);
+			else
+				noviaPersona=listPersona.get(0);
+			
+			mad_novio=matrimonioVO.getMad_novio();
+			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(mad_novio);
+			if(listPersona.size()<=0)
+				mad_novio=factoryDAO.getPersonaDAOImpl().create(mad_novio);
+			else
+				mad_novio=listPersona.get(0);
+			
+			mad_novia=matrimonioVO.getMad_novia();
+			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(mad_novia);
+			if(listPersona.size()<=0)
+				mad_novia=factoryDAO.getPersonaDAOImpl().create(mad_novia);
+			else
+				mad_novia=listPersona.get(0);
+			
+			pad_novio=matrimonioVO.getPad_novio();
+			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(pad_novio);
+			if(listPersona.size()<=0)
+				pad_novio=factoryDAO.getPersonaDAOImpl().create(pad_novio);
+			else
+				pad_novio=listPersona.get(0);
+			
+			pad_novia=matrimonioVO.getPad_novia();
+			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(pad_novia);
+			if(listPersona.size()<=0)
+				pad_novia=factoryDAO.getPersonaDAOImpl().create(pad_novia);
+			else
+				pad_novia=listPersona.get(0);
+			
+			
+			matrimonioVO.getMatrimonio().setMatNovio(novioPersona.getPerPk());
+			matrimonioVO.getMatrimonio().setMatNovia(noviaPersona.getPerPk());
+			matrimonioVO.getMatrimonio().setMatMadrinaNovia(mad_novia.getPerPk());
+			matrimonioVO.getMatrimonio().setMatMadrinaNovio(mad_novio.getPerPk());
+			matrimonioVO.getMatrimonio().setMatPadrinoNovia(pad_novia.getPerPk());
+			matrimonioVO.getMatrimonio().setMatPadrinoNovio(pad_novio.getPerPk());
+			
+						
+			if(matrimonioVO.getMatrimonio().getMatCodigo()!=null){
+				sacerdote= eucaristiaFactoryDAO.getSacerdoteDAOImpl().find(matrimonioVO.getSacerdote().getSacCodigo());	
+				matrimonioVO.getMatrimonio().setEucSacerdote(sacerdote);
+					
+				return  eucaristiaFactoryDAO.getMatrimonioDAOImpl().update(matrimonioVO.getMatrimonio());
+			
+			}
+			else{
+				sacerdote= eucaristiaFactoryDAO.getSacerdoteDAOImpl().find(matrimonioVO.getSacerdote().getSacCodigo());	
+				matrimonioVO.getMatrimonio().setEucSacerdote(sacerdote);
+					
+				return  eucaristiaFactoryDAO.getMatrimonioDAOImpl().create(matrimonioVO.getMatrimonio());
+				
+			}
+		} catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdateMatrimonio {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+		
+	}
+	
+	@Override
+	public List<MatrimonioListDTO> buscarPartidaMatrimonio(MatrimonioListDTO matrimonioListDTO) throws SeguridadesException {
+		slf4jLogger.info("buscarPartidaMatrimonio");
+		List<MatrimonioListDTO> listMatrimonio = null;
+		try {
+			listMatrimonio=eucaristiaFactoryDAO.getMatrimonioDAOImpl().obtenerMatrimonio(matrimonioListDTO);
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarPartidaMatrimonio {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener buscarPartidaMatrimonio de la base de datos");
+		}
+		
+		return listMatrimonio;
+	}
+	
+	/*@Override
+	public ConfirmacionVO obtenerMatrimonioPorId(Integer idConfirmado, Integer idConfirmacion) throws SeguridadesException {
+		slf4jLogger.info("obtenerConfirmacionPorId");
+		
+		ConfirmacionVO confirmacion =new ConfirmacionVO();
+		confirmacion.setConfirmado(factoryDAO.getPersonaDAOImpl().find(idConfirmado));
+		confirmacion.setConfirmacion(eucaristiaFactoryDAO.getConfirmacionDAOImpl().find(idConfirmacion));	
+		
+		return confirmacion;
+	}*/
+	
+	
 	
 }
