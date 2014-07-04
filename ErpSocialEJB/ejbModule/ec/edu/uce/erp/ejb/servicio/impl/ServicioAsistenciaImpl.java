@@ -20,7 +20,6 @@ import ec.edu.uce.erp.ejb.dao.factory.AsistenciaFactoryDAO;
 import ec.edu.uce.erp.ejb.dao.factory.FactoryDAO;
 import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
-import ec.edu.uce.erp.ejb.persistence.entity.asistencia.CatalogoAsistenciaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaNoLaboralDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO;
@@ -107,7 +106,14 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		slf4jLogger.info("createOrUpdateEmpleado");
 		Persona personanueva;
 		Empleado empleadonuevo;
+		EmpleadoDTO empleadoDTO;
 		try {
+			empleadoDTO=new EmpleadoDTO();
+			empleadoDTO.setAemUsuario(empleadoVO.getEmpleadoDTO().getAemUsuario());
+			if(!factoryDAO.getEmpleadoDAOImpl().getByAnd(empleadoDTO).isEmpty())
+			{
+				throw new SeguridadesException("El usuario ya a sido registrado");
+			}
 			if(empleadoVO.getEmpleado().getEmpCodigo()!=null)
 			{
 				factoryDAO.getPersonaDAOImpl().update(empleadoVO.getPersona());
@@ -116,7 +122,6 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 			}
 			else
 			{
-				//empleadoVO.getPersona().setSegtUsuario(new Usuario());
 				personanueva=factoryDAO.getPersonaDAOImpl().create(empleadoVO.getPersona());
 				empleadoVO.getEmpleado().setPersonaTbl(personanueva);
 				empleadoVO.getEmpleado().setPerFk(personanueva.getPerPk());
@@ -124,6 +129,7 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 				empleadoVO.getEmpleadoDTO().setAemEmpleado(empleadonuevo.getEmpPk());
 				return asistenciaFactoryDAO.getEmpleadoDAOImpl().create(empleadoVO.getEmpleadoDTO());
 			}
+			
 		}
 		catch (Exception e) {
 			slf4jLogger.info("error al createOrUpdateEmpleado {}", e.toString());

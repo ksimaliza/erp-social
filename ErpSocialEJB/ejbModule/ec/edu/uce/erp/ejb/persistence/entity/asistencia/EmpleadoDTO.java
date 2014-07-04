@@ -28,7 +28,7 @@ public class EmpleadoDTO implements Serializable {
 	private String aemCodigoRegistro;
 
 	@Column(name="aem_estado")
-	private Boolean aemEstado;
+	private Boolean aemEstado=true;
 
 	@Column(name="aem_usuario")
 	private String aemUsuario;
@@ -36,6 +36,9 @@ public class EmpleadoDTO implements Serializable {
 	@Column(name="aem_empleado")
 	private Integer aemEmpleado;
 
+	@Column(name="aem_empresa")
+	private Integer aemEmpresa;
+	
 	//bi-directional many-to-one association to FaltaDTO
 	@OneToMany(mappedBy="asiEmpleado")
 	private List<FaltaDTO> asiFaltas;
@@ -93,6 +96,14 @@ public class EmpleadoDTO implements Serializable {
 
 	public void setAemUsuario(String aemUsuario) {
 		this.aemUsuario = aemUsuario;
+	}
+
+	public Integer getAemEmpresa() {
+		return aemEmpresa;
+	}
+
+	public void setAemEmpresa(Integer aemEmpresa) {
+		this.aemEmpresa = aemEmpresa;
 	}
 
 	public List<FaltaDTO> getAsiFaltas() {
