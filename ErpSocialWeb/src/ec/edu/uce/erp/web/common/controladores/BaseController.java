@@ -29,6 +29,7 @@ import com.lowagie.text.DocumentException;
 import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
 
+import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
 import ec.edu.uce.erp.ejb.persistence.vo.LoginVO;
 import ec.edu.uce.erp.web.common.util.CustomPDFExporter;
 /**
@@ -180,5 +181,9 @@ public abstract class BaseController implements Serializable{
 	protected int getEmpresaCode(){
 		return ((LoginVO)getSessionParameter("loginVO")).getUsuario().getEmpresaTbl().getEmrPk();
 	}
-	
+
+	protected Empresa getEmpresaTbl(){
+		return ((LoginVO)getSessionParameter("loginVO")).getUsuario().getEmpresaTbl();
+	}
+
 }
