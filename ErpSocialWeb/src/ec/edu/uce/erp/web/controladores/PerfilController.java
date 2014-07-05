@@ -69,6 +69,7 @@ public class PerfilController extends BaseController {
 		try {
 			
 			this.perfilDataManager.getPerfilInstancia().setSegtModulos(this.asignarModulosSeleccionados());
+			this.perfilDataManager.getPerfilInstancia().setUsuarioRegistro(this.perfilDataManager.getUsuarioSession());
 			
 			Perfil perfilDTO = servicioAdministracion.registrarPerfil(this.perfilDataManager.getPerfilInstancia());
 			
@@ -124,6 +125,7 @@ public class PerfilController extends BaseController {
 		slf4jLogger.info("actualizarPerfil");
 		
 		try {
+			this.perfilDataManager.getPerfilEditar().setUsuarioRegistro(this.perfilDataManager.getUsuarioSession());
 			this.perfilDataManager.getPerfilEditar().setSegtModulos(this.asignarModulosSeleccionados());
 			this.servicioAdministracion.actualizarPerfil(this.perfilDataManager.getPerfilEditar());
 			MensajesWebController.aniadirMensajeInformacion("erp.perfil.informacion.actualizar");
@@ -188,6 +190,7 @@ public class PerfilController extends BaseController {
 		slf4jLogger.info("activarPerfil");
 		
 		try {
+			this.perfilDataManager.getPerfilEditar().setUsuarioRegistro(this.perfilDataManager.getUsuarioSession());
 			this.perfilDataManager.getPerfilEditar().setEstado(perfilDataManager.getEstadoActivo());
 			this.servicioAdministracion.actualizarPerfil(this.perfilDataManager.getPerfilEditar());
 			MensajesWebController.aniadirMensajeInformacion("erp.perfil.informacion.actualizar");
@@ -203,6 +206,7 @@ public class PerfilController extends BaseController {
 		slf4jLogger.info("inactivarPerfil");
 		
 		try {
+			this.perfilDataManager.getPerfilEditar().setUsuarioRegistro(this.perfilDataManager.getUsuarioSession());
 			this.perfilDataManager.getPerfilEditar().setEstado(perfilDataManager.getEstadoInactivo());
 			this.servicioAdministracion.actualizarPerfil(this.perfilDataManager.getPerfilEditar());
 			MensajesWebController.aniadirMensajeInformacion("erp.perfil.informacion.actualizar");
