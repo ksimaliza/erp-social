@@ -145,6 +145,12 @@
 							<f:setPropertyActionListener target="#{usuarioDataManager.usuarioEditar}" value="#{usuario}" />
 						</p:commandLink>
 					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.reset.clave']}" oncomplete="dlgDesactivar.show()" value="#{i18n['label.reset.clave']}">
+							<f:setPropertyActionListener target="#{usuarioDataManager.usuarioEditar}" value="#{usuario}" />
+						</p:commandLink>
+					</h:panelGroup>
 				</p:column>
 			</p:dataTable>
 			

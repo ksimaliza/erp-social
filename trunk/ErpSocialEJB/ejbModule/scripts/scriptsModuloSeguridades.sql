@@ -1,3 +1,22 @@
+-- tabla para almacenar el menu del usuario
+create table SEGT_MENU_USUARIO (
+   ID_MENU_USUARIO      SERIAL               not null,
+   ID_USUARIO           INT4                 not null,
+   ID_MENU              INT4                 null,
+   constraint PK_SEGT_MENU_USUARIO primary key (ID_MENU_USUARIO)
+);
+
+alter table SEGT_MENU_USUARIO
+   add constraint FK_SEGT_MEN_REFERENCE_SEGT_USU foreign key (ID_USUARIO)
+      references SEGT_USUARIO (ID_USUARIO)
+      on delete restrict on update restrict;
+
+alter table SEGT_MENU_USUARIO
+   add constraint FK_SEGT_MEN_REFERENCE_SEGT_MEN foreign key (ID_MENU)
+      references SEGT_MENU (ID_MENU)
+      on delete restrict on update restrict;
+
+
 -- reiniciar en 100 la secuencias para no tener problemas con insert manuales
 SELECT setval('erpt_parametro_id_parametro_seq',100);
 SELECT setval('segt_menu_id_menu_seq',500);

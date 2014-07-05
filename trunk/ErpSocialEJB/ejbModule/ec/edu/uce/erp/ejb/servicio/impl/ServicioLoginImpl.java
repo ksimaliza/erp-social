@@ -179,12 +179,18 @@ public class ServicioLoginImpl implements ServicioLogin{
 			if (StringUtils.isNotBlank(parametro.getValorParametro())) {
 				
 				Long numeroDias = Long.valueOf(parametro.getValorParametro());
-				Timestamp fechaMaximoCambioClave = UtilAplication.sumarDiasTimestamp(usuario.getFechaCambioClave(),numeroDias);
-				Timestamp fechaActual = UtilAplication.obtenerFechaActual();
 				
-				if (fechaActual.getTime() > fechaMaximoCambioClave.getTime()) {
+				if (usuario.getFechaCambioClave() == null) { // todavia no realiza cambio de clave
 					return Boolean.TRUE;
+				} else {
+					Timestamp fechaMaximoCambioClave = UtilAplication.sumarDiasTimestamp(usuario.getFechaCambioClave(),numeroDias);
+					Timestamp fechaActual = UtilAplication.obtenerFechaActual();
+					
+					if (fechaActual.getTime() > fechaMaximoCambioClave.getTime()) {
+						return Boolean.TRUE;
+					}
 				}
+				
 			}
 		}
 		

@@ -8,8 +8,8 @@
 	<p:dialog id="dialogEditarPerfil" header="#{i18n['erp.perfil.editar']}" resizable="false" draggable="false"
 			widgetVar="dlgEditarPerfil" modal="true" width="500" minWidth="500" appendTo="@(body)">
 	
-		<h:form id="formEditarPerfil" styleClass="formulario">	
-			<p:panel id="pnlEditarPerfil">
+		<h:form id="formEditarPerfil">	
+			<p:panel id="pnlEditarPerfil" styleClass="formulario">
 				<table class="formulario">
 					<tr>
 						<td width="30%">
@@ -17,7 +17,7 @@
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNombre" 
+							<p:inputText id="txtNombre" style="width: 100%"
 								value="#{perfilDataManager.perfilEditar.nombrePerfil}" 
 								required="true" label="#{i18n['erp.perfil.nombre']}"/>
 						</td>
@@ -27,7 +27,7 @@
 							<h:outputLabel for="txtDesc" value="#{i18n['erp.perfil.descripcion']}" />
 						</td>
 						<td>
-							<p:inputText id="txtDesc" value="#{perfilDataManager.perfilEditar.descPerfil}" />
+							<p:inputText id="txtDesc" style="width: 100%" value="#{perfilDataManager.perfilEditar.descPerfil}" />
 						</td>
 					</tr>
 					<tr>
