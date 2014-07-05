@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="title">
-		<h3><h:outputLabel	value="#{i18n['erp.bien.transacciones.pagina.titulo']}" /></h3>
+		<h3><h:outputLabel	value="#{i18n['erp.bien.bajas.pagina.titulo']}" /></h3>
 	</ui:define>
 	<ui:define name="content">
 		<h:form id="formBien">
@@ -116,11 +116,11 @@
 					</f:facet>
 					<h:outputText value="#{rowIndex+1}"/>
 				</p:column>
-				<p:column width="10%">
+				<p:column width="10%" styleClass="centered">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.codigo']}" />
 					</f:facet>
-					<h:outputText value="#{vistaBien.bieCodigo}" />
+					<h:outputText value="#{vistaBien.bieCodigo == null ? 'N/D':vistaBien.bieCodigo}" />
 				</p:column>
 				<p:column width="10%">
 					<f:facet name="header">
@@ -136,88 +136,34 @@
 				</p:column>
 				<p:column width="10%">
 					<f:facet name="header">
-						<h:outputText value="#{i18n['erp.bien.marca.material']}" />
-					</f:facet>
-					<h:outputText value="#{vistaBien.marBienNombre}" />
-				</p:column>
-				<p:column width="10%">
-					<f:facet name="header">
-						<h:outputText value="#{i18n['erp.bien.modelo']}" />
-					</f:facet>
-					<h:outputText value="#{vistaBien.bieModelo}" />
-				</p:column>
-				<p:column width="10%">
-					<f:facet name="header">
-						<h:outputText value="#{i18n['erp.bien.color']}" />
-					</f:facet>
-					<h:outputText value="#{vistaBien.bieColor}" />
-				</p:column>
-				<p:column width="10%">
-					<f:facet name="header">
-						<h:outputText value="#{i18n['erp.bien.fecha.asignacion']}" />
-					</f:facet>
-					<h:outputText value="#{vistaBien.bieFechaAsig}" />
-				</p:column>
-				<p:column width="10%">
-					<f:facet name="header">
-						<h:outputText value="#{i18n['erp.bien.ubicacion']}" />
-					</f:facet>
-					<h:outputText value="#{vistaBien.bieUbicacion}" />
-				</p:column>
-				<p:column width="10%">
-					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.nombre']}" />
 					</f:facet>
 					<h:outputText value="#{vistaBien.bieNombre}" />
 				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['label.custodio']}" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.nombresCompletos == null ? 'N/D':vistaBien.nombresCompletos}" />
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['label.estado']}" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.bieEstadoUso eq vistaBienDataManager.estadoActivo ? i18n['label.en.uso']:i18n['label.sin.uso']}" />
+				</p:column>
 				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="20%" exportable="false">
 					<h:panelGroup>
-						<!-- <p:commandLink styleClass="no-decor"
-							title="#{i18n['label.editar']}"
-							process="@this"
-							oncomplete="dlgEditarBien.show()" update=":formEditarBien:pnlEditarBien"
-							action="#{transaccionBienController.asignarDatosBienDesdeVista(vistaBien)}">
-							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
-						</p:commandLink> -->
-						<p:commandLink value="Asignar" title="Asignar" rendered="#{vistaBien.npVerAsignarBien}"
-							oncomplete="dlgAsignarBien.show()" update=":formAsignarBien:pnlAsignarBien">
-							<f:setPropertyActionListener target="#{vistaBienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
-						</p:commandLink>
-						<p:commandLink value="  Traslado" title="Traslado" rendered="#{vistaBien.npVerTrasladoBien}"
-							oncomplete="dlgReasignarBien.show()" update=":formReasignarBien:pnlReasignarBien">
-							<f:setPropertyActionListener target="#{vistaBienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
-						</p:commandLink>
-						<p:commandLink value="  Devolver" title="#{i18n['erp.bien.devolver']}" rendered="#{vistaBien.npVerDevolverBien}"
-							oncomplete="dlgDevolverBien.show()" update=":formDevolverBien:pnlDevolverBien">
-							<f:setPropertyActionListener target="#{vistaBienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
-						</p:commandLink>
-						<!-- <p:commandLink value="  Dar baja" title="Dar baja" rendered="#{vistaBien.npVerBajaBien}"
+						<p:commandLink value="  Dar baja" title="Dar baja" rendered="#{vistaBien.npVerBajaBien}"
 							oncomplete="dlgBajaBien.show()" update=":formBajaBien:pnlBajaBien">
 							<f:setPropertyActionListener target="#{vistaBienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
-						</p:commandLink> -->
-						<p:commandLink value="  Trazabilidad" title="Trazabilidad"
-							action="#{transaccionBienController.obtenerTrazabilidadBien}"
-							oncomplete="dlgTrazabilidadBien.show()" update=":formTrazabilidadBien:pnlTrazabilidadBien">
-							<f:setPropertyActionListener target="#{vistaBienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
-						</p:commandLink>
-						<p:commandLink styleClass="no-decor"
-							title="#{i18n['label.imprimir']}"
-							process="@this" ajax="false"
-							action="#{transaccionBienController.generarActaBien}">
-							<h:graphicImage value="/resources/img/pdf.png" alt="#{i18n['label.imprimir']}"/>
-						</p:commandLink>
+						</p:commandLink> 
 					</h:panelGroup>
 				</p:column>
 			</p:dataTable>
 		</h:form>
 		
-		<!-- <ui:include src="dialogNuevoBien.xhtml" />
-		<ui:include src="dialogEditarBien.xhtml" /> -->
-		<ui:include src="dialogAsignarBien.xhtml" />
 		<ui:include src="dialogBajaBien.xhtml" />
-		<ui:include src="dialogDevolverBien.xhtml" />
-		<ui:include src="dialogReasignarBien.xhtml" />
-		<ui:include src="dialogTrazabilidadBien.xhtml" />
 		<ui:include src="dialogBuscarUsuario.xhtml" />
 		
 	</ui:define>

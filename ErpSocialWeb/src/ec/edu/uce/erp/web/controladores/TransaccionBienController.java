@@ -144,6 +144,37 @@ public class TransaccionBienController extends BaseController{
 		
 	}
 	
+	public void devolverBien () {
+		
+		slf4jLogger.info("devolverBien");
+		
+		try {
+			// los bienes devueltos se asignan a la bodega
+			this.vistaBienDataManager.getVistaBienEditar().setEmpAsignadoFk(this.vistaBienDataManager.getUsuarioSession().getIdUsuario());
+			VistaBien vistaBien = servicioInventario.devolverBien(this.vistaBienDataManager.getVistaBienEditar());
+			if (vistaBien != null) {
+				MensajesWebController.aniadirMensajeInformacion("Bien devuelto correctamente");
+			}
+			
+		} catch (Exception e) {
+			slf4jLogger.info("error al asignarBien {}", e.getCause().getMessage());
+			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
+		}
+		
+	}
+	
+	public void darBajaBien () {
+		slf4jLogger.info("darBajaBien");
+		
+		try {
+			this.vistaBienDataManager.getVistaBienEditar().setDetCatalogoTipoBaja(this.vistaBienDataManager.getIdDcBajaBienSelec());
+			VistaBien vistaBien = servicioInventario.darBajaBien(this.vistaBienDataManager.getVistaBienEditar());
+		} catch (Exception e) {
+			slf4jLogger.info("error al darBajaBien {}", e.getCause().getMessage());
+			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
+		}
+	}
+	
 	public void validarAsignacionCustodio () {
 		slf4jLogger.info("validarAsignacionCustodio");
 		
@@ -162,8 +193,8 @@ public class TransaccionBienController extends BaseController{
 			vistaTransaccion.setBieFk(this.vistaBienDataManager.getVistaBienEditar().getBiePk());
 			this.vistaBienDataManager.setListVistaTransaccion(servicioInventario.obtenerVistaTransaccionCriterios(vistaTransaccion));
 		} catch (SeguridadesException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			slf4jLogger.info("error al obtenerTrazabilidadBien {}", e.getCause().getMessage());
+			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
 		
 	}
@@ -194,8 +225,8 @@ public class TransaccionBienController extends BaseController{
 			}
 			
 		} catch (SeguridadesException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			slf4jLogger.info("error al buscarEmpleado {}", e.getCause().getMessage());
+			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
 	}
 	

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpDevolverBien" header="#{i18n['erp.bien.devolver']}" 
+		widgetVar="dlgDevolverBien" modal="true" minWidth="600" width="600" appendTo="@(body)" draggable="false">
+		<h:form id="formDevolverBien" styleClass="formulario">
+			<p:panel id="pnlDevolverBien" >
+				<table class="formulario">
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.nombre']}" />
+						</td>
+						<td width="70%">
+							<h:outputText id="txtNombre" value="#{vistaBienDataManager.vistaBienEditar.bieNombre}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtCodigo" value="#{i18n['erp.bien.codigo']}" />
+						</td>
+						<td>
+							<h:outputText id="txtCodigo" value="#{vistaBienDataManager.vistaBienEditar.bieCodigo}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtCustodio" value="#{i18n['erp.bien.custodio']}" />
+						</td>
+						<td>
+							<h:outputText id="txtCustodio" value="#{vistaBienDataManager.vistaBienEditar.nombresCompletos}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtMotivo" value="#{i18n['erp.bien.baja.devolucion']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<h:inputTextarea id="txtMotivo" style="width: 70%;" value="#{vistaBienDataManager.vistaBienEditar.traDescripcion}" rows="3"/>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{transaccionBienController.devolverBien}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgDevolverBien.hide()"
+					process="@this,pnlDevolverBien" update="pnlDevolverBien,:formBien:tablaBienes,:formBien:pnlMessages"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" type="button" onclick="dlgDevolverBien.hide();"/>
+			</p:panel>
+		</h:form>
+	</p:dialog>
+</ui:composition>

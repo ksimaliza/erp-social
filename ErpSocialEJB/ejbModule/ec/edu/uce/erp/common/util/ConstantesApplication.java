@@ -36,6 +36,11 @@ public final class ConstantesApplication {
 	public static final String CAB_CAT_TIPO_BIEN = MessagesApplicacion.getString("erp.inventarios.cabecera.catalogo.id.tipoBien");
 	
 	/**
+	 * cabecera catalogo tipo ingreso bien
+	 */
+	public static final String CAB_CAT_TIPO_BAJA = MessagesApplicacion.getString("erp.inventarios.cabecera.catalogo.id.bajaBien");
+	
+	/**
 	 * cabecera catalogo estado conservacion bien
 	 */
 	public static final String CAB_CAT_ESTADO_CONSERVACION = MessagesApplicacion.getString("erp.inventarios.cabecera.catalogo.id.estadoConservacion");

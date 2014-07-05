@@ -335,6 +335,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 		try {
 			
 			bien.setBieEstado(ESTADO_ACTIVO);
+			bien.setBieEstadoUso(ESTADO_INACTIVO);
 			Bien bienNuevo = inventarioFactory.getBienDAOImpl().create(bien);
 			
 			if (bienNuevo != null) {
@@ -479,7 +480,8 @@ public class ServicioInventarioImpl implements ServicioInventario {
 			vistaBien.setNpVerDevolverBien(Boolean.TRUE);
 		}
 		
-		if (vistaBien.getDetBienTipBieNivel1().equals(EnumTipoBien.DEVUELTO.getId())) {
+		if (vistaBien.getDetBienTipBieNivel1().equals(EnumTipoBien.DEVUELTO.getId()) || 
+				vistaBien.getBieEstadoUso().equals(ESTADO_INACTIVO)) {
 			vistaBien.setNpVerBajaBien(Boolean.TRUE);
 		}
 		
@@ -555,6 +557,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 	}
 	
 	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public VistaBien reasignarBien(VistaBien vistaBien) throws SeguridadesException {
 		try {
 			//obtener el estado actual de la tabla transaccion
@@ -622,8 +625,129 @@ public class ServicioInventarioImpl implements ServicioInventario {
 	}
 	
 	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public VistaBien darBajaBien(VistaBien vistaBien) throws SeguridadesException {
-		// TODO Auto-generated method stub
+		
+		try {
+			
+			//obtener el estado actual de la tabla transaccion
+			Transaccion transaccionBuscar = new Transaccion();
+			transaccionBuscar.setBieFk(vistaBien.getBiePk());
+			transaccionBuscar.setTraEstado(ESTADO_ACTIVO);
+			List<Transaccion> listTransaccion = inventarioFactory.getTransaccionDAOImpl().obtenerTransaccionCriterios(transaccionBuscar);
+			
+			if (CollectionUtils.isNotEmpty(listTransaccion) && listTransaccion.size() == 1) {
+				
+				Transaccion transaccionActual = listTransaccion.iterator().next();
+				
+				//inactivar el estado actual antes de crear el nuevo
+				transaccionActual.setTraEstado(ESTADO_INACTIVO);
+				transaccionActual.setFechaFin(UtilAplication.obtenerFechaActual());
+				transaccionActual.setEmpReasignadoFk(vistaBien.getEmpAsignadoFk());
+				inventarioFactory.getTransaccionDAOImpl().update(transaccionActual);
+				
+				// crear el nuevo estado en la tabla transaccion
+				Transaccion transaccionNuevo = new Transaccion();
+				transaccionNuevo.setCabCatalogoTipoBien(transaccionActual.getCabCatalogoTipoBien());
+				transaccionNuevo.setDetCatalogoTipoBien(transaccionActual.getDetCatalogoTipoBien());
+				transaccionNuevo.setCabEstadoConservacion(transaccionActual.getCabEstadoConservacion());
+				transaccionNuevo.setDetEstadoConservacion(transaccionActual.getDetEstadoConservacion());
+				transaccionNuevo.setCabCatalogoTipoBaja(ConstantesApplication.CAB_CAT_TIPO_BAJA);
+				transaccionNuevo.setDetCatalogoTipoBaja(vistaBien.getDetCatalogoTipoBaja());
+				transaccionNuevo.setBieFk(vistaBien.getBiePk());
+				transaccionNuevo.setFechaInicio(UtilAplication.obtenerFechaActual());
+				transaccionNuevo.setTraEstado(ESTADO_ACTIVO);
+				transaccionNuevo.setTraDescripcion(vistaBien.getTraDescripcion());
+				inventarioFactory.getTransaccionDAOImpl().create(transaccionNuevo);
+				
+				Bien bienBuscar = new Bien();
+				bienBuscar.setBiePk(vistaBien.getBiePk());
+				bienBuscar.setEmrPk(vistaBien.getEmrPk());
+				
+				Bien bienActual = inventarioFactory.getBienDAOImpl().buscarBienCriterios(bienBuscar).iterator().next();
+				bienActual.setBieEstadoUso(ESTADO_INACTIVO);
+				bienActual.setBieEstado(ESTADO_INACTIVO);
+				inventarioFactory.getBienDAOImpl().update(bienActual);
+				
+				List<VistaBien> listVistaBien = obtenerVistaDesdeBien(bienBuscar);
+				
+				if (CollectionUtils.isNotEmpty(listVistaBien)) {
+					VistaBien vistaBienActual = listVistaBien.iterator().next();
+					this.asignarPropiedadesNoPersitentesVistaBien(vistaBienActual);
+					return vistaBienActual;
+				}
+				
+			} else {
+				throw new SeguridadesException("El bien tiene mas de un estado activo");
+			}
+			
+		} catch (Exception e) {
+			slf4jLogger.info("error al darBajaBien {} - {} ", e.toString(), e.getCause().getMessage());
+			throw new SeguridadesException(e);
+		}
+		return null;
+	}
+	
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public VistaBien devolverBien(VistaBien vistaBien) throws SeguridadesException {
+		try {
+			
+			//obtener el estado actual de la tabla transaccion
+			Transaccion transaccionBuscar = new Transaccion();
+			transaccionBuscar.setBieFk(vistaBien.getBiePk());
+			transaccionBuscar.setTraEstado(ESTADO_ACTIVO);
+			List<Transaccion> listTransaccion = inventarioFactory.getTransaccionDAOImpl().obtenerTransaccionCriterios(transaccionBuscar);
+			
+			if (CollectionUtils.isNotEmpty(listTransaccion) && listTransaccion.size() == 1) {
+				
+				Transaccion transaccionActual = listTransaccion.iterator().next();
+				
+				//inactivar el estado actual antes de crear el nuevo
+				transaccionActual.setTraEstado(ESTADO_INACTIVO);
+				transaccionActual.setFechaFin(UtilAplication.obtenerFechaActual());
+				// TODO se debe asignar al usuario que realiza la baja
+//				transaccionActual.setEmpReasignadoFk(vistaBien.getEmpAsignadoFk());
+				inventarioFactory.getTransaccionDAOImpl().update(transaccionActual);
+				
+				// crear el nuevo estado en la tabla transaccion
+				Transaccion transaccionNuevo = new Transaccion();
+				transaccionNuevo.setCabCatalogoTipoBien(ConstantesApplication.CAB_CAT_TIPO_BIEN);
+				transaccionNuevo.setDetCatalogoTipoBien(EnumTipoBien.DEVUELTO.getId());
+				transaccionNuevo.setCabEstadoConservacion(transaccionActual.getCabEstadoConservacion());
+				transaccionNuevo.setDetEstadoConservacion(transaccionActual.getDetEstadoConservacion());
+				transaccionNuevo.setBieFk(vistaBien.getBiePk());
+				transaccionNuevo.setFechaInicio(UtilAplication.obtenerFechaActual());
+				transaccionNuevo.setTraEstado(ESTADO_ACTIVO);
+				transaccionNuevo.setTraDescripcion(vistaBien.getTraDescripcion());
+				// TODO se debe asignar al usuario que realiza la baja
+//				transaccionNuevo.setEmpAsignadoFk(vistaBien.getEmpAsignadoFk());
+				inventarioFactory.getTransaccionDAOImpl().create(transaccionNuevo);
+				
+				Bien bienBuscar = new Bien();
+				bienBuscar.setBiePk(vistaBien.getBiePk());
+				bienBuscar.setEmrPk(vistaBien.getEmrPk());
+				
+				Bien bienActual = inventarioFactory.getBienDAOImpl().buscarBienCriterios(bienBuscar).iterator().next();
+				bienActual.setBieEstadoUso(ESTADO_INACTIVO);
+				inventarioFactory.getBienDAOImpl().update(bienActual);
+				
+				List<VistaBien> listVistaBien = obtenerVistaDesdeBien(bienBuscar);
+				
+				if (CollectionUtils.isNotEmpty(listVistaBien)) {
+					VistaBien vistaBienActual = listVistaBien.iterator().next();
+					this.asignarPropiedadesNoPersitentesVistaBien(vistaBienActual);
+					return vistaBienActual;
+				}
+				
+			} else {
+				throw new SeguridadesException("El bien tiene mas de un estado activo");
+			}
+			
+		} catch (Exception e) {
+			slf4jLogger.info("error al devolverBien {} - {} ", e.toString(), e.getCause().getMessage());
+			throw new SeguridadesException(e);
+		}
 		return null;
 	}
 	

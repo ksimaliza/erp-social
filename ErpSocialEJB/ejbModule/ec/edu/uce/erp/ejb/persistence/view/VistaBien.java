@@ -32,6 +32,9 @@ public class VistaBien implements Serializable {
 
 	@Column(name="bie_estado")
 	private String bieEstado;
+	
+	@Column(name="bie_estado_uso")
+	private String bieEstadoUso;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="bie_fecha_asig")
@@ -79,6 +82,12 @@ public class VistaBien implements Serializable {
 
 	@Column(name="det_bien_tip_bie_nivel1")
 	private String detBienTipBieNivel1;
+	
+	@Column(name="cab_bien_tip_baj_fk")
+	private String cabCatalogoTipoBaja;
+	
+	@Column(name="det_bien_tip_baj_nivel1")
+	private String detCatalogoTipoBaja;
 
 	@Column(name="emr_pk")
 	private Integer emrPk;
@@ -531,6 +540,48 @@ public class VistaBien implements Serializable {
 	 */
 	public void setNpVerDevolverBien(Boolean npVerDevolverBien) {
 		this.npVerDevolverBien = npVerDevolverBien;
+	}
+
+	/**
+	 * @return the cabCatalogoTipoBaja
+	 */
+	public String getCabCatalogoTipoBaja() {
+		return cabCatalogoTipoBaja;
+	}
+
+	/**
+	 * @param cabCatalogoTipoBaja the cabCatalogoTipoBaja to set
+	 */
+	public void setCabCatalogoTipoBaja(String cabCatalogoTipoBaja) {
+		this.cabCatalogoTipoBaja = cabCatalogoTipoBaja;
+	}
+
+	/**
+	 * @return the detCatalogoTipoBaja
+	 */
+	public String getDetCatalogoTipoBaja() {
+		return detCatalogoTipoBaja;
+	}
+
+	/**
+	 * @param detCatalogoTipoBaja the detCatalogoTipoBaja to set
+	 */
+	public void setDetCatalogoTipoBaja(String detCatalogoTipoBaja) {
+		this.detCatalogoTipoBaja = detCatalogoTipoBaja;
+	}
+
+	/**
+	 * @return the bieEstadoUso
+	 */
+	public String getBieEstadoUso() {
+		return bieEstadoUso;
+	}
+
+	/**
+	 * @param bieEstadoUso the bieEstadoUso to set
+	 */
+	public void setBieEstadoUso(String bieEstadoUso) {
+		this.bieEstadoUso = bieEstadoUso;
 	}
 
 }

@@ -25,7 +25,6 @@
 							</p:selectOneMenu>
 						</td>
 					</tr>
-				
 					<tr>
 						<td width="25%">
 							<h:outputLabel for="txtNombre" value="#{i18n['label.descripcion']}" />
@@ -36,41 +35,27 @@
 					</tr> 
 					<tr>
 						<td>
-							<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.fecha.asignacion']}" />
-							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
-						</td>
-						<td>
-							<p:calendar id="popupCal" required="true" pattern="yyyy-mm-dd"
-								value="#{vistaBienDataManager.vistaBienEditar.bieFechaAsig}" label="#{i18n['erp.bien.fecha.asignacion']}" showOn="button">
-								<f:convertDateTime pattern="yyyy-mm-dd" />
-							</p:calendar>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<h:outputLabel for="txtUbicacion" value="#{i18n['erp.bien.ubicacion']}" />
-						</td>
-						<td>
-							<p:inputText id="txtUbicacion" style="width: 100%" required="true"
-								value="#{vistaBienDataManager.vistaBienEditar.bieUbicacion}" label="#{i18n['erp.bien.ubicacion']}" />
-						</td>
-					</tr>
-					<tr>
-						<td>
 							<h:outputLabel for="txtCodigo" value="#{i18n['erp.bien.codigo']}" />
+						</td>
+						<td>
+							<h:outputText id="txtCodigo"
+								value="#{vistaBienDataManager.vistaBienEditar.bieCodigo == null ? 'N/D':vistaBienDataManager.vistaBienEditar.bieCodigo}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtMotivo" value="#{i18n['erp.bien.baja.motivo']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
-							<p:inputText id="txtCodigo" style="width: 100%" required="true"
-								value="#{vistaBienDataManager.vistaBienEditar.bieCodigo}" label="#{i18n['erp.bien.codigo']}" />
+							<h:inputTextarea id="txtMotivo" style="width: 100%;" value="#{vistaBienDataManager.vistaBienEditar.traDescripcion}" rows="3"/>
 						</td>
 					</tr>
-					
 				</table>
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
-					actionListener="#{transaccionBienController.asignarBien}"
+					actionListener="#{transaccionBienController.darBajaBien}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgBajaBien.hide()"
 					process="@this,pnlBajaBien" update="pnlBajaBien,:formBien:tablaBienes,:formBien:pnlMessages"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" type="button" onclick="dlgBajaBien.hide();"/>
