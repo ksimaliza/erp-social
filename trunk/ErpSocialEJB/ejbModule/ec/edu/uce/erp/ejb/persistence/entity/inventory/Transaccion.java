@@ -116,6 +116,12 @@ public class Transaccion implements Serializable {
 	@Column(name="det_bien_est_conserv_nivel1_fk")
 	private String detEstadoConservacion;
 	
+	@Column(name="cab_bien_tip_baj_fk")
+	private String cabCatalogoTipoBaja;
+	
+	@Column(name="det_bien_tip_baj_nivel1")
+	private String detCatalogoTipoBaja;
+	
 	//bi-directional many-to-one association to DetalleBien detalleBienTbl1
 	/**
 	 * Tipo del bien: Ingresado, asignado, reasignado, devuelto se manejar dentro de un cat&acute;logo
@@ -137,6 +143,17 @@ public class Transaccion implements Serializable {
 		@JoinColumn(name="det_bien_est_conserv_nivel1_fk", referencedColumnName="det_bien_nivel1", unique=false, nullable=true, insertable=false, updatable=false)
 		})
 	private DetalleBien dcEstadoConservacion;
+	
+	//bi-directional many-to-one association to DetalleBien detalleBienTbl1
+	/**
+	 * Tipo del baja: bajas por perdida, bajas por robo, bajas total, bajas por donacion se manejar dentro de un cat&acute;logo
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumns({
+		@JoinColumn(name="cab_bien_tip_baj_fk", referencedColumnName="cab_bien_fk", unique=false, nullable=true, insertable=false, updatable=false),
+		@JoinColumn(name="det_bien_tip_baj_nivel1", referencedColumnName="det_bien_nivel1", unique=false, nullable=true, insertable=false, updatable=false)
+		})
+	private DetalleBien dcTipoBaja;
 
 	public Transaccion() {
 	}
@@ -405,6 +422,62 @@ public class Transaccion implements Serializable {
 	 */
 	public void setEmpleadoAsignadoTbl(Empleado empleadoAsignadoTbl) {
 		this.empleadoAsignadoTbl = empleadoAsignadoTbl;
+	}
+
+	/**
+	 * @return the traDescripcion
+	 */
+	public String getTraDescripcion() {
+		return traDescripcion;
+	}
+
+	/**
+	 * @param traDescripcion the traDescripcion to set
+	 */
+	public void setTraDescripcion(String traDescripcion) {
+		this.traDescripcion = traDescripcion;
+	}
+
+	/**
+	 * @return the cabCatalogoTipoBaja
+	 */
+	public String getCabCatalogoTipoBaja() {
+		return cabCatalogoTipoBaja;
+	}
+
+	/**
+	 * @param cabCatalogoTipoBaja the cabCatalogoTipoBaja to set
+	 */
+	public void setCabCatalogoTipoBaja(String cabCatalogoTipoBaja) {
+		this.cabCatalogoTipoBaja = cabCatalogoTipoBaja;
+	}
+
+	/**
+	 * @return the detCatalogoTipoBaja
+	 */
+	public String getDetCatalogoTipoBaja() {
+		return detCatalogoTipoBaja;
+	}
+
+	/**
+	 * @param detCatalogoTipoBaja the detCatalogoTipoBaja to set
+	 */
+	public void setDetCatalogoTipoBaja(String detCatalogoTipoBaja) {
+		this.detCatalogoTipoBaja = detCatalogoTipoBaja;
+	}
+
+	/**
+	 * @return the dcTipoBaja
+	 */
+	public DetalleBien getDcTipoBaja() {
+		return dcTipoBaja;
+	}
+
+	/**
+	 * @param dcTipoBaja the dcTipoBaja to set
+	 */
+	public void setDcTipoBaja(DetalleBien dcTipoBaja) {
+		this.dcTipoBaja = dcTipoBaja;
 	}
 
 }

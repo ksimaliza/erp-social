@@ -53,7 +53,10 @@ public class Bien extends AuditoriaUtil implements Serializable {
 
 	@Column(name="bie_estado")
 	private String bieEstado;
-
+	
+	@Column(name="bie_estado_uso")
+	private String bieEstadoUso;
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name="bie_fecha_asig")
 	private Date bieFechaAsig;
@@ -405,6 +408,20 @@ public class Bien extends AuditoriaUtil implements Serializable {
 	 */
 	public void setNpIdDcEstadoConservacion(String npIdDcEstadoConservacion) {
 		this.npIdDcEstadoConservacion = npIdDcEstadoConservacion;
+	}
+
+	/**
+	 * @return the bieEstadoUso
+	 */
+	public String getBieEstadoUso() {
+		return bieEstadoUso;
+	}
+
+	/**
+	 * @param bieEstadoUso the bieEstadoUso to set
+	 */
+	public void setBieEstadoUso(String bieEstadoUso) {
+		this.bieEstadoUso = bieEstadoUso;
 	}
 
 }

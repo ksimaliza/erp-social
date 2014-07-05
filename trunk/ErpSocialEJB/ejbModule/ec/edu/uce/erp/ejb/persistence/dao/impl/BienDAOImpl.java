@@ -52,26 +52,32 @@ public class BienDAOImpl extends AbstractFacadeImpl<Bien> implements BienDAO{
 			CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 			CriteriaQuery<Bien> criteriaQuery = criteriaBuilder.createQuery(Bien.class);
 			
-			Root<Bien> fromVistaBien = criteriaQuery.from(Bien.class);
-			criteriaQuery.select(fromVistaBien);
+			Root<Bien> fromBien = criteriaQuery.from(Bien.class);
+			criteriaQuery.select(fromBien);
 			
 			if (bien.getEmrPk()==null) {
 				throw new SeguridadesException("El codigo de la empresa es requerido para la busqueda");
 			} else {
 				//por id de empresa
-				predicate = criteriaBuilder.equal(fromVistaBien.get("emrPk"), bien.getEmrPk());
+				predicate = criteriaBuilder.equal(fromBien.get("emrPk"), bien.getEmrPk());
 				criteriaList.add(predicate);
 			}
 			
 			//por pk
 			if (bien.getBiePk()!=null) {
-				predicate = criteriaBuilder.equal(fromVistaBien.get("biePk"), bien.getBiePk());
+				predicate = criteriaBuilder.equal(fromBien.get("biePk"), bien.getBiePk());
 				criteriaList.add(predicate);
 			}
 			
-			//por estado
+			//por estado del bien activo inactio
 			if (StringUtils.isNotBlank(bien.getBieEstado())) {
-				predicate = criteriaBuilder.equal(fromVistaBien.get("bieEstado"), bien.getBieEstado());
+				predicate = criteriaBuilder.equal(fromBien.get("bieEstado"), bien.getBieEstado());
+				criteriaList.add(predicate);
+			}
+			
+			//por estado de uso del bien bien asignado no asignado
+			if (StringUtils.isNotBlank(bien.getBieEstadoUso())) {
+				predicate = criteriaBuilder.equal(fromBien.get("bieEstadoUso"), bien.getBieEstadoUso());
 				criteriaList.add(predicate);
 			}
 			

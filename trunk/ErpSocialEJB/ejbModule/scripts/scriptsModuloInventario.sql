@@ -311,6 +311,9 @@ ADD COLUMN EMR_PK INT4 null;
 alter table bien_tbl
 add column bie_codigo varchar (50) null;
 
+alter table bien_tbl
+add column bie_estado_uso varchar (5) null;
+
 alter table BIEN_TBL
    add constraint FK_BIEN_TBL_REFERENCE_LINEA_BI foreign key (LIN_BIEN_PK, CAT_BIEN_PK)
       references LINEA_BIEN_TBL (LIN_BIEN_PK, CAT_BIEN_PK)
@@ -392,13 +395,12 @@ alter table TRANSACCION_TBL
 DROP view IF EXISTS bien_view;
 create view bien_view as
 select bie_pk, emr_pk, 
-b.bie_nombre, b.bie_modelo, b.bie_color, bie_costo_venta, bie_fecha_asig, bie_ubicacion, bie_notas, bie_estado,
-b.cat_bien_pk, b.bie_codigo,
-b.lin_bien_pk, lb.lin_bien_nombre, lb.lin_bien_estado,
-b.mar_bien_pk, mb.mar_bien_nombre, mb.mar_bien_estado,
-cb.cat_bien_nombre, cb.cat_bien_estado,
-t.cab_bien_tip_bie_fk, t.det_bien_tip_bie_nivel1, t.cab_bien_est_conserv_fk, 
-t.det_bien_est_conserv_nivel1_fk, t.tra_estado, t.emp_asignado_fk, t.emp_reasignado_fk, t.tra_descripcion,
+b.bie_nombre, b.bie_modelo, b.bie_color, bie_costo_venta, bie_fecha_asig, bie_ubicacion, bie_notas, bie_estado, bie_estado_uso,
+b.cat_bien_pk, b.bie_codigo, b.lin_bien_pk, lb.lin_bien_nombre, lb.lin_bien_estado, b.mar_bien_pk, 
+mb.mar_bien_nombre, mb.mar_bien_estado, cb.cat_bien_nombre, cb.cat_bien_estado,
+t.cab_bien_tip_bie_fk, t.det_bien_tip_bie_nivel1,
+t.cab_bien_est_conserv_fk, t.det_bien_est_conserv_nivel1_fk, t.cab_bien_tip_baj_fk, t.det_bien_tip_baj_nivel1, 
+t.tra_estado, t.emp_asignado_fk, t.emp_reasignado_fk, t.tra_descripcion,
 per.per_ci, (per.per_nombres || ' ' || per.per_apellidos) as nombres_completos
 from bien_tbl b
 inner join categoria_bien_tbl cb on cb.cat_bien_pk=b.cat_bien_pk

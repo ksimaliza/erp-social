@@ -226,6 +226,14 @@ public interface ServicioInventario {
 	VistaBien darBajaBien (VistaBien vistaBien) throws SeguridadesException;
 	
 	/**
+	 * Devolver un <code>Bien</code>
+	 * @param vistaBien
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	VistaBien devolverBien (VistaBien vistaBien) throws SeguridadesException;
+	
+	/**
 	 * Buscar <code>VistaTransaccion</code> en la BD por diferentes criterios
 	 * @param vistaTransaccion
 	 * @return
