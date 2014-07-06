@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaUtil;
 
@@ -52,6 +53,9 @@ public class Menu extends AuditoriaUtil implements Serializable, Comparable<Obje
 	
 	@Column(name="orden")
 	private Integer orden;
+	
+	@Transient
+	private String npNombreOpcion;
 
 	//bi-directional many-to-many association to Modulo
 //	@ManyToMany(mappedBy="segtMenus")
@@ -148,6 +152,22 @@ public class Menu extends AuditoriaUtil implements Serializable, Comparable<Obje
 		} else {
 			return 0;
 		}
+	}
+
+	/**
+	 * @return the npNombreOpcion
+	 */
+	public String getNpNombreOpcion() {
+		
+		this.npNombreOpcion = this.nombreMenu;
+		return npNombreOpcion;
+	}
+
+	/**
+	 * @param npNombreOpcion the npNombreOpcion to set
+	 */
+	public void setNpNombreOpcion(String npNombreOpcion) {
+		this.npNombreOpcion = npNombreOpcion;
 	}
 
 }

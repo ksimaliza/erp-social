@@ -96,6 +96,7 @@ public class ServicioLoginImpl implements ServicioLogin{
 				
 				factoryDAO.getHistoricoTransaccioneDAOImpl().create(historicoTransacciones);
 				
+				usuarioLogueado.getSegtMenuUsuarios().size();
 				loginVOUsuario.setUsuario(usuarioLogueado);
 				
 			}
@@ -164,6 +165,11 @@ public class ServicioLoginImpl implements ServicioLogin{
 		
 		// si es el primer ingreso se debe cambiar la clave
 		if (usuario.getFechaUltimoIngreso()== null) {
+			return Boolean.TRUE;
+		}
+		
+		// si tiene la clave por defecto se debe cambiar la clave
+		if (usuario.getPassUsuario().equals(EncriptacionUtil.getInstancia().encriptar(usuario.getLoginUsuario()))) {
 			return Boolean.TRUE;
 		}
 		

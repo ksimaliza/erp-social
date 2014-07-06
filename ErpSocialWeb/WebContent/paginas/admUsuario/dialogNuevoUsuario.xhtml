@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpNuevoUsuario" header="#{i18n['erp.usuario.registrar']}" 
-		widgetVar="dlgNuevoUsuario" modal="true" minWidth="500" width="500" appendTo="@(body)">
+		widgetVar="dlgNuevoUsuario" modal="true" minWidth="600" width="600" appendTo="@(body)" dynamic="true" height="300" minHeight="300">
 		<h:form id="formNuevoUsuario" styleClass="formulario">
 			<p:panel id="pnlNuevoUsuario">
 				<table class="formulario">
@@ -80,10 +80,28 @@
 						</td>
 						<td>
 							<p:selectOneMenu id="selectPerfil" required="true" style="width: 100%"
-								value="#{usuarioDataManager.usuarioInstancia.segtPerfil.idPerfil}" label="#{i18n['label.perfil']}">
+								value="#{usuarioController.idPerfilSeleccionado}" label="#{i18n['label.perfil']}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" />
 								<f:selectItems value="#{usuarioController.catalogoPerfiles}"/>
+								<p:ajax event="change" process="@this" update="selectModulos" 
+									listener="#{usuarioController.obtenerModuloMenu(usuarioController.idPerfilSeleccionado)}"/>
 							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="selectModulos" value="#{i18n['label.menu.usuario']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:tree id="selectModulos"
+								selection="#{usuarioController.selectedNodes}"
+								value="#{usuarioController.treeNodeModulos}"
+								var="modulo" selectionMode="checkbox" >
+								<p:treeNode Oicon="ui-icon-note">
+									<h:outputText value="#{modulo.npNombreOpcion}" />
+								</p:treeNode>
+							</p:tree>
 						</td>
 					</tr>
 				</table>

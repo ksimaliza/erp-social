@@ -13,11 +13,13 @@ import ec.edu.uce.erp.ejb.persistence.dao.EmpresaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HistorialClaveDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HistoricoTransaccioneDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.MenuDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.MenuUsuarioDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ModuloDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ParametroDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PerfilDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PersonaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.UsuarioDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.VistaModuloMenuDAO;
 
 /**
  * @author 
@@ -44,5 +46,9 @@ public interface FactoryDAO {
 	EmpleadoeDAO getEmpleadoeDAOImpl();
 	
 	EmpleadoDAO getEmpleadoDAOImpl();
+	
+	VistaModuloMenuDAO getVistaModuloMenuDAOImpl();
+	
+	MenuUsuarioDAO getMenuUsuarioDAOImpl();
 	
 }

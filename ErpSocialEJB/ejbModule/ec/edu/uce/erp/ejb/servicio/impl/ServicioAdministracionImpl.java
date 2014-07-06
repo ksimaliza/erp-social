@@ -27,11 +27,13 @@ import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Menu;
+import ec.edu.uce.erp.ejb.persistence.entity.security.MenuUsuario;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Parametro;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Perfil;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaDTO;
+import ec.edu.uce.erp.ejb.persistence.view.VistaModuloMenu;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 
 /**
@@ -212,7 +214,23 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		return moduloCol;
 		
 	}
-
+	
+	@Override
+	public List<VistaModuloMenu> buscarModuloMenu(VistaModuloMenu vistaModuloMenu) throws SeguridadesException {
+		slf4jLogger.info("buscarModuloMenu");
+		
+		List<VistaModuloMenu> vistaModuloMenuCol = null;
+		
+		try {
+			vistaModuloMenuCol = factoryDAO.getVistaModuloMenuDAOImpl().obtenerVistaModuloMenuCriterios(vistaModuloMenu);
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscar buscarModuloMenu de la bd {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener los modulo-menu de la base de datos");
+		}
+		
+		return vistaModuloMenuCol;
+	}
 	
 	/*
 	 * Metodos perfiles
@@ -275,19 +293,6 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		 
 		try {
 			perfilCol = factoryDAO.getPerfilDAOImpl().obtenerPerfilCriterios(perfil);
-			
-//			if (CollectionUtils.isNotEmpty(perfilCol)) {
-//				CollectionUtils.select(perfilCol, new Predicate() {
-//					
-//					@Override
-//					public boolean evaluate(Object arg0) {
-//						Perfil perfil = (Perfil)arg0;
-//						perfil.getSegtModulos().size();
-//						perfil.getSegtUsuarios().size();
-//						return true;
-//					}
-//				});
-//			}
 			
 		} catch (Exception e) {
 			slf4jLogger.info("Error al buscar los perfiles de la bd {}", e.getMessage());
@@ -401,6 +406,7 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 				throw new SeguridadesException("Ya existe un usuario registrado con ese n\u00FAmero de c\u00E9dula");
 			}
 			
+			usuario.setIdUsuario(null);
 			usuario.setFechaRegistro(UtilAplication.obtenerFechaActual());
 			usuario.setPassUsuario(EncriptacionUtil.getInstancia().encriptar(usuario.getLoginUsuario()));
 			usuario.setEstado(ConstantesApplication.ESTADO_ACTIVO);
@@ -413,6 +419,11 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 			
 			Empleado empleado = this.asignarDatosEmpleado(persona, usuario.getEmpresaTbl());
 			factoryDAO.getEmpleadoeDAOImpl().create(empleado);
+			
+			for (MenuUsuario menuUsuario : usuario.getSegtMenuUsuarios()) {
+				menuUsuario.setIdUsuario(usuarioNuevo.getIdUsuario());
+				factoryDAO.getMenuUsuarioDAOImpl().create(menuUsuario);
+			}
 			
 			factoryDAO.getHistoricoTransaccioneDAOImpl()
 					.registrarHistoricoTransaccion(new AuditoriaDTO(usuario.getUsuarioRegistro()
@@ -480,9 +491,44 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 			usuario.setFechaModificacion(UtilAplication.obtenerFechaActual());
 			usuarioActualizado = factoryDAO.getUsuarioDAOImpl().update(usuario);
 			
+//			//borrar menu actual
+//			
+//			if (CollectionUtils.isNotEmpty(usuario.getSegtMenuUsuarios())) {
+//				
+//			}
+			
+			for (MenuUsuario menuUsuario : usuario.getSegtMenuUsuarios()) {
+				menuUsuario.setIdUsuario(usuarioActualizado.getIdUsuario());
+				factoryDAO.getMenuUsuarioDAOImpl().create(menuUsuario);
+			}
+			
 			factoryDAO.getHistoricoTransaccioneDAOImpl()
 					.registrarHistoricoTransaccion(new AuditoriaDTO(usuario.getUsuarioRegistro()
 							.getIdUsuario(), ServicioAdministracionImpl.class.getName(), "actualizarUsuario", EnumTipoTransaccion.UPDATE));
+			
+		} catch (Exception e) {
+			slf4jLogger.info("No se pudo actualizar el usuario {}" , e.getMessage());
+			throw new SeguridadesException(e);
+		}
+		
+		return usuarioActualizado;
+	}
+	
+	@Override
+	@TransactionAttribute (TransactionAttributeType.REQUIRED)
+	public Usuario resetClaveUsuario(Usuario usuario) throws SeguridadesException {
+		slf4jLogger.info("resetClaveUsuario");
+		Usuario usuarioActualizado = null;
+		
+		try {
+			
+			usuario.setFechaModificacion(UtilAplication.obtenerFechaActual());
+			usuario.setPassUsuario(EncriptacionUtil.getInstancia().encriptar(usuario.getLoginUsuario()));
+			usuarioActualizado = factoryDAO.getUsuarioDAOImpl().update(usuario);
+			
+			factoryDAO.getHistoricoTransaccioneDAOImpl()
+					.registrarHistoricoTransaccion(new AuditoriaDTO(usuario.getUsuarioRegistro()
+							.getIdUsuario(), ServicioAdministracionImpl.class.getName(), "resetClaveUsuario", EnumTipoTransaccion.UPDATE));
 			
 		} catch (Exception e) {
 			slf4jLogger.info("No se pudo actualizar el usuario {}" , e.getMessage());
@@ -500,6 +546,12 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		
 		try {
 			usuariosCol = factoryDAO.getUsuarioDAOImpl().obtenerUsuarioCriterios(usuario);
+			
+			if (CollectionUtils.isNotEmpty(usuariosCol)) {
+				for (Usuario usuarioDto : usuariosCol) {
+					usuarioDto.getSegtMenuUsuarios().size();
+				}
+			}
 			
 		} catch (Exception e) {
 			slf4jLogger.info("Error al buscarUsuarios {}" , e.getMessage());
@@ -596,4 +648,33 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		
 		return listPersonas;
 	}
+
+	@Override
+	public List<Perfil> buscarPerfilModuloMenu(Perfil perfil) throws SeguridadesException {
+		
+		List<Perfil> listPerfil = buscarPerfiles(perfil);
+		
+		if (CollectionUtils.isNotEmpty(listPerfil)) {
+			
+			for (Perfil perfil2 : listPerfil) {
+				perfil2.getSegtModulos().size();
+				
+				if (CollectionUtils.isNotEmpty(perfil2.getSegtModulos())) {
+					
+					for (Modulo modulo : perfil2.getSegtModulos()) {
+						modulo.getSegtMenus().size();
+						
+//						if (CollectionUtils.isNotEmpty(modulo.getSegtMenus())) {
+//							for (Menu menu : modulo.getSegtMenus()) {
+//								
+//							}
+//						}
+					}
+				}
+			}
+		}
+		
+		return listPerfil;
+	}
+	
 }

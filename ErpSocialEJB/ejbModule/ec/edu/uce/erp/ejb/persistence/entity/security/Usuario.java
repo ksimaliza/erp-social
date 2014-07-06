@@ -81,6 +81,10 @@ public class Usuario extends AuditoriaUtil implements Serializable {
 //	//bi-directional many-to-one association to HistoricoTransaccione
 //	@OneToMany(mappedBy="segtUsuario")
 //	private List<HistoricoTransaccione> segtHistoricoTransacciones;
+	
+	//bi-directional many-to-one association to HistorialClave
+	@OneToMany(mappedBy="usuario")
+	private List<MenuUsuario> segtMenuUsuarios;
 
 	//bi-directional many-to-one association to Empresa
 	@ManyToOne
@@ -320,6 +324,20 @@ public class Usuario extends AuditoriaUtil implements Serializable {
 
 	public void setNpIdEmpresa(Integer npIdEmpresa) {
 		this.npIdEmpresa = npIdEmpresa;
+	}
+
+	/**
+	 * @return the segtMenuUsuarios
+	 */
+	public List<MenuUsuario> getSegtMenuUsuarios() {
+		return segtMenuUsuarios;
+	}
+
+	/**
+	 * @param segtMenuUsuarios the segtMenuUsuarios to set
+	 */
+	public void setSegtMenuUsuarios(List<MenuUsuario> segtMenuUsuarios) {
+		this.segtMenuUsuarios = segtMenuUsuarios;
 	}
 
 }

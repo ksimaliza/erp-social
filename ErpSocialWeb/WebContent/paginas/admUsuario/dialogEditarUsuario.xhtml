@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpEditarUsuario" header="#{i18n['erp.usuario.registrar']}" 
-		widgetVar="dlgEditarUsuario" modal="true" minWidth="500" width="500" appendTo="@(body)">
+		widgetVar="dlgEditarUsuario" modal="true" minWidth="600" width="600" appendTo="@(body)" height="400" minHeight="400">
 		<h:form id="formEditarUsuario" styleClass="formulario">	
 			<p:panel id="pnlEditarUsuario">
 				<table class="formulario">
@@ -79,10 +79,37 @@
 						</td>
 						<td>
 							<p:selectOneMenu id="selectPerfil" required="true" style="width: 90%"
-								value="#{usuarioDataManager.usuarioEditar.segtPerfil.idPerfil}" label="#{i18n['label.perfil']}">
+								value="#{usuarioController.idPerfilSeleccionado}" label="#{i18n['label.perfil']}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" />
 								<f:selectItems value="#{usuarioController.catalogoPerfiles}"/>
+								<p:ajax event="change" process="@this" update="selectModulos" 
+									listener="#{usuarioController.obtenerModuloMenu(usuarioController.idPerfilSeleccionado)}"/>
 							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="selectModulos" value="#{i18n['label.menu.usuario']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:tree id="selectModulos"
+								selection="#{usuarioController.selectedNodes}"
+								value="#{usuarioController.treeNodeModulos}"
+								var="modulo" selectionMode="checkbox">
+								<p:treeNode Oicon="ui-icon-note">
+									<h:outputText value="#{modulo.npNombreOpcion}" />
+								</p:treeNode>
+								<!-- <p:treeNode type="document" icon="ui-icon-document">
+									<h:outputText value="#{doc.name}" />
+								</p:treeNode>
+								<p:treeNode type="picture" icon="ui-icon-image">
+									<h:outputText value="#{doc.name}" />
+								</p:treeNode>
+								<p:treeNode type="mp3" icon="ui-icon-video">
+									<h:outputText value="#{doc.name}" />
+								</p:treeNode> -->
+							</p:tree>
 						</td>
 					</tr>
 				</table>

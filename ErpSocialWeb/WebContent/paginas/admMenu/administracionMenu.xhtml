@@ -20,18 +20,18 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:panel id="pnlBuscarMenu" header="Buscar Menus">
-				<table>
+				<table class="formulario">
 					<tr>
-						<td><h:outputLabel for="txtNombreBuscar" value="Nombre Menu" /> </td>
-						<td>
-							<p:inputText id="txtNombreBuscar" 
+						<td width="15%"><h:outputLabel for="txtNombreBuscar" value="Nombre Menu" /> </td>
+						<td width="85%">
+							<p:inputText id="txtNombreBuscar" style="width:30%"
 								value="#{menuDataManager.menuBuscar.nombreMenu}" label="Nombre Menu"/>
 						</td>
 					</tr>
 					<tr>
 						<td><h:outputLabel for="txtUrlMenu" value="Url Menu" /> </td>
 						<td>
-							<p:inputText id="txtUrlMenu" 
+							<p:inputText id="txtUrlMenu" style="width:50%"
 								value="#{menuDataManager.menuBuscar.urlMenu}" label="Url Menu"/>
 						</td>
 					</tr>
