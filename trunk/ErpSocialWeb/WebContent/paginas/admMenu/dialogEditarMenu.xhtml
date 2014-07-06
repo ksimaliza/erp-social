@@ -6,48 +6,48 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpEditarMenu" header="#{i18n['erp.menu.editar']}" 
-		widgetVar="dlgEditarMenu" modal="true" minWidth="500" appendTo="@(body)">
+		widgetVar="dlgEditarMenu" modal="true" minWidth="600" width="600" appendTo="@(body)">
 		<h:form id="formEditarMenu">	
 			<p:panel id="pnlEditarMenu">
-				<table>
+				<table class="formulario">
 					<tr>
-						<td width="20%">
+						<td width="30%">
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.menu.nombre']}" />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNombre" 
-								style="width: 70%"
+								style="width: 100%"
 								value="#{menuDataManager.menuEditar.nombreMenu}" required="true" label="#{i18n['erp.menu.nombre']}"/>
 						</td>
 					</tr>
 					<tr>
-						<td width="20%">
+						<td >
 							<h:outputLabel for="txtUrlMenu" value="#{i18n['erp.menu.url']}" />
 						</td>
-						<td width="70%">
+						<td >
 							<p:inputText id="txtUrlMenu" 
-								style="width: 70%"
+								style="width: 100%"
 								value="#{menuDataManager.menuEditar.urlMenu}" required="true" label="#{i18n['erp.menu.url']}"/>
 						</td>
 					</tr>
 					<tr>
-						<td width="20%">
+						<td>
 							<h:outputLabel for="txtDescMenu" value="#{i18n['erp.menu.descripcion']}" />
 						</td>
-						<td width="70%">
+						<td >
 							<p:inputText id="txtDescMenu" 
-								style="width: 70%"
+								style="width: 100%"
 								value="#{menuDataManager.menuEditar.descMenu}" label="#{i18n['erp.menu.descripcion']}"/>
 						</td>
 					</tr>
 					<tr>
-						<td width="20%">
+						<td >
 							<h:outputLabel for="txtDescMenu" value="#{i18n['erp.menu.modulo']}" />
 						</td>
-						<td width="70%">
+						<td >
 							<p:selectManyCheckbox id="selectNotificar"
 								value="#{menuController.modulosSeleccionados}"
-								style="width: 70%" required="true" layout="pageDirection"
+								style="width: 100%" required="true" layout="pageDirection"
 								label="#{i18n['erp.menu.modulo']}">
 								<f:selectItems value="#{selectItemsController.catalogoListaModulos}" />
 							</p:selectManyCheckbox>

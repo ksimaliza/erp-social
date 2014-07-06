@@ -17,6 +17,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Parametro;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Perfil;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
+import ec.edu.uce.erp.ejb.persistence.view.VistaModuloMenu;
 
 /**
  * @author
@@ -115,6 +116,22 @@ public interface ServicioAdministracion {
 	 */
 	List<Menu> buscarMenu (Menu menu) throws SeguridadesException;
 	
+	/**
+	 * Buscar <code>VistaModuloMenu</code> en la base de datos
+	 * @param vistaModuloMenu
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	List<VistaModuloMenu> buscarModuloMenu (VistaModuloMenu vistaModuloMenu) throws SeguridadesException;
+	
+	/**
+	 * Obtener perfil modulo menu
+	 * @param perfil
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	List<Perfil> buscarPerfilModuloMenu (Perfil perfil) throws SeguridadesException;
+	
 	/*
 	 * servicios para administrar las perfiles
 	 */
@@ -177,6 +194,14 @@ public interface ServicioAdministracion {
 	 * @throws SeguridadesException
 	 */
 	Usuario actualizarUsuario (Usuario usuario) throws SeguridadesException;
+	
+	/**
+	 * Reset clave <code>Usuario</code> 
+	 * @param usuario
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	Usuario resetClaveUsuario (Usuario usuario) throws SeguridadesException;
 	
 	/**
 	 * Buscar <code>Usuario</code> en la base de datos

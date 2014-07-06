@@ -71,6 +71,12 @@ public class PerfilDAOImpl extends AbstractFacadeImpl<Perfil> implements PerfilD
 				criteriaList.add(predicate);
 			}
 			
+			//por id de perfil
+			if (perfilDTO.getIdPerfil()!= null && perfilDTO.getIdPerfil().intValue()>0) {
+				predicate = criteriaBuilder.equal(fromPerfil.get("idPerfil"), perfilDTO.getIdPerfil());
+				criteriaList.add(predicate);
+			}
+			
 			//por empresa
 //			if (perfilDTO.getNpEmpresaDTO() != null && perfilDTO.getNpEmpresaDTO().getIdEmpresa()!=null) {
 //				

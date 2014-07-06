@@ -16,6 +16,34 @@ alter table SEGT_MENU_USUARIO
       references SEGT_MENU (ID_MENU)
       on delete restrict on update restrict;
 
+-- vista para obtener los menus del modulo desde el perfil
+DROP view IF EXISTS modulo_menu_view;
+CREATE VIEW modulo_menu_view as
+SELECT row_number() OVER () as id_vista, p.id_perfil, p.nombre_perfil, p.estado as perfil_estado, m.id_modulo, m.nombre_modulo, m.desc_modulo, m.estado as modulo_estado, 
+me.id_menu, me.nombre_menu, me.desc_menu, me.url_menu, me.orden
+FROM segt_perfil p
+INNER JOIN segt_modulo_perfil mp on mp.id_perfil = p.id_perfil
+INNER JOIN segt_modulo m on m.id_modulo = mp.id_modulo
+INNER JOIN segt_modulo_menu mm on mm.id_modulo = m.id_modulo
+INNER JOIN segt_menu me on me.id_menu = mm.id_menu
+order by id_perfil desc, m.id_modulo desc, me.id_menu;
+
+DROP view IF EXISTS segv_historico_transaccion;
+
+CREATE VIEW segv_historico_transaccion AS 
+ SELECT ht.id_historico_transaccion,
+    ht.id_usuario,
+    concat(u.nombres_usuario, ' ', u.apellidos_usuario) AS usuario,
+    e.emr_nombre,
+    ht.det_catalogo_tipo_transaccion,
+    ht.nombre_transaccion,
+    dc.det_catalogo_descripcion,
+    ht.fecha_transaccion
+   FROM segt_historico_transacciones ht
+   LEFT JOIN segt_usuario u ON u.id_usuario = ht.id_usuario
+   LEFT JOIN empresa_tbl e ON u.emr_pk = e.emr_pk
+   LEFT JOIN detalle_catalogo_tbl dc ON dc.cab_catalogo_fk::text = ht.cab_catalogo_tipo_transaccion::text AND dc.det_catalogo_nivel1::text = ht.det_catalogo_tipo_transaccion::text
+  ORDER BY ht.fecha_transaccion DESC;
 
 -- reiniciar en 100 la secuencias para no tener problemas con insert manuales
 SELECT setval('erpt_parametro_id_parametro_seq',100);

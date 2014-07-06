@@ -18,6 +18,7 @@ import org.primefaces.model.menu.MenuModel;
 
 import ec.edu.uce.erp.common.util.MessagesApplicacion;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Menu;
+import ec.edu.uce.erp.ejb.persistence.entity.security.MenuUsuario;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 import ec.edu.uce.erp.ejb.persistence.vo.LoginVO;
@@ -41,37 +42,76 @@ public class MenuUsuarioController extends BaseController {
 		
 		if (getSessionParameter("usuario") != null && getSessionParameter("loginVO") != null) {
 			
-			LoginVO loginVO = (LoginVO)getSessionParameter("loginVO");
-			List<Modulo> colModuloUsuario = loginVO.getColModuloUsuario();
+			Usuario usuario = (Usuario)getSessionParameter("usuario");
 			
-			if (CollectionUtils.isNotEmpty(colModuloUsuario)) {
+			Map<Integer, String> mapMenuUsuario = new HashMap<Integer, String>();
+			
+			if (!usuario.getNpDebeCambiarClave()) {
 				
-				Map<Integer, String> mapMenuUsuario = new HashMap<Integer, String>();
-				mapMenuUsuario.put(0, MessagesApplicacion.getString("erp.seguridades.pagina.home.usuario"));
-				
-				for (Modulo modulo : colModuloUsuario) {
+				LoginVO loginVO = (LoginVO)getSessionParameter("loginVO");
+				List<Modulo> colModuloUsuario = loginVO.getColModuloUsuario();
+				if (CollectionUtils.isNotEmpty(colModuloUsuario)) {
 					
-					DefaultSubMenu defaultSubMenu = new DefaultSubMenu(modulo.getNombreModulo());
-					
-					for (Menu menuDTO : modulo.getSegtMenus()) {
+					for (Modulo modulo : colModuloUsuario) {
 						
-						DefaultMenuItem item = new DefaultMenuItem(menuDTO.getNombreMenu());
-						item.setUrl(menuDTO.getUrlMenu());
-						item.setAjax(true);
-						item.setTitle(menuDTO.getDescMenu());
-						defaultSubMenu.addElement(item);
+						Boolean agregarModulo = Boolean.FALSE;
 						
-						mapMenuUsuario.put(menuDTO.getIdMenu(), menuDTO.getUrlMenu());
+						for (Menu menu : modulo.getSegtMenus()) {
+							for (MenuUsuario menuUsuario : usuario.getSegtMenuUsuarios()) {
+								if (menu.getIdMenu().intValue() == menuUsuario.getIdMenu().intValue()) {
+									agregarModulo = Boolean.TRUE;
+									break;
+								}
+							}
+							if (agregarModulo) {
+								break;
+							}
+						}
+						
+						if (agregarModulo) {
+							
+							DefaultSubMenu defaultSubMenu = new DefaultSubMenu(modulo.getNombreModulo());
+							
+							for (Menu menuDTO : modulo.getSegtMenus()) {
+								
+								Boolean agregarMenu = Boolean.FALSE;
+								
+								for (MenuUsuario menuUsuario : usuario.getSegtMenuUsuarios()) {
+									if (menuDTO.getIdMenu().intValue() == menuUsuario.getIdMenu().intValue()) {
+										agregarMenu = Boolean.TRUE;
+										break;
+									}
+								}
+								
+								if (agregarMenu) {
+									
+									DefaultMenuItem item = new DefaultMenuItem(menuDTO.getNombreMenu());
+									item.setUrl(menuDTO.getUrlMenu());
+									item.setAjax(true);
+									item.setTitle(menuDTO.getDescMenu());
+									defaultSubMenu.addElement(item);
+									
+									mapMenuUsuario.put(menuDTO.getIdMenu(), menuDTO.getUrlMenu());
+								}
+								
+								
+							}
+							
+							model.addElement(defaultSubMenu);
+						}
 						
 					}
 					
-					model.addElement(defaultSubMenu);
-					
 				}
 				
-				getExternalContext().getSessionMap().put("menuUsuario", mapMenuUsuario);
-				
 			}
+			
+			//se agregar las opciones que todo usuario debe tener asignadas
+			mapMenuUsuario.put(0, MessagesApplicacion.getString("erp.seguridades.pagina.home.usuario"));
+			mapMenuUsuario.put(-1, MessagesApplicacion.getString("erp.seguridades.pagina.home.usuario"));
+			mapMenuUsuario.put(-2, MessagesApplicacion.getString("erp.seguridades.pagina.cambiar.clave.usuario"));
+			
+			getExternalContext().getSessionMap().put("menuUsuario", mapMenuUsuario);
 			
 		}
 		

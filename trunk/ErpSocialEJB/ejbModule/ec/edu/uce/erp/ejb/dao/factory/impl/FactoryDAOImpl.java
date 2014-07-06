@@ -16,11 +16,13 @@ import ec.edu.uce.erp.ejb.persistence.dao.EmpresaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HistorialClaveDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HistoricoTransaccioneDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.MenuDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.MenuUsuarioDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ModuloDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ParametroDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PerfilDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PersonaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.UsuarioDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.VistaModuloMenuDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.DetalleBienDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.DetalleCatalogoDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.EmpleadoDAOImpl;
@@ -29,11 +31,13 @@ import ec.edu.uce.erp.ejb.persistence.dao.impl.EmpresaDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.HistorialClaveDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.HistoricoTransaccioneDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.MenuDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.MenuUsuarioDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.ModuloDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.ParametroDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.PerfilDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.PersonaDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.UsuarioDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.VistaModuloMenuDAOImpl;
 
 /**
  * @author 
@@ -62,6 +66,9 @@ public class FactoryDAOImpl implements FactoryDAO {
 	
 	private DetalleCatalogoDAO detalleCatalogoDAO;
 	private DetalleBienDAO detalleBienDAO;
+	
+	private VistaModuloMenuDAO vistaModuloMenuDAO;
+	private MenuUsuarioDAO menuUsuarioDAO;
 
 	@Override
 	public UsuarioDAO getUsuarioDAOImpl() {
@@ -166,6 +173,22 @@ public class FactoryDAOImpl implements FactoryDAO {
 			empleadoDAO = new EmpleadoDAOImpl(entityManager); 
 		}
 		return empleadoDAO;
+	}
+
+	@Override
+	public VistaModuloMenuDAO getVistaModuloMenuDAOImpl() {
+		if (vistaModuloMenuDAO == null) {
+			vistaModuloMenuDAO = new VistaModuloMenuDAOImpl(entityManager);
+		}
+		return vistaModuloMenuDAO;
+	}
+
+	@Override
+	public MenuUsuarioDAO getMenuUsuarioDAOImpl() {
+		if (menuUsuarioDAO == null) {
+			menuUsuarioDAO = new MenuUsuarioDAOImpl(entityManager);
+		}
+		return menuUsuarioDAO;
 	}
 
 }

@@ -24,23 +24,23 @@
 			<p:panel id="pnlBuscarUsuario" header="#{i18n['erp.usuario.buscar']}" styleClass="formulario">
 				<table class="formulario">
 					<tr>
-						<td width="30%"><h:outputLabel for="txtNombre" value="#{i18n['erp.usuario.nombre']}" /></td>
-						<td width="70%">
-							<p:inputText id="txtNombre" style="width: 60%"
+						<td width="15%"><h:outputLabel for="txtNombre" value="#{i18n['erp.usuario.nombre']}" /></td>
+						<td width="85%">
+							<p:inputText id="txtNombre" style="width: 50%"
 								value="#{usuarioDataManager.usuarioBuscar.nombresUsuario}" />
 						</td>
 					</tr>
 					<tr>
 						<td><h:outputLabel for="txtApellido" value="#{i18n['erp.usuario.apellido']}" /></td>
 						<td>
-							<p:inputText id="txtApellido"
+							<p:inputText id="txtApellido" style="width: 50%"
 								value="#{usuarioDataManager.usuarioBuscar.apellidosUsuario}" />
 						</td>
 					</tr>
 					<tr>
 						<td><h:outputLabel for="txtCI" value="#{i18n['erp.usuario.ci']}" /></td>
 						<td>
-							<p:inputText id="txtCI"
+							<p:inputText id="txtCI" style="width: 50%"
 								value="#{usuarioDataManager.usuarioBuscar.ciUsuario}" />
 						</td>
 					</tr>
@@ -147,7 +147,7 @@
 					</h:panelGroup>
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
-							title="#{i18n['label.reset.clave']}" oncomplete="dlgDesactivar.show()" value="#{i18n['label.reset.clave']}">
+							title="#{i18n['label.reset.clave']}" oncomplete="dlgResetClave.show()" value="#{i18n['label.reset.clave']}">
 							<f:setPropertyActionListener target="#{usuarioDataManager.usuarioEditar}" value="#{usuario}" />
 						</p:commandLink>
 					</h:panelGroup>
@@ -178,6 +178,19 @@
 					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
 				<p:commandButton value="#{i18n['label.cancelar']}" type="button" 
 					onclick="dlgActivar.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+			
+			<!-- Reset clave usuario -->
+			<p:confirmDialog id="dialogResetClave" width="400" widgetVar="dlgResetClave"
+				message="#{i18n['erp.usuario.reset.clave.pregunta.confirmacion']}"
+				header="#{i18n['erp.usuario.activar']}" appendTo="@(body)">
+				<p:commandButton value="#{i18n['label.aceptar']}"
+					actionListener="#{usuarioController.resetClaveUsuario}"
+					oncomplete="dlgResetClave.hide()"
+					update="pnlMessages,tablaUsuarios" process="@this"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{i18n['label.cancelar']}" type="button" 
+					onclick="dlgResetClave.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>
 		
 		</h:form>
