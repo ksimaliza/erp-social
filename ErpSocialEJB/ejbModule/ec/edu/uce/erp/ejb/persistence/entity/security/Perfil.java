@@ -71,6 +71,9 @@ public class Perfil extends AuditoriaUtil implements Serializable {
 	
 	@Transient
 	private Empresa npEmpresaDTO;
+	
+	@Transient
+	private List<Modulo> npColModulos;
 
 	public Perfil() {
 	}
@@ -165,6 +168,20 @@ public class Perfil extends AuditoriaUtil implements Serializable {
 	 */
 	public void setNpEmpresaDTO(Empresa npEmpresaDTO) {
 		this.npEmpresaDTO = npEmpresaDTO;
+	}
+
+	/**
+	 * @return the npColModulos
+	 */
+	public List<Modulo> getNpColModulos() {
+		return npColModulos;
+	}
+
+	/**
+	 * @param npColModulos the npColModulos to set
+	 */
+	public void setNpColModulos(List<Modulo> npColModulos) {
+		this.npColModulos = npColModulos;
 	}
 
 }

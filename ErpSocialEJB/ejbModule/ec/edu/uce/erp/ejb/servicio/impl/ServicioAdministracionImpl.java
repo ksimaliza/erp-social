@@ -124,6 +124,11 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		List<Empresa> listEmpresas = null;
 		try {
 			listEmpresas = factoryDAO.getEmpresaDAOImpl().obtenerEmpresaCriterios(empresa);
+//			if (CollectionUtils.isNotEmpty(listEmpresas)) {
+//				for (Empresa emp : listEmpresas) {
+//					emp.getSegtModulos().size();
+//				}
+//			}
 		} catch (Exception e) {
 			slf4jLogger.info("Error al buscar la empresa {}", e.getMessage());
 			throw new SeguridadesException("No se pudo obtener las empresas de la base de datos");

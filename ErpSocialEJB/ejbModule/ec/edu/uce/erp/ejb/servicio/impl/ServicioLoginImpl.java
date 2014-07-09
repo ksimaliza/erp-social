@@ -60,9 +60,9 @@ public class ServicioLoginImpl implements ServicioLogin{
 			CredencialesDTO credencialesDTO = loginVO.getCredencialesDTO();
 			
 //			slf4jLogger.info("credencialesDTO.getPassword {}", credencialesDTO.getPassword());
-			String claveEncriptada = EncriptacionUtil.getInstancia().encriptar(credencialesDTO.getPassword());
+//			String claveEncriptada = EncriptacionUtil.getInstancia().encriptar(credencialesDTO.getPassword());
 //			slf4jLogger.info("claveEncriptada {}", claveEncriptada);
-			credencialesDTO.setPassword(claveEncriptada);
+			credencialesDTO.setPassword(EncriptacionUtil.getInstancia().encriptar(credencialesDTO.getPassword()));
 			
 			Usuario usuarioLogueado = factoryDAO.getUsuarioDAOImpl().obtenerPorLogin(credencialesDTO);
 			
@@ -93,11 +93,15 @@ public class ServicioLoginImpl implements ServicioLogin{
 				historicoTransacciones.setCabCatalogoTipoTransaccion(CatalogoCabeceraConstantes.ID_CAB_CATALOGO_TIPO_TRANSACCION);
 				historicoTransacciones.setDetCatalogoTipoTransaccion(EnumTipoTransaccion.LOGIN.getId());
 				historicoTransacciones.setIdUsuario(usuarioLogueado.getIdUsuario());
+				historicoTransacciones.setIpTransaccion(loginVO.getIpLoginUser());
 				
 				factoryDAO.getHistoricoTransaccioneDAOImpl().create(historicoTransacciones);
 				
 				usuarioLogueado.getSegtMenuUsuarios().size();
 				loginVOUsuario.setUsuario(usuarioLogueado);
+				loginVOUsuario.setIpLoginUser(loginVO.getIpLoginUser());
+				
+				historicoTransacciones = null; credencialesDTO = null;
 				
 			}
 			

@@ -13,6 +13,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -87,6 +88,19 @@ public abstract class BaseController implements Serializable{
 	 */
 	protected FacesContext getFacesContext() {
 		return FacesContext.getCurrentInstance();
+	}
+	
+	/**
+	 * Retorna la ip del usuario que inicio session 
+	 * @return
+	 */
+	protected String getIpLoginUser() {
+		HttpServletRequest request = (HttpServletRequest) getExternalContext().getRequest();
+		String ipAddress = request.getHeader("X-FORWARDED-FOR");
+		if (ipAddress == null) {
+			ipAddress = request.getRemoteAddr();
+		}
+		return ipAddress;
 	}
 	
 	/**

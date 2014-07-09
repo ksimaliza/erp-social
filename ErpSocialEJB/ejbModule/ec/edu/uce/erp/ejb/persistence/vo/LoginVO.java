@@ -22,6 +22,7 @@ public class LoginVO implements Serializable{
 	private CredencialesDTO credencialesDTO;
 	private Usuario usuario;
 	private List<Modulo> colModuloUsuario;
+	private String ipLoginUser;
 	
 	public LoginVO () {
 		this.credencialesDTO = new CredencialesDTO();
@@ -69,6 +70,20 @@ public class LoginVO implements Serializable{
 	 */
 	public void setColModuloUsuario(List<Modulo> colModuloUsuario) {
 		this.colModuloUsuario = colModuloUsuario;
+	}
+
+	/**
+	 * @return the ipLoginUser
+	 */
+	public String getIpLoginUser() {
+		return ipLoginUser;
+	}
+
+	/**
+	 * @param ipLoginUser the ipLoginUser to set
+	 */
+	public void setIpLoginUser(String ipLoginUser) {
+		this.ipLoginUser = ipLoginUser;
 	}
 
 	

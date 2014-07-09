@@ -15,6 +15,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Bien;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
@@ -105,6 +106,9 @@ public class Empresa extends AuditoriaUtil implements Serializable {
 	
 	@OneToMany(mappedBy="empresaTbl")
 	private List<Bien> bienTbls;
+	
+	@Transient
+	private List<Modulo> npColModulos;
 
 	public Empresa() {
 	}
@@ -362,6 +366,20 @@ public class Empresa extends AuditoriaUtil implements Serializable {
 	 */
 	public void setBienTbls(List<Bien> bienTbls) {
 		this.bienTbls = bienTbls;
+	}
+
+	/**
+	 * @return the npColModulos
+	 */
+	public List<Modulo> getNpColModulos() {
+		return npColModulos;
+	}
+
+	/**
+	 * @param npColModulos the npColModulos to set
+	 */
+	public void setNpColModulos(List<Modulo> npColModulos) {
+		this.npColModulos = npColModulos;
 	}
 
 }

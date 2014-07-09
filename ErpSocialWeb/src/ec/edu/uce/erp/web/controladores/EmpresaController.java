@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
+import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
@@ -191,6 +192,19 @@ public class EmpresaController extends BaseController {
 							" tiene usuarios o m\u00F3dulos relacionados, est\u00E1 seguro de continuar?").toString());
 		} else {
 			empresa.setNpMensajeEditar(UtilAplication.appendStringBuilder("Seguro desea desactivar la empresa ", empresa.getEmrNombre(), " ?").toString());
+		}
+	}
+	
+	public void obtenerModulosEmpresa (Empresa empresa) {
+		try {
+			if (CollectionUtils.isEmpty(empresa.getNpColModulos())) {
+				Modulo modulo = new Modulo();
+				modulo.setNpIdEmpresa(empresa.getEmrPk());
+				empresa.setNpColModulos(this.servicioAdministracion.buscarModulos(modulo));
+			}
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al obtenerModulosEmpresa {}", e.toString());
+			MensajesWebController.aniadirMensajeError("Error al cargar los modulos de la empresa seleccionada");
 		}
 	}
 	

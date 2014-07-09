@@ -44,6 +44,9 @@ public class HistoricoTransaccione implements Serializable {
 	@Column(name="id_usuario")
 	private Integer idUsuario;
 	
+	@Column(name="ip_transaccion")
+	private String ipTransaccion;
+	
 	@Column(name="det_catalogo_tipo_transaccion")
 	private String detCatalogoTipoTransaccion;
 	
@@ -142,6 +145,20 @@ public class HistoricoTransaccione implements Serializable {
 	 */
 	public void setIdUsuario(Integer idUsuario) {
 		this.idUsuario = idUsuario;
+	}
+
+	/**
+	 * @return the ipTransaccion
+	 */
+	public String getIpTransaccion() {
+		return ipTransaccion;
+	}
+
+	/**
+	 * @param ipTransaccion the ipTransaccion to set
+	 */
+	public void setIpTransaccion(String ipTransaccion) {
+		this.ipTransaccion = ipTransaccion;
 	}
 
 }
