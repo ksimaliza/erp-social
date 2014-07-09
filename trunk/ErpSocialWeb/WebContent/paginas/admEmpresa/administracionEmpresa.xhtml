@@ -53,10 +53,16 @@
 				var="empresa" rowIndexVar="rowIndex"
 				paginator="true" rows="5" paginatorPosition="bottom"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.mensaje.lista.vacia']}">
+				rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.mensaje.lista.vacia']}" rowKey="#{empresa.emrPk}">
+				
+				<p:ajax event="rowToggle" listener="#{empresaController.obtenerModulosEmpresa(empresa)}" update="#{empresa.emrPk}" />
+				
 				<f:facet name="header">
 					#{i18n['erp.empresa.lista']}
 				</f:facet>
+				<p:column style="width:5%">
+					<p:rowToggler />
+				</p:column>
 				<p:column headerText="#" styleClass="centered" width="5%">
 					#{rowIndex+1}
 				</p:column>
@@ -111,6 +117,34 @@
 						</p:commandLink>
 					</h:panelGroup>
 				</p:column>
+				<p:rowExpansion>
+					<h:panelGroup rendered="#{not empty empresa.npColModulos}">
+						<p:dataTable id="tablaModulo" rowIndexVar="rowIndex"
+							value="#{empresa.npColModulos}" var="modulo">
+							<f:facet name="header">
+								Modulos Asignados a la empresa
+							</f:facet>
+							<p:column headerText="#" styleClass="centered" width="5%">
+								#{rowIndex+1}
+							</p:column>
+							<p:column headerText="#{i18n['erp.modulo.nombre']}" width="35%">
+								<h:outputText value="#{modulo.nombreModulo}" />
+							</p:column>
+							<p:column headerText="#{i18n['erp.modulo.descripcion']}" width="40%">
+								<h:outputText value="#{modulo.descModulo}" />
+							</p:column>
+							<p:column headerText="#{i18n['label.estado']}" styleClass="centered" width="10%">
+								<h:outputText value="#{i18n['label.estado.activo']}"
+									rendered="#{modulo.estado eq empresaDataManager.estadoActivo}" />
+								<h:outputText value="#{i18n['label.estado.inactivo']}"
+									rendered="#{modulo.estado eq empresaDataManager.estadoInactivo}" />
+							</p:column>
+						</p:dataTable>
+					</h:panelGroup >
+					<h:panelGroup rendered="#{empty empresa.npColModulos}">
+						<h:outputLabel value="La empresa seleccionada no tiene modulos asignados"/>
+					</h:panelGroup>
+				</p:rowExpansion>
 			</p:dataTable>
 			<!-- Desactivar empresa -->
 			<p:confirmDialog id="dialogDesactivar" width="400" 

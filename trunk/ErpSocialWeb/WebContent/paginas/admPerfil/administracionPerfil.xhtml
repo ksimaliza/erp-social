@@ -46,10 +46,16 @@
 				value="#{perfilDataManager.listaPerfiles}" var="perfil"
 				paginator="true" rows="5" paginatorPosition="bottom"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="5,10,15">
+				rowsPerPageTemplate="5,10,15" rowKey="#{perfil.idPerfil}">
+				
+				<!-- <p:ajax event="rowToggle" listener="#{perfilController.cargarModulosPerfil(perfil)}" update="#{perfil.idPerfil}" /> -->
+				
 				<f:facet name="header">
 					#{i18n['erp.perfil.lista']}
 				</f:facet>
+				<!-- <p:column style="width:5%">
+					<p:rowToggler />
+				</p:column> -->
 				<p:column headerText="#" styleClass="centered" width="5%">
 					#{rowIndex+1}
 				</p:column>
@@ -102,6 +108,34 @@
 						</p:commandLink>
 					</h:panelGroup>
 				</p:column>
+				<!-- <p:rowExpansion>
+					<h:panelGroup rendered="#{not empty perfil.npColModulos}">
+						<p:dataTable id="tablaModulo" rowIndexVar="rowIndex"
+							value="#{perfil.npColModulos}" var="modulo">
+							<f:facet name="header">
+								Modulos Asignados a la empresa
+							</f:facet>
+							<p:column headerText="#" styleClass="centered" width="5%">
+								#{rowIndex+1}
+							</p:column>
+							<p:column headerText="#{i18n['erp.modulo.nombre']}" width="35%">
+								<h:outputText value="#{modulo.nombreModulo}" />
+							</p:column>
+							<p:column headerText="#{i18n['erp.modulo.descripcion']}" width="40%">
+								<h:outputText value="#{modulo.descModulo}" />
+							</p:column>
+							<p:column headerText="#{i18n['label.estado']}" styleClass="centered" width="10%">
+								<h:outputText value="#{i18n['label.estado.activo']}"
+									rendered="#{modulo.estado eq perfilDataManager.estadoActivo}" />
+								<h:outputText value="#{i18n['label.estado.inactivo']}"
+									rendered="#{modulo.estado eq perfilDataManager.estadoInactivo}" />
+							</p:column>
+						</p:dataTable>
+					</h:panelGroup >
+					<h:panelGroup rendered="#{empty perfil.npColModulos}">
+						<h:outputLabel value="El perfil seleccionado no tiene modulos asignados"/>
+					</h:panelGroup>
+				</p:rowExpansion> -->
 			</p:dataTable>
 			
 			<!-- Desactivar perfil -->

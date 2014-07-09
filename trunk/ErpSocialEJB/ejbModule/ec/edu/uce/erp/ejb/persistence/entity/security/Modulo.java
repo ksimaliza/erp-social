@@ -86,6 +86,9 @@ public class Modulo extends AuditoriaUtil implements Serializable {
 	private Integer npIdEmpresa;
 	
 	@Transient
+	private Integer npIdPerfil;
+	
+	@Transient
 	private String npNombreOpcion;
 
 	public Modulo() {
@@ -184,6 +187,20 @@ public class Modulo extends AuditoriaUtil implements Serializable {
 	 */
 	public void setNpNombreOpcion(String npNombreOpcion) {
 		this.npNombreOpcion = npNombreOpcion;
+	}
+
+	/**
+	 * @return the npIdPerfil
+	 */
+	public Integer getNpIdPerfil() {
+		return npIdPerfil;
+	}
+
+	/**
+	 * @param npIdPerfil the npIdPerfil to set
+	 */
+	public void setNpIdPerfil(Integer npIdPerfil) {
+		this.npIdPerfil = npIdPerfil;
 	}
 
 }

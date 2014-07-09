@@ -61,21 +61,21 @@ public class UsuarioDAOImpl extends AbstractFacadeImpl<Usuario> implements Usuar
 				
 				if(!usuarioEncontrado.getPassUsuario().equals(credencialesDTO.getPassword())){
 					usuarioEncontrado = null;
-					slf4jLogger.info("Password incorrecto para el usuario: {}", credencialesDTO.getUsuario());
-					throw new SeguridadesException("Password incorrecto para el usuario");
+					slf4jLogger.info("Password incorrecto para el usuario {}", credencialesDTO.getUsuario());
+					throw new SeguridadesException("Password incorrecto para el usuario " + credencialesDTO.getUsuario());
 					
 				} else if(usuarioEncontrado.getEstado().equals(ConstantesApplication.ESTADO_INACTIVO)){
 					usuarioEncontrado = null;
 					slf4jLogger.info("El usuario: {} se encuentra inactivo en el sistema", credencialesDTO.getUsuario());
-					throw new SeguridadesException("El usuario se encuentra inactivo en el sistema");
+					throw new SeguridadesException("El usuario " + credencialesDTO.getUsuario() +" se encuentra inactivo en el sistema");
 				}
 			} else {
-				throw new SeguridadesException("No se encontro al usuario");
+				throw new SeguridadesException("No se encontro al usuario " + credencialesDTO.getUsuario());
 			}
 			
 		} catch (Exception e) {
 			slf4jLogger.info("error al obtenerPorLogin {}", e.toString());
-			throw new SeguridadesException("Error al obtenerPorLogin" + e);
+			throw new SeguridadesException(e);
 		}
 	
 		return usuarioEncontrado;

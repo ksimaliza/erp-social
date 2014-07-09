@@ -5,17 +5,17 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	
-	<p:dialog id="dialogNuevoModulo" header="Registrar Modulo" 
-		widgetVar="dlgNuevoModulo" modal="true" minWidth="600" appendTo="@(body)" draggable="false">
+	<p:dialog id="dialogNuevoModulo" header="#{i18n['erp.modulo.crear']}" 
+		widgetVar="dlgNuevoModulo" modal="true" minWidth="600" width="600" appendTo="@(body)" draggable="false">
 		<h:form id="formDlgNuevoModulo">	
 			<p:panel id="pnlCrearModulo">
-				<table>
+				<table class="formulario">
 					<tr>
 						<td width="30%">
 							<h:outputLabel value="#{i18n['erp.modulo.nombre']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNombre"
+							<p:inputText id="txtNombre" style="width:100%"
 								value="#{moduloDataManager.moduloInstancia.nombreModulo}" required="true" label="#{i18n['erp.modulo.nombre']}" />
 						</td>
 					</tr>
@@ -24,7 +24,7 @@
 							<h:outputLabel value="#{i18n['erp.modulo.descripcion']}" />
 						</td>
 						<td>
-							<p:inputText id="txtDescripcion"
+							<p:inputText id="txtDescripcion" style="width:100%"
 								value="#{moduloDataManager.moduloInstancia.descModulo}" label="#{i18n['erp.modulo.descripcion']}" />
 						</td>
 					</tr>
@@ -32,7 +32,7 @@
 						<td>
 							<h:outputLabel value="#{i18n['erp.modulo.seleccione.empresa']}" />
 						</td>
-						<td>
+						<td title="#{i18n['erp.modulo.seleccione.empresa.title']}">
 							<p:selectManyCheckbox id="selectEmpresas" layout="pageDirection"
 								required="true" label="#{i18n['erp.modulo.seleccione.empresa']}"
 								value="#{moduloController.empresasSeleccionadas}">

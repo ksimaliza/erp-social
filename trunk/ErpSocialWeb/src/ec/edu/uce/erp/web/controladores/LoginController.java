@@ -12,6 +12,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,12 +63,12 @@ public class LoginController extends BaseController {
 	public String autenticarUsuario(){
 		
 		String salida = null;
+		LoginVO loginVO = new LoginVO();
 		
 		try {
 			
-			LoginVO loginVO = new LoginVO();
 			loginVO.setCredencialesDTO(loginDataManager.getCredencialesDTO());
-			
+			loginVO.setIpLoginUser(getIpLoginUser());
 			loginVO = servicioLogin.autenticarUsuario(loginVO);
 			
 			if (loginVO == null || loginVO.getUsuario() == null) {
@@ -84,13 +85,26 @@ public class LoginController extends BaseController {
 					salida = "homeUsuario";
 				}
 				getExternalContext().getSessionMap().put("usuario", loginVO.getUsuario());
-				
 				getExternalContext().getSessionMap().put("loginVO", loginVO);
 				loginDataManager.setCredencialesDTO(new CredencialesDTO());
-				loginVO = null;
 			}
+			
 		} catch (SeguridadesException e) {
-			MensajesWebController.aniadirMensajeError(e.getMessage());
+			
+			int posicion = e.getMessage().lastIndexOf(":");
+			if (posicion >0) {
+				String sms = e.getMessage().substring(posicion+1, e.getMessage().length());
+				if (StringUtils.isBlank(sms)) {
+					MensajesWebController.aniadirMensajeError(e.getMessage());
+				} else {
+					MensajesWebController.aniadirMensajeError(sms);
+				}
+			} else {
+				MensajesWebController.aniadirMensajeError(e.getMessage());
+			}
+			
+		} finally {
+			loginVO = null;
 		}
 		
 		return salida;

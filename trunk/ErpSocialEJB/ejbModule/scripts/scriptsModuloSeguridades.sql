@@ -29,7 +29,6 @@ INNER JOIN segt_menu me on me.id_menu = mm.id_menu
 order by id_perfil desc, m.id_modulo desc, me.id_menu;
 
 DROP view IF EXISTS segv_historico_transaccion;
-
 CREATE VIEW segv_historico_transaccion AS 
  SELECT ht.id_historico_transaccion,
     ht.id_usuario,
@@ -38,7 +37,7 @@ CREATE VIEW segv_historico_transaccion AS
     ht.det_catalogo_tipo_transaccion,
     ht.nombre_transaccion,
     dc.det_catalogo_descripcion,
-    ht.fecha_transaccion
+    ht.fecha_transaccion, ht.ip_transaccion
    FROM segt_historico_transacciones ht
    LEFT JOIN segt_usuario u ON u.id_usuario = ht.id_usuario
    LEFT JOIN empresa_tbl e ON u.emr_pk = e.emr_pk
@@ -94,3 +93,9 @@ INSERT INTO segt_perfil(id_perfil, nombre_perfil, desc_perfil, fecha_registro, e
 
 --INSERT TABLA  RELACION MODULO PERFIL
 INSERT INTO segt_modulo_perfil(id_perfil, id_modulo) VALUES (1, 1);
+
+--2014 - 07 - 07
+ALTER TABLE segt_historico_transacciones
+ADD COLUMN ip_transaccion varchar (20) null;
+
+-- ejecutar vista segv_historico_transaccion

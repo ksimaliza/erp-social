@@ -51,8 +51,9 @@ public class ModuloDAOImpl extends AbstractFacadeImpl<Modulo> implements ModuloD
 		try {
 			
 			Query query = entityManager.createQuery("select m from Modulo m " +
-					" join m.segtPerfils p where p.idPerfil = ?");
+					" join m.segtPerfils p join m.empresaTbls e where p.idPerfil = ? and e.emrPk = ?");
 			query.setParameter(1, usuario.getSegtPerfil().getIdPerfil());
+			query.setParameter(2, usuario.getEmpresaTbl().getEmrPk());
 			
 			modulosUsuario = query.getResultList();;
 			
@@ -94,6 +95,12 @@ public class ModuloDAOImpl extends AbstractFacadeImpl<Modulo> implements ModuloD
 			//por id empresa
 			if (modulo.getNpIdEmpresa() != null && modulo.getNpIdEmpresa()!=0) {
 				predicate = criteriaBuilder.equal(fromModulo.joinList("empresaTbls").get("emrPk"), modulo.getNpIdEmpresa());
+				criteriaList.add(predicate);
+			}
+			
+			//por id perfil
+			if (modulo.getNpIdPerfil() != null && modulo.getNpIdPerfil()!=0) {
+				predicate = criteriaBuilder.equal(fromModulo.joinList("segtPerfils").get("idPerfil"), modulo.getNpIdPerfil());
 				criteriaList.add(predicate);
 			}
 			

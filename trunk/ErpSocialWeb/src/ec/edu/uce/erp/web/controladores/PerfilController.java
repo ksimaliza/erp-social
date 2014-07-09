@@ -224,6 +224,19 @@ public class PerfilController extends BaseController {
 		}
 		
 	}
+	
+	public void cargarModulosPerfil (Perfil perfil) {
+		try {
+			if (CollectionUtils.isEmpty(perfil.getNpColModulos())) {
+				Modulo modulo = new Modulo();
+				modulo.setNpIdPerfil(perfil.getIdPerfil());
+					perfil.setNpColModulos(this.servicioAdministracion.buscarModulos(modulo));
+			}
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al cargarModulosPerfil {}", e);
+			MensajesWebController.aniadirMensajeError("No se pudo obtener los modulos asignados al perfil");
+		}
+	}
 
 	/*
 	 * Propiedades

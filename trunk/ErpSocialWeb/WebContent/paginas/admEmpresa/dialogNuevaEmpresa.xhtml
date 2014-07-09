@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	<p:dialog id="popUpNuevaEmpresa" appendTo="@(body)" resizable="false"
-		header="#{i18n['erp.empresa.registrar']}" widgetVar="popUpNuevo" modal="true" width="500" minWidth="500" draggable="false">
+		header="#{i18n['erp.empresa.registrar']}" widgetVar="popUpNuevo" modal="true" width="600" minWidth="600" draggable="false">
 		<h:form id="formNuevo" styleClass="formulario">
 			<p:panel id="pnlNuevaEmpresa">
 				<table class="formulario">
@@ -14,7 +14,7 @@
 								value="#{i18n['erp.empresa.nombre']}" /> <h:outputLabel
 								value="#{i18n['label.signo.requerido']}"
 								styleClass="item-required" /></td>
-						<td width="60%"><p:inputText id="txtNombre"
+						<td width="65%"><p:inputText id="txtNombre"
 								style="width: 100%" required="true"
 								value="#{empresaDataManager.empresaInstancia.emrNombre}"
 								label="#{i18n['erp.empresa.nombre']}" /></td>
