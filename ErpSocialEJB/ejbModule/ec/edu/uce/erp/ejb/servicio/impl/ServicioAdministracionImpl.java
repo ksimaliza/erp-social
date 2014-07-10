@@ -407,6 +407,7 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		
 		try {
 			
+			//TODO si la persona existe verificar usuario si existe usuario sino crear
 			if (this.verificarPersonaRepetida(usuario)) {
 				throw new SeguridadesException("Ya existe un usuario registrado con ese n\u00FAmero de c\u00E9dula");
 			}
