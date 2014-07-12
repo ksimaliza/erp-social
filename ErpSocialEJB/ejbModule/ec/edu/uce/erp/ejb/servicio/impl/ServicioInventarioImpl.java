@@ -537,6 +537,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 					bienActual.setBieUbicacion(vistaBien.getBieUbicacion());
 					bienActual.setBieCodigo(vistaBien.getBieCodigo());
 					bienActual.setBieFechaAsig(vistaBien.getBieFechaAsig());
+					bienActual.setBieEstadoUso(ESTADO_ACTIVO);
 					inventarioFactory.getBienDAOImpl().update(bienActual);
 					
 					List<VistaBien> listVistaBien = obtenerVistaDesdeBien(bienBuscar);
