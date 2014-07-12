@@ -72,7 +72,7 @@
 							<h:outputLabel for="txtModelo" value="#{i18n['erp.bien.modelo']}" />
 						</td>
 						<td>
-							<p:inputText id="txtModelo" style="width: 100%" required="true"
+							<p:inputText id="txtModelo" style="width: 100%"
 								value="#{bienDataManager.bienInstancia.bieModelo}" label="#{i18n['erp.bien.modelo']}" />
 						</td>
 					</tr>
@@ -88,22 +88,22 @@
 					</tr>
 					<tr>
 						<td>
-							<h:outputLabel for="txtNota" value="#{i18n['erp.bien.nota']}" />
-							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
-						</td>
-						<td>
-							<p:inputText id="txtNota" style="width: 100%" required="true"
-								value="#{bienDataManager.bienInstancia.bieNotas}" label="#{i18n['erp.bien.nota']}" />
-						</td>
-					</tr>
-					<tr>
-						<td>
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.nombre']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
 							<p:inputText id="txtNombre" style="width: 100%" required="true"
 								value="#{bienDataManager.bienInstancia.bieNombre}" label="#{i18n['erp.bien.nombre']}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtNota" value="#{i18n['erp.bien.nota']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:inputTextarea id="txtNota" style="width: 100%" required="true"
+								value="#{bienDataManager.bienInstancia.bieNotas}" label="#{i18n['erp.bien.nota']}"/>
 						</td>
 					</tr>
 				</table>

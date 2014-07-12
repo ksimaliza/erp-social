@@ -45,7 +45,8 @@
 						<f:facet name="header">
 							<h:outputText value="#{i18n['erp.bien.custodio']}" />
 						</f:facet>
-						<h:outputText value="#{transaccion.nombreEmpAsignado}" />
+						<h:outputText value="#{transaccion.nombreEmpAsignado}" rendered="#{not empty transaccion.nombreEmpAsignado}"/>
+						<h:outputText value="#{i18n['label.bodega']}" rendered="#{empty transaccion.nombreEmpAsignado}"/>
 					</p:column>
 					
 					<!-- <p:column>

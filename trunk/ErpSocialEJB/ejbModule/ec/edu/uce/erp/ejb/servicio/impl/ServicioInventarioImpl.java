@@ -470,7 +470,8 @@ public class ServicioInventarioImpl implements ServicioInventario {
 	
 	private void asignarPropiedadesNoPersitentesVistaBien(VistaBien vistaBien) {
 		
-		if (vistaBien.getDetBienTipBieNivel1().equals(EnumTipoBien.INGRESADO.getId())) {
+		if (vistaBien.getDetBienTipBieNivel1().equals(EnumTipoBien.INGRESADO.getId()) || 
+				(vistaBien.getDetBienTipBieNivel1().equals(EnumTipoBien.DEVUELTO.getId()) && vistaBien.getBieEstado().equals(ESTADO_ACTIVO))) {
 			vistaBien.setNpVerAsignarBien(Boolean.TRUE);
 		}
 		
