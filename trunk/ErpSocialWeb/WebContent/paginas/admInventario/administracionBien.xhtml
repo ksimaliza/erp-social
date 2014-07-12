@@ -146,6 +146,18 @@
 					</f:facet>
 					<h:outputText value="#{vistaBien.bieColor}" />
 				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['label.estado']}" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.bieEstado}" />
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="En uso" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.bieEstadoUso}" />
+				</p:column>
 				<!-- <p:column width="10%">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.fecha.asignacion']}" />
