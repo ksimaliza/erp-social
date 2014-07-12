@@ -29,6 +29,9 @@ public class VistaHistoricoTransaccion implements Serializable {
 
 	@Column(name="det_catalogo_tipo_transaccion")
 	private String detCatalogoTipoTransaccion;
+	
+	@Column(name="emr_pk")
+	private Integer emrPk;
 
 	@Column(name="emr_nombre")
 	private String emrNombre;
@@ -36,12 +39,14 @@ public class VistaHistoricoTransaccion implements Serializable {
 	@Column(name="fecha_transaccion")
 	private Timestamp fechaTransaccion;
 
-
 	@Column(name="id_usuario")
 	private Integer idUsuario;
 
 	@Column(name="nombre_transaccion")
 	private String nombreTransaccion;
+	
+	@Column(name="ip_transaccion")
+	private String ipTransaccion;
 
 	private String usuario;
 
@@ -110,6 +115,34 @@ public class VistaHistoricoTransaccion implements Serializable {
 
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
+	}
+
+	/**
+	 * @return the ipTransaccion
+	 */
+	public String getIpTransaccion() {
+		return ipTransaccion;
+	}
+
+	/**
+	 * @param ipTransaccion the ipTransaccion to set
+	 */
+	public void setIpTransaccion(String ipTransaccion) {
+		this.ipTransaccion = ipTransaccion;
+	}
+
+	/**
+	 * @return the emrPk
+	 */
+	public Integer getEmrPk() {
+		return emrPk;
+	}
+
+	/**
+	 * @param emrPk the emrPk to set
+	 */
+	public void setEmrPk(Integer emrPk) {
+		this.emrPk = emrPk;
 	}
 
 }

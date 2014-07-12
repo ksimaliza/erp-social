@@ -19,7 +19,9 @@ import ec.edu.uce.erp.ejb.persistence.dao.ParametroDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PerfilDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PersonaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.UsuarioDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.VistaHistoricoTransaccionDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.VistaModuloMenuDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.VistaUsuarioDAO;
 
 /**
  * @author 
@@ -50,5 +52,8 @@ public interface FactoryDAO {
 	VistaModuloMenuDAO getVistaModuloMenuDAOImpl();
 	
 	MenuUsuarioDAO getMenuUsuarioDAOImpl();
+	
+	VistaHistoricoTransaccionDAO getVistaHistoricoTransaccionDAOImpl();
+	VistaUsuarioDAO getVistaUsuarioDAOImpl();
 	
 }
