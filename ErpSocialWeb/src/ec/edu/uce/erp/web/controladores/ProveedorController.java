@@ -72,6 +72,8 @@ public class ProveedorController extends BaseController{
 		slf4jLogger.info("registrarProveedor");
 		
 		try {
+			
+			this.proveedorDataManager.getProveedorInstancia().setUsuarioRegistro(this.proveedorDataManager.getUsuarioSession());
 			this.proveedorDataManager.getProveedorInstancia().setCabCatalogoPaisCiudad(ID_CAB_CATALOGO_CUIDAD_ECUADOR);
 			Proveedor proveedorNuevo = servicioInventario.registrarProveedor(this.proveedorDataManager.getProveedorInstancia());
 			
@@ -83,7 +85,7 @@ public class ProveedorController extends BaseController{
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("error al registrarProveedor {}", e.toString());
-			MensajesWebController.aniadirMensajeInformacion(e.getMessage());
+			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 		
 	}
