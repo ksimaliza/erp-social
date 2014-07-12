@@ -33,7 +33,7 @@ CREATE VIEW segv_historico_transaccion AS
  SELECT ht.id_historico_transaccion,
     ht.id_usuario,
     concat(u.nombres_usuario, ' ', u.apellidos_usuario) AS usuario,
-    e.emr_nombre,
+    e.emr_pk, e.emr_nombre,
     ht.det_catalogo_tipo_transaccion,
     ht.nombre_transaccion,
     dc.det_catalogo_descripcion,
@@ -97,5 +97,13 @@ INSERT INTO segt_modulo_perfil(id_perfil, id_modulo) VALUES (1, 1);
 --2014 - 07 - 07
 ALTER TABLE segt_historico_transacciones
 ADD COLUMN ip_transaccion varchar (20) null;
+-- ejecutar vista segv_historico_transaccion
 
+--2014 - 07 - 011
+DROP view IF EXISTS segv_usuario;
+CREATE VIEW segv_usuario AS 
+select u.id_usuario, u.ci_usuario, u.login_usuario, u.email_usuario, concat(u.nombres_usuario, ' ', u.apellidos_usuario) AS usuario,
+u.fecha_ultimo_ingreso, u.estado, e.emr_pk, e.emr_nombre
+from segt_usuario u
+LEFT JOIN empresa_tbl e ON u.emr_pk = e.emr_pk;
 -- ejecutar vista segv_historico_transaccion

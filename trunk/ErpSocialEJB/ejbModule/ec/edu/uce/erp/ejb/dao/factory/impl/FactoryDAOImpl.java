@@ -22,7 +22,9 @@ import ec.edu.uce.erp.ejb.persistence.dao.ParametroDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PerfilDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PersonaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.UsuarioDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.VistaHistoricoTransaccionDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.VistaModuloMenuDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.VistaUsuarioDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.DetalleBienDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.DetalleCatalogoDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.EmpleadoDAOImpl;
@@ -37,7 +39,9 @@ import ec.edu.uce.erp.ejb.persistence.dao.impl.ParametroDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.PerfilDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.PersonaDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.UsuarioDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.VistaHistoricoTransaccionDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.VistaModuloMenuDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.VistaUsuarioDAOImpl;
 
 /**
  * @author 
@@ -69,6 +73,9 @@ public class FactoryDAOImpl implements FactoryDAO {
 	
 	private VistaModuloMenuDAO vistaModuloMenuDAO;
 	private MenuUsuarioDAO menuUsuarioDAO;
+	
+	private VistaHistoricoTransaccionDAO vistaHistoricoTransaccionDAO;
+	private VistaUsuarioDAO vistaUsuarioDAO;
 
 	@Override
 	public UsuarioDAO getUsuarioDAOImpl() {
@@ -189,6 +196,22 @@ public class FactoryDAOImpl implements FactoryDAO {
 			menuUsuarioDAO = new MenuUsuarioDAOImpl(entityManager);
 		}
 		return menuUsuarioDAO;
+	}
+
+	@Override
+	public VistaHistoricoTransaccionDAO getVistaHistoricoTransaccionDAOImpl() {
+		if (vistaHistoricoTransaccionDAO == null) {
+			vistaHistoricoTransaccionDAO = new VistaHistoricoTransaccionDAOImpl(entityManager);
+		}
+		return vistaHistoricoTransaccionDAO;
+	}
+
+	@Override
+	public VistaUsuarioDAO getVistaUsuarioDAOImpl() {
+		if (vistaUsuarioDAO == null) {
+			vistaUsuarioDAO = new VistaUsuarioDAOImpl(entityManager);
+		}
+		return vistaUsuarioDAO;
 	}
 
 }

@@ -30,6 +30,7 @@ import com.lowagie.text.DocumentException;
 import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
 
+import ec.edu.uce.erp.common.util.ConstantesReporte;
 import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
 import ec.edu.uce.erp.ejb.persistence.vo.LoginVO;
 import ec.edu.uce.erp.web.common.util.CustomPDFExporter;
@@ -148,7 +149,7 @@ public abstract class BaseController implements Serializable{
 		
 	}
 	
-	public void exportPDF(String tableId, String filename) throws IOException {
+	public void exportPDF(String tableId, Map<String, String> mapValuesPDF) throws IOException {
 		
 		FacesContext context = FacesContext.getCurrentInstance();
 		
@@ -158,8 +159,8 @@ public abstract class BaseController implements Serializable{
 		}
 		DataTable table = (DataTable) component;
 		
-		Exporter exporter = new CustomPDFExporter();
-		exporter.export(context, table, filename, false, false, "iso-8859-1", null, null);
+		Exporter exporter = new CustomPDFExporter(mapValuesPDF);
+		exporter.export(context, table, mapValuesPDF.get(ConstantesReporte.NOMBRE_ARCHIVO), false, false, "iso-8859-1", null, null);
 		context.responseComplete();
 	}
 	

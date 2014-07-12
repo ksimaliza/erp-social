@@ -33,7 +33,9 @@ import ec.edu.uce.erp.ejb.persistence.entity.security.Parametro;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Perfil;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaDTO;
+import ec.edu.uce.erp.ejb.persistence.view.VistaHistoricoTransaccion;
 import ec.edu.uce.erp.ejb.persistence.view.VistaModuloMenu;
+import ec.edu.uce.erp.ejb.persistence.view.VistaUsuario;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 
 /**
@@ -407,33 +409,50 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		
 		try {
 			
-			//TODO si la persona existe verificar usuario si existe usuario sino crear
-			if (this.verificarPersonaRepetida(usuario)) {
-				throw new SeguridadesException("Ya existe un usuario registrado con ese n\u00FAmero de c\u00E9dula");
+			if (!this.esPersonaRepetida(usuario) && !this.existeUsuario(usuario)) {
+				
+				usuario.setIdUsuario(null);
+				usuario.setFechaRegistro(UtilAplication.obtenerFechaActual());
+				usuario.setPassUsuario(EncriptacionUtil.getInstancia().encriptar(usuario.getLoginUsuario()));
+				usuario.setEstado(ConstantesApplication.ESTADO_ACTIVO);
+				usuarioNuevo = factoryDAO.getUsuarioDAOImpl().create(usuario);
+				
+				Persona persona = this.asignarDatosPersona(usuarioNuevo);
+				persona.setSegtUsuario(new Usuario());
+				persona.getSegtUsuario().setIdUsuario(usuarioNuevo.getIdUsuario());
+				factoryDAO.getPersonaDAOImpl().create(persona);
+				
+				Empleado empleado = this.asignarDatosEmpleado(persona, usuario.getEmpresaTbl());
+				factoryDAO.getEmpleadoeDAOImpl().create(empleado);
+				
+				for (MenuUsuario menuUsuario : usuario.getSegtMenuUsuarios()) {
+					menuUsuario.setIdUsuario(usuarioNuevo.getIdUsuario());
+					factoryDAO.getMenuUsuarioDAOImpl().create(menuUsuario);
+				}
+				
+				factoryDAO.getHistoricoTransaccioneDAOImpl()
+						.registrarHistoricoTransaccion(new AuditoriaDTO(usuario.getUsuarioRegistro()
+								.getIdUsuario(), ServicioAdministracionImpl.class.getName(), "registrarUsuario", EnumTipoTransaccion.CREATE));
+				
+				
+			} else if (this.esPersonaRepetida(usuario) && !this.existeUsuario(usuario)){
+				
+				// si la persona existe y el usuario no existe
+				usuario.setIdUsuario(null);
+				usuario.setFechaRegistro(UtilAplication.obtenerFechaActual());
+				usuario.setPassUsuario(EncriptacionUtil.getInstancia().encriptar(usuario.getLoginUsuario()));
+				usuario.setEstado(ConstantesApplication.ESTADO_ACTIVO);
+				usuarioNuevo = factoryDAO.getUsuarioDAOImpl().create(usuario);
+				
+//				Empleado empleado = this.asignarDatosEmpleado(persona, usuario.getEmpresaTbl());
+//				factoryDAO.getEmpleadoeDAOImpl().create(empleado);
+				
+				factoryDAO.getHistoricoTransaccioneDAOImpl()
+						.registrarHistoricoTransaccion(new AuditoriaDTO(usuario.getUsuarioRegistro()
+								.getIdUsuario(), ServicioAdministracionImpl.class.getName(), "registrarUsuario", EnumTipoTransaccion.CREATE));
 			}
 			
-			usuario.setIdUsuario(null);
-			usuario.setFechaRegistro(UtilAplication.obtenerFechaActual());
-			usuario.setPassUsuario(EncriptacionUtil.getInstancia().encriptar(usuario.getLoginUsuario()));
-			usuario.setEstado(ConstantesApplication.ESTADO_ACTIVO);
-			usuarioNuevo = factoryDAO.getUsuarioDAOImpl().create(usuario);
 			
-			Persona persona = this.asignarDatosPersona(usuarioNuevo);
-			persona.setSegtUsuario(new Usuario());
-			persona.getSegtUsuario().setIdUsuario(usuarioNuevo.getIdUsuario());
-			factoryDAO.getPersonaDAOImpl().create(persona);
-			
-			Empleado empleado = this.asignarDatosEmpleado(persona, usuario.getEmpresaTbl());
-			factoryDAO.getEmpleadoeDAOImpl().create(empleado);
-			
-			for (MenuUsuario menuUsuario : usuario.getSegtMenuUsuarios()) {
-				menuUsuario.setIdUsuario(usuarioNuevo.getIdUsuario());
-				factoryDAO.getMenuUsuarioDAOImpl().create(menuUsuario);
-			}
-			
-			factoryDAO.getHistoricoTransaccioneDAOImpl()
-					.registrarHistoricoTransaccion(new AuditoriaDTO(usuario.getUsuarioRegistro()
-							.getIdUsuario(), ServicioAdministracionImpl.class.getName(), "registrarUsuario", EnumTipoTransaccion.CREATE));
 			
 		} catch (Exception e) {
 			slf4jLogger.info("Error al registrar el usuario {}", e.getMessage());
@@ -468,23 +487,42 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 	 * @param persona
 	 * @return
 	 */
-	private Boolean verificarPersonaRepetida (Usuario usuario) throws SeguridadesException {
+	private Boolean esPersonaRepetida (Usuario usuario) throws SeguridadesException {
 		
-		if (StringUtils.isNotBlank(usuario.getCiUsuario())) {
+		Boolean salida = Boolean.FALSE;
+		
+		Persona persona = new Persona();
+		persona.setPerCi(usuario.getCiUsuario());
+		
+		List<Persona> personasEncontras = factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(persona);
+		if (!CollectionUtils.isEmpty(personasEncontras)  && personasEncontras.size()>0) {
+			salida = Boolean.FALSE;
+		} 
+		
+		persona = null; personasEncontras = null;
+		
+		return salida;
+	}
+	
+	private Boolean existeUsuario (Usuario usuario) throws SeguridadesException {
+		
+		Boolean salida = Boolean.FALSE;
+		
+		Usuario usuarioFind = new Usuario();
+		usuarioFind.setCiUsuario(usuario.getCiUsuario());
+		
+		List<Usuario> listUsuario = factoryDAO.getUsuarioDAOImpl().obtenerUsuarioCriterios(usuarioFind);
+		if (!CollectionUtils.isEmpty(listUsuario) && listUsuario.size()>0) {
 			
-			Persona persona = new Persona();
-			persona.setPerCi(usuario.getCiUsuario());
-			
-			List<Persona> personasEncontras = factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(persona);
-			if (CollectionUtils.isEmpty(personasEncontras)) {
-				return Boolean.FALSE;
-			} else {
-				return Boolean.TRUE;
-			}
+			salida = Boolean.FALSE;
 		}
 		
-		return Boolean.FALSE;
+		usuarioFind = null; listUsuario = null;
+		
+		return salida;
+		
 	}
+	
 
 	@Override
 	@TransactionAttribute (TransactionAttributeType.REQUIRED)
@@ -494,18 +532,32 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		Usuario usuarioActualizado = null;
 		
 		try {
+			
 			usuario.setFechaModificacion(UtilAplication.obtenerFechaActual());
 			usuarioActualizado = factoryDAO.getUsuarioDAOImpl().update(usuario);
 			
-//			//borrar menu actual
-//			
-//			if (CollectionUtils.isNotEmpty(usuario.getSegtMenuUsuarios())) {
-//				
-//			}
-			
-			for (MenuUsuario menuUsuario : usuario.getSegtMenuUsuarios()) {
-				menuUsuario.setIdUsuario(usuarioActualizado.getIdUsuario());
-				factoryDAO.getMenuUsuarioDAOImpl().create(menuUsuario);
+			// obtener todo el menu del usuario actual para actualizar
+			MenuUsuario menuUsuario = new MenuUsuario();
+			menuUsuario.setIdUsuario(usuario.getIdUsuario());
+			List<MenuUsuario> listMenuUsuario = factoryDAO.getMenuUsuarioDAOImpl().obtenerMenuUsuarioCriterios(menuUsuario);
+			if (CollectionUtils.isEmpty(listMenuUsuario)) {
+				for (MenuUsuario menuUsuarioUpdate : usuario.getSegtMenuUsuarios()) {
+					menuUsuarioUpdate.setIdUsuario(usuarioActualizado.getIdUsuario());
+					factoryDAO.getMenuUsuarioDAOImpl().create(menuUsuarioUpdate);
+				}
+			} else {
+				
+				// se borra el menu actual
+				for (MenuUsuario menuUser : listMenuUsuario) {
+					factoryDAO.getMenuUsuarioDAOImpl().remove(menuUser);
+				}
+				
+				// se crea el nuevo menu
+				for (MenuUsuario menuUsuarioUpdate : usuario.getSegtMenuUsuarios()) {
+					menuUsuarioUpdate.setIdUsuario(usuarioActualizado.getIdUsuario());
+					factoryDAO.getMenuUsuarioDAOImpl().create(menuUsuarioUpdate);
+				}
+				
 			}
 			
 			factoryDAO.getHistoricoTransaccioneDAOImpl()
@@ -681,6 +733,32 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		}
 		
 		return listPerfil;
+	}
+
+	
+	/*
+	 * Servicios para la generar reportes del modulo de seguridades
+	 */
+	
+	@Override
+	public List<VistaUsuario> obtenerVistaUsuario(VistaUsuario vistaUsuario)throws SeguridadesException {
+		try {
+			return this.factoryDAO.getVistaUsuarioDAOImpl().obtenerVistaUsuarioCriterios(vistaUsuario);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al obtenerVistaUsuario {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener obtenerVistaUsuario de la base de datos");
+		}
+	}
+
+	@Override
+	public List<VistaHistoricoTransaccion> obtenerVistaHistoricoTransaccion(VistaHistoricoTransaccion vistaHistoricoTransaccion) throws SeguridadesException {
+		
+		try {
+			return this.factoryDAO.getVistaHistoricoTransaccionDAOImpl().obtenerVistaHistoricoTransaccionCriterios(vistaHistoricoTransaccion);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al obtenerVistaUsuario {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener obtenerVistaUsuario de la base de datos");
+		}
 	}
 	
 }

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="title">
+		<h3><h:outputLabel	value="#{i18n['erp.usuario.reporte.titulo']}" /></h3>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="formUsuario">
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			<p:toolbar id="toolbar">
+				<p:toolbarGroup align="left">
+					<!-- <p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" /> -->
+					<!-- <p:commandButton id="btnNuevoUsuario" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoUsuario.show()"/> -->
+					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
+						icon="exportExcel" disabled="#{empty vistaUsuarioDataManager.listVistaUsuario}">
+						<p:dataExporter type="xls" target="tablaUsuarios" fileName="usuarios" postProcessor="#{vistaUsuarioController.postProcessXLS}"/>
+					</p:commandButton>
+					<p:commandButton id="btnPDF" value="#{i18n['label.exportar.pdf']}" ajax="false"
+						actionListener="#{vistaUsuarioController.generarPdfLista('tablaUsuarios')}"
+						icon="pdf" disabled="#{empty vistaUsuarioDataManager.listVistaUsuario}">
+					</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panel id="pnlBuscarUsuario" header="#{i18n['erp.usuario.buscar']}" styleClass="formulario">
+				<table class="formulario">
+					<!-- <tr>
+						<td width="15%"><h:outputLabel for="txtNombre" value="#{i18n['erp.usuario.nombre']}" /></td>
+						<td width="85%">
+							<p:inputText id="txtNombre" style="width: 50%"
+								value="#{usuarioDataManager.usuarioBuscar.nombresUsuario}" />
+						</td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="txtApellido" value="#{i18n['erp.usuario.apellido']}" /></td>
+						<td>
+							<p:inputText id="txtApellido" style="width: 50%"
+								value="#{usuarioDataManager.usuarioBuscar.apellidosUsuario}" />
+						</td>
+					</tr> -->
+					<tr>
+						<td><h:outputLabel for="txtCI" value="#{i18n['erp.usuario.ci']}" /></td>
+						<td>
+							<p:inputText id="txtCI" style="width: 60%" onkeypress="return soloEnteros(this, event)" 
+								maxlength="10" value="#{vistaUsuarioDataManager.vistaUsuarioBuscar.ciUsuario}" />
+						</td>
+					</tr>
+					<!-- <tr>
+						<td>
+							<h:outputLabel value="Empresa" />
+						</td>
+						<td>
+							<p:selectOneMenu value="#{usuarioDataManager.usuarioBuscar.npIdEmpresa}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" />
+								<f:selectItems value="#{selectItemsController.catalogoListaEmpresa}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr> -->
+				</table>
+			</p:panel>
+			<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{vistaUsuarioController.buscarVistaUsuario}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscarUsuario"
+					update="pnlMessages,tablaUsuarios,pnlBuscarUsuario,toolbar"/>
+			</p:panel>
+			<p:dataTable id="tablaUsuarios"
+				value="#{vistaUsuarioDataManager.listVistaUsuario}"
+				var="vistaUsuario" rowIndexVar="rowIndex"
+				paginator="true" rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<f:facet name="header">
+					<h:outputText value="#{i18n['erp.usuario.lista']}"/>
+				</f:facet>
+				<p:column styleClass="centered" width="5%">
+					<f:facet name="header">
+						<h:outputText value="#" />
+					</f:facet>
+					<h:outputText value="#{rowIndex+1}"/>
+				</p:column>
+				<p:column width="15%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['label.empresa']}" />
+					</f:facet>
+					<h:outputText value="#{vistaUsuario.emrNombre}" />
+				</p:column>
+				<p:column width="20%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.usuario.nombre']}" />
+					</f:facet>
+					<h:outputText value="#{vistaUsuario.usuario}" />
+				</p:column>
+				<p:column width="15%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.usuario.ci']}"/>
+					</f:facet>
+					<h:outputText value="#{vistaUsuario.ciUsuario}" />
+				</p:column>
+				<p:column width="15%" styleClass="centered">
+					<f:facet name="header">
+						<h:outputText value="Fecha ultimo ingreso" />
+					</f:facet>
+					<h:outputText value="#{vistaUsuario.fechaUltimoIngreso}" >
+						<f:convertDateTime type="date" pattern="yyyy-MM-dd HH:mm"/>
+					</h:outputText>
+				</p:column>
+				<p:column  width="10%" styleClass="centered">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['label.estado']}"/>
+					</f:facet>
+					<h:outputText value="#{i18n['label.estado.activo']}"
+						rendered="#{vistaUsuario.estado eq vistaUsuarioDataManager.estadoActivo}" />
+					<h:outputText value="#{i18n['label.estado.inactivo']}"
+						rendered="#{vistaUsuario.estado eq vistaUsuarioDataManager.estadoInactivo}" />
+				</p:column>
+				
+			</p:dataTable>
+			
+		</h:form>
+		
+	</ui:define>
+</ui:composition>

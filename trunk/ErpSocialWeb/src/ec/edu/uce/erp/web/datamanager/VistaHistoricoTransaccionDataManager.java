@@ -18,7 +18,7 @@ import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
  *
  */
 @SessionScoped
-@ManagedBean (name = "vistaHistoricoTransaccionDataManager")
+@ManagedBean (name = "historicoTransaccionDataManager")
 public class VistaHistoricoTransaccionDataManager extends BaseDataManager{
 
 	private static final long serialVersionUID = 1L;

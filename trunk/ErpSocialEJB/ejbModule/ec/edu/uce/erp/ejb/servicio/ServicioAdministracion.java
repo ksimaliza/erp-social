@@ -17,7 +17,9 @@ import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Parametro;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Perfil;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
+import ec.edu.uce.erp.ejb.persistence.view.VistaHistoricoTransaccion;
 import ec.edu.uce.erp.ejb.persistence.view.VistaModuloMenu;
+import ec.edu.uce.erp.ejb.persistence.view.VistaUsuario;
 
 /**
  * @author
@@ -252,5 +254,25 @@ public interface ServicioAdministracion {
 	Parametro actualizarParametro (Parametro parametro) throws SeguridadesException;
 
 	List<Persona> buscarPersona(Persona persona) throws SeguridadesException;
+	
+	/*
+	 * Servicios para la generar reportes del modulo de seguridades
+	 */
+	
+	/**
+	 * Obtener <code>VistaUsuario</code> de la BD por criterios
+	 * @param vistaUsuario
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	List<VistaUsuario> obtenerVistaUsuario(VistaUsuario vistaUsuario) throws SeguridadesException;
+	
+	/**
+	 * Obtener <code>VistaUsuario</code> de la BD por criterios
+	 * @param vistaHistoricoTransaccion
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	List<VistaHistoricoTransaccion> obtenerVistaHistoricoTransaccion(VistaHistoricoTransaccion vistaHistoricoTransaccion) throws SeguridadesException;
 
 }
