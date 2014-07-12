@@ -27,6 +27,7 @@ public class ParcialDTO implements Serializable {
 	private String parNombre;
 
 	//bi-directional many-to-one association to NotaDTO
+//	bi-directional many-to-one association to NotaDTO
 	@OneToMany(mappedBy="notParcialBean")
 	private List<NotaDTO> notNotas;
 

@@ -68,6 +68,7 @@ public class LineaBienController extends BaseController{
 	public void registrarLineaBien () {
 		slf4jLogger.info("registrarLineaBien");
 		try {
+			this.lineaBienDataManager.getLineaBienInstancia().setUsuarioRegistro(this.lineaBienDataManager.getUsuarioSession());
 			LineaBien lineaBien = servicioInventario.registrarLineaBien(this.lineaBienDataManager.getLineaBienInstancia());
 			if (lineaBien != null) {
 				this.lineaBienDataManager.setLineaBienInstancia(new LineaBien());
