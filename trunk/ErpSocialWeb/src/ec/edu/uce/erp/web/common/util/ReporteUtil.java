@@ -4,8 +4,8 @@
 package ec.edu.uce.erp.web.common.util;
 
 import java.io.OutputStream;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
@@ -101,15 +101,15 @@ public class ReporteUtil {
 	 * @param nombreArchivo Nombre del archivo .jrxml que se va ha compilar
 	 * @return
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static JasperPrint jasperPrint (FacesContext facesContext,List listaObjeto,String nombreArchivo){
+	@SuppressWarnings({ "rawtypes" })
+	public static JasperPrint jasperPrint (FacesContext facesContext,List listaObjeto,String nombreArchivo, Map<String, Object> mapParametros){
 		
 		JasperPrint jp = null;
 		try {
 			JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(listaObjeto);
 			String reportePath = facesContext.getExternalContext().getRealPath("/paginas/reportes/"+nombreArchivo+".jrxml");
 			JasperReport jr = JasperCompileManager.compileReport(reportePath);
-			jp = JasperFillManager.fillReport(jr,new HashMap(),beanCollectionDataSource);
+			jp = JasperFillManager.fillReport(jr, mapParametros, beanCollectionDataSource);
 			String pdfPath = facesContext.getExternalContext().getRealPath("/paginas/reportes/"+nombreArchivo+".pdf");
 			JasperExportManager.exportReportToPdfFile(jp, pdfPath);
 		} catch (Exception e) {

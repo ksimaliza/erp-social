@@ -13,8 +13,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 
-import net.sf.jasperreports.engine.JasperPrint;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -23,12 +21,10 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Bien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien;
-import ec.edu.uce.erp.ejb.persistence.util.dto.ActaBienDTO;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
-import ec.edu.uce.erp.web.common.util.ReporteUtil;
 import ec.edu.uce.erp.web.common.util.UtilSelectItems;
 import ec.edu.uce.erp.web.datamanager.BienDataManager;
 
@@ -263,17 +259,17 @@ public class BienController extends BaseController{
 //		
 //	} 
 	
-	public void generarActaBien () {
-		
-		List<ActaBienDTO> listActaBien = new ArrayList<ActaBienDTO>();
-		ActaBienDTO actaBienDTO = new ActaBienDTO();
-		actaBienDTO.setTituloActa("Acta bienes");
-		listActaBien.add(actaBienDTO);
-		
-		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), listActaBien, "actaAsignacionBien");
-		ReporteUtil.generarReporte(jasperPrint, "pdf", "actaBien");
-		
-	}
+//	public void generarActaBien () {
+//		
+//		List<ActaBienDTO> listActaBien = new ArrayList<ActaBienDTO>();
+//		ActaBienDTO actaBienDTO = new ActaBienDTO();
+//		actaBienDTO.setTituloActa("Acta bienes");
+//		listActaBien.add(actaBienDTO);
+//		
+//		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), listActaBien, "actaAsignacionBien");
+//		ReporteUtil.generarReporte(jasperPrint, "pdf", "actaBien");
+//		
+//	}
 	
 	public void cargarDcLineaBien (Integer categoriaBienSeleccionado) {
 		

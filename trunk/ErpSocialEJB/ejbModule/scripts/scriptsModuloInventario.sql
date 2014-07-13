@@ -395,7 +395,9 @@ alter table TRANSACCION_TBL
 DROP view IF EXISTS bien_view;
 create view bien_view as
 select bie_pk, emr_pk, 
-b.bie_nombre, b.bie_modelo, b.bie_color, bie_costo_venta, bie_fecha_asig, bie_ubicacion, bie_notas, bie_estado, bie_estado_uso,
+b.bie_nombre, b.bie_modelo, b.bie_color, bie_costo_venta, bie_fecha_asig, bie_ubicacion, bie_notas, 
+bie_estado, CASE WHEN bie_estado='1' THEN 'ACTIVO' ELSE 'INACTIVO' END as bie_estado_string, 
+bie_estado_uso, CASE WHEN bie_estado_uso='1' THEN 'EN USO' ELSE 'SIN USO' END as bie_estado_uso_string, 
 b.cat_bien_pk, b.bie_codigo, b.lin_bien_pk, lb.lin_bien_nombre, lb.lin_bien_estado, b.mar_bien_pk, 
 mb.mar_bien_nombre, mb.mar_bien_estado, cb.cat_bien_nombre, cb.cat_bien_estado,
 t.cab_bien_tip_bie_fk, t.det_bien_tip_bie_nivel1,

@@ -3,7 +3,10 @@
  */
 package ec.edu.uce.erp.web.controladores;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -14,6 +17,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.common.util.ConstantesReporte;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.view.VistaHistoricoTransaccion;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
@@ -26,7 +30,7 @@ import ec.edu.uce.erp.web.datamanager.VistaHistoricoTransaccionDataManager;
  *
  */
 @ViewScoped
-@ManagedBean (name = "vistaHistoricoTransaccionController")
+@ManagedBean (name = "historicoTransaccionController")
 public class VistaHistoricoTransaccionController extends BaseController {
 	
 	private static final long serialVersionUID = 1L;
@@ -54,6 +58,8 @@ public class VistaHistoricoTransaccionController extends BaseController {
 		
 		try {
 			
+			this.historicoTransaccionDataManager
+					.getHistoricoTransaccionBuscar().setEmrPk(this.historicoTransaccionDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
 			List<VistaHistoricoTransaccion> listVistaHistoricoTransaccions = servicioAdministracion
 					.obtenerVistaHistoricoTransaccion(this.historicoTransaccionDataManager.getHistoricoTransaccionBuscar());
 			this.historicoTransaccionDataManager.getListaVistaHistoricoTransaccion().clear();
@@ -69,6 +75,21 @@ public class VistaHistoricoTransaccionController extends BaseController {
 			MensajesWebController.aniadirMensajeError("No se pudo obtener los registros de la base de datos");
 		}
 		
+	}
+	
+	public void generarPdfLista (String tableId) {
+		
+		try {
+			
+			Map<String, String> mapValuesPDF = new HashMap<String, String>();
+			mapValuesPDF.put(ConstantesReporte.TITULO, "Reporte de transacciones");
+			mapValuesPDF.put(ConstantesReporte.NOMBRE_ARCHIVO, "ReporteTransacciones");
+			this.exportPDF(tableId, mapValuesPDF);
+			
+		} catch (IOException e) {
+			slf4jLogger.info("error al  buscarVistaUsuario {}", e.getMessage());
+			MensajesWebController.aniadirMensajeError("Error al generar el reporte");
+		}
 	}
 
 }
