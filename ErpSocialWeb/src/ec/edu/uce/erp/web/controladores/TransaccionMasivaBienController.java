@@ -3,15 +3,12 @@
  */
 package ec.edu.uce.erp.web.controladores;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-
-import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.primefaces.event.SelectEvent;
@@ -20,14 +17,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
-import ec.edu.uce.erp.ejb.persistence.util.dto.ActaBienDTO;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
 import ec.edu.uce.erp.ejb.persistence.view.VistaEmpleado;
 import ec.edu.uce.erp.ejb.persistence.view.VistaTransaccion;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
-import ec.edu.uce.erp.web.common.util.ReporteUtil;
 import ec.edu.uce.erp.web.datamanager.VistaBienDataManager;
 
 /**
@@ -166,17 +161,17 @@ public class TransaccionMasivaBienController extends BaseController{
 		
 	}
 	
-	public void generarActaBien () {
-		
-		List<ActaBienDTO> listActaBien = new ArrayList<ActaBienDTO>();
-		ActaBienDTO actaBienDTO = new ActaBienDTO();
-		actaBienDTO.setTituloActa("Acta bienes");
-		listActaBien.add(actaBienDTO);
-		
-		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), listActaBien, "actaAsignacionBien");
-		ReporteUtil.generarReporte(jasperPrint, "pdf", "actaBien");
-		
-	}
+//	public void generarActaBien () {
+//		
+//		List<ActaBienDTO> listActaBien = new ArrayList<ActaBienDTO>();
+//		ActaBienDTO actaBienDTO = new ActaBienDTO();
+//		actaBienDTO.setTituloActa("Acta bienes");
+//		listActaBien.add(actaBienDTO);
+//		
+//		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), listActaBien, "actaAsignacionBien");
+//		ReporteUtil.generarReporte(jasperPrint, "pdf", "actaBien");
+//		
+//	}
 	
 	public void buscarEmpleado () {
 		slf4jLogger.info("buscarEmpleado");

@@ -6,22 +6,20 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="title">
-		<h3><h:outputLabel	value="#{i18n['erp.usuario.reporte.titulo']}" /></h3>
+		<h3><h:outputLabel	value="#{i18n['erp.transacciones.reporte.titulo']}" /></h3>
 	</ui:define>
 	<ui:define name="content">
-		<h:form id="formUsuario">
+		<h:form id="formHisTransacciones">
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
 			<p:toolbar id="toolbar">
 				<p:toolbarGroup align="left">
-					<!-- <p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" /> -->
-					<!-- <p:commandButton id="btnNuevoUsuario" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoUsuario.show()"/> -->
 					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
-						icon="exportExcel" disabled="#{empty vistaUsuarioDataManager.listVistaUsuario}">
-						<p:dataExporter type="xls" target="tablaUsuarios" fileName="usuarios" postProcessor="#{vistaUsuarioController.postProcessXLS}"/>
+						icon="exportExcel" disabled="#{empty historicoTransaccionDataManager.listaVistaHistoricoTransaccion}">
+						<p:dataExporter type="xls" target="tablaReporte" fileName="transacciones" postProcessor="#{historicoTransaccionController.postProcessXLS()}"/>
 					</p:commandButton>
 					<p:commandButton id="btnPDF" value="#{i18n['label.exportar.pdf']}" ajax="false"
-						actionListener="#{vistaUsuarioController.generarPdfLista('tablaUsuarios')}"
-						icon="pdf" disabled="#{empty vistaUsuarioDataManager.listVistaUsuario}">
+						actionListener="#{historicoTransaccionController.generarPdfLista('tablaReporte')}"
+						icon="pdf" disabled="#{empty historicoTransaccionDataManager.listaVistaHistoricoTransaccion}">
 					</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
@@ -63,14 +61,14 @@
 			</p:panel>
 			<p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
-					actionListener="#{vistaUsuarioController.buscarVistaUsuario}"
+					actionListener="#{historicoTransaccionController.buscarHistoricoTransaccion}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarUsuario"
-					update="pnlMessages,tablaUsuarios,pnlBuscarUsuario,toolbar"/>
+					update="pnlMessages,tablaReporte,pnlBuscarUsuario,toolbar"/>
 			</p:panel>
-			<p:dataTable id="tablaUsuarios"
-				value="#{vistaUsuarioDataManager.listVistaUsuario}"
-				var="vistaUsuario" rowIndexVar="rowIndex"
+			<p:dataTable id="tablaReporte"
+				value="#{historicoTransaccionDataManager.listaVistaHistoricoTransaccion}"
+				var="transaccion" rowIndexVar="rowIndex"
 				paginator="true" rows="5" paginatorPosition="bottom"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
@@ -87,36 +85,19 @@
 					<f:facet name="header">
 						<h:outputText value="#{i18n['label.empresa']}" />
 					</f:facet>
-					<h:outputText value="#{vistaUsuario.emrNombre}" />
+					<h:outputText value="#{transaccion.emrNombre}" />
 				</p:column>
 				<p:column width="20%">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.usuario.nombre']}" />
 					</f:facet>
-					<h:outputText value="#{vistaUsuario.usuario}" />
+					<h:outputText value="#{transaccion.usuario}" />
 				</p:column>
 				<p:column width="15%">
 					<f:facet name="header">
-						<h:outputText value="#{i18n['erp.usuario.ci']}"/>
+						<h:outputText value="#{i18n['erp.transaccion.nombre']}"/>
 					</f:facet>
-					<h:outputText value="#{vistaUsuario.ciUsuario}" />
-				</p:column>
-				<p:column width="15%" styleClass="centered">
-					<f:facet name="header">
-						<h:outputText value="Fecha ultimo ingreso" />
-					</f:facet>
-					<h:outputText value="#{vistaUsuario.fechaUltimoIngreso}" >
-						<f:convertDateTime type="date" pattern="yyyy-MM-dd HH:mm"/>
-					</h:outputText>
-				</p:column>
-				<p:column  width="10%" styleClass="centered">
-					<f:facet name="header">
-						<h:outputText value="#{i18n['label.estado']}"/>
-					</f:facet>
-					<h:outputText value="#{i18n['label.estado.activo']}"
-						rendered="#{vistaUsuario.estado eq vistaUsuarioDataManager.estadoActivo}" />
-					<h:outputText value="#{i18n['label.estado.inactivo']}"
-						rendered="#{vistaUsuario.estado eq vistaUsuarioDataManager.estadoInactivo}" />
+					<h:outputText value="#{transaccion.nombreTransaccion}" />
 				</p:column>
 				
 			</p:dataTable>

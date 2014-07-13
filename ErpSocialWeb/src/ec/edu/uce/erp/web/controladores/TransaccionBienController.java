@@ -4,7 +4,9 @@
 package ec.edu.uce.erp.web.controladores;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -20,7 +22,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
-import ec.edu.uce.erp.ejb.persistence.util.dto.ActaBienDTO;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
 import ec.edu.uce.erp.ejb.persistence.view.VistaEmpleado;
 import ec.edu.uce.erp.ejb.persistence.view.VistaTransaccion;
@@ -170,6 +171,11 @@ public class TransaccionBienController extends BaseController{
 		try {
 			this.vistaBienDataManager.getVistaBienEditar().setDetCatalogoTipoBaja(this.vistaBienDataManager.getIdDcBajaBienSelec());
 			VistaBien vistaBien = servicioInventario.darBajaBien(this.vistaBienDataManager.getVistaBienEditar());
+			
+			if (vistaBien != null) {
+				MensajesWebController.aniadirMensajeInformacion("Baja realizada correctamente");
+			}
+			
 		} catch (Exception e) {
 			slf4jLogger.info("error al darBajaBien {}", e.getCause().getMessage());
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
@@ -202,12 +208,21 @@ public class TransaccionBienController extends BaseController{
 	
 	public void generarActaBien () {
 		
-		List<ActaBienDTO> listActaBien = new ArrayList<ActaBienDTO>();
-		ActaBienDTO actaBienDTO = new ActaBienDTO();
-		actaBienDTO.setTituloActa("Acta bienes");
-		listActaBien.add(actaBienDTO);
+//		List<ActaBienDTO> listActaBien = new ArrayList<ActaBienDTO>();
+//		ActaBienDTO actaBienDTO = new ActaBienDTO();
+//		actaBienDTO.setTituloActa("Acta bienes");
+//		listActaBien.add(actaBienDTO);
 		
-		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), listActaBien, "actaAsignacionBien");
+		List<VistaBien> listVistaBien = new ArrayList<VistaBien>();
+		listVistaBien.add(this.vistaBienDataManager.getVistaBienEditar());
+		
+		Map<String, Object> mapParametros = new HashMap<String, Object>();
+		mapParametros.put("nombreEmpresa", this.vistaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrNombre());
+		mapParametros.put("nombreCustodio", this.vistaBienDataManager.getVistaBienEditar().getNombresCompletos());
+		mapParametros.put("identificacionCustodio", this.vistaBienDataManager.getVistaBienEditar().getPerCi());
+		mapParametros.put("total", String.valueOf(listVistaBien.size()));
+		
+		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), listVistaBien, "actaAsignacionBien", mapParametros);
 		ReporteUtil.generarReporte(jasperPrint, "pdf", "actaBien");
 		
 	}

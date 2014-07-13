@@ -131,6 +131,12 @@ public class VistaBien implements Serializable {
 	@Column(name="per_ci")
 	private String perCi;
 	
+	@Column(name="bie_estado_string")
+	private String bieEstadoString;
+	
+	@Column(name="bie_estado_uso_string")
+	private String bieEstadoUsoString;
+	
 	@Transient
 	@Temporal(TemporalType.DATE)
 	private Date bieFechaReasig;
@@ -582,6 +588,34 @@ public class VistaBien implements Serializable {
 	 */
 	public void setBieEstadoUso(String bieEstadoUso) {
 		this.bieEstadoUso = bieEstadoUso;
+	}
+
+	/**
+	 * @return the bieEstadoString
+	 */
+	public String getBieEstadoString() {
+		return bieEstadoString;
+	}
+
+	/**
+	 * @param bieEstadoString the bieEstadoString to set
+	 */
+	public void setBieEstadoString(String bieEstadoString) {
+		this.bieEstadoString = bieEstadoString;
+	}
+
+	/**
+	 * @return the bieEstadoUsoString
+	 */
+	public String getBieEstadoUsoString() {
+		return bieEstadoUsoString;
+	}
+
+	/**
+	 * @param bieEstadoUsoString the bieEstadoUsoString to set
+	 */
+	public void setBieEstadoUsoString(String bieEstadoUsoString) {
+		this.bieEstadoUsoString = bieEstadoUsoString;
 	}
 
 }
