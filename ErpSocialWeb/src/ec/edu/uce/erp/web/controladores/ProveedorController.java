@@ -12,6 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -85,7 +86,8 @@ public class ProveedorController extends BaseController{
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("error al registrarProveedor {}", e.toString());
-			MensajesWebController.aniadirMensajeError(e.getMessage());
+			RequestContext.getCurrentInstance().addCallbackParam("validationFailed", e);
+			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
 		
 	}

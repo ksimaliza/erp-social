@@ -1,12 +1,19 @@
 package ec.edu.uce.erp.ejb.persistence.entity.inventory;
 
 import java.io.Serializable;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaUtil;
-
-import java.util.List;
 
 
 /**
@@ -33,6 +40,9 @@ public class CategoriaBien extends AuditoriaUtil implements Serializable {
 
 	@Column(name="cat_bien_nombre")
 	private String catBienNombre;
+	
+	@Column(name="cat_bien_indice")
+	private Integer catBienIndice;
 
 	//bi-directional many-to-one association to LineaBien
 	@OneToMany(mappedBy="categoriaBienTbl")
@@ -93,6 +103,20 @@ public class CategoriaBien extends AuditoriaUtil implements Serializable {
 		lineaBienTbl.setCategoriaBienTbl(null);
 
 		return lineaBienTbl;
+	}
+
+	/**
+	 * @return the catBienIndice
+	 */
+	public Integer getCatBienIndice() {
+		return catBienIndice;
+	}
+
+	/**
+	 * @param catBienIndice the catBienIndice to set
+	 */
+	public void setCatBienIndice(Integer catBienIndice) {
+		this.catBienIndice = catBienIndice;
 	}
 
 }

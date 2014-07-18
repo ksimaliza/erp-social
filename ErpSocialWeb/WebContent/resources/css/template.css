@@ -6,6 +6,10 @@ input[class=email] {
 	font-weight: bold;
 }
 
+input[type=text] {
+	text-transform: uppercase !important;
+}
+
 /*****************************************************************
  * CONTENEDOR
  ****************************************************************/

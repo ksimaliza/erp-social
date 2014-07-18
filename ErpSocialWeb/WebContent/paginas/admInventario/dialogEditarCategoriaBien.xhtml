@@ -22,6 +22,16 @@
 					</tr>
 					<tr>
 						<td>
+							<h:outputLabel for="txtIndice" value="#{i18n['erp.categoria.bien.indice']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:inputText id="txtIndice" style="width: 100%" required="true"
+								value="#{categoriaBienDataManager.categoriaBienEditar.catBienIndice}" label="#{i18n['erp.categoria.bien.indice']}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
 							<h:outputLabel for="txtDesc" value="#{i18n['erp.categoria.bien.descripcion']}" />
 						</td>
 						<td>
@@ -29,19 +39,6 @@
 								value="#{categoriaBienDataManager.categoriaBienEditar.catBienDescripcion}" label="#{i18n['erp.categoria.bien.descripcion']}"/>
 						</td>
 					</tr>
-					<!-- <tr>
-						<td>
-							<h:outputLabel for="inputLineaBien" value="#{i18n['erp.categoria.linea.bien']}"/>
-							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
-						</td>
-						<td>
-							<p:selectOneMenu id="inputLineaBien"
-								required="true" label="#{i18n['erp.categoria.linea.bien']}"
-								value="#{categoriaBienDataManager.categoriaBienEditar.linBienPk}">
-								<f:selectItems value="#{categoriaBienDataManager.dcLineaBien}"/>
-							</p:selectOneMenu>
-						</td>
-					</tr> -->
 				</table>
 			</p:panel>
 			<p:panel id="pnlBotones">

@@ -105,21 +105,7 @@ public class Bien extends AuditoriaUtil implements Serializable {
 		@JoinColumn(name="emr_pk", referencedColumnName="emr_pk", unique=false, nullable=true, insertable=false, updatable=false)
 	})
 	private Empresa empresaTbl;
-
-//	//bi-directional many-to-one association to DetalleBien
-//	/**
-//	 * Estado del bien: Se definira como activo, inactivo dentro de un catalogo.
-//	 */
-//	@ManyToOne
-//	@JoinColumns({
-//		@JoinColumn(name="cab_bien_est_fk", referencedColumnName="cab_bien_fk", unique=false, nullable=true, insertable=false, updatable=false),
-//		@JoinColumn(name="det_bien_est_nivel1", referencedColumnName="det_bien_nivel1", unique=false, nullable=true, insertable=false, updatable=false)
-//		})
-//	private DetalleBien dcEstadoBien;
 	
-	@Transient
-	private String npIdDcEstadoConservacion;
-
 	//bi-directional many-to-one association to Inventario
 	@ManyToOne
 	@JoinColumn(name="inv_fk")
@@ -135,6 +121,25 @@ public class Bien extends AuditoriaUtil implements Serializable {
 	
 	@Column(name="bie_notas")
 	private String bieNotas;
+	
+	@Column(name="cab_bien_tip_ing_fk")
+	private String cabCatalogoTipoIngresoBien;
+	
+	@Column(name="det_bien_tip_ing_nivel1")
+	private String detCatalogoTipoIngresoBien;
+	
+	/**
+	 * Tipo ingreso: Se definira como donacion o compra dentro de un catalogo.
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumns({
+		@JoinColumn(name="cab_bien_tip_ing_fk", referencedColumnName="cab_bien_fk", unique=false, nullable=true, insertable=false, updatable=false),
+		@JoinColumn(name="det_bien_tip_ing_nivel1", referencedColumnName="det_bien_nivel1", unique=false, nullable=true, insertable=false, updatable=false)
+		})
+	private DetalleBien dcTipoIngresoBien;
+	
+	@Transient
+	private String npIdDcEstadoConservacion;
 
 	public Bien() {
 	}
@@ -422,6 +427,48 @@ public class Bien extends AuditoriaUtil implements Serializable {
 	 */
 	public void setBieEstadoUso(String bieEstadoUso) {
 		this.bieEstadoUso = bieEstadoUso;
+	}
+
+	/**
+	 * @return the cabCatalogoTipoIngresoBien
+	 */
+	public String getCabCatalogoTipoIngresoBien() {
+		return cabCatalogoTipoIngresoBien;
+	}
+
+	/**
+	 * @param cabCatalogoTipoIngresoBien the cabCatalogoTipoIngresoBien to set
+	 */
+	public void setCabCatalogoTipoIngresoBien(String cabCatalogoTipoIngresoBien) {
+		this.cabCatalogoTipoIngresoBien = cabCatalogoTipoIngresoBien;
+	}
+
+	/**
+	 * @return the detCatalogoTipoIngresoBien
+	 */
+	public String getDetCatalogoTipoIngresoBien() {
+		return detCatalogoTipoIngresoBien;
+	}
+
+	/**
+	 * @param detCatalogoTipoIngresoBien the detCatalogoTipoIngresoBien to set
+	 */
+	public void setDetCatalogoTipoIngresoBien(String detCatalogoTipoIngresoBien) {
+		this.detCatalogoTipoIngresoBien = detCatalogoTipoIngresoBien;
+	}
+
+	/**
+	 * @return the dcTipoIngresoBien
+	 */
+	public DetalleBien getDcTipoIngresoBien() {
+		return dcTipoIngresoBien;
+	}
+
+	/**
+	 * @param dcTipoIngresoBien the dcTipoIngresoBien to set
+	 */
+	public void setDcTipoIngresoBien(DetalleBien dcTipoIngresoBien) {
+		this.dcTipoIngresoBien = dcTipoIngresoBien;
 	}
 
 }
