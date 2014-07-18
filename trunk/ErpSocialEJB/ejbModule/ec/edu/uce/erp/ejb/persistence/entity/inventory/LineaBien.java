@@ -52,6 +52,9 @@ public class LineaBien extends AuditoriaUtil implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="cat_bien_pk", referencedColumnName="cat_bien_pk", insertable=false, updatable=false)
 	private CategoriaBien categoriaBienTbl;
+	
+	@Column(name="lin_bien_indice")
+	private Integer linBienIndice;
 
 	public LineaBien() {
 	}

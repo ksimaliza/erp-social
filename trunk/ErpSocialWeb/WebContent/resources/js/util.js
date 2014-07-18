@@ -12,3 +12,28 @@ function soloEnteros(object, e) {
 		return patron.test(te);		
 	}
 }
+
+//function toUpperCase(object) {
+//	try {
+//		if (object) {
+//			var value = object.value;
+//			if (value) {
+//				object.value = value.toUpperCase();
+//			}
+//		}
+//	} catch (exception) {
+//	}
+//}
+//
+//
+//function toLowerCase(object) {
+//	try {
+//		if (object) {
+//			var value = object.value;
+//			if (value) {
+//				object.value = value.toLowerCase();
+//			}
+//		}
+//	} catch (exception) {
+//	}
+//}

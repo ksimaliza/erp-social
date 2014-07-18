@@ -177,20 +177,20 @@ INSERT INTO detalle_bien_tbl(
             cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
     VALUES ('TIBIE', 'DEVUE', 'Devuelto', '1');
     
----- Estado del bien: Se definira como activo, inactivo dentro de un catalogo.
----- Cabecera catalogo
---INSERT INTO cabecera_bien_tbl(
---cab_bien_pk, cab_bien_descripcion, cab_bien_archivo) VALUES 
---('ESBIE', 'Estado del bien: Se definira como activo, inactivo', 'N/A');
---
----- Detalle catalogo
---INSERT INTO detalle_bien_tbl(
---            cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
---    VALUES ('ESBIE', 'ACTIV', 'Activo', '1');
---
---INSERT INTO detalle_bien_tbl(
---            cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
---    VALUES ('ESBIE', 'INACT', 'Inactivo', '1');
+-- Tipo ingreso: Se definira como donacion o compra dentro de un catalogo.
+-- Cabecera catalogo
+INSERT INTO cabecera_bien_tbl(
+cab_bien_pk, cab_bien_descripcion, cab_bien_archivo) VALUES 
+('TIPIN', 'Tipo ingreso: Se definirá como donación o compra', 'N/A');
+
+-- Detalle catalogo
+INSERT INTO detalle_bien_tbl(
+            cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
+    VALUES ('TIPIN', 'COMPR', 'Compra', '1');
+
+INSERT INTO detalle_bien_tbl(
+            cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
+    VALUES ('TIPIN', 'DONAC', 'Donación', '1');
     
 -- Estado de Conservacion.- Se manejara dentro de una catalogo bueno, malo, regular.
 -- Cabecera catalogo
@@ -199,6 +199,11 @@ cab_bien_pk, cab_bien_descripcion, cab_bien_archivo) VALUES
 ('ESCON', 'Estado de Conservacion.- Bueno, malo, regular', 'N/A');
 
 -- Detalle catalogo
+
+INSERT INTO detalle_bien_tbl(
+            cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
+    VALUES ('ESCON', 'MUYBU', 'Muy Bueno', '1');
+
 INSERT INTO detalle_bien_tbl(
             cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
     VALUES ('ESCON', 'BUENO', 'Bueno', '1');
@@ -440,3 +445,24 @@ left join empleado_view eva on eva.emp_pk = t.emp_asignado_fk
 left join empleado_view evra on evra.emp_pk = t.emp_reasignado_fk
 order by t.tra_fecha_inicio asc;
 ---------------------------------FIN---------------------------------
+
+
+/*==============================================================*/
+/* 2014 - 07 - 16       */
+/*==============================================================*/
+alter table categoria_bien_tbl
+add column cat_bien_indice integer not null default 0;
+
+alter table linea_bien_tbl
+add column lin_bien_indice integer not null default 0;
+
+alter table bien_tbl
+add column cab_bien_tip_ing_fk varchar null;
+
+alter table bien_tbl
+add column det_bien_tip_ing_nivel1 varchar null;
+
+alter table BIEN_TBL
+   add constraint FK_BIEN_TBL_RELATIONS_DET_TIP_ING foreign key (cab_bien_tip_ing_fk, det_bien_tip_ing_nivel1)
+      references DETALLE_BIEN_TBL (CAB_BIEN_FK, DET_BIEN_NIVEL1)
+      on delete restrict on update restrict;

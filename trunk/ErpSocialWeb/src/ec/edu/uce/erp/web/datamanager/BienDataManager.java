@@ -5,6 +5,7 @@ package ec.edu.uce.erp.web.datamanager;
 
 import static ec.edu.uce.erp.common.util.CatalogoCabeceraConstantes.ID_CAB_CATALOGO_ESTADO_CONSERVACION;
 import static ec.edu.uce.erp.common.util.CatalogoCabeceraConstantes.ID_CAB_CATALOGO_TIPO_BIEN;
+import static ec.edu.uce.erp.common.util.CatalogoCabeceraConstantes.ID_CAB_CATALOGO_TIPO_INGRESO_BIEN;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,28 +42,22 @@ public class BienDataManager extends BaseDataManager{
 	
 	private Bien bienInstancia;
 	private Bien bienEditar;
-//	private Bien bienBuscar;
 	private List<Bien> listBien;
 	
 	private VistaBien vistaBienBuscar;
 	private VistaBien vistaBienEditar;
 	private List<VistaBien> listVistaBien;
-//	private List<VistaTransaccion> listVistaTransaccion;
 	
 	private List<SelectItem> dcTipoBien;
-//	private List<SelectItem> dcEstadoBien;
 	private List<SelectItem> dcEstadoConservacion;
-//	private List<SelectItem> dcCategoriaBien;
-	
-	
-//	private List<SelectItem> dcEmpleadosEmpresa;
+	private List<SelectItem> dcTipoIngresoBien;
 	
 	private Integer idCategoriaBienSeleccionado;
 	private Integer idCategoriaBienBuscarSeleccionado;
 	private Integer idLineaBienSeleccionado;
 	private String idDcEstadoConservacionSelec;
 	private String idDcTipoBienSelec;
-	
+	private String idDcTipoIngresoBienSelect;
 	
 	public BienDataManager () {
 		super();
@@ -74,11 +69,7 @@ public class BienDataManager extends BaseDataManager{
 		this.vistaBienBuscar = new VistaBien();
 		this.listVistaBien = new ArrayList<VistaBien>();
 		
-//		this.dcLineaBien = new ArrayList<SelectItem>();
-		
 	}
-	
-	
 	
 	/**
 	 * @return the bienInstancia
@@ -107,20 +98,6 @@ public class BienDataManager extends BaseDataManager{
 	public void setBienEditar(Bien bienEditar) {
 		this.bienEditar = bienEditar;
 	}
-
-//	/**
-//	 * @return the bienBuscar
-//	 */
-//	public Bien getBienBuscar() {
-//		return bienBuscar;
-//	}
-//
-//	/**
-//	 * @param bienBuscar the bienBuscar to set
-//	 */
-//	public void setBienBuscar(Bien bienBuscar) {
-//		this.bienBuscar = bienBuscar;
-//	}
 
 	/**
 	 * @return the listBien
@@ -160,27 +137,18 @@ public class BienDataManager extends BaseDataManager{
 			dcEstadoConservacion = UtilSelectItems.getInstancia().cargarSelectItemsDetBien(ID_CAB_CATALOGO_ESTADO_CONSERVACION, servicioInventario);
 		}
 		return dcEstadoConservacion;
+	} //
+	
+	/**
+	 * @return the dcTipoIngresoBien
+	 */
+	public List<SelectItem> getDcTipoIngresoBien() throws SeguridadesException {
+		if (CollectionUtils.isEmpty(dcTipoIngresoBien)) {
+			slf4jLogger.info("cargar getDcTipoIngresoBien");
+			dcTipoIngresoBien = UtilSelectItems.getInstancia().cargarSelectItemsDetBien(ID_CAB_CATALOGO_TIPO_INGRESO_BIEN, servicioInventario);
+		}
+		return dcTipoIngresoBien;
 	}
-
-	
-	
-//	/**
-//	 * @return the dcMarcaBien
-//	 */
-//	public List<SelectItem> getDcEmpleadosEmpresa() {
-//		
-//		try {
-//			if (CollectionUtils.isEmpty(dcEmpleadosEmpresa)) {
-//				slf4jLogger.info("cargar dcEmpleadosEmpresa");
-//				dcEmpleadosEmpresa = UtilSelectItems.getInstancia().cargarSelectItemEmpleados(servicioInventario, getUsuarioSession().getEmpresaTbl().getEmrPk());
-//			}
-//		} catch (SeguridadesException e) {
-//			slf4jLogger.info("error al cargar getDcEmpleadosEmpresa {}", e.getCause().getMessage());
-//			e.printStackTrace();
-//		}
-//		
-//		return dcEmpleadosEmpresa;
-//	}
 	
 	public void refrescarObjetos () {
 		this.limpiarSeleccionCatalogos();
@@ -278,20 +246,6 @@ public class BienDataManager extends BaseDataManager{
 	public void setIdDcEstadoConservacionSelec(String idDcEstadoConservacionSelec) {
 		this.idDcEstadoConservacionSelec = idDcEstadoConservacionSelec;
 	}
-//
-//	/**
-//	 * @return the listVistaTransaccion
-//	 */
-//	public List<VistaTransaccion> getListVistaTransaccion() {
-//		return listVistaTransaccion;
-//	}
-//
-//	/**
-//	 * @param listVistaTransaccion the listVistaTransaccion to set
-//	 */
-//	public void setListVistaTransaccion(List<VistaTransaccion> listVistaTransaccion) {
-//		this.listVistaTransaccion = listVistaTransaccion;
-//	}
 
 	/**
 	 * @return the idDcTipoBienSelec
@@ -307,8 +261,6 @@ public class BienDataManager extends BaseDataManager{
 		this.idDcTipoBienSelec = idDcTipoBienSelec;
 	}
 
-
-
 	/**
 	 * @return the idCategoriaBienBuscarSeleccionado
 	 */
@@ -316,14 +268,26 @@ public class BienDataManager extends BaseDataManager{
 		return idCategoriaBienBuscarSeleccionado;
 	}
 
-
-
 	/**
 	 * @param idCategoriaBienBuscarSeleccionado the idCategoriaBienBuscarSeleccionado to set
 	 */
 	public void setIdCategoriaBienBuscarSeleccionado(
 			Integer idCategoriaBienBuscarSeleccionado) {
 		this.idCategoriaBienBuscarSeleccionado = idCategoriaBienBuscarSeleccionado;
+	}
+
+	/**
+	 * @return the idDcTipoIngresoBienSelect
+	 */
+	public String getIdDcTipoIngresoBienSelect() {
+		return idDcTipoIngresoBienSelect;
+	}
+
+	/**
+	 * @param idDcTipoIngresoBienSelect the idDcTipoIngresoBienSelect to set
+	 */
+	public void setIdDcTipoIngresoBienSelect(String idDcTipoIngresoBienSelect) {
+		this.idDcTipoIngresoBienSelect = idDcTipoIngresoBienSelect;
 	}
 	
 }

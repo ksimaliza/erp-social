@@ -3,6 +3,7 @@
  */
 package ec.edu.uce.erp.ejb.servicio.impl;
 
+import static ec.edu.uce.erp.common.util.CatalogoCabeceraConstantes.ID_CAB_CATALOGO_TIPO_INGRESO_BIEN;
 import static ec.edu.uce.erp.common.util.ConstantesApplication.ESTADO_ACTIVO;
 import static ec.edu.uce.erp.common.util.ConstantesApplication.ESTADO_INACTIVO;
 
@@ -110,12 +111,18 @@ public class ServicioInventarioImpl implements ServicioInventario {
 		
 		try {
 			
-			proveedor.setProvEstado(ESTADO_ACTIVO);
-			proveedorNuevo = inventarioFactory.getProveedorDAOImpl().create(proveedor);
-			inventarioFactory.getHistoricoTransaccioneDAOImpl()
-					.registrarHistoricoTransaccion(
-							new AuditoriaDTO(proveedor.getUsuarioRegistro()
-									.getIdUsuario(), ServicioInventarioImpl.class.getName(), "registrarProveedor", EnumTipoTransaccion.CREATE));
+			if (existeProveedor(proveedor)) {
+				throw new SeguridadesException("Ya existe un proveedor registrado con ese documento de identificacion");
+			} else {
+				
+				proveedor.setProvEstado(ESTADO_ACTIVO);
+				proveedorNuevo = inventarioFactory.getProveedorDAOImpl().create(proveedor);
+				inventarioFactory.getHistoricoTransaccioneDAOImpl()
+						.registrarHistoricoTransaccion(
+								new AuditoriaDTO(proveedor.getUsuarioRegistro()
+										.getIdUsuario(), ServicioInventarioImpl.class.getName(), "registrarProveedor", EnumTipoTransaccion.CREATE));
+			}
+			
 			
 		} catch (Exception e) {
 			slf4jLogger.info("error al registrarProveedor {}", e.toString());
@@ -123,6 +130,18 @@ public class ServicioInventarioImpl implements ServicioInventario {
 		}
 		
 		return proveedorNuevo;
+	}
+	
+	private Boolean existeProveedor(Proveedor proveedor) throws SeguridadesException {
+		
+		Proveedor proveedorBuscar = new Proveedor();
+		proveedorBuscar.setProvDocumentoIdentificacion(proveedor.getProvDocumentoIdentificacion());
+		List<Proveedor> listProveedor = inventarioFactory.getProveedorDAOImpl().buscarProveedorCriterios(proveedorBuscar);
+		if (CollectionUtils.isEmpty(listProveedor)) {
+			return Boolean.FALSE;
+		}
+		return Boolean.TRUE;
+		
 	}
 
 	@Override
@@ -336,6 +355,8 @@ public class ServicioInventarioImpl implements ServicioInventario {
 			
 			bien.setBieEstado(ESTADO_ACTIVO);
 			bien.setBieEstadoUso(ESTADO_INACTIVO);
+			bien.setCabCatalogoTipoIngresoBien(ID_CAB_CATALOGO_TIPO_INGRESO_BIEN);
+			bien.setBiePk(null);
 			Bien bienNuevo = inventarioFactory.getBienDAOImpl().create(bien);
 			
 			if (bienNuevo != null) {
@@ -355,13 +376,6 @@ public class ServicioInventarioImpl implements ServicioInventario {
 							new AuditoriaDTO(bien.getUsuarioRegistro()
 									.getIdUsuario(), ServicioInventarioImpl.class.getName(), "registrarBien", EnumTipoTransaccion.CREATE));
 			
-//			List<VistaBien> listVistaBien = obtenerVistaDesdeBien(bienNuevo);
-//			
-//			if (CollectionUtils.isNotEmpty(listVistaBien)) {
-//				
-//				return listVistaBien.iterator().next();
-//			}
-			
 			return bienNuevo;
 			
 		} catch (Exception e) {
@@ -370,13 +384,6 @@ public class ServicioInventarioImpl implements ServicioInventario {
 		}
 		
 	}
-	
-//	private VistaBien asignarDatosVistaBien(Bien bien) {
-//		VistaBien vistaBien = new VistaBien();
-//		vistaBien.setBieCodigo(bien.getBieCodigo());
-//		vistaBien.setBieColor(bien.getBieColor());
-//		return vistaBien;
-//	}
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)

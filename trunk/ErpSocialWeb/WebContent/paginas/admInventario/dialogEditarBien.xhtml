@@ -71,17 +71,16 @@
 							<h:outputLabel for="txtModelo" value="#{i18n['erp.bien.modelo']}" />
 						</td>
 						<td>
-							<p:inputText id="txtModelo" style="width: 100%" required="true"
+							<p:inputText id="txtModelo" style="width: 100%" required="true" onkeypress="toUpperCase(this)"
 								value="#{bienDataManager.bienEditar.bieModelo}" label="#{i18n['erp.bien.modelo']}" />
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<h:outputLabel for="txtColor" value="#{i18n['erp.bien.color']}" />
-							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
-							<p:inputText id="txtColor" style="width: 90%" required="true"
+							<p:inputText id="txtColor" style="width: 90%"
 								value="#{bienDataManager.bienEditar.bieColor}" label="#{i18n['erp.bien.color']}" />
 						</td>
 					</tr>

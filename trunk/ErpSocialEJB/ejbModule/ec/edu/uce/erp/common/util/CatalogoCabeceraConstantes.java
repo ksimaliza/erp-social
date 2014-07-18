@@ -44,4 +44,9 @@ public final class CatalogoCabeceraConstantes {
 	 */
 	public static final String ID_CAB_CAT_BAJA_BIEN = MessagesApplicacion.getString("erp.inventarios.cabecera.catalogo.id.bajaBien");
 	
+	/**
+	 * cabecera catalogo tipo ingreso bien
+	 */
+	public static final String ID_CAB_CATALOGO_TIPO_INGRESO_BIEN = MessagesApplicacion.getString("erp.inventarios.cabecera.catalogo.id.tipoIngresoBien");
+	
 }

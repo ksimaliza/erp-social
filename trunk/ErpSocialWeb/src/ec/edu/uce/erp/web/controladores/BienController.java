@@ -3,6 +3,8 @@
  */
 package ec.edu.uce.erp.web.controladores;
 
+import static ec.edu.uce.erp.common.util.ConstantesApplication.ESTADO_ACTIVO;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +17,7 @@ import javax.faces.model.SelectItem;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,8 +67,8 @@ public class BienController extends BaseController{
 		slf4jLogger.info("inicializarObjetos");
 		try {
 			this.dcLineaBien = new ArrayList<SelectItem>();
-			dcCategoriaBien = UtilSelectItems.getInstancia().cargarSelectItemCategoriaBien(servicioInventario);
-			dcMarcaBien = UtilSelectItems.getInstancia().cargarSelectItemMarcaBien(servicioInventario);
+			this.dcCategoriaBien = UtilSelectItems.getInstancia().cargarSelectItemCategoriaBien(servicioInventario);
+			this.dcMarcaBien = UtilSelectItems.getInstancia().cargarSelectItemMarcaBien(servicioInventario);
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("error al cargar la pantalla Bienes {}", e.getCause().getMessage());
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
@@ -82,26 +85,33 @@ public class BienController extends BaseController{
 			this.bienDataManager.getBienInstancia().setCatBienPk(this.bienDataManager.getIdCategoriaBienSeleccionado());
 			this.bienDataManager.getBienInstancia().setLinBienPk(this.bienDataManager.getIdLineaBienSeleccionado());
 			this.bienDataManager.getBienInstancia().setNpIdDcEstadoConservacion(this.bienDataManager.getIdDcEstadoConservacionSelec());
+			this.bienDataManager.getBienInstancia().setDetCatalogoTipoIngresoBien(this.bienDataManager.getIdDcTipoIngresoBienSelect());
 			this.bienDataManager.getBienInstancia().setUsuarioRegistro(this.bienDataManager.getUsuarioSession());
 			if (this.bienDataManager.getBienInstancia().getMarBienPk().intValue()==0) {
 				this.bienDataManager.getBienInstancia().setMarBienPk(null);
 			}
-			this.bienDataManager.getBienInstancia().setBiePk(null);
 			
-			Bien bienNuevo = servicioInventario.registrarBien(this.bienDataManager.getBienInstancia());
+			Bien bien = servicioInventario.registrarBien(this.bienDataManager.getBienInstancia());
 			
-			if (bienNuevo != null) {
-				VistaBien vistaBien = new VistaBien();
-				vistaBien.setBiePk(bienNuevo.getBiePk());
-				vistaBien.setBieEstado(this.bienDataManager.getEstadoActivo());
-				vistaBien.setEmrPk(this.bienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
-				List<VistaBien> listVistaBien = this.servicioInventario.buscarVistaBienCriterios(vistaBien);
+			if (bien != null) {
+				
+				VistaBien vistaBienBuscar = new VistaBien();
+				vistaBienBuscar.setBiePk(bien.getBiePk());
+				vistaBienBuscar.setBieEstado(ESTADO_ACTIVO);
+				vistaBienBuscar.setEmrPk(bien.getEmrPk());
+				
+				List<VistaBien> listVistaBien = this.servicioInventario.buscarVistaBienCriterios(vistaBienBuscar);
+				
 				this.bienDataManager.getListVistaBien().add(listVistaBien.iterator().next());
 				this.bienDataManager.setBienInstancia(new Bien());
+				this.bienDataManager.setIdDcTipoIngresoBienSelect(null);
+				this.bienDataManager.setIdDcTipoBienSelec(null);
+				this.bienDataManager.setIdDcEstadoConservacionSelec(null);
 				MensajesWebController.aniadirMensajeInformacion("erp.mensaje.registro.exito");
 			}
 			
 		} catch (SeguridadesException e) {
+			RequestContext.getCurrentInstance().addCallbackParam("validationFailed", e);
 			slf4jLogger.info("error al registrarBien {}", e.getCause().getMessage());
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
@@ -186,90 +196,6 @@ public class BienController extends BaseController{
 		}
 		
 	}
-	
-//	public String asignarBien () {
-//		
-//		slf4jLogger.info("asignarBien");
-//		
-//		try {
-//			
-//			this.bienDataManager.getVistaBienEditar().setEmpAsignadoFk(this.bienDataManager.getIdCustudioAsignado());
-//			VistaBien vistaBien = servicioInventario.asignarBien(this.bienDataManager.getVistaBienEditar());
-//			
-//			if (vistaBien != null) {
-//				int posicion = this.bienDataManager.getListVistaBien().indexOf(this.bienDataManager.getVistaBienEditar());
-//				this.bienDataManager.getListVistaBien().remove(this.bienDataManager.getVistaBienEditar());
-//				this.bienDataManager.getListVistaBien().add(posicion, vistaBien);
-//				MensajesWebController.aniadirMensajeInformacion("Bien asignado correctamente");
-//			}
-//			
-//		} catch (SeguridadesException e) {
-//			slf4jLogger.info("error al asignarBien {}", e.getCause().getMessage());
-//			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
-//		}
-//		
-//		return "administracionBien";
-//		
-//	}
-//	
-//	public void reasignarBien () {
-//		
-//		slf4jLogger.info("reasignarBien");
-//		
-//		try {
-//			
-//			this.bienDataManager.getVistaBienEditar().setEmpReasignadoFk(this.bienDataManager.getIdCustudioReasignado());
-//			VistaBien vistaBien = servicioInventario.reasignarBien(this.bienDataManager.getVistaBienEditar());
-//			
-//			if (vistaBien != null) {
-//				int posicion = this.bienDataManager.getListVistaBien().indexOf(this.bienDataManager.getVistaBienEditar());
-//				this.bienDataManager.getListVistaBien().remove(this.bienDataManager.getVistaBienEditar());
-//				this.bienDataManager.getListVistaBien().add(posicion, vistaBien);
-//				MensajesWebController.aniadirMensajeInformacion("Bien reasignado correctamente");
-//			}
-//			
-//		} catch (SeguridadesException e) {
-//			slf4jLogger.info("error al asignarBien {}", e.getCause().getMessage());
-//			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
-//		}
-//		
-//	}
-//	
-//	public void validarAsignacionCustodio () {
-//		slf4jLogger.info("validarAsignacionCustodio");
-//		
-//		if (bienDataManager.getVistaBienEditar().getEmpAsignadoFk().intValue() == bienDataManager.getIdCustudioReasignado().intValue()){
-//			MensajesWebController.aniadirMensajeError("El custodio a reemplazar no puede ser el mismo");
-//			bienDataManager.setIdCustudioReasignado(0);
-//		}
-//		
-//	}
-//	
-//	public void obtenerTrazabilidadBien () {
-//		slf4jLogger.info("obtenerTrazabilidadBien");
-//		
-//		try {
-//			VistaTransaccion vistaTransaccion = new VistaTransaccion();
-//			vistaTransaccion.setBieFk(bienDataManager.getVistaBienEditar().getBiePk());
-//			bienDataManager.setListVistaTransaccion(servicioInventario.obtenerVistaTransaccionCriterios(vistaTransaccion));
-//		} catch (SeguridadesException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//	} 
-	
-//	public void generarActaBien () {
-//		
-//		List<ActaBienDTO> listActaBien = new ArrayList<ActaBienDTO>();
-//		ActaBienDTO actaBienDTO = new ActaBienDTO();
-//		actaBienDTO.setTituloActa("Acta bienes");
-//		listActaBien.add(actaBienDTO);
-//		
-//		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), listActaBien, "actaAsignacionBien");
-//		ReporteUtil.generarReporte(jasperPrint, "pdf", "actaBien");
-//		
-//	}
 	
 	public void cargarDcLineaBien (Integer categoriaBienSeleccionado) {
 		
