@@ -77,16 +77,6 @@
 							</p:selectOneMenu>
 						</td>
 					</tr>
-				<!-- 	<tr>
-						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
-						<td>
-							<p:selectOneMenu id="inputEstado" value="#{vistaBienDataManager.vistaBienBuscar.bieEstado}">
-								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
-								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{vistaBienDataManager.estadoActivo}"/>
-								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{vistaBienDataManager.estadoInactivo}"/>
-							</p:selectOneMenu>
-						</td>
-					</tr> -->
 				</table>
 			</p:panel>
 			<p:panel id="botonesBuscar">
@@ -172,13 +162,6 @@
 				</p:column>
 				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="20%" exportable="false">
 					<h:panelGroup>
-						<!-- <p:commandLink styleClass="no-decor"
-							title="#{i18n['label.editar']}"
-							process="@this"
-							oncomplete="dlgEditarBien.show()" update=":formEditarBien:pnlEditarBien"
-							action="#{transaccionBienController.asignarDatosBienDesdeVista(vistaBien)}">
-							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
-						</p:commandLink> -->
 						<p:commandLink value="Asignar" title="Asignar" rendered="#{vistaBien.npVerAsignarBien}"
 							oncomplete="dlgAsignarBien.show()" update=":formAsignarBien:pnlAsignarBien">
 							<f:setPropertyActionListener target="#{vistaBienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
@@ -191,10 +174,6 @@
 							oncomplete="dlgDevolverBien.show()" update=":formDevolverBien:pnlDevolverBien">
 							<f:setPropertyActionListener target="#{vistaBienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
 						</p:commandLink>
-						<!-- <p:commandLink value="  Dar baja" title="Dar baja" rendered="#{vistaBien.npVerBajaBien}"
-							oncomplete="dlgBajaBien.show()" update=":formBajaBien:pnlBajaBien">
-							<f:setPropertyActionListener target="#{vistaBienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
-						</p:commandLink> -->
 						<p:commandLink value="  Trazabilidad" title="Trazabilidad"
 							action="#{transaccionBienController.obtenerTrazabilidadBien}"
 							oncomplete="dlgTrazabilidadBien.show()" update=":formTrazabilidadBien:pnlTrazabilidadBien">

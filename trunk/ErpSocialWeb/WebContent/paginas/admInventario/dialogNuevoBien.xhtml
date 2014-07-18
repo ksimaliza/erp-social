@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpNuevoBien" header="#{i18n['erp.bien.registrar']}" 
-		widgetVar="dlgNuevoBien" modal="true" minWidth="600" width="600" appendTo="@(body)" draggable="false">
+		widgetVar="dlgNuevoBien" modal="true" minWidth="600" width="600" appendTo="@(body)" draggable="true">
 		<h:form id="formNuevoBien">
 			<p:panel id="pnlNuevoBien">
 				<table class="formulario">
@@ -127,7 +127,7 @@
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoBien.hide()"
 					process="@this,pnlNuevoBien" update="pnlNuevoBien,:formBien:tablaBienes,:formBien:pnlMessages"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" immediate="true"
-					actionListener="#{bienController.reiniciarObjetos}" oncomplete="dlgNuevoBien.hide();" />
+					actionListener="#{bienController.resetControllerCatalogoValues}" oncomplete="dlgNuevoBien.hide();" />
 			</p:panel>
 		</h:form>
 	</p:dialog>

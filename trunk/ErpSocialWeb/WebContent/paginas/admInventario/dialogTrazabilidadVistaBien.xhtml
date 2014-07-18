@@ -5,23 +5,23 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	
-	<p:dialog id="popUpTrazabilidadBien" header="#{i18n['erp.bien.trazabilidad']}" resizable="false"
-		widgetVar="dlgTrazabilidadBien" modal="true" minWidth="650" width="650" appendTo="@(body)" draggable="false">
-		<h:form id="formTrazabilidadBien" styleClass="formulario">
-			<p:panel id="pnlTrazabilidadBien" styleClass="formulario">
+	<p:dialog id="popUpTrazabilidadVistaBien" header="#{i18n['erp.bien.trazabilidad']}" resizable="false"
+		widgetVar="dlgTrazabilidadVistaBien" modal="true" minWidth="650" width="650" appendTo="@(body)" draggable="false">
+		<h:form id="formTrazabilidadVistaBien" styleClass="formulario">
+			<p:panel id="pnlTrazabilidadVistaBien" styleClass="formulario">
 				<table class="formulario">
 					<tr>
 						<td width="50%">
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.nombre']}:&#160;" styleClass="label"/>
-							<h:outputText id="txtNombre" value="#{vistaBienDataManager.vistaBienEditar.bieNombre}" />
+							<h:outputText id="txtNombre" value="#{bienDataManager.vistaBienEditar.bieNombre}" />
 						</td>
 						<td width="50%">
 							<h:outputLabel for="txtCodigo" value="#{i18n['erp.bien.codigo']}:&#160;" />
-							<h:outputText id="txtCodigo" value="#{vistaBienDataManager.vistaBienEditar.bieCodigo}" />
+							<h:outputText id="txtCodigo" value="#{bienDataManager.vistaBienEditar.bieCodigo}" />
 						</td>
 					</tr>
 				</table>
-				<p:dataTable id="dataTableTrazabilidad" value="#{vistaBienDataManager.listVistaTransaccion}" var="transaccion">
+				<p:dataTable id="dataTableTrazabilidad" value="#{bienDataManager.listVistaTransaccion}" var="transaccion">
 				
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.tranzabilidad.lista']}" />
@@ -53,7 +53,7 @@
 				</p:dataTable>
 			</p:panel>
 			<p:panel id="pnlBotones" styleClass="formulario">
-				<p:commandButton value="#{i18n['label.cerrar']}" onclick="dlgTrazabilidadBien.hide();" type="button" />
+				<p:commandButton value="#{i18n['label.cerrar']}" onclick="dlgTrazabilidadVistaBien.hide();" type="button" />
 			</p:panel>
 		</h:form>
 	</p:dialog>
