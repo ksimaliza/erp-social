@@ -25,6 +25,7 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Bien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
+import ec.edu.uce.erp.ejb.persistence.view.VistaTransaccion;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
@@ -104,9 +105,7 @@ public class BienController extends BaseController{
 				
 				this.bienDataManager.getListVistaBien().add(listVistaBien.iterator().next());
 				this.bienDataManager.setBienInstancia(new Bien());
-				this.bienDataManager.setIdDcTipoIngresoBienSelect(null);
-				this.bienDataManager.setIdDcTipoBienSelec(null);
-				this.bienDataManager.setIdDcEstadoConservacionSelec(null);
+				this.resetControllerCatalogoValues();
 				MensajesWebController.aniadirMensajeInformacion("erp.mensaje.registro.exito");
 			}
 			
@@ -121,9 +120,13 @@ public class BienController extends BaseController{
 		slf4jLogger.info("editarBien");
 		try {
 			
+			this.bienDataManager.getBienEditar().setEmrPk(this.bienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
 			this.bienDataManager.getBienEditar().setCatBienPk(this.bienDataManager.getIdCategoriaBienSeleccionado());
 			this.bienDataManager.getBienEditar().setLinBienPk(this.bienDataManager.getIdLineaBienSeleccionado());
+			this.bienDataManager.getBienEditar().setDetCatalogoTipoIngresoBien(this.bienDataManager.getIdDcTipoIngresoBienSelect());
+			this.bienDataManager.getBienEditar().setNpIdDcEstadoConservacion(this.bienDataManager.getIdDcEstadoConservacionSelec());
 			this.bienDataManager.getBienEditar().setUsuarioRegistro(this.bienDataManager.getUsuarioSession());
+			
 			VistaBien vistaBienUpdate = servicioInventario.actualizarBien(this.bienDataManager.getBienEditar());
 			
 			if (vistaBienUpdate != null) {
@@ -182,6 +185,7 @@ public class BienController extends BaseController{
 			if (CollectionUtils.isNotEmpty(listBien) && listBien.size()==1) {
 				
 				Bien bienEditar = listBien.iterator().next();
+				this.bienDataManager.setIdDcTipoIngresoBienSelect(bienEditar.getDetCatalogoTipoIngresoBien());
 				this.bienDataManager.setIdCategoriaBienSeleccionado(bienEditar.getCatBienPk());
 				this.bienDataManager.setIdLineaBienSeleccionado(bienEditar.getLinBienPk());
 				this.bienDataManager.setIdDcEstadoConservacionSelec(vistaBien.getDetBienEstConservNivel1Fk());
@@ -222,11 +226,31 @@ public class BienController extends BaseController{
 	
 	}
 	
-	public void reiniciarObjetos () {
+	public void obtenerTrazabilidadBien () {
+		
+		slf4jLogger.info("obtenerTrazabilidadBien");
+		
+		try {
+			VistaTransaccion vistaTransaccion = new VistaTransaccion();
+			vistaTransaccion.setBieFk(this.bienDataManager.getVistaBienEditar().getBiePk());
+			this.bienDataManager.setListVistaTransaccion(servicioInventario.obtenerVistaTransaccionCriterios(vistaTransaccion));
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("error al obtenerTrazabilidadBien {}", e.getCause().getMessage());
+			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
+		}
+		
+	}
+	
+	/**
+	 * Poner en null los valores de los catalogos que administra el controlador
+	 */
+	public void resetControllerCatalogoValues () {
+		this.bienDataManager.setIdDcTipoIngresoBienSelect(null);
+		this.bienDataManager.setIdDcTipoBienSelec(null);
+		this.bienDataManager.setIdDcEstadoConservacionSelec(null);
 		this.bienDataManager.refrescarObjetos();
 	}
 	
-
 	/**
 	 * @return the dcCategoriaBien
 	 */

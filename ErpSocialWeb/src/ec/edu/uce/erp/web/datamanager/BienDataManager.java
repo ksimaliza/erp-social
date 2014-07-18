@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Bien;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
+import ec.edu.uce.erp.ejb.persistence.view.VistaTransaccion;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 import ec.edu.uce.erp.web.common.util.UtilSelectItems;
@@ -47,6 +48,8 @@ public class BienDataManager extends BaseDataManager{
 	private VistaBien vistaBienBuscar;
 	private VistaBien vistaBienEditar;
 	private List<VistaBien> listVistaBien;
+	
+	private List<VistaTransaccion> listVistaTransaccion;
 	
 	private List<SelectItem> dcTipoBien;
 	private List<SelectItem> dcEstadoConservacion;
@@ -158,7 +161,7 @@ public class BienDataManager extends BaseDataManager{
 	private void limpiarSeleccionCatalogos () {
 		this.idDcEstadoConservacionSelec=null;
 		this.idDcTipoBienSelec = null;
-//		this.idCategoriaBienSeleccionado=null;
+		this.idCategoriaBienSeleccionado=null;
 		this.idLineaBienSeleccionado=null;
 	}
 	
@@ -288,6 +291,20 @@ public class BienDataManager extends BaseDataManager{
 	 */
 	public void setIdDcTipoIngresoBienSelect(String idDcTipoIngresoBienSelect) {
 		this.idDcTipoIngresoBienSelect = idDcTipoIngresoBienSelect;
+	}
+
+	/**
+	 * @return the listVistaTransaccion
+	 */
+	public List<VistaTransaccion> getListVistaTransaccion() {
+		return listVistaTransaccion;
+	}
+
+	/**
+	 * @param listVistaTransaccion the listVistaTransaccion to set
+	 */
+	public void setListVistaTransaccion(List<VistaTransaccion> listVistaTransaccion) {
+		this.listVistaTransaccion = listVistaTransaccion;
 	}
 	
 }
