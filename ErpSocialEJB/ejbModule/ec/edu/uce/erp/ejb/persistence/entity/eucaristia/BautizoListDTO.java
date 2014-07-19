@@ -2,8 +2,8 @@ package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
+import java.sql.Timestamp;
 
 
 /**
@@ -30,6 +30,9 @@ public class BautizoListDTO implements Serializable {
 
 	@Column(name="bau_codigo")
 	private Integer bauCodigo;
+
+	@Column(name="bau_estado")
+	private Integer bauEstado;
 
 	@Column(name="bau_fecha_aprobacion_cruso")
 	private Timestamp bauFechaAprobacionCruso;
@@ -69,22 +72,6 @@ public class BautizoListDTO implements Serializable {
 
 	@Column(name="cat_provincia")
 	private String catProvincia;
-
-	@Column(name="doc_apellidos")
-	private String docApellidos;
-
-	@Column(name="doc_ci")
-	private String docCi;
-
-	@Id
-	@Column(name="doc_codigo")
-	private Integer docCodigo;
-
-	@Column(name="doc_nombres")
-	private String docNombres;
-
-	@Column(name="doc_persona")
-	private Integer docPersona;
 
 	@Column(name="mad_apellidos")
 	private String madApellidos;
@@ -129,6 +116,7 @@ public class BautizoListDTO implements Serializable {
 	@Column(name="per_nombres")
 	private String perNombres;
 
+	@Id
 	@Column(name="per_pk")
 	private Integer perPk;
 
@@ -191,6 +179,14 @@ public class BautizoListDTO implements Serializable {
 
 	public void setBauCodigo(Integer bauCodigo) {
 		this.bauCodigo = bauCodigo;
+	}
+
+	public Integer getBauEstado() {
+		return this.bauEstado;
+	}
+
+	public void setBauEstado(Integer bauEstado) {
+		this.bauEstado = bauEstado;
 	}
 
 	public Timestamp getBauFechaAprobacionCruso() {
@@ -295,46 +291,6 @@ public class BautizoListDTO implements Serializable {
 
 	public void setCatProvincia(String catProvincia) {
 		this.catProvincia = catProvincia;
-	}
-
-	public String getDocApellidos() {
-		return this.docApellidos;
-	}
-
-	public void setDocApellidos(String docApellidos) {
-		this.docApellidos = docApellidos;
-	}
-
-	public String getDocCi() {
-		return this.docCi;
-	}
-
-	public void setDocCi(String docCi) {
-		this.docCi = docCi;
-	}
-
-	public Integer getDocCodigo() {
-		return this.docCodigo;
-	}
-
-	public void setDocCodigo(Integer docCodigo) {
-		this.docCodigo = docCodigo;
-	}
-
-	public String getDocNombres() {
-		return this.docNombres;
-	}
-
-	public void setDocNombres(String docNombres) {
-		this.docNombres = docNombres;
-	}
-
-	public Integer getDocPersona() {
-		return this.docPersona;
-	}
-
-	public void setDocPersona(Integer docPersona) {
-		this.docPersona = docPersona;
 	}
 
 	public String getMadApellidos() {

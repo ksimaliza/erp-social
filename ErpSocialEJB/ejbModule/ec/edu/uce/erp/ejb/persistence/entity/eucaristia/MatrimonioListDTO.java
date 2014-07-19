@@ -2,8 +2,8 @@ package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
+import java.sql.Timestamp;
 
 
 /**
@@ -15,6 +15,15 @@ import java.util.Date;
 @NamedQuery(name="MatrimonioListDTO.findAll", query="SELECT m FROM MatrimonioListDTO m")
 public class MatrimonioListDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+	@Column(name="cat_canton")
+	private String catCanton;
+
+	@Column(name="cat_parroquia")
+	private String catParroquia;
+
+	@Column(name="cat_provincia")
+	private String catProvincia;
 
 	@Column(name="mad_novia_apellidos")
 	private String madNoviaApellidos;
@@ -37,6 +46,9 @@ public class MatrimonioListDTO implements Serializable {
 	@Column(name="mat_acta")
 	private String matActa;
 
+	@Column(name="mat_canton")
+	private Integer matCanton;
+
 	@Column(name="mat_certificado_novia")
 	private String matCertificadoNovia;
 
@@ -54,9 +66,6 @@ public class MatrimonioListDTO implements Serializable {
 
 	@Column(name="mat_fecha_aprobacion_curso")
 	private Timestamp matFechaAprobacionCurso;
-
-	@Column(name="mat_lugar")
-	private String matLugar;
 
 	@Column(name="mat_madrina_novia")
 	private Integer matMadrinaNovia;
@@ -82,11 +91,17 @@ public class MatrimonioListDTO implements Serializable {
 	@Column(name="mat_pagina")
 	private String matPagina;
 
+	@Column(name="mat_parroquia")
+	private Integer matParroquia;
+
 	@Column(name="mat_parroquia_novia")
 	private String matParroquiaNovia;
 
 	@Column(name="mat_parroquia_novio")
 	private String matParroquiaNovio;
+
+	@Column(name="mat_provincia")
+	private Integer matProvincia;
 
 	@Column(name="mat_sacerdote")
 	private Integer matSacerdote;
@@ -193,6 +208,30 @@ public class MatrimonioListDTO implements Serializable {
 	public MatrimonioListDTO() {
 	}
 
+	public String getCatCanton() {
+		return this.catCanton;
+	}
+
+	public void setCatCanton(String catCanton) {
+		this.catCanton = catCanton;
+	}
+
+	public String getCatParroquia() {
+		return this.catParroquia;
+	}
+
+	public void setCatParroquia(String catParroquia) {
+		this.catParroquia = catParroquia;
+	}
+
+	public String getCatProvincia() {
+		return this.catProvincia;
+	}
+
+	public void setCatProvincia(String catProvincia) {
+		this.catProvincia = catProvincia;
+	}
+
 	public String getMadNoviaApellidos() {
 		return this.madNoviaApellidos;
 	}
@@ -249,6 +288,14 @@ public class MatrimonioListDTO implements Serializable {
 		this.matActa = matActa;
 	}
 
+	public Integer getMatCanton() {
+		return this.matCanton;
+	}
+
+	public void setMatCanton(Integer matCanton) {
+		this.matCanton = matCanton;
+	}
+
 	public String getMatCertificadoNovia() {
 		return this.matCertificadoNovia;
 	}
@@ -295,14 +342,6 @@ public class MatrimonioListDTO implements Serializable {
 
 	public void setMatFechaAprobacionCurso(Timestamp matFechaAprobacionCurso) {
 		this.matFechaAprobacionCurso = matFechaAprobacionCurso;
-	}
-
-	public String getMatLugar() {
-		return this.matLugar;
-	}
-
-	public void setMatLugar(String matLugar) {
-		this.matLugar = matLugar;
 	}
 
 	public Integer getMatMadrinaNovia() {
@@ -369,6 +408,14 @@ public class MatrimonioListDTO implements Serializable {
 		this.matPagina = matPagina;
 	}
 
+	public Integer getMatParroquia() {
+		return this.matParroquia;
+	}
+
+	public void setMatParroquia(Integer matParroquia) {
+		this.matParroquia = matParroquia;
+	}
+
 	public String getMatParroquiaNovia() {
 		return this.matParroquiaNovia;
 	}
@@ -383,6 +430,14 @@ public class MatrimonioListDTO implements Serializable {
 
 	public void setMatParroquiaNovio(String matParroquiaNovio) {
 		this.matParroquiaNovio = matParroquiaNovio;
+	}
+
+	public Integer getMatProvincia() {
+		return this.matProvincia;
+	}
+
+	public void setMatProvincia(Integer matProvincia) {
+		this.matProvincia = matProvincia;
 	}
 
 	public Integer getMatSacerdote() {

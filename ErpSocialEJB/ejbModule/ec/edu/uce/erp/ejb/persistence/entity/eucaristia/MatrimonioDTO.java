@@ -1,7 +1,9 @@
 package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.sql.Timestamp;
 
 
@@ -36,9 +38,6 @@ public class MatrimonioDTO implements Serializable {
 	@Column(name="mat_fecha_aprobacion_curso")
 	private Timestamp matFechaAprobacionCurso;
 
-	@Column(name="mat_lugar")
-	private String matLugar;
-
 	@Column(name="mat_madrina_novia")
 	private Integer matMadrinaNovia;
 
@@ -72,7 +71,14 @@ public class MatrimonioDTO implements Serializable {
 	@Column(name="mat_certificado_por")
 	private Integer matCertificadoPor;
 
+	@Column(name="mat_canton")
+	private Integer matCanton;
+
+	@Column(name="mat_parroquia")
+	private Integer matParroquia;
 	
+	@Column(name="mat_provincia")
+	private Integer matProvincia;
 
 	@Column(name="mat_tomo")
 	private String matTomo;
@@ -133,12 +139,30 @@ public class MatrimonioDTO implements Serializable {
 		this.matFechaAprobacionCurso = matFechaAprobacionCurso;
 	}
 
-	public String getMatLugar() {
-		return this.matLugar;
+	
+
+	public Integer getMatCanton() {
+		return matCanton;
 	}
 
-	public void setMatLugar(String matLugar) {
-		this.matLugar = matLugar;
+	public void setMatCanton(Integer matCanton) {
+		this.matCanton = matCanton;
+	}
+
+	public Integer getMatParroquia() {
+		return matParroquia;
+	}
+
+	public void setMatParroquia(Integer matParroquia) {
+		this.matParroquia = matParroquia;
+	}
+
+	public Integer getMatProvincia() {
+		return matProvincia;
+	}
+
+	public void setMatProvincia(Integer matProvincia) {
+		this.matProvincia = matProvincia;
 	}
 
 	public Integer getMatMadrinaNovia() {

@@ -65,8 +65,7 @@ public interface ServicioEucaristia {
 			ConfirmacionListDTO confirmacionListDTO)
 			throws SeguridadesException;
 
-	ConfirmacionVO obtenerConfirmacionPorId(Integer idConfirmado,
-			Integer idConfirmacion) throws SeguridadesException;
+	
 
 	List<CatalogoEucaristiaDTO> buscarCatalogo(
 			CatalogoEucaristiaDTO catalogoEucaristiaDTO)
@@ -78,8 +77,7 @@ public interface ServicioEucaristia {
 	List<ComunionListDTO> buscarPartidaComunion(ComunionListDTO comunionListDTO)
 			throws SeguridadesException;
 
-	ComunionVO obtenerComunionPorId(Integer idAsignado, Integer idComunion)
-			throws SeguridadesException;
+
 
 	
 
@@ -89,8 +87,7 @@ public interface ServicioEucaristia {
 	List<MatrimonioListDTO> buscarPartidaMatrimonio(
 			MatrimonioListDTO matrimonioListDTO) throws SeguridadesException;
 
-	BautizoVO obtenerBautizoPorId(Integer idBautizado, Integer idBautizo)
-			throws SeguridadesException;
+
 
 	
 	MatrimonioVO obtenerMatrimonioPorId(MatrimonioListDTO matrimonioListDTO)
@@ -112,6 +109,16 @@ public interface ServicioEucaristia {
 			throws SeguridadesException;
 
 	TipoNichoDTO obtenerTipoNichoPorId(Integer id) throws SeguridadesException;
+
+	BautizoVO obtenerBautizoPorId(BautizoListDTO bautizoListDTO)
+			throws SeguridadesException;
+
+	ConfirmacionVO obtenerConfirmacionPorId(
+			ConfirmacionListDTO confirmacionListDTO)
+			throws SeguridadesException;
+
+	ComunionVO obtenerComunionPorId(ComunionListDTO comunionListDTO)
+			throws SeguridadesException;
 
 
 }

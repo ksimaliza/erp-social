@@ -2,8 +2,8 @@ package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
+import java.sql.Timestamp;
 
 
 /**
@@ -16,14 +16,32 @@ import java.util.Date;
 public class ComunionListDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Column(name="cat_canton")
+	private String catCanton;
+
+	@Column(name="cat_parroquia")
+	private String catParroquia;
+
+	@Column(name="cat_provincia")
+	private String catProvincia;
+
+	@Column(name="pad_apellidos")
+	private String padApellidos;
+
+	@Column(name="pad_ci")
+	private String padCi;
+
+	@Column(name="pad_nombres")
+	private String padNombres;
+
 	@Column(name="pco_acta")
 	private String pcoActa;
 
 	@Column(name="pco_asignado")
 	private Integer pcoAsignado;
 
-	@Column(name="pco_canton_parroquia")
-	private Integer pcoCantonParroquia;
+	@Column(name="pco_canton")
+	private Integer pcoCanton;
 
 	@Column(name="pco_certificado_por")
 	private Integer pcoCertificadoPor;
@@ -51,6 +69,9 @@ public class ComunionListDTO implements Serializable {
 
 	@Column(name="pco_pagina")
 	private String pcoPagina;
+
+	@Column(name="pco_parroquia")
+	private Integer pcoParroquia;
 
 	@Column(name="pco_provincia")
 	private Integer pcoProvincia;
@@ -93,13 +114,70 @@ public class ComunionListDTO implements Serializable {
 	@Column(name="per_telefono")
 	private String perTelefono;
 
+	@Column(name="sac_apellidos")
+	private String sacApellidos;
+
+	@Column(name="sac_ci")
+	private String sacCi;
+
 	@Column(name="sac_codigo")
 	private Integer sacCodigo;
+
+	@Column(name="sac_nombres")
+	private String sacNombres;
 
 	@Column(name="sac_persona")
 	private Integer sacPersona;
 
 	public ComunionListDTO() {
+	}
+
+	public String getCatCanton() {
+		return this.catCanton;
+	}
+
+	public void setCatCanton(String catCanton) {
+		this.catCanton = catCanton;
+	}
+
+	public String getCatParroquia() {
+		return this.catParroquia;
+	}
+
+	public void setCatParroquia(String catParroquia) {
+		this.catParroquia = catParroquia;
+	}
+
+	public String getCatProvincia() {
+		return this.catProvincia;
+	}
+
+	public void setCatProvincia(String catProvincia) {
+		this.catProvincia = catProvincia;
+	}
+
+	public String getPadApellidos() {
+		return this.padApellidos;
+	}
+
+	public void setPadApellidos(String padApellidos) {
+		this.padApellidos = padApellidos;
+	}
+
+	public String getPadCi() {
+		return this.padCi;
+	}
+
+	public void setPadCi(String padCi) {
+		this.padCi = padCi;
+	}
+
+	public String getPadNombres() {
+		return this.padNombres;
+	}
+
+	public void setPadNombres(String padNombres) {
+		this.padNombres = padNombres;
 	}
 
 	public String getPcoActa() {
@@ -118,12 +196,12 @@ public class ComunionListDTO implements Serializable {
 		this.pcoAsignado = pcoAsignado;
 	}
 
-	public Integer getPcoCantonParroquia() {
-		return this.pcoCantonParroquia;
+	public Integer getPcoCanton() {
+		return this.pcoCanton;
 	}
 
-	public void setPcoCantonParroquia(Integer pcoCantonParroquia) {
-		this.pcoCantonParroquia = pcoCantonParroquia;
+	public void setPcoCanton(Integer pcoCanton) {
+		this.pcoCanton = pcoCanton;
 	}
 
 	public Integer getPcoCertificadoPor() {
@@ -196,6 +274,14 @@ public class ComunionListDTO implements Serializable {
 
 	public void setPcoPagina(String pcoPagina) {
 		this.pcoPagina = pcoPagina;
+	}
+
+	public Integer getPcoParroquia() {
+		return this.pcoParroquia;
+	}
+
+	public void setPcoParroquia(Integer pcoParroquia) {
+		this.pcoParroquia = pcoParroquia;
 	}
 
 	public Integer getPcoProvincia() {
@@ -302,12 +388,36 @@ public class ComunionListDTO implements Serializable {
 		this.perTelefono = perTelefono;
 	}
 
+	public String getSacApellidos() {
+		return this.sacApellidos;
+	}
+
+	public void setSacApellidos(String sacApellidos) {
+		this.sacApellidos = sacApellidos;
+	}
+
+	public String getSacCi() {
+		return this.sacCi;
+	}
+
+	public void setSacCi(String sacCi) {
+		this.sacCi = sacCi;
+	}
+
 	public Integer getSacCodigo() {
 		return this.sacCodigo;
 	}
 
 	public void setSacCodigo(Integer sacCodigo) {
 		this.sacCodigo = sacCodigo;
+	}
+
+	public String getSacNombres() {
+		return this.sacNombres;
+	}
+
+	public void setSacNombres(String sacNombres) {
+		this.sacNombres = sacNombres;
 	}
 
 	public Integer getSacPersona() {
