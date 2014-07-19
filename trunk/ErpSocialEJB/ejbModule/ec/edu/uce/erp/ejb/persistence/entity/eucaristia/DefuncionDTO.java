@@ -30,14 +30,14 @@ public class DefuncionDTO implements Serializable {
 	@Column(name="def_causa_muerte")
 	private String defCausaMuerte;
 
-	@Column(name="def_ciudad")
-	private Integer defCiudad;
+	@Column(name="def_parroquia")
+	private Integer defParroquia;
 
 	@Column(name="def_conyugue")
 	private Integer defConyugue;
 
 	@Column(name="def_doctor_certifica")
-	private String defDoctorCertifica;
+	private int defDoctorCertifica;
 
 	@Column(name="def_estado_civil")
 	private Integer defEstadoCivil;
@@ -100,13 +100,7 @@ public class DefuncionDTO implements Serializable {
 		this.defCausaMuerte = defCausaMuerte;
 	}
 
-	public Integer getDefCiudad() {
-		return this.defCiudad;
-	}
-
-	public void setDefCiudad(Integer defCiudad) {
-		this.defCiudad = defCiudad;
-	}
+	
 
 	public Integer getDefConyugue() {
 		return this.defConyugue;
@@ -116,13 +110,7 @@ public class DefuncionDTO implements Serializable {
 		this.defConyugue = defConyugue;
 	}
 
-	public String getDefDoctorCertifica() {
-		return this.defDoctorCertifica;
-	}
-
-	public void setDefDoctorCertifica(String defDoctorCertifica) {
-		this.defDoctorCertifica = defDoctorCertifica;
-	}
+	
 
 	public Integer getDefEstadoCivil() {
 		return this.defEstadoCivil;
@@ -186,6 +174,22 @@ public class DefuncionDTO implements Serializable {
 
 	public void setEucSacerdote(SacerdoteDTO eucSacerdote) {
 		this.eucSacerdote = eucSacerdote;
+	}
+
+	public Integer getDefParroquia() {
+		return defParroquia;
+	}
+
+	public void setDefParroquia(Integer defParroquia) {
+		this.defParroquia = defParroquia;
+	}
+
+	public int getDefDoctorCertifica() {
+		return defDoctorCertifica;
+	}
+
+	public void setDefDoctorCertifica(int defDoctorCertifica) {
+		this.defDoctorCertifica = defDoctorCertifica;
 	}
 
 }

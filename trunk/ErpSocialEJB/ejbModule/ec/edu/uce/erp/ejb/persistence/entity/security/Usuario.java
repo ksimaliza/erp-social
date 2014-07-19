@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -71,7 +72,7 @@ public class Usuario extends AuditoriaUtil implements Serializable {
 	private String passUsuario;
 
 	//bi-directional many-to-one association to Persona
-	@OneToMany(mappedBy="segtUsuario")
+	@OneToMany(mappedBy="segtUsuario",fetch=FetchType.EAGER)
 	private List<Persona> personaTbls;
 
 	//bi-directional many-to-one association to HistorialClave

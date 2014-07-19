@@ -22,7 +22,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MateriaDTO;
 
 public class MateriaDAOImpl extends AbstractFacadeImpl<MateriaDTO> implements MateriaDAO  {
 
-	private static final Logger slf4jLogger = LoggerFactory.getLogger(EmpresaDAOImpl.class);
+	private static final Logger slf4jLogger = LoggerFactory.getLogger(MateriaDAOImpl.class);
 	
 	public MateriaDAOImpl() {
 		super();
