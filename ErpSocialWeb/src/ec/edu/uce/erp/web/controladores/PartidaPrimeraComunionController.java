@@ -1,6 +1,7 @@
 package ec.edu.uce.erp.web.controladores;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -19,7 +20,6 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ComunionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PrimeraComunionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
@@ -65,7 +65,8 @@ public class PartidaPrimeraComunionController extends BaseController{
 	public void inicializarObjetos () {
 		buscarSacerdote();
 		buscarTipo ();
-		buscarDoctor();
+		buscarProvincia();
+		buscarEstado();
 	}
 	
 public void registrarPrimeraComunion () {
@@ -74,18 +75,38 @@ public void registrarPrimeraComunion () {
 		ComunionVO comunionVO;
 		SacerdoteDTO sacerdoteDTO;
 		DoctorDTO doctorDTO;
+		CatalogoEucaristiaDTO provincia;
+		CatalogoEucaristiaDTO canton;
+		CatalogoEucaristiaDTO parroquia;
+		CatalogoEucaristiaDTO estado;
 		
 		try {
 			
 			comunionVO=new ComunionVO();
 			sacerdoteDTO=new SacerdoteDTO();
 			doctorDTO=new DoctorDTO();
+			provincia=new CatalogoEucaristiaDTO();
+			canton=new CatalogoEucaristiaDTO();
+			parroquia=new CatalogoEucaristiaDTO();
+			estado=new CatalogoEucaristiaDTO();
 			
-			
+			partidaPrimeraComunionDataManager.getComunionListDTO().setPcoCertificadoPor(getPersonaCode());
+						
 			comunionVO.setAsignado(partidaPrimeraComunionDataManager.getAsignadoInsertar());
 			comunionVO.setMad_pad(partidaPrimeraComunionDataManager.getMad_padInsertar());
 			comunionVO.setComunion(partidaPrimeraComunionDataManager.getPrimeraComunionInsertar());		
-					
+			
+			provincia.setCatCodigo(partidaPrimeraComunionDataManager.getProvinciaCodigo());
+			canton.setCatCodigo(partidaPrimeraComunionDataManager.getCantonCodigo());
+			parroquia.setCatCodigo(partidaPrimeraComunionDataManager.getParroquiaCodigo());
+			estado.setCatCodigo(partidaPrimeraComunionDataManager.getEstadoCodigo());
+			
+			comunionVO.getComunion().setPcoProvincia(provincia.getCatCodigo());
+			comunionVO.getComunion().setPcoCanton(canton.getCatCodigo());
+			comunionVO.getComunion().setPcoParroquia(parroquia.getCatCodigo());
+			comunionVO.getComunion().setPcoEstado(estado.getCatCodigo());
+			
+			
 			sacerdoteDTO.setSacCodigo(partidaPrimeraComunionDataManager.getSacerdoteCodigo());
 			doctorDTO.setDocCodigo(partidaPrimeraComunionDataManager.getDoctorCodigo());
 			comunionVO.setSacerdote(sacerdoteDTO);
@@ -99,6 +120,13 @@ public void registrarPrimeraComunion () {
 			if (comunionNuevo != null) {
 				
 				partidaPrimeraComunionDataManager.setAsignadoInsertar(new Persona());
+				partidaPrimeraComunionDataManager.setMad_padInsertar(new Persona());
+				partidaPrimeraComunionDataManager.setPrimeraComunionInsertar(new PrimeraComunionDTO());
+				partidaPrimeraComunionDataManager.setSacerdoteCodigo(0);
+				partidaPrimeraComunionDataManager.setFechaApComInsertar(new Date());
+				partidaPrimeraComunionDataManager.setFechaComunionInsertar(new Date());
+				partidaPrimeraComunionDataManager.setEstadoCodigo(0);
+				
 															
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.partida.comunion.registrar.exito");
 			}
@@ -133,29 +161,7 @@ public void registrarPrimeraComunion () {
 		
 	}
 	
-	public void buscarDoctor () {
-		slf4jLogger.info("buscarDoctor");
 		
-		List<DoctorListDTO> listaDoctor=null;
-		
-		try {
-							
-			listaDoctor=this.servicioEucaristia.buscarDoctor(new DoctorListDTO());
-			
-			if (CollectionUtils.isEmpty(listaDoctor) && listaDoctor.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.partidaPrimeraComunionDataManager.setDoctorListDTO(listaDoctor);
-											
-			}
-			
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarDoctor {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-		
-	}
-	
 	public void buscarAsignado () {
 		slf4jLogger.info("buscarAsignado");
 		
@@ -237,9 +243,10 @@ public void registrarPrimeraComunion () {
 	public void cargarDatosComunion (ComunionListDTO comunion) {
 		try {
 			
-			ComunionVO comunionEncontrada=servicioEucaristia.obtenerComunionPorId(comunion.getPcoAsignado(), comunion.getPcoCodigo());
+			ComunionVO comunionEncontrada=servicioEucaristia.obtenerComunionPorId(comunion);
 			this.partidaPrimeraComunionDataManager.setAsignadoInsertar(comunionEncontrada.getAsignado());
 			this.partidaPrimeraComunionDataManager.setPrimeraComunionInsertar(comunionEncontrada.getComunion());
+			this.partidaPrimeraComunionDataManager.setMad_padInsertar(comunionEncontrada.getMad_pad());
 							
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosComunion {}", e.getMessage());
@@ -270,6 +277,103 @@ public void registrarPrimeraComunion () {
 		}
 		
 	}
+	
+	public void buscarProvincia () {
+		slf4jLogger.info("buscarCatalogo");
+		
+		List<CatalogoEucaristiaDTO> listaCatalogo=null;
+		
+		try {
+			CatalogoEucaristiaDTO cat=new CatalogoEucaristiaDTO();
+			cat.setCatCodigo(1);
+			listaCatalogo=this.servicioEucaristia.buscarCatalogo(cat);
+			
+			if (CollectionUtils.isEmpty(listaCatalogo) && listaCatalogo.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.partidaPrimeraComunionDataManager.setProvinciasEucaristiaDTOs(listaCatalogo);
+				
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarCatalogo {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
+	public void buscarCanton () {
+		slf4jLogger.info("buscarCanton");
+		
+		List<CatalogoEucaristiaDTO> listaCatalogo=null;
+		
+		try {
+			CatalogoEucaristiaDTO cat=new CatalogoEucaristiaDTO();
+			cat.setCatCodigo(partidaPrimeraComunionDataManager.getProvinciaCodigo());
+			listaCatalogo=this.servicioEucaristia.buscarCatalogo(cat);
+			
+			if (CollectionUtils.isEmpty(listaCatalogo) && listaCatalogo.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.partidaPrimeraComunionDataManager.setCantonEucaristiaDTOs(listaCatalogo);
+				
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarCanton {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
+	public void buscarParroquia () {
+		slf4jLogger.info("buscarParroquia");
+		
+		List<CatalogoEucaristiaDTO> listaCatalogo=null;
+		
+		try {
+			CatalogoEucaristiaDTO cat=new CatalogoEucaristiaDTO();
+			cat.setCatCodigo(partidaPrimeraComunionDataManager.getCantonCodigo());
+			listaCatalogo=this.servicioEucaristia.buscarCatalogo(cat);
+			
+			if (CollectionUtils.isEmpty(listaCatalogo) && listaCatalogo.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.partidaPrimeraComunionDataManager.setParroquiaEucaristiaDTOs(listaCatalogo);
+				
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarCiudad {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
+	public void buscarEstado () {
+		slf4jLogger.info("buscarEstado");
+		
+		List<CatalogoEucaristiaDTO> listaCatalogo=null;
+		
+		try {
+			CatalogoEucaristiaDTO cat=new CatalogoEucaristiaDTO();
+			cat.setCatCodigo(25);
+			listaCatalogo=this.servicioEucaristia.buscarCatalogo(cat);
+			
+			if (CollectionUtils.isEmpty(listaCatalogo) && listaCatalogo.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.partidaPrimeraComunionDataManager.setEstadoEucaristiaDTOs(listaCatalogo);
+				
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarEstado {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
 	
 	
 }

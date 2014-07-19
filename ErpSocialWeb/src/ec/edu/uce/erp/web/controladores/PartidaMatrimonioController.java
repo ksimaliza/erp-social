@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
@@ -65,6 +66,7 @@ public class PartidaMatrimonioController extends BaseController {
 	@PostConstruct
 	public void inicializarObjetos () {
 	buscarSacerdote();
+	buscarProvincia();
 	
 		
 	}
@@ -73,11 +75,18 @@ public void registrarMatrimonio () {
 		slf4jLogger.info("registrarMatrimonio");
 		MatrimonioVO matrimonioVO;
 		SacerdoteDTO sacerdoteDTO;
+		CatalogoEucaristiaDTO provincia;
+		CatalogoEucaristiaDTO canton;
+		CatalogoEucaristiaDTO parroquia;
 		
 		try {
 			
 			matrimonioVO=new MatrimonioVO();
 			sacerdoteDTO=new SacerdoteDTO();
+			provincia=new CatalogoEucaristiaDTO();
+			canton=new CatalogoEucaristiaDTO();
+			parroquia=new CatalogoEucaristiaDTO();
+			
 			partidaMatrimonioDataManager.getMatrimonioDTO().setMatCertificadoPor(getPersonaCode());
 			matrimonioVO.setNovio(partidaMatrimonioDataManager.getNovioInsertar());
 			matrimonioVO.setNovia(partidaMatrimonioDataManager.getNoviaInsertar());
@@ -87,7 +96,14 @@ public void registrarMatrimonio () {
 			matrimonioVO.setPad_novio(partidaMatrimonioDataManager.getPad_novioInsertar());
 			matrimonioVO.setMatrimonio(partidaMatrimonioDataManager.getMatrimonioDTO());
 			
+			provincia.setCatCodigo(partidaMatrimonioDataManager.getProvincia());
+			canton.setCatCodigo(partidaMatrimonioDataManager.getCanton());
+			parroquia.setCatCodigo(partidaMatrimonioDataManager.getParroquia());
 			
+			
+			matrimonioVO.getMatrimonio().setMatProvincia(provincia.getCatCodigo());
+			matrimonioVO.getMatrimonio().setMatCanton(canton.getCatCodigo());
+			matrimonioVO.getMatrimonio().setMatParroquia(parroquia.getCatCodigo());
 			
 			sacerdoteDTO.setSacCodigo(partidaMatrimonioDataManager.getSacerdoteCodigo());
 			
@@ -111,7 +127,10 @@ public void registrarMatrimonio () {
 				partidaMatrimonioDataManager.setSacerdoteCodigo(0);
 				partidaMatrimonioDataManager.setFechaApCurInsertar(new Date());
 				partidaMatrimonioDataManager.setFechaMatrInsertar(new Date());
-											
+				partidaMatrimonioDataManager.setProvincia((0));
+				partidaMatrimonioDataManager.setCanton((0));
+				partidaMatrimonioDataManager.setParroquia((0));
+				
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.partida.matrimonio.registrar.exito");
 			}
 			
@@ -335,6 +354,7 @@ public void registrarMatrimonio () {
 			this.partidaMatrimonioDataManager.setMad_novioInsertar(matrimonioEncontrado.getMad_novio());
 			this.partidaMatrimonioDataManager.setPad_noviaInsertar(matrimonioEncontrado.getPad_novia());
 			this.partidaMatrimonioDataManager.setPad_novioInsertar(matrimonioEncontrado.getPad_novio());
+			
 							
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosMatrimonio {}", e.getMessage());
@@ -342,5 +362,76 @@ public void registrarMatrimonio () {
 		}
 	}
 	
+	public void buscarProvincia () {
+		slf4jLogger.info("buscarCatalogo");
+		
+		List<CatalogoEucaristiaDTO> listaCatalogo=null;
+		
+		try {
+			CatalogoEucaristiaDTO cat=new CatalogoEucaristiaDTO();
+			cat.setCatCodigo(1);
+			listaCatalogo=this.servicioEucaristia.buscarCatalogo(cat);
+			
+			if (CollectionUtils.isEmpty(listaCatalogo) && listaCatalogo.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.partidaMatrimonioDataManager.setProvinciaEucaristiaDTOs(listaCatalogo);
+				
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarCatalogo {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
+	public void buscarCanton () {
+		slf4jLogger.info("buscarCanton");
+		
+		List<CatalogoEucaristiaDTO> listaCatalogo=null;
+		
+		try {
+			CatalogoEucaristiaDTO cat=new CatalogoEucaristiaDTO();
+			cat.setCatCodigo(partidaMatrimonioDataManager.getProvincia());
+			listaCatalogo=this.servicioEucaristia.buscarCatalogo(cat);
+			
+			if (CollectionUtils.isEmpty(listaCatalogo) && listaCatalogo.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.partidaMatrimonioDataManager.setCantonEucaristiaDTOs(listaCatalogo);
+				
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarCanton {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
+	public void buscarParroquia () {
+		slf4jLogger.info("buscarParroquia");
+		
+		List<CatalogoEucaristiaDTO> listaCatalogo=null;
+		
+		try {
+			CatalogoEucaristiaDTO cat=new CatalogoEucaristiaDTO();
+			cat.setCatCodigo(partidaMatrimonioDataManager.getCanton());
+			listaCatalogo=this.servicioEucaristia.buscarCatalogo(cat);
+			
+			if (CollectionUtils.isEmpty(listaCatalogo) && listaCatalogo.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.partidaMatrimonioDataManager.setParroquiaEucaristiaDTOs(listaCatalogo);
+				
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarCiudad {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
 	
 }

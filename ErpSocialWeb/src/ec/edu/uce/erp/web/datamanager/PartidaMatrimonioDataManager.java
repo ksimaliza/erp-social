@@ -52,10 +52,12 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PartidaMatrimo
 	
 	private int tipoCodigo;
 	private List<CatalogoEucaristiaDTO> tipoEucaristiaDTOs;
-	/*private CatalogoEucaristiaDTO provincia;
-	private CatalogoEucaristiaDTO ciudad;
-	private CatalogoEucaristiaDTO canton;*/
-	
+	private int provincia;
+	private int parroquia;
+	private int canton;
+	private List<CatalogoEucaristiaDTO> provinciaEucaristiaDTOs;
+	private List<CatalogoEucaristiaDTO> cantonEucaristiaDTOs;
+	private List<CatalogoEucaristiaDTO> parroquiaEucaristiaDTOs;
 	
 	@PostConstruct
 	public void inicializarObjetos () {
@@ -264,6 +266,69 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PartidaMatrimo
 
 	public List<CatalogoEucaristiaDTO> getTipoEucaristiaDTOs() {
 		return tipoEucaristiaDTOs;
+	}
+
+
+	public int getProvincia() {
+		return provincia;
+	}
+
+
+	public void setProvincia(int provincia) {
+		this.provincia = provincia;
+	}
+
+
+	public int getParroquia() {
+		return parroquia;
+	}
+
+
+	public void setParroquia(int parroquia) {
+		this.parroquia = parroquia;
+	}
+
+
+	public int getCanton() {
+		return canton;
+	}
+
+
+	public void setCanton(int canton) {
+		this.canton = canton;
+	}
+
+
+	public List<CatalogoEucaristiaDTO> getProvinciaEucaristiaDTOs() {
+		return provinciaEucaristiaDTOs;
+	}
+
+
+	public void setProvinciaEucaristiaDTOs(
+			List<CatalogoEucaristiaDTO> provinciaEucaristiaDTOs) {
+		this.provinciaEucaristiaDTOs = provinciaEucaristiaDTOs;
+	}
+
+
+	public List<CatalogoEucaristiaDTO> getCantonEucaristiaDTOs() {
+		return cantonEucaristiaDTOs;
+	}
+
+
+	public void setCantonEucaristiaDTOs(
+			List<CatalogoEucaristiaDTO> cantonEucaristiaDTOs) {
+		this.cantonEucaristiaDTOs = cantonEucaristiaDTOs;
+	}
+
+
+	public List<CatalogoEucaristiaDTO> getParroquiaEucaristiaDTOs() {
+		return parroquiaEucaristiaDTOs;
+	}
+
+
+	public void setParroquiaEucaristiaDTOs(
+			List<CatalogoEucaristiaDTO> parroquiaEucaristiaDTOs) {
+		this.parroquiaEucaristiaDTOs = parroquiaEucaristiaDTOs;
 	}
 
 

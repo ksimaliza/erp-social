@@ -267,10 +267,13 @@ public class PartidaBautizoController extends BaseController{
 	public void cargarDatosBautizo (BautizoListDTO bautizo) {
 		try {
 			
-			BautizoVO bautizoEncontrado=servicioEucaristia.obtenerBautizoPorId(bautizo.getBauBautizado(),bautizo.getBauCodigo());
+			BautizoVO bautizoEncontrado=servicioEucaristia.obtenerBautizoPorId(bautizo);
 			this.partidaBautizoDataManager.setBautizadoInsertar(bautizoEncontrado.getBautizado());
 			this.partidaBautizoDataManager.setBautizoDTO(bautizoEncontrado.getBautizo());
-		
+			this.partidaBautizoDataManager.setMadrinaInsertar(bautizoEncontrado.getMadrina());
+			this.partidaBautizoDataManager.setPadrinoInsertar(bautizoEncontrado.getPadrino());
+			
+
 			
 							
 		} catch (SeguridadesException e) {
@@ -341,7 +344,7 @@ public class PartidaBautizoController extends BaseController{
 			if (CollectionUtils.isEmpty(listaCatalogo) && listaCatalogo.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
-				this.partidaBautizoDataManager.setProvinciasEucaristiaDTOs(listaCatalogo);
+				this.partidaBautizoDataManager.setParroquiaEucaristiaDTOs(listaCatalogo);
 				
 			}
 			
