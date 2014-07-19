@@ -56,7 +56,7 @@
 					</tr>
 				</table>
 			</p:panel>
-<p:panel id="botonesBuscar">
+			<p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
 					actionListener="#{partidaBautizoController.buscarPartidaBautizo}"
 					value="#{i18n['label.buscar']}" 
@@ -100,12 +100,12 @@
 					<h:outputText value="#{bautizo.catProvincia}" />
 				</p:column>
 				
-				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.provincia']}" width="40%">
+				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.canton']}" width="40%">
 					<h:outputText value="#{bautizo.catCanton}" />
 				</p:column>
 				
-				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.provincia']}" width="40%">
-					<h:outputText value="#{bautizo.catCiudad}" />
+				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.parroquia']}" width="40%">
+					<h:outputText value="#{bautizo.catParroquia}" />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.sacerdote']}" width="40%">
@@ -119,7 +119,7 @@
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarPartidaBautizo.show()"
 							actionListener="#{partidaBautizoController.cargarDatosBautizo(bautizo)}"
-							process="@this" update=":formEditarPartidaBautizo:pnlEditarPartidaBautizo">
+							process="@this" update=":formEditarPartidaBautizo:pnlEditarPartidaBautizo,:formEditarPartidaBautizo:pnlDatosPadrino,:formEditarPartidaBautizo:pnlDatosMadrina,:formEditarPartidaBautizo:pnlDatos,:formEditarPartidaBautizo:pnlDatos">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
 					</h:panelGroup>

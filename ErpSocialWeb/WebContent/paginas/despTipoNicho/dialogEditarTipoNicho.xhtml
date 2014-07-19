@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpEditarTipoNicho" header="#{i18n['erp.despacho.tipo.nicho.registrar']}" resizable="false" draggable="false"
+		widgetVar="dlgEditarTipoNicho" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<h:form id="formEditarTipoNicho" styleClass="formulario">
+			<p:panel id="pnlEditarTipoNicho">
+				<table class="formulario">
+												
+										
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtDescripTipo" value="#{i18n['erp.despacho.tipo.nicho.descripcion']}" />
+						</td>
+						<td width="70%">
+							<p:inputTextarea id="txtDescripTipo" style="width: 100%"
+								required="true" value="#{tipoNichoDataManager.tipoNichoInsertar.tniDescripcion}" />
+						</td>	
+					</tr>
+										
+					
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{tipoNichoController.registrarTipoNicho}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarTipoNicho.hide()"
+					process="@this,pnlEditarTipoNicho" update="pnlEditarTipoNicho,:formTipoNicho:pnlMessages,:formTipoNicho:tablaTipoNicho"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarTipoNicho.hide()" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>

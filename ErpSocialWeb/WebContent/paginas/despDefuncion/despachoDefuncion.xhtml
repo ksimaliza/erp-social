@@ -27,10 +27,20 @@
 				<table class="formulario">
 					<tr>
 						<td width="30%">
+							<h:outputLabel for="txtCi" value="#{i18n['erp.despacho.defuncion.cedula']}" />
+						</td>
+						<td>
+							<h:inputText for="txtCi" label="#{i18n['erp.despacho.defuncion.cedula']}"  
+							value="#{defuncionDataManager.difuntoInsertar.perCi}"/>
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.despacho.defuncion.nombres']}" />
 						</td>
 						<td>
-							<h:inputText for="txtNombre" label="#{i18n['erp.despacho.defuncion.nombres']}" />
+							<h:inputText for="txtNombre" label="#{i18n['erp.despacho.defuncion.nombres']}"  
+							value="#{defuncionDataManager.difuntoInsertar.perNombres}"/>
 						</td>
 					</tr>
 					<tr>
@@ -38,14 +48,15 @@
 							<h:outputLabel for="txtApe" value="#{i18n['erp.despacho.defuncion.apellidos']}" />
 						</td>
 						<td>
-							<h:inputText for="txtApe" label="#{i18n['erp.despacho.defuncion.apellidos']}" />
+							<h:inputText for="txtApe" label="#{i18n['erp.despacho.defuncion.apellidos']}" 
+							value="#{defuncionDataManager.difuntoInsertar.perApellidos}" />
 						</td>
 					</tr>
 				</table>
 			</p:panel>
 <p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
-					
+					actionListener="#{defuncionController.buscarDefuncion}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarDefuncion"
 					update=":formDefuncion:pnlMessages,tablaDefuncion,pnlBuscarDefuncion " />
@@ -53,7 +64,7 @@
 
 
 <p:dataTable id="tablaDefuncion"
-	
+	value="#{defuncionDataManager.defuncionDTOs}" var="defuncion"
 	rowIndexVar="rowIndex"
 	paginator="true" rows="5" paginatorPosition="bottom"
 	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -65,22 +76,26 @@
 		#{rowIndex+1}
 	</p:column>
 	<p:column headerText="#{i18n['erp.despacho.defuncion.cedula']}" width="35%">
-					<h:outputText  />
+					<h:outputText  value="#{defuncion.perCi}"/>
 				</p:column>
 				<p:column headerText="#{i18n['erp.despacho.defuncion.nombres']}" width="40%">
-					<h:outputText  />
+					<h:outputText  value="#{defuncion.perNombres}" />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.defuncion.apellidos']}" width="40%">
+					<h:outputText  value="#{defuncion.perApellidos}" />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.defuncion.tomo']}" width="40%">
-					<h:outputText  />
+					<h:outputText  value="#{defuncion.defTomo}" />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.defuncion.acta']}" width="40%">
-					<h:outputText  />
+					<h:outputText  value="#{defuncion.defActa}" />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.defuncion.pagina']}" width="40%">
-					<h:outputText  />
+					<h:outputText  value="#{defuncion.defPagina}" />
 				</p:column>
 			
 			<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
@@ -88,7 +103,7 @@
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarDefuncion.show()"
-							
+							actionListener="#{defuncionController.cargarDatosDefuncion(defuncion)}"	
 							process="@this" update=":formEditarDefuncion:pnlEditarDefuncion">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
@@ -98,6 +113,7 @@
 	
 	</h:form>			
 		<ui:include src="dialogNuevaDefuncion.xhtml" />
+		<ui:include src="dialogEditarDefuncion.xhtml" />
 		
 		
 </ui:define>		

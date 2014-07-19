@@ -67,17 +67,17 @@
 							<p:calendar id="txtFechaCurso" style="width: 100%" navigator="true"   showOn="button" required="true" value="#{partidaBautizoDataManager.fechaApCInsertar}" />
 						</td>	
 					</tr>
+					
 					<tr>
-						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
-						<td width="70%">
-							<h:selectOneMenu id="inputEstado" value="erp.despacho.partida.bautizo.estado" >
-								<f:selectItem itemLabel="#{i18n['label.seleccione']}" itemValue=""/>
-								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{partidaBautizoDataManager.estadoActivo}"/>
-								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{partidaBautizoDataManager.estadoInactivo}"/>
-							</h:selectOneMenu>
+						<td width="30%"><h:outputLabel value="#{i18n['label.estado']}"  /> </td>
+						<td width="70%"><p:selectOneMenu id="estado" value="#{partidaBautizoDataManager.estadoCodigo}" filter="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{partidaBautizoController.partidaBautizoDataManager.estadoEucaristiaDTOs}" var="estado" itemLabel="#{estado.catDescripcion}" itemValue="#{estado.catCodigo}"/>
+								<f:ajax render="pnlDatos" />
+							</p:selectOneMenu>
 						</td>
 					</tr>
-										
+														
 					<tr >
 						<td width="30%">
 						
@@ -87,21 +87,12 @@
 					<td width="70%">
 					<p:selectOneMenu id="sacerdote" value="#{partidaBautizoDataManager.sacerdoteCodigo}" filter="true" required="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-								<f:selectItems value="#{partidaBautizoController.partidaBautizoDataManager.sacerdoteListDTO}" var="sac" itemLabel="#{sac.perNombres} #{sac.perApellidos}" itemValue="#{sac.sacCodigo}"/>
+								<f:selectItems value="#{partidaBautizoDataManager.sacerdoteListDTO}" var="sac" itemLabel="#{sac.perNombres} #{sac.perApellidos}" itemValue="#{sac.sacCodigo}"/>
 							</p:selectOneMenu>
 					</td>
 					</tr>
 					
-					<tr >
-						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.certificado']}"  /> </td>
-					<td width="70%">
-					<p:selectOneMenu id="certificado" value="#{partidaBautizoDataManager.doctorCodigo}" filter="true" required="true" >
-								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-								<f:selectItems value="#{partidaBautizoController.partidaBautizoDataManager.doctorListDTO}" var="cer" itemLabel="#{cer.perNombres} #{cer.perApellidos} " itemValue="#{cer.docCodigo}"/>
-					</p:selectOneMenu>
-					</td>
-					</tr>
-					
+									
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.provincia']}"  /> </td>
 						<td width="70%" ><p:selectOneMenu id="provincia" value="#{partidaBautizoDataManager.provinciaCodigo}" filter="true" >
@@ -117,15 +108,15 @@
 						<td width="70%"><p:selectOneMenu id="canton" value="#{partidaBautizoDataManager.cantonCodigo}" filter="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{partidaBautizoDataManager.cantonEucaristiaDTOs}" var="canton" itemLabel="#{canton.catDescripcion}" itemValue="#{canton.catCodigo}"/>
-								<p:ajax listener="#{partidaBautizoController.buscarCiudad}" process="@this" update="ciudad"/>
+								<p:ajax listener="#{partidaBautizoController.buscarParroquia}" process="@this" update="parroquia"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>		
 					<tr>
-						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.ciudad']}"  /> </td>
-						<td width="70%" ><p:selectOneMenu id="ciudad" value="#{partidaBautizoDataManager.ciudadCodigo}" filter="true" >
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.parroquia']}"  /> </td>
+						<td width="70%" ><p:selectOneMenu id="parroquia" value="#{partidaBautizoDataManager.parroquiaCodigo}" filter="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-								<f:selectItems value="#{partidaBautizoDataManager.ciudadEucaristiaDTOs}" var="ciudad" itemLabel="#{ciudad.catDescripcion}" itemValue="#{ciudad.catCodigo}"/>
+								<f:selectItems value="#{partidaBautizoDataManager.parroquiaEucaristiaDTOs}" var="parroquia" itemLabel="#{parroquia.catDescripcion}" itemValue="#{parroquia.catCodigo}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>	
@@ -215,20 +206,19 @@
 						</td>	
 					</tr>
 					
-					
-					
 				</table>
 			</p:panel>
 					
-				<p:panel id="pnlDatos">
+				<p:panel id="pnlDatos" visible="#{partidaBautizoDataManager.estadoCodigo.toString()=='20'}">
 				<table class="formulario">
-												
-						<tr>
+
+							
+					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtNotaM" value="#{i18n['erp.despacho.partida.bautizo.nota.marginal']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNotaM" style="width: 100%"  required="true" value="#{partidaBautizoDataManager.bautizoDTO.bauNotaMarginal}"/>
+							<p:inputText id="txtNotaM" style="width: 100%"   value="#{partidaBautizoDataManager.bautizoDTO.bauNotaMarginal}"/>
 						</td>	
 					</tr>
 					
@@ -238,7 +228,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtTomo" style="width: 100%"  
-								 required="true" value="#{partidaBautizoDataManager.bautizoDTO.bauToma}" />
+								 value="#{partidaBautizoDataManager.bautizoDTO.bauToma}" />
 						</td>	
 					</tr>
 					<tr>
@@ -247,7 +237,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtActa"  style="width: 100%"
-							required="true" label="#{i18n['erp.despacho.partida.bautizo.acta']}" value="#{partidaBautizoDataManager.bautizoDTO.bauActa}">
+							 label="#{i18n['erp.despacho.partida.bautizo.acta']}" value="#{partidaBautizoDataManager.bautizoDTO.bauActa}">
 							
 						</p:inputText>
 						
@@ -260,7 +250,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtPagina" style="width: 100%"  
-								 required="true" value="#{partidaBautizoDataManager.bautizoDTO.bauPagina}"/>
+								 value="#{partidaBautizoDataManager.bautizoDTO.bauPagina}"/>
 						</td>	
 					</tr>
 					

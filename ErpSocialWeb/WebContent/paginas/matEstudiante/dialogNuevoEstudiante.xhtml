@@ -114,7 +114,7 @@
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{estudianteController.registrarEstudiante}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoEstudiante.hide()"
-					process="@this,pnlNuevoEstudiante" update="pnlNuevoEstudiante,:formEstudiante:pnlMessages,:formEstudiante:tablaEstudiante"/>
+					process="@this,pnlNuevoEstudiante" update="pnlNuevoEstudiante,:formEstudiante:tablaEstudiante,:formEstudiante:pnlMessages"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoEstudiante.hide()" type="button" />
 			</p:panel>
 		</h:form>
