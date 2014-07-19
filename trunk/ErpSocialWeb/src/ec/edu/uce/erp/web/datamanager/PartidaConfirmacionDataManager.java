@@ -50,10 +50,16 @@ public class PartidaConfirmacionDataManager extends BaseDataManager {
 	
 	private int tipoCodigo;
 	private List<CatalogoEucaristiaDTO> tipoEucaristiaDTOs;
-	private CatalogoEucaristiaDTO provincia;
-	private CatalogoEucaristiaDTO ciudad;
-	private CatalogoEucaristiaDTO canton;
+	private List<CatalogoEucaristiaDTO> provinciaEucaristiaDTOs;
+	private List<CatalogoEucaristiaDTO> cantonEucaristiaDTOs;
+	private List<CatalogoEucaristiaDTO> parroquiaEucaristiaDTOs;
+	private List<CatalogoEucaristiaDTO> estadoEucaristiaDTOs;
+	private int provincia;
+	private int parroquia;
+	private int canton;
 	private BautizoListDTO bautizoListDTO;
+	private int estadoCodigo;
+	
 	
 	@PostConstruct
 	public void inicializarObjetos () {
@@ -69,9 +75,6 @@ public class PartidaConfirmacionDataManager extends BaseDataManager {
 		this.confirmacionListDTO=new ConfirmacionListDTO();
 		this.confirmacionListDTOs=new ArrayList<ConfirmacionListDTO>();
 		this.tipoEucaristiaDTOs=new ArrayList<CatalogoEucaristiaDTO>();
-		this.provincia=new CatalogoEucaristiaDTO();
-		this.ciudad=new CatalogoEucaristiaDTO();
-		this.canton=new CatalogoEucaristiaDTO();
 		this.bautizoListDTO=new BautizoListDTO();
 		
 		
@@ -208,36 +211,7 @@ public class PartidaConfirmacionDataManager extends BaseDataManager {
 	}
 
 
-	public CatalogoEucaristiaDTO getProvincia() {
-		return provincia;
-	}
-
-
-	public void setProvincia(CatalogoEucaristiaDTO provincia) {
-		this.provincia = provincia;
-	}
-
-
-	public CatalogoEucaristiaDTO getCiudad() {
-		return ciudad;
-	}
-
-
-	public void setCiudad(CatalogoEucaristiaDTO ciudad) {
-		this.ciudad = ciudad;
-	}
-
-
-	public CatalogoEucaristiaDTO getCanton() {
-		return canton;
-	}
-
-
-	public void setCanton(CatalogoEucaristiaDTO canton) {
-		this.canton = canton;
-	}
-
-
+	
 	public BautizoListDTO getBautizoListDTO() {
 		return bautizoListDTO;
 	}
@@ -245,6 +219,92 @@ public class PartidaConfirmacionDataManager extends BaseDataManager {
 
 	public void setBautizoListDTO(BautizoListDTO bautizoListDTO) {
 		this.bautizoListDTO = bautizoListDTO;
+	}
+
+
+	public int getEstadoCodigo() {
+		return estadoCodigo;
+	}
+
+
+	public List<CatalogoEucaristiaDTO> getProvinciaEucaristiaDTOs() {
+		return provinciaEucaristiaDTOs;
+	}
+
+
+	public void setProvinciaEucaristiaDTOs(
+			List<CatalogoEucaristiaDTO> provinciaEucaristiaDTOs) {
+		this.provinciaEucaristiaDTOs = provinciaEucaristiaDTOs;
+	}
+
+
+	public List<CatalogoEucaristiaDTO> getCantonEucaristiaDTOs() {
+		return cantonEucaristiaDTOs;
+	}
+
+
+	public void setCantonEucaristiaDTOs(
+			List<CatalogoEucaristiaDTO> cantonEucaristiaDTOs) {
+		this.cantonEucaristiaDTOs = cantonEucaristiaDTOs;
+	}
+
+
+	public List<CatalogoEucaristiaDTO> getParroquiaEucaristiaDTOs() {
+		return parroquiaEucaristiaDTOs;
+	}
+
+
+	public void setParroquiaEucaristiaDTOs(
+			List<CatalogoEucaristiaDTO> parroquiaEucaristiaDTOs) {
+		this.parroquiaEucaristiaDTOs = parroquiaEucaristiaDTOs;
+	}
+
+
+	
+
+	public void setEstadoCodigo(int estadoCodigo) {
+		this.estadoCodigo = estadoCodigo;
+	}
+
+
+	public List<CatalogoEucaristiaDTO> getEstadoEucaristiaDTOs() {
+		return estadoEucaristiaDTOs;
+	}
+
+
+	public void setEstadoEucaristiaDTOs(
+			List<CatalogoEucaristiaDTO> estadoEucaristiaDTOs) {
+		this.estadoEucaristiaDTOs = estadoEucaristiaDTOs;
+	}
+
+
+	public int getProvincia() {
+		return provincia;
+	}
+
+
+	public void setProvincia(int provincia) {
+		this.provincia = provincia;
+	}
+
+
+	public int getParroquia() {
+		return parroquia;
+	}
+
+
+	public void setParroquia(int parroquia) {
+		this.parroquia = parroquia;
+	}
+
+
+	public int getCanton() {
+		return canton;
+	}
+
+
+	public void setCanton(int canton) {
+		this.canton = canton;
 	}
 	
 	

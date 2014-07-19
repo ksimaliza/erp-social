@@ -1,6 +1,7 @@
 package ec.edu.uce.erp.web.controladores;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -63,6 +64,8 @@ public class PartidaConfirmacionController  extends BaseController{
 	public void inicializarObjetos () {
 		buscarSacerdote();
 		buscarTipo ();
+		buscarProvincia();
+		buscarEstado();
 		
 	}
 public void registrarConfirmacion () {
@@ -70,11 +73,22 @@ public void registrarConfirmacion () {
 		slf4jLogger.info("registrarConfirmacion");
 		ConfirmacionVO confirmacionVO;
 		SacerdoteDTO sacerdoteDTO;
+		CatalogoEucaristiaDTO provincia;
+		CatalogoEucaristiaDTO canton;
+		CatalogoEucaristiaDTO parroquia;
+		CatalogoEucaristiaDTO estado;
 		
 		try {
 			
 			confirmacionVO=new ConfirmacionVO();
 			sacerdoteDTO=new SacerdoteDTO();
+			provincia=new CatalogoEucaristiaDTO();
+			canton=new CatalogoEucaristiaDTO();
+			parroquia=new CatalogoEucaristiaDTO();
+			estado=new CatalogoEucaristiaDTO();
+			
+			
+			partidaConfirmacionDataManager.getConfirmacionDTO().setConCertificadoPor(getPersonaCode());
 			
 			confirmacionVO.setConfirmado(partidaConfirmacionDataManager.getConfirmadoInsertar());
 			confirmacionVO.setMad_pad(partidaConfirmacionDataManager.getMad_padInsertar());
@@ -84,6 +98,18 @@ public void registrarConfirmacion () {
 			
 			sacerdoteDTO.setSacCodigo(partidaConfirmacionDataManager.getSacerdoteCodigo());
 			confirmacionVO.setSacerdote(sacerdoteDTO);
+			
+			provincia.setCatCodigo(partidaConfirmacionDataManager.getProvincia());
+			canton.setCatCodigo(partidaConfirmacionDataManager.getCanton());
+			parroquia.setCatCodigo(partidaConfirmacionDataManager.getParroquia());
+			estado.setCatCodigo(partidaConfirmacionDataManager.getEstadoCodigo());
+			
+			confirmacionVO.getConfirmacion().setConProvincia(provincia.getCatCodigo());
+			confirmacionVO.getConfirmacion().setConCanton(canton.getCatCodigo());
+			confirmacionVO.getConfirmacion().setConParroquia(parroquia.getCatCodigo());
+			confirmacionVO.getConfirmacion().setConEstado(estado.getCatCodigo());
+			
+			
 			confirmacionVO.getConfirmacion().setConFechaAprobacionCurso(new Timestamp(partidaConfirmacionDataManager.getFechaApCInsertar().getTime()));
 			confirmacionVO.getConfirmacion().setConFecha(new Timestamp(partidaConfirmacionDataManager.getFechaComunionInsertar().getTime()));
 			ConfirmacionDTO confirmacionNuevo= this.servicioEucaristia.createOrUpdateConfirmacion(confirmacionVO);
@@ -91,8 +117,14 @@ public void registrarConfirmacion () {
 						
 			if (confirmacionNuevo != null) {
 				
-				partidaConfirmacionDataManager.setConfirmadoInsertar(new Persona());
-											
+				partidaConfirmacionDataManager.setConfirmadoInsertar(new Persona());		
+				partidaConfirmacionDataManager.setMad_padInsertar(new Persona());
+				partidaConfirmacionDataManager.setConfirmacionDTO(new ConfirmacionDTO());
+				partidaConfirmacionDataManager.setSacerdoteCodigo(0);
+				partidaConfirmacionDataManager.setFechaApCInsertar(new Date());
+				partidaConfirmacionDataManager.setFechaComunionInsertar(new Date());
+				partidaConfirmacionDataManager.setEstadoCodigo(0);
+				
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.partida.confirmacion.registrar.exito");
 			}
 			
@@ -126,28 +158,6 @@ public void registrarConfirmacion () {
 		
 	}
 	
-	/*public void buscarDoctor () {
-		slf4jLogger.info("buscarDoctor");
-		
-		List<DoctorListDTO> listaDoctor=null;
-		
-		try {
-							
-			listaDoctor=this.servicioEucaristia.buscarDoctor(new DoctorListDTO());
-			
-			if (CollectionUtils.isEmpty(listaDoctor) && listaDoctor.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.partidaConfirmacionDataManager.setDoctorListDTO(listaDoctor);
-											
-			}
-			
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarDoctor {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-		
-	}*/
 	
 	public void buscarConfirmado () {
 		slf4jLogger.info("buscarConfirmado");
@@ -230,9 +240,11 @@ public void registrarConfirmacion () {
 	public void cargarDatosConfirmacion (ConfirmacionListDTO confirmacion) {
 		try {
 			
-			ConfirmacionVO confirmacionEncontrada=servicioEucaristia.obtenerConfirmacionPorId(confirmacion.getConConfirmado(), confirmacion.getConCodigo());
+			ConfirmacionVO confirmacionEncontrada=servicioEucaristia.obtenerConfirmacionPorId(confirmacion);
 			this.partidaConfirmacionDataManager.setConfirmadoInsertar(confirmacionEncontrada.getConfirmado());
 			this.partidaConfirmacionDataManager.setConfirmacionDTO(confirmacionEncontrada.getConfirmacion());
+			this.partidaConfirmacionDataManager.setMad_padInsertar(confirmacionEncontrada.getMad_pad());
+			
 							
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosConfirmacion {}", e.getMessage());
@@ -259,6 +271,104 @@ public void registrarConfirmacion () {
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarTipo {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
+	public void buscarProvincia () {
+		slf4jLogger.info("buscarCatalogo");
+		
+		List<CatalogoEucaristiaDTO> listaCatalogo=null;
+		
+		try {
+			CatalogoEucaristiaDTO cat=new CatalogoEucaristiaDTO();
+			cat.setCatCodigo(1);
+			listaCatalogo=this.servicioEucaristia.buscarCatalogo(cat);
+			
+			if (CollectionUtils.isEmpty(listaCatalogo) && listaCatalogo.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.partidaConfirmacionDataManager.setProvinciaEucaristiaDTOs(listaCatalogo);
+				
+				
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarCatalogo {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
+	public void buscarCanton () {
+		slf4jLogger.info("buscarCanton");
+		
+		List<CatalogoEucaristiaDTO> listaCatalogo=null;
+		
+		try {
+			CatalogoEucaristiaDTO cat=new CatalogoEucaristiaDTO();
+			cat.setCatCodigo(partidaConfirmacionDataManager.getProvincia());
+			listaCatalogo=this.servicioEucaristia.buscarCatalogo(cat);
+			
+			if (CollectionUtils.isEmpty(listaCatalogo) && listaCatalogo.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.partidaConfirmacionDataManager.setCantonEucaristiaDTOs(listaCatalogo);
+				
+				
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarCanton {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
+	public void buscarParroquia () {
+		slf4jLogger.info("buscarParroquia");
+		
+		List<CatalogoEucaristiaDTO> listaCatalogo=null;
+		
+		try {
+			CatalogoEucaristiaDTO cat=new CatalogoEucaristiaDTO();
+			cat.setCatCodigo(partidaConfirmacionDataManager.getCanton());
+			listaCatalogo=this.servicioEucaristia.buscarCatalogo(cat);
+			
+			if (CollectionUtils.isEmpty(listaCatalogo) && listaCatalogo.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.partidaConfirmacionDataManager.setParroquiaEucaristiaDTOs(listaCatalogo);
+				
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarParroquia {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
+	public void buscarEstado () {
+		slf4jLogger.info("buscarEstado");
+		
+		List<CatalogoEucaristiaDTO> listaCatalogo=null;
+		
+		try {
+			CatalogoEucaristiaDTO cat=new CatalogoEucaristiaDTO();
+			cat.setCatCodigo(21);
+			listaCatalogo=this.servicioEucaristia.buscarCatalogo(cat);
+			
+			if (CollectionUtils.isEmpty(listaCatalogo) && listaCatalogo.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.partidaConfirmacionDataManager.setEstadoEucaristiaDTOs(listaCatalogo);
+				
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarEstado {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 		
