@@ -10,6 +10,7 @@
 	<parameter name="identificacionCustodio" class="java.lang.String"/>
 	<parameter name="tituloActa" class="java.lang.String"/>
 	<parameter name="imagesRealPath" class="java.lang.String"/>
+	<parameter name="tipoMovimiento" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -166,13 +167,18 @@
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Tipo Movimiento]]></text>
+				<text><![CDATA[Tipo Movimiento:]]></text>
 			</staticText>
 			<line>
 				<reportElement uuid="052f5eb0-0394-499b-a893-9ef02ebdb7e6" positionType="Float" x="-1" y="4" width="555" height="1">
 					<property name="local_mesure_unitheight" value="pixel"/>
 				</reportElement>
 			</line>
+			<textField>
+				<reportElement uuid="56545dfa-3ca7-4a76-9792-1e2298c19167" x="114" y="10" width="220" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{tipoMovimiento}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>
@@ -209,7 +215,7 @@
 				<text><![CDATA[Firma:______________________]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement uuid="90adef4a-3246-498e-b382-a512e3ac01c4" mode="Transparent" x="0" y="0" width="220" height="50"/>
+				<reportElement uuid="90adef4a-3246-498e-b382-a512e3ac01c4" mode="Transparent" x="1" y="0" width="220" height="50"/>
 			</rectangle>
 			<rectangle>
 				<reportElement uuid="e35e68d5-99e3-4cb6-b164-aacfb910b385" mode="Transparent" x="334" y="0" width="220" height="50"/>
