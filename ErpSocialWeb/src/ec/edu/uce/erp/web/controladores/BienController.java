@@ -151,8 +151,23 @@ public class BienController extends BaseController{
 			this.bienDataManager.getVistaBienBuscar().setEmrPk(this.bienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
 			this.bienDataManager.getVistaBienBuscar().setTraEstado(this.bienDataManager.getEstadoActivo());
 			
-			if (StringUtils.isNotBlank(bienDataManager.getIdDcTipoBienSelec())) {
+			if (StringUtils.isBlank(bienDataManager.getIdDcTipoBienSelec())) {
+				this.bienDataManager.getVistaBienBuscar().setDetBienTipBieNivel1(null);
+			} else {
 				this.bienDataManager.getVistaBienBuscar().setDetBienTipBieNivel1(bienDataManager.getIdDcTipoBienSelec());
+			}
+			
+			if (this.bienDataManager.getIdCategoriaBienBuscarSeleccionado() == null || this.bienDataManager.getIdCategoriaBienBuscarSeleccionado()<=0) {
+				this.bienDataManager.getVistaBienBuscar().setCatBienPk(null);
+			} else {
+				this.bienDataManager.getVistaBienBuscar().setCatBienPk(this.bienDataManager.getIdCategoriaBienBuscarSeleccionado());
+				
+				if (this.bienDataManager.getIdLineaBienSeleccionado() == null || this.bienDataManager.getIdLineaBienSeleccionado()<=0) {
+					this.bienDataManager.getVistaBienBuscar().setLinBienPk(null);
+				} else {
+					this.bienDataManager.getVistaBienBuscar().setLinBienPk(this.bienDataManager.getIdLineaBienSeleccionado());
+				}
+				
 			}
 			
 			List<VistaBien> listVistaBien = servicioInventario.buscarVistaBienCriterios(this.bienDataManager.getVistaBienBuscar());
