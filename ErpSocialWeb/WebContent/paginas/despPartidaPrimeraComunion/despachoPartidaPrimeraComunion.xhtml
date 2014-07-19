@@ -93,13 +93,21 @@
 					<h:outputText  value="#{comunion.pcoFechaHora}" />
 				</p:column>
 				
-				<p:column headerText="#{i18n['erp.despacho.partida.comunion.lugar']}" width="40%">
-					<h:outputText  value="#{comunion.pcoLugar}"  />
+				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.provincia']}" width="40%">
+					<h:outputText value="#{comunion.catProvincia}" />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.canton']}" width="40%">
+					<h:outputText value="#{comunion.catCanton}" />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.parroquia']}" width="40%">
+					<h:outputText value="#{comunion.catParroquia}" />
 				</p:column>
 				
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.comunion.sacerdote']}" width="40%">
-					<h:outputText  value="#{comunion.sacPersona}" />
+					<h:outputText  value="#{comunion.sacNombres} #{comunion.sacApellidos}" />
 				</p:column>
 			
 			<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
@@ -108,7 +116,7 @@
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarPartidaPrimeraComunion.show()"
 							actionListener="#{partidaComunionController.cargarDatosComunion(comunion)}"
-							process="@this" update=":formEditarPartidaPrimeraComunion:pnlEditarPartidaPrimeraComunion">
+							process="@this" update=":formEditarPartidaPrimeraComunion:pnlEditarPartidaPrimeraComunion, :formEditarPartidaPrimeraComunion:pnlDatosPadrino,:formEditarPartidaPrimeraComunion:pnlDatos,:formEditarPartidaPrimeraComunion:pnlBautizo">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
 					</h:panelGroup>

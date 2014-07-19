@@ -92,12 +92,20 @@
 					<h:outputText value="#{confirmacion.conFecha}"  />
 				</p:column>
 				
-				<p:column headerText="#{i18n['erp.despacho.partida.confirmacion.lugar']}" width="40%">
-					<h:outputText  value="#{confirmacion.conLugar}" />
+				<p:column headerText="#{i18n['erp.despacho.partida.confirmacion.provincia']}" width="40%">
+					<h:outputText  value="#{confirmacion.catProvincia}" />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.partida.confirmacion.canton']}" width="40%">
+					<h:outputText  value="#{confirmacion.catCanton}" />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.partida.confirmacion.parroquia']}" width="40%">
+					<h:outputText  value="#{confirmacion.catParroquia}" />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.confirmacion.sacerdote']}" width="40%">
-					<h:outputText  value="#{confirmacion.sacPersona}" />
+					<h:outputText  value="#{confirmacion.sacNombres} #{confirmacion.sacApellidos}"  />
 				</p:column>
 				
 				
@@ -108,7 +116,7 @@
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarPartidaConfirmacion.show()"
 							actionListener="#{partidaConfirmacionController.cargarDatosConfirmacion(confirmacion)}"					
-							process="@this" update=":formEditarPartidaConfirmacion:pnlEditarPartidaConfirmacion">
+							process="@this" update=":formEditarPartidaConfirmacion:pnlEditarPartidaConfirmacion,:formEditarPartidaConfirmacion:pnlDatosPadrino,:formEditarPartidaConfirmacion:pnlDatos,:formEditarPartidaConfirmacion:pnlBautizo,">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
 					</h:panelGroup>

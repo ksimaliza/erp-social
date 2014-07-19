@@ -78,24 +78,41 @@
 					</tr>
 					
 					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtLugar" value="#{i18n['erp.despacho.partida.confirmacion.lugar']}" />
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.confirmacion.provincia']}"  /> </td>
+						<td width="70%" ><p:selectOneMenu id="provincia" value="#{partidaConfirmacionDataManager.provincia}" filter="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{partidaConfirmacionDataManager.provinciaEucaristiaDTOs}" var="provincia" itemLabel="#{provincia.catDescripcion} " itemValue="#{provincia.catCodigo}"/>
+								<p:ajax listener="#{partidaConfirmacionController.buscarCanton}" process="@this" update="canton"/>
+							</p:selectOneMenu>
 						</td>
-						<td width="70%">
-							<p:inputText id="txtLugar" style="width: 100%"
-								required="true" value="#{partidaConfirmacionDataManager.confirmacionDTO.conLugar}"  />
-						</td>	
 					</tr>
+					
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.confirmacion.canton']}"  /> </td>
+						<td width="70%"><p:selectOneMenu id="canton" value="#{partidaConfirmacionDataManager.canton}" filter="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{partidaConfirmacionDataManager.cantonEucaristiaDTOs}" var="canton" itemLabel="#{canton.catDescripcion}" itemValue="#{canton.catCodigo}"/>
+								<p:ajax listener="#{partidaConfirmacionController.buscarParroquia}" process="@this" update="parroquia"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>		
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.confirmacion.parroquia']}"  /> </td>
+						<td width="70%" ><p:selectOneMenu id="parroquia" value="#{partidaConfirmacionDataManager.parroquia}" filter="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{partidaConfirmacionDataManager.parroquiaEucaristiaDTOs}" var="parroquia" itemLabel="#{parroquia.catDescripcion}" itemValue="#{parroquia.catCodigo}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>	
 					
 					
 					<tr>
-						<td width="30%"><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
-						<td width="70%">
-							<h:selectOneMenu id="inputEstado" value="erp.despacho.partida.confirmacion.estado">
-								<f:selectItem itemLabel="#{i18n['label.seleccione']}" itemValue=""/>
-								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{partidaConfirmacionDataManager.estadoActivo}"/>
-								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{partidaConfirmacionDataManager.estadoInactivo}"/>
-							</h:selectOneMenu>
+						<td width="30%"><h:outputLabel value="#{i18n['label.estado']}"  /> </td>
+						<td width="70%"><p:selectOneMenu id="estado" value="#{partidaConfirmacionDataManager.estadoCodigo}" filter="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{partidaConfirmacionController.partidaConfirmacionDataManager.estadoEucaristiaDTOs}" var="estado" itemLabel="#{estado.catDescripcion}" itemValue="#{estado.catCodigo}"/>
+								<f:ajax render="pnlDatos" />
+							</p:selectOneMenu>
 						</td>
 					</tr>
 					
@@ -159,7 +176,7 @@
 			</p:panel>
 			
 					
-			<p:panel id="pnlDatos">
+			<p:panel id="pnlDatos" visible="#{partidaConfirmacionDataManager.estadoCodigo.toString()=='20'}">
 				<table class="formulario">
 												
 					<tr>
@@ -232,11 +249,11 @@
 					
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtCiudad" value="#{i18n['erp.despacho.partida.bautizo.ciudad']}" />
+							<h:outputLabel for="txtCiudad" value="#{i18n['erp.despacho.partida.bautizo.parroquia']}" />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiudad" style="width: 100%"  
-								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.catCiudad}" readonly="true" />
+								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.catParroquia}" readonly="true" />
 						</td>
 					</tr>					
 					

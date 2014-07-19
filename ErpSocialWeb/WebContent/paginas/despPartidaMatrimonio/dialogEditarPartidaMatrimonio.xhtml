@@ -334,7 +334,7 @@
 					  <tr >
 						<td width="30%">
 						
-							<h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.sacerdote']}"  /> 
+							<h:outputLabel value="#{i18n['erp.despacho.partida.matrimonio.sacerdote']}"  /> 
 						
 						</td>
 					<td width="70%">
@@ -346,14 +346,32 @@
 					</tr> 
 					
 					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtLugar" value="#{i18n['erp.despacho.partida.matrimonio.lugar']}" />
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.matrimonio.provincia']}"  /> </td>
+						<td width="70%" ><p:selectOneMenu id="provincia" value="#{partidaMatrimonioDataManager.provincia}" filter="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{partidaMatrimonioController.partidaMatrimonioDataManager.provinciaEucaristiaDTOs}" var="provincia" itemLabel="#{provincia.catDescripcion} " itemValue="#{provincia.catCodigo}"/>
+								<p:ajax listener="#{partidaMatrimonioController.buscarCanton}" process="@this" update="canton"/>
+							</p:selectOneMenu>
 						</td>
-						<td width="70%">
-							<p:inputText id="txtLugar" style="width: 100%"
-								required="true" value="#{partidaMatrimonioDataManager.matrimonioDTO.matLugar}" />
-						</td>	
-					</tr> 
+					</tr>
+					
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.matrimonio.canton']}"  /> </td>
+						<td width="70%"><p:selectOneMenu id="canton" value="#{partidaMatrimonioDataManager.canton}" filter="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{partidaMatrimonioDataManager.cantonEucaristiaDTOs}" var="canton" itemLabel="#{canton.catDescripcion}" itemValue="#{canton.catCodigo}"/>
+								<p:ajax listener="#{partidaMatrimonioController.buscarParroquia}" process="@this" update="parroquia"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>		
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.parroquia']}"  /> </td>
+						<td width="70%" ><p:selectOneMenu id="parroquia" value="#{partidaMatrimonioDataManager.parroquia}" filter="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{partidaMatrimonioDataManager.parroquiaEucaristiaDTOs}" var="parroquia" itemLabel="#{parroquia.catDescripcion}" itemValue="#{parroquia.catCodigo}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>	
 					
 					
 				</table>
@@ -418,4 +436,4 @@
 	
 	</p:dialog>
 	
-</ui:composition>
+</ui:composition>	
