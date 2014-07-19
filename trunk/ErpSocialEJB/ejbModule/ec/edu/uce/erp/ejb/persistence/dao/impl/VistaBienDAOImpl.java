@@ -112,8 +112,8 @@ public class VistaBienDAOImpl extends AbstractFacadeImpl<VistaBien> implements V
 			}
 			
 			//por fecha asignacion
-			if (vistaBien.getBieFechaAsig()!=null) {
-				predicate = criteriaBuilder.equal(fromVistaBien.get("bieFechaAsig"), vistaBien.getBieFechaAsig());
+			if (vistaBien.getTraFechaInicio()!=null) {
+				predicate = criteriaBuilder.equal(fromVistaBien.get("traFechaInicio"), vistaBien.getTraFechaInicio());
 				criteriaList.add(predicate);
 				
 			}

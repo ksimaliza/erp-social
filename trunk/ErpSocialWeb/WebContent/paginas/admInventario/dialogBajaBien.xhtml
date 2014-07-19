@@ -10,7 +10,6 @@
 		<h:form id="formBajaBien" styleClass="formulario">
 			<p:panel id="pnlBajaBien" >
 				<table class="formulario">
-				
 					<tr>
 						<td>
 							<h:outputLabel for="txtBaja" value="#{i18n['erp.bien.baja.motivo']}" />
@@ -53,24 +52,11 @@
 					</tr>
 				</table>
 			</p:panel>
+			
 			<p:panel id="pnlBotones">
-				<!-- <p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
-					actionListener="#{transaccionBienController.darBajaBien}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgBajaBien.hide()"
-					process="@this,pnlBajaBien" update="pnlBajaBien,:formBien:tablaBienes,:formBien:pnlMessages"/> -->
-				<p:commandButton value="#{i18n['label.guardar']}" type="button" onclick="dlgConfirmaBaja.show();"/>
+				<p:commandButton value="#{i18n['label.guardar']}" oncomplete="dlgConfirmaBaja.show();"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" type="button" onclick="dlgBajaBien.hide();"/>
 			</p:panel>
-			
-			<!-- Activar modulo -->
-			<p:confirmDialog id="dialogConfirmarBaja" message="#{i18n['erp.bien.bajas.pregunta.confirmacion']}" appendTo="@(body)"
-				header="#{i18n['erp.bien.bajas.header.pregunta.confirmacion']}" severity="alert" widgetVar="dlgConfirmaBaja" >
-				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
-					actionListener="#{transaccionBienController.darBajaBien}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgConfirmaBaja.hide(); dlgBajaBien.hide();"
-					process="@this,pnlBajaBien" update="pnlBajaBien,:formBien:tablaBienes,:formBien:pnlMessages"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgConfirmaBaja.hide(); dlgBajaBien.hide();" type="button" />
-			</p:confirmDialog>
 			
 		</h:form>
 	</p:dialog>

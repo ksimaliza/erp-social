@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
 import ec.edu.uce.erp.ejb.persistence.view.VistaEmpleado;
 import ec.edu.uce.erp.ejb.persistence.view.VistaTransaccion;
@@ -103,6 +104,7 @@ public class TransaccionBienController extends BaseController{
 		
 		try {
 			
+			this.vistaBienDataManager.getVistaBienEditar().setUsuarioRegistro(this.vistaBienDataManager.getUsuarioSession());
 			this.vistaBienDataManager.getVistaBienEditar().setEmpAsignadoFk(this.vistaBienDataManager.getIdCustudioAsignado());
 			VistaBien vistaBien = servicioInventario.asignarBien(this.vistaBienDataManager.getVistaBienEditar());
 			
@@ -260,5 +262,16 @@ public class TransaccionBienController extends BaseController{
 		this.vistaBienDataManager.setIdLineaBienSeleccionado(null);
 		this.vistaBienDataManager.getDcLineaBien().clear();
 	}
+	
+
+	/**
+	 * @return the fechaTransaccion
+	 */
+	public String getFechaTransaccion() {
+		
+		return UtilAplication.fechaActualConFormato("yyyy-MM-dd hh:mm a");
+	}
+
+
 	
 }

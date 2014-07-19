@@ -543,7 +543,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 					Bien bienActual = inventarioFactory.getBienDAOImpl().buscarBienCriterios(bienBuscar).iterator().next();
 					bienActual.setBieUbicacion(vistaBien.getBieUbicacion());
 					bienActual.setBieCodigo(vistaBien.getBieCodigo());
-					bienActual.setBieFechaAsig(vistaBien.getBieFechaAsig());
+					bienActual.setBieFechaAsig(vistaBien.getTraFechaInicio());
 					bienActual.setBieEstadoUso(ESTADO_ACTIVO);
 					inventarioFactory.getBienDAOImpl().update(bienActual);
 					
@@ -652,13 +652,13 @@ public class ServicioInventarioImpl implements ServicioInventario {
 				//inactivar el estado actual antes de crear el nuevo
 				transaccionActual.setTraEstado(ESTADO_INACTIVO);
 				transaccionActual.setFechaFin(UtilAplication.obtenerFechaActual());
-				transaccionActual.setEmpReasignadoFk(vistaBien.getEmpAsignadoFk());
+//				transaccionActual.setEmpReasignadoFk(vistaBien.getEmpAsignadoFk());
 				inventarioFactory.getTransaccionDAOImpl().update(transaccionActual);
 				
 				// crear el nuevo estado en la tabla transaccion
 				Transaccion transaccionNuevo = new Transaccion();
-				transaccionNuevo.setCabCatalogoTipoBien(transaccionActual.getCabCatalogoTipoBien());
-				transaccionNuevo.setDetCatalogoTipoBien(transaccionActual.getDetCatalogoTipoBien());
+				transaccionNuevo.setCabCatalogoTipoBien(ConstantesApplication.CAB_CAT_TIPO_BIEN);
+				transaccionNuevo.setDetCatalogoTipoBien(EnumTipoBien.BAJA.getId());
 				transaccionNuevo.setCabEstadoConservacion(transaccionActual.getCabEstadoConservacion());
 				transaccionNuevo.setDetEstadoConservacion(transaccionActual.getDetEstadoConservacion());
 				transaccionNuevo.setCabCatalogoTipoBaja(ConstantesApplication.CAB_CAT_TIPO_BAJA);

@@ -33,10 +33,14 @@
 		<param-name>primefaces.THEME</param-name>
 		<param-value>aristo</param-value>
 	</context-param>
-    <context-param>
-        <param-name>primefaces.UPLOADER</param-name>
-        <param-value>commons</param-value>
-    </context-param>		
+	<context-param>
+		<param-name>primefaces.UPLOADER</param-name>
+		<param-value>commons</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+		<param-value>true</param-value>
+	</context-param>
 	<!-- filter mapping -->
 	<filter>
 		<filter-name>LoginFiltro</filter-name>

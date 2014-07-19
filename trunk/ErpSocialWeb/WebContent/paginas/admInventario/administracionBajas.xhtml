@@ -161,12 +161,21 @@
 					</h:panelGroup>
 				</p:column>
 			</p:dataTable>
+			
+			<!-- Confirmar baja bien -->
+			<p:confirmDialog id="dialogConfirmarBaja" message="#{i18n['erp.bien.bajas.pregunta.confirmacion']}" appendTo="@(body)"
+				header="#{i18n['erp.bien.bajas.header.pregunta.confirmacion']}" severity="alert" widgetVar="dlgConfirmaBaja" >
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{transaccionBienController.darBajaBien}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgConfirmaBaja.hide(); dlgBajaBien.hide();"
+					process="@this,:formBajaBien" update=":formBajaBien:pnlBajaBien,:formBien:tablaBienes,:formBien:pnlMessages"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgConfirmaBaja.hide(); dlgBajaBien.hide();" type="button" />
+			</p:confirmDialog>
+			
 		</h:form>
 		
 		<ui:include src="dialogBajaBien.xhtml" />
 		<ui:include src="dialogBuscarUsuario.xhtml" />
-		
-		
 		
 	</ui:define>
 </ui:composition>

@@ -146,7 +146,9 @@
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.fecha.asignacion']}" />
 					</f:facet>
-					<h:outputText value="#{vistaBien.bieFechaAsig}" />
+					<h:outputText value="#{vistaBien.traFechaInicio}">
+						<f:convertDateTime pattern="yyyy-MM-dd hh:mm aa"/>
+					</h:outputText>
 				</p:column>
 				<p:column width="10%">
 					<f:facet name="header">
@@ -163,6 +165,7 @@
 				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="20%" exportable="false">
 					<h:panelGroup>
 						<p:commandLink value="Asignar" title="Asignar" rendered="#{vistaBien.npVerAsignarBien}"
+							
 							oncomplete="dlgAsignarBien.show()" update=":formAsignarBien:pnlAsignarBien">
 							<f:setPropertyActionListener target="#{vistaBienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
 						</p:commandLink>
@@ -191,8 +194,6 @@
 			</p:dataTable>
 		</h:form>
 		
-		<!-- <ui:include src="dialogNuevoBien.xhtml" />
-		<ui:include src="dialogEditarBien.xhtml" /> -->
 		<ui:include src="dialogAsignarBien.xhtml" />
 		<ui:include src="dialogBajaBien.xhtml" />
 		<ui:include src="dialogDevolverBien.xhtml" />
