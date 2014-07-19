@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpReasignarBien" header="#{i18n['erp.bien.reasignar']}" 
-		widgetVar="dlgReasignarBien" modal="true" minWidth="500" width="500" appendTo="@(body)" draggable="false">
+		widgetVar="dlgReasignarBien" modal="true" minWidth="600" width="600" appendTo="@(body)" draggable="false">
 		<h:form id="formReasignarBien" styleClass="formulario">
 			<p:panel id="pnlReasignarBien" >
 				<table class="formulario">
@@ -19,23 +19,23 @@
 						</td>
 					</tr>
 					<tr>
-						<td width="30%">
+						<td>
 							<h:outputLabel for="txtCodigo" value="#{i18n['erp.bien.codigo']}" />
 						</td>
-						<td width="70%">
+						<td>
 							<h:outputText id="txtCodigo" value="#{vistaBienDataManager.vistaBienEditar.bieCodigo}" />
 						</td>
 					</tr>
 					<tr>
-						<td width="30%">
+						<td>
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.fecha.reasignacion']}" />
-							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
-						<td width="70%">
-							<p:calendar id="popupCal" required="true" pattern="yyyy-mm-dd"
+						<td>
+							<!-- <p:calendar id="popupCal" required="true" pattern="yyyy-mm-dd"
 								value="#{vistaBienDataManager.vistaBienEditar.bieFechaReasig}" label="#{i18n['erp.bien.fecha.reasignacion']}" showOn="button">
 								<f:convertDateTime pattern="yyyy-mm-dd" />
-							</p:calendar>
+							</p:calendar> -->
+							<h:outputText value="#{transaccionBienController.fechaTransaccion}" />
 						</td>
 					</tr>
 					<tr>

@@ -14,7 +14,8 @@ public enum EnumTipoBien {
 	INGRESADO(MessagesApplicacion.getString("erp.inventarios.detalle.catalogo.tipoBien.ingresado")), 
 	ASIGNADO(MessagesApplicacion.getString("erp.inventarios.detalle.catalogo.tipoBien.asignado")), 
 	REASIGNADO(MessagesApplicacion.getString("erp.inventarios.detalle.catalogo.tipoBien.reasignado")), 
-	DEVUELTO(MessagesApplicacion.getString("erp.inventarios.detalle.catalogo.tipoBien.devuelto"));
+	DEVUELTO(MessagesApplicacion.getString("erp.inventarios.detalle.catalogo.tipoBien.devuelto")),
+	BAJA(MessagesApplicacion.getString("erp.inventarios.detalle.catalogo.tipoBien.baja"));
 
 	private final String id;
 	

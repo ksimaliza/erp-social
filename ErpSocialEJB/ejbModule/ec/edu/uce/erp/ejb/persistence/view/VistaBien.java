@@ -2,6 +2,7 @@ package ec.edu.uce.erp.ejb.persistence.view;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,6 +14,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaUtil;
+
 
 /**
  * The persistent class for the bien_view database table.
@@ -21,7 +24,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name="bien_view")
 @NamedQuery(name="VistaBien.findAll", query="SELECT v FROM VistaBien v")
-public class VistaBien implements Serializable {
+public class VistaBien extends AuditoriaUtil implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="bie_color")
@@ -35,10 +38,6 @@ public class VistaBien implements Serializable {
 	
 	@Column(name="bie_estado_uso")
 	private String bieEstadoUso;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name="bie_fecha_asig")
-	private Date bieFechaAsig;
 
 	@Column(name="bie_modelo")
 	private String bieModelo;
@@ -137,6 +136,9 @@ public class VistaBien implements Serializable {
 	@Column(name="bie_estado_uso_string")
 	private String bieEstadoUsoString;
 	
+	@Column(name="tra_fecha_inicio")
+	private Timestamp traFechaInicio;
+	
 	@Transient
 	@Temporal(TemporalType.DATE)
 	private Date bieFechaReasig;
@@ -179,15 +181,7 @@ public class VistaBien implements Serializable {
 	public void setBieEstado(String bieEstado) {
 		this.bieEstado = bieEstado;
 	}
-
-	public Date getBieFechaAsig() {
-		return this.bieFechaAsig;
-	}
-
-	public void setBieFechaAsig(Date bieFechaAsig) {
-		this.bieFechaAsig = bieFechaAsig;
-	}
-
+	
 	public String getBieModelo() {
 		return this.bieModelo;
 	}
@@ -616,6 +610,20 @@ public class VistaBien implements Serializable {
 	 */
 	public void setBieEstadoUsoString(String bieEstadoUsoString) {
 		this.bieEstadoUsoString = bieEstadoUsoString;
+	}
+
+	/**
+	 * @return the traFechaInicio
+	 */
+	public Timestamp getTraFechaInicio() {
+		return traFechaInicio;
+	}
+
+	/**
+	 * @param traFechaInicio the traFechaInicio to set
+	 */
+	public void setTraFechaInicio(Timestamp traFechaInicio) {
+		this.traFechaInicio = traFechaInicio;
 	}
 
 }

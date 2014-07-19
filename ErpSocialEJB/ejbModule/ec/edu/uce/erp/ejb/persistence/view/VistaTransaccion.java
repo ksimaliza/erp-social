@@ -38,6 +38,12 @@ public class VistaTransaccion implements Serializable {
 
 	@Column(name="det_bien_tip_bie_nivel1")
 	private String detBienTipBieNivel1;
+	
+	@Column(name="cab_bien_tip_baj_fk")
+	private String cabBienTipoBajaFk;
+	
+	@Column(name="det_bien_tip_baj_nivel1")
+	private String detBienTipoBajaNivel1;
 
 	@Column(name="emp_asignado_fk")
 	private Integer empAsignadoFk;
@@ -56,6 +62,9 @@ public class VistaTransaccion implements Serializable {
 
 	@Column(name="tip_bie_descripcion")
 	private String tipBieDescripcion;
+	
+	@Column(name="tipo_baja_descripcion")
+	private String tipoBajaDescripcion;
 
 	@Column(name="tra_estado")
 	private String traEstado;

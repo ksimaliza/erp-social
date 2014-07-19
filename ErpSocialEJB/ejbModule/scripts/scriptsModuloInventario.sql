@@ -158,7 +158,7 @@ INSERT INTO detalle_catalogo_tbl
 -- Cabecera catalogo
 INSERT INTO cabecera_bien_tbl(
 cab_bien_pk, cab_bien_descripcion, cab_bien_archivo) VALUES 
-('TIBIE', 'Tipo del bien: Ingresado, asignado, reasignado, devuelto.', 'N/A');
+('TIBIE', 'Tipo del bien: Ingresado, asignado, reasignado, devuelto. baja', 'N/A');
 
 -- Detalle catalogo
 INSERT INTO detalle_bien_tbl(
@@ -176,6 +176,10 @@ INSERT INTO detalle_bien_tbl(
 INSERT INTO detalle_bien_tbl(
             cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
     VALUES ('TIBIE', 'DEVUE', 'Devuelto', '1');
+    
+INSERT INTO detalle_bien_tbl(
+            cab_bien_fk, det_bien_nivel1, det_bien_descripcion, det_bien_estado)
+    VALUES ('TIBIE', 'BAJA', 'Baja', '1');
     
 -- Tipo ingreso: Se definira como donacion o compra dentro de un catalogo.
 -- Cabecera catalogo
@@ -400,14 +404,14 @@ alter table TRANSACCION_TBL
 DROP view IF EXISTS bien_view;
 create view bien_view as
 select bie_pk, emr_pk, 
-b.bie_nombre, b.bie_modelo, b.bie_color, bie_costo_venta, bie_fecha_asig, bie_ubicacion, bie_notas, 
+b.bie_nombre, b.bie_modelo, b.bie_color, bie_costo_venta, bie_ubicacion, bie_notas, 
 bie_estado, CASE WHEN bie_estado='1' THEN 'ACTIVO' ELSE 'INACTIVO' END as bie_estado_string, 
 bie_estado_uso, CASE WHEN bie_estado_uso='1' THEN 'EN USO' ELSE 'SIN USO' END as bie_estado_uso_string, 
 b.cat_bien_pk, b.bie_codigo, b.lin_bien_pk, lb.lin_bien_nombre, lb.lin_bien_estado, b.mar_bien_pk, 
 mb.mar_bien_nombre, mb.mar_bien_estado, cb.cat_bien_nombre, cb.cat_bien_estado,
 t.cab_bien_tip_bie_fk, t.det_bien_tip_bie_nivel1,
 t.cab_bien_est_conserv_fk, t.det_bien_est_conserv_nivel1_fk, t.cab_bien_tip_baj_fk, t.det_bien_tip_baj_nivel1, 
-t.tra_estado, t.emp_asignado_fk, t.emp_reasignado_fk, t.tra_descripcion,
+t.tra_estado, t.emp_asignado_fk, t.emp_reasignado_fk, t.tra_descripcion, t.tra_fecha_inicio,
 per.per_ci, (per.per_nombres || ' ' || per.per_apellidos) as nombres_completos
 from bien_tbl b
 inner join categoria_bien_tbl cb on cb.cat_bien_pk=b.cat_bien_pk
@@ -434,13 +438,16 @@ SELECT per.per_pk, per.per_ci, per.per_nombres, per.per_apellidos, (per.per_nomb
 /*==============================================================*/
 DROP view IF EXISTS transaccion_view;
 CREATE VIEW transaccion_view as
-select t.tra_pk, t.bie_fk, tra_estado, t.tra_fecha_inicio, t.tra_fecha_fin, t.cab_bien_tip_bie_fk, t.det_bien_tip_bie_nivel1, 
-dbtb.det_bien_descripcion as tip_bie_descripcion, t.cab_bien_est_conserv_fk, t.det_bien_est_conserv_nivel1_fk, 
-dbec.det_bien_descripcion as est_conserv_descripcion, t.emp_asignado_fk, eva.nombres_completos as nombre_emp_asignado,
+select t.tra_pk, t.bie_fk, tra_estado, t.tra_fecha_inicio, t.tra_fecha_fin, 
+t.cab_bien_tip_bie_fk, t.det_bien_tip_bie_nivel1, dbtb.det_bien_descripcion as tip_bie_descripcion, 
+t.cab_bien_est_conserv_fk, t.det_bien_est_conserv_nivel1_fk, dbec.det_bien_descripcion as est_conserv_descripcion, 
+t.cab_bien_tip_baj_fk, t.det_bien_tip_baj_nivel1, dbtipBaj.det_bien_descripcion as tipo_baja_descripcion, 
+t.emp_asignado_fk, eva.nombres_completos as nombre_emp_asignado,
 t.emp_reasignado_fk, evra.nombres_completos as nombre_emp_reasignado
 from transaccion_tbl t
 left join detalle_bien_tbl dbtb on dbtb.cab_bien_fk = t.cab_bien_tip_bie_fk and dbtb.det_bien_nivel1 = t.det_bien_tip_bie_nivel1
 left join detalle_bien_tbl dbec on dbec.cab_bien_fk = t.cab_bien_est_conserv_fk and dbec.det_bien_nivel1= t.det_bien_est_conserv_nivel1_fk
+left join detalle_bien_tbl dbtipBaj on dbtipBaj.cab_bien_fk = t.cab_bien_tip_baj_fk and dbtipBaj.det_bien_nivel1= t.det_bien_tip_baj_nivel1
 left join empleado_view eva on eva.emp_pk = t.emp_asignado_fk
 left join empleado_view evra on evra.emp_pk = t.emp_reasignado_fk
 order by t.tra_fecha_inicio asc;

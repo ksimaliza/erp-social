@@ -21,13 +21,14 @@
 					<tr>
 						<td>
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.fecha.asignacion']}" />
-							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+							<!-- <h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" /> -->
 						</td>
 						<td>
-							<p:calendar id="popupCal" required="true" pattern="yyyy-mm-dd"
+							<!-- <p:calendar id="popupCal" required="true" pattern="yyyy-mm-dd"
 								value="#{vistaBienDataManager.vistaBienEditar.bieFechaAsig}" label="#{i18n['erp.bien.fecha.asignacion']}" showOn="button">
 								<f:convertDateTime pattern="yyyy-mm-dd" />
-							</p:calendar>
+							</p:calendar> -->
+							<h:outputText value="#{transaccionBienController.fechaTransaccion}" />
 						</td>
 					</tr>
 					<tr>
