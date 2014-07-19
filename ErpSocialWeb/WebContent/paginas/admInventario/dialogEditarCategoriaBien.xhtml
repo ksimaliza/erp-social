@@ -26,7 +26,7 @@
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
-							<p:inputText id="txtIndice" style="width: 100%" required="true"
+							<p:inputText id="txtIndice" style="width: 100%" required="true" onkeypress="return soloEnteros(this, event)"
 								value="#{categoriaBienDataManager.categoriaBienEditar.catBienIndice}" label="#{i18n['erp.categoria.bien.indice']}" />
 						</td>
 					</tr>
