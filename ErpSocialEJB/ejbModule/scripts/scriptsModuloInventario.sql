@@ -473,3 +473,15 @@ alter table BIEN_TBL
    add constraint FK_BIEN_TBL_RELATIONS_DET_TIP_ING foreign key (cab_bien_tip_ing_fk, det_bien_tip_ing_nivel1)
       references DETALLE_BIEN_TBL (CAB_BIEN_FK, DET_BIEN_NIVEL1)
       on delete restrict on update restrict;
+
+--alter table PROVEEDOR
+--add column EMR_PK INT4 null;
+--
+--create unique index PROVEEDOR_EMPRESA_PK on PROVEEDOR (
+--PROV_PK
+--);
+--
+--alter table PROVEEDOR
+--   add constraint FK_PROVEEDO_REFERENCE_EMPRESA_ foreign key (EMR_PK)
+--      references EMPRESA_TBL (EMR_PK)
+--      on delete restrict on update restrict;
