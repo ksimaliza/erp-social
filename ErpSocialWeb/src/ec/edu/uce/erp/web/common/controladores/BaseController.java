@@ -91,6 +91,10 @@ public abstract class BaseController implements Serializable{
 		return FacesContext.getCurrentInstance();
 	}
 	
+	protected ServletContext getServletContext() {
+		return (ServletContext)getExternalContext().getContext();
+	}
+	
 	/**
 	 * Retorna la ip del usuario que inicio session 
 	 * @return

@@ -182,9 +182,9 @@
 							oncomplete="dlgTrazabilidadBien.show()" update=":formTrazabilidadBien:pnlTrazabilidadBien">
 							<f:setPropertyActionListener target="#{vistaBienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
 						</p:commandLink>
-						<p:commandLink styleClass="no-decor"
+						<p:commandLink styleClass="no-decor" 
 							title="#{i18n['label.imprimir']}"
-							process="@this" ajax="false"
+							process="@this" ajax="false" rendered="#{vistaBien.npVerImprimirActa}"
 							action="#{transaccionBienController.generarActaBien}">
 							<h:graphicImage value="/resources/img/pdf.png" alt="#{i18n['label.imprimir']}"/>
 							<f:setPropertyActionListener target="#{vistaBienDataManager.vistaBienEditar}" value="#{vistaBien}"/>

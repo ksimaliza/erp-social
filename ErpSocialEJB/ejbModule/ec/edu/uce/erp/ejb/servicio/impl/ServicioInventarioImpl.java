@@ -486,18 +486,13 @@ public class ServicioInventarioImpl implements ServicioInventario {
 				vistaBien.getDetBienTipBieNivel1().equals(EnumTipoBien.REASIGNADO.getId())) {
 			vistaBien.setNpVerTrasladoBien(Boolean.TRUE);
 			vistaBien.setNpVerDevolverBien(Boolean.TRUE);
+			vistaBien.setNpVerImprimirActa(Boolean.TRUE);
 		}
 		
 		if (vistaBien.getDetBienTipBieNivel1().equals(EnumTipoBien.DEVUELTO.getId()) || 
 				vistaBien.getBieEstadoUso().equals(ESTADO_INACTIVO)) {
 			vistaBien.setNpVerBajaBien(Boolean.TRUE);
 		}
-		
-//		if (vistaBien.getDetBienTipBieNivel1().equals(EnumTipoBien.INGRESADO.getId()) 
-//				|| vistaBien.getDetBienTipBieNivel1().equals(EnumTipoBien.DEVUELTO.getId())
-//						|| vistaBien.getDetBienTipBieNivel1().equals(EnumTipoBien.REASIGNADO.getId())) {
-//			vistaBien.setNpVerDevolverBien(Boolean.TRUE);
-//		}
 		
 	}
 
