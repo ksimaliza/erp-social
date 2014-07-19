@@ -38,9 +38,9 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 	private Date fechaApCInsertar;
 	private int provinciaCodigo;
 	private int cantonCodigo;
-	private int ciudadCodigo;
+	private int parroquiaCodigo;
 	private List<CatalogoEucaristiaDTO> catalogoEucaristiaDTOs;
-	
+
 		
 	private List<Persona> bautizadoListDTO;
 	
@@ -48,11 +48,13 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 	
 	private int sacerdoteCodigo;
 	private int doctorCodigo;
+	private int estadoCodigo;
 	private List<SacerdoteListDTO> sacerdoteListDTO;
 	private List<DoctorListDTO> doctorListDTO;
 	private List<CatalogoEucaristiaDTO> provinciasEucaristiaDTOs;
 	private List<CatalogoEucaristiaDTO> cantonEucaristiaDTOs;
-	private List<CatalogoEucaristiaDTO> ciudadEucaristiaDTOs;
+	private List<CatalogoEucaristiaDTO> parroquiaEucaristiaDTOs;
+	private List<CatalogoEucaristiaDTO> estadoEucaristiaDTOs;
 	
 	
 	
@@ -70,11 +72,14 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 		this.bautizadoListDTO=new ArrayList<Persona>();
 		this.bautizoListDTO=new BautizoListDTO();
 		this.bautizoListDTOs=new ArrayList<BautizoListDTO>();
-		this.catalogoEucaristiaDTOs=new ArrayList<CatalogoEucaristiaDTO>();
-		
-		
+		this.catalogoEucaristiaDTOs=new ArrayList<CatalogoEucaristiaDTO>();		
 			
 	}
+	
+	
+	private BautizoListDTO bautizoListDTO;
+	private List<BautizoListDTO> bautizoListDTOs;
+	
 	
 	public int getCantonCodigo() {
 		return cantonCodigo;
@@ -84,13 +89,6 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 		this.cantonCodigo = cantonCodigo;
 	}
 
-	public int getCiudadCodigo() {
-		return ciudadCodigo;
-	}
-
-	public void setCiudadCodigo(int ciudadCodigo) {
-		this.ciudadCodigo = ciudadCodigo;
-	}
 
 	public List<CatalogoEucaristiaDTO> getProvinciasEucaristiaDTOs() {
 		return provinciasEucaristiaDTOs;
@@ -110,21 +108,9 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 		this.cantonEucaristiaDTOs = cantonEucaristiaDTOs;
 	}
 
-	public List<CatalogoEucaristiaDTO> getCiudadEucaristiaDTOs() {
-		return ciudadEucaristiaDTOs;
-	}
 
-	public void setCiudadEucaristiaDTOs(
-			List<CatalogoEucaristiaDTO> ciudadEucaristiaDTOs) {
-		this.ciudadEucaristiaDTOs = ciudadEucaristiaDTOs;
-	}
 
-	private BautizoListDTO bautizoListDTO;
-	private List<BautizoListDTO> bautizoListDTOs;
-	
-	
-	
-	
+		
 
 	public int getProvinciaCodigo() {
 		return provinciaCodigo;
@@ -262,6 +248,42 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 			List<CatalogoEucaristiaDTO> catalogoEucaristiaDTOs) {
 		this.catalogoEucaristiaDTOs = catalogoEucaristiaDTOs;
 	}
+
+	public int getEstadoCodigo() {
+		return estadoCodigo;
+	}
+
+	public void setEstadoCodigo(int estadoCodigo) {
+		this.estadoCodigo = estadoCodigo;
+	}
+
+	public List<CatalogoEucaristiaDTO> getEstadoEucaristiaDTOs() {
+		return estadoEucaristiaDTOs;
+	}
+
+	public void setEstadoEucaristiaDTOs(
+			List<CatalogoEucaristiaDTO> estadoEucaristiaDTOs) {
+		this.estadoEucaristiaDTOs = estadoEucaristiaDTOs;
+	}
+
+	public int getParroquiaCodigo() {
+		return parroquiaCodigo;
+	}
+
+	public void setParroquiaCodigo(int parroquiaCodigo) {
+		this.parroquiaCodigo = parroquiaCodigo;
+	}
+
+	public List<CatalogoEucaristiaDTO> getParroquiaEucaristiaDTOs() {
+		return parroquiaEucaristiaDTOs;
+	}
+
+	public void setParroquiaEucaristiaDTOs(
+			List<CatalogoEucaristiaDTO> parroquiaEucaristiaDTOs) {
+		this.parroquiaEucaristiaDTOs = parroquiaEucaristiaDTOs;
+	}
+
+	
 
 
 

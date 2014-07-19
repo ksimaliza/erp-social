@@ -1,6 +1,7 @@
 package ec.edu.uce.erp.web.controladores;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -18,8 +19,6 @@ import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.BautizoVO;
@@ -67,9 +66,8 @@ public class PartidaBautizoController extends BaseController{
 	@PostConstruct
 	public void inicializarObjetos () {
 		buscarSacerdote();
-		buscarDoctor();
 		buscarProvincia();
-		
+		buscarEstado();
 	}
 	
 	
@@ -78,20 +76,23 @@ public class PartidaBautizoController extends BaseController{
 		slf4jLogger.info("registrarBautizo");
 		BautizoVO bautizoVO;
 		SacerdoteDTO sacerdoteDTO;
-		DoctorDTO doctorDTO;
 		CatalogoEucaristiaDTO provincia;
 		CatalogoEucaristiaDTO canton;
-		CatalogoEucaristiaDTO ciudad;
+		CatalogoEucaristiaDTO parroquia;
+		CatalogoEucaristiaDTO estado;
 		
 		try {
 			
 			bautizoVO=new BautizoVO();
 			sacerdoteDTO=new SacerdoteDTO();
-			doctorDTO=new DoctorDTO();
 			provincia=new CatalogoEucaristiaDTO();
 			canton=new CatalogoEucaristiaDTO();
-			ciudad=new CatalogoEucaristiaDTO();
+			parroquia=new CatalogoEucaristiaDTO();
+			estado=new CatalogoEucaristiaDTO();
 			
+			
+			partidaBautizoDataManager.getBautizoDTO().setBauCertificadoPor(getPersonaCode());
+		
 			bautizoVO.setBautizado(partidaBautizoDataManager.getBautizadoInsertar());
 			bautizoVO.setMadrina(partidaBautizoDataManager.getMadrinaInsertar());
 			bautizoVO.setPadrino(partidaBautizoDataManager.getPadrinoInsertar());
@@ -102,15 +103,18 @@ public class PartidaBautizoController extends BaseController{
 			
 			sacerdoteDTO.setSacCodigo(partidaBautizoDataManager.getSacerdoteCodigo());
 			bautizoVO.setSacerdote(sacerdoteDTO);
-			doctorDTO.setDocCodigo(partidaBautizoDataManager.getDoctorCodigo());
-			bautizoVO.setDoctorVO(doctorDTO);
+			
+			
+			
 			provincia.setCatCodigo(partidaBautizoDataManager.getProvinciaCodigo());
 			canton.setCatCodigo(partidaBautizoDataManager.getCantonCodigo());
-			ciudad.setCatCodigo(partidaBautizoDataManager.getCiudadCodigo());
+			parroquia.setCatCodigo(partidaBautizoDataManager.getParroquiaCodigo());
+			estado.setCatCodigo(partidaBautizoDataManager.getEstadoCodigo());
+			
 			bautizoVO.getBautizo().setBauProvincia(provincia.getCatCodigo());
 			bautizoVO.getBautizo().setBauCanton(canton.getCatCodigo());
-			bautizoVO.getBautizo().setBauCiudad(ciudad.getCatCodigo());
-			
+			bautizoVO.getBautizo().setBauParroquia(parroquia.getCatCodigo());
+			bautizoVO.getBautizo().setBauEstado(estado.getCatCodigo());
 			
 			bautizoVO.getBautizo().setBauFechaAprobacionCruso(new Timestamp(partidaBautizoDataManager.getFechaApCInsertar().getTime()));
 			bautizoVO.getBautizo().setBauFechaBautizo(new Timestamp(partidaBautizoDataManager.getFechaBautizoInsertar().getTime()));
@@ -120,6 +124,12 @@ public class PartidaBautizoController extends BaseController{
 				partidaBautizoDataManager.setBautizadoInsertar(new Persona());
 				partidaBautizoDataManager.setMadrinaInsertar(new Persona());
 				partidaBautizoDataManager.setPadrinoInsertar(new Persona());
+				partidaBautizoDataManager.setBautizoDTO(new BautizoDTO());
+				partidaBautizoDataManager.setSacerdoteCodigo(0);
+				partidaBautizoDataManager.setFechaApCInsertar(new Date());
+				partidaBautizoDataManager.setFechaBautizoInsertar(new Date());
+				partidaBautizoDataManager.setEstadoCodigo(0);
+				
 							
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.partida.bautizo.registrar.exito");
 			}
@@ -153,28 +163,7 @@ public class PartidaBautizoController extends BaseController{
 		
 	}
 	
-	public void buscarDoctor () {
-		slf4jLogger.info("buscarDoctor");
-		
-		List<DoctorListDTO> listaDoctor=null;
-		
-		try {
-							
-			listaDoctor=this.servicioEucaristia.buscarDoctor(new DoctorListDTO());
-			
-			if (CollectionUtils.isEmpty(listaDoctor) && listaDoctor.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.partidaBautizoDataManager.setDoctorListDTO(listaDoctor);
-							
-			}
-			
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarDoctor {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-		
-	}
+
 	
 	public void buscarBautizado () {
 		slf4jLogger.info("buscarBautizado");
@@ -281,7 +270,7 @@ public class PartidaBautizoController extends BaseController{
 			BautizoVO bautizoEncontrado=servicioEucaristia.obtenerBautizoPorId(bautizo.getBauBautizado(),bautizo.getBauCodigo());
 			this.partidaBautizoDataManager.setBautizadoInsertar(bautizoEncontrado.getBautizado());
 			this.partidaBautizoDataManager.setBautizoDTO(bautizoEncontrado.getBautizo());
-			
+		
 			
 							
 		} catch (SeguridadesException e) {
@@ -339,8 +328,8 @@ public class PartidaBautizoController extends BaseController{
 		
 	}
 	
-	public void buscarCiudad () {
-		slf4jLogger.info("buscarCiudad");
+	public void buscarParroquia () {
+		slf4jLogger.info("buscarParroquia");
 		
 		List<CatalogoEucaristiaDTO> listaCatalogo=null;
 		
@@ -352,12 +341,36 @@ public class PartidaBautizoController extends BaseController{
 			if (CollectionUtils.isEmpty(listaCatalogo) && listaCatalogo.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
-				this.partidaBautizoDataManager.setCiudadEucaristiaDTOs(listaCatalogo);
+				this.partidaBautizoDataManager.setProvinciasEucaristiaDTOs(listaCatalogo);
 				
 			}
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarCiudad {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
+	public void buscarEstado () {
+		slf4jLogger.info("buscarEstado");
+		
+		List<CatalogoEucaristiaDTO> listaCatalogo=null;
+		
+		try {
+			CatalogoEucaristiaDTO cat=new CatalogoEucaristiaDTO();
+			cat.setCatCodigo(18);
+			listaCatalogo=this.servicioEucaristia.buscarCatalogo(cat);
+			
+			if (CollectionUtils.isEmpty(listaCatalogo) && listaCatalogo.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.partidaBautizoDataManager.setEstadoEucaristiaDTOs(listaCatalogo);
+				
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarEstado {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 		
