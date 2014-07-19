@@ -177,7 +177,6 @@ public class BienController extends BaseController{
 				this.bienDataManager.setListVistaBien(listVistaBien);
 			} else {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-				
 			}
 			
 		} catch (SeguridadesException e) {
