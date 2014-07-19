@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpEditarPartidaMatrimonio" header="#{i18n['erp.despacho.partida.matrimonio.registrar']}" resizable="false" draggable="false"
+		widgetVar="dlgEditarPartidaMatrimonio" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<p:scrollPanel style="height:500px" mode="native">
+				<h:form id="formEditarPartidaMatrimonio" styleClass="formulario">
+			<p:panel id="pnlEditarPartidaMatrimonio">
+				<table class="formulario">
+						
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCiNovio" value="#{i18n['erp.despacho.partida.matrimonio.cedulanovio']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCiNovio"  style="width: 70%"
+							required="true" label="#{i18n['erp.despacho.partida.matrimonio.cedulanovio']}" value="#{partidaMatrimonioDataManager.novioInsertar.perCi}">
+							<p:ajax event="blur" update="txtNomNovio,txtApeNovio" listener="#{partidaMatrimonioController.buscarNovio}" process="@this"/>
+							<f:validateLength maximum="10" minimum="10"/>
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+							
+						</p:inputText>
+						
+						</td>
+						</tr>
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNomNovio" value="#{i18n['erp.despacho.partida.matrimonio.nombresnovio']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNomNovio" style="width: 100%"
+								required="true" value="#{partidaMatrimonioDataManager.novioInsertar.perNombres}" />
+						</td>	
+					</tr>
+					
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApeNovio" value="#{i18n['erp.despacho.partida.matrimonio.apellidosnovio']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApeNovio" style="width: 100%"
+								required="true" value="#{partidaMatrimonioDataManager.novioInsertar.perApellidos}" />
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtParroquiaNovio" value="#{i18n['erp.despacho.partida.matrimonio.parroquianovio']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtParroquiaNovio" style="width: 100%"
+								required="true" value="#{partidaMatrimonioDataManager.matrimonioDTO.matParroquiaNovio}"/>
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCodNovio" value="#{i18n['erp.despacho.partida.matrimonio.codigo.certificadonovio']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCodNovio" style="width: 100%"
+								required="true" value="#{partidaMatrimonioDataManager.matrimonioDTO.matCertificadoNovio}" />
+						</td>	
+					</tr>	
+											
+					
+				</table>
+			</p:panel>
+			
+			<p:panel id="pnlDatosPadrinoNovio">
+				<table class="formulario">
+												
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCiPadNov" value="#{i18n['erp.despacho.partida.matrimonio.cedula.padrinonovio']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCiPadNov"  style="width: 70%"
+							required="true" label="#{i18n['erp.despacho.partida.matrimonio.cedula.padrinonovio']}" value="#{partidaMatrimonioDataManager.pad_novioInsertar.perCi}">
+							<p:ajax event="blur" update="txtNomPadNov,txtApePadNov" listener="#{partidaMatrimonioController.buscarPad_Novio}" process="@this"/>
+							<f:validateLength maximum="10" minimum="10"/>
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+							
+						</p:inputText>
+						
+						</td>
+					</tr>
+						
+						
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNomPadNov" value="#{i18n['erp.despacho.partida.matrimonio.nombres.padrinonovio']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNomPadNov" style="width: 100%"
+								 required="true" value="#{partidaMatrimonioDataManager.pad_novioInsertar.perNombres}"/>
+						</td>	
+					</tr>
+						
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApePadNov" value="#{i18n['erp.despacho.partida.matrimonio.apellidos.padrinonovio']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApePadNov" style="width: 100%"
+								 required="true" value="#{partidaMatrimonioDataManager.pad_novioInsertar.perApellidos}" />
+						</td>	
+					</tr>
+					
+				
+					
+				</table>
+			</p:panel>
+			
+				<p:panel id="pnlDatosMadrinaNovio">
+				<table class="formulario">
+												
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCiMadNov" value="#{i18n['erp.despacho.partida.matrimonio.cedula.madrinanovio']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCiMadNov"  style="width: 100%"
+							required="true" label="#{i18n['erp.despacho.partida.matrimonio.cedula.madrinanovio']}" value="#{partidaMatrimonioDataManager.mad_novioInsertar.perCi}">
+							<p:ajax event="blur" update="txtNomMadNov,txtApeMadNov" listener="#{partidaMatrimonioController.buscarMad_Novio}" process="@this"/>
+							<f:validateLength maximum="10" minimum="10"/>
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+						
+						</p:inputText>
+						
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNomMadNov" value="#{i18n['erp.despacho.partida.matrimonio.nombres.madrinanovio']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNomMadNov" style="width: 100%"  
+								 required="true" value="#{partidaMatrimonioDataManager.mad_novioInsertar.perNombres}" />
+						</td>	
+					</tr>
+					
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApeMadNov" value="#{i18n['erp.despacho.partida.matrimonio.apellidos.madrinanovio']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApeMadNov" style="width: 100%"  
+								 required="true" value="#{partidaMatrimonioDataManager.mad_novioInsertar.perApellidos}" />
+						</td>	
+					</tr>
+					
+					
+					
+				</table>
+				</p:panel>
+				
+				<p:panel id="pnlDatosNovia">
+				<table class="formulario">
+						
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCiNovia" value="#{i18n['erp.despacho.partida.matrimonio.cedulanovia']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCiNovia"  style="width: 70%"
+							required="true" label="#{i18n['erp.despacho.partida.matrimonio.cedulanovia']}" value="#{partidaMatrimonioDataManager.noviaInsertar.perCi}">
+							<p:ajax event="blur" update="txtNomNovia,txtApeNovia" listener="#{partidaMatrimonioController.buscarNovia}" process="@this"/>
+							<f:validateLength maximum="10" minimum="10"/>
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+													
+						</p:inputText>
+						
+						</td>
+						</tr>
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNomNovia" value="#{i18n['erp.despacho.partida.matrimonio.nombresnovia']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNomNovia" style="width: 100%"
+								required="true" value="#{partidaMatrimonioDataManager.noviaInsertar.perNombres}" />
+						</td>	
+					</tr>
+					
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApeNovia" value="#{i18n['erp.despacho.partida.matrimonio.apellidosnovia']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApeNovia" style="width: 100%"
+								required="true" value="#{partidaMatrimonioDataManager.noviaInsertar.perApellidos}" />
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtParroquiaNovia" value="#{i18n['erp.despacho.partida.matrimonio.parroquianovia']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtParroquiaNovia" style="width: 100%"
+								required="true" value="#{partidaMatrimonioDataManager.matrimonioDTO.matParroquiaNovia}"  />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCodNovia" value="#{i18n['erp.despacho.partida.matrimonio.codigo.certificadonovia']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCodNovia" style="width: 100%"
+								required="true" value="#{partidaMatrimonioDataManager.matrimonioDTO.matCertificadoNovia}" />
+						</td>	
+					</tr>	
+											
+					
+				</table>
+			</p:panel>
+			
+			<p:panel id="pnlDatosPadrinoNovia">
+				<table class="formulario">
+												
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCiPadNovia" value="#{i18n['erp.despacho.partida.matrimonio.cedula.padrinonovia']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCiPadNovia"  style="width: 70%"
+							required="true" label="#{i18n['erp.despacho.partida.matrimonio.cedula.padrinonovia']}" value="#{partidaMatrimonioDataManager.pad_noviaInsertar.perCi}">
+							<p:ajax event="blur" update="txtNomPadNovia,txtApePadNovia" listener="#{partidaMatrimonioController.buscarPad_Novia}" process="@this"/>
+							<f:validateLength maximum="10" minimum="10"/>
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+										
+						</p:inputText>
+						
+						</td>
+					</tr>
+						
+						
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNomPadNovia" value="#{i18n['erp.despacho.partida.matrimonio.nombres.padrinonovia']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNomPadNovia" style="width: 100%"
+								 required="true" value="#{partidaMatrimonioDataManager.pad_noviaInsertar.perNombres}" />
+						</td>	
+					</tr>
+						
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApePadNovia" value="#{i18n['erp.despacho.partida.matrimonio.apellidos.padrinonovia']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApePadNovia" style="width: 100%"
+								 required="true" value="#{partidaMatrimonioDataManager.pad_noviaInsertar.perApellidos}" />
+						</td>	
+					</tr>
+					
+					
+					
+				</table>
+			</p:panel>
+			
+				<p:panel id="pnlDatosMadrinaNovia">
+				<table class="formulario">
+												
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCiMadNovia" value="#{i18n['erp.despacho.partida.matrimonio.cedula.madrinanovia']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCiMadNovia"  style="width: 100%"
+							required="true" label="#{i18n['erp.despacho.partida.matrimonio.cedula.madrinanovia']}" value="#{partidaMatrimonioDataManager.mad_noviaInsertar.perCi}">
+							 <p:ajax event="blur" update="txtNomMadNovia,txtApeMadNovia" listener="#{partidaMatrimonioController.buscarMad_Novia}" process="@this"/> 
+							<f:validateLength maximum="10" minimum="10"/>
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+										
+						</p:inputText>
+						
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNomMadNovia" value="#{i18n['erp.despacho.partida.matrimonio.nombres.madrinanovia']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNomMadNovia" style="width: 100%"  
+								 required="true"  value="#{partidaMatrimonioDataManager.mad_noviaInsertar.perNombres}"/>
+						</td>	
+					</tr>
+					
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApeMadNovia" value="#{i18n['erp.despacho.partida.matrimonio.apellidos.madrinanovia']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApeMadNovia" style="width: 100%"  
+								 required="true" value="#{partidaMatrimonioDataManager.mad_noviaInsertar.perApellidos}" />
+						</td>	
+					</tr>
+					
+					
+					
+				</table>
+			</p:panel>
+				<p:panel id="pnlDatosMatrimonio" >
+				<table class="formulario">	
+				
+				
+				<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFechaMatrimonio" value="#{i18n['erp.despacho.partida.matrimonio.fecha']}" />
+						</td>
+						<td width="70%">
+							<p:calendar id="txtFechaMatrimonio" style="width: 100%" navigator="true"   showOn="button" required="true" value="#{partidaMatrimonioDataManager.fechaMatrInsertar}" />
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFechaCurso" value="#{i18n['erp.despacho.partida.matrimonio.fecha.curso']}" />
+						</td>
+						<td width="70%">
+							<p:calendar id="txtFechaCurso" style="width: 100%" navigator="true"   showOn="button" required="true" value="#{partidaMatrimonioDataManager.fechaApCurInsertar}" />
+						</td>	
+					</tr>
+								
+							
+					  <tr >
+						<td width="30%">
+						
+							<h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.sacerdote']}"  /> 
+						
+						</td>
+					<td width="70%">
+					<p:selectOneMenu id="sacerdote" value="#{partidaMatrimonioDataManager.sacerdoteCodigo}" filter="true" required="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{partidaMatrimonioController.partidaMatrimonioDataManager.sacerdoteListDTO}" var="sac" itemLabel="#{sac.perNombres} #{sac.perApellidos}" itemValue="#{sac.sacCodigo}"/>
+							</p:selectOneMenu>
+					</td>
+					</tr> 
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtLugar" value="#{i18n['erp.despacho.partida.matrimonio.lugar']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtLugar" style="width: 100%"
+								required="true" value="#{partidaMatrimonioDataManager.matrimonioDTO.matLugar}" />
+						</td>	
+					</tr> 
+					
+					
+				</table>
+			</p:panel>
+				<p:panel id="pnlDatos">
+				<table class="formulario">
+												
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNotaM" value="#{i18n['erp.despacho.partida.matrimonio.nota.marginal']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNotaM" style="width: 100%"  required="true" value="#{partidaMatrimonioDataManager.matrimonioDTO.matNotaMarginal}"/>
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtTomo" value="#{i18n['erp.despacho.partida.matrimonio.tomo']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtTomo" style="width: 100%"  
+								 required="true" value="#{partidaMatrimonioDataManager.matrimonioDTO.matTomo}" />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtActa" value="#{i18n['erp.despacho.partida.matrimonio.acta']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtActa"  style="width: 100%"
+							required="true" label="#{i18n['erp.despacho.partida.matrimonio.acta']}" value="#{partidaMatrimonioDataManager.matrimonioDTO.matActa}">
+							
+						</p:inputText>
+						
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtPagina" value="#{i18n['erp.despacho.partida.matrimonio.pagina']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtPagina" style="width: 100%"  
+								 required="true"  value="#{partidaMatrimonioDataManager.matrimonioDTO.matPagina}"/>
+						</td>	
+					</tr>
+					
+				</table>
+			</p:panel>
+		
+		
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{partidaMatrimonioController.registrarMatrimonio}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarPartidaMatrimonio.hide()"
+					process="@this,pnlEditarPartidaMatrimonio,pnlDatos,pnlDatosPadrinoNovio,pnlDatosMadrinaNovio,pnlDatosNovia,pnlDatosMadrinaNovia,pnlDatosPadrinoNovia,pnlDatos,pnlDatosMatrimonio" update="pnlEditarPartidaMatrimonio,pnlDatos,pnlDatosPadrinoNovio,pnlDatosMadrinaNovio,pnlDatosNovia,pnlDatosMadrinaNovia,pnlDatosPadrinoNovia,pnlDatos,pnlDatosMatrimonio,:formPartidaMatrimonio:pnlMessages,:formPartidaMatrimonio:tablaPartidaMatrimonio"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarPartidaMatrimonio.hide()" type="button" />
+			</p:panel>
+	</h:form>
+	</p:scrollPanel>
+	
+	</p:dialog>
+	
+</ui:composition>

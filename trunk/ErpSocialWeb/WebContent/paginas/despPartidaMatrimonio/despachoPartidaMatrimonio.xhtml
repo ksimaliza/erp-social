@@ -31,7 +31,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNom" 
-								/>
+								value="#{partidaMatrimonioDataManager.noviaInsertar.perNombres}"/>
 						</td>	
 					</tr>
 					
@@ -42,7 +42,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApe" 
-								 />
+								value="#{partidaMatrimonioDataManager.noviaInsertar.perApellidos}" />
 						</td>	
 					</tr>
 					<tr>
@@ -51,7 +51,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomCom" 
-								/>
+								value="#{partidaMatrimonioDataManager.mad_novioInsertar.perNombres}"/>
 						</td>	
 					</tr>
 					
@@ -62,14 +62,14 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApeCom" 
-								 />
+								value="#{partidaMatrimonioDataManager.mad_novioInsertar.perApellidos}" />
 						</td>	
 					</tr>
 				</table>
 			</p:panel>
 <p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
-					
+					actionListener="#{partidaMatrimonioController.buscarPartidaMatrimonio}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarPartidaMatrimonio"
 					update=":formPartidaMatrimonio:pnlMessages,tablaPartidaMatrimonio,pnlBuscarPartidaMatrimonio " />
@@ -77,62 +77,63 @@
 
 
 <p:dataTable id="tablaPartidaMatrimonio"
-	
+	value="#{partidaMatrimonioDataManager.matrimonioListDTOs}" var="matrimonio"
 	rowIndexVar="rowIndex"
 	paginator="true" rows="5" paginatorPosition="bottom"
 	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 	rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.despacho.partida.comunion.lista']}">
 	<f:facet name="header">
-		#{i18n['erp.despacho.partida.comunion.lista']}
+		#{i18n['erp.despacho.partida.matrimonio.lista']}
 	</f:facet>
 	<p:column headerText="#" styleClass="centered" width="5%">
 		#{rowIndex+1}
 	</p:column>
 	
 				<p:column headerText="#{i18n['erp.despacho.partida.matrimonio.apellidosnovio']}" width="40%">
-					<h:outputText  />
+					<h:outputText value="#{matrimonio.madNovioApellidos}" />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.matrimonio.nombresnovio']}" width="40%">
-					<h:outputText  />
+					<h:outputText value="#{matrimonio.madNovioNombres}"  />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.matrimonio.apellidosnovia']}" width="40%">
-					<h:outputText  />
+					<h:outputText value="#{matrimonio.madNoviaApellidos}"  />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.matrimonio.nombresnovia']}" width="40%">
-					<h:outputText  />
+					<h:outputText value="#{matrimonio.madNoviaNombres}" />
 				</p:column>
-								<p:column headerText="#{i18n['erp.despacho.partida.matrimonio.fecha']}" width="40%">
-					<h:outputText  />
+				
+				<p:column headerText="#{i18n['erp.despacho.partida.matrimonio.fecha']}" width="40%">
+					<h:outputText  value="#{matrimonio.matFecha}"/>
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.matrimonio.lugar']}" width="40%">
-					<h:outputText  />
+					<h:outputText value="#{matrimonio.matLugar}"  />
 				</p:column>
 				
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.matrimonio.sacerdote']}" width="40%">
-					<h:outputText  />
+					<h:outputText value="#{matrimonio.sacNombres}  #{matrimonio.sacApellidos}"  />
 				</p:column>
 			
-			<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
+			 <p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarPartidaMatrimonio.show()"
-							
+							actionListener="#{partidaMatrimonioController.cargarDatosMatrimonio(matrimonio)}"	
 							process="@this" update=":formEditarPartidaMatrimonio:pnlEditarPartidaMatrimonio">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
 					</h:panelGroup>
-					</p:column>
+					</p:column> 
 			</p:dataTable>			
 	
 	</h:form>			
 	<ui:include src="dialogNuevaPartidaMatrimonio.xhtml" />
-		
+	<ui:include src="dialogEditarPartidaMatrimonio.xhtml" />		
 		
 </ui:define>		
 	

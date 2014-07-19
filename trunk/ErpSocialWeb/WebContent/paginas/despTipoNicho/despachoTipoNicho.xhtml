@@ -27,10 +27,11 @@
 				<table class="formulario">
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtNomTipoNicho" value="#{i18n['erp.despacho.tipo.nicho.nombre']}" />
+							<h:outputLabel for="txtDescripTipo" value="#{i18n['erp.despacho.tipo.nicho.descripcion']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNomTipoNicho"  />
+							<p:inputTextarea id="txtDescripTipo" style="width: 100%"
+								value="#{tipoNichoDataManager.tipoNichoBuscar.tniDescripcion}" />
 						</td>	
 					</tr>
 										
@@ -38,7 +39,7 @@
 			</p:panel>
 <p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
-					
+					actionListener="#{tipoNichoController.buscarTipoNicho}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarTipoNicho"
 					update=":formTipoNicho:pnlMessages,tablaTipoNicho,pnlBuscarTipoNicho " />
@@ -46,7 +47,7 @@
 
 
 <p:dataTable id="tablaTipoNicho"
-	
+	value="#{tipoNichoDataManager.tipoNichoDTOs}" var="tnichos"
 	rowIndexVar="rowIndex"
 	paginator="true" rows="5" paginatorPosition="bottom"
 	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -54,15 +55,12 @@
 	<f:facet name="header">
 		#{i18n['erp.despacho.tipo.nicho.lista']}
 	</f:facet>
-	<p:column headerText="#" styleClass="centered" width="5%">
-		#{rowIndex+1}
-	</p:column>
-	<p:column headerText="#{i18n['erp.despacho.tipo.nicho.nombre']}" width="35%">
-					<h:outputText  />
+				<p:column headerText="#" styleClass="centered" width="5%">
+					#{rowIndex+1}
 				</p:column>
-							
+						
 				<p:column headerText="#{i18n['erp.despacho.tipo.nicho.descripcion']}" width="40%">
-					<h:outputText  />
+					<h:outputText  value="#{tnichos.tniDescripcion}" />
 				</p:column>
 											
 			<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
@@ -70,7 +68,7 @@
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarTipoNicho.show()"
-							
+							actionListener="#{tipoNichoController.cargarDatosTipoNicho(tnichos)}"
 							process="@this" update=":formEditarTipoNicho:pnlEditarTipoNicho">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
@@ -80,6 +78,7 @@
 	
 	</h:form>			
 		<ui:include src="dialogNuevoTipoNicho.xhtml" />
+		<ui:include src="dialogEditarTipoNicho.xhtml" />
 		
 		
 </ui:define>		

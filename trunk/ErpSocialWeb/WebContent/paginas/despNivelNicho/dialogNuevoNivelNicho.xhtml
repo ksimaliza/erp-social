@@ -11,22 +11,14 @@
 			<p:panel id="pnlNuevoNivelNicho">
 				<table class="formulario">
 												
-						<tr>
-						<td width="30%">
-							<h:outputLabel for="txtNomNivel" value="#{i18n['erp.despacho.nivel.nicho.nombre']}" />
-						</td>
-						<td width="70%">
-							<p:inputText id="txtNomNivel" style="width: 100%"  required="true" />
-						</td>	
-					</tr>
-					
+									
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtDescripNivel" value="#{i18n['erp.despacho.nivel.nicho.descripcion']}" />
 						</td>
 						<td width="70%">
 							<p:inputTextarea id="txtDescripNivel" style="width: 100%"
-								required="true" />
+								required="true" value="#{niveltipoNichoDataManager.tipoNichoInsertar.tniDescripcion}" />
 						</td>	
 					</tr>
 										
