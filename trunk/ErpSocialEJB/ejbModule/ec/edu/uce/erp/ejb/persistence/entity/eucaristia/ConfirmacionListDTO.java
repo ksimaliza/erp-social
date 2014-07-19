@@ -2,8 +2,8 @@ package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
+import java.sql.Timestamp;
 
 
 /**
@@ -16,8 +16,23 @@ import java.util.Date;
 public class ConfirmacionListDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Column(name="cat_canton")
+	private String catCanton;
+
+	@Column(name="cat_parroquia")
+	private String catParroquia;
+
+	@Column(name="cat_provincia")
+	private String catProvincia;
+
 	@Column(name="con_acta")
 	private String conActa;
+
+	@Column(name="con_canton")
+	private Integer conCanton;
+
+	@Column(name="con_certificado_por")
+	private Integer conCertificadoPor;
 
 	@Column(name="con_codigo")
 	private Integer conCodigo;
@@ -34,9 +49,6 @@ public class ConfirmacionListDTO implements Serializable {
 	@Column(name="con_fecha_aprobacion_curso")
 	private Timestamp conFechaAprobacionCurso;
 
-	@Column(name="con_lugar")
-	private String conLugar;
-
 	@Column(name="con_nota_marginal")
 	private String conNotaMarginal;
 
@@ -46,11 +58,26 @@ public class ConfirmacionListDTO implements Serializable {
 	@Column(name="con_pagina")
 	private String conPagina;
 
+	@Column(name="con_parroquia")
+	private Integer conParroquia;
+
+	@Column(name="con_provincia")
+	private Integer conProvincia;
+
 	@Column(name="con_sacerdote")
 	private Integer conSacerdote;
 
 	@Column(name="con_toma")
 	private String conToma;
+
+	@Column(name="pad_apellidos")
+	private String padApellidos;
+
+	@Column(name="pad_ci")
+	private String padCi;
+
+	@Column(name="pad_nombres")
+	private String padNombres;
 
 	@Column(name="per_apellidos")
 	private String perApellidos;
@@ -76,7 +103,7 @@ public class ConfirmacionListDTO implements Serializable {
 
 	@Column(name="per_nombres")
 	private String perNombres;
-	
+
 	@Id
 	@Column(name="per_pk")
 	private Integer perPk;
@@ -84,13 +111,46 @@ public class ConfirmacionListDTO implements Serializable {
 	@Column(name="per_telefono")
 	private String perTelefono;
 
+	@Column(name="sac_apellidos")
+	private String sacApellidos;
+
+	@Column(name="sac_ci")
+	private String sacCi;
+
 	@Column(name="sac_codigo")
 	private Integer sacCodigo;
+
+	@Column(name="sac_nombres")
+	private String sacNombres;
 
 	@Column(name="sac_persona")
 	private Integer sacPersona;
 
 	public ConfirmacionListDTO() {
+	}
+
+	public String getCatCanton() {
+		return this.catCanton;
+	}
+
+	public void setCatCanton(String catCanton) {
+		this.catCanton = catCanton;
+	}
+
+	public String getCatParroquia() {
+		return this.catParroquia;
+	}
+
+	public void setCatParroquia(String catParroquia) {
+		this.catParroquia = catParroquia;
+	}
+
+	public String getCatProvincia() {
+		return this.catProvincia;
+	}
+
+	public void setCatProvincia(String catProvincia) {
+		this.catProvincia = catProvincia;
 	}
 
 	public String getConActa() {
@@ -99,6 +159,22 @@ public class ConfirmacionListDTO implements Serializable {
 
 	public void setConActa(String conActa) {
 		this.conActa = conActa;
+	}
+
+	public Integer getConCanton() {
+		return this.conCanton;
+	}
+
+	public void setConCanton(Integer conCanton) {
+		this.conCanton = conCanton;
+	}
+
+	public Integer getConCertificadoPor() {
+		return this.conCertificadoPor;
+	}
+
+	public void setConCertificadoPor(Integer conCertificadoPor) {
+		this.conCertificadoPor = conCertificadoPor;
 	}
 
 	public Integer getConCodigo() {
@@ -141,14 +217,6 @@ public class ConfirmacionListDTO implements Serializable {
 		this.conFechaAprobacionCurso = conFechaAprobacionCurso;
 	}
 
-	public String getConLugar() {
-		return this.conLugar;
-	}
-
-	public void setConLugar(String conLugar) {
-		this.conLugar = conLugar;
-	}
-
 	public String getConNotaMarginal() {
 		return this.conNotaMarginal;
 	}
@@ -173,6 +241,22 @@ public class ConfirmacionListDTO implements Serializable {
 		this.conPagina = conPagina;
 	}
 
+	public Integer getConParroquia() {
+		return this.conParroquia;
+	}
+
+	public void setConParroquia(Integer conParroquia) {
+		this.conParroquia = conParroquia;
+	}
+
+	public Integer getConProvincia() {
+		return this.conProvincia;
+	}
+
+	public void setConProvincia(Integer conProvincia) {
+		this.conProvincia = conProvincia;
+	}
+
 	public Integer getConSacerdote() {
 		return this.conSacerdote;
 	}
@@ -187,6 +271,30 @@ public class ConfirmacionListDTO implements Serializable {
 
 	public void setConToma(String conToma) {
 		this.conToma = conToma;
+	}
+
+	public String getPadApellidos() {
+		return this.padApellidos;
+	}
+
+	public void setPadApellidos(String padApellidos) {
+		this.padApellidos = padApellidos;
+	}
+
+	public String getPadCi() {
+		return this.padCi;
+	}
+
+	public void setPadCi(String padCi) {
+		this.padCi = padCi;
+	}
+
+	public String getPadNombres() {
+		return this.padNombres;
+	}
+
+	public void setPadNombres(String padNombres) {
+		this.padNombres = padNombres;
 	}
 
 	public String getPerApellidos() {
@@ -269,12 +377,36 @@ public class ConfirmacionListDTO implements Serializable {
 		this.perTelefono = perTelefono;
 	}
 
+	public String getSacApellidos() {
+		return this.sacApellidos;
+	}
+
+	public void setSacApellidos(String sacApellidos) {
+		this.sacApellidos = sacApellidos;
+	}
+
+	public String getSacCi() {
+		return this.sacCi;
+	}
+
+	public void setSacCi(String sacCi) {
+		this.sacCi = sacCi;
+	}
+
 	public Integer getSacCodigo() {
 		return this.sacCodigo;
 	}
 
 	public void setSacCodigo(Integer sacCodigo) {
 		this.sacCodigo = sacCodigo;
+	}
+
+	public String getSacNombres() {
+		return this.sacNombres;
+	}
+
+	public void setSacNombres(String sacNombres) {
+		this.sacNombres = sacNombres;
 	}
 
 	public Integer getSacPersona() {

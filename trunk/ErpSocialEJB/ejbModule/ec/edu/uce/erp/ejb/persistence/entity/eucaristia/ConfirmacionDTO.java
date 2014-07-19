@@ -1,7 +1,9 @@
 package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.sql.Timestamp;
 
 
@@ -36,8 +38,18 @@ public class ConfirmacionDTO implements Serializable {
 	@Column(name="con_fecha_aprobacion_curso")
 	private Timestamp conFechaAprobacionCurso;
 
-	@Column(name="con_lugar")
-	private String conLugar;
+	@Column(name="con_canton")
+	private Integer conCanton;
+
+	@Column(name="con_certificado_por")
+	private Integer conCertificadoPor;
+
+	@Column(name="con_parroquia")
+	private Integer conParroquia;
+	
+	@Column(name="con_provincia")
+	private Integer conProvincia;
+
 
 	@Column(name="con_nota_marginal")
 	private String conNotaMarginal;
@@ -107,14 +119,7 @@ public class ConfirmacionDTO implements Serializable {
 		this.conFechaAprobacionCurso = conFechaAprobacionCurso;
 	}
 
-	public String getConLugar() {
-		return this.conLugar;
-	}
-
-	public void setConLugar(String conLugar) {
-		this.conLugar = conLugar;
-	}
-
+	
 	public String getConNotaMarginal() {
 		return this.conNotaMarginal;
 	}
@@ -153,6 +158,38 @@ public class ConfirmacionDTO implements Serializable {
 
 	public void setEucSacerdote(SacerdoteDTO eucSacerdote) {
 		this.eucSacerdote = eucSacerdote;
+	}
+
+	public Integer getConCanton() {
+		return conCanton;
+	}
+
+	public void setConCanton(Integer conCanton) {
+		this.conCanton = conCanton;
+	}
+
+	public Integer getConCertificadoPor() {
+		return conCertificadoPor;
+	}
+
+	public void setConCertificadoPor(Integer conCertificadoPor) {
+		this.conCertificadoPor = conCertificadoPor;
+	}
+
+	public Integer getConParroquia() {
+		return conParroquia;
+	}
+
+	public void setConParroquia(Integer conParroquia) {
+		this.conParroquia = conParroquia;
+	}
+
+	public Integer getConProvincia() {
+		return conProvincia;
+	}
+
+	public void setConProvincia(Integer conProvincia) {
+		this.conProvincia = conProvincia;
 	}
 
 }

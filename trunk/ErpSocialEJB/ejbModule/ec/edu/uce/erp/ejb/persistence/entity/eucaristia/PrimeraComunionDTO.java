@@ -1,7 +1,9 @@
 package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.sql.Timestamp;
 
 
@@ -16,7 +18,7 @@ public class PrimeraComunionDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="EUC_PRIMERA_COMUNION_PCOCODIGO_GENERATOR", sequenceName="EUC_PRIMERA_COMUNION_PCO_CODIGO_SEQ",allocationSize=1)
+	@SequenceGenerator(name="EUC_PRIMERA_COMUNION_PCOCODIGO_GENERATOR", sequenceName="EUC_PRIMERA_COMUNION_PCO_CODIGO_SEQ" ,allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EUC_PRIMERA_COMUNION_PCOCODIGO_GENERATOR")
 	@Column(name="pco_codigo")
 	private Integer pcoCodigo;
@@ -27,8 +29,8 @@ public class PrimeraComunionDTO implements Serializable {
 	@Column(name="pco_asignado")
 	private Integer pcoAsignado;
 
-	@Column(name="pco_canton_parroquia")
-	private Integer pcoCantonParroquia;
+	@Column(name="pco_canton")
+	private Integer pcoCanton;
 
 	@Column(name="pco_certificado_por")
 	private Integer pcoCertificadoPor;
@@ -54,16 +56,20 @@ public class PrimeraComunionDTO implements Serializable {
 	@Column(name="pco_pagina")
 	private String pcoPagina;
 
+	@Column(name="pco_parroquia")
+	private Integer pcoParroquia;
+
 	@Column(name="pco_provincia")
 	private Integer pcoProvincia;
 
 	@Column(name="pco_tomo")
 	private String pcoTomo;
-
+	
 	//bi-directional many-to-one association to SacerdoteDTO
-	@ManyToOne
-	@JoinColumn(name="pco_sacerdote")
-	private SacerdoteDTO eucSacerdote;
+		@ManyToOne
+		@JoinColumn(name="pco_sacerdote")
+		private SacerdoteDTO eucSacerdote;
+	
 
 	public PrimeraComunionDTO() {
 	}
@@ -92,12 +98,12 @@ public class PrimeraComunionDTO implements Serializable {
 		this.pcoAsignado = pcoAsignado;
 	}
 
-	public Integer getPcoCantonParroquia() {
-		return this.pcoCantonParroquia;
+	public Integer getPcoCanton() {
+		return this.pcoCanton;
 	}
 
-	public void setPcoCantonParroquia(Integer pcoCantonParroquia) {
-		this.pcoCantonParroquia = pcoCantonParroquia;
+	public void setPcoCanton(Integer pcoCanton) {
+		this.pcoCanton = pcoCanton;
 	}
 
 	public Integer getPcoCertificadoPor() {
@@ -164,6 +170,14 @@ public class PrimeraComunionDTO implements Serializable {
 		this.pcoPagina = pcoPagina;
 	}
 
+	public Integer getPcoParroquia() {
+		return this.pcoParroquia;
+	}
+
+	public void setPcoParroquia(Integer pcoParroquia) {
+		this.pcoParroquia = pcoParroquia;
+	}
+
 	public Integer getPcoProvincia() {
 		return this.pcoProvincia;
 	}
@@ -171,6 +185,8 @@ public class PrimeraComunionDTO implements Serializable {
 	public void setPcoProvincia(Integer pcoProvincia) {
 		this.pcoProvincia = pcoProvincia;
 	}
+
+	
 
 	public String getPcoTomo() {
 		return this.pcoTomo;
@@ -181,7 +197,7 @@ public class PrimeraComunionDTO implements Serializable {
 	}
 
 	public SacerdoteDTO getEucSacerdote() {
-		return this.eucSacerdote;
+		return eucSacerdote;
 	}
 
 	public void setEucSacerdote(SacerdoteDTO eucSacerdote) {
