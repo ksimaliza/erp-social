@@ -200,5 +200,15 @@ public abstract class BaseController implements Serializable{
 	protected Empresa getEmpresaTbl(){
 		return ((LoginVO)getSessionParameter("loginVO")).getUsuario().getEmpresaTbl();
 	}
+	
+	protected int getPersonaCode(){
+		if(((LoginVO)getSessionParameter("loginVO")).getUsuario().getPersonaTbls().size()>0)
+			return ((LoginVO)getSessionParameter("loginVO")).getUsuario().getPersonaTbls().get(0).getPerPk();
+		else
+			return 0;
+	}
+	
+	
+
 
 }
