@@ -223,8 +223,10 @@ public class TransaccionBienController extends BaseController{
 		
 		if (this.vistaBienDataManager.getVistaBienEditar().getDetBienTipBieNivel1().equals(EnumTipoBien.ASIGNADO.getId())) {
 			mapParametros.put("tituloActa", MessagesWebApplicacion.getString("erp.bien.actas.reporte.asignacion.titulo"));
+			mapParametros.put("tipoMovimiento", MessagesWebApplicacion.getString("erp.bien.actas.reporte.tipo.movimiento.asignacion"));
 		} else if (this.vistaBienDataManager.getVistaBienEditar().getDetBienTipBieNivel1().equals(EnumTipoBien.REASIGNADO.getId())) {
 			mapParametros.put("tituloActa", MessagesWebApplicacion.getString("erp.bien.actas.reporte.reasignacion.titulo"));
+			mapParametros.put("tipoMovimiento", MessagesWebApplicacion.getString("erp.bien.actas.reporte.tipo.movimiento.reasignacion"));
 		}
 		
 		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), listVistaBien, "actaAsignacionBien", mapParametros);
