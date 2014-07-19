@@ -127,4 +127,18 @@ public class LineaBien extends AuditoriaUtil implements Serializable {
 		this.catBienPk = catBienPk;
 	}
 
+	/**
+	 * @return the linBienIndice
+	 */
+	public Integer getLinBienIndice() {
+		return linBienIndice;
+	}
+
+	/**
+	 * @param linBienIndice the linBienIndice to set
+	 */
+	public void setLinBienIndice(Integer linBienIndice) {
+		this.linBienIndice = linBienIndice;
+	}
+
 }

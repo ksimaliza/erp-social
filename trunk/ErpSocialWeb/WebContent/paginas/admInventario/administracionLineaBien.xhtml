@@ -86,7 +86,8 @@
 						<h:outputText value="#{i18n['erp.linea.bien.descripcion']}" />
 					</f:facet>
 					<h:outputText value="#{lineaBien.linBienDescripcion}" />
-				</p:column><p:column width="20%">
+				</p:column>
+				<p:column width="20%">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.categoria.linea.bien']}" />
 					</f:facet>
@@ -100,6 +101,12 @@
 						rendered="#{lineaBien.linBienEstado eq lineaBienDataManager.estadoActivo}" />
 					<h:outputText value="#{i18n['label.estado.inactivo']}"
 						rendered="#{lineaBien.linBienEstado eq lineaBienDataManager.estadoInactivo}" />
+				</p:column>
+				<p:column width="10%" styleClass="centered">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.categoria.bien.indice']}" />
+					</f:facet>
+					<h:outputText value="#{lineaBien.linBienIndice}" />
 				</p:column>
 				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%" exportable="false">
 					<h:panelGroup>
