@@ -33,15 +33,9 @@
 					<tr>
 						<td>
 							<h:outputLabel for="txtCiRuc" value="#{i18n['erp.proveedor.ci']}" />
-							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
-							<p:inputText id="txtCiRuc" style="width: 90%" maxlength="13"
-								onkeypress="return soloEnteros(this, event)" required="true"
-								value="#{proveedorDataManager.proveedorEditar.provDocumentoIdentificacion}" label="#{i18n['erp.proveedor.ci']}">
-								<f:validateLength maximum="13" minimum="10"/>
-								<f:validator validatorId="ec.edu.uce.erp.web.validador.RucValidator" />
-							</p:inputText>
+							<h:outputText value="#{proveedorDataManager.proveedorEditar.provDocumentoIdentificacion}" />
 						</td>
 					</tr>
 					<tr>
