@@ -63,8 +63,16 @@ public class MatrimonioDTO implements Serializable {
 	@Column(name="mat_pagina")
 	private String matPagina;
 
-	@Column(name="mat_parroquia")
-	private String matParroquia;
+	@Column(name="mat_parroquia_novio")
+	private String matParroquiaNovio;
+	
+	@Column(name="mat_parroquia_novia")
+	private String matParroquiaNovia;
+
+	@Column(name="mat_certificado_por")
+	private Integer matCertificadoPor;
+
+	
 
 	@Column(name="mat_tomo")
 	private String matTomo;
@@ -197,16 +205,24 @@ public class MatrimonioDTO implements Serializable {
 		this.matPagina = matPagina;
 	}
 
-	public String getMatParroquia() {
-		return this.matParroquia;
+	public String getMatParroquiaNovio() {
+		return this.matParroquiaNovio;
 	}
 
-	public void setMatParroquia(String matParroquia) {
-		this.matParroquia = matParroquia;
+	public void setMatParroquiaNovio(String matParroquiaNovio) {
+		this.matParroquiaNovio = matParroquiaNovio;
 	}
 
 	public String getMatTomo() {
 		return this.matTomo;
+	}
+
+	public String getMatParroquiaNovia() {
+		return matParroquiaNovia;
+	}
+
+	public void setMatParroquiaNovia(String matParroquiaNovia) {
+		this.matParroquiaNovia = matParroquiaNovia;
 	}
 
 	public void setMatTomo(String matTomo) {
@@ -221,4 +237,13 @@ public class MatrimonioDTO implements Serializable {
 		this.eucSacerdote = eucSacerdote;
 	}
 
+	public Integer getMatCertificadoPor() {
+		return matCertificadoPor;
+	}
+
+	public void setMatCertificadoPor(Integer matCertificadoPor) {
+		this.matCertificadoPor = matCertificadoPor;
+	}
+
+	
 }

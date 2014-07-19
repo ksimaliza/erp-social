@@ -28,9 +28,6 @@ public class BautizoListDTO implements Serializable {
 	@Column(name="bau_certificado_por")
 	private Integer bauCertificadoPor;
 
-	@Column(name="bau_ciudad")
-	private Integer bauCiudad;
-
 	@Column(name="bau_codigo")
 	private Integer bauCodigo;
 
@@ -52,6 +49,9 @@ public class BautizoListDTO implements Serializable {
 	@Column(name="bau_pagina")
 	private String bauPagina;
 
+	@Column(name="bau_parroquia")
+	private Integer bauParroquia;
+
 	@Column(name="bau_provincia")
 	private Integer bauProvincia;
 
@@ -64,8 +64,8 @@ public class BautizoListDTO implements Serializable {
 	@Column(name="cat_canton")
 	private String catCanton;
 
-	@Column(name="cat_ciudad")
-	private String catCiudad;
+	@Column(name="cat_parroquia")
+	private String catParroquia;
 
 	@Column(name="cat_provincia")
 	private String catProvincia;
@@ -76,6 +76,7 @@ public class BautizoListDTO implements Serializable {
 	@Column(name="doc_ci")
 	private String docCi;
 
+	@Id
 	@Column(name="doc_codigo")
 	private Integer docCodigo;
 
@@ -128,7 +129,6 @@ public class BautizoListDTO implements Serializable {
 	@Column(name="per_nombres")
 	private String perNombres;
 
-	@Id
 	@Column(name="per_pk")
 	private Integer perPk;
 
@@ -183,14 +183,6 @@ public class BautizoListDTO implements Serializable {
 
 	public void setBauCertificadoPor(Integer bauCertificadoPor) {
 		this.bauCertificadoPor = bauCertificadoPor;
-	}
-
-	public Integer getBauCiudad() {
-		return this.bauCiudad;
-	}
-
-	public void setBauCiudad(Integer bauCiudad) {
-		this.bauCiudad = bauCiudad;
 	}
 
 	public Integer getBauCodigo() {
@@ -249,6 +241,14 @@ public class BautizoListDTO implements Serializable {
 		this.bauPagina = bauPagina;
 	}
 
+	public Integer getBauParroquia() {
+		return this.bauParroquia;
+	}
+
+	public void setBauParroquia(Integer bauParroquia) {
+		this.bauParroquia = bauParroquia;
+	}
+
 	public Integer getBauProvincia() {
 		return this.bauProvincia;
 	}
@@ -281,12 +281,12 @@ public class BautizoListDTO implements Serializable {
 		this.catCanton = catCanton;
 	}
 
-	public String getCatCiudad() {
-		return this.catCiudad;
+	public String getCatParroquia() {
+		return this.catParroquia;
 	}
 
-	public void setCatCiudad(String catCiudad) {
-		this.catCiudad = catCiudad;
+	public void setCatParroquia(String catParroquia) {
+		this.catParroquia = catParroquia;
 	}
 
 	public String getCatProvincia() {

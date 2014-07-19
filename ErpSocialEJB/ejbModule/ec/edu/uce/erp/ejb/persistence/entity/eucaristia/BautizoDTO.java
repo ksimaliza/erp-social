@@ -33,8 +33,8 @@ public class BautizoDTO implements Serializable {
 	@Column(name="bau_certificado_por")
 	private Integer bauCertificadoPor;
 
-	@Column(name="bau_ciudad")
-	private Integer bauCiudad;
+	@Column(name="bau_parroquia")
+	private Integer bauParroquia;
 
 	@Column(name="bau_fecha_aprobacion_cruso")
 	private Timestamp bauFechaAprobacionCruso;
@@ -59,6 +59,9 @@ public class BautizoDTO implements Serializable {
 
 	@Column(name="bau_toma")
 	private String bauToma;
+	
+	@Column(name="bau_estado")
+	private Integer bauEstado;
 
 	//bi-directional many-to-one association to SacerdoteDTO
 	@ManyToOne
@@ -108,13 +111,7 @@ public class BautizoDTO implements Serializable {
 		this.bauCertificadoPor = bauCertificadoPor;
 	}
 
-	public Integer getBauCiudad() {
-		return this.bauCiudad;
-	}
-
-	public void setBauCiudad(Integer bauCiudad) {
-		this.bauCiudad = bauCiudad;
-	}
+	
 
 	public Timestamp getBauFechaAprobacionCruso() {
 		return this.bauFechaAprobacionCruso;
@@ -187,5 +184,23 @@ public class BautizoDTO implements Serializable {
 	public void setEucSacerdote(SacerdoteDTO eucSacerdote) {
 		this.eucSacerdote = eucSacerdote;
 	}
+
+	public Integer getBauParroquia() {
+		return bauParroquia;
+	}
+
+	public void setBauParroquia(Integer bauParroquia) {
+		this.bauParroquia = bauParroquia;
+	}
+
+	public int getBauEstado() {
+		return bauEstado;
+	}
+
+	public void setBauEstado(int bauEstado) {
+		this.bauEstado = bauEstado;
+	}
+
+	
 
 }
