@@ -109,8 +109,16 @@
 					<h:outputText  value="#{matrimonio.matFecha}"/>
 				</p:column>
 				
-				<p:column headerText="#{i18n['erp.despacho.partida.matrimonio.lugar']}" width="40%">
-					<h:outputText value="#{matrimonio.matLugar}"  />
+				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.provincia']}" width="40%">
+					<h:outputText value="#{matrimonio.catProvincia}" />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.canton']}" width="40%">
+					<h:outputText value="#{matrimonio.catCanton}" />
+				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.parroquia']}" width="40%">
+					<h:outputText value="#{matrimonio.catParroquia}" />
 				</p:column>
 				
 				
@@ -124,7 +132,7 @@
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarPartidaMatrimonio.show()"
 							actionListener="#{partidaMatrimonioController.cargarDatosMatrimonio(matrimonio)}"	
-							process="@this" update=":formEditarPartidaMatrimonio:pnlEditarPartidaMatrimonio">
+							process="@this" update=":formEditarPartidaMatrimonio:pnlEditarPartidaMatrimonio,:formEditarPartidaMatrimonio:pnlDatosPadrinoNovio,:formEditarPartidaMatrimonio:pnlDatosMadrinaNovio,:formEditarPartidaMatrimonio:pnlDatosNovia,:formEditarPartidaMatrimonio:pnlDatosPadrinoNovia,:formEditarPartidaMatrimonio:pnlDatosMadrinaNovia,:formEditarPartidaMatrimonio:pnlDatosMatrimonio,:formEditarPartidaMatrimonio:pnlDatos">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
 					</h:panelGroup>

@@ -18,11 +18,11 @@
 							<h:outputLabel for="txtCiCom" value="#{i18n['erp.despacho.partida.comunion.cedula']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtCiCom"  style="width: 70%"
+							<p:inputText id="txtCiCom"  style="width: 100%"
 							required="true" label="#{i18n['erp.despacho.partida.comunion.cedula']}">
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-							<p:ajax event="blur" update="txtApeCom,txtNomCom" listener="#{partidaComunionController.buscarAsignado()}" process="@this"/>
+							<p:ajax event="blur" update="txtApeCom,txtNomCom,txtProv,txtParroquia,txtCanton,txtFechaBautizo" listener="#{partidaComunionController.buscarAsignado}" process="@this"/>
 						</p:inputText>
 						
 						</td>
@@ -82,28 +82,43 @@
 					</tr>
 					
 					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtLugar" value="#{i18n['erp.despacho.partida.comunion.lugar']}" />
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.comunion.provincia']}"  /> </td>
+						<td width="70%" ><p:selectOneMenu id="provincia" value="#{partidaPrimeraComunionDataManager.provinciaCodigo}" filter="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{partidaComunionController.partidaPrimeraComunionDataManager.provinciasEucaristiaDTOs}" var="provincia" itemLabel="#{provincia.catDescripcion} " itemValue="#{provincia.catCodigo}"/>
+								<p:ajax listener="#{partidaComunionController.buscarCanton}" process="@this" update="canton"/>
+							</p:selectOneMenu>
 						</td>
-						<td width="70%">
-							<p:inputText id="txtLugar" style="width: 100%"
-								required="true" value="#{partidaPrimeraComunionDataManager.primeraComunionInsertar.pcoLugar}" />
-						</td>	
 					</tr>
 					
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.comunion.canton']}"  /> </td>
+						<td width="70%"><p:selectOneMenu id="canton" value="#{partidaPrimeraComunionDataManager.cantonCodigo}" filter="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{partidaPrimeraComunionDataManager.cantonEucaristiaDTOs}" var="canton" itemLabel="#{canton.catDescripcion}" itemValue="#{canton.catCodigo}"/>
+								<p:ajax listener="#{partidaComunionController.buscarParroquia}" process="@this" update="parroquia"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>		
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.comunion.parroquia']}"  /> </td>
+						<td width="70%" ><p:selectOneMenu id="parroquia" value="#{partidaPrimeraComunionDataManager.parroquiaCodigo}" filter="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{partidaPrimeraComunionDataManager.parroquiaEucaristiaDTOs}" var="parroquia" itemLabel="#{parroquia.catDescripcion}" itemValue="#{parroquia.catCodigo}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>	
 					
-					<tr >
-						<td width="30%">
-							<h:outputLabel value="#{i18n['erp.despacho.partida.comunion.certificado']}"  /> </td>
 					
-					<td width="70%">
-						<p:selectOneMenu id="certificado" value="#{partidaPrimeraComunionDataManager.doctorCodigo}" filter="true" required="true">
-									<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-									<f:selectItems value="#{partidaComunionController.partidaPrimeraComunionDataManager.doctorListDTO}" var="doc" itemLabel="#{doc.perNombres} #{doc.perApellidos}" itemValue="#{doc.docCodigo}"/>
-						</p:selectOneMenu>
-					</td>
-					</tr>
-					
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['label.estado']}"  /> </td>
+						<td width="70%"><p:selectOneMenu id="estado" value="#{partidaPrimeraComunionDataManager.estadoCodigo}" filter="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{partidaComunionController.partidaPrimeraComunionDataManager.estadoEucaristiaDTOs}" var="estado" itemLabel="#{estado.catDescripcion}" itemValue="#{estado.catCodigo}"/>
+								<f:ajax render="pnlDatos" />
+							</p:selectOneMenu>
+						</td>
+					</tr>					
 				</table>
 			</p:panel>
 			
@@ -127,7 +142,7 @@
 							<h:outputLabel for="txtCiPad" value="#{i18n['erp.despacho.partida.comunion.cedula.padrino.madrina']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtCiPad"  style="width: 70%"
+							<p:inputText id="txtCiPad"  style="width: 100%"
 							required="true" label="#{i18n['erp.despacho.partida.comunion.cedula.padrino.madrina']}">
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" value="#{partidaPrimeraComunionDataManager.mad_padInsertar.perCi}" />
@@ -161,7 +176,7 @@
 			</p:panel>
 			
 					
-				<p:panel id="pnlDatos">
+				<p:panel id="pnlDatos" visible="#{partidaPrimeraComunionDataManager.estadoCodigo.toString()=='28'}">
 				<table class="formulario">
 												
 						<tr>
@@ -214,13 +229,11 @@
 												
 						<tr>
 						<td width="30%">
-							<h:outputLabel for="txtProv" value="#{i18n['erp.despacho.partida.bautizo.provincia']}" />
+							<h:outputLabel for="txtProv" value="#{i18n['erp.despacho.partida.bautizo.provincia']}"  />
 						</td>
-						<td>
-							<p:selectOneMenu id="sumProvincia"  filter="true" required="true">
-								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-								
-							</p:selectOneMenu>
+						<td width="70%">
+							<p:inputText id="txtProv" style="width: 100%"  
+								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.catProvincia}" readonly="true" />
 						</td>
 					</tr>
 					
@@ -228,38 +241,32 @@
 						<td width="30%">
 							<h:outputLabel for="txtCanton" value="#{i18n['erp.despacho.partida.bautizo.canton']}" />
 						</td>
-						<td>
-							<p:selectOneMenu id="Canton"  filter="true" required="true">
-								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-								
-							</p:selectOneMenu>
+						<td width="70%">
+							<p:inputText id="txtCanton" style="width: 100%"  
+								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.catCanton}"  readonly="true"/>
 						</td>
 					</tr>	
 					
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtCiudad" value="#{i18n['erp.despacho.partida.bautizo.ciudad']}" />
+							<h:outputLabel for="txtParroquia" value="#{i18n['erp.despacho.partida.bautizo.parroquia']}" />
 						</td>
-						<td>
-							<p:selectOneMenu id="Ciudad"  filter="true" required="true">
-								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-								
-							</p:selectOneMenu>
+						<td width="70%">
+							<p:inputText id="txtParroquia" style="width: 100%"  
+								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO}" readonly="true" />
 						</td>
 					</tr>					
 					
-						
-					
-					
+							
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtFechaBautizo" value="#{i18n['erp.despacho.partida.bautizo.fecha.bautizo']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="FechaBautizo" style="width: 100%" required="true" showOn="button" label="#{i18n['erp.despacho.partida.bautizo.fecha.bautizo']}" />
+							<p:inputText id="txtFechaBautizo" style="width: 100%"  
+								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.bauFechaBautizo}" readonly="true"/>
 						</td>
 					</tr>
-					
 				
 					
 						
