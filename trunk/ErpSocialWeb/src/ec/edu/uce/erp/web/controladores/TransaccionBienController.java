@@ -21,6 +21,7 @@ import org.primefaces.event.SelectEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.common.enums.EnumTipoBien;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
@@ -29,6 +30,7 @@ import ec.edu.uce.erp.ejb.persistence.view.VistaTransaccion;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
+import ec.edu.uce.erp.web.common.util.MessagesWebApplicacion;
 import ec.edu.uce.erp.web.common.util.ReporteUtil;
 import ec.edu.uce.erp.web.datamanager.VistaBienDataManager;
 
@@ -89,7 +91,6 @@ public class TransaccionBienController extends BaseController{
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 				
 			}
-//			this.vistaBienDataManager.limpiarCatalogos();
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("error al buscarBienes {}", e.getCause().getMessage());
@@ -210,11 +211,6 @@ public class TransaccionBienController extends BaseController{
 	
 	public void generarActaBien () {
 		
-//		List<ActaBienDTO> listActaBien = new ArrayList<ActaBienDTO>();
-//		ActaBienDTO actaBienDTO = new ActaBienDTO();
-//		actaBienDTO.setTituloActa("Acta bienes");
-//		listActaBien.add(actaBienDTO);
-		
 		List<VistaBien> listVistaBien = new ArrayList<VistaBien>();
 		listVistaBien.add(this.vistaBienDataManager.getVistaBienEditar());
 		
@@ -223,6 +219,13 @@ public class TransaccionBienController extends BaseController{
 		mapParametros.put("nombreCustodio", this.vistaBienDataManager.getVistaBienEditar().getNombresCompletos());
 		mapParametros.put("identificacionCustodio", this.vistaBienDataManager.getVistaBienEditar().getPerCi());
 		mapParametros.put("total", String.valueOf(listVistaBien.size()));
+		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
+		
+		if (this.vistaBienDataManager.getVistaBienEditar().getDetBienTipBieNivel1().equals(EnumTipoBien.ASIGNADO.getId())) {
+			mapParametros.put("tituloActa", MessagesWebApplicacion.getString("erp.bien.actas.reporte.asignacion.titulo"));
+		} else if (this.vistaBienDataManager.getVistaBienEditar().getDetBienTipBieNivel1().equals(EnumTipoBien.REASIGNADO.getId())) {
+			mapParametros.put("tituloActa", MessagesWebApplicacion.getString("erp.bien.actas.reporte.reasignacion.titulo"));
+		}
 		
 		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), listVistaBien, "actaAsignacionBien", mapParametros);
 		ReporteUtil.generarReporte(jasperPrint, "pdf", "actaBien");

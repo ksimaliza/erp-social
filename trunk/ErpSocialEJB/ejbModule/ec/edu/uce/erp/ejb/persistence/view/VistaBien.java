@@ -154,6 +154,9 @@ public class VistaBien extends AuditoriaUtil implements Serializable {
 	
 	@Transient
 	private Boolean npVerDevolverBien = Boolean.FALSE;
+	
+	@Transient
+	private Boolean npVerImprimirActa = Boolean.FALSE;
 
 	public VistaBien() {
 	}
@@ -624,6 +627,20 @@ public class VistaBien extends AuditoriaUtil implements Serializable {
 	 */
 	public void setTraFechaInicio(Timestamp traFechaInicio) {
 		this.traFechaInicio = traFechaInicio;
+	}
+
+	/**
+	 * @return the npVerImprimirActa
+	 */
+	public Boolean getNpVerImprimirActa() {
+		return npVerImprimirActa;
+	}
+
+	/**
+	 * @param npVerImprimirActa the npVerImprimirActa to set
+	 */
+	public void setNpVerImprimirActa(Boolean npVerImprimirActa) {
+		this.npVerImprimirActa = npVerImprimirActa;
 	}
 
 }
