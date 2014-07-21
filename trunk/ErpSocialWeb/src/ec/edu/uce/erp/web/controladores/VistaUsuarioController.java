@@ -13,6 +13,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import net.sf.jasperreports.engine.JasperPrint;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,7 @@ import ec.edu.uce.erp.ejb.persistence.view.VistaUsuario;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
+import ec.edu.uce.erp.web.common.util.ReporteUtil;
 import ec.edu.uce.erp.web.datamanager.VistaUsuarioDataManager;
 
 /**
@@ -85,6 +88,21 @@ public class VistaUsuarioController extends BaseController {
 			slf4jLogger.info("error al  buscarVistaUsuario {}", e.getMessage());
 			MensajesWebController.aniadirMensajeError("No se pudo generar el reporte");
 		}
+	}
+	
+	public void generarReporteUsuario () {
+		slf4jLogger.info("generarReporteUsuario...");
+		if (CollectionUtils.isEmpty(this.vistaUsuarioDataManager.getListVistaUsuario())) {
+			MensajesWebController.aniadirMensajeAdvertencia("No hay datos para generar el reporte");
+		} else {
+			Map<String, Object> mapParametros = new HashMap<String, Object>();
+			mapParametros.put("nombreEmpresa", this.vistaUsuarioDataManager.getUsuarioSession().getEmpresaTbl().getEmrNombre());
+			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
+			JasperPrint jasperPrint = 
+					ReporteUtil.jasperPrint(getFacesContext(), this.vistaUsuarioDataManager.getListVistaUsuario(), "reporteUsuarios", mapParametros);
+			ReporteUtil.generarReporte(jasperPrint, "pdf", "reporteUsuarios");
+		}
+		
 	}
 
 }

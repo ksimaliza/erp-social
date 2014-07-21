@@ -2,12 +2,16 @@ package ec.edu.uce.erp.ejb.persistence.view;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 
 /**
@@ -45,6 +49,17 @@ public class VistaUsuario implements Serializable {
 	private String loginUsuario;
 
 	private String usuario;
+	
+	@Column(name="estado_string")
+	private String estadoString;
+	
+	@Transient
+	@Temporal(TemporalType.DATE)
+	private Date npFechaDesde;
+	
+	@Transient
+	@Temporal(TemporalType.DATE)
+	private Date npFechaHasta;
 
 	public VistaUsuario() {
 	}
@@ -119,6 +134,48 @@ public class VistaUsuario implements Serializable {
 
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
+	}
+
+	/**
+	 * @return the npFechaDesde
+	 */
+	public Date getNpFechaDesde() {
+		return npFechaDesde;
+	}
+
+	/**
+	 * @param npFechaDesde the npFechaDesde to set
+	 */
+	public void setNpFechaDesde(Date npFechaDesde) {
+		this.npFechaDesde = npFechaDesde;
+	}
+
+	/**
+	 * @return the npFechaHasta
+	 */
+	public Date getNpFechaHasta() {
+		return npFechaHasta;
+	}
+
+	/**
+	 * @param npFechaHasta the npFechaHasta to set
+	 */
+	public void setNpFechaHasta(Date npFechaHasta) {
+		this.npFechaHasta = npFechaHasta;
+	}
+
+	/**
+	 * @return the estadoString
+	 */
+	public String getEstadoString() {
+		return estadoString;
+	}
+
+	/**
+	 * @param estadoString the estadoString to set
+	 */
+	public void setEstadoString(String estadoString) {
+		this.estadoString = estadoString;
 	}
 
 }
