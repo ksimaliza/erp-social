@@ -103,7 +103,8 @@ ADD COLUMN ip_transaccion varchar (20) null;
 DROP view IF EXISTS segv_usuario;
 CREATE VIEW segv_usuario AS 
 select u.id_usuario, u.ci_usuario, u.login_usuario, u.email_usuario, concat(u.nombres_usuario, ' ', u.apellidos_usuario) AS usuario,
-u.fecha_ultimo_ingreso, u.estado, e.emr_pk, e.emr_nombre
+u.fecha_ultimo_ingreso, u.estado, e.emr_pk, e.emr_nombre,
+CASE WHEN u.estado='1' THEN 'ACTIVO' ELSE 'INACTIVO' END as estado_string
 from segt_usuario u
 LEFT JOIN empresa_tbl e ON u.emr_pk = e.emr_pk;
 -- ejecutar vista segv_historico_transaccion

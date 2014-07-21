@@ -11,6 +11,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * @author
@@ -66,6 +68,25 @@ public final class UtilAplication {
 		// 24 * 3600 * 1000
 		Long total = Long.valueOf(timestamp.getTime()) + numeroDias * 1000L * 60L * 30L * 24L;
 		return new Timestamp(total);
+	}
+	
+	/**
+	 * Agregar a una fecha las horas y minutos
+	 * @param fecha
+	 * @param hora
+	 * @param minutos
+	 * @return
+	 */
+	public static Date concatenarFecha(Date fecha, int hora, int minutos, int segundos){
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(fecha);
+		calendar.set(Calendar.HOUR_OF_DAY, hora);
+		calendar.set(Calendar.MINUTE, minutos);
+		calendar.set(Calendar.SECOND, segundos);
+		Date fechaConcatenada = calendar.getTime();
+		
+		return fechaConcatenada;
 	}
 
 	

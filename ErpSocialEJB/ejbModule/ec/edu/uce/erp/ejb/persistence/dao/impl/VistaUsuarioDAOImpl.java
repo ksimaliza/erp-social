@@ -4,6 +4,7 @@
 package ec.edu.uce.erp.ejb.persistence.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -70,21 +71,13 @@ public class VistaUsuarioDAOImpl extends AbstractFacadeImpl<VistaUsuario> implem
 				criteriaList.add(predicate);
 			}
 			
-//			//por nombre de usuario
-//			if (StringUtils.isNotBlank(vistaUsuario.ge)) {
-//				Expression<String> nombreUsuario = 
-//						criteriaBuilder.upper(criteriaBuilder.literal(UtilAplication.appendStringBuilder("%", usuario.getNombresUsuario(), "%").toString()));
-//				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromUsuario.<String>get("nombresUsuario")), nombreUsuario);
-//				criteriaList.add(predicate);
-//			}
-//			
-//			//por apellido de usuario
-//			if (StringUtils.isNotBlank(vistaUsuario.getApellidosUsuario())) {
-//				Expression<String> apellidoUsuario = 
-//						criteriaBuilder.upper(criteriaBuilder.literal(UtilAplication.appendStringBuilder("%", usuario.getApellidosUsuario(), "%").toString()));
-//				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromUsuario.<String>get("apellidosUsuario")), apellidoUsuario);
-//				criteriaList.add(predicate);
-//			}
+			//por nombres completos de usuario
+			if (StringUtils.isNotBlank(vistaUsuario.getUsuario())) {
+				Expression<String> nombreUsuario = 
+						criteriaBuilder.upper(criteriaBuilder.literal(UtilAplication.appendStringBuilder("%", vistaUsuario.getUsuario(), "%").toString()));
+				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromUsuario.<String>get("usuario")), nombreUsuario);
+				criteriaList.add(predicate);
+			}
 			
 			//por ci de usuario
 			if (StringUtils.isNotBlank(vistaUsuario.getCiUsuario())) {
@@ -92,6 +85,25 @@ public class VistaUsuarioDAOImpl extends AbstractFacadeImpl<VistaUsuario> implem
 						criteriaBuilder.upper(criteriaBuilder.literal(UtilAplication.appendStringBuilder("%", vistaUsuario.getCiUsuario(), "%").toString()));
 				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromUsuario.<String>get("ciUsuario")), ciUsuario);
 				criteriaList.add(predicate);
+			}
+			
+			//between desde - hasta
+			if (vistaUsuario.getNpFechaDesde()!=null) {
+				slf4jLogger.info("vistaUsuario.getNpFechaDesde: {}" , vistaUsuario.getNpFechaDesde());
+				
+				if (vistaUsuario.getNpFechaHasta()==null) {
+					vistaUsuario.setNpFechaHasta(UtilAplication.obtenerFechaActual());
+				}
+				
+				vistaUsuario.setNpFechaDesde(UtilAplication.concatenarFecha(vistaUsuario.getNpFechaDesde(), 0, 0, 0));
+				vistaUsuario.setNpFechaHasta(UtilAplication.concatenarFecha(vistaUsuario.getNpFechaHasta(), 23, 59, 59));
+				
+				slf4jLogger.info("desde: {}", vistaUsuario.getNpFechaDesde());
+				slf4jLogger.info("hasta: {}", vistaUsuario.getNpFechaHasta());
+				
+				predicate = criteriaBuilder.between(fromUsuario.<Date>get("fechaUltimoIngreso"), vistaUsuario.getNpFechaDesde(), vistaUsuario.getNpFechaHasta());
+				criteriaList.add(predicate);
+				
 			}
 			
 			criteriaQuery.where(criteriaBuilder.and(criteriaList.toArray(new Predicate[0])));
