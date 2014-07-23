@@ -6,6 +6,8 @@ package ec.edu.uce.erp.web.common.datamanager;
 import static ec.edu.uce.erp.common.util.ConstantesApplication.ESTADO_ACTIVO;
 import static ec.edu.uce.erp.common.util.ConstantesApplication.ESTADO_INACTIVO;
 import static ec.edu.uce.erp.common.util.ConstantesApplication.ESTADO_INVALIDO;
+import static ec.edu.uce.erp.common.util.ConstantesApplication.REPORTE_EXCEL;
+import static ec.edu.uce.erp.common.util.ConstantesApplication.REPORTE_PDF;
 
 import java.io.Serializable;
 
@@ -51,6 +53,14 @@ public abstract class BaseDataManager implements Serializable{
 	
 	public String getEstadoInvalido() {
 		return ESTADO_INVALIDO;
+	}
+	
+	public String getFormatoExcel() {
+		return REPORTE_EXCEL;
+	}
+	
+	public String getFormatoPdf() {
+		return REPORTE_PDF;
 	}
 
 }

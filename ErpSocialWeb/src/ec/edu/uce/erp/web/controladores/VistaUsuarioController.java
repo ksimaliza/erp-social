@@ -90,7 +90,7 @@ public class VistaUsuarioController extends BaseController {
 		}
 	}
 	
-	public void generarReporteUsuario () {
+	public void generarReporteUsuario (String formatoReporte) {
 		slf4jLogger.info("generarReporteUsuario...");
 		if (CollectionUtils.isEmpty(this.vistaUsuarioDataManager.getListVistaUsuario())) {
 			MensajesWebController.aniadirMensajeAdvertencia("No hay datos para generar el reporte");
@@ -100,9 +100,9 @@ public class VistaUsuarioController extends BaseController {
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 			JasperPrint jasperPrint = 
 					ReporteUtil.jasperPrint(getFacesContext(), this.vistaUsuarioDataManager.getListVistaUsuario(), "reporteUsuarios", mapParametros);
-			ReporteUtil.generarReporte(jasperPrint, "pdf", "reporteUsuarios");
+			ReporteUtil.generarReporte(jasperPrint, formatoReporte, "reporteUsuarios");
 		}
 		
 	}
-
+	
 }

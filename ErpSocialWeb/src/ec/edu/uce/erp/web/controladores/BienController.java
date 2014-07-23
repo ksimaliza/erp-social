@@ -255,6 +255,13 @@ public class BienController extends BaseController{
 		
 	}
 	
+	public void calcularValorIva (Bien bien) {
+		
+		slf4jLogger.info(bien.getBieCostoVenta().toString());
+		bien.setBieCostoIva(bien.getBieCostoVenta());
+		
+	}
+	
 	/**
 	 * Poner en null los valores de los catalogos que administra el controlador
 	 */

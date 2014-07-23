@@ -45,6 +45,14 @@ public final class ConstantesApplication {
 	 */
 	public static final String CAB_CAT_ESTADO_CONSERVACION = MessagesApplicacion.getString("erp.inventarios.cabecera.catalogo.id.estadoConservacion");
 	
+	/**
+	 * Reporte formato excel
+	 */
+	public static final String REPORTE_EXCEL = MessagesApplicacion.getString("erp.reporte.excel");
 	
+	/**
+	 * Reporte formato pdf
+	 */
+	public static final String REPORTE_PDF = MessagesApplicacion.getString("erp.reporte.pdf");
 	
 }
