@@ -32,7 +32,8 @@ DROP view IF EXISTS segv_historico_transaccion;
 CREATE VIEW segv_historico_transaccion AS 
  SELECT ht.id_historico_transaccion,
     ht.id_usuario,
-    concat(u.nombres_usuario, ' ', u.apellidos_usuario) AS usuario,
+    concat(u.nombres_usuario, ' ', u.apellidos_usuario) AS usuario, u.ci_usuario, u.estado, 
+    CASE WHEN u.estado='1' THEN 'ACTIVO' ELSE 'INACTIVO' END as estado_string,
     e.emr_pk, e.emr_nombre,
     ht.det_catalogo_tipo_transaccion,
     ht.nombre_transaccion,

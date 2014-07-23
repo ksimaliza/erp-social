@@ -13,50 +13,68 @@
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
 			<p:toolbar id="toolbar">
 				<p:toolbarGroup align="left">
-					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
+					<!-- <p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
 						icon="exportExcel" disabled="#{empty historicoTransaccionDataManager.listaVistaHistoricoTransaccion}">
 						<p:dataExporter type="xls" target="tablaReporte" fileName="transacciones" postProcessor="#{historicoTransaccionController.postProcessXLS()}"/>
 					</p:commandButton>
 					<p:commandButton id="btnPDF" value="#{i18n['label.exportar.pdf']}" ajax="false"
 						actionListener="#{historicoTransaccionController.generarPdfLista('tablaReporte')}"
 						icon="pdf" disabled="#{empty historicoTransaccionDataManager.listaVistaHistoricoTransaccion}">
+					</p:commandButton> -->
+					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
+						actionListener="#{historicoTransaccionController.generarReporteUsuario(vistaUsuarioDataManager.formatoExcel)}"
+						icon="exportExcel" disabled="#{empty historicoTransaccionDataManager.listaVistaHistoricoTransaccion}">
+						
+					</p:commandButton>
+					<p:commandButton id="btnPDF" value="#{i18n['label.exportar.pdf']}" ajax="false"
+						actionListener="#{historicoTransaccionController.generarReporteUsuario(vistaUsuarioDataManager.formatoPdf)}"
+						icon="pdf" disabled="#{empty historicoTransaccionDataManager.listaVistaHistoricoTransaccion}">
 					</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:panel id="pnlBuscarUsuario" header="#{i18n['erp.usuario.buscar']}" styleClass="formulario">
 				<table class="formulario">
-					<!-- <tr>
-						<td width="15%"><h:outputLabel for="txtNombre" value="#{i18n['erp.usuario.nombre']}" /></td>
+					<tr>
+						<td width="15%"><h:outputLabel for="txtNombre" value="#{i18n['erp.usuario.nombres']}" /></td>
 						<td width="85%">
 							<p:inputText id="txtNombre" style="width: 50%"
-								value="#{usuarioDataManager.usuarioBuscar.nombresUsuario}" />
+								value="#{historicoTransaccionDataManager.historicoTransaccionBuscar.usuario}" />
 						</td>
 					</tr>
-					<tr>
-						<td><h:outputLabel for="txtApellido" value="#{i18n['erp.usuario.apellido']}" /></td>
-						<td>
-							<p:inputText id="txtApellido" style="width: 50%"
-								value="#{usuarioDataManager.usuarioBuscar.apellidosUsuario}" />
-						</td>
-					</tr> -->
 					<tr>
 						<td><h:outputLabel for="txtCI" value="#{i18n['erp.usuario.ci']}" /></td>
 						<td>
-							<p:inputText id="txtCI" style="width: 60%" onkeypress="return soloEnteros(this, event)" 
-								maxlength="10" value="#{vistaUsuarioDataManager.vistaUsuarioBuscar.ciUsuario}" />
+							<p:inputText id="txtCI" style="width: 50%" onkeypress="return soloEnteros(this, event)" 
+								maxlength="10" value="#{historicoTransaccionDataManager.historicoTransaccionBuscar.ciUsuario}" />
 						</td>
 					</tr>
-					<!-- <tr>
+					<tr>
+						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
 						<td>
-							<h:outputLabel value="Empresa" />
-						</td>
-						<td>
-							<p:selectOneMenu value="#{usuarioDataManager.usuarioBuscar.npIdEmpresa}">
-								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" />
-								<f:selectItems value="#{selectItemsController.catalogoListaEmpresa}"/>
+							<p:selectOneMenu id="inputEstado" value="#{historicoTransaccionDataManager.historicoTransaccionBuscar.estado}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{vistaUsuarioDataManager.estadoActivo}"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{vistaUsuarioDataManager.estadoInactivo}"/>
 							</p:selectOneMenu>
 						</td>
-					</tr> -->
+					</tr>
+					<tr>
+						<td><h:outputLabel for="txtFechaDesde" value="#{i18n['label.fecha.desde']}" /></td>
+						<td>
+							<p:calendar id="txtFechaDesde" readonlyInput="true"
+								pattern="yyyy-MM-dd" widgetVar="txtFechaDesde"
+								value="#{historicoTransaccionDataManager.historicoTransaccionBuscar.npFechaDesde}">
+							</p:calendar>
+						</td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="txtFechaHasta" value="#{i18n['label.fecha.hasta']}" /></td>
+						<td>
+							<p:calendar id="txtFechaHasta" readonlyInput="true"
+								pattern="yyyy-MM-dd" widgetVar="txtFechaHasta"
+								value="#{historicoTransaccionDataManager.historicoTransaccionBuscar.npFechaHasta}"/>
+						</td>
+					</tr>
 				</table>
 			</p:panel>
 			<p:panel id="botonesBuscar">

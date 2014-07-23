@@ -56,6 +56,7 @@ public class ModuloController extends BaseController{
 	@PostConstruct
 	public void inicializarObjetos () {
 		this.empresasSeleccionadas = new ArrayList<Object>();
+		this.moduloDataManager.getModuloBuscar().setNpIdEmpresa(this.moduloDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
 	}
 	
 	/*

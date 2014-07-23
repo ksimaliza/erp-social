@@ -140,6 +140,9 @@ public class Bien extends AuditoriaUtil implements Serializable {
 	
 	@Transient
 	private String npIdDcEstadoConservacion;
+	
+	@Transient
+	private BigDecimal bieCostoIva; 
 
 	public Bien() {
 	}
@@ -469,6 +472,20 @@ public class Bien extends AuditoriaUtil implements Serializable {
 	 */
 	public void setDcTipoIngresoBien(DetalleBien dcTipoIngresoBien) {
 		this.dcTipoIngresoBien = dcTipoIngresoBien;
+	}
+
+	/**
+	 * @return the bieCostoIva
+	 */
+	public BigDecimal getBieCostoIva() {
+		return bieCostoIva;
+	}
+
+	/**
+	 * @param bieCostoIva the bieCostoIva to set
+	 */
+	public void setBieCostoIva(BigDecimal bieCostoIva) {
+		this.bieCostoIva = bieCostoIva;
 	}
 
 }

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteTransaccionesUsuarios" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ee11134e-7014-4cf8-868c-e5afe784adb5">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nombreEmpresa" class="java.lang.String"/>
+	<parameter name="imagesRealPath" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="emrNombre" class="java.lang.String"/>
+	<field name="usuario" class="java.lang.String"/>
+	<field name="ciUsuario" class="java.lang.String"/>
+	<field name="estadoString" class="java.lang.String"/>
+	<field name="nombreTransaccion" class="java.lang.String"/>
+	<field name="ipTransaccion" class="java.lang.String"/>
+	<field name="fechaTransaccion" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image onErrorType="Icon">
+				<reportElement uuid="0478b435-65a9-4a30-baac-ab85cb86e5a6" x="-1" y="0" width="79" height="79"/>
+				<imageExpression><![CDATA[$P{imagesRealPath}+"/uce_logo.png"]]></imageExpression>
+			</image>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement uuid="e7688dd1-5e65-4bea-955d-066215e2c27d" x="207" y="59" width="340" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Fecha: " + new SimpleDateFormat("yyyy - MM - dd").format(new Date())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7cee3b53-51ee-4687-96ef-7f747e831cb0" x="148" y="0" width="279" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombreEmpresa}.toUpperCase()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="f9eb4adb-9a3a-4f17-bfbd-371eb9202439" x="2" y="0" width="553" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Reporte transacciones de usuarios]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="23615954-d34f-4e60-ac31-f2d9755a623d" x="77" y="10" width="106" height="20"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombres]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3eb3bb7e-ece4-499c-8c72-3db34a161fdf" x="2" y="10" width="76" height="20"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Empresa]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="d4291415-db46-444f-8b54-93cb5a2d26bb" positionType="Float" x="0" y="32" width="555" height="1">
+					<property name="local_mesure_unitheight" value="pixel"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement uuid="f3002b48-0766-4d45-ade3-51c511c8fb1e" x="183" y="10" width="68" height="20"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ace4ebfa-db96-4f67-992c-a819811f04f8" x="296" y="10" width="117" height="20"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Transacción]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="34275ed6-db97-4b5f-8384-836b48d494a8" positionType="Float" x="0" y="1" width="555" height="1">
+					<property name="local_mesure_unitheight" value="pixel"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement uuid="68fa98aa-fc8b-4f8e-be3b-ebc898939464" x="414" y="10" width="72" height="20"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ip Transacción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="90216835-d826-4fb3-952a-5d370b507aad" x="486" y="10" width="69" height="20"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bf713d08-4130-41ed-89ce-4b7832787302" x="251" y="10" width="43" height="20"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement uuid="374e1024-663e-4195-b90f-667897d02541" x="-1" y="0" width="79" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{emrNombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="3bf524f4-dfa0-4cae-8390-d61a068779b6" x="77" y="0" width="106" height="20"/>
+				<textElement verticalAlignment="Top">
+					<paragraph lineSpacing="Fixed"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e3431c7e-d890-4f82-9c3c-0cf9ee691bdd" x="183" y="0" width="68" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ciUsuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a561ff45-6311-4e11-88f7-105719e4bf9b" x="296" y="0" width="117" height="20"/>
+				<textElement>
+					<paragraph lineSpacing="Fixed"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreTransaccion}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6c0cd91f-6602-4de8-8bb4-ae37b8737391" x="414" y="0" width="72" height="20"/>
+				<textElement>
+					<paragraph lineSpacing="Fixed"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ipTransaccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f29df071-6141-432a-ba6d-dc02a8eeee0a" x="486" y="0" width="69" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fechaTransaccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ea68e399-6709-41eb-900d-58b8ee86d904" x="251" y="0" width="45" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{estadoString}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="32" splitType="Stretch">
+			<line>
+				<reportElement uuid="402628cf-dca2-46ce-a359-3ce1f03fc2ca" x="0" y="0" width="555" height="1"/>
+			</line>
+			<textField evaluationTime="Report">
+				<reportElement uuid="764ee55a-247e-40ce-bbd6-04fbf888b920" x="483" y="11" width="70" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a00353f5-bafe-4a4c-b498-7ff48c1cdb7d" x="413" y="11" width="70" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Hoja " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

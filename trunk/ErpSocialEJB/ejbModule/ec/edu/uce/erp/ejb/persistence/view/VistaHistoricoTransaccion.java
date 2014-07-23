@@ -2,12 +2,16 @@ package ec.edu.uce.erp.ejb.persistence.view;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 
 /**
@@ -49,6 +53,22 @@ public class VistaHistoricoTransaccion implements Serializable {
 	private String ipTransaccion;
 
 	private String usuario;
+	
+	@Column(name="ci_usuario")
+	private String ciUsuario;
+	
+	private String estado;
+	
+	@Column(name="estado_string")
+	private String estadoString;
+	
+	@Transient
+	@Temporal(TemporalType.DATE)
+	private Date npFechaDesde;
+	
+	@Transient
+	@Temporal(TemporalType.DATE)
+	private Date npFechaHasta;
 
 	public VistaHistoricoTransaccion() {
 	}
@@ -143,6 +163,76 @@ public class VistaHistoricoTransaccion implements Serializable {
 	 */
 	public void setEmrPk(Integer emrPk) {
 		this.emrPk = emrPk;
+	}
+
+	/**
+	 * @return the ciUsuario
+	 */
+	public String getCiUsuario() {
+		return ciUsuario;
+	}
+
+	/**
+	 * @param ciUsuario the ciUsuario to set
+	 */
+	public void setCiUsuario(String ciUsuario) {
+		this.ciUsuario = ciUsuario;
+	}
+
+	/**
+	 * @return the estado
+	 */
+	public String getEstado() {
+		return estado;
+	}
+
+	/**
+	 * @param estado the estado to set
+	 */
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	/**
+	 * @return the estadoString
+	 */
+	public String getEstadoString() {
+		return estadoString;
+	}
+
+	/**
+	 * @param estadoString the estadoString to set
+	 */
+	public void setEstadoString(String estadoString) {
+		this.estadoString = estadoString;
+	}
+
+	/**
+	 * @return the npFechaDesde
+	 */
+	public Date getNpFechaDesde() {
+		return npFechaDesde;
+	}
+
+	/**
+	 * @param npFechaDesde the npFechaDesde to set
+	 */
+	public void setNpFechaDesde(Date npFechaDesde) {
+		this.npFechaDesde = npFechaDesde;
+	}
+
+	/**
+	 * @return the npFechaHasta
+	 */
+	public Date getNpFechaHasta() {
+		return npFechaHasta;
+	}
+
+	/**
+	 * @param npFechaHasta the npFechaHasta to set
+	 */
+	public void setNpFechaHasta(Date npFechaHasta) {
+		this.npFechaHasta = npFechaHasta;
 	}
 
 }

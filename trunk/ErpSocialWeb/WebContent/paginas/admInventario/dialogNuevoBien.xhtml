@@ -15,7 +15,7 @@
 							<h:outputLabel for="txtTipoIngresoBien" value="#{i18n['erp.bien.tipo.ingreso']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
-						<td width="70%">
+						<td width="70%" colspan="3">
 							<p:selectOneMenu id="txtTipoIngresoBien" style="width: 100%"
 								required="true" label="#{i18n['erp.bien.tipo.ingreso']}"
 								value="#{bienDataManager.idDcTipoIngresoBienSelect}" >
@@ -29,7 +29,7 @@
 							<h:outputLabel for="txtTipoBien" value="#{i18n['erp.bien.estado.conservacion']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
-						<td>
+						<td colspan="3">
 							<p:selectOneMenu id="txtTipoBien" style="width: 100%"
 								required="true" label="#{i18n['erp.bien.estado.conservacion']}"
 								value="#{bienDataManager.idDcEstadoConservacionSelec}" >
@@ -43,7 +43,7 @@
 							<h:outputLabel for="selectCategoria" value="#{i18n['erp.bien.categoria']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
-						<td>
+						<td colspan="3">
 							<p:selectOneMenu id="selectCategoria" style="width: 100%"
 								required="true" label="#{i18n['erp.bien.categoria']}"
 								value="#{bienDataManager.idCategoriaBienSeleccionado}">
@@ -58,7 +58,7 @@
 							<h:outputLabel for="txtLinea" value="#{i18n['erp.bien.linea']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
-						<td>
+						<td colspan="3">
 							<p:selectOneMenu id="txtLinea" style="width: 100%"
 								label="#{i18n['erp.bien.linea']}" required="true"
 								value="#{bienDataManager.idLineaBienSeleccionado}">
@@ -72,7 +72,7 @@
 							<h:outputLabel for="txtMarcaMaterial" value="#{i18n['erp.bien.marca.material']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
-						<td>
+						<td colspan="3">
 							<p:selectOneMenu id="txtMarcaMaterial" style="width: 100%"
 								required="true" label="#{i18n['erp.bien.marca.material']}"
 								value="#{bienDataManager.bienInstancia.marBienPk}">
@@ -85,7 +85,7 @@
 						<td>
 							<h:outputLabel for="txtModelo" value="#{i18n['erp.bien.modelo']}" />
 						</td>
-						<td>
+						<td colspan="3">
 							<p:inputText id="txtModelo" style="width: 100%"
 								value="#{bienDataManager.bienInstancia.bieModelo}" label="#{i18n['erp.bien.modelo']}" />
 						</td>
@@ -94,7 +94,7 @@
 						<td>
 							<h:outputLabel for="txtColor" value="#{i18n['erp.bien.color']}" />
 						</td>
-						<td>
+						<td colspan="3">
 							<p:inputText id="txtColor" style="width: 100%"
 								value="#{bienDataManager.bienInstancia.bieColor}" label="#{i18n['erp.bien.color']}" />
 						</td>
@@ -104,7 +104,7 @@
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.nombre']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
-						<td>
+						<td colspan="3">
 							<p:inputText id="txtNombre" style="width: 100%" required="true"
 								value="#{bienDataManager.bienInstancia.bieNombre}" label="#{i18n['erp.bien.nombre']}" />
 						</td>
@@ -114,11 +114,27 @@
 							<h:outputLabel for="txtNota" value="#{i18n['erp.bien.nota']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
-						<td>
+						<td colspan="3">
 							<p:inputTextarea id="txtNota" style="width: 100%" required="true"
 								value="#{bienDataManager.bienInstancia.bieNotas}" label="#{i18n['erp.bien.nota']}"/>
 						</td>
 					</tr>
+					<!-- <tr>
+						<td>
+							<h:outputLabel for="txtCosto" value="#{i18n['erp.bien.costo']}" />
+						</td>
+						<td>
+							<p:inputMask id="txtCosto" value="#{bienDataManager.bienInstancia.bieCostoVenta}" mask="99,99">
+								<p:ajax event="blur" listener="#{bienController.calcularValorIva(bienDataManager.bienInstancia)}" update="txtCostoIva" process="@this"/>
+							</p:inputMask>
+						</td>
+						<td>
+							<h:outputLabel for="txtCostoIva" value="#{i18n['erp.bien.costo']}" />
+						</td>
+						<td>
+							<p:inputText id="txtCostoIva" value="#{bienDataManager.bienInstancia.bieCostoIva}"/>
+						</td>
+					</tr> -->
 				</table>
 			</p:panel>
 			<p:panel id="pnlBotones">

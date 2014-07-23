@@ -25,6 +25,7 @@ import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.common.util.MessagesApplicacion;
 import ec.edu.uce.erp.common.util.UtilAplication;
 
 /**
@@ -52,7 +53,7 @@ public class ReporteUtil {
 			httpServletResponse.setContentType(tipoReporte);
 			outputStream = httpServletResponse.getOutputStream();
 			
-			if("application/vnd.ms-excel".equals(tipoReporte)){
+			if(MessagesApplicacion.getString("erp.reporte.excel").equals(tipoReporte)){
 				
 				jRExporter = new JRXlsExporter();
 				jRExporter.setParameter(JRXlsExporterParameter.JASPER_PRINT, jp);
@@ -71,7 +72,7 @@ public class ReporteUtil {
 										.appendStringBuilder("attachment; filename=", nombreReporte, 
 												UtilAplication.fechaActualConFormato("yyyy-MM-dd"),".xls").toString());
 				
-			}else{ //pdf
+			}else if (MessagesApplicacion.getString("erp.reporte.pdf").equals(tipoReporte)) {
 				
 				jRExporter = new JRPdfExporter();
 				jRExporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);

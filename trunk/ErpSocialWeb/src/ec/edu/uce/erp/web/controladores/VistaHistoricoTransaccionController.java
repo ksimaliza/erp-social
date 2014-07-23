@@ -13,6 +13,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import net.sf.jasperreports.engine.JasperPrint;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,7 @@ import ec.edu.uce.erp.ejb.persistence.view.VistaHistoricoTransaccion;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
+import ec.edu.uce.erp.web.common.util.ReporteUtil;
 import ec.edu.uce.erp.web.datamanager.VistaHistoricoTransaccionDataManager;
 
 /**
@@ -60,10 +63,11 @@ public class VistaHistoricoTransaccionController extends BaseController {
 			
 			this.historicoTransaccionDataManager
 					.getHistoricoTransaccionBuscar().setEmrPk(this.historicoTransaccionDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
+			
 			List<VistaHistoricoTransaccion> listVistaHistoricoTransaccions = servicioAdministracion
 					.obtenerVistaHistoricoTransaccion(this.historicoTransaccionDataManager.getHistoricoTransaccionBuscar());
-			this.historicoTransaccionDataManager.getListaVistaHistoricoTransaccion().clear();
 			
+			this.historicoTransaccionDataManager.getListaVistaHistoricoTransaccion().clear();
 			if (CollectionUtils.isEmpty(listVistaHistoricoTransaccions)) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
@@ -90,6 +94,21 @@ public class VistaHistoricoTransaccionController extends BaseController {
 			slf4jLogger.info("error al  buscarVistaUsuario {}", e.getMessage());
 			MensajesWebController.aniadirMensajeError("Error al generar el reporte");
 		}
+	}
+	
+	public void generarReporteUsuario (String formatoReporte) {
+		slf4jLogger.info("generarReporteUsuario...");
+		if (CollectionUtils.isEmpty(this.historicoTransaccionDataManager.getListaVistaHistoricoTransaccion())) {
+			MensajesWebController.aniadirMensajeAdvertencia("No hay datos para generar el reporte");
+		} else {
+			Map<String, Object> mapParametros = new HashMap<String, Object>();
+			mapParametros.put("nombreEmpresa", this.historicoTransaccionDataManager.getUsuarioSession().getEmpresaTbl().getEmrNombre());
+			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
+			JasperPrint jasperPrint = 
+					ReporteUtil.jasperPrint(getFacesContext(), this.historicoTransaccionDataManager.getListaVistaHistoricoTransaccion(), "reporteTransaccionesUsuarios", mapParametros);
+			ReporteUtil.generarReporte(jasperPrint, formatoReporte, "reporteTransaccionesUsuarios");
+		}
+		
 	}
 
 }
