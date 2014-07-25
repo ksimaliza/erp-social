@@ -29,6 +29,8 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(DefuncionDataM
 	
 	private  Persona difuntoInsertar;
 	private  Persona conyugeInsertar;
+	private  Persona difuntoBuscar;
+	private  Persona conyugeBuscar;
 	private List<DefuncionListDTO> defuncionDTOs;
 	private DefuncionDTO defuncionInsertar;
 	private Date fechaMuerteInsertar;
@@ -60,6 +62,8 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(DefuncionDataM
 		slf4jLogger.info("inicializarObjetos");
 		this.conyugeInsertar=new Persona();
 		this.difuntoInsertar=new Persona();
+		this.conyugeBuscar=new Persona();
+		this.difuntoBuscar=new Persona();
 		this.defuncionDTOs= new ArrayList<DefuncionListDTO>();
 		this.fechaMuerteInsertar=new Date();
 		this.fechaSepelioInsertar=new Date();
@@ -70,6 +74,8 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(DefuncionDataM
 		this.provinciasEucaristiaDTOs=new ArrayList<CatalogoEucaristiaDTO>();
 		this.cantonEucaristiaDTOs=new ArrayList<CatalogoEucaristiaDTO>();
 		this.parroquiaEucaristiaDTOs=new ArrayList<CatalogoEucaristiaDTO>();
+		this.defuncionListDTO=new DefuncionListDTO();
+		this.estadoCivils=new ArrayList<CatalogoEucaristiaDTO>();
 		
 			
 	}
@@ -281,6 +287,26 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(DefuncionDataM
 
 	public void setSacerdoteListDTO(List<SacerdoteListDTO> sacerdoteListDTO) {
 		this.sacerdoteListDTO = sacerdoteListDTO;
+	}
+
+
+	public Persona getDifuntoBuscar() {
+		return difuntoBuscar;
+	}
+
+
+	public void setDifuntoBuscar(Persona difuntoBuscar) {
+		this.difuntoBuscar = difuntoBuscar;
+	}
+
+
+	public Persona getConyugeBuscar() {
+		return conyugeBuscar;
+	}
+
+
+	public void setConyugeBuscar(Persona conyugeBuscar) {
+		this.conyugeBuscar = conyugeBuscar;
 	}
 
 

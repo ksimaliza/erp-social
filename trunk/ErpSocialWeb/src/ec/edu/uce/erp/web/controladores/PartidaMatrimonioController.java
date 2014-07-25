@@ -354,6 +354,8 @@ public void registrarMatrimonio () {
 			this.partidaMatrimonioDataManager.setMad_novioInsertar(matrimonioEncontrado.getMad_novio());
 			this.partidaMatrimonioDataManager.setPad_noviaInsertar(matrimonioEncontrado.getPad_novia());
 			this.partidaMatrimonioDataManager.setPad_novioInsertar(matrimonioEncontrado.getPad_novio());
+			this.partidaMatrimonioDataManager.setSacerdoteCodigo(matrimonioEncontrado.getMatrimonio().getEucSacerdote().getSacCodigo());
+			this.partidaMatrimonioDataManager.setProvincia(matrimonioEncontrado.getMatrimonio().getMatProvincia());
 			
 							
 		} catch (SeguridadesException e) {
