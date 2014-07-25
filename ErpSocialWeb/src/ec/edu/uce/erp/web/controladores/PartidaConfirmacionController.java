@@ -244,6 +244,12 @@ public void registrarConfirmacion () {
 			this.partidaConfirmacionDataManager.setConfirmadoInsertar(confirmacionEncontrada.getConfirmado());
 			this.partidaConfirmacionDataManager.setConfirmacionDTO(confirmacionEncontrada.getConfirmacion());
 			this.partidaConfirmacionDataManager.setMad_padInsertar(confirmacionEncontrada.getMad_pad());
+			this.partidaConfirmacionDataManager.setSacerdoteCodigo(confirmacionEncontrada.getConfirmacion().getEucSacerdote().getSacCodigo());
+			this.partidaConfirmacionDataManager.setEstadoCodigo(confirmacionEncontrada.getConfirmacion().getConEstado());
+			this.partidaConfirmacionDataManager.setProvincia(confirmacionEncontrada.getConfirmacion().getConProvincia());
+			this.partidaConfirmacionDataManager.setCanton(confirmacionEncontrada.getConfirmacion().getConCanton());
+			this.partidaConfirmacionDataManager.setParroquia(confirmacionEncontrada.getConfirmacion().getConParroquia());
+		
 			
 							
 		} catch (SeguridadesException e) {

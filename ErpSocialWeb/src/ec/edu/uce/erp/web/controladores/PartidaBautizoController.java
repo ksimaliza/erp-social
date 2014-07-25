@@ -272,13 +272,15 @@ public class PartidaBautizoController extends BaseController{
 			this.partidaBautizoDataManager.setBautizoDTO(bautizoEncontrado.getBautizo());
 			this.partidaBautizoDataManager.setMadrinaInsertar(bautizoEncontrado.getMadrina());
 			this.partidaBautizoDataManager.setPadrinoInsertar(bautizoEncontrado.getPadrino());
+			this.partidaBautizoDataManager.setSacerdoteCodigo(bautizoEncontrado.getBautizo().getEucSacerdote().getSacCodigo());
+			this.partidaBautizoDataManager.setEstadoCodigo(bautizoEncontrado.getBautizo().getBauEstado());
+			this.partidaBautizoDataManager.setProvinciaCodigo(bautizoEncontrado.getBautizo().getBauProvincia());
 			
-
 			
 							
 		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al cargarDatosConfirmacion {}", e.getMessage());
-			MensajesWebController.aniadirMensajeError("Error al cargarDatosConfirmacion seleccionado");
+			slf4jLogger.info("Error al cargarDatosBautizo {}", e.getMessage());
+			MensajesWebController.aniadirMensajeError("Error al cargarDatosBautizo seleccionado");
 		}
 	}
 	

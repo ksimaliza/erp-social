@@ -247,6 +247,12 @@ public void registrarPrimeraComunion () {
 			this.partidaPrimeraComunionDataManager.setAsignadoInsertar(comunionEncontrada.getAsignado());
 			this.partidaPrimeraComunionDataManager.setPrimeraComunionInsertar(comunionEncontrada.getComunion());
 			this.partidaPrimeraComunionDataManager.setMad_padInsertar(comunionEncontrada.getMad_pad());
+			this.partidaPrimeraComunionDataManager.setSacerdoteCodigo(comunionEncontrada.getComunion().getEucSacerdote().getSacCodigo());
+			this.partidaPrimeraComunionDataManager.setEstadoCodigo(comunionEncontrada.getComunion().getPcoEstado());
+			this.partidaPrimeraComunionDataManager.setProvinciaCodigo(comunionEncontrada.getComunion().getPcoProvincia());
+			
+			
+			
 							
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosComunion {}", e.getMessage());
