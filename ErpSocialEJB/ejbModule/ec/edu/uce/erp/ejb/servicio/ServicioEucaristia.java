@@ -17,6 +17,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NivelNichoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PrimeraComunionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
@@ -118,6 +119,15 @@ public interface ServicioEucaristia {
 			throws SeguridadesException;
 
 	ComunionVO obtenerComunionPorId(ComunionListDTO comunionListDTO)
+			throws SeguridadesException;
+
+	NivelNichoDTO createOrUpdateNivelNicho(NivelNichoDTO nivelNichoDTO)
+			throws SeguridadesException;
+
+	List<NivelNichoDTO> buscarNivelNicho(NivelNichoDTO nivelNichoDTO)
+			throws SeguridadesException;
+
+	NivelNichoDTO obtenerNivelNichoPorId(Integer id)
 			throws SeguridadesException;
 
 

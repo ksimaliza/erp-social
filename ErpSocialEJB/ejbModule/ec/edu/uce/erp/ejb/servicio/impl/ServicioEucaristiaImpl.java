@@ -24,6 +24,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NivelNichoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PrimeraComunionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
@@ -227,11 +228,12 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		slf4jLogger.info("obtenerComunionPorId");
 		
 		BautizoVO bautizo=new BautizoVO();
-		bautizo.setBautizado(factoryDAO.getPersonaDAOImpl().find(bautizoListDTO.getBauBautizado()));
+		
+		bautizo.setBautizado(factoryDAO.getPersonaDAOImpl().find(bautizoListDTO.getPerPk()));
 		bautizo.setBautizo(eucaristiaFactoryDAO.getBautizoDAOImpl().find(bautizoListDTO.getBauCodigo()));
 		bautizo.setMadrina(factoryDAO.getPersonaDAOImpl().find(bautizoListDTO.getBauMadrina()));
 		bautizo.setPadrino(factoryDAO.getPersonaDAOImpl().find(bautizoListDTO.getBauPadrino()));
-		
+	
 		
 		return bautizo;
 	}
@@ -615,6 +617,8 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	}
 	
 	
+	
+	
 	@Override
 	public TipoNichoDTO createOrUpdateTipoNicho(TipoNichoDTO tipoNichoDTO) throws SeguridadesException
 	{
@@ -657,5 +661,47 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		return tipoNicho;
 	}
 	
+	
+	@Override
+	public NivelNichoDTO createOrUpdateNivelNicho(NivelNichoDTO nivelNichoDTO) throws SeguridadesException
+	{
+		slf4jLogger.info("createOrUpdateNivelNicho");
+		try {
+		if(nivelNichoDTO.getNniCodigo()!=null)
+			return eucaristiaFactoryDAO.getNivelNichoDAOImpl().update(nivelNichoDTO);
+		else
+			return eucaristiaFactoryDAO.getNivelNichoDAOImpl().create(nivelNichoDTO);
+		} catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdateNivelNicho {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+	}
+	
+		
+	@Override
+	public List<NivelNichoDTO> buscarNivelNicho(NivelNichoDTO nivelNichoDTO) throws SeguridadesException {
+		slf4jLogger.info("buscarNivelNicho");
+		List<NivelNichoDTO> listNivelNicho = null;
+		try {
+			listNivelNicho =  eucaristiaFactoryDAO.getNivelNichoDAOImpl().obtenerNivelNicho(nivelNichoDTO);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarNivelNicho {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener buscarNivelNicho de la base de datos");
+		}
+		
+		return listNivelNicho;
+	}
+	
+	@Override
+	public NivelNichoDTO obtenerNivelNichoPorId(Integer id) throws SeguridadesException {
+		slf4jLogger.info("obtenerNivelNichoPorId");
+		
+		NivelNichoDTO nivelNicho=new NivelNichoDTO();
+		
+		nivelNicho = eucaristiaFactoryDAO.getNivelNichoDAOImpl().find(id);
+		
+		return nivelNicho;
+	}
 	
 }
