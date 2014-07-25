@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpEditarNivelNicho" header="#{i18n['erp.despacho.nivel.nicho.registrar']}" resizable="false" draggable="false"
+		widgetVar="dlgEditarNivelNicho" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<h:form id="formEditarNivelNicho" styleClass="formulario">
+			<p:panel id="pnlEditarNivelNicho">
+				<table class="formulario">
+												
+									
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtDescripNivel" value="#{i18n['erp.despacho.nivel.nicho.descripcion']}" />
+						</td>
+						<td width="70%">
+							<p:inputTextarea id="txtDescripNivel" style="width: 100%"
+								required="true" value="#{nivelNichoDataManager.nivelNichoInsertar.nniDescripcion}" />
+						</td>	
+					</tr>
+										
+					
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{nivelNichoController.registrarNivelNicho()}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarNivelNicho.hide()"
+					process="@this,pnlEditarNivelNicho" update="pnlEditarNivelNicho,:formNivelNicho:pnlMessages,:formNivelNicho:tablaNivelNicho"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarNivelNicho.hide()" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>
