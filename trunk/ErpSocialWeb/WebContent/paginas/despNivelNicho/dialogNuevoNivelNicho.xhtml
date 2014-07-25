@@ -18,7 +18,7 @@
 						</td>
 						<td width="70%">
 							<p:inputTextarea id="txtDescripNivel" style="width: 100%"
-								required="true" value="#{niveltipoNichoDataManager.tipoNichoInsertar.tniDescripcion}" />
+								required="true" value="#{nivelNichoDataManager.nivelNichoInsertar.nniDescripcion}" />
 						</td>	
 					</tr>
 										
@@ -27,7 +27,8 @@
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNivelNicho.hide()"
+					actionListener="#{nivelNichoController.registrarNivelNicho}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoNivelNicho.hide()"
 					process="@this,pnlNuevoNivelNicho" update="pnlNuevoNivelNicho,:formNivelNicho:pnlMessages,:formNivelNicho:tablaNivelNicho"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoNivelNicho.hide()" type="button" />
 			</p:panel>

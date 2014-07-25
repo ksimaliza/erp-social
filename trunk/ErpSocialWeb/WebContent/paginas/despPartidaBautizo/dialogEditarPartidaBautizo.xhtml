@@ -78,14 +78,14 @@
 						</td>
 					</tr>
 														
-					<tr >
+					<tr>
 						<td width="30%">
 						
 							<h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.sacerdote']}"  /> 
 						
 						</td>
 					<td width="70%">
-					<p:selectOneMenu id="sacerdote" value="#{partidaBautizoDataManager.sacerdoteCodigo}" filter="true" required="true" >
+						<p:selectOneMenu id="sacerdote" value="#{partidaBautizoDataManager.sacerdoteCodigo}" filter="true" required="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{partidaBautizoDataManager.sacerdoteListDTO}" var="sac" itemLabel="#{sac.perNombres} #{sac.perApellidos}" itemValue="#{sac.sacCodigo}"/>
 							</p:selectOneMenu>
