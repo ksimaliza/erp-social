@@ -13,23 +13,46 @@
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
 			<p:toolbar id="toolbar">
 				<p:toolbarGroup align="left">
-					<!-- <p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
-					<p:commandButton id="btnNuevoBien" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoIngreso.show()"/> -->
+					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
 					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
-						image="exportExcel" disabled="#{empty bienDataManager.listBien}">
-						<p:dataExporter type="xls" target="tablaInventario" fileName="inventario" postProcessor="#{bienController.postProcessXLS}"/>
+						image="exportExcel" disabled="#{empty inventarioDataManager.listBien}">
+						<p:dataExporter type="xls" target="tablaInventario" fileName="inventario" postProcessor="#{inventarioController.postProcessXLS}"/>
 					</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:panel id="pnlBuscarInventario" header="#{i18n['label.buscar.criterios']}">
+			<p:panel id="pnlBuscarBien" header="#{i18n['erp.bien.buscar']}">
 				<table>
 					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtCategoria" value="#{i18n['erp.bien.categoria']}" />
+						<td><h:outputLabel for="txtNombre" value="#{i18n['erp.bien.nombre']}" /></td>
+						<td>
+							<p:inputText id="txtNombre"
+								value="#{inventarioDataManager.vistaBienBuscar.bieNombre}" />
 						</td>
-						<td  width="70%">
-							<p:selectOneMenu id="txtCategoria" panelStyle="width: 20%" label="#{i18n['erp.bien.categoria']}">
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="selectTipoIngresoBien" value="#{i18n['erp.bien.tipo.transaccion']}" />
+						</td>
+						<td width="70%">
+							<p:selectOneMenu id="selectTipoIngresoBien"
+								style="width: 100%" label="#{i18n['erp.bien.categoria']}"
+								value="#{inventarioDataManager.idDcTipoBienSelec}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItems value="#{inventarioDataManager.dcTipoBien}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="selectCategoria" value="#{i18n['erp.bien.categoria']}" />
+						</td>
+						<td>
+							<p:selectOneMenu id="selectCategoria"
+								style="width: 100%" label="#{i18n['erp.bien.categoria']}"
+								value="#{inventarioDataManager.idCategoriaBienBuscarSeleccionado}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItems value="#{inventarioController.dcCategoriaBien}"/>
+								<p:ajax event="change" process="@this" update="txtLinea" listener="#{inventarioController.cargarDcLineaBien(inventarioDataManager.idCategoriaBienBuscarSeleccionado)}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
@@ -38,8 +61,21 @@
 							<h:outputLabel for="txtLinea" value="#{i18n['erp.bien.linea']}" />
 						</td>
 						<td>
-							<p:selectOneMenu id="txtLinea" panelStyle="width: 20%" label="#{i18n['erp.bien.linea']}">
+							<p:selectOneMenu id="txtLinea"
+								style="width: 100%" label="#{i18n['erp.bien.linea']}"
+								value="#{inventarioDataManager.idLineaBienSeleccionado}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{inventarioController.dcLineaBien}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
+						<td>
+							<p:selectOneMenu id="inputEstado" value="#{inventarioDataManager.vistaBienBuscar.bieEstado}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{inventarioDataManager.estadoActivo}"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{inventarioDataManager.estadoInactivo}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
@@ -47,14 +83,14 @@
 			</p:panel>
 			<p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
-					actionListener="#{bienController.buscarBienes}"
-					value="#{i18n['label.filtrar']}" 
-					process="@this,pnlBuscarInventario"
-					update="pnlMessages,tablaInventario,pnlBuscarInventario,toolbar" />
+					actionListener="#{inventarioController.buscarBienes}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscarBien"
+					update="pnlMessages,tablaInventario,pnlBuscarBien,toolbar" />
 			</p:panel>
 			<p:dataTable id="tablaInventario"
-				value="#{bienDataManager.listBien}"
-				var="bien" rowIndexVar="rowIndex"
+				value="#{inventarioDataManager.listVistaBien}"
+				var="vistaBien" rowIndexVar="rowIndex"
 				paginator="true" rows="5" paginatorPosition="bottom"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
@@ -69,40 +105,70 @@
 				</p:column>
 				<p:column width="10%">
 					<f:facet name="header">
-						<h:outputText value="#{i18n['label.fecha']}" />
+						<h:outputText value="#{i18n['erp.bien.categoria']}" />
 					</f:facet>
-					<h:outputText value="label.fecha" />
+					<h:outputText value="#{vistaBien.catBienNombre}" />
 				</p:column>
 				<p:column width="10%">
 					<f:facet name="header">
-						<h:outputText value="#{i18n['erp.bien.codigo']}" />
+						<h:outputText value="#{i18n['erp.bien.linea']}" />
 					</f:facet>
-					<h:outputText value="#{bien.biePk}" />
+					<h:outputText value="#{vistaBien.linBienNombre}" />
 				</p:column>
 				<p:column width="10%">
 					<f:facet name="header">
-						<h:outputText value="#{i18n['label.articulo']}" />
+						<h:outputText value="#{i18n['erp.bien.marca.material']}" />
 					</f:facet>
-					<h:outputText value="label.articulo" />
+					<h:outputText value="#{vistaBien.marBienNombre}" />
 				</p:column>
 				<p:column width="10%">
 					<f:facet name="header">
-						<h:outputText value="#{i18n['label.entrada']}" />
+						<h:outputText value="#{i18n['erp.bien.modelo']}" />
 					</f:facet>
-					<h:outputText value="label.entrada" />
+					<h:outputText value="#{vistaBien.bieModelo}" />
 				</p:column>
 				<p:column width="10%">
 					<f:facet name="header">
-						<h:outputText value="#{i18n['label.salida']}" />
+						<h:outputText value="#{i18n['erp.bien.color']}" />
 					</f:facet>
-					<h:outputText value="label.salida" />
+					<h:outputText value="#{vistaBien.bieColor}" />
 				</p:column>
-				<p:column width="10%">
+				<p:column width="10%" styleClass="centered">
 					<f:facet name="header">
-						<h:outputText value="#{i18n['erp.inventario.numero.orden']}" />
+						<h:outputText value="#{i18n['label.estado']}" />
 					</f:facet>
-					<h:outputText value="erp.inventario.numero.orden" />
+					<h:outputText value="#{vistaBien.bieEstado eq inventarioDataManager.estadoActivo ? i18n['label.estado.activo']:i18n['label.estado.inactivo']}" />
 				</p:column>
+				<p:column width="10%" styleClass="centered">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['label.en.uso']}" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.bieEstadoUso eq inventarioDataManager.estadoActivo ? i18n['label.si']:i18n['label.no']}" />
+				</p:column>
+				<p:column width="15%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.bien.nombre']}" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.bieNombre}" />
+				</p:column>
+				<!-- <p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%" exportable="false">
+					solo se debe editar bienes activos
+					<h:panelGroup rendered="#{vistaBien.bieEstado eq inventarioDataManager.estadoActivo}">
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.editar']}" process="@this"
+							oncomplete="dlgEditarBien.show()" update=":formEditarBien:pnlEditarBien"
+							action="#{inventarioController.asignarDatosBienDesdeVista(vistaBien)}">
+							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+						</p:commandLink>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink value=" Trazabilidad" title="Trazabilidad"
+							action="#{inventarioController.obtenerTrazabilidadBien}"
+							oncomplete="dlgTrazabilidadVistaBien.show()" update=":formTrazabilidadVistaBien:pnlTrazabilidadVistaBien">
+							<f:setPropertyActionListener target="#{inventarioDataManager.vistaBienEditar}" value="#{vistaBien}"/>
+						</p:commandLink>
+					</h:panelGroup>
+				</p:column> -->
 			</p:dataTable>
 			
 		</h:form>

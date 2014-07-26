@@ -79,17 +79,35 @@
 					</f:facet>
 					<h:outputText value="#{rowIndex+1}" />
 				</p:column>
-				<p:column width="20%">
+				<p:column width="15%">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.proveedor.nombre']}" />
 					</f:facet>
 					<h:outputText value="#{proveedor.provNombre}" />
 				</p:column>
-				<p:column width="20%">
+				<p:column width="15%">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.proveedor.apellido']}" />
 					</f:facet>
 					<h:outputText value="#{proveedor.provApellido}" />
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.proveedor.ci']}" />
+					</f:facet>
+					<h:outputText value="#{proveedor.provDocumentoIdentificacion}" />
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.proveedor.telefono']}" />
+					</f:facet>
+					<h:outputText value="#{proveedor.provTelefono}" />
+				</p:column>
+				<p:column width="20%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['label.email']}" />
+					</f:facet>
+					<h:outputText value="#{proveedor.provEmail}" />
 				</p:column>
 				<p:column styleClass="centered" width="10%">
 					<f:facet name="header">

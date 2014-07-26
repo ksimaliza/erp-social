@@ -32,11 +32,11 @@ import ec.edu.uce.erp.web.common.util.UtilSelectItems;
  *
  */
 @SessionScoped
-@ManagedBean (name="vistaBienDataManager") 
-public class VistaBienDataManager extends BaseDataManager{
+@ManagedBean (name="bajasBienDataManager") 
+public class BajasBienDataManager extends BaseDataManager{
 
 	private static final long serialVersionUID = 1L;
-	private static final Logger slf4jLogger = LoggerFactory.getLogger(VistaBienDataManager.class);
+	private static final Logger slf4jLogger = LoggerFactory.getLogger(BajasBienDataManager.class);
 	
 	@EJB
 	public ServicioInventario servicioInventario;
@@ -49,13 +49,11 @@ public class VistaBienDataManager extends BaseDataManager{
 	private List<VistaEmpleado> listVistaEmpleado;
 	private List<VistaBien> listVistaBienEditar;
 	
-	private Integer idCustudioAsignado;
-	private Integer idCustudioReasignado;
 	private String idDcTipoBienSelec;
 	private String idDcBajaBienSelec;
 	private Integer idCategoriaBienSeleccionado;
 	private Integer idLineaBienSeleccionado;
-//	private String idCIEmpleadoSeleccionado;
+	private String idCIEmpleadoSeleccionado;
 	
 	private List<VistaTransaccion> listVistaTransaccion;
 	
@@ -65,7 +63,7 @@ public class VistaBienDataManager extends BaseDataManager{
 	private List<SelectItem> dcEmpleadosEmpresa;
 	private List<SelectItem> dcBajaBien;
 	
-	public VistaBienDataManager () {
+	public BajasBienDataManager () {
 		this.vistaBienBuscar = new VistaBien();
 		this.vistaBienEditar = new VistaBien();
 		this.listVistaBien = new ArrayList<VistaBien>();
@@ -77,8 +75,6 @@ public class VistaBienDataManager extends BaseDataManager{
 	}
 	
 	public void limpiarCatalogos () {
-		idCustudioAsignado = 0;
-		idCustudioReasignado = 0;
 		idDcTipoBienSelec = null;
 		idCategoriaBienSeleccionado = 0;
 		idLineaBienSeleccionado = 0;
@@ -121,34 +117,6 @@ public class VistaBienDataManager extends BaseDataManager{
 	 */
 	public void setVistaBienEditar(VistaBien vistaBienEditar) {
 		this.vistaBienEditar = vistaBienEditar;
-	}
-
-	/**
-	 * @return the idCustudioAsignado
-	 */
-	public Integer getIdCustudioAsignado() {
-		return idCustudioAsignado;
-	}
-
-	/**
-	 * @param idCustudioAsignado the idCustudioAsignado to set
-	 */
-	public void setIdCustudioAsignado(Integer idCustudioAsignado) {
-		this.idCustudioAsignado = idCustudioAsignado;
-	}
-
-	/**
-	 * @return the idCustudioReasignado
-	 */
-	public Integer getIdCustudioReasignado() {
-		return idCustudioReasignado;
-	}
-
-	/**
-	 * @param idCustudioReasignado the idCustudioReasignado to set
-	 */
-	public void setIdCustudioReasignado(Integer idCustudioReasignado) {
-		this.idCustudioReasignado = idCustudioReasignado;
 	}
 
 	/**
@@ -353,19 +321,19 @@ public class VistaBienDataManager extends BaseDataManager{
 		this.vistaEmpleadoSeleccionado = vistaEmpleadoSeleccionado;
 	}
 
-//	/**
-//	 * @param idCIEmpleadoSeleccionado the idCIEmpleadoSeleccionado to set
-//	 */
-//	public void setIdCIEmpleadoSeleccionado(String idCIEmpleadoSeleccionado) {
-//		this.idCIEmpleadoSeleccionado = idCIEmpleadoSeleccionado;
-//	}
-//
-//	/**
-//	 * @return the idCIEmpleadoSeleccionado
-//	 */
-//	public String getIdCIEmpleadoSeleccionado() {
-//		return idCIEmpleadoSeleccionado;
-//	}
+	/**
+	 * @param idCIEmpleadoSeleccionado the idCIEmpleadoSeleccionado to set
+	 */
+	public void setIdCIEmpleadoSeleccionado(String idCIEmpleadoSeleccionado) {
+		this.idCIEmpleadoSeleccionado = idCIEmpleadoSeleccionado;
+	}
+
+	/**
+	 * @return the idCIEmpleadoSeleccionado
+	 */
+	public String getIdCIEmpleadoSeleccionado() {
+		return idCIEmpleadoSeleccionado;
+	}
 
 	/**
 	 * @return the listVistaBienEditar

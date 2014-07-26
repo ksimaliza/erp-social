@@ -9,7 +9,9 @@
 		<h3><h:outputLabel	value="#{i18n['erp.bien.pagina.titulo']}" /></h3>
 	</ui:define>
 	<ui:define name="content">
+		<h:outputScript library="primefaces" name="jquery/jquery.js" target="head"/>
 		<h:form id="formBien">
+		
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
 			<p:toolbar id="toolbar">
 				<p:toolbarGroup align="left">
@@ -36,7 +38,7 @@
 								value="#{bienDataManager.vistaBienBuscar.bieNombre}" />
 						</td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td width="30%">
 							<h:outputLabel for="selectTipoIngresoBien" value="#{i18n['erp.bien.tipo.transaccion']}" />
 						</td>
@@ -48,7 +50,7 @@
 								<f:selectItems value="#{bienDataManager.dcTipoBien}"/>
 							</p:selectOneMenu>
 						</td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td>
 							<h:outputLabel for="selectCategoria" value="#{i18n['erp.bien.categoria']}" />
@@ -76,7 +78,7 @@
 							</p:selectOneMenu>
 						</td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
 						<td>
 							<p:selectOneMenu id="inputEstado" value="#{bienDataManager.vistaBienBuscar.bieEstado}">
@@ -85,7 +87,7 @@
 								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{bienDataManager.estadoInactivo}"/>
 							</p:selectOneMenu>
 						</td>
-					</tr>
+					</tr> -->
 				</table>
 			</p:panel>
 			<p:panel id="botonesBuscar">

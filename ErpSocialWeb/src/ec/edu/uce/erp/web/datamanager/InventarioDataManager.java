@@ -32,11 +32,11 @@ import ec.edu.uce.erp.web.common.util.UtilSelectItems;
  *
  */
 @SessionScoped
-@ManagedBean(name="bienDataManager")
-public class BienDataManager extends BaseDataManager{
+@ManagedBean(name="inventarioDataManager")
+public class InventarioDataManager extends BaseDataManager{
 
 	private static final long serialVersionUID = 1L;
-	private static final Logger slf4jLogger = LoggerFactory.getLogger(BienDataManager.class);
+	private static final Logger slf4jLogger = LoggerFactory.getLogger(InventarioDataManager.class);
 	
 	@EJB
 	public ServicioInventario servicioInventario;
@@ -59,10 +59,10 @@ public class BienDataManager extends BaseDataManager{
 	private Integer idCategoriaBienBuscarSeleccionado;
 	private Integer idLineaBienSeleccionado;
 	private String idDcEstadoConservacionSelec;
-//	private String idDcTipoBienSelec;
+	private String idDcTipoBienSelec;
 	private String idDcTipoIngresoBienSelect;
 	
-	public BienDataManager () {
+	public InventarioDataManager () {
 		super();
 		this.bienInstancia = new Bien();
 		this.bienInstancia.setUsuarioRegistro(getUsuarioSession());
@@ -160,7 +160,7 @@ public class BienDataManager extends BaseDataManager{
 	
 	private void limpiarSeleccionCatalogos () {
 		this.idDcEstadoConservacionSelec=null;
-//		this.idDcTipoBienSelec = null;
+		this.idDcTipoBienSelec = null;
 		this.idCategoriaBienSeleccionado=null;
 		this.idLineaBienSeleccionado=null;
 	}
@@ -250,19 +250,19 @@ public class BienDataManager extends BaseDataManager{
 		this.idDcEstadoConservacionSelec = idDcEstadoConservacionSelec;
 	}
 
-//	/**
-//	 * @return the idDcTipoBienSelec
-//	 */
-//	public String getIdDcTipoBienSelec() {
-//		return idDcTipoBienSelec;
-//	}
-//
-//	/**
-//	 * @param idDcTipoBienSelec the idDcTipoBienSelec to set
-//	 */
-//	public void setIdDcTipoBienSelec(String idDcTipoBienSelec) {
-//		this.idDcTipoBienSelec = idDcTipoBienSelec;
-//	}
+	/**
+	 * @return the idDcTipoBienSelec
+	 */
+	public String getIdDcTipoBienSelec() {
+		return idDcTipoBienSelec;
+	}
+
+	/**
+	 * @param idDcTipoBienSelec the idDcTipoBienSelec to set
+	 */
+	public void setIdDcTipoBienSelec(String idDcTipoBienSelec) {
+		this.idDcTipoBienSelec = idDcTipoBienSelec;
+	}
 
 	/**
 	 * @return the idCategoriaBienBuscarSeleccionado

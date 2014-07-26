@@ -4,6 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsf/composite/components"
 	template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="title">
 		<h3><h:outputLabel	value="#{i18n['erp.bien.bajas.pagina.titulo']}" /></h3>
@@ -16,93 +17,84 @@
 					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
 					<!-- <p:commandButton id="btnNuevoBien" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoBien.show()"/> -->
 					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
-						icon="exportExcel" disabled="#{empty vistaBienDataManager.listVistaBien}">
-						<p:dataExporter type="xls" target="tablaBienes" fileName="productos" postProcessor="#{transaccionBienController.postProcessXLS}"/>
+						icon="exportExcel" disabled="#{empty bajasBienDataManager.listVistaBien}">
+						<p:dataExporter type="xls" target="tablaBienes" fileName="productos" postProcessor="#{bajasBienController.postProcessXLS}"/>
 					</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:panel id="pnlBuscarBien" header="#{i18n['erp.bien.buscar']}">
 				<table>
 					<tr>
+						<td width="30%"><h:outputLabel for="txtNombreCustodio" value="#{i18n['label.custodio']}" /></td>
+						<td width="70%">
+							<h:panelGrid columns="2" border="0">
+								<h:outputText id="txtNombreCustodio" value="#{bajasBienController.buscarUsuarioComponent.vistaEmpleadoSeleccionado.nombresCompletos}" />
+								<p:commandLink value="buscar" oncomplete="dlgBuscarEmpleado.show()"/>
+							</h:panelGrid>
+						</td>
+					</tr>
+					<tr>
 						<td><h:outputLabel for="txtCodigoBien" value="#{i18n['label.codigo']}" /></td>
 						<td>
-							<p:inputText id="txtCodigoBien" value="#{vistaBienDataManager.vistaBienBuscar.bieCodigo}" />
+							<p:inputText id="txtCodigoBien" value="#{bajasBienDataManager.vistaBienBuscar.bieCodigo}" />
 						</td>
 					</tr>
 					<tr>
-						<td><h:outputLabel for="txtNombreCustodio" value="#{i18n['label.custodio']}" /></td>
 						<td>
-							<p:inputText id="txtNombreCustodio" 
-								value="#{vistaBienDataManager.idCIEmpleadoSeleccionado}" />
-							<p:commandLink value="buscar" oncomplete="dlgBuscarUsuario.show()"/>
-						</td>
-					</tr>
-					<tr>
-						<td width="30%">
 							<h:outputLabel for="selectTipoIngresoBien" value="#{i18n['erp.bien.tipo.transaccion']}" />
 						</td>
-						<td  width="70%">
+						<td>
 							<p:selectOneMenu id="selectTipoIngresoBien"
 								style="width: 100%" label="#{i18n['erp.bien.categoria']}"
-								value="#{vistaBienDataManager.idDcTipoBienSelec}">
-								<f:selectItem itemValue="#{vistaBienDataManager.estadoInvalido}" itemLabel="#{i18n['label.seleccione']}"/>
-								<f:selectItems value="#{vistaBienDataManager.dcTipoBien}"/>
+								value="#{bajasBienDataManager.idDcTipoBienSelec}">
+								<f:selectItem itemValue="#{bajasBienDataManager.estadoInvalido}" itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{bajasBienDataManager.dcTipoBien}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
 					<tr>
-						<td width="30%">
+						<td>
 							<h:outputLabel for="selectCategoria" value="#{i18n['erp.bien.categoria']}" />
 						</td>
-						<td  width="70%">
+						<td>
 							<p:selectOneMenu id="selectCategoria"
 								style="width: 100%" label="#{i18n['erp.bien.categoria']}"
-								value="#{vistaBienDataManager.idCategoriaBienSeleccionado}">
+								value="#{bajasBienDataManager.idCategoriaBienSeleccionado}">
 								<f:selectItem itemValue="-1" itemLabel="#{i18n['label.seleccione']}"/>
-								<f:selectItems value="#{vistaBienDataManager.dcCategoriaBien}"/>
-								<p:ajax event="change" process="@this" update="txtLinea" listener="#{vistaBienDataManager.cargarDcLineaBien}"/>
+								<f:selectItems value="#{bajasBienDataManager.dcCategoriaBien}"/>
+								<p:ajax event="change" process="@this" update="txtLinea" listener="#{bajasBienDataManager.cargarDcLineaBien}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
 					<tr>
-						<td width="30%">
+						<td>
 							<h:outputLabel for="txtLinea" value="#{i18n['erp.bien.linea']}" />
 						</td>
-						<td  width="70%">
+						<td>
 							<p:selectOneMenu id="txtLinea"
 								style="width: 100%" label="#{i18n['erp.bien.linea']}"
-								value="#{vistaBienDataManager.idLineaBienSeleccionado}">
+								value="#{bajasBienDataManager.idLineaBienSeleccionado}">
 								<f:selectItem itemValue="-1" itemLabel="#{i18n['label.seleccione']}"/>
-								<f:selectItems value="#{vistaBienDataManager.dcLineaBien}"/>
+								<f:selectItems value="#{bajasBienDataManager.dcLineaBien}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
-				<!-- 	<tr>
-						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
-						<td>
-							<p:selectOneMenu id="inputEstado" value="#{vistaBienDataManager.vistaBienBuscar.bieEstado}">
-								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
-								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{vistaBienDataManager.estadoActivo}"/>
-								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{vistaBienDataManager.estadoInactivo}"/>
-							</p:selectOneMenu>
-						</td>
-					</tr> -->
 				</table>
 			</p:panel>
 			<p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
-					actionListener="#{transaccionBienController.buscarVistaBien}"
+					actionListener="#{bajasBienController.buscarVistaBien}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarBien"
 					update="pnlMessages,tablaBienes,pnlBuscarBien,toolbar" />
 				<p:commandButton id="btnLimpiar"
-					actionListener="#{transaccionBienController.limpiarFiltrosBusqueda}"
+					actionListener="#{bajasBienController.limpiarFiltrosBusqueda}"
 					value="#{i18n['label.limpiar']}" 
 					process="@this,pnlBuscarBien" 
 					update="pnlMessages,tablaBienes,pnlBuscarBien,toolbar" />
 			</p:panel>
 			<p:dataTable id="tablaBienes"
-				value="#{vistaBienDataManager.listVistaBien}"
+				value="#{bajasBienDataManager.listVistaBien}"
 				var="vistaBien" rowIndexVar="rowIndex"
 				paginator="true" rows="5" paginatorPosition="bottom"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -150,13 +142,13 @@
 					<f:facet name="header">
 						<h:outputText value="#{i18n['label.estado']}" />
 					</f:facet>
-					<h:outputText value="#{vistaBien.bieEstadoUso eq vistaBienDataManager.estadoActivo ? i18n['label.en.uso']:i18n['label.sin.uso']}" />
+					<h:outputText value="#{vistaBien.bieEstadoUso eq bajasBienDataManager.estadoActivo ? i18n['label.en.uso']:i18n['label.sin.uso']}" />
 				</p:column>
 				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="20%" exportable="false">
 					<h:panelGroup>
 						<p:commandLink value="  Dar baja" title="Dar baja" rendered="#{vistaBien.npVerBajaBien}"
 							oncomplete="dlgBajaBien.show()" update=":formBajaBien:pnlBajaBien">
-							<f:setPropertyActionListener target="#{vistaBienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
+							<f:setPropertyActionListener target="#{bajasBienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
 						</p:commandLink> 
 					</h:panelGroup>
 				</p:column>
@@ -166,7 +158,7 @@
 			<p:confirmDialog id="dialogConfirmarBaja" message="#{i18n['erp.bien.bajas.pregunta.confirmacion']}" appendTo="@(body)"
 				header="#{i18n['erp.bien.bajas.header.pregunta.confirmacion']}" severity="alert" widgetVar="dlgConfirmaBaja" >
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
-					actionListener="#{transaccionBienController.darBajaBien}"
+					actionListener="#{bajasBienController.darBajaBien}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgConfirmaBaja.hide(); dlgBajaBien.hide();"
 					process="@this,:formBajaBien" update=":formBajaBien:pnlBajaBien,:formBien:tablaBienes,:formBien:pnlMessages"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgConfirmaBaja.hide(); dlgBajaBien.hide();" type="button" />
@@ -175,7 +167,7 @@
 		</h:form>
 		
 		<ui:include src="dialogBajaBien.xhtml" />
-		<ui:include src="dialogBuscarUsuario.xhtml" />
+		<ui:include src="dialogBuscarEmpleado.xhtml" />
 		
 	</ui:define>
 </ui:composition>

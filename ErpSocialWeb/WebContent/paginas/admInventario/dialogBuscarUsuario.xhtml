@@ -45,7 +45,6 @@
 					<p:commandButton id="btnGuardar" value="#{i18n['label.buscar']}"
 						actionListener="#{transaccionBienController.buscarEmpleado}"
 						process="@this,pnlBuscarEmpleado" update="pnlBuscarEmpleado"/>
-					<!-- <p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgBuscarUsuario.hide();" type="button" /> -->
 				</p:panel>
 				<p:dataTable value="#{vistaBienDataManager.listVistaEmpleado}" rowKey="#{vistaEmpleado.empPk}"
 					var="vistaEmpleado" selectionMode="single">

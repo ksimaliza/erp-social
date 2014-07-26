@@ -6,6 +6,7 @@ package ec.edu.uce.erp.web.controladores;
 import static ec.edu.uce.erp.common.util.ConstantesApplication.ESTADO_ACTIVO;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -16,11 +17,11 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.common.enums.EnumTipoBien;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Bien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien;
@@ -54,6 +55,9 @@ public class BienController extends BaseController{
 	private List<SelectItem> dcMarcaBien;
 	private List<SelectItem> dcLineaBien;
 	
+	private Integer cantidadBienesIngresados;
+	private Double totalPrecioBienesIngresados;
+	
 	/**
 	 * @param bienDataManager the bienDataManager to set
 	 */
@@ -70,6 +74,7 @@ public class BienController extends BaseController{
 			this.dcLineaBien = new ArrayList<SelectItem>();
 			this.dcCategoriaBien = UtilSelectItems.getInstancia().cargarSelectItemCategoriaBien(servicioInventario);
 			this.dcMarcaBien = UtilSelectItems.getInstancia().cargarSelectItemMarcaBien(servicioInventario);
+			this.cantidadBienesIngresados = 1;
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("error al cargar la pantalla Bienes {}", e.getCause().getMessage());
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
@@ -92,18 +97,25 @@ public class BienController extends BaseController{
 				this.bienDataManager.getBienInstancia().setMarBienPk(null);
 			}
 			
-			Bien bien = servicioInventario.registrarBien(this.bienDataManager.getBienInstancia());
+			Collection<Integer> listBienPK = new ArrayList<>();
 			
-			if (bien != null) {
-				
+			for (int i = 0; i<this.cantidadBienesIngresados; i++) {
+				Bien bienNuevo = servicioInventario.registrarBien(this.bienDataManager.getBienInstancia());
+				if (bienNuevo != null) {
+					listBienPK.add(bienNuevo.getBiePk());
+				}
+			}
+			
+			if (CollectionUtils.isNotEmpty(listBienPK)) {
 				VistaBien vistaBienBuscar = new VistaBien();
-				vistaBienBuscar.setBiePk(bien.getBiePk());
+				vistaBienBuscar.setBiePk(null);
 				vistaBienBuscar.setBieEstado(ESTADO_ACTIVO);
-				vistaBienBuscar.setEmrPk(bien.getEmrPk());
+				vistaBienBuscar.setNpColBiePk(listBienPK);
+				vistaBienBuscar.setEmrPk(this.bienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
 				
 				List<VistaBien> listVistaBien = this.servicioInventario.buscarVistaBienCriterios(vistaBienBuscar);
 				
-				this.bienDataManager.getListVistaBien().add(listVistaBien.iterator().next());
+				this.bienDataManager.getListVistaBien().addAll(listVistaBien);
 				this.bienDataManager.setBienInstancia(new Bien());
 				this.resetControllerCatalogoValues();
 				MensajesWebController.aniadirMensajeInformacion("erp.mensaje.registro.exito");
@@ -148,14 +160,16 @@ public class BienController extends BaseController{
 		
 		try {
 			
+			this.bienDataManager.getVistaBienBuscar().setBieEstado(ESTADO_ACTIVO);
 			this.bienDataManager.getVistaBienBuscar().setEmrPk(this.bienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
 			this.bienDataManager.getVistaBienBuscar().setTraEstado(this.bienDataManager.getEstadoActivo());
 			
-			if (StringUtils.isBlank(bienDataManager.getIdDcTipoBienSelec())) {
-				this.bienDataManager.getVistaBienBuscar().setDetBienTipBieNivel1(null);
-			} else {
-				this.bienDataManager.getVistaBienBuscar().setDetBienTipBieNivel1(bienDataManager.getIdDcTipoBienSelec());
-			}
+//			if (StringUtils.isBlank(bienDataManager.getIdDcTipoBienSelec())) {
+//				this.bienDataManager.getVistaBienBuscar().setDetBienTipBieNivel1(null);
+//			} else {
+//				this.bienDataManager.getVistaBienBuscar().setDetBienTipBieNivel1(bienDataManager.getIdDcTipoBienSelec());
+//			}
+			this.bienDataManager.getVistaBienBuscar().setDetBienTipBieNivel1(EnumTipoBien.INGRESADO.getId());
 			
 			if (this.bienDataManager.getIdCategoriaBienBuscarSeleccionado() == null || this.bienDataManager.getIdCategoriaBienBuscarSeleccionado()<=0) {
 				this.bienDataManager.getVistaBienBuscar().setCatBienPk(null);
@@ -255,10 +269,11 @@ public class BienController extends BaseController{
 		
 	}
 	
-	public void calcularValorIva (Bien bien) {
+	public void calcularTotal () {
 		
-		slf4jLogger.info(bien.getBieCostoVenta().toString());
-		bien.setBieCostoIva(bien.getBieCostoVenta());
+		slf4jLogger.info("calcularTotal");
+		
+		this.totalPrecioBienesIngresados = this.bienDataManager.getBienInstancia().getBieCostoVenta() * this.cantidadBienesIngresados;
 		
 	}
 	
@@ -267,7 +282,7 @@ public class BienController extends BaseController{
 	 */
 	public void resetControllerCatalogoValues () {
 		this.bienDataManager.setIdDcTipoIngresoBienSelect(null);
-		this.bienDataManager.setIdDcTipoBienSelec(null);
+//		this.bienDataManager.setIdDcTipoBienSelec(null);
 		this.bienDataManager.setIdDcEstadoConservacionSelec(null);
 		this.bienDataManager.refrescarObjetos();
 	}
@@ -312,6 +327,34 @@ public class BienController extends BaseController{
 	 */
 	public void setDcLineaBien(List<SelectItem> dcLineaBien) {
 		this.dcLineaBien = dcLineaBien;
+	}
+
+	/**
+	 * @return the cantidadBienesIngresados
+	 */
+	public Integer getCantidadBienesIngresados() {
+		return cantidadBienesIngresados;
+	}
+
+	/**
+	 * @param cantidadBienesIngresados the cantidadBienesIngresados to set
+	 */
+	public void setCantidadBienesIngresados(Integer cantidadBienesIngresados) {
+		this.cantidadBienesIngresados = cantidadBienesIngresados;
+	}
+
+	/**
+	 * @return the totalPrecioBienesIngresados
+	 */
+	public Double getTotalPrecioBienesIngresados() {
+		return totalPrecioBienesIngresados;
+	}
+
+	/**
+	 * @param totalPrecioBienesIngresados the totalPrecioBienesIngresados to set
+	 */
+	public void setTotalPrecioBienesIngresados(Double totalPrecioBienesIngresados) {
+		this.totalPrecioBienesIngresados = totalPrecioBienesIngresados;
 	}
 
 }

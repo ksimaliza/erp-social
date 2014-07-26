@@ -1,7 +1,6 @@
 package ec.edu.uce.erp.ejb.persistence.entity.inventory;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -49,7 +48,7 @@ public class Bien extends AuditoriaUtil implements Serializable {
 	private String bieColor;
 
 	@Column(name="bie_costo_venta")
-	private BigDecimal bieCostoVenta;
+	private Double bieCostoVenta;
 
 	@Column(name="bie_estado")
 	private String bieEstado;
@@ -142,8 +141,8 @@ public class Bien extends AuditoriaUtil implements Serializable {
 	private String npIdDcEstadoConservacion;
 	
 	@Transient
-	private BigDecimal bieCostoIva; 
-
+	private Integer npCantidadIngresada;
+	
 	public Bien() {
 	}
 
@@ -163,13 +162,6 @@ public class Bien extends AuditoriaUtil implements Serializable {
 		this.bieColor = bieColor;
 	}
 
-	public BigDecimal getBieCostoVenta() {
-		return this.bieCostoVenta;
-	}
-
-	public void setBieCostoVenta(BigDecimal bieCostoVenta) {
-		this.bieCostoVenta = bieCostoVenta;
-	}
 
 	public String getBieEstado() {
 		return this.bieEstado;
@@ -474,18 +466,33 @@ public class Bien extends AuditoriaUtil implements Serializable {
 		this.dcTipoIngresoBien = dcTipoIngresoBien;
 	}
 
+
 	/**
-	 * @return the bieCostoIva
+	 * @return the bieCostoVenta
 	 */
-	public BigDecimal getBieCostoIva() {
-		return bieCostoIva;
+	public Double getBieCostoVenta() {
+		return bieCostoVenta;
 	}
 
 	/**
-	 * @param bieCostoIva the bieCostoIva to set
+	 * @param bieCostoVenta the bieCostoVenta to set
 	 */
-	public void setBieCostoIva(BigDecimal bieCostoIva) {
-		this.bieCostoIva = bieCostoIva;
+	public void setBieCostoVenta(Double bieCostoVenta) {
+		this.bieCostoVenta = bieCostoVenta;
+	}
+
+	/**
+	 * @return the npCantidadIngresada
+	 */
+	public Integer getNpCantidadIngresada() {
+		return npCantidadIngresada;
+	}
+
+	/**
+	 * @param npCantidadIngresada the npCantidadIngresada to set
+	 */
+	public void setNpCantidadIngresada(Integer npCantidadIngresada) {
+		this.npCantidadIngresada = npCantidadIngresada;
 	}
 
 }

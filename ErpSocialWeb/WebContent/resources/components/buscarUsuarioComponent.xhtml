@@ -13,7 +13,7 @@
 <body>
 	<composite:interface>
 		<composite:attribute name="update" required="false" default="" />
-		<composite:attribute name="render" required="true" default="" />
+		<composite:attribute name="render" required="false" default="" />
 		<composite:attribute name="controller" required="true" />
 	</composite:interface>
 
@@ -27,7 +27,8 @@
 					</td>
 					<td width="70%">
 						<p:inputText id="txtNombre" style="width: 90%" 
-							value="#{controller.vistaEmpleado.perNombres}" label="#{i18n['erp.asistencia.empleado.nombres']}" />
+							value="#{controller.vistaEmpleado.perNombres}"
+							label="#{i18n['erp.asistencia.empleado.nombres']}" />
 					</td>
 				</tr>
 				<tr>
@@ -40,14 +41,52 @@
 							label="#{i18n['erp.asistencia.empleado.apellidos']}" />
 					</td>
 				</tr>
-				
+				<tr>
+					<td>
+						<h:outputLabel for="txtCedula" value="#{i18n['erp.asistencia.empleado.cedula']}" />
+					</td>
+					<td>
+						<p:inputText id="txtCedula" style="width: 90%"
+							value="#{controller.vistaEmpleado.perCi}"
+							label="#{i18n['erp.asistencia.empleado.apellidos']}" />
+					</td>
+				</tr>
 			</table>
 		</p:panel>
 		<p:panel id="pnlBotones">
 			<p:commandButton id="btnBuscar" value="#{i18n['label.guardar']}"
-				actionListener="#{controller.buscarEmpleados}"
-				process="@this,pnlBuscarUsuario" update="pnlBuscarUsuario"/>
+				actionListener="#{controller.buscarEmpleado}"
+				process="@this,pnlBuscarUsuario" update="pnlBuscarUsuario, tableUsuarios"/>
 		</p:panel>
+		<p:dataTable id="tableUsuarios"
+			value="#{controller.listVistaEmpleado}" 
+			rowKey="#{vistaEmpleado.empPk}"
+			var="vistaEmpleado" selectionMode="single">
+			
+			<p:ajax event="rowSelect" listener="#{controller.asignarDatosEmpleadoSeleccionado}"
+				update=":formBien:txtNombreCustodio" oncomplete="dlgBuscarEmpleado.hide()" />
+			<f:facet name="header">
+				<h:outputLabel value="Empleados Encontrados" />
+			</f:facet>
+			<p:column>
+				<f:facet name="header">
+					<h:outputLabel value="Nombres" />
+				</f:facet>
+				<h:outputText value="#{vistaEmpleado.nombresCompletos}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputLabel value="Codigo" />
+				</f:facet>
+				<h:outputText value="#{vistaEmpleado.empCodigo}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputLabel value="Cedula" />
+				</f:facet>
+				<h:outputText value="#{vistaEmpleado.perCi}" />
+			</p:column>
+		</p:dataTable>
 	</composite:implementation>
 </body>
 </html>

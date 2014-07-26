@@ -6,9 +6,9 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpEditarProveedor" header="#{i18n['erp.proveedor.editar']}" 
-		widgetVar="dlgEditarProveedor" modal="true" minWidth="500" width="500" appendTo="@(body)" draggable="false">
+		widgetVar="dlgEditarProveedor" modal="true" minWidth="600" width="600" appendTo="@(body)" draggable="true">
 		<h:form id="formEditarProveedor">	
-			<p:panel id="pnlEditarProveedor" styleClass="formulario">
+			<p:panel id="pnlEditarProveedor">
 				<table class="formulario">
 					<tr>
 						<td width="30%">
@@ -16,7 +16,7 @@
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNombre" style="width: 90%" required="true"
+							<p:inputText id="txtNombre" style="width: 100%" required="true"
 								value="#{proveedorDataManager.proveedorEditar.provNombre}" label="#{i18n['erp.proveedor.nombre']}" />
 						</td>
 					</tr>
@@ -26,7 +26,7 @@
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
-							<p:inputText id="txtApellido" style="width: 90%" required="true"
+							<p:inputText id="txtApellido" style="width: 100%" required="true"
 								value="#{proveedorDataManager.proveedorEditar.provApellido}"  label="#{i18n['erp.proveedor.apellido']}" />
 						</td>
 					</tr>
@@ -44,7 +44,7 @@
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
-							<p:selectOneMenu id="txtCiudad" panelStyle="width: 20%"
+							<p:selectOneMenu id="txtCiudad" style="width: 100%"
 								required="true" label="#{i18n['erp.proveedor.ciudad']}"
 								value="#{proveedorDataManager.proveedorEditar.detCatalogoPaisCiudad}" >
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
@@ -58,7 +58,7 @@
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
-							<p:inputText id="txtDireccion" style="width: 90%" required="true"
+							<p:inputText id="txtDireccion" style="width: 100%" required="true"
 								value="#{proveedorDataManager.proveedorEditar.provDireccion}"  label="#{i18n['erp.proveedor.direccion']}" />
 						</td>
 					</tr>
@@ -67,7 +67,7 @@
 							<h:outputLabel for="txtTelefono" value="#{i18n['erp.proveedor.telefono']}" />
 						</td>
 						<td>
-							<p:inputText id="txtTelefono" style="width: 90%" 
+							<p:inputText id="txtTelefono" style="width: 100%" 
 								onkeypress="return soloEnteros(this, event)" maxlength="15"
 								value="#{proveedorDataManager.proveedorEditar.provTelefono}"  label="#{i18n['erp.proveedor.telefono']}" />
 						</td>
@@ -78,7 +78,7 @@
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
-							<p:inputText id="txtMail" style="width: 90%" required="true"
+							<p:inputText id="txtMail" style="width: 100%" required="true"
 								value="#{proveedorDataManager.proveedorEditar.provEmail}" label="#{i18n['label.email']}" >
 								<f:validator validatorId="ec.edu.uce.erp.web.validador.EmailValidator" />
 							</p:inputText>
@@ -89,7 +89,7 @@
 							<h:outputLabel for="txtNotas" value="#{i18n['erp.proveedor.notas']}" />
 						</td>
 						<td>
-							<p:inputText id="txtNotas" style="width: 90%" 
+							<p:inputText id="txtNotas" style="width: 100%" 
 								value="#{proveedorDataManager.proveedorEditar.provNotas}" label="#{i18n['erp.proveedor.notas']}" >
 							</p:inputText>
 						</td>

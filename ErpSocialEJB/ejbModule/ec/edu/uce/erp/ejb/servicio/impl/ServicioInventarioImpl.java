@@ -7,6 +7,7 @@ import static ec.edu.uce.erp.common.util.CatalogoCabeceraConstantes.ID_CAB_CATAL
 import static ec.edu.uce.erp.common.util.ConstantesApplication.ESTADO_ACTIVO;
 import static ec.edu.uce.erp.common.util.ConstantesApplication.ESTADO_INACTIVO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -351,25 +352,30 @@ public class ServicioInventarioImpl implements ServicioInventario {
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public Bien registrarBien(Bien bien) throws SeguridadesException {
 		
+		Bien bienNuevo = null;
+		List<Bien> listBienNuevo = new ArrayList<Bien>();
+		
 		try {
 			
-			bien.setBieEstado(ESTADO_ACTIVO);
-			bien.setBieEstadoUso(ESTADO_INACTIVO);
-			bien.setCabCatalogoTipoIngresoBien(ID_CAB_CATALOGO_TIPO_INGRESO_BIEN);
-			bien.setBiePk(null);
-			Bien bienNuevo = inventarioFactory.getBienDAOImpl().create(bien);
-			
-			if (bienNuevo != null) {
-				Transaccion transaccion = new Transaccion();
-				transaccion.setCabCatalogoTipoBien(ConstantesApplication.CAB_CAT_TIPO_BIEN);
-				transaccion.setDetCatalogoTipoBien(EnumTipoBien.INGRESADO.getId());
-				transaccion.setCabEstadoConservacion(ConstantesApplication.CAB_CAT_ESTADO_CONSERVACION);
-				transaccion.setDetEstadoConservacion(bien.getNpIdDcEstadoConservacion());
-				transaccion.setBieFk(bienNuevo.getBiePk());
-				transaccion.setFechaInicio(UtilAplication.obtenerFechaActual());
-				transaccion.setTraEstado(ESTADO_ACTIVO);
-				inventarioFactory.getTransaccionDAOImpl().create(transaccion);
-			}
+				bien.setBieEstado(ESTADO_ACTIVO);
+				bien.setBieEstadoUso(ESTADO_INACTIVO);
+				bien.setCabCatalogoTipoIngresoBien(ID_CAB_CATALOGO_TIPO_INGRESO_BIEN);
+				bien.setBiePk(null);
+				bienNuevo = inventarioFactory.getBienDAOImpl().create(bien);
+				
+				if (bienNuevo != null) {
+					Transaccion transaccion = new Transaccion();
+					transaccion.setCabCatalogoTipoBien(ConstantesApplication.CAB_CAT_TIPO_BIEN);
+					transaccion.setDetCatalogoTipoBien(EnumTipoBien.INGRESADO.getId());
+					transaccion.setCabEstadoConservacion(ConstantesApplication.CAB_CAT_ESTADO_CONSERVACION);
+					transaccion.setDetEstadoConservacion(bien.getNpIdDcEstadoConservacion());
+					transaccion.setBieFk(bienNuevo.getBiePk());
+					transaccion.setFechaInicio(UtilAplication.obtenerFechaActual());
+					transaccion.setTraEstado(ESTADO_ACTIVO);
+					inventarioFactory.getTransaccionDAOImpl().create(transaccion);
+					listBienNuevo.add(bienNuevo);
+				}
+				
 			
 			inventarioFactory.getHistoricoTransaccioneDAOImpl()
 					.registrarHistoricoTransaccion(
@@ -512,7 +518,8 @@ public class ServicioInventarioImpl implements ServicioInventario {
 				Transaccion transaccionActual = listTransaccion.iterator().next();
 				
 				// el estado del bien debe ser ingresado
-				if (transaccionActual != null && transaccionActual.getDetCatalogoTipoBien().equals(EnumTipoBien.INGRESADO.getId())) {
+				if (transaccionActual != null && (transaccionActual.getDetCatalogoTipoBien().equals(EnumTipoBien.INGRESADO.getId())
+						|| transaccionActual.getDetCatalogoTipoBien().equals(EnumTipoBien.DEVUELTO.getId()))) {
 					
 					//inactivar el estado actual antes de crear el nuevo
 					transaccionActual.setTraEstado(ESTADO_INACTIVO);
@@ -551,6 +558,9 @@ public class ServicioInventarioImpl implements ServicioInventario {
 					}
 					
 				}
+			} else {
+				slf4jLogger.info("El bien no tiene un estado valido para ser asignado");
+				throw new SeguridadesException("El bien no tiene un estado valido para ser asignado");
 			}
 		} catch (Exception e) {
 			slf4jLogger.info("error al asignarBien {}", e.getCause().getMessage());
