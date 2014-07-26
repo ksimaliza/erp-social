@@ -1,5 +1,6 @@
 package ec.edu.uce.erp.web.common.util;
 
+import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -10,8 +11,10 @@ import java.util.ResourceBundle;
  */
 public final class MessagesWebApplicacion {
 	
+	static Locale locale = new Locale("es", "ES");
+	
 	private static final String BUNDLE_NAME = "ec.edu.uce.erp.web.common.resources.WebApplicationResources";
-	private static ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
+	private static ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, locale);
 	
 	private MessagesWebApplicacion () {}
 	

@@ -8,6 +8,37 @@
 	<p:dialog id="popUpNuevoBien" header="#{i18n['erp.bien.registrar']}" 
 		widgetVar="dlgNuevoBien" modal="true" minWidth="600" width="600" appendTo="@(body)" draggable="true">
 		<h:form id="formNuevoBien">
+		
+			<!-- <script type="text/javascript">
+				$(PrimeFaces.escapeClientId('#formNuevoBien:txtCostoTotal')).keyup(function(event) {
+					calcular();
+				});
+			// Calculamos la suma de los dos valores
+        function calcular()
+        {
+            alert('mmmm');
+            var valor1=validarNumero(PrimeFaces.escapeClientId('formNuevoBien:txtCosto');
+            var valor2=validarNumero(PrimeFaces.escapeClientId('formNuevoBien:txtCantidad');
+            
+            $("#txtCostoTotal").val(valor1+valor2);
+        }
+        
+        // Funcion para validar que el numero sea correcto, y para cambiar el color
+        // del marco en caso de error
+        function validarNumero(id)
+        {
+            if($.isNumeric($(id).val()))
+            {
+                return parseFloat($(id).val());
+            }else if($(id).val()==""){
+                return 0;
+            }else{
+                return 0;
+            }
+        }
+			</script> -->
+	
+		
 			<p:panel id="pnlNuevoBien">
 				<table class="formulario">
 					<tr>
@@ -119,22 +150,38 @@
 								value="#{bienDataManager.bienInstancia.bieNotas}" label="#{i18n['erp.bien.nota']}"/>
 						</td>
 					</tr>
-					<!-- <tr>
+					<tr>
 						<td>
 							<h:outputLabel for="txtCosto" value="#{i18n['erp.bien.costo']}" />
 						</td>
 						<td>
-							<p:inputMask id="txtCosto" value="#{bienDataManager.bienInstancia.bieCostoVenta}" mask="99,99">
-								<p:ajax event="blur" listener="#{bienController.calcularValorIva(bienDataManager.bienInstancia)}" update="txtCostoIva" process="@this"/>
-							</p:inputMask>
+							<p:inputText id="txtCosto" style="width: 80%" maxlength="10"
+								onkeypress="return soloDecimales(this, event);"
+								value="#{bienDataManager.bienInstancia.bieCostoVenta}" label="#{i18n['erp.bien.color']}">
+								<p:ajax event="blur" listener="#{bienController.calcularTotal}" process="@this" update="txtCostoTotal"/>
+							</p:inputText>
 						</td>
 						<td>
-							<h:outputLabel for="txtCostoIva" value="#{i18n['erp.bien.costo']}" />
+							<h:outputLabel for="txtCantidad" value="#{i18n['erp.bien.cantidad']}" />
 						</td>
 						<td>
-							<p:inputText id="txtCostoIva" value="#{bienDataManager.bienInstancia.bieCostoIva}"/>
+							<p:inputText id="txtCantidad" styleClass="txtCantidad" style="width: 80%"
+								onkeypress="return soloEnteros(this, event)" maxlength="3"
+								value="#{bienController.cantidadBienesIngresados}" label="#{i18n['erp.bien.cantidad']}">
+								<p:ajax event="blur" listener="#{bienController.calcularTotal}" process="@this" update="txtCostoTotal"/>
+							</p:inputText>
 						</td>
-					</tr> -->
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtCostoTotal" value="#{i18n['erp.bien.costo.total']}" />
+						</td>
+						<td colspan="3">
+							<h:outputText id="txtCostoTotal" value="#{bienController.totalPrecioBienesIngresados}" >
+								<f:convertNumber maxFractionDigits="2"/>
+							</h:outputText>
+						</td>
+					</tr>
 				</table>
 			</p:panel>
 			<p:panel id="pnlBotones">
@@ -145,6 +192,7 @@
 				<p:commandButton value="#{i18n['label.cancelar']}" immediate="true"
 					actionListener="#{bienController.resetControllerCatalogoValues}" oncomplete="dlgNuevoBien.hide();" />
 			</p:panel>
+			
 		</h:form>
 	</p:dialog>
 	

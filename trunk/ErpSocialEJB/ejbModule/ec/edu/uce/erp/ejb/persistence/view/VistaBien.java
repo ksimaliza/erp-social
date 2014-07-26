@@ -3,6 +3,7 @@ package ec.edu.uce.erp.ejb.persistence.view;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -157,6 +158,9 @@ public class VistaBien extends AuditoriaUtil implements Serializable {
 	
 	@Transient
 	private Boolean npVerImprimirActa = Boolean.FALSE;
+	
+	@Transient
+	private Collection<Integer> npColBiePk;
 
 	public VistaBien() {
 	}
@@ -641,6 +645,20 @@ public class VistaBien extends AuditoriaUtil implements Serializable {
 	 */
 	public void setNpVerImprimirActa(Boolean npVerImprimirActa) {
 		this.npVerImprimirActa = npVerImprimirActa;
+	}
+
+	/**
+	 * @return the npColBiePk
+	 */
+	public Collection<Integer> getNpColBiePk() {
+		return npColBiePk;
+	}
+
+	/**
+	 * @param npColBiePk the npColBiePk to set
+	 */
+	public void setNpColBiePk(Collection<Integer> npColBiePk) {
+		this.npColBiePk = npColBiePk;
 	}
 
 }

@@ -24,10 +24,6 @@
 							<!-- <h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" /> -->
 						</td>
 						<td>
-							<!-- <p:calendar id="popupCal" required="true" pattern="yyyy-mm-dd"
-								value="#{vistaBienDataManager.vistaBienEditar.bieFechaAsig}" label="#{i18n['erp.bien.fecha.asignacion']}" showOn="button">
-								<f:convertDateTime pattern="yyyy-mm-dd" />
-							</p:calendar> -->
 							<h:outputText value="#{transaccionBienController.fechaTransaccion}" />
 						</td>
 					</tr>
@@ -46,8 +42,12 @@
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
-							<p:inputText id="txtCodigo" style="width: 100%" required="true"
+							<p:inputText id="txtCodigo" style="width: 100%" required="true" 
+								rendered="#{vistaBienDataManager.vistaBienEditar.detBienTipBieNivel1 eq 'INGRE'}"
 								value="#{vistaBienDataManager.vistaBienEditar.bieCodigo}" label="#{i18n['erp.bien.codigo']}" />
+							<h:outputText
+								rendered="#{vistaBienDataManager.vistaBienEditar.detBienTipBieNivel1 eq 'DEVUE'}"
+								value="#{vistaBienDataManager.vistaBienEditar.bieCodigo}" />
 						</td>
 					</tr>
 					<tr>

@@ -67,7 +67,7 @@ public class TransaccionMasivaBienController extends BaseController{
 		try {
 			
 			this.vistaBienDataManager.getVistaBienBuscar().setEmrPk(this.vistaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
-			this.vistaBienDataManager.getVistaBienBuscar().setPerCi(this.vistaBienDataManager.getIdCIEmpleadoSeleccionado());
+//			this.vistaBienDataManager.getVistaBienBuscar().setPerCi(this.vistaBienDataManager.getIdCIEmpleadoSeleccionado());
 			this.vistaBienDataManager.getVistaBienBuscar().setCatBienPk(this.vistaBienDataManager.getIdCategoriaBienSeleccionado());
 			this.vistaBienDataManager.getVistaBienBuscar().setLinBienPk(this.vistaBienDataManager.getIdLineaBienSeleccionado());
 			
@@ -194,7 +194,7 @@ public class TransaccionMasivaBienController extends BaseController{
 	
 	public void asignarDatosEmpleadoSeleccionado (SelectEvent event) {
 		VistaEmpleado vistaEmpleado = (VistaEmpleado)event.getObject();
-		this.vistaBienDataManager.setIdCIEmpleadoSeleccionado(vistaEmpleado.getPerCi());
+//		this.vistaBienDataManager.setIdCIEmpleadoSeleccionado(vistaEmpleado.getPerCi());
 		slf4jLogger.info("buscarEmpleado");
 	}
 

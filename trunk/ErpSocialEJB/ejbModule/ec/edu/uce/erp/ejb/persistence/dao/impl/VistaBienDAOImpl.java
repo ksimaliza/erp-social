@@ -17,6 +17,7 @@ import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,6 +73,13 @@ public class VistaBienDAOImpl extends AbstractFacadeImpl<VistaBien> implements V
 				predicate = criteriaBuilder.equal(fromVistaBien.get("biePk"), vistaBien.getBiePk());
 				criteriaList.add(predicate);
 			}
+			
+			//por condicion in en el pk
+			if (CollectionUtils.isNotEmpty(vistaBien.getNpColBiePk())) {
+				predicate = criteriaBuilder.in(fromVistaBien.get("biePk")).value(vistaBien.getNpColBiePk());
+				criteriaList.add(predicate);
+			}
+			
 			
 			//por codigo del bien
 			if (StringUtils.isNotBlank(vistaBien.getBieCodigo())) {

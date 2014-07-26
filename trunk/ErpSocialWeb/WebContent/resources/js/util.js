@@ -13,8 +13,24 @@ function soloEnteros(object, e) {
 	}
 }
 
-//function toUpperCase(object) {
-//	try {
+function soloDecimales(object, event) {
+	/*<![CDATA[*/
+		//obtenemos la tecla pulsada
+		var valueKey=String.fromCharCode(event.which);
+		//obtenemos el valor ascii de la tecla pulsada
+		var keycode=event.which;
+		
+		// Si NO pulsamos un numero, un punto, la tecla suprimir
+		// la tecla backspace o el simobolo "-" (45), cancelamos la pulsacion
+		if(valueKey.search('[0-9|\.]')!=0 && keycode!=8 && keycode!=46 && keycode!=45) {
+			// anulamos la pulsacion de la tecla
+			return false;
+		};
+	/*]]>*/
+}
+
+// function toUpperCase(object) {
+// try {
 //		if (object) {
 //			var value = object.value;
 //			if (value) {

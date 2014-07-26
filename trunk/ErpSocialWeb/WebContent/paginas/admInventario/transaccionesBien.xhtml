@@ -24,24 +24,28 @@
 			<p:panel id="pnlBuscarBien" header="#{i18n['erp.bien.buscar']}">
 				<table>
 					<tr>
-						<td><h:outputLabel for="txtCodigoBien" value="#{i18n['label.codigo']}" /></td>
-						<td>
-							<p:inputText id="txtCodigoBien" value="#{vistaBienDataManager.vistaBienBuscar.bieCodigo}" />
+						<td width="30%"><h:outputLabel for="txtNombreCustodio" value="#{i18n['label.custodio']}" /></td>
+						<td width="70%">
+							<h:panelGrid columns="2" border="0">
+								<h:outputText id="txtNombreCustodio" value="#{transaccionBienController.vistaEmpleadoSeleccionando.nombresCompletos}" />
+								<p:commandLink value="buscar" oncomplete="dlgBuscarUsuario.show()"/>
+							</h:panelGrid>
 						</td>
 					</tr>
 					<tr>
-						<td><h:outputLabel for="txtNombreCustodio" value="#{i18n['label.custodio']}" /></td>
 						<td>
-							<p:inputText id="txtNombreCustodio" 
-								value="#{vistaBienDataManager.idCIEmpleadoSeleccionado}" />
-							<p:commandLink value="buscar" oncomplete="dlgBuscarUsuario.show()"/>
+							<h:outputLabel for="txtCodigoBien" value="#{i18n['label.codigo']}" /></td>
+						<td>
+							<p:inputText id="txtCodigoBien" 
+								style="width: 100%"
+								value="#{vistaBienDataManager.vistaBienBuscar.bieCodigo}" />
 						</td>
 					</tr>
 					<tr>
-						<td width="30%">
+						<td >
 							<h:outputLabel for="selectTipoIngresoBien" value="#{i18n['erp.bien.tipo.transaccion']}" />
 						</td>
-						<td  width="70%">
+						<td>
 							<p:selectOneMenu id="selectTipoIngresoBien"
 								style="width: 100%" label="#{i18n['erp.bien.categoria']}"
 								value="#{vistaBienDataManager.idDcTipoBienSelec}">
@@ -165,7 +169,6 @@
 				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="20%" exportable="false">
 					<h:panelGroup>
 						<p:commandLink value="Asignar" title="Asignar" rendered="#{vistaBien.npVerAsignarBien}"
-							
 							oncomplete="dlgAsignarBien.show()" update=":formAsignarBien:pnlAsignarBien">
 							<f:setPropertyActionListener target="#{vistaBienDataManager.vistaBienEditar}" value="#{vistaBien}"/>
 						</p:commandLink>

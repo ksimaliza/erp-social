@@ -17,6 +17,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,6 +52,8 @@ public class TransaccionBienController extends BaseController{
 	@ManagedProperty(value="#{vistaBienDataManager}")
 	private VistaBienDataManager vistaBienDataManager;
 	
+	private VistaEmpleado vistaEmpleadoSeleccionando;
+	
 	/**
 	 * @param vistaBienDataManager the vistaBienDataManager to set
 	 */
@@ -72,7 +75,10 @@ public class TransaccionBienController extends BaseController{
 			
 			this.vistaBienDataManager.getVistaBienBuscar().setEmrPk(this.vistaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
 			this.vistaBienDataManager.getVistaBienBuscar().setTraEstado(this.vistaBienDataManager.getEstadoActivo());
-			this.vistaBienDataManager.getVistaBienBuscar().setPerCi(this.vistaBienDataManager.getIdCIEmpleadoSeleccionado());
+			
+			if (this.vistaEmpleadoSeleccionando != null && StringUtils.isNotBlank(this.vistaEmpleadoSeleccionando.getPerCi())) {
+				this.vistaBienDataManager.getVistaBienBuscar().setPerCi(this.vistaEmpleadoSeleccionando.getPerCi());
+			}
 			this.vistaBienDataManager.getVistaBienBuscar().setBieEstado(this.vistaBienDataManager.getEstadoActivo());
 			
 			if (StringUtils.isNotBlank(this.vistaBienDataManager.getIdDcTipoBienSelec())) {
@@ -114,9 +120,11 @@ public class TransaccionBienController extends BaseController{
 				this.vistaBienDataManager.getListVistaBien().remove(this.vistaBienDataManager.getVistaBienEditar());
 				this.vistaBienDataManager.getListVistaBien().add(posicion, vistaBien);
 				MensajesWebController.aniadirMensajeInformacion("Bien asignado correctamente");
+				this.vistaBienDataManager.setIdCustudioAsignado(null);
 			}
 			
 		} catch (SeguridadesException e) {
+			RequestContext.getCurrentInstance().addCallbackParam("validationFailed", e);
 			slf4jLogger.info("error al asignarBien {}", e.getCause().getMessage());
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
@@ -138,11 +146,12 @@ public class TransaccionBienController extends BaseController{
 				int posicion = this.vistaBienDataManager.getListVistaBien().indexOf(this.vistaBienDataManager.getVistaBienEditar());
 				this.vistaBienDataManager.getListVistaBien().remove(this.vistaBienDataManager.getVistaBienEditar());
 				this.vistaBienDataManager.getListVistaBien().add(posicion, vistaBien);
-				this.vistaBienDataManager.setIdCustudioReasignado(0);
+				this.vistaBienDataManager.setIdCustudioReasignado(null);
 				MensajesWebController.aniadirMensajeInformacion("Bien reasignado correctamente");
 			}
 			
 		} catch (SeguridadesException e) {
+			RequestContext.getCurrentInstance().addCallbackParam("validationFailed", e);
 			slf4jLogger.info("error al asignarBien {}", e.getCause().getMessage());
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
@@ -162,6 +171,7 @@ public class TransaccionBienController extends BaseController{
 			}
 			
 		} catch (Exception e) {
+			RequestContext.getCurrentInstance().addCallbackParam("validationFailed", e);
 			slf4jLogger.info("error al asignarBien {}", e.getCause().getMessage());
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
@@ -180,6 +190,7 @@ public class TransaccionBienController extends BaseController{
 			}
 			
 		} catch (Exception e) {
+			RequestContext.getCurrentInstance().addCallbackParam("validationFailed", e);
 			slf4jLogger.info("error al darBajaBien {}", e.getCause().getMessage());
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
@@ -254,18 +265,17 @@ public class TransaccionBienController extends BaseController{
 	}
 	
 	public void asignarDatosEmpleadoSeleccionado (SelectEvent event) {
-		VistaEmpleado vistaEmpleado = (VistaEmpleado)event.getObject();
-		this.vistaBienDataManager.setIdCIEmpleadoSeleccionado(vistaEmpleado.getPerCi());
-		slf4jLogger.info("buscarEmpleado");
+		this.vistaEmpleadoSeleccionando = (VistaEmpleado)event.getObject();
 	}
 	
 	public void limpiarFiltrosBusqueda () {
 		this.vistaBienDataManager.setVistaBienBuscar(new VistaBien());
-		this.vistaBienDataManager.setIdCIEmpleadoSeleccionado(null);
+//		this.vistaBienDataManager.setIdCIEmpleadoSeleccionado(null);
 		this.vistaBienDataManager.setIdDcTipoBienSelec(null);
 		this.vistaBienDataManager.setIdCategoriaBienSeleccionado(null);
 		this.vistaBienDataManager.setIdLineaBienSeleccionado(null);
 		this.vistaBienDataManager.getDcLineaBien().clear();
+		this.vistaEmpleadoSeleccionando = null;
 	}
 	
 
@@ -277,6 +287,19 @@ public class TransaccionBienController extends BaseController{
 		return UtilAplication.fechaActualConFormato("yyyy-MM-dd hh:mm a");
 	}
 
+	/**
+	 * @return the vistaEmpleadoSeleccionando
+	 */
+	public VistaEmpleado getVistaEmpleadoSeleccionando() {
+		return vistaEmpleadoSeleccionando;
+	}
 
+	/**
+	 * @param vistaEmpleadoSeleccionando the vistaEmpleadoSeleccionando to set
+	 */
+	public void setVistaEmpleadoSeleccionando(
+			VistaEmpleado vistaEmpleadoSeleccionando) {
+		this.vistaEmpleadoSeleccionando = vistaEmpleadoSeleccionando;
+	}
 	
 }
