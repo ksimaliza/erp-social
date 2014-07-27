@@ -314,6 +314,8 @@ public class BienController extends BaseController{
 		this.bienDataManager.setIdDcTipoIngresoBienSelect(null);
 //		this.bienDataManager.setIdDcTipoBienSelec(null);
 		this.bienDataManager.setIdDcEstadoConservacionSelec(null);
+		this.cantidadBienesIngresados = 1;
+		this.totalPrecioBienesIngresados = 0D;
 		this.bienDataManager.refrescarObjetos();
 	}
 	

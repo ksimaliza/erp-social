@@ -22,10 +22,10 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:panel id="pnlBuscarBien" header="#{i18n['erp.bien.buscar']}">
-				<table>
+				<table class="formulario">
 					<tr>
-						<td width="30%"><h:outputLabel for="txtNombreCustodio" value="#{i18n['label.custodio']}" /></td>
-						<td width="70%">
+						<td width="15%"><h:outputLabel for="txtNombreCustodio" value="#{i18n['label.custodio']}" /></td>
+						<td width="85%">
 							<h:panelGrid columns="2" border="0">
 								<h:outputText id="txtNombreCustodio" value="#{transaccionBienController.vistaEmpleadoSeleccionando.nombresCompletos}" />
 								<p:commandLink value="buscar" oncomplete="dlgBuscarUsuario.show()"/>
@@ -37,7 +37,7 @@
 							<h:outputLabel for="txtCodigoBien" value="#{i18n['label.codigo']}" /></td>
 						<td>
 							<p:inputText id="txtCodigoBien" 
-								style="width: 100%"
+								style="width: 50%"
 								value="#{vistaBienDataManager.vistaBienBuscar.bieCodigo}" />
 						</td>
 					</tr>
@@ -47,7 +47,7 @@
 						</td>
 						<td>
 							<p:selectOneMenu id="selectTipoIngresoBien"
-								style="width: 100%" label="#{i18n['erp.bien.categoria']}"
+								style="width: 50%" label="#{i18n['erp.bien.categoria']}"
 								value="#{vistaBienDataManager.idDcTipoBienSelec}">
 								<f:selectItem itemValue="#{vistaBienDataManager.estadoInvalido}" itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{vistaBienDataManager.dcTipoBien}"/>
@@ -55,12 +55,12 @@
 						</td>
 					</tr>
 					<tr>
-						<td width="30%">
+						<td>
 							<h:outputLabel for="selectCategoria" value="#{i18n['erp.bien.categoria']}" />
 						</td>
-						<td  width="70%">
+						<td>
 							<p:selectOneMenu id="selectCategoria"
-								style="width: 100%" label="#{i18n['erp.bien.categoria']}"
+								style="width: 50%" label="#{i18n['erp.bien.categoria']}"
 								value="#{vistaBienDataManager.idCategoriaBienSeleccionado}">
 								<f:selectItem itemValue="-1" itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{vistaBienDataManager.dcCategoriaBien}"/>
@@ -69,12 +69,12 @@
 						</td>
 					</tr>
 					<tr>
-						<td width="30%">
+						<td>
 							<h:outputLabel for="txtLinea" value="#{i18n['erp.bien.linea']}" />
 						</td>
-						<td  width="70%">
+						<td>
 							<p:selectOneMenu id="txtLinea"
-								style="width: 100%" label="#{i18n['erp.bien.linea']}"
+								style="width: 50%" label="#{i18n['erp.bien.linea']}"
 								value="#{vistaBienDataManager.idLineaBienSeleccionado}">
 								<f:selectItem itemValue="-1" itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{vistaBienDataManager.dcLineaBien}"/>

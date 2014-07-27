@@ -3,8 +3,6 @@
  */
 package ec.edu.uce.erp.web.controladores;
 
-import static ec.edu.uce.erp.common.util.ConstantesApplication.ESTADO_ACTIVO;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +15,6 @@ import javax.faces.model.SelectItem;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,71 +73,6 @@ public class InventarioController extends BaseController{
 		}
 	}
 	
-	public void registrarBien () {
-		
-		slf4jLogger.info("registrarBien");
-		
-		try {
-			
-			this.inventarioDataManager.getBienInstancia().setEmrPk(this.inventarioDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
-			this.inventarioDataManager.getBienInstancia().setCatBienPk(this.inventarioDataManager.getIdCategoriaBienSeleccionado());
-			this.inventarioDataManager.getBienInstancia().setLinBienPk(this.inventarioDataManager.getIdLineaBienSeleccionado());
-			this.inventarioDataManager.getBienInstancia().setNpIdDcEstadoConservacion(this.inventarioDataManager.getIdDcEstadoConservacionSelec());
-			this.inventarioDataManager.getBienInstancia().setDetCatalogoTipoIngresoBien(this.inventarioDataManager.getIdDcTipoIngresoBienSelect());
-			this.inventarioDataManager.getBienInstancia().setUsuarioRegistro(this.inventarioDataManager.getUsuarioSession());
-			if (this.inventarioDataManager.getBienInstancia().getMarBienPk().intValue()==0) {
-				this.inventarioDataManager.getBienInstancia().setMarBienPk(null);
-			}
-			
-			Bien bien = servicioInventario.registrarBien(this.inventarioDataManager.getBienInstancia());
-			
-			if (bien != null) {
-				
-				VistaBien vistaBienBuscar = new VistaBien();
-				vistaBienBuscar.setBiePk(bien.getBiePk());
-				vistaBienBuscar.setBieEstado(ESTADO_ACTIVO);
-				vistaBienBuscar.setEmrPk(bien.getEmrPk());
-				
-				List<VistaBien> listVistaBien = this.servicioInventario.buscarVistaBienCriterios(vistaBienBuscar);
-				
-				this.inventarioDataManager.getListVistaBien().add(listVistaBien.iterator().next());
-				this.inventarioDataManager.setBienInstancia(new Bien());
-				this.resetControllerCatalogoValues();
-				MensajesWebController.aniadirMensajeInformacion("erp.mensaje.registro.exito");
-			}
-			
-		} catch (SeguridadesException e) {
-			RequestContext.getCurrentInstance().addCallbackParam("validationFailed", e);
-			slf4jLogger.info("error al registrarBien {}", e.getCause().getMessage());
-			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
-		}
-	}
-	
-	public void editarBien () {
-		slf4jLogger.info("editarBien");
-		try {
-			
-			this.inventarioDataManager.getBienEditar().setEmrPk(this.inventarioDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
-			this.inventarioDataManager.getBienEditar().setCatBienPk(this.inventarioDataManager.getIdCategoriaBienSeleccionado());
-			this.inventarioDataManager.getBienEditar().setLinBienPk(this.inventarioDataManager.getIdLineaBienSeleccionado());
-			this.inventarioDataManager.getBienEditar().setDetCatalogoTipoIngresoBien(this.inventarioDataManager.getIdDcTipoIngresoBienSelect());
-			this.inventarioDataManager.getBienEditar().setNpIdDcEstadoConservacion(this.inventarioDataManager.getIdDcEstadoConservacionSelec());
-			this.inventarioDataManager.getBienEditar().setUsuarioRegistro(this.inventarioDataManager.getUsuarioSession());
-			
-			VistaBien vistaBienUpdate = servicioInventario.actualizarBien(this.inventarioDataManager.getBienEditar());
-			
-			if (vistaBienUpdate != null) {
-				MensajesWebController.aniadirMensajeInformacion("erp.mensaje.update.exito");
-				int posicion = this.inventarioDataManager.getListVistaBien().indexOf(this.inventarioDataManager.getVistaBienEditar());
-				this.inventarioDataManager.getListVistaBien().remove(this.inventarioDataManager.getVistaBienEditar());
-				this.inventarioDataManager.getListVistaBien().add(posicion, vistaBienUpdate);
-			}
-			
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("error al editarBien {}", e.getCause().getMessage());
-			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
-		}
-	}
 	
 	public void buscarBienes () {
 		
@@ -157,10 +89,10 @@ public class InventarioController extends BaseController{
 				this.inventarioDataManager.getVistaBienBuscar().setDetBienTipBieNivel1(inventarioDataManager.getIdDcTipoBienSelec());
 			}
 			
-			if (this.inventarioDataManager.getIdCategoriaBienBuscarSeleccionado() == null || this.inventarioDataManager.getIdCategoriaBienBuscarSeleccionado()<=0) {
+			if (this.inventarioDataManager.getIdCategoriaBienSeleccionado() == null || this.inventarioDataManager.getIdCategoriaBienSeleccionado()<=0) {
 				this.inventarioDataManager.getVistaBienBuscar().setCatBienPk(null);
 			} else {
-				this.inventarioDataManager.getVistaBienBuscar().setCatBienPk(this.inventarioDataManager.getIdCategoriaBienBuscarSeleccionado());
+				this.inventarioDataManager.getVistaBienBuscar().setCatBienPk(this.inventarioDataManager.getIdCategoriaBienSeleccionado());
 				
 				if (this.inventarioDataManager.getIdLineaBienSeleccionado() == null || this.inventarioDataManager.getIdLineaBienSeleccionado()<=0) {
 					this.inventarioDataManager.getVistaBienBuscar().setLinBienPk(null);
@@ -172,10 +104,10 @@ public class InventarioController extends BaseController{
 			
 			List<VistaBien> listVistaBien = servicioInventario.buscarVistaBienCriterios(this.inventarioDataManager.getVistaBienBuscar());
 			
-			this.inventarioDataManager.getListVistaBien().clear();
 			if (CollectionUtils.isNotEmpty(listVistaBien)) {
 				this.inventarioDataManager.setListVistaBien(listVistaBien);
 			} else {
+				this.inventarioDataManager.getListVistaBien().clear();
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			}
 			
@@ -183,6 +115,12 @@ public class InventarioController extends BaseController{
 			slf4jLogger.info("error al buscarBienes {}", e.getCause().getMessage());
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
+	}
+	
+	public void limpiarFiltrosBusqueda () {
+		this.inventarioDataManager.setVistaBienBuscar(new VistaBien());
+		this.resetControllerCatalogoValues();
+		this.dcLineaBien.clear();
 	}
 	
 	public void asignarDatosBienDesdeVista(VistaBien vistaBien) {
@@ -259,10 +197,11 @@ public class InventarioController extends BaseController{
 	 * Poner en null los valores de los catalogos que administra el controlador
 	 */
 	public void resetControllerCatalogoValues () {
-		this.inventarioDataManager.setIdDcTipoIngresoBienSelect(null);
 		this.inventarioDataManager.setIdDcTipoBienSelec(null);
+		this.inventarioDataManager.setIdDcTipoIngresoBienSelect(null);
 		this.inventarioDataManager.setIdDcEstadoConservacionSelec(null);
-		this.inventarioDataManager.refrescarObjetos();
+		this.inventarioDataManager.setIdCategoriaBienSeleccionado(null);
+		this.inventarioDataManager.setIdLineaBienSeleccionado(null);
 	}
 	
 	/**
