@@ -8,37 +8,6 @@
 	<p:dialog id="popUpNuevoBien" header="#{i18n['erp.bien.registrar']}" 
 		widgetVar="dlgNuevoBien" modal="true" minWidth="600" width="600" appendTo="@(body)" draggable="true">
 		<h:form id="formNuevoBien">
-		
-			<!-- <script type="text/javascript">
-				$(PrimeFaces.escapeClientId('#formNuevoBien:txtCostoTotal')).keyup(function(event) {
-					calcular();
-				});
-			// Calculamos la suma de los dos valores
-        function calcular()
-        {
-            alert('mmmm');
-            var valor1=validarNumero(PrimeFaces.escapeClientId('formNuevoBien:txtCosto');
-            var valor2=validarNumero(PrimeFaces.escapeClientId('formNuevoBien:txtCantidad');
-            
-            $("#txtCostoTotal").val(valor1+valor2);
-        }
-        
-        // Funcion para validar que el numero sea correcto, y para cambiar el color
-        // del marco en caso de error
-        function validarNumero(id)
-        {
-            if($.isNumeric($(id).val()))
-            {
-                return parseFloat($(id).val());
-            }else if($(id).val()==""){
-                return 0;
-            }else{
-                return 0;
-            }
-        }
-			</script> -->
-	
-		
 			<p:panel id="pnlNuevoBien">
 				<table class="formulario">
 					<tr>
@@ -142,16 +111,6 @@
 					</tr>
 					<tr>
 						<td>
-							<h:outputLabel for="txtNota" value="#{i18n['erp.bien.nota']}" />
-							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
-						</td>
-						<td colspan="3">
-							<p:inputTextarea id="txtNota" style="width: 100%" required="true"
-								value="#{bienDataManager.bienInstancia.bieNotas}" label="#{i18n['erp.bien.nota']}"/>
-						</td>
-					</tr>
-					<tr>
-						<td>
 							<h:outputLabel for="txtCosto" value="#{i18n['erp.bien.costo']}" />
 						</td>
 						<td>
@@ -165,7 +124,7 @@
 							<h:outputLabel for="txtCantidad" value="#{i18n['erp.bien.cantidad']}" />
 						</td>
 						<td>
-							<p:inputText id="txtCantidad" styleClass="txtCantidad" style="width: 80%"
+							<p:inputText id="txtCantidad" styleClass="txtCantidad" style="width: 100%"
 								onkeypress="return soloEnteros(this, event)" maxlength="3"
 								value="#{bienController.cantidadBienesIngresados}" label="#{i18n['erp.bien.cantidad']}">
 								<p:ajax event="blur" listener="#{bienController.calcularTotal}" process="@this" update="txtCostoTotal"/>
@@ -180,6 +139,16 @@
 							<h:outputText id="txtCostoTotal" value="#{bienController.totalPrecioBienesIngresados}" >
 								<f:convertNumber maxFractionDigits="2"/>
 							</h:outputText>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtNota" value="#{i18n['erp.bien.nota']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td colspan="3">
+							<p:inputTextarea id="txtNota" style="width: 100%" required="true"
+								value="#{bienDataManager.bienInstancia.bieNotas}" label="#{i18n['erp.bien.nota']}"/>
 						</td>
 					</tr>
 				</table>

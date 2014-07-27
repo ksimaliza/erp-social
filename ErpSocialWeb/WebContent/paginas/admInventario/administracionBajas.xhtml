@@ -23,10 +23,10 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:panel id="pnlBuscarBien" header="#{i18n['erp.bien.buscar']}">
-				<table>
+				<table class = "formulario">
 					<tr>
-						<td width="30%"><h:outputLabel for="txtNombreCustodio" value="#{i18n['label.custodio']}" /></td>
-						<td width="70%">
+						<td width="15%"><h:outputLabel for="txtNombreCustodio" value="#{i18n['label.custodio']}" /></td>
+						<td width="85%">
 							<h:panelGrid columns="2" border="0">
 								<h:outputText id="txtNombreCustodio" value="#{bajasBienController.buscarUsuarioComponent.vistaEmpleadoSeleccionado.nombresCompletos}" />
 								<p:commandLink value="buscar" oncomplete="dlgBuscarEmpleado.show()"/>
@@ -45,7 +45,7 @@
 						</td>
 						<td>
 							<p:selectOneMenu id="selectTipoIngresoBien"
-								style="width: 100%" label="#{i18n['erp.bien.categoria']}"
+								style="width: 50%" label="#{i18n['erp.bien.categoria']}"
 								value="#{bajasBienDataManager.idDcTipoBienSelec}">
 								<f:selectItem itemValue="#{bajasBienDataManager.estadoInvalido}" itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{bajasBienDataManager.dcTipoBien}"/>
@@ -58,7 +58,7 @@
 						</td>
 						<td>
 							<p:selectOneMenu id="selectCategoria"
-								style="width: 100%" label="#{i18n['erp.bien.categoria']}"
+								style="width: 50%" label="#{i18n['erp.bien.categoria']}"
 								value="#{bajasBienDataManager.idCategoriaBienSeleccionado}">
 								<f:selectItem itemValue="-1" itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{bajasBienDataManager.dcCategoriaBien}"/>
@@ -72,7 +72,7 @@
 						</td>
 						<td>
 							<p:selectOneMenu id="txtLinea"
-								style="width: 100%" label="#{i18n['erp.bien.linea']}"
+								style="width: 50%" label="#{i18n['erp.bien.linea']}"
 								value="#{bajasBienDataManager.idLineaBienSeleccionado}">
 								<f:selectItem itemValue="-1" itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{bajasBienDataManager.dcLineaBien}"/>

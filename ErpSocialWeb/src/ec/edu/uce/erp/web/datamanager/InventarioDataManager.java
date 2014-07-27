@@ -56,7 +56,6 @@ public class InventarioDataManager extends BaseDataManager{
 	private List<SelectItem> dcTipoIngresoBien;
 	
 	private Integer idCategoriaBienSeleccionado;
-	private Integer idCategoriaBienBuscarSeleccionado;
 	private Integer idLineaBienSeleccionado;
 	private String idDcEstadoConservacionSelec;
 	private String idDcTipoBienSelec;
@@ -151,18 +150,6 @@ public class InventarioDataManager extends BaseDataManager{
 			dcTipoIngresoBien = UtilSelectItems.getInstancia().cargarSelectItemsDetBien(ID_CAB_CATALOGO_TIPO_INGRESO_BIEN, servicioInventario);
 		}
 		return dcTipoIngresoBien;
-	}
-	
-	public void refrescarObjetos () {
-		this.limpiarSeleccionCatalogos();
-		this.bienInstancia=new Bien();
-	}
-	
-	private void limpiarSeleccionCatalogos () {
-		this.idDcEstadoConservacionSelec=null;
-		this.idDcTipoBienSelec = null;
-		this.idCategoriaBienSeleccionado=null;
-		this.idLineaBienSeleccionado=null;
 	}
 	
 	/**
@@ -262,21 +249,6 @@ public class InventarioDataManager extends BaseDataManager{
 	 */
 	public void setIdDcTipoBienSelec(String idDcTipoBienSelec) {
 		this.idDcTipoBienSelec = idDcTipoBienSelec;
-	}
-
-	/**
-	 * @return the idCategoriaBienBuscarSeleccionado
-	 */
-	public Integer getIdCategoriaBienBuscarSeleccionado() {
-		return idCategoriaBienBuscarSeleccionado;
-	}
-
-	/**
-	 * @param idCategoriaBienBuscarSeleccionado the idCategoriaBienBuscarSeleccionado to set
-	 */
-	public void setIdCategoriaBienBuscarSeleccionado(
-			Integer idCategoriaBienBuscarSeleccionado) {
-		this.idCategoriaBienBuscarSeleccionado = idCategoriaBienBuscarSeleccionado;
 	}
 
 	/**

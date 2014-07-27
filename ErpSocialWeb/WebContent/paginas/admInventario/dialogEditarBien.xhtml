@@ -71,7 +71,7 @@
 							<h:outputLabel for="txtMarcaMaterial" value="#{i18n['erp.bien.marca.material']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
-						<td  width="70%">
+						<td>
 							<p:selectOneMenu id="txtMarcaMaterial" style="width: 100%"
 								required="false" label="#{i18n['erp.bien.marca.material']}"
 								value="#{bienDataManager.bienEditar.marBienPk}">
@@ -108,6 +108,38 @@
 								value="#{bienDataManager.bienEditar.bieNombre}" label="#{i18n['erp.bien.nombre']}" />
 						</td>
 					</tr>
+					<!-- <tr>
+						<td>
+							<h:outputLabel for="txtCosto" value="#{i18n['erp.bien.costo']}" />
+						</td>
+						<td>
+							<p:inputText id="txtCosto" style="width: 80%" maxlength="10"
+								onkeypress="return soloDecimales(this, event);"
+								value="#{bienDataManager.bienInstancia.bieCostoVenta}" label="#{i18n['erp.bien.color']}">
+								<p:ajax event="blur" listener="#{bienController.calcularTotal}" process="@this" update="txtCostoTotal"/>
+							</p:inputText>
+						</td>
+						<td>
+							<h:outputLabel for="txtCantidad" value="#{i18n['erp.bien.cantidad']}" />
+						</td>
+						<td>
+							<p:inputText id="txtCantidad" styleClass="txtCantidad" style="width: 80%"
+								onkeypress="return soloEnteros(this, event)" maxlength="3"
+								value="#{bienController.cantidadBienesIngresados}" label="#{i18n['erp.bien.cantidad']}">
+								<p:ajax event="blur" listener="#{bienController.calcularTotal}" process="@this" update="txtCostoTotal"/>
+							</p:inputText>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtCostoTotal" value="#{i18n['erp.bien.costo.total']}" />
+						</td>
+						<td colspan="3">
+							<h:outputText id="txtCostoTotal" value="#{bienController.totalPrecioBienesIngresados}" >
+								<f:convertNumber maxFractionDigits="2"/>
+							</h:outputText>
+						</td>
+					</tr> -->
 					<tr>
 						<td>
 							<h:outputLabel for="txtNota" value="#{i18n['erp.bien.nota']}" />
