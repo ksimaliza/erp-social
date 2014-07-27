@@ -24,10 +24,10 @@
 			<p:panel id="pnlBuscarCategoriaBien" header="#{i18n['erp.categoria.bien.buscar']}">
 				<table class="formulario">
 					<tr>
-						<td width="20%">
+						<td width="15%">
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.categoria.bien.nombre']}" />
 						</td>
-						<td width="80%">
+						<td width="85%">
 							<p:inputText id="txtNombre" style="width: 50%"
 								value="#{categoriaBienDataManager.categoriaBienBuscar.catBienNombre}" />
 						</td>
@@ -36,7 +36,7 @@
 					<tr>
 						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
 						<td>
-							<p:selectOneMenu id="inputEstado" style="width: 30%"
+							<p:selectOneMenu id="inputEstado" style="width: 50%"
 								value="#{categoriaBienDataManager.categoriaBienBuscar.catBienEstado}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
 								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{categoriaBienDataManager.estadoActivo}"/>
@@ -51,6 +51,11 @@
 					actionListener="#{categoriaBienController.buscarCategoriaBien}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarCategoriaBien"
+					update="pnlMessages,tablaCategoriaBien,pnlBuscarCategoriaBien,toolbar" />
+				<p:commandButton id="btnLimpiar"
+					actionListener="#{categoriaBienController.limpiarFiltrosBusqueda}"
+					value="#{i18n['label.limpiar']}" 
+					process="@this,pnlBuscarCategoriaBien" 
 					update="pnlMessages,tablaCategoriaBien,pnlBuscarCategoriaBien,toolbar" />
 			</p:panel>
 			<p:dataTable id="tablaCategoriaBien"

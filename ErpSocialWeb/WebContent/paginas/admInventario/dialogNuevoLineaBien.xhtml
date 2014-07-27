@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	
-	<p:dialog id="popUpNuevoLineaBien" header="#{i18n['erp.bien.registrar']}" 
+	<p:dialog id="popUpNuevoLineaBien" header="#{i18n['erp.linea.bien.registrar']}" 
 		widgetVar="dlgNuevoLineaBien" modal="true" minWidth="500" width="500" appendTo="@(body)" draggable="false">
 		<h:form id="formNuevoLineaBien" styleClass="formulario">
 			<p:panel id="pnlNuevoLineaBien" >
@@ -45,7 +45,7 @@
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
-							<p:selectOneMenu id="inputLineaBien" style="width: 50%"
+							<p:selectOneMenu id="inputLineaBien" style="width: 100%"
 								required="true" label="#{i18n['erp.categoria.linea.bien']}"
 								value="#{lineaBienDataManager.lineaBienInstancia.catBienPk}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>

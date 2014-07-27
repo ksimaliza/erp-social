@@ -5,7 +5,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	
-	<p:dialog id="popUpEditarLineaBien" header="#{i18n['erp.bien.registrar']}" 
+	<p:dialog id="popUpEditarLineaBien" header="#{i18n['erp.linea.bien.actualizar']}" 
 		widgetVar="dlgEditarLineaBien" modal="true" minWidth="500" width="500" appendTo="@(body)" draggable="false">
 		<h:form id="formEditarLineaBien" styleClass="formulario">
 			<p:panel id="pnlEditarLineaBien" >
@@ -45,7 +45,7 @@
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
-							<p:selectOneMenu id="inputLineaBien" style="width: 50%"
+							<p:selectOneMenu id="inputLineaBien" style="width: 100%"
 								required="true" label="#{i18n['erp.categoria.linea.bien']}"
 								value="#{lineaBienDataManager.lineaBienEditar.catBienPk}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
@@ -60,7 +60,7 @@
 						</td>
 						<td>
 							<p:selectOneMenu id="inputEstado"
-								required="true" label="#{i18n['label.estado']}"
+								required="true" label="#{i18n['label.estado']}" style="width: 100%"
 								value="#{lineaBienDataManager.lineaBienEditar.linBienEstado}">
 								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{lineaBienDataManager.estadoActivo}"/>
 								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{lineaBienDataManager.estadoInactivo}"/>

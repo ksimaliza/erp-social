@@ -36,7 +36,7 @@
 					<tr>
 						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
 						<td>
-							<p:selectOneMenu id="inputEstado" style="width: 30%"
+							<p:selectOneMenu id="inputEstado" style="width: 50%"
 								value="#{marcaBienDataManager.marcaBienBuscar.marBienEstado}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
 								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{marcaBienDataManager.estadoActivo}"/>
@@ -51,6 +51,11 @@
 					actionListener="#{marcaBienController.buscarMarcaBien}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarMarcaBien"
+					update="pnlMessages,tablaMarcaBien,pnlBuscarMarcaBien,toolbar" />
+				<p:commandButton id="btnLimpiar"
+					actionListener="#{marcaBienController.limpiarFiltrosBusqueda}"
+					value="#{i18n['label.limpiar']}" 
+					process="@this,pnlBuscarMarcaBien" 
 					update="pnlMessages,tablaMarcaBien,pnlBuscarMarcaBien,toolbar" />
 			</p:panel>
 			<p:dataTable id="tablaMarcaBien"

@@ -24,8 +24,9 @@
 			<p:panel id="pnlBuscarProveedor" header="#{i18n['erp.proveedor.buscar']}">
 				<table class="formulario">
 					<tr>
-						<td width="20%"><h:outputLabel for="txtNombre" value="#{i18n['erp.proveedor.nombre']}" /></td>
-						<td width="80%">
+						<td width="15%">
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.proveedor.nombre']}" /></td>
+						<td width="85%">
 							<p:inputText id="txtNombre" style="width: 50%"
 								value="#{proveedorDataManager.proveedorBuscar.provNombre}" />
 						</td>
@@ -48,7 +49,8 @@
 					<tr>
 						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
 						<td>
-							<p:selectOneMenu id="inputEstado" value="#{proveedorDataManager.proveedorBuscar.provEstado}">
+							<p:selectOneMenu id="inputEstado" style="width: 50%"
+								value="#{proveedorDataManager.proveedorBuscar.provEstado}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
 								<f:selectItem itemLabel="#{i18n['label.estado.vigente']}" itemValue="#{proveedorDataManager.estadoActivo}"/>
 								<f:selectItem itemLabel="#{i18n['label.estado.novigente']}" itemValue="#{proveedorDataManager.estadoInactivo}"/>
@@ -62,6 +64,11 @@
 					actionListener="#{proveedorController.buscarProveedor}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarProveedor"
+					update="pnlMessages,tablaProveedor,pnlBuscarProveedor,toolbar" />
+				<p:commandButton id="btnLimpiar"
+					actionListener="#{proveedorController.limpiarFiltrosBusqueda}"
+					value="#{i18n['label.limpiar']}" 
+					process="@this,pnlBuscarProveedor" 
 					update="pnlMessages,tablaProveedor,pnlBuscarProveedor,toolbar" />
 			</p:panel>
 			<p:dataTable id="tablaProveedor"

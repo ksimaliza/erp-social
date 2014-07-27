@@ -78,6 +78,9 @@ public class BienController extends BaseController{
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("error al cargar la pantalla Bienes {}", e.getCause().getMessage());
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
+		} catch (Exception e) {
+			slf4jLogger.info("error al cargar la pantalla Bienes {}", e.getCause().getMessage());
+			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
 	}
 	
@@ -125,6 +128,10 @@ public class BienController extends BaseController{
 			RequestContext.getCurrentInstance().addCallbackParam("validationFailed", e);
 			slf4jLogger.info("error al registrarBien {}", e.getCause().getMessage());
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
+		} catch (Exception e) {
+			RequestContext.getCurrentInstance().addCallbackParam("validationFailed", e);
+			slf4jLogger.info("error al registrarBien {}", e.getCause().getMessage());
+			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
 	}
 	
@@ -149,6 +156,11 @@ public class BienController extends BaseController{
 			}
 			
 		} catch (SeguridadesException e) {
+			RequestContext.getCurrentInstance().addCallbackParam("validationFailed", e);
+			slf4jLogger.info("error al editarBien {}", e.getCause().getMessage());
+			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
+		} catch (Exception e) {
+			RequestContext.getCurrentInstance().addCallbackParam("validationFailed", e);
 			slf4jLogger.info("error al editarBien {}", e.getCause().getMessage());
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
@@ -196,7 +208,17 @@ public class BienController extends BaseController{
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("error al buscarBienes {}", e.getCause().getMessage());
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
+		} catch (Exception e) {
+			slf4jLogger.info("error al buscarBienes {}", e.getCause().getMessage());
+			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
+	}
+	
+	public void limpiarFiltrosBusqueda () {
+		this.bienDataManager.setVistaBienBuscar(new VistaBien());
+		this.bienDataManager.setIdCategoriaBienBuscarSeleccionado(null);
+		this.bienDataManager.setIdLineaBienSeleccionado(null);
+		this.dcLineaBien.clear();
 	}
 	
 	public void asignarDatosBienDesdeVista(VistaBien vistaBien) {
@@ -222,7 +244,9 @@ public class BienController extends BaseController{
 			} 
 			
 		} catch (SeguridadesException e) {
-			
+			slf4jLogger.info("error al asignarDatosBienDesdeVista {}", e.getCause().getMessage());
+			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
+		} catch (Exception e) {
 			slf4jLogger.info("error al asignarDatosBienDesdeVista {}", e.getCause().getMessage());
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
@@ -250,6 +274,9 @@ public class BienController extends BaseController{
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("error al cargarDcCategoriaBien {}", e.getCause().getMessage());
 			MensajesWebController.aniadirMensajeError("No se pudo obtener las categorias de la base de datos");
+		} catch (Exception e) {
+			slf4jLogger.info("error al cargarDcCategoriaBien {}", e.getCause().getMessage());
+			MensajesWebController.aniadirMensajeError("No se pudo obtener las categorias de la base de datos");
 		}
 	
 	}
@@ -263,6 +290,9 @@ public class BienController extends BaseController{
 			vistaTransaccion.setBieFk(this.bienDataManager.getVistaBienEditar().getBiePk());
 			this.bienDataManager.setListVistaTransaccion(servicioInventario.obtenerVistaTransaccionCriterios(vistaTransaccion));
 		} catch (SeguridadesException e) {
+			slf4jLogger.info("error al obtenerTrazabilidadBien {}", e.getCause().getMessage());
+			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
+		} catch (Exception e) {
 			slf4jLogger.info("error al obtenerTrazabilidadBien {}", e.getCause().getMessage());
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}

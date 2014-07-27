@@ -143,6 +143,10 @@ public class LineaBienController extends BaseController{
 		}
 	}
 	
+	public void limpiarFiltrosBusqueda () {
+		this.lineaBienDataManager.setLineaBienBuscar(new LineaBien());
+	}
+	
 	/**
 	 * @return the dcCategoriaBien
 	 * @throws SeguridadesException 

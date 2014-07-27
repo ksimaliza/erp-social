@@ -151,5 +151,9 @@ public class ProveedorController extends BaseController{
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 	}
+	
+	public void limpiarFiltrosBusqueda () {
+		this.proveedorDataManager.setProveedorBuscar(new Proveedor());
+	}
 
 }
