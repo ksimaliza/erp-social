@@ -31,7 +31,6 @@ import ec.edu.uce.erp.ejb.persistence.view.VistaTransaccion;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
-import ec.edu.uce.erp.web.common.util.MessagesWebApplicacion;
 import ec.edu.uce.erp.web.common.util.ReporteUtil;
 import ec.edu.uce.erp.web.datamanager.VistaBienDataManager;
 
@@ -233,11 +232,11 @@ public class TransaccionBienController extends BaseController{
 		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 		if (this.vistaBienDataManager.getVistaBienEditar().getDetBienTipBieNivel1().equals(EnumTipoBien.ASIGNADO.getId())) {
-			mapParametros.put("tituloActa", MessagesWebApplicacion.getString("erp.bien.actas.reporte.asignacion.titulo"));
-			mapParametros.put("tipoMovimiento", MessagesWebApplicacion.getString("erp.bien.actas.reporte.tipo.movimiento.asignacion"));
+			mapParametros.put("tituloActa", "Acta asignaci\u00F3n bien");
+			mapParametros.put("tipoMovimiento", "Asignaci\u00F3n de bienes");
 		} else if (this.vistaBienDataManager.getVistaBienEditar().getDetBienTipBieNivel1().equals(EnumTipoBien.REASIGNADO.getId())) {
-			mapParametros.put("tituloActa", MessagesWebApplicacion.getString("erp.bien.actas.reporte.reasignacion.titulo"));
-			mapParametros.put("tipoMovimiento", MessagesWebApplicacion.getString("erp.bien.actas.reporte.tipo.movimiento.reasignacion"));
+			mapParametros.put("tituloActa", "Acta reasignaci\u00F3n bien");
+			mapParametros.put("tipoMovimiento", "Reasignaci\u00F3n de bienes");
 		}
 		
 		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), listVistaBien, "actaAsignacionBien", mapParametros);

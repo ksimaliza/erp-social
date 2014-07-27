@@ -131,5 +131,9 @@ public class MarcaBienController extends BaseController{
 		}
 		
 	}
+	
+	public void limpiarFiltrosBusqueda () {
+		this.marcaBienDataManager.setMarcaBienBuscar(new MarcaBien());
+	}
 
 }

@@ -3,10 +3,7 @@
  */
 package ec.edu.uce.erp.web.controladores;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -14,14 +11,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
-import net.sf.jasperreports.engine.JasperPrint;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ec.edu.uce.erp.common.enums.EnumTipoBien;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
@@ -30,8 +24,6 @@ import ec.edu.uce.erp.ejb.persistence.view.VistaTransaccion;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
-import ec.edu.uce.erp.web.common.util.MessagesWebApplicacion;
-import ec.edu.uce.erp.web.common.util.ReporteUtil;
 import ec.edu.uce.erp.web.controladores.componentes.BuscarUsuarioComponent;
 import ec.edu.uce.erp.web.datamanager.BajasBienDataManager;
 
@@ -135,31 +127,6 @@ public class BajasBienController extends BaseController{
 			slf4jLogger.info("error al obtenerTrazabilidadBien {}", e.getCause().getMessage());
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
-		
-	}
-	
-	public void generarActaBien () {
-		
-		List<VistaBien> listVistaBien = new ArrayList<VistaBien>();
-		listVistaBien.add(this.bajasBienDataManager.getVistaBienEditar());
-		
-		Map<String, Object> mapParametros = new HashMap<String, Object>();
-		mapParametros.put("nombreEmpresa", this.bajasBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrNombre());
-		mapParametros.put("nombreCustodio", this.bajasBienDataManager.getVistaBienEditar().getNombresCompletos());
-		mapParametros.put("identificacionCustodio", this.bajasBienDataManager.getVistaBienEditar().getPerCi());
-		mapParametros.put("total", String.valueOf(listVistaBien.size()));
-		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
-		
-		if (this.bajasBienDataManager.getVistaBienEditar().getDetBienTipBieNivel1().equals(EnumTipoBien.ASIGNADO.getId())) {
-			mapParametros.put("tituloActa", MessagesWebApplicacion.getString("erp.bien.actas.reporte.asignacion.titulo"));
-			mapParametros.put("tipoMovimiento", MessagesWebApplicacion.getString("erp.bien.actas.reporte.tipo.movimiento.asignacion"));
-		} else if (this.bajasBienDataManager.getVistaBienEditar().getDetBienTipBieNivel1().equals(EnumTipoBien.REASIGNADO.getId())) {
-			mapParametros.put("tituloActa", MessagesWebApplicacion.getString("erp.bien.actas.reporte.reasignacion.titulo"));
-			mapParametros.put("tipoMovimiento", MessagesWebApplicacion.getString("erp.bien.actas.reporte.tipo.movimiento.reasignacion"));
-		}
-		
-		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), listVistaBien, "actaAsignacionBien", mapParametros);
-		ReporteUtil.generarReporte(jasperPrint, "pdf", "actaBien");
 		
 	}
 	

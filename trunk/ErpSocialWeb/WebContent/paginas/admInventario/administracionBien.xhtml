@@ -30,11 +30,12 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:panel id="pnlBuscarBien" header="#{i18n['erp.bien.buscar']}">
-				<table>
+				<table class="formulario">
 					<tr>
-						<td><h:outputLabel for="txtNombre" value="#{i18n['erp.bien.nombre']}" /></td>
-						<td>
-							<p:inputText id="txtNombre"
+						<td width="15%">
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.nombre']}" /></td>
+						<td width="85%">
+							<p:inputText id="txtNombre" style="width: 50%"
 								value="#{bienDataManager.vistaBienBuscar.bieNombre}" />
 						</td>
 					</tr>
@@ -57,7 +58,7 @@
 						</td>
 						<td>
 							<p:selectOneMenu id="selectCategoria"
-								style="width: 100%" label="#{i18n['erp.bien.categoria']}"
+								style="width: 50%" label="#{i18n['erp.bien.categoria']}"
 								value="#{bienDataManager.idCategoriaBienBuscarSeleccionado}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
 								<f:selectItems value="#{bienController.dcCategoriaBien}"/>
@@ -71,7 +72,7 @@
 						</td>
 						<td>
 							<p:selectOneMenu id="txtLinea"
-								style="width: 100%" label="#{i18n['erp.bien.linea']}"
+								style="width: 50%" label="#{i18n['erp.bien.linea']}"
 								value="#{bienDataManager.idLineaBienSeleccionado}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{bienController.dcLineaBien}"/>
@@ -95,6 +96,11 @@
 					actionListener="#{bienController.buscarBienes}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarBien"
+					update="pnlMessages,tablaBienes,pnlBuscarBien,toolbar" />
+				<p:commandButton id="btnLimpiar"
+					actionListener="#{bienController.limpiarFiltrosBusqueda}"
+					value="#{i18n['label.limpiar']}" 
+					process="@this,pnlBuscarBien" 
 					update="pnlMessages,tablaBienes,pnlBuscarBien,toolbar" />
 			</p:panel>
 			<p:dataTable id="tablaBienes"

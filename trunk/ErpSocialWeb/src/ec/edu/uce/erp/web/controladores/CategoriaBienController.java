@@ -140,5 +140,9 @@ public class CategoriaBienController extends BaseController{
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
 	}
+	
+	public void limpiarFiltrosBusqueda () {
+		this.categoriaBienDataManager.setCategoriaBienBuscar(new CategoriaBien());
+	}
 
 }
