@@ -240,7 +240,7 @@ public class TransaccionBienController extends BaseController{
 		}
 		
 		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), listVistaBien, "actaAsignacionBien", mapParametros);
-		ReporteUtil.generarReporte(jasperPrint, "pdf", "actaBien");
+		ReporteUtil.generarReporte(jasperPrint, this.vistaBienDataManager.getFormatoPdf(), "actaBien");
 		
 	}
 	
