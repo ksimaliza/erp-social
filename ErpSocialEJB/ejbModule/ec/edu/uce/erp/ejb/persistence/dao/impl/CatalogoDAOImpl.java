@@ -20,6 +20,7 @@ public class CatalogoDAOImpl extends AbstractFacadeImpl<CatalogoEucaristiaDTO> i
 		
 	}
 	
+	@SuppressWarnings({ "unchecked", "unused" })
 	@Override 
 	public List<CatalogoEucaristiaDTO> getAll(CatalogoEucaristiaDTO catalogo) 
 	{ 

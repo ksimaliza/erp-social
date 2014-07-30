@@ -91,20 +91,28 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		slf4jLogger.info("createOrUpdateEstudiante");
 		Persona personanueva;
 		try {
-		if(estudiantevo.getEstudiante().getEstCodigo()!=null){
-			slf4jLogger.info("Update");
-			personanueva= factoryDAO.getPersonaDAOImpl().update(estudiantevo.getPersona());
-			estudiantevo.getEstudiante().setEstPersona(personanueva.getPerPk());
-			return matriculaFactoryDAO.getEstudianteDAOImpl().update(estudiantevo.getEstudiante());
-		}
-		else{
-			slf4jLogger.info("Insert");
-			estudiantevo.getEstudiante().setEstEstado("Inscrito");
-			personanueva= factoryDAO.getPersonaDAOImpl().create(estudiantevo.getPersona());
-			estudiantevo.getEstudiante().setEstPersona(personanueva.getPerPk());
-			return matriculaFactoryDAO.getEstudianteDAOImpl().create(estudiantevo.getEstudiante());
-			
-		}
+			if(estudiantevo.getEstudiante().getEstCodigo()!=null){
+				slf4jLogger.info("Update");
+				personanueva= factoryDAO.getPersonaDAOImpl().update(estudiantevo.getPersona());
+				estudiantevo.getEstudiante().setEstPersona(personanueva.getPerPk());
+				return matriculaFactoryDAO.getEstudianteDAOImpl().update(estudiantevo.getEstudiante());
+			}
+			else{
+				slf4jLogger.info("Insert");
+				EstudianteListDTO est=new EstudianteListDTO();
+				est.setPerCi(estudiantevo.getPersona().getPerCi());
+				if(!matriculaFactoryDAO.getEstudianteListDAOImpl().getByAnd(est).isEmpty())
+					throw new SeguridadesException("El estudiante ya existe");
+				estudiantevo.getEstudiante().setEstEstado("Inscrito");
+				if(factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(estudiantevo.getPersona()).isEmpty())
+					personanueva= factoryDAO.getPersonaDAOImpl().create(estudiantevo.getPersona());
+				else
+					personanueva=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(estudiantevo.getPersona()).get(0);
+				
+				estudiantevo.getEstudiante().setEstPersona(personanueva.getPerPk());
+				return matriculaFactoryDAO.getEstudianteDAOImpl().create(estudiantevo.getEstudiante());
+				
+			}
 		} catch (Exception e) {
 			slf4jLogger.info("error al createOrUpdateEstudiante {}", e.toString());
 			throw new SeguridadesException(e);
@@ -599,7 +607,16 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		}
 		else
 		{
-			persona = factoryDAO.getPersonaDAOImpl().create(profesorVO.getPersona());
+			DocenteListDTO doc=new DocenteListDTO();
+			doc.setPerCi(profesorVO.getPersona().getPerCi());
+			if(!matriculaFactoryDAO.getProfesorDAOImpl().getByAnd(doc).isEmpty())
+				throw new SeguridadesException("El profesor ya existe");
+
+			if(factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(profesorVO.getPersona()).isEmpty())
+				persona= factoryDAO.getPersonaDAOImpl().create(profesorVO.getPersona());
+			else
+				persona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(profesorVO.getPersona()).get(0);
+			
 			profesorVO.getProfesor().setProPersona(persona.getPerPk());	
 			return matriculaFactoryDAO.getProfesorDAOImpl().create(profesorVO.getProfesor());
 		}} catch (Exception e) {

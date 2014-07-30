@@ -138,6 +138,7 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.security.MenuUsuario</class>
 		<class>ec.edu.uce.erp.ejb.persistence.view.VistaModuloMenu</class>
 		<class>ec.edu.uce.erp.ejb.persistence.view.VistaUsuario</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaVieDTO</class>
 		<properties>
 			<property name="hibernate.connection.username" value="postgres" />
 			<property name="hibernate.connection.password" value="root" />
