@@ -23,7 +23,7 @@
 			</p:toolbar>
 			<p:panel id="pnlBuscarBien" header="#{i18n['erp.bien.buscar']}">
 				<table>
-					<tr>
+					<!-- <tr>
 						<td width="30%">
 							<h:outputLabel for="txtNombreCustodio" value="#{i18n['label.custodio']}" />
 						</td>
@@ -32,12 +32,12 @@
 								value="#{vistaBienDataManager.idCIEmpleadoSeleccionado}" />
 							<p:commandLink value="buscar" oncomplete="dlgBuscarUsuario.show()"/>
 						</td>
-					</tr>
+					</tr> -->
 					<tr>
-						<td>
+						<td width="30%">
 							<h:outputLabel for="selectCategoria" value="#{i18n['erp.bien.categoria']}" />
 						</td>
-						<td>
+						<td width="70%">
 							<p:selectOneMenu id="selectCategoria"
 								style="width: 100%" label="#{i18n['erp.bien.categoria']}"
 								value="#{vistaBienDataManager.idCategoriaBienSeleccionado}">
@@ -79,7 +79,7 @@
 		<!-- <ui:include src="dialogAsignarBien.xhtml" />
 		<ui:include src="dialogReasignarBien.xhtml" />
 		<ui:include src="dialogTrazabilidadBien.xhtml" /> -->
-		<ui:include src="dialogBuscarUsuario.xhtml" /> 
+		<!-- <ui:include src="dialogBuscarUsuario.xhtml" />  -->
 		
 	</ui:define>
 </ui:composition>

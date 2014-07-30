@@ -4,6 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsf/composite/components"
 	template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="title">
 		<h3><h:outputLabel	value="#{i18n['erp.bien.transacciones.pagina.titulo']}" /></h3>
@@ -27,7 +28,7 @@
 						<td width="15%"><h:outputLabel for="txtNombreCustodio" value="#{i18n['label.custodio']}" /></td>
 						<td width="85%">
 							<h:panelGrid columns="2" border="0">
-								<h:outputText id="txtNombreCustodio" value="#{transaccionBienController.vistaEmpleadoSeleccionando.nombresCompletos}" />
+								<h:outputText id="txtNombreCustodio" value="#{transaccionBienController.buscarUsuarioComponent.vistaEmpleadoSeleccionado.nombresCompletos}" />
 								<p:commandLink value="buscar" oncomplete="dlgBuscarUsuario.show()"/>
 							</h:panelGrid>
 						</td>
