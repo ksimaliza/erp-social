@@ -3,78 +3,13 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsf/composite/components">
 	
 	<p:dialog id="popUpBuscarEmpleado" header="#{i18n['erp.asistencia.empleado.buscar']}" 
 		widgetVar="dlgBuscarUsuario" modal="true" minWidth="650" width="650" appendTo="@(body)">
 		<h:form id="formBuscarUsuario" styleClass="formulario">
-			<p:panel id="pnlBuscarEmpleado">
-				<table class="formulario">
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtNombre" value="#{i18n['erp.asistencia.empleado.nombres']}" /> 
-						</td>
-						<td width="70%">
-							<p:inputText id="txtNombre" style="width: 90%" 
-								value="#{vistaBienDataManager.vistaEmpleadoBuscar.perNombres}"
-								label="#{i18n['erp.asistencia.empleado.nombres']}" />
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<h:outputLabel for="txtApellido" value="#{i18n['erp.asistencia.empleado.apellidos']}" />
-						</td>
-						<td>
-							<p:inputText id="txtApellido" style="width: 90%"
-								value="#{vistaBienDataManager.vistaEmpleadoBuscar.perApellidos}"
-								label="#{i18n['erp.asistencia.empleado.apellidos']}" />
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<h:outputLabel for="txtCedula" value="#{i18n['erp.asistencia.empleado.cedula']}" />
-						</td>
-						<td>
-							<p:inputText id="txtCedula" style="width: 90%"
-								value="#{vistaBienDataManager.vistaEmpleadoBuscar.perCi}"
-								label="#{i18n['erp.asistencia.empleado.apellidos']}" />
-						</td>
-					</tr>
-				</table>
-				<p:panel id="pnlBotones">
-					<p:commandButton id="btnGuardar" value="#{i18n['label.buscar']}"
-						actionListener="#{transaccionBienController.buscarEmpleado}"
-						process="@this,pnlBuscarEmpleado" update="pnlBuscarEmpleado"/>
-				</p:panel>
-				<p:dataTable value="#{vistaBienDataManager.listVistaEmpleado}" rowKey="#{vistaEmpleado.empPk}"
-					var="vistaEmpleado" selectionMode="single">
-					
-					<p:ajax event="rowSelect" listener="#{transaccionBienController.asignarDatosEmpleadoSeleccionado}"
-						update=":formBien:txtNombreCustodio" oncomplete="dlgBuscarUsuario.hide()" />
-					<f:facet name="header">
-						<h:outputLabel value="Empleados Encontrados" />
-					</f:facet>
-					<p:column>
-						<f:facet name="header">
-							<h:outputLabel value="Nombres" />
-						</f:facet>
-						<h:outputText value="#{vistaEmpleado.nombresCompletos}" />
-					</p:column>
-					<p:column>
-						<f:facet name="header">
-							<h:outputLabel value="Codigo" />
-						</f:facet>
-						<h:outputText value="#{vistaEmpleado.empCodigo}" />
-					</p:column>
-					<p:column>
-						<f:facet name="header">
-							<h:outputLabel value="Cedula" />
-						</f:facet>
-						<h:outputText value="#{vistaEmpleado.perCi}" />
-					</p:column>
-				</p:dataTable>
-			</p:panel>
-			
+			<c:buscarUsuarioComponent controller="#{transaccionBienController.buscarUsuarioComponent}" popUpName="dlgBuscarUsuario"/>
 		</h:form>
 	</p:dialog>
 	

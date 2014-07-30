@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -18,7 +19,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +32,7 @@ import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.common.util.ReporteUtil;
+import ec.edu.uce.erp.web.controladores.componentes.BuscarUsuarioComponent;
 import ec.edu.uce.erp.web.datamanager.VistaBienDataManager;
 
 /**
@@ -51,7 +52,7 @@ public class TransaccionBienController extends BaseController{
 	@ManagedProperty(value="#{vistaBienDataManager}")
 	private VistaBienDataManager vistaBienDataManager;
 	
-	private VistaEmpleado vistaEmpleadoSeleccionando;
+	private BuscarUsuarioComponent buscarUsuarioComponent;
 	
 	/**
 	 * @param vistaBienDataManager the vistaBienDataManager to set
@@ -61,6 +62,11 @@ public class TransaccionBienController extends BaseController{
 	}
 	
 	public TransaccionBienController () {}
+	
+	@PostConstruct
+	public void inicializarObjetos() {
+		this.buscarUsuarioComponent = new BuscarUsuarioComponent(servicioInventario);
+	}
 	
 
 	/**
@@ -74,10 +80,12 @@ public class TransaccionBienController extends BaseController{
 			
 			this.vistaBienDataManager.getVistaBienBuscar().setEmrPk(this.vistaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
 			this.vistaBienDataManager.getVistaBienBuscar().setTraEstado(this.vistaBienDataManager.getEstadoActivo());
+			this.vistaBienDataManager.getVistaBienBuscar().setPerCi(this.buscarUsuarioComponent.getVistaEmpleadoSeleccionado().getPerCi());
 			
-			if (this.vistaEmpleadoSeleccionando != null && StringUtils.isNotBlank(this.vistaEmpleadoSeleccionando.getPerCi())) {
-				this.vistaBienDataManager.getVistaBienBuscar().setPerCi(this.vistaEmpleadoSeleccionando.getPerCi());
-			}
+//			if (this.vistaEmpleadoSeleccionando != null && StringUtils.isNotBlank(this.vistaEmpleadoSeleccionando.getPerCi())) {
+//				this.vistaBienDataManager.getVistaBienBuscar().setPerCi(this.vistaEmpleadoSeleccionando.getPerCi());
+//			}
+			
 			this.vistaBienDataManager.getVistaBienBuscar().setBieEstado(this.vistaBienDataManager.getEstadoActivo());
 			
 			if (StringUtils.isNotBlank(this.vistaBienDataManager.getIdDcTipoBienSelec())) {
@@ -263,10 +271,6 @@ public class TransaccionBienController extends BaseController{
 		}
 	}
 	
-	public void asignarDatosEmpleadoSeleccionado (SelectEvent event) {
-		this.vistaEmpleadoSeleccionando = (VistaEmpleado)event.getObject();
-	}
-	
 	public void limpiarFiltrosBusqueda () {
 		this.vistaBienDataManager.setVistaBienBuscar(new VistaBien());
 //		this.vistaBienDataManager.setIdCIEmpleadoSeleccionado(null);
@@ -274,7 +278,6 @@ public class TransaccionBienController extends BaseController{
 		this.vistaBienDataManager.setIdCategoriaBienSeleccionado(null);
 		this.vistaBienDataManager.setIdLineaBienSeleccionado(null);
 		this.vistaBienDataManager.getDcLineaBien().clear();
-		this.vistaEmpleadoSeleccionando = null;
 	}
 	
 
@@ -285,20 +288,20 @@ public class TransaccionBienController extends BaseController{
 		
 		return UtilAplication.fechaActualConFormato("yyyy-MM-dd hh:mm a");
 	}
-
-	/**
-	 * @return the vistaEmpleadoSeleccionando
-	 */
-	public VistaEmpleado getVistaEmpleadoSeleccionando() {
-		return vistaEmpleadoSeleccionando;
-	}
-
-	/**
-	 * @param vistaEmpleadoSeleccionando the vistaEmpleadoSeleccionando to set
-	 */
-	public void setVistaEmpleadoSeleccionando(
-			VistaEmpleado vistaEmpleadoSeleccionando) {
-		this.vistaEmpleadoSeleccionando = vistaEmpleadoSeleccionando;
-	}
 	
+	/**
+	 * @return the buscarUsuarioComponent
+	 */
+	public BuscarUsuarioComponent getBuscarUsuarioComponent() {
+		return buscarUsuarioComponent;
+	}
+
+	/**
+	 * @param buscarUsuarioComponent the buscarUsuarioComponent to set
+	 */
+	public void setBuscarUsuarioComponent(
+			BuscarUsuarioComponent buscarUsuarioComponent) {
+		this.buscarUsuarioComponent = buscarUsuarioComponent;
+	}
+
 }

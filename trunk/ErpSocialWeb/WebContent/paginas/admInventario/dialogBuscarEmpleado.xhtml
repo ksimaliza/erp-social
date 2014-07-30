@@ -9,7 +9,7 @@
 	<p:dialog id="popUpBuscarEmpleado" header="#{i18n['erp.asistencia.empleado.buscar']}" 
 		widgetVar="dlgBuscarEmpleado" modal="true" minWidth="650" width="650" appendTo="@(body)">
 		<h:form id="formBuscarEmpleado" styleClass="formulario">
-			<c:buscarUsuarioComponent controller="#{bajasBienController.buscarUsuarioComponent}"/>
+			<c:buscarUsuarioComponent controller="#{bajasBienController.buscarUsuarioComponent}" popUpName="dlgBuscarEmpleado"/>
 		</h:form>
 	</p:dialog>
 	

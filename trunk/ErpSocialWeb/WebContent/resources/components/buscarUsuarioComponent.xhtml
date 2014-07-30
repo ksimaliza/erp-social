@@ -13,12 +13,13 @@
 <body>
 	<composite:interface>
 		<composite:attribute name="update" required="false" default="" />
-		<composite:attribute name="render" required="false" default="" />
 		<composite:attribute name="controller" required="true" />
+		<composite:attribute name="popUpName" required="true" />
 	</composite:interface>
 
 	<composite:implementation>
 		<ui:param name="controller" value="#{cc.attrs.controller}"/>
+		<ui:param name="popUpName" value="#{cc.attrs.popUpName}"/>
 		<p:panel id="pnlBuscarUsuario">
 			<table class="formulario">
 				<tr>
@@ -64,7 +65,7 @@
 			var="vistaEmpleado" selectionMode="single">
 			
 			<p:ajax event="rowSelect" listener="#{controller.asignarDatosEmpleadoSeleccionado}"
-				update=":formBien:txtNombreCustodio" oncomplete="dlgBuscarEmpleado.hide()" />
+				update=":formBien:txtNombreCustodio" oncomplete="#{popUpName}.hide()" />
 			<f:facet name="header">
 				<h:outputLabel value="Empleados Encontrados" />
 			</f:facet>
