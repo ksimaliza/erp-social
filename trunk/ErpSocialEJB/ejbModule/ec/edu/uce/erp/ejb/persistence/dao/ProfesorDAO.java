@@ -11,4 +11,7 @@ public interface ProfesorDAO extends AbstractFacade<ProfesorDTO> {
 	List<DocenteListDTO> obtenerDocente(DocenteListDTO docente)
 			throws SeguridadesException;
 
+	List<DocenteListDTO> getByAnd(DocenteListDTO objectDTO)
+			throws SeguridadesException;
+
 }

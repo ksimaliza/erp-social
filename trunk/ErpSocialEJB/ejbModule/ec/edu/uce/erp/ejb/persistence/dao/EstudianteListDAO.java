@@ -10,4 +10,7 @@ public interface EstudianteListDAO extends AbstractFacade<EstudianteListDTO>{
 	List<EstudianteListDTO> obtenerEstudiante(EstudianteListDTO estudiante)
 			throws SeguridadesException;
 
+	List<EstudianteListDTO> getByAnd(EstudianteListDTO objectDTO)
+			throws SeguridadesException;
+
 }
