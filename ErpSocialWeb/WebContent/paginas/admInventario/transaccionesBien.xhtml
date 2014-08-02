@@ -29,7 +29,7 @@
 						<td width="85%">
 							<h:panelGrid columns="2" border="0">
 								<h:outputText id="txtNombreCustodio" value="#{transaccionBienController.buscarUsuarioComponent.vistaEmpleadoSeleccionado.nombresCompletos}" />
-								<p:commandLink value="buscar" oncomplete="dlgBuscarUsuario.show()"/>
+								<c:buscarUsuarioComponent controller="#{transaccionBienController.buscarUsuarioComponent}" render=":formBien:txtNombreCustodio"/>
 							</h:panelGrid>
 						</td>
 					</tr>
@@ -203,7 +203,7 @@
 		<ui:include src="dialogDevolverBien.xhtml" />
 		<ui:include src="dialogReasignarBien.xhtml" />
 		<ui:include src="dialogTrazabilidadBien.xhtml" />
-		<ui:include src="dialogBuscarUsuario.xhtml" />
+		<!-- <ui:include src="dialogBuscarUsuario.xhtml" /> -->
 		
 	</ui:define>
 </ui:composition>
