@@ -29,7 +29,7 @@
 						<td width="85%">
 							<h:panelGrid columns="2" border="0">
 								<h:outputText id="txtNombreCustodio" value="#{bajasBienController.buscarUsuarioComponent.vistaEmpleadoSeleccionado.nombresCompletos}" />
-								<p:commandLink value="buscar" oncomplete="dlgBuscarEmpleado.show()"/>
+								<c:buscarUsuarioComponent controller="#{bajasBienController.buscarUsuarioComponent}" render=":formBien:txtNombreCustodio"/>
 							</h:panelGrid>
 						</td>
 					</tr>
@@ -167,7 +167,6 @@
 		</h:form>
 		
 		<ui:include src="dialogBajaBien.xhtml" />
-		<ui:include src="dialogBuscarEmpleado.xhtml" />
 		
 	</ui:define>
 </ui:composition>
