@@ -6,88 +6,100 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
+	
 <head>
-<title>Not present in rendered output</title>
-
+	<title>Not present in rendered output</title>
 </head>
+
 <body>
 	<composite:interface>
-		<composite:attribute name="update" required="false" default="" />
-		<composite:attribute name="controller" required="true" />
-		<composite:attribute name="popUpName" required="true" />
+		<composite:attribute name="render" required="true" shortDescription="Seccion a actualizar de la pagina que incluye el componente"/>
+		<composite:attribute name="controller" required="true" shortDescription="Clase que administra el componente"/>
 	</composite:interface>
 
 	<composite:implementation>
+	
 		<ui:param name="controller" value="#{cc.attrs.controller}"/>
-		<ui:param name="popUpName" value="#{cc.attrs.popUpName}"/>
-		<p:panel id="pnlBuscarUsuario">
-			<table class="formulario">
-				<tr>
-					<td width="30%">
-						<h:outputLabel for="txtNombre" value="#{i18n['erp.asistencia.empleado.nombres']}" /> 
-					</td>
-					<td width="70%">
-						<p:inputText id="txtNombre" style="width: 90%" 
-							value="#{controller.vistaEmpleado.perNombres}"
-							label="#{i18n['erp.asistencia.empleado.nombres']}" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<h:outputLabel for="txtApellido" value="#{i18n['erp.asistencia.empleado.apellidos']}" />
-					</td>
-					<td>
-						<p:inputText id="txtApellido" style="width: 90%"
-							value="#{controller.vistaEmpleado.perApellidos}"
-							label="#{i18n['erp.asistencia.empleado.apellidos']}" />
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<h:outputLabel for="txtCedula" value="#{i18n['erp.asistencia.empleado.cedula']}" />
-					</td>
-					<td>
-						<p:inputText id="txtCedula" style="width: 90%"
-							value="#{controller.vistaEmpleado.perCi}"
-							label="#{i18n['erp.asistencia.empleado.apellidos']}" />
-					</td>
-				</tr>
-			</table>
-		</p:panel>
-		<p:panel id="pnlBotones">
-			<p:commandButton id="btnBuscar" value="#{i18n['label.guardar']}"
-				actionListener="#{controller.buscarEmpleado}"
-				process="@this,pnlBuscarUsuario" update="pnlBuscarUsuario, tableUsuarios"/>
-		</p:panel>
-		<p:dataTable id="tableUsuarios"
-			value="#{controller.listVistaEmpleado}" 
-			rowKey="#{vistaEmpleado.empPk}"
-			var="vistaEmpleado" selectionMode="single">
-			
-			<p:ajax event="rowSelect" listener="#{controller.asignarDatosEmpleadoSeleccionado}"
-				update=":formBien:txtNombreCustodio" oncomplete="#{popUpName}.hide()" />
-			<f:facet name="header">
-				<h:outputLabel value="Empleados Encontrados" />
-			</f:facet>
-			<p:column>
-				<f:facet name="header">
-					<h:outputLabel value="Nombres" />
-				</f:facet>
-				<h:outputText value="#{vistaEmpleado.nombresCompletos}" />
-			</p:column>
-			<p:column>
-				<f:facet name="header">
-					<h:outputLabel value="Codigo" />
-				</f:facet>
-				<h:outputText value="#{vistaEmpleado.empCodigo}" />
-			</p:column>
-			<p:column>
-				<f:facet name="header">
-					<h:outputLabel value="Cedula" />
-				</f:facet>
-				<h:outputText value="#{vistaEmpleado.perCi}" />
-			</p:column>
-		</p:dataTable>
+		<ui:param name="render" value="#{cc.attrs.render}"/>
+		
+		<p:commandLink value="Buscar..." oncomplete="dlgBuscarUsuario.show()"/>
+		
+		<p:dialog id="popUpBuscarUsuario" header="#{i18n['erp.asistencia.empleado.buscar']}" 
+				widgetVar="dlgBuscarUsuario" modal="true" minWidth="650" width="650" appendTo="@(body)">
+				
+			<h:form id="formBuscarUsuario" styleClass="formulario">
+				<p:panel id="pnlBuscarUsuario">
+					<table class="formulario">
+						<tr>
+							<td width="30%">
+								<h:outputLabel for="txtNombre" value="#{i18n['erp.asistencia.empleado.nombres']}" /> 
+							</td>
+							<td width="70%">
+								<p:inputText id="txtNombre" style="width: 90%" 
+									value="#{controller.vistaEmpleado.perNombres}"
+									label="#{i18n['erp.asistencia.empleado.nombres']}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel for="txtApellido" value="#{i18n['erp.asistencia.empleado.apellidos']}" />
+							</td>
+							<td>
+								<p:inputText id="txtApellido" style="width: 90%"
+									value="#{controller.vistaEmpleado.perApellidos}"
+									label="#{i18n['erp.asistencia.empleado.apellidos']}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel for="txtCedula" value="#{i18n['erp.asistencia.empleado.cedula']}" />
+							</td>
+							<td>
+								<p:inputText id="txtCedula" style="width: 90%"
+									value="#{controller.vistaEmpleado.perCi}"
+									label="#{i18n['erp.asistencia.empleado.apellidos']}" />
+							</td>
+						</tr>
+					</table>
+				</p:panel>
+				<p:panel id="pnlBotones">
+					<p:commandButton id="btnBuscar" value="#{i18n['label.buscar']}"
+						actionListener="#{controller.buscarEmpleado}"
+						process="@this,pnlBuscarUsuario" update="pnlBuscarUsuario, tableUsuarios"/>
+				</p:panel>
+				<p:dataTable id="tableUsuarios"
+					value="#{controller.listVistaEmpleado}" 
+					rowKey="#{vistaEmpleado.empPk}"
+					var="vistaEmpleado" selectionMode="single">
+					
+					<p:ajax event="rowSelect" listener="#{controller.asignarDatosEmpleadoSeleccionado}"
+						update="#{render}" oncomplete="dlgBuscarUsuario.hide()" />
+						
+					<f:facet name="header">
+						<h:outputLabel value="Empleados Encontrados" />
+					</f:facet>
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Nombres" />
+						</f:facet>
+						<h:outputText value="#{vistaEmpleado.nombresCompletos}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Codigo" />
+						</f:facet>
+						<h:outputText value="#{vistaEmpleado.empCodigo}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Cedula" />
+						</f:facet>
+						<h:outputText value="#{vistaEmpleado.perCi}" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</p:dialog>
+		
 	</composite:implementation>
 </body>
 </html>
