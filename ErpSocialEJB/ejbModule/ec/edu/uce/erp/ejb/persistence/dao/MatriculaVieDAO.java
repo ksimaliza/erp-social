@@ -13,5 +13,8 @@ public interface MatriculaVieDAO extends AbstractFacade<MatriculaVieDTO>{
 	List<MatriculaVieDTO> getBySubquery(MatriculaVieDTO objetoDTO)
 			throws SeguridadesException;
 
+	List<MatriculaVieDTO> getByAndDistinct(MatriculaVieDTO objectDTO)
+			throws SeguridadesException;
+
 	
 }

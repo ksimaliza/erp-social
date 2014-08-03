@@ -9,6 +9,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.EstudianteRepresentanteDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.MateriaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.MatriculaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.MatriculaDetalleDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.MatriculaVieDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.NivelDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.NivelParaleloDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.NotaDAO;
@@ -53,5 +54,7 @@ public interface MatriculaFactoryDAO {
 	EstudianteListDAO getEstudianteListDAOImpl();
 
 	RepNivelEstudianteDAO getRepNivelEstudianteDAOImpl();
+
+	MatriculaVieDAO getMatriculaVieDAOImpl();
 
 }

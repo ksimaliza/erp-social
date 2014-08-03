@@ -49,6 +49,7 @@ public class MatriculaVieDAOImpl extends AbstractFacadeImpl<MatriculaVieDTO> imp
 		Object value;
 		Field[] fields;
 		try{
+			
 			cb=entityManager.getCriteriaBuilder();
 			cq=cb.createQuery(MatriculaVieDTO.class);
 			
@@ -59,16 +60,17 @@ public class MatriculaVieDAOImpl extends AbstractFacadeImpl<MatriculaVieDTO> imp
 			fields = objectDTO.getClass().getDeclaredFields();
 
 	        for(Field f : fields){
+	        	
 	            fieldName = f.getName();
-				if(!fieldName.equals("serialVersionUID"))
-				{
+				if(!fieldName.equals("serialVersionUID")){
+					
 				    getter = objectDTO.getClass().getMethod("get" + String.valueOf(fieldName.charAt(0)).toUpperCase() +
 				            fieldName.substring(1));
 				    
 				    value = getter.invoke(objectDTO, new Object[0]);
 				
-				    if(value!=null)
-				    {
+				    if(value!=null){
+				    	
 				    	predicate=cb.equal(from.get(fieldName), value);
 				    	predicateList.add(predicate);                	
 				    }
@@ -182,5 +184,76 @@ public class MatriculaVieDAOImpl extends AbstractFacadeImpl<MatriculaVieDTO> imp
 			predicateList=null;
 		}				
 	}
+	
+	
+	@Override
+	public List<MatriculaVieDTO> getByAndDistinct(MatriculaVieDTO objectDTO) throws SeguridadesException
+	{
+		CriteriaBuilder cb;
+		CriteriaQuery<MatriculaVieDTO> cq;
+		Root<MatriculaVieDTO> from;
+		List<MatriculaVieDTO> list;
+		Predicate predicate;
+		List<Predicate> predicateList = null;
+		String fieldName;
+		Method getter;
+		Object value;
+		Field[] fields;
+		try{
+			
+			cb=entityManager.getCriteriaBuilder();
+			cq=cb.createQuery(MatriculaVieDTO.class);
+			
+			from= cq.from(MatriculaVieDTO.class);
+			
+			cq.multiselect(from.get("perCi"),
+					from.get("perApellidos"),
+					from.get("perNombres"),
+					from.get("nivDescaripcion"),
+					from.get("parDescripcion"),
+					from.get("perDescripcion"),
+					from.get("perFechaNac"),
+					from.get("emrNombre"),
+					from.get("emrNombre")).distinct(true);
+			
+			predicateList=new ArrayList<Predicate>();
+			
+			fields = objectDTO.getClass().getDeclaredFields();
+
+	        for(Field f : fields){
+	        	
+	            fieldName = f.getName();
+				if(!fieldName.equals("serialVersionUID")){
+					
+				    getter = objectDTO.getClass().getMethod("get" + String.valueOf(fieldName.charAt(0)).toUpperCase() +
+				            fieldName.substring(1));
+				    
+				    value = getter.invoke(objectDTO, new Object[0]);
+				
+				    if(value!=null){
+				    	
+				    	predicate=cb.equal(from.get(fieldName), value);
+				    	predicateList.add(predicate);                	
+				    }
+				}
+	        }
+	
+	        if(!predicateList.isEmpty())
+	        	cq.where(cb.and(predicateList.toArray(new Predicate[0])));		
+			
+			TypedQuery<MatriculaVieDTO> tq=entityManager.createQuery(cq);
+			list=tq.getResultList();
+			
+			return list;
+			
+		}catch(Exception e){
+			slf4jLogger.info(e.toString());
+			throw new SeguridadesException(e);
+		}finally{
+			predicate=null;
+			predicateList=null;
+		}		
+	}
+
 	
 }
