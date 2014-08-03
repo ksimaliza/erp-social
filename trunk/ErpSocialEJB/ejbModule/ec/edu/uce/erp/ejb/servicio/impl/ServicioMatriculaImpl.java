@@ -20,6 +20,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MateriaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDetalleDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaVieDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NotaDTO;
@@ -814,4 +815,19 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		return lista;
 	}
 	
+	
+	@Override
+	public List<MatriculaVieDTO> readCarnet(MatriculaVieDTO objectDTO) throws SeguridadesException
+	{
+		slf4jLogger.info("readCarnet");
+		List<MatriculaVieDTO> lista = null;
+		try {
+			lista = matriculaFactoryDAO.getMatriculaVieDAOImpl().getByAndDistinct(objectDTO);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al readCarnet {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener datos de la base de datos");
+		}
+		
+		return lista;
+	}
 }

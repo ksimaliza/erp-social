@@ -34,6 +34,9 @@ public class MatriculaVieDTO implements Serializable {
 	@Column(name="asi_profesor")
 	private Integer asiProfesor;
 
+	@Column(name="emr_nombre")
+	private String emrNombre;
+
 	@Column(name="est_codigo")
 	private Integer estCodigo;
 
@@ -202,6 +205,14 @@ public class MatriculaVieDTO implements Serializable {
 
 	public void setAsiProfesor(Integer asiProfesor) {
 		this.asiProfesor = asiProfesor;
+	}
+
+	public String getEmrNombre() {
+		return this.emrNombre;
+	}
+
+	public void setEmrNombre(String emrNombre) {
+		this.emrNombre = emrNombre;
 	}
 
 	public Integer getEstCodigo() {
