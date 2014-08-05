@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="carnetEstudiante" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a4c235c9-086b-4146-bc9b-ae4b703c6504">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="perCi" class="java.lang.String"/>
+	<field name="perApellidos" class="java.lang.String"/>
+	<field name="perNombres" class="java.lang.String"/>
+	<field name="nivDescaripcion" class="java.lang.String"/>
+	<field name="parDescripcion" class="java.lang.String"/>
+	<field name="perDescripcion" class="java.lang.String"/>
+	<field name="perFechaNac" class="java.lang.String"/>
+	<field name="emrNombre" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -10,7 +21,55 @@
 		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch"/>
+		<band height="246" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="58" y="17" width="417" height="216" uuid="2ec80a41-3777-4761-a087-d074b975cdb4"/>
+			</rectangle>
+			<textField>
+				<reportElement x="241" y="61" width="100" height="20" uuid="53d1a70d-2e25-46a3-a2f8-7febb1fbf97e"/>
+				<textFieldExpression><![CDATA[$F{perCi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="96" y="61" width="130" height="20" uuid="3a7e9acf-e46d-4748-81a6-f69ddc5d8283"/>
+				<text><![CDATA[Cédula de Identidad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="96" y="94" width="100" height="20" uuid="01600d71-13cf-4ca1-b872-11408991e571"/>
+				<text><![CDATA[Nombres:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="241" y="94" width="100" height="20" uuid="8a95f918-4cf5-4444-b581-5c7388d71c5f"/>
+				<textFieldExpression><![CDATA[$F{perNombres}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="96" y="125" width="100" height="20" uuid="bae36db2-5c68-4a25-96f6-a9cbdae5a31c"/>
+				<text><![CDATA[Apellidos:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="241" y="125" width="100" height="20" uuid="6257083c-c388-4ce2-8acb-6ebe7065b296"/>
+				<textFieldExpression><![CDATA[$F{perApellidos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="95" y="157" width="100" height="20" uuid="38fbf5a7-dbbc-408c-a99c-22be27395d2b"/>
+				<text><![CDATA[Nivel:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="240" y="157" width="100" height="20" uuid="7e9bcc96-791b-4c8a-b47e-6c1382656185"/>
+				<textFieldExpression><![CDATA[$F{parDescripcion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="95" y="191" width="100" height="20" uuid="7974cd9f-a8b1-4077-a95a-ef817526462f"/>
+				<text><![CDATA[Periodo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="240" y="191" width="100" height="20" uuid="00ec3a0c-f33c-4a31-ab2a-73e596e45654"/>
+				<textFieldExpression><![CDATA[$F{perDescripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="144" y="30" width="172" height="20" uuid="542b48a8-101d-4f96-a4da-7be556d6173b"/>
+				<textFieldExpression><![CDATA[$F{emrNombre}]]></textFieldExpression>
+			</textField>
+		</band>
 	</columnHeader>
 	<detail>
 		<band height="125" splitType="Stretch"/>
