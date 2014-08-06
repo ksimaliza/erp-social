@@ -11,47 +11,50 @@
 			<p:panel id="pnlNuevoNicho">
 				<table class="formulario">
 												
-						<tr>
+					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtNum" value="#{i18n['erp.despacho.nicho.numero']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNum" style="width: 100%"  required="true" />
+							<p:inputText id="txtNum" style="width: 100%"  required="true"  value="#{nichoDataManager.nichoInsertar.nicDescripcion}"/>
 						</td>	
 					</tr>
 					
+										
 					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtSeccion" value="#{i18n['erp.despacho.nicho.seccion']}" />
-						</td>
-						<td>
-							<h:selectOneListbox for="listboxSeccion" value="#{i18n['erp.despacho.nicho.seccion']}" />
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.nicho.seccion']}"  /> </td>
+						<td width="70%"><p:selectOneMenu id="listboxSeccion" value="#{nichoDataManager.codigoSeccion}" filter="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{nichoController.nichoDataManager.seccionEucaristiaDTOs}" var="seccion" itemLabel="#{seccion.catDescripcion}" itemValue="#{seccion.catCodigo}"/>
+							</p:selectOneMenu>
 						</td>
 					</tr>
-							
+								
 					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtTipo" value="#{i18n['erp.despacho.nicho.tipo']}" />
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.nicho.tipo']}"  /> </td>
+						<td width="70%"><p:selectOneMenu id="listboxTipo" value="#{nichoDataManager.codigoTipoNicho}" filter="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{nichoController.nichoDataManager.tipoNichoDTOs}" var="tipo" itemLabel="#{tipo.tniDescripcion}" itemValue="#{tipo.tniCodigo}"/>
+							</p:selectOneMenu>
 						</td>
-						<td>
-							<h:selectOneListbox for="listboxTipo" value="#{i18n['erp.despacho.nicho.tipo']}" />
-						</td>	
-					</tr>					
-					
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtNivel" value="#{i18n['erp.despacho.nicho.nivel']}" />
-						</td>
-						<td>
-							<h:selectOneListbox for="listboxNivel" value="#{i18n['erp.despacho.nicho.nivel']}" />
-						</td>	
 					</tr>
-					
+								
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.nicho.nivel']}"  /> </td>
+						<td width="70%"><p:selectOneMenu id="listboxNivel" value="#{nichoDataManager.codigoNivelNicho}" filter="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{nichoController.nichoDataManager.nivelNichoDTOs}" var="nivel" itemLabel="#{nivel.nniDescripcion}" itemValue="#{nivel.nniCodigo}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>	
+									
 				</table>
+				
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNicho.hide()"
+					actionListener="#{nichoController.registrarNicho}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoNicho.hide()"
 					process="@this,pnlNuevoNicho" update="pnlNuevoNicho,:formNicho:pnlMessages,:formNicho:tablaNicho"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoNicho.hide()" type="button" />
 			</p:panel>
