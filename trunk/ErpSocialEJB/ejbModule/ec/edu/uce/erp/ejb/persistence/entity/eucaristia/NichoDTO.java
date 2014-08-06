@@ -23,20 +23,23 @@ public class NichoDTO implements Serializable {
 
 	@Column(name="nic_descripcion")
 	private String nicDescripcion;
+	
+	@Column(name="nic_seccion")
+	private Integer nicSeccion;
 
 	//bi-directional many-to-one association to ContratoDTO
 	@OneToMany(mappedBy="eucNicho")
 	private List<ContratoDTO> eucContratos;
 
-	//bi-directional many-to-one association to NivelNichoDTO
-	@ManyToOne
-	@JoinColumn(name="nni_codigo")
-	private NivelNichoDTO eucNivelNicho;
-
 	//bi-directional many-to-one association to TipoNichoDTO
 	@ManyToOne
+	@JoinColumn(name="nic_tipo")
+	private  TipoNichoDTO eucTipoNicho;
+
+	//bi-directional many-to-one association to NivelNichoDTO
+	@ManyToOne
 	@JoinColumn(name="nni_nivel")
-	private TipoNichoDTO eucTipoNicho;
+	private NivelNichoDTO eucNivelNicho;
 
 	public NichoDTO() {
 	}
@@ -93,6 +96,14 @@ public class NichoDTO implements Serializable {
 
 	public void setEucTipoNicho(TipoNichoDTO eucTipoNicho) {
 		this.eucTipoNicho = eucTipoNicho;
+	}
+
+	public Integer getNicSeccion() {
+		return nicSeccion;
+	}
+
+	public void setNicSeccion(Integer nicSeccion) {
+		this.nicSeccion = nicSeccion;
 	}
 
 }
