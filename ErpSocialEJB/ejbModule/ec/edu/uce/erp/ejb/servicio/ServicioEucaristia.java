@@ -15,8 +15,12 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NivelNichoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PrimeraComunionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
@@ -27,6 +31,7 @@ import ec.edu.uce.erp.ejb.persistence.vo.ComunionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ConfirmacionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.DefuncionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.DoctorVO;
+import ec.edu.uce.erp.ejb.persistence.vo.EucaristiaVO;
 import ec.edu.uce.erp.ejb.persistence.vo.MatrimonioVO;
 import ec.edu.uce.erp.ejb.persistence.vo.SacerdoteVO;
 
@@ -128,6 +133,23 @@ public interface ServicioEucaristia {
 			throws SeguridadesException;
 
 	NivelNichoDTO obtenerNivelNichoPorId(Integer id)
+			throws SeguridadesException;
+
+	NichoDTO createOrUpdateNicho(NichoDTO nichoDTO) throws SeguridadesException;
+
+	List<NichoListDTO> buscarNicho(NichoListDTO nichoListDTO)
+			throws SeguridadesException;
+
+	NichoDTO obtenerNichoPorId(NichoListDTO nichoListDTO)
+			throws SeguridadesException;
+
+	EucaristiaDTO createOrUpdateEucaristia(EucaristiaVO eucaristiaVO)
+			throws SeguridadesException;
+
+	List<EucaristiaListDTO> buscarEucaristia(EucaristiaListDTO eucaristiaListDTO)
+			throws SeguridadesException;
+
+	EucaristiaVO obtenerEucaristiaPorId(EucaristiaListDTO eucaristiaListDTO)
 			throws SeguridadesException;
 
 

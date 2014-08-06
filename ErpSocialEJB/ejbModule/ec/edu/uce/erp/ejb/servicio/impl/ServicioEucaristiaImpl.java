@@ -22,8 +22,12 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NivelNichoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PrimeraComunionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
@@ -34,6 +38,7 @@ import ec.edu.uce.erp.ejb.persistence.vo.ComunionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ConfirmacionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.DefuncionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.DoctorVO;
+import ec.edu.uce.erp.ejb.persistence.vo.EucaristiaVO;
 import ec.edu.uce.erp.ejb.persistence.vo.MatrimonioVO;
 import ec.edu.uce.erp.ejb.persistence.vo.SacerdoteVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -541,6 +546,7 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		SacerdoteDTO sacerdote;
 		DoctorDTO doctor;
 		
+		
 		List<Persona> listPersona;
 			
 		try {
@@ -704,4 +710,132 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		return nivelNicho;
 	}
 	
+	@Override
+	public NichoDTO createOrUpdateNicho(NichoDTO nichoDTO) throws SeguridadesException
+	{
+		slf4jLogger.info("createOrUpdateNicho");
+		NivelNichoDTO nivelNicho;
+		TipoNichoDTO tipoNicho;
+		CatalogoEucaristiaDTO seccionNicho;
+		
+		
+		try {
+			if(nichoDTO.getNicCodigo()!=null){
+				nivelNicho=eucaristiaFactoryDAO.getNivelNichoDAOImpl().find(nichoDTO.getEucNivelNicho().getNniCodigo());
+				tipoNicho=eucaristiaFactoryDAO.getTipoNichoDAOImpl().find(nichoDTO.getEucTipoNicho().getTniCodigo());
+				seccionNicho=eucaristiaFactoryDAO.getCatalogoDAOImpl().find(nichoDTO.getNicSeccion());
+				nichoDTO.setEucNivelNicho(nivelNicho);
+				nichoDTO.setEucTipoNicho(tipoNicho);
+				nichoDTO.setNicSeccion(seccionNicho.getCatCodigo());
+						
+				return eucaristiaFactoryDAO.getNichoDAOImpl().update(nichoDTO);
+			}
+			else {
+				nivelNicho=eucaristiaFactoryDAO.getNivelNichoDAOImpl().find(nichoDTO.getEucNivelNicho().getNniCodigo());
+				tipoNicho=eucaristiaFactoryDAO.getTipoNichoDAOImpl().find(nichoDTO.getEucTipoNicho().getTniCodigo());
+				seccionNicho=eucaristiaFactoryDAO.getCatalogoDAOImpl().find(nichoDTO.getNicSeccion());
+				nichoDTO.setEucNivelNicho(nivelNicho);
+				nichoDTO.setEucTipoNicho(tipoNicho);
+				nichoDTO.setNicSeccion(seccionNicho.getCatCodigo());
+						
+				return eucaristiaFactoryDAO.getNichoDAOImpl().create(nichoDTO);
+				
+			} 
+		}		
+		catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdateNicho {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+	}
+	
+	
+		
+	@Override
+	public List<NichoListDTO> buscarNicho(NichoListDTO nichoListDTO) throws SeguridadesException {
+		slf4jLogger.info("buscarNicho");
+		List<NichoListDTO> listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getNichoDAOImpl().obtenerNicho(nichoListDTO);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarNicho {}", e.getMessage());
+			throw new SeguridadesException("No se pudo buscarNicho de la base de datos");
+		}
+		return listResultado;
+	}
+	
+		
+	
+	@Override
+	public NichoDTO obtenerNichoPorId(NichoListDTO nichoListDTO) throws SeguridadesException {
+		slf4jLogger.info("obtenerNichoPorId");
+		
+		NichoDTO nicho=new NichoDTO();
+		nicho.setEucNivelNicho(eucaristiaFactoryDAO.getNivelNichoDAOImpl().find(nichoListDTO.getNniNivel()));
+		nicho.setEucTipoNicho(eucaristiaFactoryDAO.getTipoNichoDAOImpl().find(nichoListDTO.getNicTipo()));
+		nicho.setNicSeccion(nichoListDTO.getCatCodigo());
+		return nicho;
+	}
+	
+	
+	@Override
+	public EucaristiaDTO createOrUpdateEucaristia(EucaristiaVO eucaristiaVO) throws SeguridadesException
+	{
+		slf4jLogger.info("createOrUpdateEucaristia");
+		SacerdoteDTO sacerdoteDTO;
+		
+		try {
+			if(eucaristiaVO.getEucaristiaDTO().getEucCodigo()!=null){
+				sacerdoteDTO=eucaristiaFactoryDAO.getSacerdoteDAOImpl().find(eucaristiaVO.getEucaristiaDTO().getEucSacerdoteBean());
+				eucaristiaVO.setSacerdoteDTO(sacerdoteDTO);
+				
+				return eucaristiaFactoryDAO.getEucaristiaDAOImpl().update(eucaristiaVO.getEucaristiaDTO());
+			}
+			else {
+				sacerdoteDTO=eucaristiaFactoryDAO.getSacerdoteDAOImpl().find(eucaristiaVO.getEucaristiaDTO().getEucSacerdoteBean());
+				eucaristiaVO.setSacerdoteDTO(sacerdoteDTO);
+				
+				return eucaristiaFactoryDAO.getEucaristiaDAOImpl().create(eucaristiaVO.getEucaristiaDTO());
+				
+			} 
+		}		
+		catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdateEucaristia {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+	}
+	
+	
+		
+	@Override
+	public List<EucaristiaListDTO> buscarEucaristia(EucaristiaListDTO eucaristiaListDTO) throws SeguridadesException {
+		slf4jLogger.info("buscarEucaristia");
+		List<EucaristiaListDTO> listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getEucaristiaDAOImpl().obtenerEucaristia(eucaristiaListDTO);
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarEucaristia {}", e.getMessage());
+			throw new SeguridadesException("No se pudo buscarEucaristia de la base de datos");
+		}
+		return listResultado;
+	}
+	
+		
+	
+	@Override
+	public EucaristiaVO obtenerEucaristiaPorId(EucaristiaListDTO eucaristiaListDTO) throws SeguridadesException {
+		slf4jLogger.info("obtenerEucaristiaPorId");
+		
+		EucaristiaVO eucaristiaVO= new EucaristiaVO();
+		
+		eucaristiaVO.getEucaristiaDTO().setEucSacerdoteBean(eucaristiaFactoryDAO.getSacerdoteDAOImpl().find(eucaristiaListDTO.getSacCodigo()));
+		eucaristiaVO.setEucaristiaDTO(eucaristiaFactoryDAO.getEucaristiaDAOImpl().find(eucaristiaListDTO.getEucCodigo()));
+		
+		return eucaristiaVO;
+	}
+	
+	
+		
 }
