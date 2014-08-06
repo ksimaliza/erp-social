@@ -16,16 +16,16 @@
 							<h:outputLabel for="txtFecha" value="#{i18n['erp.despacho.eucaristia.fecha']}" />
 						</td>
 						<td width="70%">
-							<p:calendar showOn="button" pattern="yyyy/MM/dd"/>
+							<p:calendar showOn="button" pattern="yyyy/MM/dd"   value="#{eucaristiaDataManager.eucaristiaInsertar.eucFechaHora}" />
 						</td>	
 					</tr>
 
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtFecha" value="#{i18n['erp.despacho.eucaristia.hora']}" />
+							<h:outputLabel for="txtHora" value="#{i18n['erp.despacho.eucaristia.hora']}" />
 						</td>
 						<td width="70%">
-							<p:inputMask id="txtFecha" style="width: 100%"  required="true" mask="99:99"/>
+							<p:inputMask id="txtHora" style="width: 100%"  required="true" mask="99:99" />
 						</td>	
 					</tr>
 			

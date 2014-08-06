@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpEditarNicho" header="#{i18n['erp.despacho.nicho.registrar']}" resizable="false" draggable="false"
+		widgetVar="dlgEditarNicho" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<h:form id="formEditarNicho" styleClass="formulario">
+			<p:panel id="pnlEditarNicho">
+				<table class="formulario">
+												
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNum" value="#{i18n['erp.despacho.nicho.numero']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNum" style="width: 100%"  required="true"  value="#{nichoDataManager.nichoInsertar.nicDescripcion}"/>
+						</td>	
+					</tr>
+					
+										
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.nicho.seccion']}"  /> </td>
+						<td width="70%"><p:selectOneMenu id="listboxSeccion" value="#{nichoDataManager.codigoSeccion}" filter="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{nichoController.nichoDataManager.seccionEucaristiaDTOs}" var="seccion" itemLabel="#{seccion.catDescripcion}" itemValue="#{seccion.catCodigo}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+								
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.nicho.tipo']}"  /> </td>
+						<td width="70%"><p:selectOneMenu id="listboxTipo" value="#{nichoDataManager.codigoTipoNicho}" filter="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{nichoController.nichoDataManager.tipoNichoDTOs}" var="tipo" itemLabel="#{tipo.tniDescripcion}" itemValue="#{tipo.tniCodigo}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+								
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.nicho.nivel']}"  /> </td>
+						<td width="70%"><p:selectOneMenu id="listboxNivel" value="#{nichoDataManager.codigoNivelNicho}" filter="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{nichoController.nichoDataManager.nivelNichoDTOs}" var="nivel" itemLabel="#{nivel.nniDescripcion}" itemValue="#{nivel.nniCodigo}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>	
+									
+				</table>
+				
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{nichoController.registrarNicho}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarNicho.hide()"
+					process="@this,pnlEditarNicho" update="pnlEditarNicho,:formNicho:pnlMessages,:formNicho:tablaNicho"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarNicho.hide()" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>
