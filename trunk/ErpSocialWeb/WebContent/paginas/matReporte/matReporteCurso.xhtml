@@ -41,18 +41,21 @@
 			
 			<p:dataTable id="tblReporte" value="#{reporteCursoDataManager.repNivelEstudianteList}" var="rep">
 			
-			<p:column headerText="Nombres">
-				<h:outputText value="#{rep.perNombres}" />
-			</p:column>
+				<p:column headerText="Nombres">
+					<h:outputText value="#{rep.perNombres}" />
+				</p:column>
+	
+				<p:column headerText="Apellidos">
+					<h:outputText value="#{rep.perApellidos}" />				
+				</p:column>
+	
+				<p:column headerText="Foto">
+					<p:graphicImage value="#{rep.regFoto}" height="45" cache="false"/>
+				</p:column>
 
-			<p:column headerText="Apellidos">
-				<h:outputText value="#{rep.perApellidos}" />				
-			</p:column>
-
-			<p:column headerText="Foto">
-				<p:graphicImage value="#{rep.regFoto}" height="45" cache="false"/>
-			</p:column>
-
+				<p:column>
+					<p:commandButton value="Carnet" actionListener="#{reporteCursoController.carnet(rep)}" process="tblReporte"/>
+				</p:column>
 			
 			</p:dataTable>
 			
