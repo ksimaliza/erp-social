@@ -1,7 +1,9 @@
 package ec.edu.uce.erp.ejb.persistence.entity.matriculacion;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -159,6 +161,21 @@ public class MatriculaVieDTO implements Serializable {
 	public MatriculaVieDTO() {
 	}
 
+	public MatriculaVieDTO(String emrNombre, String nivDescaripcion,
+			String parDescripcion, String perApellidos, String perCi,
+			String perDescripcion, Date perFechaNac, String perNombres) {
+		super();
+		this.emrNombre = emrNombre;
+		this.nivDescaripcion = nivDescaripcion;
+		this.parDescripcion = parDescripcion;
+		this.perApellidos = perApellidos;
+		this.perCi = perCi;
+		this.perDescripcion = perDescripcion;
+		this.perFechaNac = perFechaNac;
+		this.perNombres = perNombres;
+	}
+
+	
 	public Integer getAsiCodigo() {
 		return this.asiCodigo;
 	}
