@@ -1,5 +1,6 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -139,6 +140,7 @@ private static final long serialVersionUID = 1L;
 			
 			if (CollectionUtils.isEmpty(asinacionListDTOs) && asinacionListDTOs.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				this.asinacionDataManager.setAsinacionList(new ArrayList<AsinacionListDTO>());
 			} else {
 				this.asinacionDataManager.setAsinacionList(asinacionListDTOs);
 				
