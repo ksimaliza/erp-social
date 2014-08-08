@@ -15,6 +15,7 @@ import java.util.Date;
 public class AsinacionListDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id
 	@Column(name="asi_codigo")
 	private Integer asiCodigo;
 
@@ -106,7 +107,6 @@ public class AsinacionListDTO implements Serializable {
 	@Column(name="per_nombres")
 	private String perNombres;
 
-	@Id
 	@Column(name="per_pk")
 	private Integer perPk;
 
