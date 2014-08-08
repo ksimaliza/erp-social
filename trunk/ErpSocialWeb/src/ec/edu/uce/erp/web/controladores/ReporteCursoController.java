@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaVieDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepNivelEstudianteDTO;
@@ -54,9 +55,11 @@ public class ReporteCursoController extends BaseController{
 	
 	public void buscarNivel () {
 		List<NivelDTO> listaNivel=null;
-		
-		try {							
-			listaNivel = this.servicioMatricula.buscarNivel(new NivelDTO());
+		NivelDTO nivel;
+		try {			
+			nivel=new NivelDTO();
+			nivel.setNivEmpresa(getEmpresaCode());
+			listaNivel = this.servicioMatricula.buscarNivel(nivel);
 			this.reporteCursoDataManager.setNivelList(listaNivel);
 			buscar();
 		} catch (SeguridadesException e) {
@@ -92,6 +95,19 @@ public class ReporteCursoController extends BaseController{
 			rep.setNpaNivel(reporteCursoDataManager.getNivelCodigo());
 			rep.setNpaParalelo(reporteCursoDataManager.getParaleloCodigo());
 			reporteCursoDataManager.setRepNivelEstudianteList(servicioMatricula.readNivelEstudiante(rep));
+		} catch (SeguridadesException e) {
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+	}
+	
+	
+	public void carnet(RepNivelEstudianteDTO rep)
+	{
+		MatriculaVieDTO vie;
+		try {
+			vie=new MatriculaVieDTO();
+			vie.setRegCodigo(rep.getRegCodigo());
+			servicioMatricula.readCarnet(vie);
 		} catch (SeguridadesException e) {
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
