@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml"
+	xmlns:c="http://java.sun.com/jsf/composite/components">
+	
+	<ui:define name="title">
+		<h3><h:outputLabel	value="#{i18n['erp.bien.pagina.titulo']}" /></h3>
+	</ui:define>
+	
+	<ui:define name="content">
+		<h:outputScript library="primefaces" name="jquery/jquery.js" target="head"/>
+		<h:form id="formBien">
+		
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			<p:toolbar id="toolbar">
+				<p:toolbarGroup align="left">
+					
+					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
+						actionListener="#{reporteInventarioController.generarReporte(reporteInventarioDataManager.formatoExcel)}"
+						icon="exportExcel" disabled="#{empty reporteInventarioDataManager.reporteInventarioVO.listVistaBien}">
+					</p:commandButton>
+					<p:commandButton id="btnPDF" value="#{i18n['label.exportar.pdf']}" ajax="false"
+						actionListener="#{reporteInventarioController.generarReporte(reporteInventarioDataManager.formatoPdf)}"
+						icon="pdf" disabled="#{empty reporteInventarioDataManager.reporteInventarioVO.listVistaBien}">
+					</p:commandButton>
+					
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panel id="pnlBuscarBien" header="#{i18n['erp.bien.buscar']}">
+				<table class="formulario">
+					<tr>
+						<td width="15%"><h:outputLabel for="txtNombreCustodio" value="#{i18n['label.custodio']}" /></td>
+						<td width="85%">
+							<h:panelGrid columns="2" border="0">
+								<h:outputText id="txtNombreCustodio" value="#{reporteInventarioController.buscarUsuarioComponent.vistaEmpleadoSeleccionado.nombresCompletos}" />
+								<c:buscarUsuarioComponent controller="#{reporteInventarioController.buscarUsuarioComponent}" render=":formBien:txtNombreCustodio"/>
+							</h:panelGrid>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtCodigoBien" value="#{i18n['label.codigo']}" /></td>
+						<td>
+							<p:inputText id="txtCodigoBien" 
+								style="width: 50%"
+								value="#{reporteInventarioDataManager.vistaBienBuscar.bieCodigo}" />
+						</td>
+					</tr>
+					<tr>
+						<td >
+							<h:outputLabel for="selectTipoIngresoBien" value="#{i18n['erp.bien.tipo.transaccion']}" />
+						</td>
+						<td>
+							<p:selectOneMenu id="selectTipoIngresoBien"
+								style="width: 50%" label="#{i18n['erp.bien.categoria']}"
+								value="#{reporteInventarioDataManager.idDcTipoBienSelec}">
+								<f:selectItem itemValue="#{reporteInventarioDataManager.estadoInvalido}" itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{reporteInventarioDataManager.dcTipoBien}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="selectCategoria" value="#{i18n['erp.bien.categoria']}" />
+						</td>
+						<td>
+							<p:selectOneMenu id="selectCategoria"
+								style="width: 50%" label="#{i18n['erp.bien.categoria']}"
+								value="#{reporteInventarioDataManager.idCategoriaBienSeleccionado}">
+								<f:selectItem itemValue="#{reporteInventarioDataManager.estadoInvalido}" itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{reporteInventarioDataManager.dcCategoriaBien}"/>
+								<p:ajax event="change" process="@this" update="txtLinea" listener="#{reporteInventarioDataManager.cargarDcLineaBien}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtLinea" value="#{i18n['erp.bien.linea']}" />
+						</td>
+						<td>
+							<p:selectOneMenu id="txtLinea"
+								style="width: 50%" label="#{i18n['erp.bien.linea']}"
+								value="#{reporteInventarioDataManager.idLineaBienSeleccionado}">
+								<f:selectItem itemValue="#{reporteInventarioDataManager.estadoInvalido}" itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{reporteInventarioDataManager.dcLineaBien}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{bienController.buscarBienes}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscarBien"
+					update="pnlMessages,tablaBienes,pnlBuscarBien,toolbar" />
+				<p:commandButton id="btnLimpiar"
+					actionListener="#{bienController.limpiarFiltrosBusqueda}"
+					value="#{i18n['label.limpiar']}" 
+					process="@this,pnlBuscarBien" 
+					update="pnlMessages,tablaBienes,pnlBuscarBien,toolbar" />
+			</p:panel>
+			<p:dataTable id="tablaBienes"
+				value="#{bienDataManager.listVistaBien}"
+				var="vistaBien" rowIndexVar="rowIndex"
+				paginator="true" rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<f:facet name="header">
+					<h:outputText value="#{i18n['erp.bien.lista']}" />
+				</f:facet>
+				<p:column styleClass="centered" width="5%">
+					<f:facet name="header">
+						<h:outputText value="#" />
+					</f:facet>
+					<h:outputText value="#{rowIndex+1}"/>
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.bien.categoria']}" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.catBienNombre}" />
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.bien.linea']}" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.linBienNombre}" />
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.bien.marca.material']}" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.marBienNombre}" />
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.bien.modelo']}" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.bieModelo}" />
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.bien.color']}" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.bieColor}" />
+				</p:column>
+				<p:column width="10%" styleClass="centered">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['label.estado']}" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.bieEstado eq bienDataManager.estadoActivo ? i18n['label.estado.activo']:i18n['label.estado.inactivo']}" />
+				</p:column>
+				<p:column width="10%" styleClass="centered">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['label.en.uso']}" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.bieEstadoUso eq bienDataManager.estadoActivo ? i18n['label.si']:i18n['label.no']}" />
+				</p:column>
+				<p:column width="15%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.bien.nombre']}" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.bieNombre}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+		
+	</ui:define>
+</ui:composition>
