@@ -2,16 +2,14 @@ package ec.edu.uce.erp.ejb.persistence.view;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
+
+import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaUtil;
 
 
 /**
@@ -21,7 +19,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name="segv_usuario")
 @NamedQuery(name="VistaUsuario.findAll", query="SELECT v FROM VistaUsuario v")
-public class VistaUsuario implements Serializable {
+public class VistaUsuario extends AuditoriaUtil implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -53,13 +51,7 @@ public class VistaUsuario implements Serializable {
 	@Column(name="estado_string")
 	private String estadoString;
 	
-	@Transient
-	@Temporal(TemporalType.DATE)
-	private Date npFechaDesde;
 	
-	@Transient
-	@Temporal(TemporalType.DATE)
-	private Date npFechaHasta;
 
 	public VistaUsuario() {
 	}
@@ -134,34 +126,6 @@ public class VistaUsuario implements Serializable {
 
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
-	}
-
-	/**
-	 * @return the npFechaDesde
-	 */
-	public Date getNpFechaDesde() {
-		return npFechaDesde;
-	}
-
-	/**
-	 * @param npFechaDesde the npFechaDesde to set
-	 */
-	public void setNpFechaDesde(Date npFechaDesde) {
-		this.npFechaDesde = npFechaDesde;
-	}
-
-	/**
-	 * @return the npFechaHasta
-	 */
-	public Date getNpFechaHasta() {
-		return npFechaHasta;
-	}
-
-	/**
-	 * @param npFechaHasta the npFechaHasta to set
-	 */
-	public void setNpFechaHasta(Date npFechaHasta) {
-		this.npFechaHasta = npFechaHasta;
 	}
 
 	/**

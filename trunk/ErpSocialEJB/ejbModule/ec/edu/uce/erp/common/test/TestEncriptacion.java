@@ -24,7 +24,7 @@ public class TestEncriptacion {
 	@Test
 	public void desencriptarClave () {
 		System.out.println("desencriptarClave");
-		String claveSinEncriptar = "JCb6cypDOdo=";
+		String claveSinEncriptar = "pFs2zl+oNIoLaGBBCqyiew==";
 		String claveDesencriptada = EncriptacionUtil.getInstancia().desencriptar(claveSinEncriptar);
 		System.out.println("claveDesencriptada: " + claveDesencriptada);
 	}

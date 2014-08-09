@@ -18,6 +18,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
 import ec.edu.uce.erp.ejb.persistence.view.VistaEmpleado;
 import ec.edu.uce.erp.ejb.persistence.view.VistaTransaccion;
+import ec.edu.uce.erp.ejb.persistence.vo.ReporteInventarioVO;
 
 /**
  * @author
@@ -248,4 +249,15 @@ public interface ServicioInventario {
 	 * @throws SeguridadesException
 	 */
 	List<VistaEmpleado> obtenerEmpleadoEmpresa (VistaEmpleado vistaEmpleado) throws SeguridadesException;
+	
+	/*
+	 * Metodos para la generacion de reportes de bienes
+	 */
+	
+	/**
+	 * 
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	ReporteInventarioVO obtenerReporteInventario(ReporteInventarioVO reporteInventarioVO) throws SeguridadesException;
 }

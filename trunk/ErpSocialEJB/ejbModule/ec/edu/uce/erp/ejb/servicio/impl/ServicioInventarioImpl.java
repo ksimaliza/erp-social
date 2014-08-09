@@ -38,6 +38,7 @@ import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaDTO;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
 import ec.edu.uce.erp.ejb.persistence.view.VistaEmpleado;
 import ec.edu.uce.erp.ejb.persistence.view.VistaTransaccion;
+import ec.edu.uce.erp.ejb.persistence.vo.ReporteInventarioVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 
 /**
@@ -796,6 +797,16 @@ public class ServicioInventarioImpl implements ServicioInventario {
 		}
 		
 		return vistaEmpleadoCol;
+	}
+	
+	/*
+	 * Metodos para la generacion de reportes de bienes
+	 */
+
+	@Override
+	public ReporteInventarioVO obtenerReporteInventario(ReporteInventarioVO reporteInventarioVO) throws SeguridadesException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
