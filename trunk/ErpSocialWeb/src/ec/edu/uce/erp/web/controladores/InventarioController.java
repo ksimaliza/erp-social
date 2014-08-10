@@ -248,8 +248,7 @@ public class InventarioController extends BaseController{
 
 	@Override
 	public void refrescarFormulario() {
-		// TODO Auto-generated method stub
-		
+		this.buscarBienes();
 	}
 
 }

@@ -306,8 +306,7 @@ public class TransaccionBienController extends BaseController{
 
 	@Override
 	public void refrescarFormulario() {
-		// TODO Auto-generated method stub
-		
+		this.buscarVistaBien();
 	}
 
 }

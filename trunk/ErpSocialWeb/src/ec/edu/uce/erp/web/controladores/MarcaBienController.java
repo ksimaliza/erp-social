@@ -138,8 +138,7 @@ public class MarcaBienController extends BaseController{
 
 	@Override
 	public void refrescarFormulario() {
-		// TODO Auto-generated method stub
-		
+		this.buscarMarcaBien();
 	}
 
 }
