@@ -257,4 +257,10 @@ public class PerfilController extends BaseController {
 		this.modulosSeleccionadosCol = modulosSeleccionadosCol;
 	}
 
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

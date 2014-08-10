@@ -114,5 +114,12 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(NivelControlle
 	public NivelDataManager getNivelDataManager() {
 		return nivelDataManager;
 	}
+
+
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

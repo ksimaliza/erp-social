@@ -107,4 +107,11 @@ public class RepresentanteController extends BaseController{
 	}
 
 
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }

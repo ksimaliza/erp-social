@@ -246,4 +246,10 @@ public class InventarioController extends BaseController{
 		this.dcLineaBien = dcLineaBien;
 	}
 
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

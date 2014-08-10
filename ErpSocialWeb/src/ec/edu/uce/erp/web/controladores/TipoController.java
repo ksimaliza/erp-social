@@ -101,5 +101,11 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(TipoController
 				MensajesWebController.aniadirMensajeError("Error al cargarDatosTipo seleccionado");
 			}
 		}
+
+		@Override
+		protected void refrescarFormulario() {
+			// TODO Auto-generated method stub
+			
+		}
 		
 }

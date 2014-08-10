@@ -12,10 +12,8 @@ import ec.edu.uce.erp.web.common.util.MessageProvider;
  * @author 
  *
  */
-public final class MensajesWebController extends BaseController{
+public final class MensajesWebController {
 	
-	private static final long serialVersionUID = 1L;
-
 	/**
 	 * A&ntilde;ade un mensaje de error a la jeraquia de componetes de la p&aacute;gina JSF
 	 * @param mensaje

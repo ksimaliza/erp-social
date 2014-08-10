@@ -192,6 +192,12 @@ public void registrarNivelParalelo () {
 		}
 		
 	}
+
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

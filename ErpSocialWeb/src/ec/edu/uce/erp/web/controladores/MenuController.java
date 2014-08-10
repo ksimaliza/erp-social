@@ -197,4 +197,10 @@ public class MenuController extends BaseController {
 		this.dialogVisible = dialogVisible;
 	}
 
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

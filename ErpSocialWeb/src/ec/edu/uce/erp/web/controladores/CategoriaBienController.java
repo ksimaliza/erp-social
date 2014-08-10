@@ -145,4 +145,10 @@ public class CategoriaBienController extends BaseController{
 		this.categoriaBienDataManager.setCategoriaBienBuscar(new CategoriaBien());
 	}
 
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

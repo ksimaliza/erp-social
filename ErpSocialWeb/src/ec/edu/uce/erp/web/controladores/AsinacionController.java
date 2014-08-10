@@ -281,6 +281,12 @@ private static final long serialVersionUID = 1L;
 		}
 		
 	}
+
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 

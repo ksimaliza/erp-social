@@ -95,6 +95,12 @@ public void registrarNivelNicho () {
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosNivelNicho seleccionado");
 		}
 	}
+
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 

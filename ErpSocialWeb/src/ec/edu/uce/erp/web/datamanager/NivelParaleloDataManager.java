@@ -13,12 +13,12 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
-import ec.edu.uce.erp.web.common.controladores.BaseController;
+import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 
 @SessionScoped
 @ManagedBean (name = "nivelParaleloDataManager")
-public class NivelParaleloDataManager extends BaseController{
+public class NivelParaleloDataManager extends BaseDataManager {
 	
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(PerfilDataManager.class);
 	private static final long serialVersionUID = 1L;

@@ -89,4 +89,10 @@ public class ReporteAuditoriaController extends BaseController {
 		this.tipoReporte = tipoReporte;
 	}
 
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

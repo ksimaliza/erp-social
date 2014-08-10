@@ -112,4 +112,10 @@ public class ReporteCursoController extends BaseController{
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 	}
+
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
 }

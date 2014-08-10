@@ -17,12 +17,18 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.SacerdoteVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
+import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.datamanager.SacerdoteDataManager;
 
 @ViewScoped
 @ManagedBean (name = "sacerdoteController")
-public class SacerdoteController {
+public class SacerdoteController extends BaseController{
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 private static final Logger slf4jLogger = LoggerFactory.getLogger(DocenteController.class);
 	
 	@EJB
@@ -102,5 +108,11 @@ public void registrarSacerdote () {
 			slf4jLogger.info("Error al cargarDatosSacerdote seleccionado {}", e.getMessage());
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosSacerdote seleccionado");
 		}
+	}
+
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
 	}
 }

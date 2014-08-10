@@ -111,4 +111,10 @@ public class VistaHistoricoTransaccionController extends BaseController {
 		
 	}
 
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

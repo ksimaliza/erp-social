@@ -130,5 +130,11 @@ public class MenuUsuarioController extends BaseController {
 		return null;
 	}
 
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

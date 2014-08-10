@@ -1,8 +1,6 @@
 package ec.edu.uce.erp.web.datamanager;
 
 import java.util.ArrayList;
-
-
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -13,13 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.ParametroDTO;
-
-import ec.edu.uce.erp.web.common.controladores.BaseController;
+import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 @SessionScoped
 @ManagedBean (name = "parametroAsistenciaDataManager")
 
-public class ParametroAsistenciaDataManager extends BaseController {
+public class ParametroAsistenciaDataManager extends BaseDataManager {
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(PerfilDataManager.class);
 	private static final long serialVersionUID = 1L;
 	

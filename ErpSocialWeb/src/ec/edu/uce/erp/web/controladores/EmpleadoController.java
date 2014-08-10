@@ -101,5 +101,14 @@ public class EmpleadoController extends BaseController{
 		empleadoDataManager.getPersonaInsertar().setPerFoto(JsfUtil.saveToDiskUpdload(event.getFile().getContents(), JsfUtil.getRandomName(event.getFile().getFileName().split("\\.")[1])));
 		empleadoDataManager.getPersonaInsertar().setPerFotoByte(event.getFile().getContents());
     }
+
+
+
+
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

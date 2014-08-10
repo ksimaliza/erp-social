@@ -212,4 +212,10 @@ public class ModuloController extends BaseController{
 		this.empresasSeleccionadas = empresasSeleccionadas;
 	}
 
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

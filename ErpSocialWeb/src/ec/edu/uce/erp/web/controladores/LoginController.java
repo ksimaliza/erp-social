@@ -229,6 +229,12 @@ public class LoginController extends BaseController {
 	private Boolean validarContraseniaNueva(CredencialesDTO credencialesDTO){
 		return credencialesDTO.getPasswordTemp().equals(credencialesDTO.getPasswordTempConfirmar());
 	}
+
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	/*
 	 * Propiedades

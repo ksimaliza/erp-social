@@ -136,4 +136,10 @@ public class MarcaBienController extends BaseController{
 		this.marcaBienDataManager.setMarcaBienBuscar(new MarcaBien());
 	}
 
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

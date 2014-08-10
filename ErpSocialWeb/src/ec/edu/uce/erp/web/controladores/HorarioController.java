@@ -68,4 +68,10 @@ public class HorarioController extends BaseController{
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
 }

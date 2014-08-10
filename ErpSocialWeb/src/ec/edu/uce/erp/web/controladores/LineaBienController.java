@@ -167,5 +167,11 @@ public class LineaBienController extends BaseController{
 	public void setDcCategoriaBien(List<SelectItem> dcCategoriaBien) {
 		this.dcCategoriaBien = dcCategoriaBien;
 	}
+
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

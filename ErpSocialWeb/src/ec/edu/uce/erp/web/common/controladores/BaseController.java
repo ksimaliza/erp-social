@@ -43,6 +43,11 @@ public abstract class BaseController implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	/**
+	 * M&eacute;todo para actualizar la informaci&oacute;n del formulario
+	 */
+	protected abstract void refrescarFormulario ();
+	
+	/**
 	 * Recupera el valor asociado a un parametro de la p&aacute;gina JSF
 	 * 
 	 * @param parametro

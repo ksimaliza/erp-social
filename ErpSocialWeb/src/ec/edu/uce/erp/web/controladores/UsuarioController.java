@@ -490,4 +490,10 @@ public class UsuarioController extends BaseController{
 		this.selectedNodes = selectedNodes;
 	}
 
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

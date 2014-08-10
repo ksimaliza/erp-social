@@ -389,4 +389,10 @@ public class BienController extends BaseController{
 		this.totalPrecioBienesIngresados = totalPrecioBienesIngresados;
 	}
 
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

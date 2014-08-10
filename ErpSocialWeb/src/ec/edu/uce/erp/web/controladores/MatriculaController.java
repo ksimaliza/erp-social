@@ -218,4 +218,10 @@ public class MatriculaController extends BaseController {
 			matriculaDataManager.getMatriculaInsertar().setRegFotoByte(event.getFile().getContents());
 	    }
 
+		@Override
+		protected void refrescarFormulario() {
+			// TODO Auto-generated method stub
+			
+		}
+
 }
