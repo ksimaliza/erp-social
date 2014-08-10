@@ -95,6 +95,12 @@ public void registrarTipoNicho () {
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosTipoNicho seleccionado");
 		}
 	}
+
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 

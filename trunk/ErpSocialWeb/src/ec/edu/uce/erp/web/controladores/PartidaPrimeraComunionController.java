@@ -379,6 +379,12 @@ public void registrarPrimeraComunion () {
 		}
 		
 	}
+
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

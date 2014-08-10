@@ -127,6 +127,12 @@ public class DocenteController extends BaseController{
 		docenteDataManager.getPersonaInstancia().setPerFotoByte(event.getFile().getContents());
     }
 
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 	
 	

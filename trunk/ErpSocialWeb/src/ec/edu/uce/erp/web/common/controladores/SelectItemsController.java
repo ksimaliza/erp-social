@@ -33,9 +33,7 @@ import ec.edu.uce.erp.ejb.servicio.ServicioAsistencia;
  */
 @ViewScoped
 @ManagedBean (name = "selectItemsController")
-public class SelectItemsController extends BaseController {
-	
-	private static final long serialVersionUID = 1L;
+public class SelectItemsController {
 	
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(SelectItemsController.class);
 	

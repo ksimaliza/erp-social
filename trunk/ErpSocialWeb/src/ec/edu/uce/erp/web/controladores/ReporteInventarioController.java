@@ -89,4 +89,10 @@ public class ReporteInventarioController extends BaseController {
 		this.buscarUsuarioComponent = buscarUsuarioComponent;
 	}
 
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

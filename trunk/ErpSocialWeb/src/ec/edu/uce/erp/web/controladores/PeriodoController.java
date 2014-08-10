@@ -105,4 +105,10 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PeriodoControl
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosPeriodo seleccionado");
 		}
 	}
+
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
 }

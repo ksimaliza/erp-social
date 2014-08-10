@@ -111,6 +111,12 @@ public ParaleloDataManager getParaleloDataManager() {
 	return paraleloDataManager;
 }
 
+@Override
+protected void refrescarFormulario() {
+	// TODO Auto-generated method stub
+	
+}
+
 
 
 }

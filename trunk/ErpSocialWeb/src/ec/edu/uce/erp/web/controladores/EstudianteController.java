@@ -137,6 +137,13 @@ public class EstudianteController extends BaseController{
 			estudianteDataManager.getEstudiantePersonaInsertar().setPerFotoByte(event.getFile().getContents());
 	    }
 
+
+		@Override
+		protected void refrescarFormulario() {
+			// TODO Auto-generated method stub
+			
+		}
+
 }
 		
 		

@@ -109,5 +109,11 @@ public void registrarParametro () {
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosParametro seleccionado");
 		}
 	}
+
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

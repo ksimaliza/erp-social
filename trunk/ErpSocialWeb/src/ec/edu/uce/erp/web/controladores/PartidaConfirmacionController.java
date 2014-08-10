@@ -379,6 +379,12 @@ public void registrarConfirmacion () {
 		}
 		
 	}
+
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

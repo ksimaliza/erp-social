@@ -106,6 +106,13 @@ public class MateriaController extends BaseController{
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosMateria seleccionado");
 		}
 	}
+
+
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

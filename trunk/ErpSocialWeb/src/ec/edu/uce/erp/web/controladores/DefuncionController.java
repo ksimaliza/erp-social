@@ -367,6 +367,12 @@ public void registrarDefuncion () {
 		}
 		
 	}
+
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 

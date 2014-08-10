@@ -156,4 +156,10 @@ public class ProveedorController extends BaseController{
 		this.proveedorDataManager.setProveedorBuscar(new Proveedor());
 	}
 
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

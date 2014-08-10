@@ -435,5 +435,11 @@ public void registrarMatrimonio () {
 		}
 		
 	}
+
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

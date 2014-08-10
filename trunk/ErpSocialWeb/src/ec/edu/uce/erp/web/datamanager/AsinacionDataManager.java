@@ -19,11 +19,11 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
-import ec.edu.uce.erp.web.common.controladores.BaseController;
+import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 @SessionScoped
 @ManagedBean (name = "asinacionDataManager")
-public class AsinacionDataManager extends BaseController {
+public class AsinacionDataManager extends BaseDataManager {
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(PerfilDataManager.class);
 	private static final long serialVersionUID = 1L;
 	

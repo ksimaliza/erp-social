@@ -207,5 +207,11 @@ public class EmpresaController extends BaseController {
 			MensajesWebController.aniadirMensajeError("Error al cargar los modulos de la empresa seleccionada");
 		}
 	}
+
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

@@ -211,5 +211,11 @@ public class TransaccionMasivaBienController extends BaseController{
 	public void setDualListVistaBien(DualListModel<VistaBien> dualListVistaBien) {
 		this.dualListVistaBien = dualListVistaBien;
 	}
+
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

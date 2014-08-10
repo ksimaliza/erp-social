@@ -116,4 +116,10 @@ public class DetalleBienController extends BaseController{
 		
 	}
 
+	@Override
+	protected void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

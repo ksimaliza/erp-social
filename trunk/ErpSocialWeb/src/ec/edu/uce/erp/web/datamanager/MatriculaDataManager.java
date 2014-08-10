@@ -20,11 +20,11 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EstudianteVO;
 import ec.edu.uce.erp.ejb.persistence.vo.MatriculaVO;
-import ec.edu.uce.erp.web.common.controladores.BaseController;
+import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 @SessionScoped
 @ManagedBean (name = "matriculaDataManager")
-public class MatriculaDataManager extends BaseController {
+public class MatriculaDataManager extends BaseDataManager {
 	
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(PerfilDataManager.class);
 	
