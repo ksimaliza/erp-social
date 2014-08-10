@@ -19,14 +19,20 @@ import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.PermisoVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAsistencia;
+import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.datamanager.PermisoDataManager;
 
 
 @ViewScoped
 @ManagedBean (name = "permisoController")
-public class PermisoController {
+public class PermisoController extends BaseController{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(PermisoController.class);
 	
 	@EJB
@@ -108,6 +114,12 @@ public class PermisoController {
 			slf4jLogger.info("Error al buscar el empleado {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
+	}
+
+	@Override
+	public void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

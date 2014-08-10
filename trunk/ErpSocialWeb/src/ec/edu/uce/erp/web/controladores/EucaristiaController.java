@@ -143,7 +143,7 @@ public void cargarDatosEucaristia (EucaristiaListDTO eucaristiaListDTO) {
 }
 
 @Override
-protected void refrescarFormulario() {
+public void refrescarFormulario() {
 	// TODO Auto-generated method stub
 	
 }

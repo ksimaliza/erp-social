@@ -247,7 +247,7 @@ public class InventarioController extends BaseController{
 	}
 
 	@Override
-	protected void refrescarFormulario() {
+	public void refrescarFormulario() {
 		// TODO Auto-generated method stub
 		
 	}

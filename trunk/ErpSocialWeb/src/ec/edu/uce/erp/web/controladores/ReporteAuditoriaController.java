@@ -90,7 +90,7 @@ public class ReporteAuditoriaController extends BaseController {
 	}
 
 	@Override
-	protected void refrescarFormulario() {
+	public void refrescarFormulario() {
 		// TODO Auto-generated method stub
 		
 	}

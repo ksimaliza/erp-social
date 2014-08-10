@@ -13,7 +13,8 @@
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
 			<p:toolbar id="toolbar">
 				<p:toolbarGroup align="left">
-					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
+					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" 
+						actionListener="#{proveedorController.refrescarFormulario}"/>
 					<p:commandButton id="btnNuevoProveedor" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoProveedor.show()"/>
 					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
 						image="exportExcel" disabled="#{empty proveedorDataManager.listaProveedor}">
