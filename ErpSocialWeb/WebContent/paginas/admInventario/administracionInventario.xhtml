@@ -13,7 +13,9 @@
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
 			<p:toolbar id="toolbar">
 				<p:toolbarGroup align="left">
-					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
+					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" 
+						actionListener="#{inventarioController.refrescarFormulario}" process="@this,pnlBuscarBien"
+						update="pnlMessages,tablaInventario,pnlBuscarBien,toolbar"/>
 					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
 						image="exportExcel" disabled="#{empty inventarioDataManager.listBien}">
 						<p:dataExporter type="xls" target="tablaInventario" fileName="inventario" postProcessor="#{inventarioController.postProcessXLS}"/>

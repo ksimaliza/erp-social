@@ -14,7 +14,9 @@
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
 			<p:toolbar id="toolbar">
 				<p:toolbarGroup align="left">
-					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" />
+					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" 
+						actionListener="#{bajasBienController.refrescarFormulario}" process="@this,pnlBuscarBien"
+						update="pnlMessages,tablaBienes,pnlBuscarBien,toolbar"/>
 					<!-- <p:commandButton id="btnNuevoBien" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoBien.show()"/> -->
 					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
 						icon="exportExcel" disabled="#{empty bajasBienDataManager.listVistaBien}">

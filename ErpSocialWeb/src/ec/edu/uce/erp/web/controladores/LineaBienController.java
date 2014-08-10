@@ -170,8 +170,7 @@ public class LineaBienController extends BaseController{
 
 	@Override
 	public void refrescarFormulario() {
-		// TODO Auto-generated method stub
-		
+		this.buscarLineaBien();
 	}
 	
 }

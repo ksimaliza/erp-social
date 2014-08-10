@@ -147,8 +147,7 @@ public class CategoriaBienController extends BaseController{
 
 	@Override
 	public void refrescarFormulario() {
-		// TODO Auto-generated method stub
-		
+		this.buscarCategoriaBien();
 	}
 
 }

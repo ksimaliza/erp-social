@@ -391,8 +391,7 @@ public class BienController extends BaseController{
 
 	@Override
 	public void refrescarFormulario() {
-		// TODO Auto-generated method stub
-		
+		this.buscarBienes();
 	}
 
 }

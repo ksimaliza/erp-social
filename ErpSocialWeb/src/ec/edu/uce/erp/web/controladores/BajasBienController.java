@@ -184,10 +184,7 @@ public class BajasBienController extends BaseController{
 
 	@Override
 	public void refrescarFormulario() {
-		// TODO Auto-generated method stub
-		
+		this.buscarVistaBien();
 	}
-
-
 	
 }
