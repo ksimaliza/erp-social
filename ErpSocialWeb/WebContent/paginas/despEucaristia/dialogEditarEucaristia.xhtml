@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpEditarEucaristia" header="#{i18n['erp.despacho.eucaristia.registrar']}" resizable="false" draggable="false"
+		widgetVar="dlgEditarEucaristia" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<h:form id="formEditarEucaristia" styleClass="formulario">
+			<p:panel id="pnlEditarEucaristia">
+				<table class="formulario">
+												
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFecha" value="#{i18n['erp.despacho.eucaristia.fecha']}" />
+						</td>
+						<td width="70%">
+							<p:calendar id="txtFecha" showOn="button"  value="#{eucaristiaDataManager.fecha}" pattern="MM/dd/yyyy HH:mm:ss"/>
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtIntencion" value="#{i18n['erp.despacho.eucaristia.intencion']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtIntencion" style="width: 100%"
+								required="true" value="#{eucaristiaDataManager.eucaristiaInsertar.eucIntencion}" />
+						</td>	
+					</tr>
+										
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.eucaristia.sacerdote']}"  /> </td>
+						<td width="70%"><p:selectOneMenu id="listboxSacerdote" value="#{eucaristiaDataManager.codigoSacerdote}" filter="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{eucaristiaController.eucaristiaDataManager.sacerdoteDTOs}" var="sacerdote" itemLabel="#{sacerdote.perNombres} #{sacerdote.perApellidos} "  itemValue="#{sacerdote.sacCodigo}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtValor" value="#{i18n['erp.despacho.eucaristia.valor']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtValor" style="width: 100%" onkeypress="return isNumberKey(event)"
+								 label="#{i18n['erp.despacho.eucaristia.valor']}" value="#{eucaristiaDataManager.eucaristiaInsertar.eucValor}" >
+						
+						</p:inputText>
+						</td>	
+					</tr>
+					
+					
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{eucaristiaController.registrarEucaristia}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarEucaristia.hide()"
+					process="@this,pnlEditarEucaristia" update="pnlEditarEucaristia,:formEucaristia:pnlMessages,:formEucaristia:tablaEucaristia"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarEucaristia.hide()" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>

@@ -52,6 +52,7 @@
 					<p:selectOneMenu id="estadocivil" value="#{defuncionDataManager.estadoCivilCodigo}" filter="true" required="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{defuncionController.defuncionDataManager.estadoCivils}" var="est" itemLabel="#{est.catDescripcion}" itemValue="#{est.catCodigo}"/>
+								<f:ajax render="txtCiConyuge,txtApeConyuge,txtNomConyuge" />
 					</p:selectOneMenu>
 					</td>
 					</tr> 
@@ -62,7 +63,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiConyuge" style="width: 70%" 
-								 required="true" value="#{defuncionDataManager.conyugeInsertar.perCi}" >
+								value="#{defuncionDataManager.conyugeInsertar.perCi}" >
 							<p:ajax event="blur" update="txtNomConyuge,txtApeConyuge" listener="#{defuncionController.buscarConyuge}" process="@this"/>
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
@@ -75,7 +76,7 @@
 							<h:outputLabel for="txtApeConyuge" value="#{i18n['erp.despacho.defuncion.apellidos.conyuge']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtApeConyuge" style="width: 70%" 
+							<p:inputText id="txtApeConyuge" style="width: 70%"  
 								 label="#{i18n['erp.despacho.defuncion.apellidos.conyuge']}" value="#{defuncionDataManager.conyugeInsertar.perApellidos}">
 						</p:inputText>
 						</td>	
@@ -106,6 +107,22 @@
 							</p:selectOneMenu>
 					</td>
 					</tr> 
+					
+					
+					<tr >
+						<td width="30%">
+						
+							<h:outputLabel value="#{i18n['erp.despacho.defuncion.doctor']}"  /> 
+						
+						</td>
+					<td width="70%">
+					<p:selectOneMenu id="doctor" value="#{defuncionDataManager.doctorCodigo}" filter="true" required="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{defuncionController.defuncionDataManager.doctorListDTO}" var="doc" itemLabel="#{doc.perNombres} #{doc.perApellidos}" itemValue="#{doc.docCodigo}"/>
+							</p:selectOneMenu>
+					</td>
+					</tr>
+					
 					
 					<tr>
 						<td width="30%">
