@@ -16,43 +16,36 @@
 							<h:outputLabel for="txtFecha" value="#{i18n['erp.despacho.eucaristia.fecha']}" />
 						</td>
 						<td width="70%">
-							<p:calendar showOn="button" pattern="yyyy/MM/dd"   value="#{eucaristiaDataManager.eucaristiaInsertar.eucFechaHora}" />
+							<p:calendar id="txtFecha" showOn="button"  value="#{eucaristiaDataManager.fecha}" pattern="MM/dd/yyyy HH:mm:ss"/>
 						</td>	
 					</tr>
-
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtHora" value="#{i18n['erp.despacho.eucaristia.hora']}" />
-						</td>
-						<td width="70%">
-							<p:inputMask id="txtHora" style="width: 100%"  required="true" mask="99:99" />
-						</td>	
-					</tr>
-			
+					
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtIntencion" value="#{i18n['erp.despacho.eucaristia.intencion']}" />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtIntencion" style="width: 100%"
-								required="true" />
+								required="true" value="#{eucaristiaDataManager.eucaristiaInsertar.eucIntencion}" />
 						</td>	
 					</tr>
+										
 					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtSacerdote" value="#{i18n['erp.despacho.eucaristia.sacerdote']}" />
-						</td>
-						<td>
-							<h:selectOneListbox for="listboxSacerdote" value="#{i18n['erp.despacho.eucaristia.sacerdote']}" />
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.eucaristia.sacerdote']}"  /> </td>
+						<td width="70%"><p:selectOneMenu id="listboxSacerdote" value="#{eucaristiaDataManager.codigoSacerdote}" filter="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{eucaristiaController.eucaristiaDataManager.sacerdoteDTOs}" var="sacerdote" itemLabel="#{sacerdote.perNombres} #{sacerdote.perApellidos} "  itemValue="#{sacerdote.sacCodigo}"/>
+							</p:selectOneMenu>
 						</td>
 					</tr>
+					
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtValor" value="#{i18n['erp.despacho.eucaristia.valor']}" />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtValor" style="width: 100%" onkeypress="return isNumberKey(event)"
-								 label="#{i18n['erp.despacho.eucaristia.valor']}">
+								 label="#{i18n['erp.despacho.eucaristia.valor']}" value="#{eucaristiaDataManager.eucaristiaInsertar.eucValor}" >
 						
 						</p:inputText>
 						</td>	
@@ -63,7 +56,8 @@
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEucaristia.hide()"
+					actionListener="#{eucaristiaController.registrarEucaristia}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaEucaristia.hide()"
 					process="@this,pnlNuevaEucaristia" update="pnlNuevaEucaristia,:formEucaristia:pnlMessages,:formEucaristia:tablaEucaristia"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaEucaristia.hide()" type="button" />
 			</p:panel>
