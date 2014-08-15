@@ -1,6 +1,8 @@
 package ec.edu.uce.erp.web.datamanager;
 
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -27,6 +29,9 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(EucaristiaData
 	private EucaristiaListDTO eucaristiaListDTO;
 	private int codigoSacerdote;
 	private List<SacerdoteListDTO> sacerdoteDTOs;
+	private Date Fecha;
+	private SacerdoteListDTO sacerdoteListDTO;
+
 	
 	
 	@PostConstruct
@@ -36,7 +41,9 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(EucaristiaData
 		this.sacerdoteDTOs=new ArrayList<SacerdoteListDTO>();
 		this.eucaristiaListDTO=new EucaristiaListDTO();
 		this.eucaristiaInsertar=new EucaristiaDTO();
-	
+		this.Fecha=new Date();
+		this.sacerdoteListDTO=new SacerdoteListDTO();
+		
 	}
 
 
@@ -87,6 +94,26 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(EucaristiaData
 
 	public void setSacerdoteDTOs(List<SacerdoteListDTO> sacerdoteDTOs) {
 		this.sacerdoteDTOs = sacerdoteDTOs;
+	}
+
+
+	public Date getFecha() {
+		return Fecha;
+	}
+
+
+	public void setFecha(Date fecha) {
+		Fecha = fecha;
+	}
+
+
+	public SacerdoteListDTO getSacerdoteListDTO() {
+		return sacerdoteListDTO;
+	}
+
+
+	public void setSacerdoteListDTO(SacerdoteListDTO sacerdoteListDTO) {
+		this.sacerdoteListDTO = sacerdoteListDTO;
 	}
 	
 	

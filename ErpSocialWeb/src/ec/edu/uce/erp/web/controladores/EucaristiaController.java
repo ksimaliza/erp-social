@@ -1,6 +1,9 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -57,7 +60,7 @@ private void init(){
 	buscarSacerdote();
 }
 
-public void registrarEucaristia () {
+public void registrarEucaristia () throws ParseException {
 	
 	slf4jLogger.info("registrarEucaristia");
 	EucaristiaVO eucaristiaVO;
@@ -67,15 +70,21 @@ public void registrarEucaristia () {
 		
 		eucaristiaVO= new EucaristiaVO();
 		sacerdoteDTO=new SacerdoteDTO();
+		
 		sacerdoteDTO.setSacCodigo(eucaristiaDataManager.getCodigoSacerdote());
+		
+		eucaristiaDataManager.getEucaristiaInsertar().setEucFechaHora(new Timestamp(eucaristiaDataManager.getFecha().getTime()));
 		
 		eucaristiaVO.setEucaristiaDTO(eucaristiaDataManager.getEucaristiaInsertar());
 		eucaristiaVO.setSacerdoteDTO(sacerdoteDTO);
-			
-		EucaristiaDTO eucaristiaNuevo= this.servicioEucaristia.createOrUpdateEucaristia(eucaristiaVO); 
 		
+		EucaristiaDTO eucaristiaNuevo= this.servicioEucaristia.createOrUpdateEucaristia(eucaristiaVO); 
 					
 		if (eucaristiaNuevo != null) {
+			eucaristiaDataManager.setEucaristiaInsertar(new EucaristiaDTO());
+			eucaristiaDataManager.setCodigoSacerdote(0);
+			eucaristiaDataManager.setFecha(new Date());
+						
 			MensajesWebController.aniadirMensajeInformacion("erp.despacho.eucaristia.registrar.exito");
 		}
 		
@@ -130,10 +139,10 @@ public void buscarSacerdote () {
 }
 
 
-
 public void cargarDatosEucaristia (EucaristiaListDTO eucaristiaListDTO) {
 	try {
 		EucaristiaVO eucaristiaEncontrado=servicioEucaristia.obtenerEucaristiaPorId(eucaristiaListDTO);
+		this.eucaristiaDataManager.setEucaristiaInsertar(eucaristiaEncontrado.getEucaristiaDTO());
 		this.eucaristiaDataManager.setCodigoSacerdote(eucaristiaEncontrado.getEucaristiaDTO().getEucSacerdoteBean().getSacCodigo());		
 						
 	} catch (SeguridadesException e) {
