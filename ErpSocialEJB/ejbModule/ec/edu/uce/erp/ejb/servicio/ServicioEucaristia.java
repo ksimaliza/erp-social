@@ -5,6 +5,8 @@ import java.util.List;
 import javax.ejb.Local;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
@@ -26,6 +28,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PrimeraComunionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.TipoNichoDTO;
+import ec.edu.uce.erp.ejb.persistence.vo.AutorizacionExhumacionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.BautizoVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ComunionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ConfirmacionVO;
@@ -151,6 +154,17 @@ public interface ServicioEucaristia {
 
 	EucaristiaVO obtenerEucaristiaPorId(EucaristiaListDTO eucaristiaListDTO)
 			throws SeguridadesException;
+
+	AutorizaExhumacionDTO createOrUpdateAutorizacion(
+			AutorizacionExhumacionVO autorizacionExhumacionVO)
+			throws SeguridadesException;
+
+	List<AutorizaExhumacionListDTO> buscarAutorizacion(
+			AutorizaExhumacionListDTO autorizaExhumacionListDTO)
+			throws SeguridadesException;
+
+	AutorizacionExhumacionVO obtenerAutorizacionPorId(Integer IdPersona,
+			Integer IdAutorizacion) throws SeguridadesException;
 
 
 }

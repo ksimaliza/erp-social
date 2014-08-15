@@ -2,6 +2,7 @@ package ec.edu.uce.erp.ejb.dao.factory;
 
 import javax.ejb.Local;
 
+import ec.edu.uce.erp.ejb.persistence.dao.AutorizacionExhumacionDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.BautizoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.CatalogoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ConfirmacionDAO;
@@ -47,5 +48,7 @@ public interface EucaristiaFactoryDAO {
 	DoctorDAO getDoctorDAOImpl();
 
 	CatalogoDAO getCatalogoDAOImpl();
+
+	AutorizacionExhumacionDAO getAutorizacionExhumacionDAOImpl();
 
 }

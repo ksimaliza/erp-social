@@ -12,6 +12,8 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.dao.factory.EucaristiaFactoryDAO;
 import ec.edu.uce.erp.ejb.dao.factory.FactoryDAO;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
@@ -33,6 +35,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PrimeraComunionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.TipoNichoDTO;
+import ec.edu.uce.erp.ejb.persistence.vo.AutorizacionExhumacionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.BautizoVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ComunionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ConfirmacionVO;
@@ -228,6 +231,7 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		return listBautizo;
 	}
 	
+	
 	@Override
 	public BautizoVO obtenerBautizoPorId(BautizoListDTO bautizoListDTO) throws SeguridadesException {
 		slf4jLogger.info("obtenerComunionPorId");
@@ -242,8 +246,6 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		
 		return bautizo;
 	}
-	
-	
 	
 	
 	@Override
@@ -784,16 +786,18 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		slf4jLogger.info("createOrUpdateEucaristia");
 		SacerdoteDTO sacerdoteDTO;
 		
+		
+		
 		try {
 			if(eucaristiaVO.getEucaristiaDTO().getEucCodigo()!=null){
-				sacerdoteDTO=eucaristiaFactoryDAO.getSacerdoteDAOImpl().find(eucaristiaVO.getEucaristiaDTO().getEucSacerdoteBean());
-				eucaristiaVO.setSacerdoteDTO(sacerdoteDTO);
+				sacerdoteDTO=eucaristiaFactoryDAO.getSacerdoteDAOImpl().find(eucaristiaVO.getSacerdoteDTO().getSacCodigo());
+				eucaristiaVO.getEucaristiaDTO().setEucSacerdoteBean(sacerdoteDTO);
 				
 				return eucaristiaFactoryDAO.getEucaristiaDAOImpl().update(eucaristiaVO.getEucaristiaDTO());
 			}
 			else {
-				sacerdoteDTO=eucaristiaFactoryDAO.getSacerdoteDAOImpl().find(eucaristiaVO.getEucaristiaDTO().getEucSacerdoteBean());
-				eucaristiaVO.setSacerdoteDTO(sacerdoteDTO);
+				sacerdoteDTO=eucaristiaFactoryDAO.getSacerdoteDAOImpl().find(eucaristiaVO.getSacerdoteDTO().getSacCodigo());
+				eucaristiaVO.getEucaristiaDTO().setEucSacerdoteBean(sacerdoteDTO);
 				
 				return eucaristiaFactoryDAO.getEucaristiaDAOImpl().create(eucaristiaVO.getEucaristiaDTO());
 				
@@ -834,6 +838,56 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		eucaristiaVO.setEucaristiaDTO(eucaristiaFactoryDAO.getEucaristiaDAOImpl().find(eucaristiaListDTO.getEucCodigo()));
 		
 		return eucaristiaVO;
+	}
+	
+	@Override
+	public AutorizaExhumacionDTO createOrUpdateAutorizacion(AutorizacionExhumacionVO autorizacionExhumacionVO) throws SeguridadesException
+	{
+		slf4jLogger.info("createOrUpdateAutorizacion");
+		Persona personaNueva;
+		try {
+		if(autorizacionExhumacionVO.getAutorizaExhumacionDTO().getAutCodigo()!=null){
+			personaNueva=factoryDAO.getPersonaDAOImpl().update(autorizacionExhumacionVO.getPersona());
+			return  eucaristiaFactoryDAO.getAutorizacionExhumacionDAOImpl().update(autorizacionExhumacionVO.getAutorizaExhumacionDTO());
+
+			
+		}
+		else{
+			personaNueva=factoryDAO.getPersonaDAOImpl().create(autorizacionExhumacionVO.getPersona());
+			autorizacionExhumacionVO.getAutorizaExhumacionDTO().setAutPersona(personaNueva.getPerPk());	
+			return eucaristiaFactoryDAO.getAutorizacionExhumacionDAOImpl().create(autorizacionExhumacionVO.getAutorizaExhumacionDTO());
+			
+		}
+		} catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdateAutorizacion {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+		
+	}
+	
+	@Override
+	public List<AutorizaExhumacionListDTO> buscarAutorizacion(AutorizaExhumacionListDTO autorizaExhumacionListDTO) throws SeguridadesException {
+		slf4jLogger.info("buscarAutorizacion");
+		List<AutorizaExhumacionListDTO> listAutorizacion = null;
+		try {
+			listAutorizacion = eucaristiaFactoryDAO.getAutorizacionExhumacionDAOImpl().obtenerAutorizacion(autorizaExhumacionListDTO);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarAutorizacion {}", e.getMessage());
+			throw new SeguridadesException("No se pudo buscarAutorizacion de la base de datos");
+		}
+		
+		return listAutorizacion;
+	}
+	
+	@Override
+	public AutorizacionExhumacionVO obtenerAutorizacionPorId(Integer IdPersona, Integer IdAutorizacion) throws SeguridadesException {
+		slf4jLogger.info("obtenerDoctorPorId");
+		AutorizacionExhumacionVO autorizacion=new AutorizacionExhumacionVO();
+		autorizacion.setAutorizaExhumacionDTO(eucaristiaFactoryDAO.getAutorizacionExhumacionDAOImpl().find(IdAutorizacion));
+		autorizacion.setPersona(factoryDAO.getPersonaDAOImpl().find(IdPersona));
+
+		return autorizacion;
 	}
 	
 	
