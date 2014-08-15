@@ -213,7 +213,9 @@ INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
     INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
     VALUES ('Despacho Doctor', 'Despacho Doctor', '/paginas/despDoctor/despachoDoctor.xhtml', '2014-06-06');    
     
-
+--Menu(48)
+    INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
+    VALUES ('Despacho Autoriza Exhumación', 'Despacho Autoriza Exhumacion', '/paginas/despAutorizaExhumacion/despachoAutorizaExhumacion.xhtml', '2014-06-06');  
    
 -- Inventario  
     
@@ -278,6 +280,7 @@ INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,36);
 INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,37);
 INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,46);   
 INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,47);   
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,503);
 
 ------Inventario
 INSERT INTO segt_modulo_menu(id_modulo, id_menu) VALUES (1, 1);
