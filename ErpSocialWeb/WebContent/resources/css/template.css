@@ -1,13 +1,23 @@
 @CHARSET "UTF-8";
 
-input[class=email] {
-	text-transform: lowercase;
-	font-style: italic;
-	font-weight: bold;
-}
-
 input[type=text] {
 	text-transform: uppercase !important;
+}
+
+textarea {
+	text-transform: uppercase !important;
+}
+
+input[class=url] {
+	text-transform: lowercase !important;
+	font-style: italic !important;
+	font-weight: bold !important;
+}
+
+input[class=email] {
+	text-transform: lowercase !important;
+	font-style: italic !important;
+	font-weight: bold!important;
 }
 
 /*****************************************************************
@@ -170,8 +180,7 @@ textarea {
 	resize: none;
 }
 
-textarea[disabled],input[type="text"][disabled],input[type="password"][disabled],select[disabled]
-	{
+textarea[disabled],input[type="text"][disabled],input[type="password"][disabled],select[disabled] {
 	color: #2E2E2E;
 }
 
@@ -184,9 +193,19 @@ textarea[disabled],input[type="text"][disabled],input[type="password"][disabled]
 	background: #ddd url(../img/exportExcel.gif) !important;
 }
 
+.exportPdf {
+	width: 16px;
+	height: 16px;
+	background: #ddd url(../img/pdf.gif) !important;
+}
+
 /*****************************************************************
  * ESTILOS DE PRIMEFACES
  ****************************************************************/
 .ui-widget {
 	font-size: 0.9em!important;
+}
+
+.ui-selectonemenu-label {
+	width: 100% !important;
 }

@@ -28,14 +28,15 @@
 						<td width="15%">
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.proveedor.nombre']}" /></td>
 						<td width="85%">
-							<p:inputText id="txtNombre" style="width: 50%"
-								value="#{proveedorDataManager.proveedorBuscar.provNombre}" />
+							<p:inputText id="txtNombre" style="width: 50%" onchange="toUpperCase(this)" onkeypress="toUpperCase(this)"
+								onblur="toUpperCase(this)" value="#{proveedorDataManager.proveedorBuscar.provNombre}" />
 						</td>
 					</tr>
 					<tr>
 						<td><h:outputLabel for="txtApellido" value="#{i18n['erp.proveedor.apellido']}" /></td>
 						<td>
 							<p:inputText id="txtApellido" style="width: 50%"
+								onchange="toUpperCase(this)" onkeypress="toUpperCase(this)"	onblur="toUpperCase(this)"
 								value="#{proveedorDataManager.proveedorBuscar.provApellido}" />
 						</td>
 					</tr>

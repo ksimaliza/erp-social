@@ -17,6 +17,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNombre" style="width: 100%" required="true"
+								onchange="toUpperCase(this)" onkeypress="toUpperCase(this)"	onblur="toUpperCase(this)"
 								value="#{proveedorDataManager.proveedorInstancia.provNombre}" label="#{i18n['erp.proveedor.nombre']}" />
 						</td>
 					</tr>
@@ -27,6 +28,7 @@
 						</td>
 						<td>
 							<p:inputText id="txtApellido" style="width: 100%" required="true"
+								onchange="toUpperCase(this)" onkeypress="toUpperCase(this)"	onblur="toUpperCase(this)"
 								value="#{proveedorDataManager.proveedorInstancia.provApellido}"  label="#{i18n['erp.proveedor.apellido']}" />
 						</td>
 					</tr>
@@ -65,6 +67,7 @@
 						</td>
 						<td>
 							<p:inputText id="txtDireccion" style="width: 100%" required="true"
+								onchange="toUpperCase(this)" onkeypress="toUpperCase(this)"	onblur="toUpperCase(this)"
 								value="#{proveedorDataManager.proveedorInstancia.provDireccion}"  label="#{i18n['erp.proveedor.direccion']}" />
 						</td>
 					</tr>
@@ -84,7 +87,7 @@
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
-							<p:inputText id="txtMail" style="width: 100%" required="true"
+							<p:inputText id="txtMail" style="width: 100%" required="true" styleClass="email" type="email"
 								value="#{proveedorDataManager.proveedorInstancia.provEmail}" label="#{i18n['label.email']}" >
 								<f:validator validatorId="ec.edu.uce.erp.web.validador.EmailValidator" />
 							</p:inputText>
@@ -95,9 +98,9 @@
 							<h:outputLabel for="txtNotas" value="#{i18n['erp.proveedor.notas']}" />
 						</td>
 						<td>
-							<p:inputText id="txtNotas" style="width: 100%" 
-								value="#{proveedorDataManager.proveedorInstancia.provNotas}" label="#{i18n['erp.proveedor.notas']}" >
-							</p:inputText>
+							<p:inputTextarea id="txtNotas" style="width: 100%" 
+								onchange="toUpperCase(this)" onkeypress="toUpperCase(this)"	onblur="toUpperCase(this)"
+								value="#{proveedorDataManager.proveedorInstancia.provNotas}" label="#{i18n['erp.proveedor.notas']}" />
 						</td>
 					</tr>
 				</table>
