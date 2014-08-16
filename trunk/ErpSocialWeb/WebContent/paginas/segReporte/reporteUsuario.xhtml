@@ -13,18 +13,13 @@
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
 			<p:toolbar id="toolbar">
 				<p:toolbarGroup align="left">
-					<!-- <p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
-						icon="exportExcel" disabled="#{empty vistaUsuarioDataManager.listVistaUsuario}">
-						<p:dataExporter type="xls" target="tablaUsuarios" fileName="usuarios" postProcessor="#{vistaUsuarioController.postProcessXLS}"/>
-					</p:commandButton> -->
 					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
 						actionListener="#{vistaUsuarioController.generarReporteUsuario(vistaUsuarioDataManager.formatoExcel)}"
 						icon="exportExcel" disabled="#{empty vistaUsuarioDataManager.listVistaUsuario}">
-						
 					</p:commandButton>
 					<p:commandButton id="btnPDF" value="#{i18n['label.exportar.pdf']}" ajax="false"
 						actionListener="#{vistaUsuarioController.generarReporteUsuario(vistaUsuarioDataManager.formatoPdf)}"
-						icon="pdf" disabled="#{empty vistaUsuarioDataManager.listVistaUsuario}">
+						icon="exportPdf" disabled="#{empty vistaUsuarioDataManager.listVistaUsuario}">
 					</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
