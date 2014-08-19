@@ -830,4 +830,20 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		
 		return lista;
 	}
+	
+	
+	@Override
+	public List<MatriculaVieDTO> readRepNivelParalelo(MatriculaVieDTO objectDTO) throws SeguridadesException
+	{
+		slf4jLogger.info("readRepNivelParalelo");
+		List<MatriculaVieDTO> lista = null;
+		try {
+			lista = matriculaFactoryDAO.getMatriculaVieDAOImpl().getRepNivelParalelo(objectDTO);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al readRepNivelParalelo {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener datos de la base de datos");
+		}
+		
+		return lista;
+	}
 }

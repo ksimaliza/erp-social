@@ -16,5 +16,8 @@ public interface MatriculaVieDAO extends AbstractFacade<MatriculaVieDTO>{
 	List<MatriculaVieDTO> getByAndDistinct(MatriculaVieDTO objectDTO)
 			throws SeguridadesException;
 
+	List<MatriculaVieDTO> getRepNivelParalelo(MatriculaVieDTO objectDTO)
+			throws SeguridadesException;
+
 	
 }
