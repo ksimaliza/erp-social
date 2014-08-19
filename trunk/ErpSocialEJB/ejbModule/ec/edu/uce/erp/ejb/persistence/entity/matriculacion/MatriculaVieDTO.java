@@ -161,9 +161,14 @@ public class MatriculaVieDTO implements Serializable {
 	public MatriculaVieDTO() {
 	}
 
-	public MatriculaVieDTO(String emrNombre, String nivDescaripcion,
-			String parDescripcion, String perApellidos, String perCi,
-			String perDescripcion, Date perFechaNac, String perNombres) {
+	public MatriculaVieDTO(String perCi,
+			String perApellidos, 
+			String perNombres,
+			String nivDescaripcion, 
+			String parDescripcion, 
+			String perDescripcion, 
+			Date perFechaNac,
+			String emrNombre) {
 		super();
 		this.emrNombre = emrNombre;
 		this.nivDescaripcion = nivDescaripcion;
