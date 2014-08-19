@@ -1,11 +1,15 @@
 package ec.edu.uce.erp.ejb.persistence.entity.matriculacion;
 
 import java.io.Serializable;
-
-import javax.persistence.*;
-
-import java.sql.Timestamp;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -149,8 +153,9 @@ public class MatriculaVieDTO implements Serializable {
 	@Column(name="reg_estudiante")
 	private Integer regEstudiante;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name="reg_fecha")
-	private Timestamp regFecha;
+	private Date regFecha;
 
 	@Column(name="reg_foto")
 	private String regFoto;
@@ -180,6 +185,26 @@ public class MatriculaVieDTO implements Serializable {
 		this.perNombres = perNombres;
 	}
 
+	public MatriculaVieDTO(Integer regCodigo,
+			String perCi,
+			String perApellidos, 
+			String perNombres,
+			String nivDescaripcion, 
+			String parDescripcion, 
+			Date regFecha,
+			String emrNombre) {
+		super();
+		this.regCodigo=regCodigo;
+		this.perCi = perCi;
+		this.perApellidos = perApellidos;
+		this.perNombres = perNombres;
+		this.nivDescaripcion = nivDescaripcion;
+		this.parDescripcion = parDescripcion;
+		this.regFecha=regFecha;
+		this.emrNombre = emrNombre;
+	}
+	
+	
 	
 	public Integer getAsiCodigo() {
 		return this.asiCodigo;
@@ -525,11 +550,11 @@ public class MatriculaVieDTO implements Serializable {
 		this.regEstudiante = regEstudiante;
 	}
 
-	public Timestamp getRegFecha() {
+	public Date getRegFecha() {
 		return this.regFecha;
 	}
 
-	public void setRegFecha(Timestamp regFecha) {
+	public void setRegFecha(Date regFecha) {
 		this.regFecha = regFecha;
 	}
 
