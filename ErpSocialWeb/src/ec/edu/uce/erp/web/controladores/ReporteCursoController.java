@@ -125,6 +125,28 @@ public class ReporteCursoController extends BaseController{
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 	}
+	
+	
+	public void exportar()
+	{
+		MatriculaVieDTO vie;
+		try {
+			vie=new MatriculaVieDTO();
+			vie.setNpaNivel(reporteCursoDataManager.getNivelCodigo());
+			vie.setNpaParalelo(reporteCursoDataManager.getParaleloCodigo());
+			
+			List<MatriculaVieDTO> list= servicioMatricula.readRepNivelParalelo(vie);
+			
+			Map<String, Object> mapParametros = new HashMap<String, Object>();
+			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
+						
+			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), list, "reporteEstudiante", mapParametros);
+			ReporteUtil.generarReporte(jasperPrint, this.reporteCursoDataManager.getFormatoPdf(), "reporteEstudiante");
+
+		} catch (SeguridadesException e) {
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+	}
 
 	@Override
 	public void refrescarFormulario() {
