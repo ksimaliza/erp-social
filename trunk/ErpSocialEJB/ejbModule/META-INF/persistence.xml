@@ -141,6 +141,7 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaVieDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionListDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ExumacionListDTO</class>
 		<properties>
 			<property name="hibernate.connection.username" value="postgres" />
 			<property name="hibernate.connection.password" value="root" />

@@ -19,6 +19,8 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ExumacionDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ExumacionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoDTO;
@@ -35,6 +37,7 @@ import ec.edu.uce.erp.ejb.persistence.vo.ConfirmacionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.DefuncionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.DoctorVO;
 import ec.edu.uce.erp.ejb.persistence.vo.EucaristiaVO;
+import ec.edu.uce.erp.ejb.persistence.vo.ExhumacionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.MatrimonioVO;
 import ec.edu.uce.erp.ejb.persistence.vo.SacerdoteVO;
 
@@ -165,6 +168,15 @@ public interface ServicioEucaristia {
 
 	AutorizacionExhumacionVO obtenerAutorizacionPorId(Integer IdPersona,
 			Integer IdAutorizacion) throws SeguridadesException;
+
+	ExumacionDTO createOrUpdateExhumacion(ExhumacionVO exhumacionVO)
+			throws SeguridadesException;
+
+	List<ExumacionListDTO> buscarExhumacion(ExumacionListDTO exumacionListDTO)
+			throws SeguridadesException;
+
+	ExhumacionVO obtenerExhumacionPorId(ExumacionListDTO exumacionListDTO)
+			throws SeguridadesException;
 
 
 }

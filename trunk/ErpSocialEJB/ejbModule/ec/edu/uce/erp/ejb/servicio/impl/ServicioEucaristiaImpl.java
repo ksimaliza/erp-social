@@ -26,6 +26,8 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ExumacionDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ExumacionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoDTO;
@@ -42,6 +44,7 @@ import ec.edu.uce.erp.ejb.persistence.vo.ConfirmacionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.DefuncionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.DoctorVO;
 import ec.edu.uce.erp.ejb.persistence.vo.EucaristiaVO;
+import ec.edu.uce.erp.ejb.persistence.vo.ExhumacionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.MatrimonioVO;
 import ec.edu.uce.erp.ejb.persistence.vo.SacerdoteVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -889,6 +892,73 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 
 		return autorizacion;
 	}
+	
+	@Override
+	public ExumacionDTO createOrUpdateExhumacion(ExhumacionVO exhumacionVO) throws SeguridadesException
+	{
+		slf4jLogger.info("createOrUpdateExhumacion");
+		Persona difuntoPersona;
+		AutorizaExhumacionDTO autorizaExhumacionDTO;
+				 
+		List<Persona> listPersona;
+			
+		try {
+			difuntoPersona = exhumacionVO.getDifunto();
+			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(difuntoPersona);
+			if(listPersona.size()<=0)
+				difuntoPersona=factoryDAO.getPersonaDAOImpl().create(difuntoPersona);
+			else
+				difuntoPersona=listPersona.get(0);
+			
+									
+			if(exhumacionVO.getExumacionDTO().getExuCodigo()!=null){
+				autorizaExhumacionDTO=eucaristiaFactoryDAO.getAutorizacionExhumacionDAOImpl().find(exhumacionVO.getAutorizaExhumacionDTO().getAutCodigo());
+				exhumacionVO.getExumacionDTO().setExuAutoriza(autorizaExhumacionDTO.getAutCodigo());
+						
+				return  eucaristiaFactoryDAO.getExumacionDAOImpl().update(exhumacionVO.getExumacionDTO());
+			}
+			else{
+				autorizaExhumacionDTO=eucaristiaFactoryDAO.getAutorizacionExhumacionDAOImpl().find(exhumacionVO.getAutorizaExhumacionDTO().getAutCodigo());
+				exhumacionVO.getExumacionDTO().setExuAutoriza(autorizaExhumacionDTO.getAutCodigo());
+						
+				return  eucaristiaFactoryDAO.getExumacionDAOImpl().create(exhumacionVO.getExumacionDTO());
+				
+			}
+		} catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdateExhumacion {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+		
+	}
+	
+	@Override
+	public List<ExumacionListDTO> buscarExhumacion(ExumacionListDTO exumacionListDTO) throws SeguridadesException {
+		slf4jLogger.info("buscarExhumacion");
+		List<ExumacionListDTO> listExhumacion = null;
+		try {
+			listExhumacion=eucaristiaFactoryDAO.getExumacionDAOImpl().obtenerExhumacion(exumacionListDTO);
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarExhumacion {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener buscarExhumacion de la base de datos");
+		}
+		
+		return listExhumacion;
+	}
+	
+	@Override
+	public ExhumacionVO obtenerExhumacionPorId(ExumacionListDTO exumacionListDTO) throws SeguridadesException {
+		slf4jLogger.info("obtenerExhumacionPorId");
+		
+		ExhumacionVO exhumacion=new ExhumacionVO();
+		exhumacion.setDifunto(factoryDAO.getPersonaDAOImpl().find(exumacionListDTO.getExuDifunto()));
+		exhumacion.setExumacionDTO(eucaristiaFactoryDAO.getExumacionDAOImpl().find(exumacionListDTO.getExuCodigo()));
+		
+		return exhumacion;
+	}
+	
+
 	
 	
 		
