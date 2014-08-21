@@ -12,13 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ExumacionDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ExumacionListDTO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 @SessionScoped
@@ -32,48 +28,160 @@ public class ExhumacionDataManager extends BaseDataManager {
 	
 	private  Persona difuntoInsertar;
 	private ExumacionDTO exumacionDTO;
-	private List<ExumacionDTO> exumacionDTOs;
-	private Date fechaExumacion;
-	private Date fechaCepelio;
-	private int provinciaCodigo;
-	private int cantonCodigo;
-	private int parroquiaCodigo;
-	private List<CatalogoEucaristiaDTO> catalogoEucaristiaDTOs;
-
-		
-	private List<Persona> bautizadoListDTO;
-	
-	private BautizoDTO bautizoDTO;
-	
-	private int sacerdoteCodigo;
-	private int doctorCodigo;
-	private int estadoCodigo;
-	private List<SacerdoteListDTO> sacerdoteListDTO;
-	private List<DoctorListDTO> doctorListDTO;
-	private List<CatalogoEucaristiaDTO> provinciasEucaristiaDTOs;
-	private List<CatalogoEucaristiaDTO> cantonEucaristiaDTOs;
-	private List<CatalogoEucaristiaDTO> parroquiaEucaristiaDTOs;
-	private List<CatalogoEucaristiaDTO> estadoEucaristiaDTOs;
+	private List<ExumacionListDTO> exumacionListDTOs;
+	private Date fechaExhumacion;
+	private Date fechaSepelio;
+	private int autorizaCodigo;
+	private ExumacionListDTO exumacionListDTO;
+	private List<AutorizaExhumacionListDTO> autorizaExhumacionListDTOs;
 	
 	
-	/*
+	
+	
+	
 	@PostConstruct
 	public void inicializarObjetos () {
 		
 		slf4jLogger.info("inicializarObjetos");
-		this.bautizadoInsertar = new Persona();		
-		this.madrinaInsertar= new Persona();
-		this.padrinoInsertar= new Persona();
-		this.bautizoDTOs = new ArrayList<BautizoDTO>();
-		fechaBautizoInsertar=new Date();
-		fechaApCInsertar=new Date();
-		bautizoDTO=new BautizoDTO();
-		this.bautizadoListDTO=new ArrayList<Persona>();
-		this.bautizoListDTO=new BautizoListDTO();
-		this.bautizoListDTOs=new ArrayList<BautizoListDTO>();
-		this.catalogoEucaristiaDTOs=new ArrayList<CatalogoEucaristiaDTO>();		
+		this.difuntoInsertar = new Persona();		
+		this.exumacionDTO= new ExumacionDTO();
+		this.exumacionListDTO= new ExumacionListDTO();
+		this.autorizaExhumacionListDTOs = new ArrayList<AutorizaExhumacionListDTO>();
+		fechaExhumacion=new Date();
+		fechaSepelio=new Date();
+		this.exumacionListDTOs= new ArrayList<ExumacionListDTO>();		
 			
 	}
+
+
+
+
+
+	public Persona getDifuntoInsertar() {
+		return difuntoInsertar;
+	}
+
+
+
+
+
+	public void setDifuntoInsertar(Persona difuntoInsertar) {
+		this.difuntoInsertar = difuntoInsertar;
+	}
+
+
+
+
+
+	public ExumacionDTO getExumacionDTO() {
+		return exumacionDTO;
+	}
+
+
+
+
+
+	public void setExumacionDTO(ExumacionDTO exumacionDTO) {
+		this.exumacionDTO = exumacionDTO;
+	}
+
+
+
+
+
+	public List<ExumacionListDTO> getExumacionListDTOs() {
+		return exumacionListDTOs;
+	}
+
+
+
+
+
+	public void setExumacionListDTOs(List<ExumacionListDTO> exumacionListDTOs) {
+		this.exumacionListDTOs = exumacionListDTOs;
+	}
+
+
+
+
+
+	public Date getFechaExhumacion() {
+		return fechaExhumacion;
+	}
+
+
+
+
+
+	public void setFechaExhumacion(Date fechaExhumacion) {
+		this.fechaExhumacion = fechaExhumacion;
+	}
+
+
+
+
+
+	public Date getFechaSepelio() {
+		return fechaSepelio;
+	}
+
+
+
+
+
+	public void setFechaSepelio(Date fechaSepelio) {
+		this.fechaSepelio = fechaSepelio;
+	}
+
+
+
+
+
+	public int getAutorizaCodigo() {
+		return autorizaCodigo;
+	}
+
+
+
+
+
+	public void setAutorizaCodigo(int autorizaCodigo) {
+		this.autorizaCodigo = autorizaCodigo;
+	}
+
+
+
+
+
+	public ExumacionListDTO getExumacionListDTO() {
+		return exumacionListDTO;
+	}
+
+
+
+
+
+	public void setExumacionListDTO(ExumacionListDTO exumacionListDTO) {
+		this.exumacionListDTO = exumacionListDTO;
+	}
+
+
+
+
+
+	public List<AutorizaExhumacionListDTO> getAutorizaExhumacionListDTOs() {
+		return autorizaExhumacionListDTOs;
+	}
+
+
+
+
+
+	public void setAutorizaExhumacionListDTOs(
+			List<AutorizaExhumacionListDTO> autorizaExhumacionListDTOs) {
+		this.autorizaExhumacionListDTOs = autorizaExhumacionListDTOs;
+	}
 	
-*/
+
+	
 }

@@ -115,6 +115,12 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(AutorizaExhuma
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosAutoriza seleccionado");
 		}
 	}
+
+	@Override
+	public void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
 
