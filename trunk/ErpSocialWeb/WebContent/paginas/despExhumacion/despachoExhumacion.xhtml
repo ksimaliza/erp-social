@@ -25,12 +25,28 @@
 			</p:toolbar>
 			<p:panel id="pnlBuscarExhumacion" header="#{i18n['erp.despacho.exhumacion.buscar']}">
 				<table class="formulario">
+					
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtNombre" value="#{i18n['erp.despacho.exhumacion.nombres']}" />
+							<h:outputLabel for="txtCi" value="#{i18n['erp.despacho.exhumacion.cedula']}" />
+						</td>
+						<td >
+							<p:inputText id="txtCi" 
+								  value="#{exhumacionDataManager.difuntoInsertar.perCi}" >
+							<f:validateLength maximum="10" minimum="10"/>
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+						</p:inputText>
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.despacho.exhumacion.nombres']}" 
+							 />
 						</td>
 						<td>
-							<h:inputText for="txtNombre" label="#{i18n['erp.despacho.exhumacion.nombres']}" />
+							<h:inputText for="txtNombre" label="#{i18n['erp.despacho.exhumacion.nombres']}"  
+							value="#{exhumacionDataManager.difuntoInsertar.perNombres}"/>
 						</td>
 					</tr>
 					<tr>
@@ -38,14 +54,16 @@
 							<h:outputLabel for="txtApe" value="#{i18n['erp.despacho.exhumacion.apellidos']}" />
 						</td>
 						<td>
-							<h:inputText for="txtApe" label="#{i18n['erp.despacho.exhumacion.apellidos']}" />
+							<h:inputText for="txtApe" label="#{i18n['erp.despacho.exhumacion.apellidos']}" 
+							value="#{exhumacionDataManager.difuntoInsertar.perApellidos}"/>
 						</td>
 					</tr>
 				</table>
 			</p:panel>
+			
 <p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
-					
+					actionListener="#{exhumacionController.buscarExhumacion}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarExhumacion"
 					update=":formExhumacion:pnlMessages,tablaExhumacion,pnlBuscarExhumacion " />
@@ -53,7 +71,7 @@
 
 
 <p:dataTable id="tablaExhumacion"
-	
+	value="#{exhumacionDataManager.exumacionListDTOs}" var="exhumacion"
 	rowIndexVar="rowIndex"
 	paginator="true" rows="5" paginatorPosition="bottom"
 	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -65,31 +83,31 @@
 		#{rowIndex+1}
 	</p:column>
 	<p:column headerText="#{i18n['erp.despacho.exhumacion.cedula']}" width="35%">
-					<h:outputText  />
+					<h:outputText value="#{exhumacion.perCi}"  />
 				</p:column>
 				<p:column headerText="#{i18n['erp.despacho.exhumacion.nombres']}" width="40%">
-					<h:outputText  />
-				</p:column>
+					<h:outputText   value="#{exhumacion.perNombres}"/>
+				</p:column> 
 				<p:column headerText="#{i18n['erp.despacho.exhumacion.apellidos']}" width="40%">
-					<h:outputText  />
+					<h:outputText  value="#{exhumacion.perApellidos}" />
 				</p:column>
 				<p:column headerText="#{i18n['erp.despacho.exhumacion.fecha.exhumacion']}" width="40%">
-					<h:outputText  />
+					<h:outputText  value="#{exhumacion.exuFechaExhumacion}" />
 				</p:column>
 				<p:column headerText="#{i18n['erp.despacho.exhumacion.fecha.cepelio']}" width="40%">
-					<h:outputText  />
+					<h:outputText value="#{exhumacion.exuFechaCepelio}"  />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.exhumacion.tomo']}" width="40%">
-					<h:outputText  />
+					<h:outputText value="#{exhumacion.exuTomo}"  />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.exhumacion.acta']}" width="40%">
-					<h:outputText  />
+					<h:outputText  value="#{exhumacion.exuActa}" />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.exhumacion.pagina']}" width="40%">
-					<h:outputText  />
+					<h:outputText  value="#{exhumacion.exuPagina}"  />
 				</p:column>
 			
 			<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
@@ -97,7 +115,7 @@
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarExhumacion.show()"
-							
+							actionListener="#{exhumacionController.cargarDatosExhumacion(exhumacion)}"
 							process="@this" update=":formEditarExhumacion:pnlEditarExhumacion">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
@@ -107,7 +125,7 @@
 	
 	</h:form>			
 		<ui:include src="dialogNuevaExhumacion.xhtml" />
-		
+		<ui:include src="dialogEditarExhumacion.xhtml" />
 		
 </ui:define>		
 	

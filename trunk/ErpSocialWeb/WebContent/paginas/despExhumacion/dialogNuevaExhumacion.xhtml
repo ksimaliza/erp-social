@@ -11,15 +11,16 @@
 			<p:panel id="pnlNuevaExhumacion">
 				<table class="formulario">
 												
-						<tr>
+					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtCi" value="#{i18n['erp.despacho.exhumacion.cedula']}" />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCi" style="width: 70%" 
-								 required="true" >
+								 required="true" value="#{exhumacionDataManager.difuntoInsertar.perCi}" >
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+							<p:ajax event="blur" update="txtNombres,txtApellidos" listener="#{exhumacionController.buscarDifunto()}" process="@this"/>
 						</p:inputText>
 						</td>	
 					</tr>
@@ -29,26 +30,36 @@
 							<h:outputLabel for="txtNombres" value="#{i18n['erp.despacho.exhumacion.nombres']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNombres" label="#{i18n['erp.despacho.exhumacion.nombres']}" style="width: 70%"/>
+							<p:inputText id="txtNombres" label="#{i18n['erp.despacho.exhumacion.nombres']}" style="width: 70%" 
+							value="#{exhumacionDataManager.difuntoInsertar.perNombres}"/>
 						</td>
 					</tr>
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtApellidos" value="#{i18n['erp.despacho.exhumacion.apellidos']}" />
+							<h:outputLabel for="txtApellidos" value="#{i18n['erp.despacho.exhumacion.apellidos']}" 
+							 />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtApellidos" label="#{i18n['erp.despacho.exhumacion.apellidos']}" style="width: 70%" />
+							<p:inputText id="txtApellidos" label="#{i18n['erp.despacho.exhumacion.apellidos']}" style="width: 70%"
+							value="#{exhumacionDataManager.difuntoInsertar.perApellidos}" />
 						</td>
 					</tr>
 					
-					<tr>
+					
+					<tr >
 						<td width="30%">
-							<h:outputLabel for="txtAutorizacion" value="#{i18n['erp.despacho.exhumacion.autorizacion']}" />
+						
+							<h:outputLabel value="#{i18n['erp.despacho.exhumacion.autorizacion']}"  /> 
+						
 						</td>
-						<td width="70%">
-							<p:inputText id="ListBoxAutorizacion" label="#{i18n['erp.despacho.exhumacion.autorizacion']}" style="width: 70%" />
-						</td>
+					<td width="70%">
+					<p:selectOneMenu id="autoriza" value="#{exhumacionDataManager.autorizaCodigo}" filter="true" required="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{exhumacionController.exhumacionDataManager.autorizaExhumacionListDTOs}" var="aut" itemLabel="#{aut.perNombres} #{aut.perApellidos}" itemValue="#{aut.autCodigo}"/>
+							</p:selectOneMenu>
+					</td>
 					</tr>
+					
 					
 					<tr>
 						<td width="30%">
@@ -56,7 +67,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCausa" style="width: 70%" 
-								 label="#{i18n['erp.despacho.exhumacion.causa']}">
+								 label="#{i18n['erp.despacho.exhumacion.causa']}" value="#{exhumacionDataManager.exumacionDTO.exuCausa}">
 						</p:inputText>
 						</td>	
 					</tr>
@@ -65,10 +76,10 @@
 										
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtFechaCepelio" value="#{i18n['erp.despacho.exhumacion.fecha.cepelio']}" />
+							<h:outputLabel for="txtFechaSepelio" value="#{i18n['erp.despacho.exhumacion.fecha.cepelio']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFechaCepelio" style="width: 70%" navigator="true"   showOn="button" required="true"/>
+							<p:calendar id="txtFechaSepelio" style="width: 70%" navigator="true"   showOn="button" required="true" value="#{exhumacionDataManager.fechaSepelio}"/>
 						</td>
 					</tr>
 					
@@ -77,7 +88,7 @@
 							<h:outputLabel for="txtFechaExhumacion" value="#{i18n['erp.despacho.exhumacion.fecha.exhumacion']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFechaExhumacion" style="width: 70%" navigator="true"   showOn="button" required="true"/>
+							<p:calendar id="txtFechaExhumacion" style="width: 70%" navigator="true"   showOn="button" required="true" value="#{exhumacionDataManager.fechaExhumacion}"/>
 						</td>
 					</tr>
 						
@@ -87,7 +98,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtTomo" style="width: 70%" 
-								 label="#{i18n['erp.despacho.exhumacion.tomo']}">
+								 label="#{i18n['erp.despacho.exhumacion.tomo']}" value="#{exhumacionDataManager.exumacionDTO.exuTomo}">
 						</p:inputText>
 						</td>	
 					</tr>
@@ -98,7 +109,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtActa" style="width: 70%" 
-								 label="#{i18n['erp.despacho.exhumacion.acta']}">
+								 label="#{i18n['erp.despacho.exhumacion.acta']}" value="#{exhumacionDataManager.exumacionDTO.exuActa}">
 						</p:inputText>
 						</td>	
 					</tr>
@@ -109,7 +120,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtPagina" style="width: 70%" 
-								onkeypress="return isNumberKey(event)" label="#{i18n['erp.despacho.exhumacion.pagina']}">
+								onkeypress="return isNumberKey(event)" label="#{i18n['erp.despacho.exhumacion.pagina']}" value="#{exhumacionDataManager.exumacionDTO.exuPagina}" >
 						</p:inputText>
 						</td>	
 					</tr>
@@ -118,7 +129,8 @@
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgExhumacion.hide()"
+					actionListener="#{exhumacionController.registrarExhumacion}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaExhumacion.hide()"
 					process="@this,pnlNuevaExhumacion" update="pnlNuevaExhumacion,:formExhumacion:pnlMessages,:formExhumacion:tablaExhumacion"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaExhumacion.hide()" type="button" />
 			</p:panel>
