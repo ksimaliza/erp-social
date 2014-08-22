@@ -201,9 +201,7 @@ public class ExhumacionController extends BaseController{
 	}
 	
 	
-	
-
-	
+		
 	
 	@Override
 	public void refrescarFormulario() {
