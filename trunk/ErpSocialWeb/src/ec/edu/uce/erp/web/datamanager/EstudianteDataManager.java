@@ -1,6 +1,7 @@
 package ec.edu.uce.erp.web.datamanager;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -32,6 +33,8 @@ public class EstudianteDataManager extends BaseDataManager {
 		private Persona estudiantePersonaEditar;
 		private Persona estudiantePersonaBuscar;
 		private int estadoCodigo;
+		
+		private Date fechaInsertar;
 				
 		@PostConstruct
 		public void inicializarObjetos () {
@@ -45,6 +48,8 @@ public class EstudianteDataManager extends BaseDataManager {
 			this.estudiantePersonaInsertar=new Persona();
 			this.estudiantePersonaEditar=new Persona();
 			this.estudiantePersonaBuscar=new Persona();
+			
+			this.fechaInsertar=new  Date();
 			
 				
 		}
@@ -116,6 +121,13 @@ public class EstudianteDataManager extends BaseDataManager {
 			this.estadoCodigo = estadoCodigo;
 		}
 
+		public Date getFechaInsertar() {
+			return fechaInsertar;
+		}
+
+		public void setFechaInsertar(Date fechaInsertar) {
+			this.fechaInsertar = fechaInsertar;
+		}
 		
 
 
