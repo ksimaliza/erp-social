@@ -26,19 +26,7 @@
 			<p:panel id="pnlBuscarExhumacion" header="#{i18n['erp.despacho.exhumacion.buscar']}">
 				<table class="formulario">
 					
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtCi" value="#{i18n['erp.despacho.exhumacion.cedula']}" />
-						</td>
-						<td >
-							<p:inputText id="txtCi" 
-								  value="#{exhumacionDataManager.difuntoInsertar.perCi}" >
-							<f:validateLength maximum="10" minimum="10"/>
-							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-						</p:inputText>
-						</td>	
-					</tr>
-					
+									
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.despacho.exhumacion.nombres']}" 
@@ -46,7 +34,7 @@
 						</td>
 						<td>
 							<h:inputText for="txtNombre" label="#{i18n['erp.despacho.exhumacion.nombres']}"  
-							value="#{exhumacionDataManager.difuntoInsertar.perNombres}"/>
+							value="#{exhumacionDataManager.exumacionListDTO.perNombres}"/>
 						</td>
 					</tr>
 					<tr>
@@ -55,7 +43,7 @@
 						</td>
 						<td>
 							<h:inputText for="txtApe" label="#{i18n['erp.despacho.exhumacion.apellidos']}" 
-							value="#{exhumacionDataManager.difuntoInsertar.perApellidos}"/>
+							value="#{exhumacionDataManager.exumacionListDTO.perApellidos}"/>
 						</td>
 					</tr>
 				</table>
@@ -67,11 +55,11 @@
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarExhumacion"
 					update=":formExhumacion:pnlMessages,tablaExhumacion,pnlBuscarExhumacion " />
-			</p:panel>
+</p:panel>
 
 
 <p:dataTable id="tablaExhumacion"
-	value="#{exhumacionDataManager.exumacionListDTOs}" var="exhumacion"
+	value="#{exhumacionDataManager.exumacionListDTO}" var="exhumacion"
 	rowIndexVar="rowIndex"
 	paginator="true" rows="5" paginatorPosition="bottom"
 	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
