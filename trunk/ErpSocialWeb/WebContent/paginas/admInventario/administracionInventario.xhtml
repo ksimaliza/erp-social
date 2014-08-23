@@ -114,6 +114,18 @@
 				</p:column>
 				<p:column width="10%">
 					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.bien.codigo']}" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.bieCodigo}" />
+				</p:column>
+				<p:column width="15%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.bien.nombre']}" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.bieNombre}" />
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.categoria']}" />
 					</f:facet>
 					<h:outputText value="#{vistaBien.catBienNombre}" />
@@ -142,6 +154,12 @@
 					</f:facet>
 					<h:outputText value="#{vistaBien.bieColor}" />
 				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="Tipo Movimiento" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.tipoIngresoBien}" />
+				</p:column>
 				<p:column width="10%" styleClass="centered">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['label.estado']}" />
@@ -154,11 +172,11 @@
 					</f:facet>
 					<h:outputText value="#{vistaBien.bieEstadoUso eq inventarioDataManager.estadoActivo ? i18n['label.si']:i18n['label.no']}" />
 				</p:column>
-				<p:column width="15%">
+				<p:column width="10%">
 					<f:facet name="header">
-						<h:outputText value="#{i18n['erp.bien.nombre']}" />
+						<h:outputText value="#{i18n['erp.bien.estado.conservacion']}" />
 					</f:facet>
-					<h:outputText value="#{vistaBien.bieNombre}" />
+					<h:outputText value="#{vistaBien.estadoConservacionBien}" />
 				</p:column>
 				<!-- <p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%" exportable="false">
 					solo se debe editar bienes activos

@@ -140,6 +140,12 @@ public class VistaBien extends AuditoriaUtil implements Serializable {
 	@Column(name="tra_fecha_inicio")
 	private Timestamp traFechaInicio;
 	
+	@Column(name="tipo_ingreso_bien")
+	private String tipoIngresoBien;
+	
+	@Column(name="estado_conservacion_bien")
+	private String estadoConservacionBien;
+	
 	@Transient
 	@Temporal(TemporalType.DATE)
 	private Date bieFechaReasig;
@@ -659,6 +665,34 @@ public class VistaBien extends AuditoriaUtil implements Serializable {
 	 */
 	public void setNpColBiePk(Collection<Integer> npColBiePk) {
 		this.npColBiePk = npColBiePk;
+	}
+
+	/**
+	 * @return the tipoIngresoBien
+	 */
+	public String getTipoIngresoBien() {
+		return tipoIngresoBien;
+	}
+
+	/**
+	 * @param tipoIngresoBien the tipoIngresoBien to set
+	 */
+	public void setTipoIngresoBien(String tipoIngresoBien) {
+		this.tipoIngresoBien = tipoIngresoBien;
+	}
+
+	/**
+	 * @return the estadoConservacionBien
+	 */
+	public String getEstadoConservacionBien() {
+		return estadoConservacionBien;
+	}
+
+	/**
+	 * @param estadoConservacionBien the estadoConservacionBien to set
+	 */
+	public void setEstadoConservacionBien(String estadoConservacionBien) {
+		this.estadoConservacionBien = estadoConservacionBien;
 	}
 
 }
