@@ -79,13 +79,14 @@ public class ExhumacionController extends BaseController{
 			exhumacionVO=new ExhumacionVO();
 			autorizaExhumacionDTO=new AutorizaExhumacionDTO();
 			
+			
 			exhumacionVO.setDifunto(exhumacionDataManager.getDifuntoInsertar());
+			
+			exhumacionVO.setExumacionDTO(exhumacionDataManager.getExumacionDTO());			
 			
 			autorizaExhumacionDTO.setAutCodigo(exhumacionDataManager.getAutorizaCodigo());
 			
 			exhumacionVO.setAutorizaExhumacionDTO(autorizaExhumacionDTO);
-			
-			exhumacionVO.setExumacionDTO(exhumacionDataManager.getExumacionDTO());			
 			
 			exhumacionVO.getExumacionDTO().setExuFechaExhumacion(new Timestamp(exhumacionDataManager.getFechaExhumacion().getTime()));
 			exhumacionVO.getExumacionDTO().setExuFechaCepelio(new Timestamp(exhumacionDataManager.getFechaSepelio().getTime()));
@@ -191,7 +192,7 @@ public class ExhumacionController extends BaseController{
 			
 			ExhumacionVO exhumacionEncontrado=servicioEucaristia.obtenerExhumacionPorId(exhumacion);
 			this.exhumacionDataManager.setDifuntoInsertar(exhumacionEncontrado.getDifunto());
-			this.exhumacionDataManager.setAutorizaCodigo(exhumacionEncontrado.getAutorizaExhumacionDTO().getAutCodigo());
+			this.exhumacionDataManager.setAutorizaCodigo(exhumacionEncontrado.getExumacionDTO().getExuAutoriza());
 			this.exhumacionDataManager.setExumacionDTO(exhumacionEncontrado.getExumacionDTO());
 							
 		} catch (SeguridadesException e) {
