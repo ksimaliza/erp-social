@@ -7,6 +7,7 @@
 	
 	<p:dialog id="popUpEditarDefuncion" header="#{i18n['erp.despacho.defuncion.registrar']}" resizable="false" draggable="false"
 		widgetVar="dlgEditarDefuncion" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<p:scrollPanel style="height:500px" mode="native">
 		<h:form id="formEditarDefuncion" styleClass="formulario">
 			<p:panel id="pnlEditarDefuncion">
 				<table class="formulario">
@@ -52,17 +53,22 @@
 					<p:selectOneMenu id="estadocivil" value="#{defuncionDataManager.estadoCivilCodigo}" filter="true" required="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{defuncionController.defuncionDataManager.estadoCivils}" var="est" itemLabel="#{est.catDescripcion}" itemValue="#{est.catCodigo}"/>
+								<f:ajax render="pnlConyuge" />
 					</p:selectOneMenu>
 					</td>
 					</tr> 
-					
+				</table>
+			</p:panel>			
+			<p:panel id="pnlConyuge" visible="#{defuncionDataManager.estadoCivilCodigo.toString()=='16'}">
+				<table class="formulario">
+		
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtCiConyuge" value="#{i18n['erp.despacho.defuncion.cedula.conyuge']}" />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiConyuge" style="width: 70%" 
-								 required="true" value="#{defuncionDataManager.conyugeInsertar.perCi}" >
+								value="#{defuncionDataManager.conyugeInsertar.perCi}" >
 							<p:ajax event="blur" update="txtNomConyuge,txtApeConyuge" listener="#{defuncionController.buscarConyuge}" process="@this"/>
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
@@ -70,12 +76,12 @@
 						</td>	
 					</tr>
 					
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtApeConyuge" value="#{i18n['erp.despacho.defuncion.apellidos.conyuge']}" />
+					<tr >
+						<td width="30%" >
+							<h:outputLabel for="txtApeConyuge" value="#{i18n['erp.despacho.defuncion.apellidos.conyuge']}"  />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtApeConyuge" style="width: 70%" 
+							<p:inputText id="txtApeConyuge" style="width: 70%"  
 								 label="#{i18n['erp.despacho.defuncion.apellidos.conyuge']}" value="#{defuncionDataManager.conyugeInsertar.perApellidos}">
 						</p:inputText>
 						</td>	
@@ -91,7 +97,10 @@
 						</p:inputText>
 						</td>	
 					</tr>
-					
+				</table>
+			</p:panel>	
+			<p:panel id="pnlDatos" >
+				<table class="formulario">		
 					
 					<tr >
 						<td width="30%">
@@ -107,13 +116,28 @@
 					</td>
 					</tr> 
 					
+					
+					<tr >
+						<td width="30%">
+						
+							<h:outputLabel value="#{i18n['erp.despacho.defuncion.doctor']}"  /> 
+						
+						</td>
+					<td width="70%">
+					<p:selectOneMenu id="doctor" value="#{defuncionDataManager.doctorCodigo}" filter="true" required="true" >
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{defuncionController.defuncionDataManager.doctorListDTO}" var="doc" itemLabel="#{doc.perNombres} #{doc.perApellidos}" itemValue="#{doc.docCodigo}"/>
+							</p:selectOneMenu>
+					</td>
+					</tr>
+					
+					
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtCausaMuerte" value="#{i18n['erp.despacho.defuncion.causa.muerte']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtCausaMuerte" style="width: 70%" 
-								 label="#{i18n['erp.despacho.defuncion.causa.muerte']}" value="#{defuncionDataManager.defuncionInsertar.defCausaMuerte}">
+							<p:inputText id="txtCausaMuerte" style="width: 70%"  label="#{i18n['erp.despacho.defuncion.causa.muerte']}" value="#{defuncionDataManager.defuncionInsertar.defCausaMuerte}">
 						</p:inputText>
 						</td>	
 					</tr>
@@ -208,10 +232,11 @@
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{defuncionController.registrarDefuncion}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarDefuncion.hide()"
-					process="@this,pnlEditarDefuncion" update="pnlEditarDefuncion,:formDefuncion:pnlMessages,:formDefuncion:tablaDefuncion"/>
+					process="@this,pnlEditarDefuncion,pnlConyuge,pnlDatos" update="pnlEditarDefuncion,:formDefuncion:pnlMessages,:formDefuncion:tablaDefuncion"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarDefuncion.hide()" type="button" />
 			</p:panel>
 		</h:form>
+		</p:scrollPanel>
 	</p:dialog>
 	
 </ui:composition>

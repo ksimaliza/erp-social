@@ -17,7 +17,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCi" style="width: 70%" 
-								 required="true" >
+								 required="true" value="#{exhumacionDataManager.difuntoInsertar.perCi}" >
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 						</p:inputText>
@@ -40,37 +40,7 @@
 							<p:inputText id="txtApellidos" label="#{i18n['erp.despacho.contrato.apellidos']}" style="width: 70%" />
 						</td>
 					</tr>
-					
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtCiBen" value="#{i18n['erp.despacho.contrato.cedula.beneficiario']}" />
-						</td>
-						<td width="70%">
-							<p:inputText id="txtCiBen" style="width: 70%" 
-								 required="true" >
-							<f:validateLength maximum="10" minimum="10"/>
-							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-						</p:inputText>
-						</td>	
-					</tr>
-											
-						<tr>
-						<td width="30%">
-							<h:outputLabel for="txtNombresBen" value="#{i18n['erp.despacho.contrato.nombres.beneficiario']}" />
-						</td>
-						<td width="70%">
-							<p:inputText id="txtNombresBen" label="#{i18n['erp.despacho.contrato.nombres.beneficiario']}" style="width: 70%"/>
-						</td>
-					</tr>
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtApellidosBen" value="#{i18n['erp.despacho.contrato.apellidos.beneficiario']}" />
-						</td>
-						<td width="70%">
-							<p:inputText id="txtApellidosBen" label="#{i18n['erp.despacho.contrato.apellidos.beneficiario']}" style="width: 70%" />
-						</td>
-					</tr>
-					
+									
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtFechaInicio" value="#{i18n['erp.despacho.contrato.fecha.inicio']}" />
@@ -90,12 +60,13 @@
 					
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtTipo" value="#{i18n['erp.despacho.contrato.tipo']}" />
+							<h:outputLabel for="txtNumNicho" value="#{i18n['erp.despacho.contrato.numero.nicho']}" />
 						</td>
 						<td width="70%">
-							<h:selectOneListbox id="listboxTipo" value="#{i18n['erp.despacho.contrato.tipo']}" style="width: 70%" />
+							<h:selectOneListbox id="listboxNumNicho" value="#{i18n['erp.despacho.contrato.numero.nicho']}" style="width: 70%" />
 						</td>
 					</tr>
+					
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtSeccionNicho" value="#{i18n['erp.despacho.contrato.seccion.nicho']}" />
@@ -104,14 +75,7 @@
 							<h:selectOneListbox id="listboxSeccionNicho" value="#{i18n['erp.despacho.contrato.seccion.nicho']}" style="width: 70%" />
 						</td>
 					</tr>
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtNumNicho" value="#{i18n['erp.despacho.contrato.numero.nicho']}" />
-						</td>
-						<td width="70%">
-							<h:selectOneListbox id="listboxNumNicho" value="#{i18n['erp.despacho.contrato.numero.nicho']}" style="width: 70%" />
-						</td>
-					</tr>
+					
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtTipoNicho" value="#{i18n['erp.despacho.contrato.tipo.nicho']}" />

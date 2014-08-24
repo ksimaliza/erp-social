@@ -7,8 +7,10 @@
 	
 	<p:dialog id="popUpNuevaDefuncion" header="#{i18n['erp.despacho.defuncion.registrar']}" resizable="false" draggable="false"
 		widgetVar="dlgNuevaDefuncion" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<p:scrollPanel style="height:500px" mode="native">
 		<h:form id="formNuevaDefuncion" styleClass="formulario">
 			<p:panel id="pnlNuevaDefuncion">
+				
 				<table class="formulario">
 												
 						<tr>
@@ -52,11 +54,15 @@
 					<p:selectOneMenu id="estadocivil" value="#{defuncionDataManager.estadoCivilCodigo}" filter="true" required="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{defuncionController.defuncionDataManager.estadoCivils}" var="est" itemLabel="#{est.catDescripcion}" itemValue="#{est.catCodigo}"/>
-								<f:ajax render="txtCiConyuge,txtApeConyuge,txtNomConyuge" />
+								<f:ajax render="pnlConyuge" />
 					</p:selectOneMenu>
 					</td>
 					</tr> 
-					
+				</table>
+			</p:panel>			
+			<p:panel id="pnlConyuge" visible="#{defuncionDataManager.estadoCivilCodigo.toString()=='16'}">
+				<table class="formulario">
+		
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtCiConyuge" value="#{i18n['erp.despacho.defuncion.cedula.conyuge']}" />
@@ -65,15 +71,15 @@
 							<p:inputText id="txtCiConyuge" style="width: 70%" 
 								value="#{defuncionDataManager.conyugeInsertar.perCi}" >
 							<p:ajax event="blur" update="txtNomConyuge,txtApeConyuge" listener="#{defuncionController.buscarConyuge}" process="@this"/>
-							<f:validateLength maximum="10" minimum="10"/>
+						<!--  	<f:validateLength maximum="10" minimum="10"/>-->
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 						</p:inputText>
 						</td>	
 					</tr>
 					
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtApeConyuge" value="#{i18n['erp.despacho.defuncion.apellidos.conyuge']}" />
+					<tr >
+						<td width="30%" >
+							<h:outputLabel for="txtApeConyuge" value="#{i18n['erp.despacho.defuncion.apellidos.conyuge']}"  />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApeConyuge" style="width: 70%"  
@@ -92,7 +98,10 @@
 						</p:inputText>
 						</td>	
 					</tr>
-					
+				</table>
+			</p:panel>	
+			<p:panel id="pnlDatos" >
+				<table class="formulario">		
 					
 					<tr >
 						<td width="30%">
@@ -220,14 +229,17 @@
 					
 				</table>
 			</p:panel>
+			
+			
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{defuncionController.registrarDefuncion}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaDefuncion.hide()"
-					process="@this,pnlNuevaDefuncion" update="pnlNuevaDefuncion,:formDefuncion:pnlMessages,:formDefuncion:tablaDefuncion"/>
+					process="@this,pnlNuevaDefuncion,pnlConyuge,pnlDatos" update="pnlNuevaDefuncion,:formDefuncion:pnlMessages,:formDefuncion:tablaDefuncion"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaDefuncion.hide()" type="button" />
 			</p:panel>
 		</h:form>
+		</p:scrollPanel>
 	</p:dialog>
 	
 </ui:composition>
