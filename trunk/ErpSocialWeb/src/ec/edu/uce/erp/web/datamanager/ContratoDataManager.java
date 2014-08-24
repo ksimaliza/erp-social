@@ -1,5 +1,203 @@
 package ec.edu.uce.erp.web.datamanager;
 
-public class ContratoDataManager {
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoListDTO;
+import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
+
+@SessionScoped
+@ManagedBean (name = "contratoDataManager")
+
+public class ContratoDataManager extends BaseDataManager {
+private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataManager.class);
+	
+	private static final long serialVersionUID = 1L;
+	
+	private  Persona difuntoInsertar;
+	private ContratoDTO contratoDTO;
+	private List<ContratoListDTO> contratoListDTOs;
+	private Date fechaInicio;
+	private Date fechaFin;
+	private int nichoCodigo;
+	private ContratoListDTO contratoListDTO;
+	private List<NichoListDTO> nichoListDTOs;
+	private int formaPagoCodigo;
+	private List<CatalogoEucaristiaDTO> formaPagoListDTOs;
+	
+	
+	
+	
+	@PostConstruct
+	public void inicializarObjetos () {
+		
+		slf4jLogger.info("inicializarObjetos");
+		this.difuntoInsertar = new Persona();		
+		this.contratoDTO= new ContratoDTO();
+		this.contratoListDTO= new ContratoListDTO();
+		this.nichoListDTOs = new ArrayList<NichoListDTO>();
+		fechaInicio=new Date();
+		fechaFin=new Date();
+		this.contratoListDTOs= new ArrayList<ContratoListDTO>();
+		this.formaPagoListDTOs=new ArrayList<CatalogoEucaristiaDTO>();
+			
+	}
+
+
+
+
+	public Persona getDifuntoInsertar() {
+		return difuntoInsertar;
+	}
+
+
+
+
+	public void setDifuntoInsertar(Persona difuntoInsertar) {
+		this.difuntoInsertar = difuntoInsertar;
+	}
+
+
+
+
+	public ContratoDTO getContratoDTO() {
+		return contratoDTO;
+	}
+
+
+
+
+	public void setContratoDTO(ContratoDTO contratoDTO) {
+		this.contratoDTO = contratoDTO;
+	}
+
+
+
+
+	public List<ContratoListDTO> getContratoListDTOs() {
+		return contratoListDTOs;
+	}
+
+
+
+
+	public void setContratoListDTOs(List<ContratoListDTO> contratoListDTOs) {
+		this.contratoListDTOs = contratoListDTOs;
+	}
+
+
+
+
+	public Date getFechaInicio() {
+		return fechaInicio;
+	}
+
+
+
+
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+
+
+
+
+	public Date getFechaFin() {
+		return fechaFin;
+	}
+
+
+
+
+	public void setFechaFin(Date fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+
+
+
+
+	public int getNichoCodigo() {
+		return nichoCodigo;
+	}
+
+
+
+
+	public void setNichoCodigo(int nichoCodigo) {
+		this.nichoCodigo = nichoCodigo;
+	}
+
+
+
+
+	public ContratoListDTO getContratoListDTO() {
+		return contratoListDTO;
+	}
+
+
+
+
+	public void setContratoListDTO(ContratoListDTO contratoListDTO) {
+		this.contratoListDTO = contratoListDTO;
+	}
+
+
+
+
+	public List<NichoListDTO> getNichoListDTOs() {
+		return nichoListDTOs;
+	}
+
+
+
+
+	public void setNichoListDTOs(List<NichoListDTO> nichoListDTOs) {
+		this.nichoListDTOs = nichoListDTOs;
+	}
+
+
+
+
+	public int getFormaPagoCodigo() {
+		return formaPagoCodigo;
+	}
+
+
+
+
+	public void setFormaPagoCodigo(int formaPagoCodigo) {
+		this.formaPagoCodigo = formaPagoCodigo;
+	}
+
+
+
+
+	public List<CatalogoEucaristiaDTO> getFormaPagoListDTOs() {
+		return formaPagoListDTOs;
+	}
+
+
+
+
+	public void setFormaPagoListDTOs(List<CatalogoEucaristiaDTO> formaPagoListDTOs) {
+		this.formaPagoListDTOs = formaPagoListDTOs;
+	}
+	
+	
+	
+	
+
 
 }

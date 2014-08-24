@@ -78,6 +78,7 @@ public void registrarDefuncion () {
 		CatalogoEucaristiaDTO provincia;
 		CatalogoEucaristiaDTO canton;
 		CatalogoEucaristiaDTO parroquia;
+		CatalogoEucaristiaDTO estadoCivil;
 		
 		try {
 			defuncionVO=new DefuncionVO();
@@ -86,6 +87,8 @@ public void registrarDefuncion () {
 			provincia=new CatalogoEucaristiaDTO();
 			canton=new CatalogoEucaristiaDTO();
 			parroquia=new CatalogoEucaristiaDTO();
+			estadoCivil=new CatalogoEucaristiaDTO();
+			
 			
 			defuncionVO.setDifunto(defuncionDataManager.getDifuntoInsertar());
 			defuncionVO.setConyuge(defuncionDataManager.getConyugeInsertar());
@@ -100,10 +103,13 @@ public void registrarDefuncion () {
 			provincia.setCatCodigo(defuncionDataManager.getProvinciaCodigo());
 			canton.setCatCodigo(defuncionDataManager.getCantonCodigo());
 			parroquia.setCatCodigo(defuncionDataManager.getParroquiaCodigo());
+			estadoCivil.setCatCodigo(defuncionDataManager.getEstadoCivilCodigo());
+			
 			
 			defuncionVO.getDefuncion().setDefProvincia(provincia.getCatCodigo());
 			defuncionVO.getDefuncion().setDefCanton(canton.getCatCodigo());
 			defuncionVO.getDefuncion().setDefParroquia(parroquia.getCatCodigo());
+			defuncionVO.getDefuncion().setDefEstadoCivil(estadoCivil.getCatCodigo());
 			
 			defuncionVO.getDefuncion().setDefFecha(new Timestamp(defuncionDataManager.getFechaSepelioInsertar().getTime()));
 			defuncionVO.getDefuncion().setDefFechaDifunto(new Timestamp(defuncionDataManager.getFechaMuerteInsertar().getTime()));
@@ -116,6 +122,10 @@ public void registrarDefuncion () {
 				defuncionDataManager.setDefuncionInsertar(new DefuncionDTO());
 				defuncionDataManager.setSacerdoteCodigo(0);
 				defuncionDataManager.setDoctorCodigo(0);
+				defuncionDataManager.setEstadoCivilCodigo(0);
+				defuncionDataManager.setProvinciaCodigo(0);
+				defuncionDataManager.setCantonCodigo(0);
+				defuncionDataManager.setParroquiaCodigo(0);
 				
 				defuncionDataManager.setFechaMuerteInsertar(new Date());
 				defuncionDataManager.setFechaSepelioInsertar(new Date());
@@ -257,13 +267,16 @@ public void registrarDefuncion () {
 			
 			DefuncionVO defuncionEncontrada=servicioEucaristia.obtenerDefuncionPorId(defuncion);
 			this.defuncionDataManager.setDifuntoInsertar(defuncionEncontrada.getDifunto());
+			this.defuncionDataManager.setEstadoCivilCodigo(defuncionEncontrada.getDefuncion().getDefEstadoCivil());
 			this.defuncionDataManager.setConyugeInsertar(defuncionEncontrada.getConyuge());
 			this.defuncionDataManager.setDefuncionInsertar(defuncionEncontrada.getDefuncion());
-			this.defuncionDataManager.setDoctorCodigo(defuncionEncontrada.getDoctor().getDocCodigo());
-			this.defuncionDataManager.setSacerdoteCodigo(defuncionEncontrada.getSacerdote().getSacCodigo());
-			this.defuncionDataManager.setCantonCodigo(defuncionEncontrada.getCanton().getCatCodigo());
-			this.defuncionDataManager.setParroquiaCodigo(defuncionEncontrada.getParroquia().getCatCodigo());
-				
+			this.defuncionDataManager.setDoctorCodigo(defuncionEncontrada.getDefuncion().getDefDoctorCertifica());
+			this.defuncionDataManager.setSacerdoteCodigo(defuncionEncontrada.getDefuncion().getEucSacerdote().getSacCodigo());
+			this.defuncionDataManager.setProvinciaCodigo(defuncionEncontrada.getDefuncion().getDefProvincia());
+			this.defuncionDataManager.setCantonCodigo(defuncionEncontrada.getDefuncion().getDefCanton());
+			this.defuncionDataManager.setParroquiaCodigo(defuncionEncontrada.getDefuncion().getDefParroquia());
+			this.defuncionDataManager.setFechaMuerteInsertar(defuncionEncontrada.getDefuncion().getDefFechaDifunto());
+			this.defuncionDataManager.setFechaSepelioInsertar(defuncionEncontrada.getDefuncion().getDefFecha());
 							
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosConfirmacion {}", e.getMessage());
