@@ -104,7 +104,7 @@
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarDefuncion.show()"
 							actionListener="#{defuncionController.cargarDatosDefuncion(defuncion)}"	
-							process="@this" update=":formEditarDefuncion:pnlEditarDefuncion">
+							process="@this" update=":formEditarDefuncion:pnlEditarDefuncion,:formEditarDefuncion:pnlConyuge,:formEditarDefuncion:pnlDatos">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
 					</h:panelGroup>
