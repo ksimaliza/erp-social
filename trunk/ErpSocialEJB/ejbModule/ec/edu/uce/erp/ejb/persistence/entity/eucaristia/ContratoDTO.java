@@ -24,9 +24,6 @@ public class ContratoDTO implements Serializable {
 	@Column(name="con_anio_arrendamiento")
 	private Integer conAnioArrendamiento;
 
-	@Column(name="con_beneficiario")
-	private Integer conBeneficiario;
-
 	@Column(name="con_difunto")
 	private Integer conDifunto;
 
@@ -64,14 +61,6 @@ public class ContratoDTO implements Serializable {
 
 	public void setConAnioArrendamiento(Integer conAnioArrendamiento) {
 		this.conAnioArrendamiento = conAnioArrendamiento;
-	}
-
-	public Integer getConBeneficiario() {
-		return this.conBeneficiario;
-	}
-
-	public void setConBeneficiario(Integer conBeneficiario) {
-		this.conBeneficiario = conBeneficiario;
 	}
 
 	public Integer getConDifunto() {

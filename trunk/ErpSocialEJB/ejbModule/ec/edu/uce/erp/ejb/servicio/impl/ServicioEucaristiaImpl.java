@@ -20,6 +20,8 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ComunionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO;
@@ -41,6 +43,7 @@ import ec.edu.uce.erp.ejb.persistence.vo.AutorizacionExhumacionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.BautizoVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ComunionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ConfirmacionVO;
+import ec.edu.uce.erp.ejb.persistence.vo.ContratoVO;
 import ec.edu.uce.erp.ejb.persistence.vo.DefuncionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.DoctorVO;
 import ec.edu.uce.erp.ejb.persistence.vo.EucaristiaVO;
@@ -907,9 +910,11 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(difuntoPersona);
 			if(listPersona.size()<=0)
 				difuntoPersona=factoryDAO.getPersonaDAOImpl().create(difuntoPersona);
+				
 			else
 				difuntoPersona=listPersona.get(0);
 			
+			exhumacionVO.getExumacionDTO().setExuDifunto(difuntoPersona.getPerPk());	
 									
 			if(exhumacionVO.getExumacionDTO().getExuCodigo()!=null){
 				autorizaExhumacionDTO=eucaristiaFactoryDAO.getAutorizacionExhumacionDAOImpl().find(exhumacionVO.getAutorizaExhumacionDTO().getAutCodigo());
@@ -958,6 +963,78 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		return exhumacion;
 	}
 	
+
+	@Override
+	public ContratoDTO createOrUpdateContrato(ContratoVO contratoVO) throws SeguridadesException
+	{
+		slf4jLogger.info("createOrUpdateContrato");
+		Persona difuntoPersona;
+		NichoDTO nichoDTO;
+		CatalogoEucaristiaDTO formaPago;
+				 
+		List<Persona> listPersona;
+			
+		try {
+			difuntoPersona = contratoVO.getDifunto();
+			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(difuntoPersona);
+			if(listPersona.size()<=0)
+				difuntoPersona=factoryDAO.getPersonaDAOImpl().create(difuntoPersona);
+				
+			else
+				difuntoPersona=listPersona.get(0);
+			
+			contratoVO.getContratoDTO().setConDifunto(difuntoPersona.getPerPk());
+			
+									
+			if(contratoVO.getContratoDTO().getConCodigo()!=null){
+				nichoDTO=eucaristiaFactoryDAO.getNichoDAOImpl().find(contratoVO.getNichoDTO().getNicCodigo());
+				formaPago=eucaristiaFactoryDAO.getCatalogoDAOImpl().find(contratoVO.getFormaPago().getCatCodigo());
+				contratoVO.getContratoDTO().setEucNicho(nichoDTO);
+				contratoVO.getContratoDTO().setConFormaPago(formaPago.getCatCodigo());
+							
+				return  eucaristiaFactoryDAO.getContratoDAOImpl().update(contratoVO.getContratoDTO());
+			}
+			else{
+				nichoDTO=eucaristiaFactoryDAO.getNichoDAOImpl().find(contratoVO.getNichoDTO().getNicCodigo());
+				formaPago=eucaristiaFactoryDAO.getCatalogoDAOImpl().find(contratoVO.getFormaPago().getCatCodigo());
+				contratoVO.getContratoDTO().setEucNicho(nichoDTO);
+				contratoVO.getContratoDTO().setConFormaPago(formaPago.getCatCodigo());
+							
+				return  eucaristiaFactoryDAO.getContratoDAOImpl().create(contratoVO.getContratoDTO());
+				
+			}
+		} catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdateContrato {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+		
+	}
+	
+	@Override
+	public List<ContratoListDTO> buscarContrato(ContratoListDTO contratoListDTO) throws SeguridadesException {
+		slf4jLogger.info("buscarContrato");
+		List<ContratoListDTO> listContrato = null;
+		try {
+			listContrato=eucaristiaFactoryDAO.getContratoDAOImpl().obtenerContrato(contratoListDTO);
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarContrato {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener buscarContrato de la base de datos");
+		}
+		
+		return listContrato;
+	}
+	
+	@Override
+	public ContratoVO obtenerContratoPorId(ContratoListDTO contratoListDTO) throws SeguridadesException {
+		slf4jLogger.info("obtenerContratoPorId");
+		ContratoVO contrato=new ContratoVO();
+		contrato.setDifunto(factoryDAO.getPersonaDAOImpl().find(contratoListDTO.getConDifunto()));
+		contrato.setContratoDTO(eucaristiaFactoryDAO.getContratoDAOImpl().find(contratoListDTO.getConCodigo()));
+		
+		return contrato;
+	}
 
 	
 	

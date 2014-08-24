@@ -15,7 +15,7 @@ public class AutorizaExhumacionDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="EUC_AUTORIZA_EXHUMACION_AUTCODIGO_GENERATOR", sequenceName="EUC_AUTORIZA_EXHUMACION_AUT_CODIGO_SEQ")
+	@SequenceGenerator(name="EUC_AUTORIZA_EXHUMACION_AUTCODIGO_GENERATOR", sequenceName="EUC_AUTORIZA_EXHUMACION_AUT_CODIGO_SEQ",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EUC_AUTORIZA_EXHUMACION_AUTCODIGO_GENERATOR")
 	@Column(name="aut_codigo")
 	private Integer autCodigo;
