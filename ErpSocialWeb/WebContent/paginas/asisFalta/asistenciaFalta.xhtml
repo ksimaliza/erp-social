@@ -4,6 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/WEB-INF/templates/template.xhtml">
 	
 	<ui:define name="title">
@@ -67,17 +68,22 @@
 					#{rowIndex+1}
 				</p:column>
 
-				<p:column headerText="#{i18n['erp.asistencia.empleado.cedula']}" width="40%">
+				<p:column headerText="#{i18n['erp.asistencia.empleado.cedula']}" width="20%">
 					<h:outputText value="#{fal.perCi}" />
 				</p:column>								
 
-				<p:column headerText="#{i18n['erp.asistencia.empleado.nombres']}" width="35%">
+				<p:column headerText="#{i18n['erp.asistencia.empleado.nombres']}" width="40%">
 						<h:outputText value="#{fal.perNombres}" />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.asistencia.empleado.apellidos']}" width="40%">
 					<h:outputText value="#{fal.perApellidos}" />
 				</p:column>				
+
+				<p:column headerText="Fecha Falta" width="20%">
+					<h:outputText value="#{fn:substring(fal.falFecha.toString(),0,10)}" />
+				</p:column>				
+
 
 			</p:dataTable>			
 	
