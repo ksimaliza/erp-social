@@ -35,18 +35,21 @@
 					<ui:include src="/WEB-INF/templates/menu.xhtml" />
 				</p:layoutUnit>
 				<p:layoutUnit position="center" resizable="true">
-					<p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>
 					<ui:insert name="title" />
 					<ui:insert name="content" />
 					<ui:insert name="dialogos" />
-					<p:dialog modal="true" widgetVar="statusDialog" header="Status"
-						draggable="false" closable="false" appendTo="@(body)">
-						<p:graphicImage value="/resources/img/ajaxloadingbar.gif" />
-					</p:dialog>
 				</p:layoutUnit>
+				
 				<p:layoutUnit position="south" resizable="true">
 					south
 				</p:layoutUnit>
 			</p:layout>
+			
+			<p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>
+			<p:dialog modal="true" widgetVar="statusDialog" header="Status"
+				draggable="false" closable="false" appendTo="@(body)">
+				<p:graphicImage value="/resources/img/ajaxloadingbar.gif" />
+			</p:dialog>
+			
 	</body>
 </html>
