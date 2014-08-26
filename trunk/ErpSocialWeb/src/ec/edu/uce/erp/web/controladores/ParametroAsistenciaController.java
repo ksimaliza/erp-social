@@ -49,10 +49,11 @@ private static final long serialVersionUID = 1L;
 	}
 	
 	
-public void registrarParametro () {
+	public void registrarParametro () {
 		
 		slf4jLogger.info("registrarParametro");
 		try {
+			parametroAsistenciaDataManager.getParametroInsertar().setPasEntidad(getEmpresaCode());
 			ParametroDTO parametroNuevo = this.servicioAsistencia.createOrUpdateParametro(this.parametroAsistenciaDataManager.getParametroInsertar());
 			if (parametroNuevo != null) {
 				parametroAsistenciaDataManager.setParametroInsertar(new ParametroDTO());
