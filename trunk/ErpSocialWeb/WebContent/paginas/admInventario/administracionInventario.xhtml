@@ -17,7 +17,7 @@
 						actionListener="#{inventarioController.refrescarFormulario}" process="@this,pnlBuscarBien"
 						update="pnlMessages,tablaInventario,pnlBuscarBien,toolbar"/>
 					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
-						image="exportExcel" disabled="#{empty inventarioDataManager.listBien}">
+						icon="exportExcel" disabled="#{empty inventarioDataManager.listBien}">
 						<p:dataExporter type="xls" target="tablaInventario" fileName="inventario" postProcessor="#{inventarioController.postProcessXLS}"/>
 					</p:commandButton>
 				</p:toolbarGroup>
@@ -99,7 +99,7 @@
 			</p:panel>
 			<p:dataTable id="tablaInventario"
 				value="#{inventarioDataManager.listVistaBien}"
-				var="vistaBien" rowIndexVar="rowIndex"
+				var="vistaBien" rowIndexVar="rowIndex" rowKey="#{vistaBien.biePk}"
 				paginator="true" rows="5" paginatorPosition="bottom"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
@@ -122,7 +122,10 @@
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.bien.nombre']}" />
 					</f:facet>
-					<h:outputText value="#{vistaBien.bieNombre}" />
+					<p:commandLink value="#{vistaBien.bieNombre}" title="#{vistaBien.bieNombre}"
+						oncomplete="dlgVistaBien.show()" update=":formVistaBien:pnlVistaBien">
+						<f:setPropertyActionListener target="#{inventarioDataManager.vistaBienEditar}" value="#{vistaBien}"/>
+					</p:commandLink>
 				</p:column>
 				<p:column width="10%">
 					<f:facet name="header">
@@ -199,6 +202,8 @@
 			</p:dataTable>
 			
 		</h:form>
+		
+		<ui:include src="dialogVistaBien.xhtml" />
 		
 	</ui:define>
 </ui:composition>

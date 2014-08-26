@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+<head>
+	<title>Not present in rendered output</title>
+</head>
+
+<body>
+	<composite:interface>
+		<composite:attribute name="controller" required="true" shortDescription="Objeto a mostrar en el componente"/>
+		<composite:attribute name="vistaBienSelect" required="true" shortDescription="Vista bien seleccionado"/>
+		<composite:attribute name="render" required="true" shortDescription="Seccion actualizar"/>
+	</composite:interface>
+
+	<composite:implementation>
+	
+		<ui:param name="controller" value="#{cc.attrs.controller}"/>
+		<ui:param name="vistaBienSelect" value="#{cc.attrs.vistaBienSelect}"/>
+		<ui:param name="render" value="#{cc.attrs.render}"/>
+		
+		<p:commandLink id="linkVistaBien" value="#{vistaBienSelect.bieNombre}" update="#{render}:linkVistaBien:formVistaBien:pnlVistaBien"
+				actionListener="#{controller.asignarDatosVistaBien(vistaBienSelect)}" oncomplete="dlgVistaBien.show()" process="@this">
+		</p:commandLink>
+		
+		
+		
+		<p:dialog id="popUpVistaBien" header="#{i18n['erp.bien.seleccionado.datos']}" 
+				widgetVar="dlgVistaBien" modal="true" minWidth="600" width="600" appendTo="@(body)">
+				
+			<h:form id="formVistaBien" styleClass="formulario">
+				<p:panel id="pnlVistaBien">
+					<table class="formulario">
+						<tr>
+							<td width="30%">
+								<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.nombre']}" />
+							</td>
+							<td width="70%">
+								<h:outputText id="txtNombre" value="#{controller.vistaBienSeleccionado.bieNombre}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel for="txtCodigo" value="#{i18n['erp.bien.codigo']}" />
+							</td>
+							<td>
+								<h:outputText id="txtCodigo" value="#{controller.vistaBienSeleccionado.bieCodigo}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel for="txtTipoIngresoBien" value="#{i18n['erp.bien.tipo.ingreso']}" />
+							</td>
+							<td>
+								<h:outputText id="txtTipoIngresoBien" value="#{controller.vistaBienSeleccionado.tipoIngresoBien}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel for="txtTipoBien" value="#{i18n['erp.bien.estado.conservacion']}" />
+							</td>
+							<td>
+								<h:outputText id="txtTipoBien" value="#{controller.vistaBienSeleccionado.estadoConservacionBien}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel for="txtCategoria" value="#{i18n['erp.bien.categoria']}" />
+							</td>
+							<td>
+								<h:outputText id="txtCategoria" value="#{controller.vistaBienSeleccionado.catBienNombre}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel for="txtLinea" value="#{i18n['erp.bien.linea']}" />
+							</td>
+							<td>
+								<h:outputText id="txtLinea" value="#{controller.vistaBienSeleccionado.linBienNombre}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel for="txtMarcaMaterial" value="#{i18n['erp.bien.marca.material']}" />
+							</td>
+							<td>
+								<h:outputText id="txtMarcaMaterial" value="#{controller.vistaBienSeleccionado.marBienNombre}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel for="txtModelo" value="#{i18n['erp.bien.modelo']}" />
+							</td>
+							<td>
+								<h:outputText id="txtModelo" value="#{controller.vistaBienSeleccionado.bieModelo}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel for="txtColor" value="#{i18n['erp.bien.color']}" />
+							</td>
+							<td>
+								<h:outputText id="txtColor" value="#{controller.vistaBienSeleccionado.bieColor}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel for="txtNota" value="#{i18n['erp.bien.nota']}" />
+							</td>
+							<td>
+								<h:outputText id="txtNota" value="#{controller.vistaBienSeleccionado.bieNotas}" />
+							</td>
+						</tr>
+					</table>
+				</p:panel>
+				<p:panel id="pnlBotones">
+					<p:commandButton value="#{i18n['label.aceptar']}" immediate="true" onclick="dlgVistaBien.hide();" type="button" />
+				</p:panel>
+				
+			</h:form>
+		</p:dialog>
+		
+	</composite:implementation>
+</body>
+</html>
