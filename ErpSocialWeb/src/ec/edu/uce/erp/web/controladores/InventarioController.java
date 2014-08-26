@@ -46,6 +46,8 @@ public class InventarioController extends BaseController{
 	@ManagedProperty(value="#{inventarioDataManager}")
 	private InventarioDataManager inventarioDataManager;
 	
+//	private VistaBienComponent vistaBienComponent;
+	
 	//catalogos
 	private List<SelectItem> dcCategoriaBien;
 	private List<SelectItem> dcMarcaBien;
@@ -58,7 +60,9 @@ public class InventarioController extends BaseController{
 		this.inventarioDataManager = inventarioDataManager;
 	}
 	
-	public InventarioController () {}
+	public InventarioController () {
+//		this.vistaBienComponent = new VistaBienComponent();
+	}
 	
 	@PostConstruct
 	public void inicializarObjetos () {
@@ -250,5 +254,6 @@ public class InventarioController extends BaseController{
 	public void refrescarFormulario() {
 		this.buscarBienes();
 	}
+
 
 }

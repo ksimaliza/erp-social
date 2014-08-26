@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpVistaBien" header="#{i18n['erp.bien.seleccionado.datos']}" 
+				widgetVar="dlgVistaBien" modal="true" minWidth="600" width="600" appendTo="@(body)">
+				
+			<h:form id="formVistaBien" styleClass="formulario">
+				<p:panel id="pnlVistaBien">
+					<table class="formulario">
+						<tr>
+							<td width="30%">
+								<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.nombre']}" />
+							</td>
+							<td width="70%">
+								<h:outputText id="txtNombre" value="#{inventarioDataManager.vistaBienEditar.bieNombre}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel for="txtCodigo" value="#{i18n['erp.bien.codigo']}" />
+							</td>
+							<td>
+								<h:outputText id="txtCodigo" value="#{inventarioDataManager.vistaBienEditar.bieCodigo}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel for="txtTipoIngresoBien" value="#{i18n['erp.bien.tipo.ingreso']}" />
+							</td>
+							<td>
+								<h:outputText id="txtTipoIngresoBien" value="#{inventarioDataManager.vistaBienEditar.tipoIngresoBien}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel for="txtTipoBien" value="#{i18n['erp.bien.estado.conservacion']}" />
+							</td>
+							<td>
+								<h:outputText id="txtTipoBien" value="#{inventarioDataManager.vistaBienEditar.estadoConservacionBien}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel for="txtCategoria" value="#{i18n['erp.bien.categoria']}" />
+							</td>
+							<td>
+								<h:outputText id="txtCategoria" value="#{inventarioDataManager.vistaBienEditar.catBienNombre}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel for="txtLinea" value="#{i18n['erp.bien.linea']}" />
+							</td>
+							<td>
+								<h:outputText id="txtLinea" value="#{inventarioDataManager.vistaBienEditar.linBienNombre}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel for="txtMarcaMaterial" value="#{i18n['erp.bien.marca.material']}" />
+							</td>
+							<td>
+								<h:outputText id="txtMarcaMaterial" value="#{inventarioDataManager.vistaBienEditar.marBienNombre}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel for="txtModelo" value="#{i18n['erp.bien.modelo']}" />
+							</td>
+							<td>
+								<h:outputText id="txtModelo" value="#{inventarioDataManager.vistaBienEditar.bieModelo}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel for="txtColor" value="#{i18n['erp.bien.color']}" />
+							</td>
+							<td>
+								<h:outputText id="txtColor" value="#{inventarioDataManager.vistaBienEditar.bieColor}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h:outputLabel for="txtNota" value="#{i18n['erp.bien.nota']}" />
+							</td>
+							<td>
+								<h:outputText id="txtNota" value="#{inventarioDataManager.vistaBienEditar.bieNotas}" />
+							</td>
+						</tr>
+					</table>
+				</p:panel>
+				<p:panel id="pnlBotones">
+					<p:commandButton value="#{i18n['label.aceptar']}" immediate="true" onclick="dlgVistaBien.hide();" type="button" />
+				</p:panel>
+				
+			</h:form>
+		</p:dialog>
+</ui:composition>
