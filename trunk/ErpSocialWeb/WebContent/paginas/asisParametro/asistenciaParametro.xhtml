@@ -61,18 +61,15 @@
 					#{rowIndex+1}
 				</p:column>
 
-				<p:column headerText="#{i18n['erp.asistencia.parametro.descripcion']}" width="40%">
+				<p:column headerText="#{i18n['erp.asistencia.parametro.descripcion']}" width="70%">
 					<h:outputText value="#{par.pasDescripcion}" />
 				</p:column>								
 
-				<p:column headerText="#{i18n['erp.asistencia.parametro.valor']}" width="35%">
+				<p:column headerText="#{i18n['erp.asistencia.parametro.valor']}" width="30%">
 						<h:outputText value="#{par.pasValor}" />
 				</p:column>
-				
-				<p:column headerText="#{i18n['erp.asistencia.parametro.entidad']}" width="40%">
-					<h:outputText value="#{par.pasEntidad}" />
-				</p:column>				
-		<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
+								
+				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
