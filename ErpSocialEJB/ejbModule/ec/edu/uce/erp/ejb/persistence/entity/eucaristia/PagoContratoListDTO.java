@@ -7,13 +7,13 @@ import java.util.Date;
 
 
 /**
- * The persistent class for the euc_contrato_vie database table.
+ * The persistent class for the euc_pago_contrato_vie database table.
  * 
  */
 @Entity
-@Table(name="euc_contrato_vie")
-@NamedQuery(name="ContratoListDTO.findAll", query="SELECT c FROM ContratoListDTO c")
-public class ContratoListDTO implements Serializable {
+@Table(name="euc_pago_contrato_vie")
+@NamedQuery(name="PagoContratoListDTO.findAll", query="SELECT p FROM PagoContratoListDTO p")
+public class PagoContratoListDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="cat_codigo")
@@ -86,7 +86,7 @@ public class ContratoListDTO implements Serializable {
 	@Column(name="tni_descripcion")
 	private String tniDescripcion;
 
-	public ContratoListDTO() {
+	public PagoContratoListDTO() {
 	}
 
 	public Integer getCatCodigo() {
