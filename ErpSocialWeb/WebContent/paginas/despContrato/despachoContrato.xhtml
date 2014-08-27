@@ -30,7 +30,8 @@
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.despacho.contrato.nombres']}" />
 						</td>
 						<td>
-							<h:inputText for="txtNombre" label="#{i18n['erp.despacho.contrato.nombres']}" />
+							<h:inputText for="txtNombre" label="#{i18n['erp.despacho.contrato.nombres']}" 
+							value="#{contratoDataManager.contratoListDTO.perNombres}" />
 						</td>
 					</tr>
 					<tr>
@@ -38,30 +39,16 @@
 							<h:outputLabel for="txtApe" value="#{i18n['erp.despacho.contrato.apellidos']}" />
 						</td>
 						<td>
-							<h:inputText for="txtApe" label="#{i18n['erp.despacho.contrato.apellidos']}" />
+							<h:inputText for="txtApe" label="#{i18n['erp.despacho.contrato.apellidos']}" 
+							value="#{contratoDataManager.contratoListDTO.perApellidos}"/>
 						</td>
 					</tr>
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtNombreBen" value="#{i18n['erp.despacho.contrato.nombres.beneficiario']}" />
-						</td>
-						<td>
-							<h:inputText for="txtNombreBen" label="#{i18n['erp.despacho.contrato.nombres.beneficiario']}" />
-						</td>
-					</tr>
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtApeBen" value="#{i18n['erp.despacho.contrato.apellidos.beneficiario']}" />
-						</td>
-						<td>
-							<h:inputText for="txtApeBen" label="#{i18n['erp.despacho.contrato.apellidos.beneficiario']}" />
-						</td>
-					</tr>
+					
 				</table>
 			</p:panel>
 <p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
-					
+					actionListener="#{contratoController.buscarContrato}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarContrato"
 					update=":formContrato:pnlMessages,tablaContrato,pnlBuscarContrato " />
@@ -69,7 +56,7 @@
 
 
 <p:dataTable id="tablaContrato"
-	
+	value="#{contratoDataManager.contratoListDTOs}" var="contrato"
 	rowIndexVar="rowIndex"
 	paginator="true" rows="5" paginatorPosition="bottom"
 	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -81,37 +68,32 @@
 		#{rowIndex+1}
 	</p:column>
 	<p:column headerText="#{i18n['erp.despacho.contrato.cedula']}" width="35%">
-					<h:outputText  />
-				</p:column>
-				<p:column headerText="#{i18n['erp.despacho.contrato.cedula.beneficiario']}" width="40%">
-					<h:outputText  />
+					<h:outputText  value="#{contrato.perCi}"/>
 				</p:column>
 				
-				<p:column headerText="#{i18n['erp.despacho.contrato.nombres.beneficiario']}" width="40%">
-					<h:outputText  />
+				<p:column headerText="#{i18n['erp.despacho.contrato.nombres']}" width="35%">
+					<h:outputText  value="#{contrato.perNombres}"/>
 				</p:column>
 				
-				<p:column headerText="#{i18n['erp.despacho.contrato.apellidos.beneficiario']}" width="40%">
-					<h:outputText  />
+				<p:column headerText="#{i18n['erp.despacho.contrato.apellidos']}" width="35%">
+					<h:outputText  value="#{contrato.perApellidos}"/>
 				</p:column>
-				
+								
 				<p:column headerText="#{i18n['erp.despacho.contrato.fecha.inicio']}" width="40%">
-					<h:outputText  />
+					<h:outputText  value="#{contrato.conFechaInicio}" />
 				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.contrato.fecha.fin']}" width="35%">
+					<h:outputText  value="#{contrato.conFechaFin}"/>
+				</p:column>
+					
 			
 			<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarContrato.show()"
-							
-							process="@this" update=":formEditarContrato:pnlEditarContrato">
-							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
-						</p:commandLink>
-						<p:commandLink styleClass="no-decor"
-							title="#{i18n['label.editar']}"
-							oncomplete="dlgNuevoPagoContrato.show()"
-							
+							actionListener="#{contratoController.cargarDatosContrato(contrato)}"
 							process="@this" update=":formEditarContrato:pnlEditarContrato">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
@@ -121,6 +103,7 @@
 	
 	</h:form>			
 		<ui:include src="dialogNuevoContrato.xhtml" />
+		<ui:include src="dialogEditarContrato.xhtml" />
 		
 		
 </ui:define>		
