@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.CalendarUtil;
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.dao.factory.AsistenciaFactoryDAO;
 import ec.edu.uce.erp.ejb.dao.factory.FactoryDAO;
 import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
@@ -294,15 +295,21 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 
 	
 	/*RegistroAsistencia*/
+	@SuppressWarnings("unused")
 	@Override
 	public RegistroDTO createOrUpdateRegistroAsistencia(RegistroAsistenciaVO registroAsistencia) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateRegistroAsistencia");
 		RegistroDTO registro=null;
-		String hora;
+		String hora,valor;
 		EmpleadoDTO empleado;
+		ParametroDTO parametro;
+		Timestamp actual;
 		try {
+			parametro=new ParametroDTO();
 			empleado=asistenciaFactoryDAO.getEmpleadoDAOImpl().findByCredentials(registroAsistencia.getEmpleadoDTO());
+			parametro.setPasEntidad(empleado.getAemEmpresa());
+			
 			if(empleado!=null)
 			{	
 				registro= asistenciaFactoryDAO.getRegistroDAOImpl().getUltimate(empleado);
@@ -320,8 +327,21 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 					}
 				}
 				else{
+					actual=new Timestamp(new Date().getTime());
+					//A tiempo
+					parametro.setPasCodigo(1);
+					valor=asistenciaFactoryDAO.getParametroDAOImpl().getByAnd(parametro).get(0).getPasValor();
+					hora=UtilAplication.fechaActualConFormato("yyyy-MM-dd")+" "+valor;
+					if(actual.getTime()<Timestamp.valueOf(hora).getTime())
+						registroAsistencia.getRegistroDTO().setRasTipoEntrada("A tiempo");
+					else if(actual.getTime()>Timestamp.valueOf(hora).getTime()&& actual.getTime()< Timestamp.valueOf(CalendarUtil.addMinute(hora, "yyyy-MM-dd hh:mm:ss", Integer.valueOf(asistenciaFactoryDAO.getParametroDAOImpl().getByAnd(parametro).get(3).getPasValor()))).getTime()){
+						registroAsistencia.getRegistroDTO().setRasTipoEntrada("Atraso");
+					}
+					else if(actual.getTime()>=Timestamp.valueOf(CalendarUtil.addMinute(hora, "yyyy-MM-dd hh:mm:ss", Integer.valueOf(asistenciaFactoryDAO.getParametroDAOImpl().getByAnd(parametro).get(3).getPasValor()))).getTime()){
+						registroAsistencia.getRegistroDTO().setRasTipoEntrada("Falta");
+					}
 					registroAsistencia.getRegistroDTO().setAsiEmpleado(empleado);
-					registroAsistencia.getRegistroDTO().setRasHoraInicio(new Timestamp(new Date().getTime()));
+					registroAsistencia.getRegistroDTO().setRasHoraInicio(actual);
 					registro=asistenciaFactoryDAO.getRegistroDAOImpl().create(registroAsistencia.getRegistroDTO());					
 				}
 			}
