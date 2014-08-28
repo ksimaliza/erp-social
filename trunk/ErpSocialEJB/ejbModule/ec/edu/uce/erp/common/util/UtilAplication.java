@@ -116,4 +116,10 @@ public final class UtilAplication {
 		return pathFile;
 	}
 
+	
+	public long getDifferntDateLong(long fecha1,long fecha2)
+	{
+		return fecha1-fecha2;
+	}
+	
 }

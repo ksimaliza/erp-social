@@ -56,6 +56,23 @@ public class CalendarUtil {
 		 return newTime;
 	}
 	
+	public static String addMinute(String time,String format,int minuto)
+	{
+		String newTime = null;
+		 SimpleDateFormat df = new SimpleDateFormat(format);
+		 Date d;
+		try {
+			d = df.parse(time);
+			 Calendar cal = Calendar.getInstance();
+			 cal.setTime(d);
+			 cal.add(Calendar.MINUTE, minuto);
+			 newTime = df.format(cal.getTime());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} 
+		 return newTime;
+	}
+	
 	public static Date addDay(Date date, int days)
     {
         Calendar cal = Calendar.getInstance();

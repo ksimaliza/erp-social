@@ -28,11 +28,13 @@ public class RegistroDTO implements Serializable {
 	private Timestamp rasHoraSalida;
 
 	@Column(name="ras_tipo_entrada")
-	private Integer rasTipoEntrada;
+	private String rasTipoEntrada;
 
 	@Column(name="ras_tipo_salida")
 	private Integer rasTipoSalida;
 
+	@Column(name="ras_entidad")
+	private Integer rasEntidad;
 	
 	//bi-directional many-to-one association to EmpleadoDTO
 	@ManyToOne
@@ -66,11 +68,11 @@ public class RegistroDTO implements Serializable {
 		this.rasHoraSalida = rasHoraSalida;
 	}
 
-	public Integer getRasTipoEntrada() {
+	public String getRasTipoEntrada() {
 		return this.rasTipoEntrada;
 	}
 
-	public void setRasTipoEntrada(Integer rasTipoEntrada) {
+	public void setRasTipoEntrada(String rasTipoEntrada) {
 		this.rasTipoEntrada = rasTipoEntrada;
 	}
 
@@ -80,6 +82,14 @@ public class RegistroDTO implements Serializable {
 
 	public void setRasTipoSalida(Integer rasTipoSalida) {
 		this.rasTipoSalida = rasTipoSalida;
+	}
+
+	public Integer getRasEntidad() {
+		return rasEntidad;
+	}
+
+	public void setRasEntidad(Integer rasEntidad) {
+		this.rasEntidad = rasEntidad;
 	}
 
 	public EmpleadoDTO getAsiEmpleado() {
