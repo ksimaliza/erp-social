@@ -10,50 +10,77 @@
 		<h:form id="formNuevaSepultura" styleClass="formulario">
 			<p:panel id="pnlNuevaSepultura">
 				<table class="formulario">
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCi" value="#{i18n['erp.despacho.defuncion.cedula']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCi" style="width: 70%" 
+								 required="true" value="#{sepulturaDataManager.difuntoInsertar.perCi}" >
+							<f:validateLength maximum="10" minimum="10"/>
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+							<p:ajax event="blur" update="txtNombres,txtApellidos" listener="#{sepulturaController.buscarDifunto}" process="@this"/>
+						</p:inputText>
+						</td>	
+					</tr>
+											
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombres" value="#{i18n['erp.despacho.defuncion.nombres']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombres" label="#{i18n['erp.despacho.defuncion.nombres']}" style="width: 70%"
+							value="#{sepulturaDataManager.difuntoInsertar.perNombres}"/>
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApellidos" value="#{i18n['erp.despacho.defuncion.apellidos']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApellidos" label="#{i18n['erp.despacho.defuncion.apellidos']}" style="width: 70%" 
+							value="#{sepulturaDataManager.difuntoInsertar.perApellidos}"/>
+						</td>
+					</tr>
+					
 					
 					<tr >
-						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.sepultura.difunto']}"  /> </td>
-					<td>
-					<p:selectOneMenu id="difunto"  filter="true" required="true">
+						<td width="30%">
+						
+							<h:outputLabel value="#{i18n['erp.despacho.sepultura.numero_nicho']}"  /> 
+						
+						</td>
+					<td width="70%">
+					<p:selectOneMenu id="nicho" value="#{sepulturaDataManager.codigoNicho}" filter="true" required="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-								
+								<f:selectItems value="#{sepulturaController.sepulturaDataManager.nichoListDTOs2}" var="nicho" itemLabel="#{nicho.nicDescripcion}" itemValue="#{nicho.nicCodigo}"/>
+								<!--  <p:ajax listener="#{sepulturaController.buscarNicho}" process="@this" update="txtSeccionNicho,txtTipoNicho,txtNivelNicho"/>-->
 					</p:selectOneMenu>
 					</td>
 					</tr>
-							
-										
-					<tr>
-						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.sepultura.tipo_nicho']}" /> </td>
-						<td>
-							<p:selectOneMenu id="tipoNicho"  filter="true" required="true">
-								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-								
-							</p:selectOneMenu>
-						</td>
 					
+					
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtTipoNicho" value="#{i18n['erp.despacho.sepultura.tipo_nicho']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtTipoNicho" label="#{i18n['erp.despacho.contrato.tipo.nicho']}" style="width: 70%"
+							value="#{sepulturaDataManager.sepulturaListDTO.tniDescripcion}" />
+						</td>
 					</tr>
 					
+									
+												
 					<tr>
-						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.sepultura.numero_nicho']}" /> </td>
-						<td>
-							<p:selectOneMenu id="numeroNicho"  filter="true" required="true">
-								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-								
-							</p:selectOneMenu>
+						<td width="30%">
+							<h:outputLabel for="txtNivelNicho" value="#{i18n['erp.despacho.sepultura.nivel_nicho']}" />
 						</td>
-					
-					</tr>
-					
-					
-					<tr>
-						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.sepultura.nivel_nicho']}" /> </td>
-						<td>
-							<p:selectOneMenu id="nivelNicho"  filter="true" required="true">
-								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-								
-							</p:selectOneMenu>
+						<td width="70%">
+							<p:inputText id="txtNivelNicho" label="#{i18n['erp.despacho.contrato.nivel.nicho']}" style="width: 70%"
+							value="#{sepulturaDataManager.sepulturaListDTO.nniDescripcion}"/>
 						</td>
-					
 					</tr>
 								
 					<tr>
@@ -64,7 +91,7 @@
 						<td width="70%">
 							<p:inputTextarea id="txtObservacion" style="width: 100%"
 							required="true" label="#{i18n['erp.despacho.sepultura.observacion']}" 
-								 />
+								value="#{sepulturaDataManager.sepulturaListDTO.sepObservacion}" />
 						</td>
 					</tr>
 					
@@ -73,7 +100,7 @@
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
-					
+					actionListener="#{sepulturaController.registrarSepultura}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaSepultura.hide()"
 					process="@this,pnlNuevaSepultura" update="pnlNuevaSepultura,:formSepultura:pnlMessages,:formSepultura:tablaSepultura"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaSepultura.hide()" type="button" />

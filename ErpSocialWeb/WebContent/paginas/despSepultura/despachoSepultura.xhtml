@@ -27,39 +27,39 @@
 				<table class="formulario">
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtCedula" value="#{i18n['erp.despacho.defuncion.cedula']}" />
+							<h:outputLabel for="txtCi" value="#{i18n['erp.despacho.defuncion.cedula']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtCedula"/>
-							
+							<p:inputText id="txtCi" 
+								  value="#{sepulturaDataManager.sepulturaListDTO.perCi}" >
+								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+						</p:inputText>
 						</td>	
 					</tr>
-					
-					<tr>
+											
+						<tr>
 						<td width="30%">
-							<h:outputLabel for="txtNomDif" value="#{i18n['erp.despacho.defuncion.nombres']}" />
+							<h:outputLabel for="txtNombres" value="#{i18n['erp.despacho.defuncion.nombres']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNomDif" 
-								/>
-						</td>	
+							<p:inputText id="txtNombres" label="#{i18n['erp.despacho.defuncion.nombres']}" 
+							value="#{sepulturaDataManager.sepulturaListDTO.perNombres}"/>
+						</td>
 					</tr>
-					
-					
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtApeDif" value="#{i18n['erp.despacho.defuncion.apellidos']}" />
+							<h:outputLabel for="txtApellidos" value="#{i18n['erp.despacho.defuncion.apellidos']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtApeDif" 
-								 />
-						</td>	
+							<p:inputText id="txtApellidos" label="#{i18n['erp.despacho.defuncion.apellidos']}" 
+							value="#{sepulturaDataManager.sepulturaListDTO.perApellidos}"/>
+						</td>
 					</tr>
 				</table>
 			</p:panel>
 <p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
-					
+					actionListener="#{sepulturaController.buscarSepultura}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarSepultura"
 					update=":formSepultura:pnlMessages,tablaSepultura,pnlBuscarSepultura " />
@@ -67,7 +67,7 @@
 
 
 <p:dataTable id="tablaSepultura"
-	
+	value="#{sepulturaDataManager.sepulturaListDTO}" var="sepultura"	
 	rowIndexVar="rowIndex"
 	paginator="true" rows="5" paginatorPosition="bottom"
 	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -78,43 +78,34 @@
 	<p:column headerText="#" styleClass="centered" width="5%">
 		#{rowIndex+1}
 	</p:column>
-	<p:column headerText="#{i18n['erp.despacho.sepultura.difunto']}" width="35%">
-					<h:outputText  />
-				</p:column>
-				<p:column headerText="#{i18n['erp.despacho.sepultura.beneficiario']}" width="40%">
-					<h:outputText  />
+	<p:column headerText="#{i18n['erp.despacho.defuncion.cedula']}" width="35%">
+					<h:outputText  value="#{sepultura.perCi}"/>
 				</p:column>
 				
-				<p:column headerText="#{i18n['erp.despacho.sepultura.tipo_contrato']}" width="40%">
-					<h:outputText  />
+				<p:column headerText="#{i18n['erp.despacho.defuncion.nombres']}" width="35%">
+					<h:outputText  value="#{sepultura.perNombres}"/>
 				</p:column>
 				
-				<p:column headerText="#{i18n['erp.despacho.sepultura.fecha.muerte']}" width="40%">
-					<h:outputText  />
-				</p:column>
-				
-				<p:column headerText="#{i18n['erp.despacho.sepultura.tipo_nicho']}" width="40%">
-					<h:outputText  />
+				<p:column headerText="#{i18n['erp.despacho.defuncion.apellidos']}" width="35%">
+					<h:outputText  value="#{sepultura.perApellidos}"/>
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.sepultura.numero_nicho']}" width="40%">
-					<h:outputText  />
+					<h:outputText  value="#{sepultura.nicDescripcion}"/>
 				</p:column>
 				
+							
+				<p:column headerText="#{i18n['erp.despacho.sepultura.tipo_nicho']}" width="40%">
+					<h:outputText  value="#{sepultura.tniDescripcion}" />
+				</p:column>
+				
+						
 				<p:column headerText="#{i18n['erp.despacho.sepultura.nivel_nicho']}" width="40%">
-					<h:outputText  />
+					<h:outputText  value="#{sepultura.nniDescripcion}"/>
 				</p:column>
-				
-				<p:column headerText="#{i18n['erp.despacho.sepultura.estado_nicho']}" width="40%">
-					<h:outputText  />
-				</p:column>
-				
-				<p:column headerText="#{i18n['erp.despacho.sepultura.monto.pagado']}" width="40%">
-					<h:outputText  />
-				</p:column>
-				
+						
 				<p:column headerText="#{i18n['erp.despacho.sepultura.observacion']}" width="40%">
-					<h:outputText  />
+					<h:outputText value="#{sepultura.sepObservacion}" />
 				</p:column>
 			
 			<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
@@ -122,7 +113,7 @@
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarSepultura.show()"
-							
+							actionListener="#{sepulturaController.cargarDatosSepultura(sepultura)}"
 							process="@this" update=":formEditarSepultura:pnlEditarSepultura">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
@@ -132,6 +123,7 @@
 	
 	</h:form>			
 		<ui:include src="dialogNuevaSepultura.xhtml" />
+		<ui:include src="dialogEditarSepultura.xhtml" />
 		
 		
 </ui:define>		

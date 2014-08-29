@@ -226,7 +226,7 @@
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgPagoContrato.hide()"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoPagoContrato.hide()"
 					process="@this,pnlNuevoPagoContrato" update="pnlNuevoPagoContrato,:formPagoContrato:pnlMessages,:formPagoContrato:tablaPagoContrato"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoPagoContrato.hide()" type="button" />
 			</p:panel>
