@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpEditarEmpleado" header="#{i18n['erp.asistencia.empleado.registrar']}" resizable="false" draggable="false"
+		widgetVar="dlgEditarEmpleado" modal="true" width="500" minWidth="500" appendTo="@(body)" height="500">
+		<p:scrollPanel>
+		<h:form id="formEditarEmpleado" styleClass="formulario">
+		
+			<p:panel id="pnlEditarEmpleado">
+				
+				<table class="formulario">
+				
+					<tr>
+						<td width="100%" colspan="2"><p:graphicImage id="image" height="80" cache="false" value="#{empleadoDataManager.personaInsertar.perFoto}"/></td>
+					</tr>
+				
+					<tr>
+						<td width="30%">
+							<h:outputLabel value="#{i18n['erp.asistencia.empleado.foto']}" />
+						</td>
+						<td width="70%">
+							    <p:fileUpload fileUploadListener="#{empleadoController.handleFileUpload}" mode="advanced" dragDropSupport="true"
+                     				 update="formEditarEmpleado:image" auto="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Seleccionar" process="@this"/>
+						</td>
+					</tr>
+				
+					<tr>						
+						<td width="30%">
+							<h:outputLabel for="txtCi" value="#{i18n['erp.asistencia.empleado.cedula']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCi" style="width: 100%" required="true" label="#{i18n['erp.asistencia.empleado.cedula']}" value="#{empleadoDataManager.personaInsertar.perCi}">
+								<f:validateLength maximum="10" minimum="10"/>
+								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+							</p:inputText>
+						</td>
+					</tr>
+																	
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombres" value="#{i18n['erp.asistencia.empleado.nombres']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombres" style="width: 100%" required="true" label="#{i18n['erp.asistencia.empleado.nombres']}" value="#{empleadoDataManager.personaInsertar.perNombres}"/>
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApe" value="#{i18n['erp.asistencia.empleado.apellidos']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApe" style="width: 100%" required="true" value="#{empleadoDataManager.personaInsertar.perApellidos}"/>
+						</td>						
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFecNac" value="#{i18n['erp.asistencia.empleado.fechanac']}" />
+						</td>
+						<td width="70%">
+							<p:calendar id="txtFecNac" style="width: 100%" navigator="true" value="#{empleadoDataManager.personaInsertar.perFechaNac}"  showOn="button" required="true"/>
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtDir" value="#{i18n['erp.asistencia.empleado.direccion']}" />
+						</td>
+						<td width="70%">
+							<p:inputTextarea id="txtDir" style="width: 100%" autoResize="false" value="#{empleadoDataManager.personaInsertar.perDireccion}" required="true"/>
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtTelefono" value="#{i18n['erp.asistencia.empleado.telefono']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtTelefono" style="width: 100%" value="#{empleadoDataManager.personaInsertar.perTelefono}" onkeypress="return isNumberKey(event)" required="true"/>
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCelular" value="#{i18n['erp.asistencia.empleado.celular']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCelular" style="width: 100%" value="#{empleadoDataManager.personaInsertar.perCelular}" onkeypress="return isNumberKey(event)" required="true"/>
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtEmail" value="#{i18n['erp.asistencia.empleado.email']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtEmail" style="width: 100%" value="#{empleadoDataManager.personaInsertar.perEmail}" required="true">
+						<f:validator validatorId="ec.edu.uce.erp.web.validador.EmailValidator" />
+						</p:inputText>
+						
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtAfiliacion" value="#{i18n['erp.asistencia.empleado.afiliacion']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtAfiliacion" style="width: 100%" value="#{empleadoDataManager.empleadoInsertar.empAfiliacion}" required="true"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtfecIng" value="#{i18n['erp.asistencia.empleado.fechaingreso']}" />
+						</td>
+						<td width="70%">
+							<p:calendar id="txtfecIng" style="width: 100%" showOn="button" navigator="true" value="#{empleadoDataManager.empleadoInsertar.empFechaIngreso}" required="true"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtDepartamento" value="#{i18n['erp.asistencia.empleado.departamento']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtDepartamento" style="width: 100%" value="#{empleadoDataManager.empleadoInsertar.empDepartamento}" required="true"/>
+						</td>						
+					</tr>
+
+
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtUsuario" value="#{i18n['erp.asistencia.empleado.usuario']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtUsuario" style="width: 100%" value="#{empleadoDataManager.empleadoDTOInsertar.aemUsuario}" required="true"/>
+						</td>						
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtClave" value="#{i18n['erp.asistencia.empleado.clave']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtClave" style="width: 100%" value="#{empleadoDataManager.empleadoDTOInsertar.aemClave}" required="true"/>
+						</td>						
+					</tr>
+
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCodigo" value="#{i18n['erp.asistencia.empleado.codigo.asistencia']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCodigo" style="width: 100%" value="#{empleadoDataManager.empleadoDTOInsertar.aemCodigoRegistro}" required="true"/>
+						</td>						
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel value="Estado" />		
+						</td>
+						<td width="70%">
+							<h:selectBooleanCheckbox value="#{empleadoDataManager.empleadoDTOInsertar.aemEstado}" />
+						</td>
+					</tr>
+					
+								
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+ 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+ 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarEmpleado.hide()" actionListener="#{empleadoController.registrarEmpleado}"
+ 					process="@this,pnlEditarEmpleado" update="pnlEditarEmpleado,:formEmpleado:pnlMessages,:formEmpleado:tablaEmpleado"/>
+ 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarEmpleado.hide();" type="button" />
+			</p:panel>
+		</h:form>
+		</p:scrollPanel>
+	</p:dialog>
+	
+</ui:composition>

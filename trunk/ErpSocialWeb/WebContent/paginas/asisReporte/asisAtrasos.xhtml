@@ -1,9 +1,124 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	
+	<ui:define name="title">
+		<h3><h:outputLabel	value="#{i18n['erp.asistencia.atrasos.pagina.titulo']}" /></h3>
+	</ui:define>	
 
-	<ui:composition template="">
-	</ui:composition>
-</html>
+	
+	<ui:define name="content">
+		<h:form id="formAtraso">
+		
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
+			
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
+					</p:commandButton>
+					
+				</p:toolbarGroup>
+			</p:toolbar>
+
+
+			<p:panel id="pnlBuscar" header="#{i18n['erp.asistencia.atrasos.buscar']}">
+				<table class="formulario">
+					<tr>						
+						<td width="30%">
+							<h:outputLabel for="txtCi" value="#{i18n['erp.asistencia.empleado.cedula']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCi" label="#{i18n['erp.asistencia.empleado.cedula']}" value="#{reporteAtrasoDataManager.empleadoAtrasoListDTO.perCi}">
+								
+								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+								<!--  <p:ajax event="blur" update="txtNombreBuscar,txtApellidosBuscar,tablaAtraso" listener="#{reporteAtrasoController.buscar}" process="@this"/>-->
+							</p:inputText>
+						</td>
+					</tr>
+					
+					
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.asistencia.empleado.nombres']}" /> </td>
+						<td width="70%">
+								<p:inputText id="txtNombreBuscar"
+									value="#{reporteAtrasoDataManager.empleadoAtrasoListDTO.perNombres}" />
+						</td>					
+					</tr>
+					
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.asistencia.empleado.apellidos']}" /> </td>
+						<td width="70%">
+								<p:inputText id="txtApellidosBuscar"
+									value="#{reporteAtrasoDataManager.empleadoAtrasoListDTO.perApellidos}" />
+						</td>
+					
+					</tr>
+				</table>
+			</p:panel>
+
+			<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{reporteAtrasoController.buscarEmpleado}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,tablaAtraso"
+					update=":formAtraso:pnlMessages,tablaAtraso,pnlBuscar" />
+			</p:panel>
+
+
+	<p:dataTable id="tablaAtraso"
+		value="#{reporteAtrasoDataManager.atrasoList}" var="emp"
+		rowIndexVar="rowIndex"
+		paginator="true" rows="5" paginatorPosition="bottom"
+		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.asistencia.atrasos.lista']}">
+		<f:facet name="header">
+			#{i18n['erp.asistencia.atrasos.lista']}
+		</f:facet>
+		<p:column headerText="#" styleClass="centered" width="5%">
+			#{rowIndex+1}
+		</p:column>
+	
+		<p:column headerText="#{i18n['erp.asistencia.empleado.cedula']}" width="40%">
+			<h:outputText value="#{emp.perCi}" />
+		</p:column>
+		
+		<p:column headerText="#{i18n['erp.asistencia.empleado.nombres']}" width="35%">
+				<h:outputText value="#{emp.perNombres}" />
+		</p:column>
+		
+		<p:column headerText="#{i18n['erp.asistencia.empleado.apellidos']}" width="40%">
+			<h:outputText value="#{emp.perApellidos}" />
+		</p:column>
+		
+		<p:column headerText="#{i18n['erp.asistencia.empleado.direccion']}" width="40%">
+			<h:outputText value="#{emp.perDireccion}" />
+		</p:column>
+		
+		<p:column headerText="#{i18n['erp.asistencia.empleado.fechanac']}" width="40%">
+			<h:outputText value="#{emp.perFechaNac}" />
+		</p:column>	
+	
+	<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
+			<h:panelGroup>
+				<p:commandLink styleClass="no-decor"
+					title="#{i18n['erp.asistencia.atrasos.lista']}"
+					oncomplete="dlgAtrasos.show()"
+					actionListener="#{reporteAtrasoController.atrasos(emp)}"
+					process="@this" update=":formdialogAtrasos:tablaFalta2">
+					<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['erp.asistencia.atrasos.lista']}"/>
+				</p:commandLink>
+			</h:panelGroup>
+		</p:column> 
+	
+	</p:dataTable>			
+	
+</h:form>			
+		
+	<ui:include src="dialogAtrasos.xhtml" />
+		
+	</ui:define>
+</ui:composition>
