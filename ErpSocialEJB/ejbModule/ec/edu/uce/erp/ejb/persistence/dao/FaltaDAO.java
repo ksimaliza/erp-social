@@ -11,4 +11,7 @@ public interface FaltaDAO extends AbstractFacade<FaltaDTO>{
 	List<FaltaListDTO> findAll(FaltaListDTO falta)
 			throws SeguridadesException;
 
+	List<FaltaListDTO> getByAnd(FaltaListDTO objetoDTO)
+			throws SeguridadesException;
+
 }

@@ -23,6 +23,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaNoLaboralDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoAtrasoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaDTO;
@@ -111,10 +112,7 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		try {
 			empleadoDTO=new EmpleadoDTO();
 			empleadoDTO.setAemUsuario(empleadoVO.getEmpleadoDTO().getAemUsuario());
-			if(!factoryDAO.getEmpleadoDAOImpl().getByAnd(empleadoDTO).isEmpty())
-			{
-				throw new SeguridadesException("El usuario ya a sido registrado");
-			}
+			
 			if(empleadoVO.getEmpleado().getEmpCodigo()!=null)
 			{
 				factoryDAO.getPersonaDAOImpl().update(empleadoVO.getPersona());
@@ -123,6 +121,10 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 			}
 			else
 			{
+				if(!factoryDAO.getEmpleadoDAOImpl().getByAnd(empleadoDTO).isEmpty())
+				{
+					throw new SeguridadesException("El usuario ya a sido registrado");
+				}
 				personanueva=factoryDAO.getPersonaDAOImpl().create(empleadoVO.getPersona());
 				empleadoVO.getEmpleado().setPersonaTbl(personanueva);
 				empleadoVO.getEmpleado().setPerFk(personanueva.getPerPk());
@@ -179,6 +181,19 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		}
 		return listResultado;
 	}
+	
+	@Override
+	public EmpleadoVO obtenerEmpleadoPorId(EmpleadoListDTO empleadoListDTO) throws SeguridadesException {
+		slf4jLogger.info("obtenerEmpleadoPorId");
+		EmpleadoVO empleado=new EmpleadoVO();
+		empleado.setPersona(factoryDAO.getPersonaDAOImpl().find(empleadoListDTO.getPerPk()));
+		empleado.setEmpleado(factoryDAO.getEmpleadoeDAOImpl().find(empleadoListDTO.getAemEmpleado()));
+		empleado.setEmpleadoDTO(asistenciaFactoryDAO.getEmpleadoDAOImpl().find(empleadoListDTO.getAemCodigo()));
+		
+		return empleado;
+	}
+	
+	
 	
 	
 	/*Falta*/
@@ -237,6 +252,33 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		}
 		return listResultado;
 	}
+	
+	@Override
+	public List<FaltaListDTO> readFalta2(FaltaListDTO falta) throws SeguridadesException {
+		slf4jLogger.info("readFalta");
+		List<FaltaListDTO> listResultado = null;
+		try {
+			listResultado = asistenciaFactoryDAO.getFaltaDAOImpl().getByAnd(falta);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al readFalta {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener falta de la base de datos");
+		}
+		return listResultado;
+	}
+	
+	@Override
+	public List<EmpleadoAtrasoListDTO> readAtraso(EmpleadoAtrasoListDTO atraso) throws SeguridadesException {
+		slf4jLogger.info("readAtraso");
+		List<EmpleadoAtrasoListDTO> listResultado = null;
+		try {
+			listResultado = asistenciaFactoryDAO.getRegistroDAOImpl().getByAnd(atraso);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al readFalta {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener falta de la base de datos");
+		}
+		return listResultado;
+	}
+	
 
 
 	/*Permiso*/
@@ -746,6 +788,16 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 			throw new SeguridadesException(e);
 		}
 		return listParametro;		
+	}
+	
+	
+	
+	@Override
+	public FaltaDTO obtenerFaltaPorId(FaltaListDTO faltaListDTO) throws SeguridadesException {
+		slf4jLogger.info("obtenerFaltaPorId");
+		FaltaDTO falta=new FaltaDTO();
+		falta = asistenciaFactoryDAO.getFaltaDAOImpl().find(faltaListDTO.getAemCodigo());
+		return falta;
 	}
 
 }
