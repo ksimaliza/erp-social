@@ -102,7 +102,19 @@ public class EmpleadoController extends BaseController{
 		empleadoDataManager.getPersonaInsertar().setPerFotoByte(event.getFile().getContents());
     }
 
-
+	public void cargarDatosEmpleado (EmpleadoListDTO empleado) {
+		try {
+			EmpleadoVO empleadoEncontrado=servicioAsistencia.obtenerEmpleadoPorId(empleado);
+			this.empleadoDataManager.setEmpleadoDTOInsertar(empleadoEncontrado.getEmpleadoDTO());
+			this.empleadoDataManager.setEmpleadoInsertar(empleadoEncontrado.getEmpleado());
+			this.empleadoDataManager.setPersonaInsertar(empleadoEncontrado.getPersona());
+			
+							
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al cargarDatosEmpleado {}", e.getMessage());
+			MensajesWebController.aniadirMensajeError("Error al cargarDatosEmpleado seleccionado");
+		}
+	}
 
 
 	@Override
