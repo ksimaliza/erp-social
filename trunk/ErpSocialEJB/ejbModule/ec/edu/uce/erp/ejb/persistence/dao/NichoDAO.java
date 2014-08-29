@@ -11,4 +11,7 @@ public interface NichoDAO extends AbstractFacade<NichoDTO>{
 	List<NichoListDTO> obtenerNicho(NichoListDTO nichoListDTO)
 			throws SeguridadesException;
 
+	List<NichoListDTO> getByAnd(NichoListDTO objetoDTO)
+			throws SeguridadesException;
+
 }

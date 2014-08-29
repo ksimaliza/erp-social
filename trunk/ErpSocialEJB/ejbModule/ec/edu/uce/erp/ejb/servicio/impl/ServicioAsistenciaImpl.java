@@ -113,10 +113,13 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 			empleadoDTO=new EmpleadoDTO();
 			empleadoDTO.setAemUsuario(empleadoVO.getEmpleadoDTO().getAemUsuario());
 			
-			if(empleadoVO.getEmpleado().getEmpCodigo()!=null)
+			if(empleadoVO.getEmpleadoDTO().getAemCodigo()!=null)
 			{
-				factoryDAO.getPersonaDAOImpl().update(empleadoVO.getPersona());
-				factoryDAO.getEmpleadoeDAOImpl().update(empleadoVO.getEmpleado());
+				personanueva=factoryDAO.getPersonaDAOImpl().update(empleadoVO.getPersona());
+				empleadoVO.getEmpleado().setPersonaTbl(personanueva);
+				empleadoVO.getEmpleado().setPerFk(personanueva.getPerPk());
+				empleadonuevo=factoryDAO.getEmpleadoeDAOImpl().update(empleadoVO.getEmpleado());
+				empleadoVO.getEmpleadoDTO().setAemEmpleado(empleadonuevo.getEmpPk());
 				return asistenciaFactoryDAO.getEmpleadoDAOImpl().update(empleadoVO.getEmpleadoDTO());
 			}
 			else
@@ -125,12 +128,15 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 				{
 					throw new SeguridadesException("El usuario ya a sido registrado");
 				}
-				personanueva=factoryDAO.getPersonaDAOImpl().create(empleadoVO.getPersona());
-				empleadoVO.getEmpleado().setPersonaTbl(personanueva);
-				empleadoVO.getEmpleado().setPerFk(personanueva.getPerPk());
-				empleadonuevo=factoryDAO.getEmpleadoeDAOImpl().create(empleadoVO.getEmpleado());
-				empleadoVO.getEmpleadoDTO().setAemEmpleado(empleadonuevo.getEmpPk());
-				return asistenciaFactoryDAO.getEmpleadoDAOImpl().create(empleadoVO.getEmpleadoDTO());
+				else	
+				{
+					personanueva=factoryDAO.getPersonaDAOImpl().create(empleadoVO.getPersona());
+					empleadoVO.getEmpleado().setPersonaTbl(personanueva);
+					empleadoVO.getEmpleado().setPerFk(personanueva.getPerPk());
+					empleadonuevo=factoryDAO.getEmpleadoeDAOImpl().create(empleadoVO.getEmpleado());
+					empleadoVO.getEmpleadoDTO().setAemEmpleado(empleadonuevo.getEmpPk());
+					return asistenciaFactoryDAO.getEmpleadoDAOImpl().create(empleadoVO.getEmpleadoDTO());
+				}
 			}
 			
 		}

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
@@ -31,6 +32,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NivelNichoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PrimeraComunionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.TipoNichoDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.AutorizacionExhumacionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.BautizoVO;
@@ -43,6 +45,7 @@ import ec.edu.uce.erp.ejb.persistence.vo.EucaristiaVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ExhumacionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.MatrimonioVO;
 import ec.edu.uce.erp.ejb.persistence.vo.SacerdoteVO;
+import ec.edu.uce.erp.ejb.persistence.vo.SepulturaVO;
 
 @Local
 public interface ServicioEucaristia {
@@ -188,6 +191,18 @@ public interface ServicioEucaristia {
 			throws SeguridadesException;
 
 	ContratoVO obtenerContratoPorId(ContratoListDTO contratoListDTO)
+			throws SeguridadesException;
+
+	SepulturaDTO createOrUpdateSepultura(SepulturaVO sepulturaVO)
+			throws SeguridadesException;
+
+	List<SepulturaListDTO> readSepultura(SepulturaListDTO sepultura)
+			throws SeguridadesException;
+
+	SepulturaVO obtenerSepulturaPorId(SepulturaListDTO sepulturaListDTO)
+			throws SeguridadesException;
+
+	List<NichoListDTO> readNicho(NichoListDTO nichoListDTO)
 			throws SeguridadesException;
 
 

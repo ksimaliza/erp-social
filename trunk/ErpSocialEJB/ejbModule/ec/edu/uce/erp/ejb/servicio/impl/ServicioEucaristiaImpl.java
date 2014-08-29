@@ -12,6 +12,7 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.dao.factory.EucaristiaFactoryDAO;
 import ec.edu.uce.erp.ejb.dao.factory.FactoryDAO;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
@@ -38,6 +39,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NivelNichoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PrimeraComunionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.TipoNichoDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.AutorizacionExhumacionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.BautizoVO;
@@ -50,6 +52,7 @@ import ec.edu.uce.erp.ejb.persistence.vo.EucaristiaVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ExhumacionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.MatrimonioVO;
 import ec.edu.uce.erp.ejb.persistence.vo.SacerdoteVO;
+import ec.edu.uce.erp.ejb.persistence.vo.SepulturaVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
 
 @Stateless
@@ -664,6 +667,8 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		return listTipoNicho;
 	}
 	
+	
+	
 	@Override
 	public TipoNichoDTO obtenerTipoNichoPorId(Integer id) throws SeguridadesException {
 		slf4jLogger.info("obtenerTipoNichoPorId");
@@ -765,6 +770,19 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		List<NichoListDTO> listResultado = null;
 		try {
 			listResultado = eucaristiaFactoryDAO.getNichoDAOImpl().obtenerNicho(nichoListDTO);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarNicho {}", e.getMessage());
+			throw new SeguridadesException("No se pudo buscarNicho de la base de datos");
+		}
+		return listResultado;
+	}
+	
+	@Override
+	public List<NichoListDTO> readNicho(NichoListDTO nichoListDTO) throws SeguridadesException {
+		slf4jLogger.info("buscarNicho");
+		List<NichoListDTO> listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getNichoDAOImpl().getByAnd(nichoListDTO);
 		} catch (Exception e) {
 			slf4jLogger.info("Error al buscarNicho {}", e.getMessage());
 			throw new SeguridadesException("No se pudo buscarNicho de la base de datos");
@@ -1034,6 +1052,71 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		contrato.setContratoDTO(eucaristiaFactoryDAO.getContratoDAOImpl().find(contratoListDTO.getConCodigo()));
 		
 		return contrato;
+	}
+
+	
+	@Override
+	public SepulturaDTO createOrUpdateSepultura(SepulturaVO sepulturaVO) throws SeguridadesException
+	{
+		slf4jLogger.info("createOrUpdateSepultura");
+		Persona difuntoPersona;
+		NichoDTO nichoDTO;
+						 
+		List<Persona> listPersona;
+			
+		try {
+			difuntoPersona = sepulturaVO.getDifunto();
+			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(difuntoPersona);
+			if(listPersona.size()<=0)
+				difuntoPersona=factoryDAO.getPersonaDAOImpl().create(difuntoPersona);
+				
+			else
+				difuntoPersona=listPersona.get(0);
+			
+			sepulturaVO.getSepultura().setSepDifunto(difuntoPersona.getPerPk());
+				
+									
+			if(sepulturaVO.getSepultura().getSepCodigo()!=null){
+				nichoDTO=eucaristiaFactoryDAO.getNichoDAOImpl().find(sepulturaVO.getNichoDTO().getNicCodigo());
+				sepulturaVO.getSepultura().setSepNicho(nichoDTO.getNicCodigo());
+							
+				return  eucaristiaFactoryDAO.getSepulturaDAOImpl().update(sepulturaVO.getSepultura());
+			}
+			else{
+				nichoDTO=eucaristiaFactoryDAO.getNichoDAOImpl().find(sepulturaVO.getNichoDTO().getNicCodigo());
+				sepulturaVO.getSepultura().setSepNicho(nichoDTO.getNicCodigo());
+							
+				return  eucaristiaFactoryDAO.getSepulturaDAOImpl().create(sepulturaVO.getSepultura());
+				
+			}
+		} catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdateSepultura {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+		
+	}
+	
+	@Override
+	public List<SepulturaListDTO> readSepultura(SepulturaListDTO sepultura) throws SeguridadesException {
+		slf4jLogger.info("readSepultura");
+		List<SepulturaListDTO> listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getSepulturaDAOImpl().getByAnd(sepultura);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al readFalta {}", e.getMessage());
+			throw new SeguridadesException("No se pudo readSepultura de la base de datos");
+		}
+		return listResultado;
+	}
+	
+	@Override
+	public SepulturaVO obtenerSepulturaPorId(SepulturaListDTO sepulturaListDTO) throws SeguridadesException {
+		slf4jLogger.info("obtenerSepulturaPorId");
+		
+		SepulturaVO sepultura=new SepulturaVO();
+		sepultura.setSepultura(eucaristiaFactoryDAO.getSepulturaDAOImpl().find(sepulturaListDTO.getSepCodigo()));
+		return sepultura;
 	}
 
 	
