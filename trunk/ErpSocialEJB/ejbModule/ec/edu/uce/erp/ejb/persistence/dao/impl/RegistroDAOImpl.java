@@ -1,5 +1,7 @@
 package ec.edu.uce.erp.ejb.persistence.dao.impl;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +17,10 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.dao.RegistroDAO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoAtrasoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.RegistroDTO;
+
 
 public class RegistroDAOImpl extends AbstractFacadeImpl<RegistroDTO> implements RegistroDAO {
 
@@ -63,5 +67,66 @@ public class RegistroDAOImpl extends AbstractFacadeImpl<RegistroDTO> implements 
 		}		
 		return result;
 	}
+	
+	@Override
+	public List<EmpleadoAtrasoListDTO> getByAnd(EmpleadoAtrasoListDTO objetoDTO) throws SeguridadesException
+	{
+		CriteriaBuilder cb;
+		CriteriaQuery<EmpleadoAtrasoListDTO> cq;
+		Root<EmpleadoAtrasoListDTO> from;
+		List<EmpleadoAtrasoListDTO> list;
+		Predicate predicate;
+		List<Predicate> predicateList = null;
+		String fieldName;
+		Method getter;
+		Object value;
+		Field[] fields;
+		try{
+			cb=entityManager.getCriteriaBuilder();
+			cq=cb.createQuery(EmpleadoAtrasoListDTO.class);
+			
+			from= cq.from(EmpleadoAtrasoListDTO.class);
+			
+			predicateList=new ArrayList<Predicate>();
+			
+			fields = objetoDTO.getClass().getDeclaredFields();
+
+	        for(Field f : fields){
+	            fieldName = f.getName();
+				if(!fieldName.equals("serialVersionUID"))
+				{
+				    getter = objetoDTO.getClass().getMethod("get" + String.valueOf(fieldName.charAt(0)).toUpperCase() +
+				            fieldName.substring(1));
+				    
+				    value = getter.invoke(objetoDTO, new Object[0]);
+				
+				    if(value!=null && value!="")
+				    {
+				    	predicate=cb.equal(from.get(fieldName), value);
+				    	predicateList.add(predicate);                	
+				    }
+				}
+	        }
+	
+	        if(!predicateList.isEmpty())
+	        	cq.where(cb.and(predicateList.toArray(new Predicate[0])));		
+			
+			TypedQuery<EmpleadoAtrasoListDTO> tq=entityManager.createQuery(cq);
+			list=tq.getResultList();
+			
+			return list;
+			
+		}catch(Exception e){
+			slf4jLogger.info(e.toString());
+			throw new SeguridadesException(e);
+		}finally{
+			predicate=null;
+			predicateList=null;
+		}		
+	}
+	
+	
+	
+	
 
 }
