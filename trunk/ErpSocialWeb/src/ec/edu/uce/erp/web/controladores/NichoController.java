@@ -88,6 +88,11 @@ public void registrarNicho () {
 					
 		if (nichoNuevo != null) {
 			MensajesWebController.aniadirMensajeInformacion("erp.despacho.nicho.registrar.exito");
+			nichoDataManager.setCodigoNivelNicho(0);
+			nichoDataManager.setNichoInsertar(new NichoDTO());
+			nichoDataManager.setCodigoSeccion(0);
+			nichoDataManager.setCodigoTipoNicho(0);
+			
 		}
 		
 	} catch (SeguridadesException e) {
