@@ -88,13 +88,25 @@
 		<p:column headerText="#{i18n['erp.matricula.estudiante.fechanac']}" width="40%">
 			<h:outputText value="#{emp.perFechaNac}" />
 		</p:column>	
+		<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.editar']}"
+							oncomplete="dlgEditarEmpleado.show()"
+							actionListener="#{empleadoController.cargarDatosEmpleado(emp)}"
+							process="@this" update=":formEditarEmpleado:pnlEditarEmpleado">
+							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+						</p:commandLink>
+					</h:panelGroup>
+		</p:column>
 	
 	</p:dataTable>			
 	
 </h:form>			
 		
-		
 	<ui:include src="dialogNuevoEmpleado.xhtml" />	 
+	<ui:include src="dialogEditarEmpleado.xhtml" />	
+		
 		
 	</ui:define>
 </ui:composition>

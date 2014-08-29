@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpFaltas" header="#{i18n['erp.asistencia.falta.lista1']}" resizable="false" draggable="false"
+		widgetVar="dlgFaltas" modal="true" width="500" minWidth="500" appendTo="@(body)" height="500">
+		
+		<p:scrollPanel>
+		
+		<h:form id="formdialogFaltas" styleClass="formulario">
+		
+		<p:dataTable id="tablaFalta2"
+			value="#{reporteFaltasDataManager.faltasList2}" var="falta"
+			rowIndexVar="rowIndex" paginator="true" rows="5" paginatorPosition="bottom"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.asistencia.falta.lista1']}">
+			
+			<f:facet name="header">
+				#{i18n['erp.asistencia.falta.lista1']}
+			</f:facet>
+			<p:column headerText="#" styleClass="centered" width="5%">
+				#{rowIndex+1}
+			</p:column>
+						
+			<p:column headerText="#{i18n['erp.asistencia.falta.fecha']}" width="35%">
+					<h:outputText value="#{falta.falFecha}" />
+			</p:column>
+			
+			<p:column headerText="#{i18n['erp.asistencia.falta.descripcion']}" width="40%">
+				<h:outputText value="#{falta.falDescripcion}" />
+			</p:column>
+			
+		</p:dataTable>
+			
+		</h:form>
+		
+		</p:scrollPanel>
+		
+	</p:dialog>
+	
+</ui:composition>
