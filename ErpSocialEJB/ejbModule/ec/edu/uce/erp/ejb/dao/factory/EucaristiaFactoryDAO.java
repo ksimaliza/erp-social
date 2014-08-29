@@ -16,6 +16,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.NichoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.NivelNichoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PrimeraComunionDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.SacerdoteDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.SepulturaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.TipoNichoDAO;
 
 @Local
@@ -50,5 +51,7 @@ public interface EucaristiaFactoryDAO {
 	CatalogoDAO getCatalogoDAOImpl();
 
 	AutorizacionExhumacionDAO getAutorizacionExhumacionDAOImpl();
+
+	SepulturaDAO getSepulturaDAOImpl();
 
 }

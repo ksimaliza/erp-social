@@ -19,6 +19,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.NichoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.NivelNichoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PrimeraComunionDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.SacerdoteDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.SepulturaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.TipoNichoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.AutorizacionExhumacionDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.BautizoDAOImpl;
@@ -34,6 +35,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.impl.NichoDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.NivelNichoDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.PrimeraComunionDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.SacerdoteDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.SepulturaDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.TipoNichoDAOImpl;
 
 @Stateless
@@ -57,6 +59,7 @@ public class EucaristiaFactoryDAOImpl implements EucaristiaFactoryDAO {
 	private DoctorDAO doctorDAO;
 	private CatalogoDAO catalogoDAO;
 	private AutorizacionExhumacionDAO autorizacionExhumacionDAO;
+	private SepulturaDAO sepulturaDAO;
 	
 	
 	@Override
@@ -192,6 +195,15 @@ public class EucaristiaFactoryDAOImpl implements EucaristiaFactoryDAO {
 			autorizacionExhumacionDAO = new AutorizacionExhumacionDAOImpl(entityManager);
 		}
 		return autorizacionExhumacionDAO;
+	}
+	
+	@Override
+	public SepulturaDAO getSepulturaDAOImpl()
+	{
+		if (sepulturaDAO == null) {
+			sepulturaDAO = new SepulturaDAOImpl(entityManager);
+		}
+		return sepulturaDAO;
 	}
 	
 }
