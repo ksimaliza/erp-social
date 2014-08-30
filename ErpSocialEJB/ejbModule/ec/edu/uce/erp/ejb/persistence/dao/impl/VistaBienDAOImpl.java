@@ -153,7 +153,7 @@ public class VistaBienDAOImpl extends AbstractFacadeImpl<VistaBien> implements V
 			}
 			
 			criteriaQuery.where(criteriaBuilder.and(criteriaList.toArray(new Predicate[0])));
-//			criteriaQuery.orderBy(criteriaBuilder.asc(fromVistaBien.get("fechaRegistro")));
+			criteriaQuery.orderBy(criteriaBuilder.desc(fromVistaBien.get("traFechaInicio")));
 			
 			TypedQuery<VistaBien> typedQuery = entityManager.createQuery(criteriaQuery);
 			
