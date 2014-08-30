@@ -252,7 +252,7 @@ public class VistaBienDataManager extends BaseDataManager{
 	}
 	
 	/**
-	 * @return the dcMarcaBien
+	 * @return the dcEmpleadosEmpresa
 	 */
 	public List<SelectItem> getDcEmpleadosEmpresa() {
 		

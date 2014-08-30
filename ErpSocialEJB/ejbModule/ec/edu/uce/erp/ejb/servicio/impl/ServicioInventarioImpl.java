@@ -234,6 +234,21 @@ public class ServicioInventarioImpl implements ServicioInventario {
 		
 		return listLineaBien;
 	}
+	
+	private Boolean esIndiceRepetido (Integer catBienIndice) throws SeguridadesException {
+		
+		CategoriaBien categoriaBien = new CategoriaBien();
+		categoriaBien.setCatBienIndice(catBienIndice);
+		
+		List<CategoriaBien> listCategoriaBien = this.inventarioFactory.getCategoriaBienDAOImpl().obtenerCategoriaBienCriterios(categoriaBien);
+		
+		if (CollectionUtils.isEmpty(listCategoriaBien)) {
+			return Boolean.FALSE;
+		} else {
+			return Boolean.TRUE;
+		}
+		
+	}
 
 	/*
 	 * Servicio para administracion de categoria bien
@@ -244,8 +259,14 @@ public class ServicioInventarioImpl implements ServicioInventario {
 	public CategoriaBien registrarCategoriaBien(CategoriaBien categoriaBien) throws SeguridadesException {
 		CategoriaBien categoriaBienNuevo = null;
 		try {
+			
+			if (this.esIndiceRepetido(categoriaBien.getCatBienIndice())) {
+				throw new SeguridadesException("El indice de la categoria debe ser \u00FAnico ya existe una categoria con el indice: " + categoriaBien.getCatBienIndice());
+			}
+			
 			categoriaBien.setCatBienEstado(ESTADO_ACTIVO);
 			categoriaBien.setCatBienPk(null);
+			
 			categoriaBienNuevo = inventarioFactory.getCategoriaBienDAOImpl().create(categoriaBien);
 			inventarioFactory.getHistoricoTransaccioneDAOImpl()
 					.registrarHistoricoTransaccion(
@@ -253,7 +274,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 									.getIdUsuario(), ServicioInventarioImpl.class.getName(), "registrarCategoriaBien", EnumTipoTransaccion.CREATE));
 			
 		} catch (Exception e) {
-			slf4jLogger.info("error al registrarCategoriaBien {}", e.getCause().getMessage());
+			slf4jLogger.info("error al registrarCategoriaBien {}", e.toString());
 			throw new SeguridadesException(e);
 		}
 		return categoriaBienNuevo;
@@ -537,6 +558,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 					transaccionNuevo.setFechaInicio(UtilAplication.obtenerFechaActual());
 					transaccionNuevo.setTraEstado(ESTADO_ACTIVO);
 					transaccionNuevo.setEmpAsignadoFk(vistaBien.getEmpAsignadoFk());
+					transaccionNuevo.setBieUbicacion(vistaBien.getBieUbicacion());
 					inventarioFactory.getTransaccionDAOImpl().create(transaccionNuevo);
 					
 					Bien bienBuscar = new Bien();
@@ -544,8 +566,8 @@ public class ServicioInventarioImpl implements ServicioInventario {
 					bienBuscar.setEmrPk(vistaBien.getEmrPk());
 					
 					Bien bienActual = inventarioFactory.getBienDAOImpl().buscarBienCriterios(bienBuscar).iterator().next();
-					bienActual.setBieUbicacion(vistaBien.getBieUbicacion());
-					bienActual.setBieCodigo(vistaBien.getBieCodigo());
+					
+					bienActual.setBieCodigo(this.generarCodidoBien(vistaBien));
 					bienActual.setBieFechaAsig(vistaBien.getTraFechaInicio());
 					bienActual.setBieEstadoUso(ESTADO_ACTIVO);
 					inventarioFactory.getBienDAOImpl().update(bienActual);
@@ -564,7 +586,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 				throw new SeguridadesException("El bien no tiene un estado valido para ser asignado");
 			}
 		} catch (Exception e) {
-			slf4jLogger.info("error al asignarBien {}", e.getCause().getMessage());
+			slf4jLogger.info("error al asignarBien {}", e.toString());
 			throw new SeguridadesException(e);
 		}
 		
@@ -807,6 +829,21 @@ public class ServicioInventarioImpl implements ServicioInventario {
 	public ReporteInventarioVO obtenerReporteInventario(ReporteInventarioVO reporteInventarioVO) throws SeguridadesException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	private String generarCodidoBien (VistaBien vistaBien) {
+		
+		String [] array = vistaBien.getNpNombreEmpresa().split(" ");
+		StringBuilder salida = new StringBuilder();
+		
+		for (int a = 0; a<array.length; a++) {
+			System.out.println("elemento: " + array[a]);
+			salida.append(array[a].substring(0, 1).toUpperCase()).append(".");
+		}
+		
+		salida.append(vistaBien.getCatBienIndice()).append(".").append(vistaBien.getLinBienIndice()).append(".");
+		
+		return salida.toString();
 	}
 	
 }

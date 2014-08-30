@@ -68,6 +68,9 @@ public class Transaccion implements Serializable {
 	
 	@Column(name = "emp_reasignado_fk")
 	private Integer empReasignadoFk;
+	
+	@Column(name="bie_ubicacion")
+	private String bieUbicacion;
 
 	//bi-directional many-to-one association to Bien
 	@ManyToOne (fetch = FetchType.LAZY)
@@ -478,6 +481,20 @@ public class Transaccion implements Serializable {
 	 */
 	public void setDcTipoBaja(DetalleBien dcTipoBaja) {
 		this.dcTipoBaja = dcTipoBaja;
+	}
+
+	/**
+	 * @return the bieUbicacion
+	 */
+	public String getBieUbicacion() {
+		return bieUbicacion;
+	}
+
+	/**
+	 * @param bieUbicacion the bieUbicacion to set
+	 */
+	public void setBieUbicacion(String bieUbicacion) {
+		this.bieUbicacion = bieUbicacion;
 	}
 
 }

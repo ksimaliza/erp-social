@@ -3,27 +3,32 @@
  */
 package ec.edu.uce.erp.web.controladores;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.model.SelectItem;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.primefaces.event.SelectEvent;
-import org.primefaces.model.DualListModel;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.common.enums.EnumTipoBien;
+import ec.edu.uce.erp.common.enums.EnumTipoTransaccionMasiva;
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.common.util.UtilAplication;
+import ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
-import ec.edu.uce.erp.ejb.persistence.view.VistaEmpleado;
-import ec.edu.uce.erp.ejb.persistence.view.VistaTransaccion;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
-import ec.edu.uce.erp.web.datamanager.VistaBienDataManager;
+import ec.edu.uce.erp.web.common.util.UtilSelectItems;
+import ec.edu.uce.erp.web.datamanager.TransaccionMasivaBienDataManager;
 
 /**
  * @author 
@@ -39,23 +44,37 @@ public class TransaccionMasivaBienController extends BaseController{
 	@EJB
 	private ServicioInventario servicioInventario;
 	
-	@ManagedProperty(value="#{vistaBienDataManager}")
-	private VistaBienDataManager vistaBienDataManager;
+	@ManagedProperty(value="#{transaccionMasivaBienDataManager}")
+	private TransaccionMasivaBienDataManager transaccionMasivaBienDataManager;
 	
-	private DualListModel<VistaBien> dualListVistaBien;
+	private List<SelectItem> dcTipoTransaccion;
+	private List<SelectItem> dcCategoriaBien;
+	private List<SelectItem> dcLineaBien;
+	private List<SelectItem> dcEmpleadosEmpresa;
+	
+	private Integer idCategoriaBienSeleccionado;
+	private Integer idLineaBienSeleccionado;
+	private String idTransaccionSeleccionado;
+	private Integer idCustudioAsignado;
 	
 	/**
-	 * @param vistaBienDataManager the vistaBienDataManager to set
+	 * @param transaccionMasivaBienDataManager the transaccionMasivaBienDataManager to set
 	 */
-	public void setVistaBienDataManager(VistaBienDataManager vistaBienDataManager) {
-		this.vistaBienDataManager = vistaBienDataManager;
+	public void setTransaccionMasivaBienDataManager(
+			TransaccionMasivaBienDataManager transaccionMasivaBienDataManager) {
+		this.transaccionMasivaBienDataManager = transaccionMasivaBienDataManager;
 	}
 	
-	public TransaccionMasivaBienController () {
-		this.vistaBienDataManager = new VistaBienDataManager();
-		dualListVistaBien = new DualListModel<VistaBien>();
+	@Override
+	public void refrescarFormulario() {
+		
 	}
 	
+	@PostConstruct
+	public void inicializarObjetos () {
+		this.transaccionMasivaBienDataManager.setListVistaBienTramitar(new ArrayList<VistaBien>());
+		this.dcLineaBien = new ArrayList<SelectItem>();
+	}
 
 	/**
 	 * Buscar bienes a trav&eacute;s de una vista
@@ -66,21 +85,28 @@ public class TransaccionMasivaBienController extends BaseController{
 		
 		try {
 			
-			this.vistaBienDataManager.getVistaBienBuscar().setEmrPk(this.vistaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
-//			this.vistaBienDataManager.getVistaBienBuscar().setPerCi(this.vistaBienDataManager.getIdCIEmpleadoSeleccionado());
-			this.vistaBienDataManager.getVistaBienBuscar().setCatBienPk(this.vistaBienDataManager.getIdCategoriaBienSeleccionado());
-			this.vistaBienDataManager.getVistaBienBuscar().setLinBienPk(this.vistaBienDataManager.getIdLineaBienSeleccionado());
-			
-			List<VistaBien> listVistaBien = servicioInventario.buscarVistaBienCriterios(this.vistaBienDataManager.getVistaBienBuscar());
-			
-			this.vistaBienDataManager.getListVistaBien().clear();
-			if (CollectionUtils.isNotEmpty(listVistaBien)) {
-				this.vistaBienDataManager.setListVistaBien(listVistaBien);
-				dualListVistaBien = new DualListModel<VistaBien>(this.vistaBienDataManager.getListVistaBien(), this.vistaBienDataManager.getListVistaBienEditar());
-			} else {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			if (this.idTransaccionSeleccionado.equals(EnumTipoTransaccionMasiva.ASIGNAR.getId())) {
 				
+				this.transaccionMasivaBienDataManager.getListVistaBien().clear();
+				this.transaccionMasivaBienDataManager.getVistaBienBuscar().setEmrPk(this.transaccionMasivaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
+				this.transaccionMasivaBienDataManager.getVistaBienBuscar().setCatBienPk(this.idCategoriaBienSeleccionado);
+				this.transaccionMasivaBienDataManager.getVistaBienBuscar().setLinBienPk(this.idLineaBienSeleccionado);
+				this.transaccionMasivaBienDataManager.getVistaBienBuscar().setDetBienTipBieNivel1(EnumTipoBien.INGRESADO.getId());
+				this.transaccionMasivaBienDataManager.getVistaBienBuscar().setBieEstado(this.transaccionMasivaBienDataManager.getEstadoActivo());
+				this.transaccionMasivaBienDataManager.getVistaBienBuscar().setTraEstado(this.transaccionMasivaBienDataManager.getEstadoActivo());
+				
+				List<VistaBien> listVistaBien = servicioInventario.buscarVistaBienCriterios(this.transaccionMasivaBienDataManager.getVistaBienBuscar());
+				
+				if (CollectionUtils.isNotEmpty(listVistaBien)) {
+					this.transaccionMasivaBienDataManager.setListVistaBien(listVistaBien);
+				} else {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+					
+				}
+			} else {
+				MensajesWebController.aniadirMensajeInformacion("Funcionalidad no implemtado");
 			}
+			
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("error al buscarBienes {}", e.getCause().getMessage());
@@ -88,24 +114,54 @@ public class TransaccionMasivaBienController extends BaseController{
 		}
 	}
 	
+	public void limpiarFiltrosBusqueda () {
+		this.transaccionMasivaBienDataManager.setVistaBienBuscar(new VistaBien());
+		this.idCategoriaBienSeleccionado = null;
+		this.idLineaBienSeleccionado = null;
+		this.idTransaccionSeleccionado = null;
+	}
 	
-	public String asignarBien () {
+	public void asignarElementoTramitar (VistaBien vistaBien) {
+		if (vistaBien !=null) {
+			
+			if (vistaBien.getIsSelected()) {
+				this.transaccionMasivaBienDataManager.getListVistaBienTramitar().add(vistaBien);
+			} else {
+				this.transaccionMasivaBienDataManager.getListVistaBienTramitar().remove(vistaBien);
+			}
+			
+		}
+	}
+	
+	public String asignarBienMasivo () {
 		
-		slf4jLogger.info("asignarBien");
+		slf4jLogger.info("asignarBienMasivo");
 		
 		try {
 			
-			this.vistaBienDataManager.getVistaBienEditar().setEmpAsignadoFk(this.vistaBienDataManager.getIdCustudioAsignado());
-			VistaBien vistaBien = servicioInventario.asignarBien(this.vistaBienDataManager.getVistaBienEditar());
-			
-			if (vistaBien != null) {
-				int posicion = this.vistaBienDataManager.getListVistaBien().indexOf(this.vistaBienDataManager.getVistaBienEditar());
-				this.vistaBienDataManager.getListVistaBien().remove(this.vistaBienDataManager.getVistaBienEditar());
-				this.vistaBienDataManager.getListVistaBien().add(posicion, vistaBien);
-				MensajesWebController.aniadirMensajeInformacion("Bien asignado correctamente");
+			if (CollectionUtils.isNotEmpty(this.transaccionMasivaBienDataManager.getListVistaBienTramitar())) {
+				
+				List<VistaBien> listVistaBien = new ArrayList<VistaBien>();
+				
+				for (VistaBien vistaBien : this.transaccionMasivaBienDataManager.getListVistaBienTramitar()) {
+					vistaBien.setBieUbicacion(this.transaccionMasivaBienDataManager.getVistaBienEditar().getBieUbicacion());
+					vistaBien.setUsuarioRegistro(this.transaccionMasivaBienDataManager.getUsuarioSession());
+					vistaBien.setEmpAsignadoFk(this.idCustudioAsignado);
+					VistaBien vistaBienAsignado = servicioInventario.asignarBien(vistaBien);
+					listVistaBien.add(vistaBienAsignado);
+				}
+				
+				if (CollectionUtils.isNotEmpty(listVistaBien)) {
+					MensajesWebController.aniadirMensajeInformacion("Bienes asignados correctamente");
+					this.idCustudioAsignado = null;
+					this.transaccionMasivaBienDataManager.getListVistaBienTramitar().clear();
+					this.transaccionMasivaBienDataManager.getListVistaBien().clear();
+				}
+				
 			}
 			
 		} catch (SeguridadesException e) {
+			RequestContext.getCurrentInstance().addCallbackParam("validationFailed", e);
 			slf4jLogger.info("error al asignarBien {}", e.getCause().getMessage());
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
@@ -114,108 +170,153 @@ public class TransaccionMasivaBienController extends BaseController{
 		
 	}
 	
-	public void reasignarBien () {
+	/**
+	 * @return the fechaTransaccion
+	 */
+	public String getFechaTransaccion() {
 		
-		slf4jLogger.info("reasignarBien");
+		return UtilAplication.fechaActualConFormato("yyyy-MM-dd hh:mm a");
+	}
+	
+	/**
+	 * @return the dcTipoTransaccion
+	 */
+	public List<SelectItem> getDcTipoTransaccion() {
 		
-		try {
-			
-			this.vistaBienDataManager.getVistaBienEditar().setEmpAsignadoFk(this.vistaBienDataManager.getIdCustudioReasignado());
-			VistaBien vistaBien = servicioInventario.reasignarBien(this.vistaBienDataManager.getVistaBienEditar());
-			
-			if (vistaBien != null) {
-				int posicion = this.vistaBienDataManager.getListVistaBien().indexOf(this.vistaBienDataManager.getVistaBienEditar());
-				this.vistaBienDataManager.getListVistaBien().remove(this.vistaBienDataManager.getVistaBienEditar());
-				this.vistaBienDataManager.getListVistaBien().add(posicion, vistaBien);
-				MensajesWebController.aniadirMensajeInformacion("Bien reasignado correctamente");
+		if (CollectionUtils.isEmpty(dcTipoTransaccion)) {
+			slf4jLogger.info("cargar getDcTipoTransaccion");
+			dcTipoTransaccion = new ArrayList<SelectItem>();
+			for (EnumTipoTransaccionMasiva enumTipoTransaccionMasiva : EnumTipoTransaccionMasiva.values()) {
+				dcTipoTransaccion.add(new SelectItem(enumTipoTransaccionMasiva.getId(), enumTipoTransaccionMasiva.getLabel()));
 			}
-			
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("error al asignarBien {}", e.getCause().getMessage());
-			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
 		
+		return dcTipoTransaccion;
 	}
 	
-	public void validarAsignacionCustodio () {
-		slf4jLogger.info("validarAsignacionCustodio");
-		
-		if (this.vistaBienDataManager.getVistaBienEditar().getEmpAsignadoFk().intValue() == this.vistaBienDataManager.getIdCustudioReasignado().intValue()){
-			MensajesWebController.aniadirMensajeError("El custodio a reemplazar no puede ser el mismo");
-			this.vistaBienDataManager.setIdCustudioReasignado(0);
-		}
-		
-	}
-	
-	public void obtenerTrazabilidadBien () {
-		slf4jLogger.info("obtenerTrazabilidadBien");
+	/**
+	 * @return the dcCategoriaBien
+	 */
+	public List<SelectItem> getDcCategoriaBien() {
 		
 		try {
-			VistaTransaccion vistaTransaccion = new VistaTransaccion();
-			vistaTransaccion.setBieFk(this.vistaBienDataManager.getVistaBienEditar().getBiePk());
-			this.vistaBienDataManager.setListVistaTransaccion(servicioInventario.obtenerVistaTransaccionCriterios(vistaTransaccion));
+			if (CollectionUtils.isEmpty(dcCategoriaBien)) {
+				slf4jLogger.info("cargar dcCategoriaBien");
+				dcCategoriaBien = UtilSelectItems.getInstancia().cargarSelectItemCategoriaBien(servicioInventario);
+			}
 		} catch (SeguridadesException e) {
-			// TODO Auto-generated catch block
+			slf4jLogger.info("error al cargar dcCategoriaBien {}", e.getCause().getMessage());
 			e.printStackTrace();
 		}
 		
+		return dcCategoriaBien;
 	}
 	
-//	public void generarActaBien () {
-//		
-//		List<ActaBienDTO> listActaBien = new ArrayList<ActaBienDTO>();
-//		ActaBienDTO actaBienDTO = new ActaBienDTO();
-//		actaBienDTO.setTituloActa("Acta bienes");
-//		listActaBien.add(actaBienDTO);
-//		
-//		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), listActaBien, "actaAsignacionBien");
-//		ReporteUtil.generarReporte(jasperPrint, "pdf", "actaBien");
-//		
-//	}
-	
-	public void buscarEmpleado () {
-		slf4jLogger.info("buscarEmpleado");
+	public void cargarDcLineaBien () {
 		
 		try {
-			this.vistaBienDataManager.getListVistaEmpleado().clear();
-			this.vistaBienDataManager.getVistaEmpleadoBuscar().setEmrFk(this.vistaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
-			List<VistaEmpleado> listVistaEmpleado = servicioInventario.obtenerEmpleadoEmpresa(this.vistaBienDataManager.getVistaEmpleadoBuscar());
-			if (CollectionUtils.isEmpty(listVistaEmpleado)) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.vistaBienDataManager.setListVistaEmpleado(listVistaEmpleado);
-			}
+			this.dcLineaBien.clear();
 			
+			if (idCategoriaBienSeleccionado!=null && idCategoriaBienSeleccionado>0) {
+				
+				slf4jLogger.info("cargarDcLineaBien");
+				
+				LineaBien lineaBien = new LineaBien();
+				lineaBien.setCatBienPk(idCategoriaBienSeleccionado);
+				lineaBien.setLinBienEstado(this.transaccionMasivaBienDataManager.getEstadoActivo());
+				List<LineaBien> listLineaBien = servicioInventario.buscarLineaBienCriterios(lineaBien);
+				if (CollectionUtils.isEmpty(listLineaBien)){
+					MensajesWebController.aniadirMensajeInformacion("La linea seleccionada no tiene categorias asignadas");
+				} else {
+					this.dcLineaBien.addAll(UtilSelectItems.getInstancia().cargarSelectItemsGenerico(listLineaBien, "linBienPk", "linBienNombre"));
+				}
+			}
 		} catch (SeguridadesException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			slf4jLogger.info("error al cargarDcCategoriaBien {}", e.getCause().getMessage());
+			MensajesWebController.aniadirMensajeError("No se pudo obtener las categorias de la base de datos");
 		}
 	}
 	
-	public void asignarDatosEmpleadoSeleccionado (SelectEvent event) {
-		VistaEmpleado vistaEmpleado = (VistaEmpleado)event.getObject();
-//		this.vistaBienDataManager.setIdCIEmpleadoSeleccionado(vistaEmpleado.getPerCi());
-		slf4jLogger.info("buscarEmpleado");
-	}
-
 	/**
-	 * @return the dualListVistaBien
+	 * @return the dcEmpleadosEmpresa
 	 */
-	public DualListModel<VistaBien> getDualListVistaBien() {
-		return dualListVistaBien;
-	}
-
-	/**
-	 * @param dualListVistaBien the dualListVistaBien to set
-	 */
-	public void setDualListVistaBien(DualListModel<VistaBien> dualListVistaBien) {
-		this.dualListVistaBien = dualListVistaBien;
-	}
-
-	@Override
-	public void refrescarFormulario() {
-		// TODO Auto-generated method stub
+	public List<SelectItem> getDcEmpleadosEmpresa() {
 		
+		try {
+			if (CollectionUtils.isEmpty(dcEmpleadosEmpresa)) {
+				slf4jLogger.info("cargar dcEmpleadosEmpresa");
+				dcEmpleadosEmpresa = UtilSelectItems.getInstancia()
+						.cargarSelectItemEmpleados(servicioInventario, this.transaccionMasivaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
+			}
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("error al cargar getDcEmpleadosEmpresa {}", e.getCause().getMessage());
+			e.printStackTrace();
+		}
+		
+		return dcEmpleadosEmpresa;
+	}
+	
+	/**
+	 * @return the idTransaccionSeleccionado
+	 */
+	public String getIdTransaccionSeleccionado() {
+		return idTransaccionSeleccionado;
+	}
+
+	/**
+	 * @param idTransaccionSeleccionado the idTransaccionSeleccionado to set
+	 */
+	public void setIdTransaccionSeleccionado(String idTransaccionSeleccionado) {
+		this.idTransaccionSeleccionado = idTransaccionSeleccionado;
+	}
+
+	/**
+	 * @return the idCategoriaBienSeleccionado
+	 */
+	public Integer getIdCategoriaBienSeleccionado() {
+		return idCategoriaBienSeleccionado;
+	}
+
+	/**
+	 * @param idCategoriaBienSeleccionado the idCategoriaBienSeleccionado to set
+	 */
+	public void setIdCategoriaBienSeleccionado(Integer idCategoriaBienSeleccionado) {
+		this.idCategoriaBienSeleccionado = idCategoriaBienSeleccionado;
+	}
+
+	/**
+	 * @return the idLineaBienSeleccionado
+	 */
+	public Integer getIdLineaBienSeleccionado() {
+		return idLineaBienSeleccionado;
+	}
+
+	/**
+	 * @param idLineaBienSeleccionado the idLineaBienSeleccionado to set
+	 */
+	public void setIdLineaBienSeleccionado(Integer idLineaBienSeleccionado) {
+		this.idLineaBienSeleccionado = idLineaBienSeleccionado;
+	}
+
+	/**
+	 * @return the dcLineaBien
+	 */
+	public List<SelectItem> getDcLineaBien() {
+		return dcLineaBien;
+	}
+
+	/**
+	 * @return the idCustudioAsignado
+	 */
+	public Integer getIdCustudioAsignado() {
+		return idCustudioAsignado;
+	}
+
+	/**
+	 * @param idCustudioAsignado the idCustudioAsignado to set
+	 */
+	public void setIdCustudioAsignado(Integer idCustudioAsignado) {
+		this.idCustudioAsignado = idCustudioAsignado;
 	}
 	
 }

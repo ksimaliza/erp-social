@@ -120,13 +120,12 @@ public class TransaccionBienController extends BaseController{
 			
 			this.vistaBienDataManager.getVistaBienEditar().setUsuarioRegistro(this.vistaBienDataManager.getUsuarioSession());
 			this.vistaBienDataManager.getVistaBienEditar().setEmpAsignadoFk(this.vistaBienDataManager.getIdCustudioAsignado());
+			this.vistaBienDataManager.getVistaBienEditar().setNpNombreEmpresa(this.vistaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrNombre());
 			VistaBien vistaBien = servicioInventario.asignarBien(this.vistaBienDataManager.getVistaBienEditar());
 			
 			if (vistaBien != null) {
-				int posicion = this.vistaBienDataManager.getListVistaBien().indexOf(this.vistaBienDataManager.getVistaBienEditar());
-				this.vistaBienDataManager.getListVistaBien().remove(this.vistaBienDataManager.getVistaBienEditar());
-				this.vistaBienDataManager.getListVistaBien().add(posicion, vistaBien);
-				MensajesWebController.aniadirMensajeInformacion("Bien asignado correctamente");
+				this.buscarVistaBien();
+				MensajesWebController.aniadirMensajeInformacion("Bien asignado correctamente con el c\u00F3digo: " + vistaBien.getBieCodigo());
 				this.vistaBienDataManager.setIdCustudioAsignado(null);
 			}
 			

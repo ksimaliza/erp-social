@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,6 +60,12 @@ public class DetalleBienDAOImpl extends AbstractFacadeImpl<DetalleBien> implemen
 			//por id cabecera
 			if (StringUtils.isNotBlank(detalleBien.getId().getCabBienFk())) {
 				predicate = criteriaBuilder.equal(fromDetalleBien.get("id").get("cabBienFk"), detalleBien.getId().getCabBienFk());
+				criteriaList.add(predicate);
+			}
+			
+			//por estados del id
+			if (CollectionUtils.isNotEmpty(detalleBien.getNpColDetBienNivel1())) {
+				predicate = criteriaBuilder.in(fromDetalleBien.get("id").get("detBienNivel1")).value(detalleBien.getNpColDetBienNivel1());
 				criteriaList.add(predicate);
 			}
 			

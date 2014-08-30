@@ -72,6 +72,12 @@ public class CategoriaBienDAOImpl extends AbstractFacadeImpl<CategoriaBien> impl
 				criteriaList.add(predicate);
 			}
 			
+			//por indice debe ser unico
+			if (categoriaBien.getCatBienIndice() != null) {
+				predicate = criteriaBuilder.equal(fromLineaBien.get("catBienIndice"), categoriaBien.getCatBienIndice());
+				criteriaList.add(predicate);
+			}
+			
 			criteriaQuery.where(criteriaBuilder.and(criteriaList.toArray(new Predicate[0])));
 			
 			TypedQuery<CategoriaBien> typedQuery = entityManager.createQuery(criteriaQuery);

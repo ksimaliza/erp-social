@@ -31,6 +31,9 @@ public abstract class AuditoriaUtil {
 	@Temporal(TemporalType.DATE)
 	private Date npFechaHasta;
 	
+	@Transient
+	private Boolean isSelected;
+	
 	public AuditoriaUtil() {}
 
 	/**
@@ -87,6 +90,20 @@ public abstract class AuditoriaUtil {
 	 */
 	public void setNpFechaHasta(Date npFechaHasta) {
 		this.npFechaHasta = npFechaHasta;
+	}
+
+	/**
+	 * @return the isSelected
+	 */
+	public Boolean getIsSelected() {
+		return isSelected;
+	}
+
+	/**
+	 * @param isSelected the isSelected to set
+	 */
+	public void setIsSelected(Boolean isSelected) {
+		this.isSelected = isSelected;
 	}
 	
 }

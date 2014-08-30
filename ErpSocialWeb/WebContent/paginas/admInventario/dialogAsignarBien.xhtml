@@ -36,7 +36,7 @@
 								value="#{vistaBienDataManager.vistaBienEditar.bieUbicacion}" label="#{i18n['erp.bien.ubicacion']}" />
 						</td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td>
 							<h:outputLabel for="txtCodigo" value="#{i18n['erp.bien.codigo']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
@@ -49,7 +49,7 @@
 								rendered="#{vistaBienDataManager.vistaBienEditar.detBienTipBieNivel1 eq 'DEVUE'}"
 								value="#{vistaBienDataManager.vistaBienEditar.bieCodigo}" />
 						</td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td>
 							<h:outputLabel for="txtCustodio" value="#{i18n['erp.bien.custodio']}" />
@@ -70,7 +70,7 @@
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{transaccionBienController.asignarBien}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgAsignarBien.hide()"
-					process="@this,pnlAsignarBien" update="pnlAsignarBien,:formBien:tablaBienes,:formBien:pnlMessages"/>
+					process="@this,pnlAsignarBien,:formBien:tablaBienes" update="pnlAsignarBien,:formBien:tablaBienes,:formBien:pnlMessages"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" type="button" onclick="dlgAsignarBien.hide();"/>
 			</p:panel>
 		</h:form>

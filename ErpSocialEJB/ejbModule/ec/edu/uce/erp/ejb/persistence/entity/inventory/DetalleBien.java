@@ -1,6 +1,7 @@
 package ec.edu.uce.erp.ejb.persistence.entity.inventory;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -10,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaUtil;
 
@@ -57,6 +59,9 @@ public class DetalleBien extends AuditoriaUtil implements Serializable {
 //	//bi-directional many-to-one association to Transaccion
 //	@OneToMany(mappedBy="detalleBienTbl")
 //	private List<Transaccion> transaccionTbls;
+	
+	@Transient
+	private Collection<String> npColDetBienNivel1;
 
 	public DetalleBien() {
 	}
@@ -158,6 +163,21 @@ public class DetalleBien extends AuditoriaUtil implements Serializable {
 	public void setCabeceraBienTbl(CabeceraBien cabeceraBienTbl) {
 		this.cabeceraBienTbl = cabeceraBienTbl;
 	}
+
+	/**
+	 * @return the npColDetBienNivel1
+	 */
+	public Collection<String> getNpColDetBienNivel1() {
+		return npColDetBienNivel1;
+	}
+
+	/**
+	 * @param npColDetBienNivel1 the npColDetBienNivel1 to set
+	 */
+	public void setNpColDetBienNivel1(Collection<String> npColDetBienNivel1) {
+		this.npColDetBienNivel1 = npColDetBienNivel1;
+	}
+
 
 //	public List<Ingreso> getIngresoTbls() {
 //		return this.ingresoTbls;

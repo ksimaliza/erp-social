@@ -6,7 +6,7 @@ package ec.edu.uce.erp.common.enums;
 import ec.edu.uce.erp.common.util.MessagesApplicacion;
 
 /**
- * @author wilmerPC
+ * @author 
  *
  */
 public enum EnumTipoBien {

@@ -146,6 +146,12 @@ public class VistaBien extends AuditoriaUtil implements Serializable {
 	@Column(name="estado_conservacion_bien")
 	private String estadoConservacionBien;
 	
+	@Column(name="cat_bien_indice")
+	private Integer catBienIndice;
+	
+	@Column(name="lin_bien_indice")
+	private Integer linBienIndice;
+	
 	@Transient
 	@Temporal(TemporalType.DATE)
 	private Date bieFechaReasig;
@@ -167,7 +173,10 @@ public class VistaBien extends AuditoriaUtil implements Serializable {
 	
 	@Transient
 	private Collection<Integer> npColBiePk;
-
+	
+	@Transient
+	private String npNombreEmpresa;
+	
 	public VistaBien() {
 	}
 
@@ -693,6 +702,48 @@ public class VistaBien extends AuditoriaUtil implements Serializable {
 	 */
 	public void setEstadoConservacionBien(String estadoConservacionBien) {
 		this.estadoConservacionBien = estadoConservacionBien;
+	}
+
+	/**
+	 * @return the npNombreEmpresa
+	 */
+	public String getNpNombreEmpresa() {
+		return npNombreEmpresa;
+	}
+
+	/**
+	 * @param npNombreEmpresa the npNombreEmpresa to set
+	 */
+	public void setNpNombreEmpresa(String npNombreEmpresa) {
+		this.npNombreEmpresa = npNombreEmpresa;
+	}
+
+	/**
+	 * @return the catBienIndice
+	 */
+	public Integer getCatBienIndice() {
+		return catBienIndice;
+	}
+
+	/**
+	 * @param catBienIndice the catBienIndice to set
+	 */
+	public void setCatBienIndice(Integer catBienIndice) {
+		this.catBienIndice = catBienIndice;
+	}
+
+	/**
+	 * @return the linBienIndice
+	 */
+	public Integer getLinBienIndice() {
+		return linBienIndice;
+	}
+
+	/**
+	 * @param linBienIndice the linBienIndice to set
+	 */
+	public void setLinBienIndice(Integer linBienIndice) {
+		this.linBienIndice = linBienIndice;
 	}
 
 }
