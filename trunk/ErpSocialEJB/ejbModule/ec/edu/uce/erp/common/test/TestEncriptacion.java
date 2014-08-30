@@ -13,7 +13,7 @@ import ec.edu.uce.erp.common.util.EncriptacionUtil;
  */
 public class TestEncriptacion {
 	
-	@Test
+//	@Test
 	public void encriptarClave () {
 		System.out.println("encriptarClave");
 		String claveSinEncriptar = "inventario";
@@ -24,7 +24,7 @@ public class TestEncriptacion {
 	@Test
 	public void desencriptarClave () {
 		System.out.println("desencriptarClave");
-		String claveSinEncriptar = "pFs2zl+oNIoLaGBBCqyiew==";
+		String claveSinEncriptar = "pFs2zl+oNIobt1qTods13w==";
 		String claveDesencriptada = EncriptacionUtil.getInstancia().desencriptar(claveSinEncriptar);
 		System.out.println("claveDesencriptada: " + claveDesencriptada);
 	}

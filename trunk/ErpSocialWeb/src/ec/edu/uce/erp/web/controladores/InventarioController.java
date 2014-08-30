@@ -86,6 +86,7 @@ public class InventarioController extends BaseController{
 			
 			this.inventarioDataManager.getVistaBienBuscar().setEmrPk(this.inventarioDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
 			this.inventarioDataManager.getVistaBienBuscar().setTraEstado(this.inventarioDataManager.getEstadoActivo());
+			this.inventarioDataManager.getVistaBienBuscar().setBieEstado(this.inventarioDataManager.getEstadoActivo());
 			
 			if (StringUtils.isBlank(inventarioDataManager.getIdDcTipoBienSelec())) {
 				this.inventarioDataManager.getVistaBienBuscar().setDetBienTipBieNivel1(null);

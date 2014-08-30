@@ -17,7 +17,8 @@ public class TestUtil {
 	
 	
 	public static void main (String ...args) {
-		testObtenerGet ();
+//		testObtenerGet ();
+		testCodigoBien ();
 	}
 	
 	public static void testObtenerGet () {
@@ -36,6 +37,22 @@ public class TestUtil {
 		}
 		
 		return null;
+	}
+	
+	public static void testCodigoBien () {
+		
+		String line = "empresa uno tres";
+		
+		
+		String [] array = line.split(" ");
+		StringBuilder salida = new StringBuilder();
+		
+		for (int a = 0; a<array.length; a++) {
+			System.out.println("elemento: " + array[a]);
+			salida.append(array[a].substring(0, 1).toUpperCase()).append(".");
+		}
+		
+		System.out.println("salida: " + salida.toString());
 	}
 
 }

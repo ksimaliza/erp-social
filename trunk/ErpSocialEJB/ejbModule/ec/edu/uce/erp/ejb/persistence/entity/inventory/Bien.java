@@ -66,9 +66,6 @@ public class Bien extends AuditoriaUtil implements Serializable {
 	@Column(name="bie_nombre")
 	private String bieNombre;
 
-	@Column(name="bie_ubicacion")
-	private String bieUbicacion;
-	
 	@Column(name="cat_bien_pk")
 	private Integer catBienPk;
 	
@@ -193,14 +190,6 @@ public class Bien extends AuditoriaUtil implements Serializable {
 
 	public void setBieNombre(String bieNombre) {
 		this.bieNombre = bieNombre;
-	}
-
-	public String getBieUbicacion() {
-		return this.bieUbicacion;
-	}
-
-	public void setBieUbicacion(String bieUbicacion) {
-		this.bieUbicacion = bieUbicacion;
 	}
 
 	public Inventario getInventarioTbl() {

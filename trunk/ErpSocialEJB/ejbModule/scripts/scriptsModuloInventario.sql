@@ -407,8 +407,8 @@ select bie_pk, emr_pk,
 b.bie_nombre, b.bie_modelo, b.bie_color, bie_costo_venta, bie_ubicacion, bie_notas, 
 bie_estado, CASE WHEN bie_estado='1' THEN 'ACTIVO' ELSE 'INACTIVO' END as bie_estado_string, 
 bie_estado_uso, CASE WHEN bie_estado_uso='1' THEN 'EN USO' ELSE 'SIN USO' END as bie_estado_uso_string, 
-b.cat_bien_pk, b.bie_codigo, b.lin_bien_pk, lb.lin_bien_nombre, lb.lin_bien_estado, b.mar_bien_pk, 
-mb.mar_bien_nombre, mb.mar_bien_estado, cb.cat_bien_nombre, cb.cat_bien_estado,
+b.cat_bien_pk, b.bie_codigo, b.lin_bien_pk, lb.lin_bien_nombre, lb.lin_bien_estado, lb.lin_bien_indice, b.mar_bien_pk, 
+mb.mar_bien_nombre, mb.mar_bien_estado, cb.cat_bien_nombre, cb.cat_bien_estado, cb.cat_bien_indice,
 t.cab_bien_tip_bie_fk, t.det_bien_tip_bie_nivel1,
 t.cab_bien_est_conserv_fk, t.det_bien_est_conserv_nivel1_fk, t.cab_bien_tip_baj_fk, t.det_bien_tip_baj_nivel1, 
 t.tra_estado, t.emp_asignado_fk, t.emp_reasignado_fk, t.tra_descripcion, t.tra_fecha_inicio,
@@ -488,3 +488,12 @@ alter table BIEN_TBL
 --   add constraint FK_PROVEEDO_REFERENCE_EMPRESA_ foreign key (EMR_PK)
 --      references EMPRESA_TBL (EMR_PK)
 --      on delete restrict on update restrict;
+
+
+	DROP view IF EXISTS bien_view;
+
+alter table bien_tbl drop column bie_ubicacion;
+
+alter table transaccion_tbl add column bie_ubicacion varchar (50) null;
+
+-- volver a ejecutar vista

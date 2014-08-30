@@ -6,6 +6,7 @@ package ec.edu.uce.erp.web.common.util;
 import static ec.edu.uce.erp.common.util.ConstantesApplication.ESTADO_ACTIVO;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
@@ -108,27 +109,29 @@ public final class UtilSelectItems {
 		
 		slf4jLogger.info("cargarSelectItemsDetBien");
 		
-//		List<SelectItem> listSelectItem = new ArrayList<SelectItem>();
-		
 		DetalleBien detalleBien = new DetalleBien();
 		detalleBien.setId(new DetalleBienPK());
 		detalleBien.getId().setCabBienFk(idCabCatalogo);
 		detalleBien.setDetBienEstado(ESTADO_ACTIVO);
 		List<DetalleBien> listDetalleBien = servicioInventario.buscarDetalleBienCriterios(detalleBien);
 		
-//		if (CollectionUtils.isNotEmpty(listDetalleBien)) {
-//			CollectionUtils.collect(listDetalleBien, new Transformer() {
-//				@Override
-//				public Object transform(final Object arg0) {
-//					final DetalleBien detalleBien = (DetalleBien)arg0;
-//					return new SelectItem(detalleBien.getId().getDetBienNivel1(), detalleBien.getDetBienDescripcion());
-//				}
-//			}, listSelectItem);
-//		}
-		
 		return this.cargarSelectItemsGenerico(listDetalleBien, "id.detBienNivel1", "detBienDescripcion");
 		
-//		return listSelectItem;
+	}
+	
+	public List<SelectItem> cargarSelectItemsDetBienPorEstado(
+			String idCabCatalogo, ServicioInventario servicioInventario, Collection<String> npColDetBienNivel1) throws SeguridadesException {
+		
+		slf4jLogger.info("cargarSelectItemsDetBienPorEstado");
+		
+		DetalleBien detalleBien = new DetalleBien();
+		detalleBien.setId(new DetalleBienPK());
+		detalleBien.getId().setCabBienFk(idCabCatalogo);
+		detalleBien.setDetBienEstado(ESTADO_ACTIVO);
+		detalleBien.setNpColDetBienNivel1(npColDetBienNivel1);
+		List<DetalleBien> listDetalleBien = servicioInventario.buscarDetalleBienCriterios(detalleBien);
+		
+		return this.cargarSelectItemsGenerico(listDetalleBien, "id.detBienNivel1", "detBienDescripcion");
 		
 	}
 	

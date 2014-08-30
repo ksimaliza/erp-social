@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpAsignarBienMasivo" header="#{i18n['erp.bien.asignar']}" 
+		widgetVar="dlgAsignarBienMasivo" modal="true" minWidth="550" width="550" appendTo="@(body)" draggable="false">
+		<h:form id="formAsignarBienMasivo" styleClass="formulario">
+			<p:panel id="pnlAsignarBienMasivo" >
+				<table class="formulario">
+					<tr>
+						<td>
+							<h:outputLabel value="#{i18n['erp.bien.fecha.asignacion']}" />
+						</td>
+						<td>
+							<h:outputText value="#{transaccionMasivaBienController.fechaTransaccion}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtUbicacion" value="#{i18n['erp.bien.ubicacion']}" />
+						</td>
+						<td>
+							<p:inputText id="txtUbicacion" style="width: 100%" required="true"
+								value="#{transaccionMasivaBienDataManager.vistaBienEditar.bieUbicacion}" label="#{i18n['erp.bien.ubicacion']}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtCodigo" value="#{i18n['erp.bien.codigo']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:inputText id="txtCodigo" style="width: 100%" required="true" 
+								rendered="#{transaccionMasivaBienDataManager.vistaBienEditar.detBienTipBieNivel1 eq 'INGRE'}"
+								value="#{transaccionMasivaBienDataManager.vistaBienEditar.bieCodigo}" label="#{i18n['erp.bien.codigo']}" />
+							<h:outputText
+								rendered="#{transaccionMasivaBienDataManager.vistaBienEditar.detBienTipBieNivel1 eq 'DEVUE'}"
+								value="#{transaccionMasivaBienDataManager.vistaBienEditar.bieCodigo}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtCustodio" value="#{i18n['erp.bien.custodio']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:selectOneMenu id="txtCustodio" style="width: 100%"
+								label="#{i18n['erp.bien.custodio']}" required="true"
+								value="#{transaccionMasivaBienController.idCustudioAsignado}" >
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItems value="#{transaccionMasivaBienController.dcEmpleadosEmpresa}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{transaccionMasivaBienController.asignarBienMasivo}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgAsignarBienMasivo.hide()"
+					process="@this,pnlAsignarBienMasivo" update="pnlAsignarBienMasivo,:formBien:tablaBienesSeleccionados,:formBien:tablaBienes,:formBien:pnlMessages"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" type="button" onclick="dlgAsignarBienMasivo.hide();"/>
+			</p:panel>
+		</h:form>
+	</p:dialog>
+</ui:composition>

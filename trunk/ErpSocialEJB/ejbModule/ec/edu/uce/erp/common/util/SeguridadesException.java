@@ -31,5 +31,14 @@ public class SeguridadesException extends Exception {
 	public SeguridadesException(Throwable causa){
 		super(causa);
 	}
+	
+	/**
+	 * 
+	 * @param mensaje
+	 * @param causa
+	 */
+	public SeguridadesException(String mensaje, Throwable causa){
+		super(mensaje, causa);
+	}
 
 }

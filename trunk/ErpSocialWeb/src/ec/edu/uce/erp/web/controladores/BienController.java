@@ -175,6 +175,7 @@ public class BienController extends BaseController{
 			this.bienDataManager.getVistaBienBuscar().setBieEstado(ESTADO_ACTIVO);
 			this.bienDataManager.getVistaBienBuscar().setEmrPk(this.bienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
 			this.bienDataManager.getVistaBienBuscar().setTraEstado(this.bienDataManager.getEstadoActivo());
+			this.bienDataManager.getVistaBienBuscar().setBieEstado(this.bienDataManager.getEstadoActivo());
 			
 //			if (StringUtils.isBlank(bienDataManager.getIdDcTipoBienSelec())) {
 //				this.bienDataManager.getVistaBienBuscar().setDetBienTipBieNivel1(null);
