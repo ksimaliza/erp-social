@@ -497,3 +497,11 @@ alter table bien_tbl drop column bie_ubicacion;
 alter table transaccion_tbl add column bie_ubicacion varchar (50) null;
 
 -- volver a ejecutar vista
+
+CREATE SEQUENCE bien_codigo_seq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1
+  CACHE 1;
+ALTER TABLE bien_codigo_seq OWNER TO postgres;

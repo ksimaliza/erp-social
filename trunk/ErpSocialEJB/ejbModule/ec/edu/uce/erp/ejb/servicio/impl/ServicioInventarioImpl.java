@@ -831,7 +831,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 		return null;
 	}
 	
-	private String generarCodidoBien (VistaBien vistaBien) {
+	private String generarCodidoBien (VistaBien vistaBien) throws SeguridadesException {
 		
 		String [] array = vistaBien.getNpNombreEmpresa().split(" ");
 		StringBuilder salida = new StringBuilder();
@@ -841,7 +841,9 @@ public class ServicioInventarioImpl implements ServicioInventario {
 			salida.append(array[a].substring(0, 1).toUpperCase()).append(".");
 		}
 		
-		salida.append(vistaBien.getCatBienIndice()).append(".").append(vistaBien.getLinBienIndice()).append(".");
+		salida.append(vistaBien.getCatBienIndice())
+				.append(".").append(vistaBien.getLinBienIndice())
+				.append(".").append(inventarioFactory.getBienDAOImpl().generarNextValSecuenciaCodigo());
 		
 		return salida.toString();
 	}

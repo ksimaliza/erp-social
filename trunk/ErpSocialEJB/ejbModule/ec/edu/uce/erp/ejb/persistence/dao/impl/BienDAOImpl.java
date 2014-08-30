@@ -3,11 +3,13 @@
  */
 package ec.edu.uce.erp.ejb.persistence.dao.impl;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -93,6 +95,19 @@ public class BienDAOImpl extends AbstractFacadeImpl<Bien> implements BienDAO{
 		} 
 		
 		return listBien;
+		
+	}
+
+	@Override
+	public BigInteger generarNextValSecuenciaCodigo() throws SeguridadesException {
+		
+		try {
+			Query query = entityManager.createNativeQuery("select nextval('bien_codigo_seq')");
+			return (BigInteger) query.getSingleResult();
+		} catch (Exception e) {
+			slf4jLogger.info("Error el generar el valor para la secuencia bien_codigo_seq {}", e.toString());
+			throw new SeguridadesException("Error el generar el valor para la secuencia bien_codigo_seq", e);
+		}
 		
 	}
 
