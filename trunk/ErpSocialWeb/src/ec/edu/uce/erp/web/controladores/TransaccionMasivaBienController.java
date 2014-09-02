@@ -147,6 +147,7 @@ public class TransaccionMasivaBienController extends BaseController{
 					vistaBien.setBieUbicacion(this.transaccionMasivaBienDataManager.getVistaBienEditar().getBieUbicacion());
 					vistaBien.setUsuarioRegistro(this.transaccionMasivaBienDataManager.getUsuarioSession());
 					vistaBien.setEmpAsignadoFk(this.idCustudioAsignado);
+					vistaBien.setNpNombreEmpresa(this.transaccionMasivaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrNombre());
 					VistaBien vistaBienAsignado = servicioInventario.asignarBien(vistaBien);
 					listVistaBien.add(vistaBienAsignado);
 				}
