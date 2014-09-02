@@ -1061,40 +1061,29 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		slf4jLogger.info("createOrUpdateSepultura");
 		Persona difuntoPersona;
 		NichoDTO nichoDTO;
-						 
-		List<Persona> listPersona;
-			
-		try {
-			difuntoPersona = sepulturaVO.getDifunto();
-			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(difuntoPersona);
-			if(listPersona.size()<=0)
-				difuntoPersona=factoryDAO.getPersonaDAOImpl().create(difuntoPersona);
-				
-			else
-				difuntoPersona=listPersona.get(0);
-			
-			sepulturaVO.getSepultura().setSepDifunto(difuntoPersona.getPerPk());
-				
 									
-			if(sepulturaVO.getSepultura().getSepCodigo()!=null){
+		try{
+			difuntoPersona=new Persona();
+		if(sepulturaVO.getSepultura().getSepCodigo()!=null){
+				difuntoPersona=factoryDAO.getPersonaDAOImpl().update(difuntoPersona);
+				sepulturaVO.getSepultura().setSepDifunto(difuntoPersona.getPerPk());
 				nichoDTO=eucaristiaFactoryDAO.getNichoDAOImpl().find(sepulturaVO.getNichoDTO().getNicCodigo());
 				sepulturaVO.getSepultura().setSepNicho(nichoDTO.getNicCodigo());
 							
 				return  eucaristiaFactoryDAO.getSepulturaDAOImpl().update(sepulturaVO.getSepultura());
 			}
 			else{
+				difuntoPersona=factoryDAO.getPersonaDAOImpl().find(difuntoPersona);
+				sepulturaVO.getSepultura().setSepDifunto(difuntoPersona.getPerPk());
 				nichoDTO=eucaristiaFactoryDAO.getNichoDAOImpl().find(sepulturaVO.getNichoDTO().getNicCodigo());
-				sepulturaVO.getSepultura().setSepNicho(nichoDTO.getNicCodigo());
-							
+				sepulturaVO.getSepultura().setSepNicho(nichoDTO.getNicCodigo());			
 				return  eucaristiaFactoryDAO.getSepulturaDAOImpl().create(sepulturaVO.getSepultura());
 				
-			}
-		} catch (Exception e) {
+			} }catch (Exception e) {
 			slf4jLogger.info("error al createOrUpdateSepultura {}", e.toString());
 			throw new SeguridadesException(e);
 		}
-		
-		
+	
 	}
 	
 	@Override
