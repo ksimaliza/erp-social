@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoListDTO;
@@ -107,13 +108,16 @@ public class SepulturaController extends BaseController {
 	public void buscarNicho() {
 		slf4jLogger.info("buscarNicho");
 		List<NichoListDTO> listResultado=new ArrayList<NichoListDTO>();
+		
 		try {
+			
 			listResultado = this.servicioEucaristia.buscarNicho(new NichoListDTO());
 			
 			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.sepulturaDataManager.setNichoListDTOs2(listResultado);
+				
 				
 			}
 			
@@ -139,7 +143,7 @@ public class SepulturaController extends BaseController {
 	}
 	
 
-	public void buscarDifunto () {
+	/*public void buscarDifunto () {
 		slf4jLogger.info("buscarDifunto");
 		
 		List<Persona> listaDifunto=null;
@@ -160,6 +164,29 @@ public class SepulturaController extends BaseController {
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarDifunto {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}*/
+	
+	public void buscarDefuncion () {
+		slf4jLogger.info("buscarDefuncion");
+		
+		List<DefuncionListDTO> listaDefuncion=null;
+		
+		try {
+			
+			listaDefuncion=this.servicioEucaristia.buscarDefuncion(new DefuncionListDTO());
+					
+			if (CollectionUtils.isEmpty(listaDefuncion) && listaDefuncion.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.sepulturaDataManager.setDefuncionListDTOs(listaDefuncion);
+				
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarDefuncion {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 		

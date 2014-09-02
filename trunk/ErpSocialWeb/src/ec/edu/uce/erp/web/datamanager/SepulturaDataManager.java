@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaListDTO;
@@ -29,6 +30,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(SepulturaDataM
 	private SepulturaListDTO sepulturaListDTO;
 	private List<SepulturaListDTO> sepulturaListDTOs;
 	private Persona difuntoInsertar;
+	private List<DefuncionListDTO> defuncionListDTOs;
 	
 	
 	@PostConstruct
@@ -40,6 +42,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(SepulturaDataM
 		this.sepulturaListDTO= new SepulturaListDTO();
 		this.sepulturaListDTOs = new ArrayList<SepulturaListDTO>();
 		this.difuntoInsertar=new Persona();		
+		this.defuncionListDTOs=new ArrayList<DefuncionListDTO>();
 	}
 
 
@@ -100,6 +103,16 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(SepulturaDataM
 
 	public void setDifuntoInsertar(Persona difuntoInsertar) {
 		this.difuntoInsertar = difuntoInsertar;
+	}
+
+
+	public List<DefuncionListDTO> getDefuncionListDTOs() {
+		return defuncionListDTOs;
+	}
+
+
+	public void setDefuncionListDTOs(List<DefuncionListDTO> defuncionListDTOs) {
+		this.defuncionListDTOs = defuncionListDTOs;
 	}
 
 
