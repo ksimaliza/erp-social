@@ -14,11 +14,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
-import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.SepulturaVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
@@ -75,26 +75,26 @@ public class SepulturaController extends BaseController {
 		
 		SepulturaVO sepulturaVO;
 		NichoDTO nichoDTO;
-		Persona difunto;	
+		DefuncionDTO defuncion;	
 		
 		try {
 		
-			difunto=new Persona();
+			defuncion=new DefuncionDTO();
 			sepulturaVO=new SepulturaVO();
 			nichoDTO=new NichoDTO();
 			sepulturaVO.setSepultura(sepulturaDataManager.getSepulturaDTO());
 			nichoDTO.setNicCodigo(sepulturaDataManager.getCodigoNicho());
 			sepulturaVO.setNichoDTO(nichoDTO);
-			difunto.setPerPk(sepulturaDataManager.getDifuntoInsertar().getPerPk());
-			sepulturaVO.setDifunto(difunto);
+			defuncion.setDefPersona(sepulturaDataManager.getDefuncionlistDTO().getDefPersona());
+			
+			sepulturaVO.getSepultura().setSepDifunto(defuncion.getDefPersona());
 					
 			SepulturaDTO sepulturaNueva=this.servicioEucaristia.createOrUpdateSepultura(sepulturaVO);
 												
 			if (sepulturaNueva!= null) {
 				sepulturaDataManager.setCodigoNicho(0);
 				sepulturaDataManager.setSepulturaDTO(new SepulturaDTO());
-				sepulturaDataManager.setDifuntoInsertar(new Persona());
-														
+																		
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.sepultura.registrar.exito");
 			}
 			
@@ -118,6 +118,30 @@ public class SepulturaController extends BaseController {
 			} else {
 				this.sepulturaDataManager.setNichoListDTOs2(listResultado);
 				
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscar el buscarNicho {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+	}
+	
+	
+	public void buscarNicho2() {
+		slf4jLogger.info("buscarNicho");
+		List<NichoListDTO> listResultado=new ArrayList<NichoListDTO>();
+		
+		try {
+			
+			NichoListDTO nicho=new NichoListDTO();
+			nicho.setNicCodigo(this.sepulturaDataManager.getCodigoNicho());
+			
+			listResultado = this.servicioEucaristia.buscarNicho(nicho);
+			
+			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.sepulturaDataManager.setNichoListDTO(listResultado.get(0));
 				
 			}
 			
@@ -175,14 +199,14 @@ public class SepulturaController extends BaseController {
 		List<DefuncionListDTO> listaDefuncion=null;
 		
 		try {
-			
+		 
 			listaDefuncion=this.servicioEucaristia.buscarDefuncion(new DefuncionListDTO());
 					
 			if (CollectionUtils.isEmpty(listaDefuncion) && listaDefuncion.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
-				this.sepulturaDataManager.setDefuncionListDTOs(listaDefuncion);
-				
+				this.sepulturaDataManager.setDefuncionlistDTO(listaDefuncion.get(0));
+						
 			}
 			
 		} catch (SeguridadesException e) {
@@ -197,6 +221,7 @@ public class SepulturaController extends BaseController {
 			SepulturaVO sepulturaEncontrado=servicioEucaristia.obtenerSepulturaPorId(sepultura);
 			this.sepulturaDataManager.setCodigoNicho(sepulturaEncontrado.getNichoDTO().getNicCodigo());
 			this.sepulturaDataManager.setSepulturaDTO(sepulturaEncontrado.getSepultura());
+			
 													
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosSepultura {}", e.getMessage());

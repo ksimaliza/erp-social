@@ -31,6 +31,9 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(SepulturaDataM
 	private List<SepulturaListDTO> sepulturaListDTOs;
 	private Persona difuntoInsertar;
 	private List<DefuncionListDTO> defuncionListDTOs;
+	private DefuncionListDTO defuncionlistDTO; 
+	private NichoListDTO nichoListDTO;
+	
 	
 	
 	@PostConstruct
@@ -43,6 +46,8 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(SepulturaDataM
 		this.sepulturaListDTOs = new ArrayList<SepulturaListDTO>();
 		this.difuntoInsertar=new Persona();		
 		this.defuncionListDTOs=new ArrayList<DefuncionListDTO>();
+		this.defuncionlistDTO=new DefuncionListDTO();
+		this.nichoListDTO=new NichoListDTO();
 	}
 
 
@@ -113,6 +118,26 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(SepulturaDataM
 
 	public void setDefuncionListDTOs(List<DefuncionListDTO> defuncionListDTOs) {
 		this.defuncionListDTOs = defuncionListDTOs;
+	}
+
+
+	public DefuncionListDTO getDefuncionlistDTO() {
+		return defuncionlistDTO;
+	}
+
+
+	public void setDefuncionlistDTO(DefuncionListDTO defuncionlistDTO) {
+		this.defuncionlistDTO = defuncionlistDTO;
+	}
+
+
+	public NichoListDTO getNichoListDTO() {
+		return nichoListDTO;
+	}
+
+
+	public void setNichoListDTO(NichoListDTO nichoListDTO) {
+		this.nichoListDTO = nichoListDTO;
 	}
 
 
