@@ -777,6 +777,9 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		return listResultado;
 	}
 	
+	
+	
+	
 	@Override
 	public List<NichoListDTO> readNicho(NichoListDTO nichoListDTO) throws SeguridadesException {
 		slf4jLogger.info("buscarNicho");
@@ -1059,22 +1062,20 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	public SepulturaDTO createOrUpdateSepultura(SepulturaVO sepulturaVO) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateSepultura");
-		Persona difuntoPersona;
+		
 		NichoDTO nichoDTO;
 									
 		try{
-			difuntoPersona=new Persona();
+			
 		if(sepulturaVO.getSepultura().getSepCodigo()!=null){
-				difuntoPersona=factoryDAO.getPersonaDAOImpl().update(difuntoPersona);
-				sepulturaVO.getSepultura().setSepDifunto(difuntoPersona.getPerPk());
+			
+				
 				nichoDTO=eucaristiaFactoryDAO.getNichoDAOImpl().find(sepulturaVO.getNichoDTO().getNicCodigo());
 				sepulturaVO.getSepultura().setSepNicho(nichoDTO.getNicCodigo());
 							
 				return  eucaristiaFactoryDAO.getSepulturaDAOImpl().update(sepulturaVO.getSepultura());
 			}
 			else{
-				difuntoPersona=factoryDAO.getPersonaDAOImpl().find(difuntoPersona);
-				sepulturaVO.getSepultura().setSepDifunto(difuntoPersona.getPerPk());
 				nichoDTO=eucaristiaFactoryDAO.getNichoDAOImpl().find(sepulturaVO.getNichoDTO().getNicCodigo());
 				sepulturaVO.getSepultura().setSepNicho(nichoDTO.getNicCodigo());			
 				return  eucaristiaFactoryDAO.getSepulturaDAOImpl().create(sepulturaVO.getSepultura());
