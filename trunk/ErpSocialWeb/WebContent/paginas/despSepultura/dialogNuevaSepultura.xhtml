@@ -16,10 +16,9 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCi" style="width: 70%" 
-								 required="true" value="#{sepulturaDataManager.difuntoInsertar.perCi}" >
+								 required="true" value="#{sepulturaDataManager.defuncionlistDTO.perCi}" >
 							<f:validateLength maximum="10" minimum="10"/>
-							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-							<p:ajax event="blur" update="txtNombres,txtApellidos" listener="#{sepulturaController.buscarDefuncion}" process="@this"/>
+							<p:ajax event="blur"  listener="#{sepulturaController.buscarDefuncion}" process="@this" update="txtNombres,txtApellidos"/>
 						</p:inputText>
 						</td>	
 					</tr>
@@ -30,7 +29,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNombres" label="#{i18n['erp.despacho.defuncion.nombres']}" style="width: 70%"
-							value="#{sepulturaDataManager.defuncionListDTOs.get(0).perNombres}"/>
+							value="#{sepulturaDataManager.defuncionlistDTO.perNombres}" readonly="true"/>
 						</td>
 					</tr>
 					<tr>
@@ -39,7 +38,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApellidos" label="#{i18n['erp.despacho.defuncion.apellidos']}" style="width: 70%" 
-							value="#{sepulturaDataManager.defuncionListDTOs.get(0).perApellidos}"/>
+							 value="#{sepulturaDataManager.defuncionlistDTO.perApellidos}" readonly="true"/>
 						</td>
 					</tr>
 					
@@ -54,7 +53,7 @@
 					<p:selectOneMenu id="nicho" value="#{sepulturaDataManager.codigoNicho}" filter="true"  >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{sepulturaController.sepulturaDataManager.nichoListDTOs2}" var="nicho" itemLabel="#{nicho.nicDescripcion}" itemValue="#{nicho.nicCodigo}"/>
-								<p:ajax listener="#{sepulturaController.buscarNicho}" process="@this" update="txtSeccionNicho,txtTipoNicho,txtNivelNicho"/>
+								<p:ajax listener="#{sepulturaController.buscarNicho2}" process="@this" update="txtSeccionNicho,txtTipoNicho,txtNivelNicho"/>
 					</p:selectOneMenu>
 					</td>
 					</tr>
@@ -66,7 +65,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtSeccionNicho" label="#{i18n['erp.despacho.contrato.seccion.nicho']}" style="width: 70%"
-							value="#{sepulturaDataManager.nichoListDTOs2.get(0).catDescripcion}" readonly="true"/>
+							value="#{sepulturaDataManager.nichoListDTO.catDescripcion}" readonly="true"/>
 						</td>
 					</tr>
 					
@@ -77,7 +76,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtTipoNicho" label="#{i18n['erp.despacho.contrato.tipo.nicho']}" style="width: 70%"
-							value="#{sepulturaDataManager.nichoListDTOs2.get(0).tniDescripcion}" readonly="true"/>
+							value="#{sepulturaDataManager.nichoListDTO.tniDescripcion}" readonly="true"/>
 						</td>
 					</tr>
 					
@@ -89,7 +88,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNivelNicho" label="#{i18n['erp.despacho.contrato.nivel.nicho']}" style="width: 70%"
-							value="#{sepulturaDataManager.nichoListDTOs2.get(0).nniDescripcion}" readonly="true"/> 
+							value="#{sepulturaDataManager.nichoListDTO.nniDescripcion}" readonly="true"/> 
 						</td>
 					</tr>
 								
