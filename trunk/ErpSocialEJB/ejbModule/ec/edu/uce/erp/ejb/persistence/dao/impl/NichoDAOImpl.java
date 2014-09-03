@@ -65,6 +65,12 @@ public class NichoDAOImpl extends AbstractFacadeImpl<NichoDTO> implements NichoD
 			criteriaList.add(predicate);
 		}
 		
+		//por codigo
+		if (nichoListDTO.getNicCodigo()!=null) {
+			predicate = cb.equal(from.get("nicCodigo"), nichoListDTO.getNicCodigo());
+			criteriaList.add(predicate);
+		}
+		
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		
 		TypedQuery<NichoListDTO> typedQuery = entityManager.createQuery(select);
