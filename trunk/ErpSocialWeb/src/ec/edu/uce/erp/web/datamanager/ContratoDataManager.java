@@ -15,6 +15,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoListDTO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
@@ -36,6 +37,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 	private List<NichoListDTO> nichoListDTOs;
 	private int formaPagoCodigo;
 	private List<CatalogoEucaristiaDTO> formaPagoListDTOs;
+	private DefuncionListDTO defuncionListDTO;
 	
 	
 	
@@ -52,6 +54,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 		fechaFin=new Date();
 		this.contratoListDTOs= new ArrayList<ContratoListDTO>();
 		this.formaPagoListDTOs=new ArrayList<CatalogoEucaristiaDTO>();
+		this.defuncionListDTO=new DefuncionListDTO();
 			
 	}
 
@@ -193,6 +196,20 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 
 	public void setFormaPagoListDTOs(List<CatalogoEucaristiaDTO> formaPagoListDTOs) {
 		this.formaPagoListDTOs = formaPagoListDTOs;
+	}
+
+
+
+
+	public DefuncionListDTO getDefuncionListDTO() {
+		return defuncionListDTO;
+	}
+
+
+
+
+	public void setDefuncionListDTO(DefuncionListDTO defuncionListDTO) {
+		this.defuncionListDTO = defuncionListDTO;
 	}
 	
 	

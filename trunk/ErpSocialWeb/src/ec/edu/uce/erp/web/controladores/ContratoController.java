@@ -20,6 +20,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.ContratoVO;
@@ -115,27 +116,25 @@ public ContratoController() {
 		
 	}
 	
-	public void buscarDifunto () {
-		slf4jLogger.info("buscarDifunto");
+	public void buscarDefuncion () {
+		slf4jLogger.info("buscarDefuncion");
 		
-		List<Persona> listaDifunto=null;
+		List<DefuncionListDTO> listaDefuncion=null;
 		
 		try {
-			
-			contratoDataManager.getDifuntoInsertar().setPerNombres(null);
-			contratoDataManager.getDifuntoInsertar().setPerApellidos(null);
+		 
+			listaDefuncion=this.servicioEucaristia.buscarDefuncion(new DefuncionListDTO());
 					
-			listaDifunto=this.servicioAdministracion.buscarPersona(contratoDataManager.getDifuntoInsertar());
-							
-			if (CollectionUtils.isEmpty(listaDifunto) && listaDifunto.size()==0) {
+			if (CollectionUtils.isEmpty(listaDefuncion) && listaDefuncion.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
-				this.contratoDataManager.setDifuntoInsertar(listaDifunto.get(0));
-							
+				this.contratoDataManager.setDefuncionListDTO(listaDefuncion.get(0));
+				
+						
 			}
 			
 		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarDifunto {} ", e);
+			slf4jLogger.info("Error al buscarDefuncion {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 		
