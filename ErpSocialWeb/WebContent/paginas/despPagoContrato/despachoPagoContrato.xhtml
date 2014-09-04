@@ -27,41 +27,40 @@
 				<table class="formulario">
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtNombre" value="#{i18n['erp.despacho.contrato.nombres']}" />
+							<h:outputLabel for="txtCi" value="#{i18n['erp.despacho.defuncion.cedula']}" />
 						</td>
-						<td>
-							<h:inputText for="txtNombre" label="#{i18n['erp.despacho.contrato.nombres']}" />
+						<td width="70%">
+							<p:inputText id="txtCi" 
+								  value="#{pagoContratoDataManager.pagoContratoListDTO.perCi}" >
+								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+						</p:inputText>
+						</td>	
+					</tr>
+											
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombres" value="#{i18n['erp.despacho.defuncion.nombres']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombres" label="#{i18n['erp.despacho.defuncion.nombres']}" 
+							value="#{pagoContratoDataManager.pagoContratoListDTO.perNombres}"/>
 						</td>
 					</tr>
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtApe" value="#{i18n['erp.despacho.contrato.apellidos']}" />
+							<h:outputLabel for="txtApellidos" value="#{i18n['erp.despacho.defuncion.apellidos']}" />
 						</td>
-						<td>
-							<h:inputText for="txtApe" label="#{i18n['erp.despacho.contrato.apellidos']}" />
-						</td>
-					</tr>
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtNombreBen" value="#{i18n['erp.despacho.contrato.nombres.beneficiario']}" />
-						</td>
-						<td>
-							<h:inputText for="txtNombreBen" label="#{i18n['erp.despacho.contrato.nombres.beneficiario']}" />
+						<td width="70%">
+							<p:inputText id="txtApellidos" label="#{i18n['erp.despacho.defuncion.apellidos']}" 
+							value="#{pagoContratoDataManager.pagoContratoListDTO.perApellidos}"/>
 						</td>
 					</tr>
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtApeBen" value="#{i18n['erp.despacho.contrato.apellidos.beneficiario']}" />
-						</td>
-						<td>
-							<h:inputText for="txtApeBen" label="#{i18n['erp.despacho.contrato.apellidos.beneficiario']}" />
-						</td>
-					</tr>
+					
 				</table>
 			</p:panel>
 <p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
-					
+					actionListener="#{pagoContratoController.buscarPagoContrato}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarPagoContrato"
 					update=":formPagoContrato:pnlMessages,tablaPagoContrato,pnlBuscarPagoContrato " />
@@ -69,7 +68,7 @@
 
 
 <p:dataTable id="tablaPagoContrato"
-	
+	value="#{pagoContratoDataManager.pagoContratoListDTOs}" var="pago"
 	rowIndexVar="rowIndex"
 	paginator="true" rows="5" paginatorPosition="bottom"
 	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -80,38 +79,32 @@
 	<p:column headerText="#" styleClass="centered" width="5%">
 		#{rowIndex+1}
 	</p:column>
-	<p:column headerText="#{i18n['erp.despacho.contrato.cedula']}" width="35%">
-					<h:outputText  />
-				</p:column>
-				<p:column headerText="#{i18n['erp.despacho.contrato.cedula.beneficiario']}" width="40%">
-					<h:outputText  />
+				<p:column headerText="#{i18n['erp.despacho.defuncion.cedula']}" width="35%">
+					<h:outputText  value="#{pago.perCi}"/>
 				</p:column>
 				
-				<p:column headerText="#{i18n['erp.despacho.contrato.nombres.beneficiario']}" width="40%">
-					<h:outputText  />
+				<p:column headerText="#{i18n['erp.despacho.defuncion.nombres']}" width="35%">
+					<h:outputText  value="#{pago.perNombres}"/>
 				</p:column>
 				
-				<p:column headerText="#{i18n['erp.despacho.contrato.apellidos.beneficiario']}" width="40%">
-					<h:outputText  />
+				<p:column headerText="#{i18n['erp.despacho.defuncion.apellidos']}" width="35%">
+					<h:outputText  value="#{pago.perApellidos}"/>
+				</p:column>
+	
+				<p:column headerText="#{i18n['erp.despacho.contrato.fecha.inicio']}" width="40%">
+					<h:outputText  value="#{pago.conFechaInicio}" />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.contrato.fecha.inicio']}" width="40%">
-					<h:outputText  />
+					<h:outputText  value="#{pago.conFechaFin}" />
 				</p:column>
 			
-			<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
+				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarPagoContrato.show()"
-							
-							process="@this" update=":formEditarPagoContrato:pnlEditarPagoContrato">
-							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
-						</p:commandLink>
-						<p:commandLink styleClass="no-decor"
-							title="#{i18n['label.editar']}"
-							oncomplete="dlgNuevoPagoPagoContrato.show()"
-							
+							actionListener="#{pagoContratoController.cargarDatosPagoContrato(pago)}"
 							process="@this" update=":formEditarPagoContrato:pnlEditarPagoContrato">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
@@ -121,6 +114,7 @@
 	
 	</h:form>			
 		<ui:include src="dialogNuevoPagoContrato.xhtml" />
+		<ui:include src="dialogEditarPagoContrato.xhtml" />
 		
 		
 </ui:define>		

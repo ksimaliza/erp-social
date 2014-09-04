@@ -27,10 +27,23 @@
 				<table class="formulario">
 					<tr>
 						<td width="30%">
+							<h:outputLabel for="txtCi" value="#{i18n['erp.despacho.defuncion.cedula']}" />
+						</td>
+						<td >
+							<p:inputText id="txtCi" 
+								  value="#{contratoDataManager.contratoListDTO.perCi}" >
+								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+						</p:inputText>
+						</td>	
+					</tr>
+					
+					
+					<tr>
+						<td width="30%">
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.despacho.contrato.nombres']}" />
 						</td>
 						<td>
-							<h:inputText for="txtNombre" label="#{i18n['erp.despacho.contrato.nombres']}" 
+							<p:inputText for="txtNombre" label="#{i18n['erp.despacho.contrato.nombres']}" 
 							value="#{contratoDataManager.contratoListDTO.perNombres}" />
 						</td>
 					</tr>
@@ -39,7 +52,7 @@
 							<h:outputLabel for="txtApe" value="#{i18n['erp.despacho.contrato.apellidos']}" />
 						</td>
 						<td>
-							<h:inputText for="txtApe" label="#{i18n['erp.despacho.contrato.apellidos']}" 
+							<p:inputText for="txtApe" label="#{i18n['erp.despacho.contrato.apellidos']}" 
 							value="#{contratoDataManager.contratoListDTO.perApellidos}"/>
 						</td>
 					</tr>
