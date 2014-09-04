@@ -16,10 +16,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
-import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoListDTO;
@@ -79,20 +79,23 @@ public ContratoController() {
 		ContratoVO contratoVO;
 		NichoDTO nichoDTO;
 		CatalogoEucaristiaDTO formaPago;
-		
+		DefuncionDTO defuncion;
 					
 		try {
 		
+			defuncion=new DefuncionDTO();
 			contratoVO=new ContratoVO();
 			nichoDTO=new NichoDTO();
 			formaPago=new CatalogoEucaristiaDTO();
 			
-			contratoVO.setDifunto(contratoDataManager.getDifuntoInsertar());
+			
 			contratoVO.setContratoDTO(contratoDataManager.getContratoDTO());
 			nichoDTO.setNicCodigo(contratoDataManager.getNichoCodigo());
 			formaPago.setCatCodigo(contratoDataManager.getFormaPagoCodigo());
 			contratoVO.setFormaPago(formaPago);
 			contratoVO.setNichoDTO(nichoDTO);
+			defuncion.setDefPersona(contratoDataManager.getDefuncionListDTO().getDefPersona());
+			contratoVO.getContratoDTO().setConDifunto(defuncion.getDefPersona());
 			contratoVO.getContratoDTO().setConFechaFin(new Timestamp(contratoDataManager.getFechaFin().getTime()));
 			contratoVO.getContratoDTO().setConFechaInicio(new Timestamp(contratoDataManager.getFechaInicio().getTime()));
 			
@@ -100,7 +103,6 @@ public ContratoController() {
 									
 			if (contratoNuevo!= null) {
 				contratoDataManager.setContratoDTO(new ContratoDTO());
-				contratoDataManager.setDifuntoInsertar(new Persona());
 				contratoDataManager.setNichoCodigo(0);
 				contratoDataManager.setFormaPagoCodigo(0);
 				contratoDataManager.setFechaFin(new Date());
@@ -175,6 +177,31 @@ public ContratoController() {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.contratoDataManager.setNichoListDTOs(listResultado);
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscar el buscarNicho {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+	}
+	
+	public void buscarNicho2() {
+		slf4jLogger.info("buscarNicho");
+		List<NichoListDTO> listResultado=new ArrayList<NichoListDTO>();
+		
+		try {
+			
+			NichoListDTO nicho=new NichoListDTO();
+			nicho.setNicCodigo(this.contratoDataManager.getNichoCodigo());
+			
+			listResultado = this.servicioEucaristia.buscarNicho(nicho);
+			
+			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.contratoDataManager.setNichoListDTO(listResultado.get(0));
+			
+				
 			}
 			
 		} catch (SeguridadesException e) {

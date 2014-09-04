@@ -34,11 +34,11 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 	private Date fechaFin;
 	private int nichoCodigo;
 	private ContratoListDTO contratoListDTO;
-	private List<NichoListDTO> nichoListDTOs;
+	private NichoListDTO nichoListDTO;
 	private int formaPagoCodigo;
 	private List<CatalogoEucaristiaDTO> formaPagoListDTOs;
 	private DefuncionListDTO defuncionListDTO;
-	
+	private List<NichoListDTO>  nichoListDTOs;
 	
 	
 	
@@ -49,13 +49,13 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 		this.difuntoInsertar = new Persona();		
 		this.contratoDTO= new ContratoDTO();
 		this.contratoListDTO= new ContratoListDTO();
-		this.nichoListDTOs = new ArrayList<NichoListDTO>();
+		this.nichoListDTO = new NichoListDTO();
 		fechaInicio=new Date();
 		fechaFin=new Date();
 		this.contratoListDTOs= new ArrayList<ContratoListDTO>();
 		this.formaPagoListDTOs=new ArrayList<CatalogoEucaristiaDTO>();
 		this.defuncionListDTO=new DefuncionListDTO();
-			
+		this.nichoListDTOs=new ArrayList<NichoListDTO>();
 	}
 
 
@@ -159,15 +159,17 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 
 
 
-	public List<NichoListDTO> getNichoListDTOs() {
-		return nichoListDTOs;
+	
+
+	public NichoListDTO getNichoListDTO() {
+		return nichoListDTO;
 	}
 
 
 
 
-	public void setNichoListDTOs(List<NichoListDTO> nichoListDTOs) {
-		this.nichoListDTOs = nichoListDTOs;
+	public void setNichoListDTO(NichoListDTO nichoListDTO) {
+		this.nichoListDTO = nichoListDTO;
 	}
 
 
@@ -211,7 +213,22 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 	public void setDefuncionListDTO(DefuncionListDTO defuncionListDTO) {
 		this.defuncionListDTO = defuncionListDTO;
 	}
-	
+
+
+
+
+	public List<NichoListDTO> getNichoListDTOs() {
+		return nichoListDTOs;
+	}
+
+
+
+
+	public void setNichoListDTOs(List<NichoListDTO> nichoListDTOs) {
+		this.nichoListDTOs = nichoListDTOs;
+	}
+
+
 	
 	
 	
