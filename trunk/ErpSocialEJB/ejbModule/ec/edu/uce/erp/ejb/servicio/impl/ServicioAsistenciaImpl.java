@@ -399,7 +399,7 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 			}
 		}catch(Exception e){
 			slf4jLogger.info("Error al readFalta {}", e.getMessage());
-			throw new SeguridadesException("No se pudo encontraro datos de empleado");	
+			throw new SeguridadesException("No se pudo encontraron datos de empleado");	
 		}
 		return registro;
 	}
