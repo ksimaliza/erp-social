@@ -17,10 +17,10 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCi" style="width: 70%" 
-								 required="true" value="#{contratoDataManager.difuntoInsertar.perCi}" >
+								 required="true" value="#{contratoDataManager.defuncionListDTO.perCi}" >
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-							<p:ajax event="blur" update="txtNombres,txtApellidos" listener="#{contratoController.buscarDifunto}" process="@this"/>
+							<p:ajax event="blur" update="txtNombres,txtApellidos" listener="#{contratoController.buscarDefuncion}" process="@this"/>
 						</p:inputText>
 						</td>	
 					</tr>
@@ -31,7 +31,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNombres" label="#{i18n['erp.despacho.contrato.nombres']}" style="width: 70%"
-							value="#{contratoDataManager.difuntoInsertar.perNombres}"/>
+							value="#{contratoDataManager.defuncionListDTO.perNombres}" readonly="true"/>
 						</td>
 					</tr>
 					<tr>
@@ -40,7 +40,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApellidos" label="#{i18n['erp.despacho.contrato.apellidos']}" style="width: 70%" 
-							value="#{contratoDataManager.difuntoInsertar.perApellidos}"/>
+							value="#{contratoDataManager.defuncionListDTO.perApellidos}" readonly="true"/>
 						</td>
 					</tr>
 									
@@ -50,7 +50,7 @@
 						</td>
 						<td width="70%">
 							<p:calendar id="txtFechaInicio" style="width: 70%" navigator="true"   showOn="button" required="true"
-							value="#{contratoDataManager.contratoDTO.conFechaInicio}"/>
+							value="#{contratoDataManager.fechaInicio}"/>
 						</td>
 					</tr>
 					<tr>
@@ -59,7 +59,7 @@
 						</td>
 						<td width="70%">
 							<p:calendar id="txtFechaFinalizacion" style="width: 70%" navigator="true"   showOn="button" required="true"
-							value="#{contratoDataManager.contratoDTO.conFechaFin}"/>
+							value="#{contratoDataManager.fechaFin}"/>
 						</td>
 					</tr>
 					
@@ -73,7 +73,7 @@
 					<p:selectOneMenu id="nicho" value="#{contratoDataManager.nichoCodigo}" filter="true" required="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{contratoController.contratoDataManager.nichoListDTOs}" var="nicho" itemLabel="#{nicho.nicDescripcion}" itemValue="#{nicho.nicCodigo}"/>
-								<p:ajax listener="#{contratoController.buscarNicho}" process="@this" update="txtSeccionNicho,txtTipoNicho,txtNivelNicho"/>
+								<p:ajax listener="#{contratoController.buscarNicho2}" process="@this" update="txtSeccionNicho,txtTipoNicho,txtNivelNicho"/>
 					</p:selectOneMenu>
 					</td>
 					</tr>
@@ -81,11 +81,11 @@
 									
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtSeccionNicho" value="#{i18n['erp.despacho.contrato.seccion.nicho']}" />
+							<h:outputLabel for="txtSeccionNicho" value="#{i18n['erp.despacho.contrato.seccion.nicho']}"  />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtSeccionNicho" label="#{i18n['erp.despacho.contrato.seccion.nicho']}" style="width: 70%"
-							/>
+							<h:inputText id="txtSeccionNicho"  style="width: 70%" 
+							value="#{contratoDataManager.nichoListDTO.catDescripcion}" readonly="true"/>
 						</td>
 					</tr>
 					
@@ -95,7 +95,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtTipoNicho" label="#{i18n['erp.despacho.contrato.tipo.nicho']}" style="width: 70%"
-							/>
+							value="#{contratoDataManager.nichoListDTO.tniDescripcion}" readonly="true"/>
 						</td>
 					</tr>
 					
@@ -107,7 +107,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNivelNicho" label="#{i18n['erp.despacho.contrato.nivel.nicho']}" style="width: 70%"
-							/>
+							value="#{contratoDataManager.nichoListDTO.nniDescripcion}" readonly="true" />
 						</td>
 					</tr>
 					

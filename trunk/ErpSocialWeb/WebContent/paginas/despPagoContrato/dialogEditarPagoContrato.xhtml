@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpEditarPagoContrato" header="#{i18n['erp.despacho.contrato.registrar']}" resizable="false" draggable="false"
+		widgetVar="dlgEditarPagoContrato" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<h:form id="formEditarPagoContrato" styleClass="formulario">
+			<p:panel id="pnlEditarPagoContrato">
+				<table class="formulario">
+						
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCi" value="#{i18n['erp.despacho.contrato.cedula']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCi" style="width: 70%" 
+								 required="true" value="#{pagoContratoDataManager.pagoContratoListDTOEditar.perCi}">
+							</p:inputText>
+						</td>	
+					</tr>
+											
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombres" value="#{i18n['erp.despacho.contrato.nombres']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombres" label="#{i18n['erp.despacho.contrato.nombres']}" style="width: 70%"
+							value="#{pagoContratoDataManager.pagoContratoListDTOEditar.perNombres}" readonly="true"/>
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApellidos" value="#{i18n['erp.despacho.contrato.apellidos']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApellidos" label="#{i18n['erp.despacho.contrato.apellidos']}" style="width: 70%" 
+							value="#{pagoContratoDataManager.pagoContratoListDTOEditar.perApellidos}" readonly="true"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFechaInicio" value="#{i18n['erp.despacho.contrato.fecha.inicio']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtFechaInicio" label="#{i18n['erp.despacho.contrato.fecha.inicio']}" style="width: 70%" 
+							value="#{pagoContratoDataManager.pagoContratoListDTOEditar.conFechaInicio}" readonly="true"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFechaFinalizacion" value="#{i18n['erp.despacho.contrato.fecha.fin']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtFechaFinalizacion" label="#{i18n['erp.despacho.contrato.fecha.fin']}" style="width: 70%" 
+							value="#{pagoContratoDataManager.pagoContratoListDTOEditar.conFechaFin}" readonly="true"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNumNicho" value="#{i18n['erp.despacho.contrato.numero.nicho']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNumNicho" label="#{i18n['erp.despacho.contrato.numero.nicho']}" style="width: 70%" 
+							value="#{pagoContratoDataManager.pagoContratoListDTOEditar.nicDescripcion}" readonly="true"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtSeccionNicho" value="#{i18n['erp.despacho.contrato.seccion.nicho']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtSeccionNicho" label="#{i18n['erp.despacho.contrato.seccion.nicho']}" style="width: 70%" 
+							value="#{pagoContratoDataManager.pagoContratoListDTOEditar.seccion}" readonly="true"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtTipoNicho" value="#{i18n['erp.despacho.contrato.tipo.nicho']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtTipoNicho" label="#{i18n['erp.despacho.contrato.tipo.nicho']}" style="width: 70%" 
+							value="#{pagoContratoDataManager.pagoContratoListDTOEditar.tniDescripcion}" readonly="true"/>
+						</td>
+					</tr>
+							
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNivelNicho" value="#{i18n['erp.despacho.contrato.nivel.nicho']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNivelNicho" label="#{i18n['erp.despacho.contrato.nivel.nicho']}" style="width: 70%" 
+							value="#{pagoContratoDataManager.pagoContratoListDTOEditar.nniDescripcion}" readonly="true"/>
+						</td>
+					</tr>			
+				
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtAñosArrend" value="#{i18n['erp.despacho.contrato.anios.arrendamiento']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtAñosArrend" style="width: 70%" 
+								 label="#{i18n['erp.despacho.contrato.anios.arrendamiento']}" 
+								 value="#{pagoContratoDataManager.pagoContratoListDTOEditar.conAnioArrendamiento}"
+								 readonly="true">
+						</p:inputText>
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFormaPago" value="#{i18n['erp.despacho.contrato.forma.pago']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtFormaPago" label="#{i18n['erp.despacho.contrato.forma.pago']}" style="width: 70%" 
+							value="#{pagoContratoDataManager.pagoContratoListDTOEditar.catDescripcion}" readonly="true"/>
+						</td>
+					</tr>
+									
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtObs" value="#{i18n['erp.despacho.contrato.observacion']}" />
+						</td>
+						<td width="70%">
+							<p:inputTextarea id="txtObs" style="width: 70%" 
+								 label="#{i18n['erp.despacho.contrato.observacion']}"
+								 value="#{pagoContratoDataManager.pagoContratoListDTOEditar.conObservacion}" readonly="true">
+						</p:inputTextarea>
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtValorTotal" value="#{i18n['erp.despacho.contrato.pago.valor.total']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtValorTotal" label="#{i18n['erp.despacho.contrato.pago.valor.total']}" style="width: 70%"
+							value="#{pagoContratoDataManager.pagoContratoListDTOEditar.pagValor}"/>
+						</td>
+					</tr>
+									
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFechaPago" value="#{i18n['erp.despacho.contrato.pago.fecha.pago']}" />
+						</td>
+						<td width="70%">
+							<p:calendar id="txtFechaPago" style="width: 70%" navigator="true"   showOn="button" required="true"
+							value="#{pagoContratoDataManager.fechaPago}"/>
+						</td>
+					</tr>
+									
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{pagoContratoController.actualizar}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarPagoContrato.hide()"
+					process="@this,pnlEditarPagoContrato" update="pnlEditarPagoContrato,:formPagoContrato:pnlMessages,:formPagoContrato:tablaPagoContrato"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarPagoContrato.hide()" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>
