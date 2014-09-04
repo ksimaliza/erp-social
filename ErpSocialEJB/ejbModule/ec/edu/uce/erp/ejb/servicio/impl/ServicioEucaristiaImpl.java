@@ -12,7 +12,6 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.dao.factory.EucaristiaFactoryDAO;
 import ec.edu.uce.erp.ejb.dao.factory.FactoryDAO;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
@@ -36,9 +35,12 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NivelNichoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoContratoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PrimeraComunionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.TipoNichoDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.AutorizacionExhumacionVO;
@@ -51,6 +53,7 @@ import ec.edu.uce.erp.ejb.persistence.vo.DoctorVO;
 import ec.edu.uce.erp.ejb.persistence.vo.EucaristiaVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ExhumacionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.MatrimonioVO;
+import ec.edu.uce.erp.ejb.persistence.vo.PagoVO;
 import ec.edu.uce.erp.ejb.persistence.vo.SacerdoteVO;
 import ec.edu.uce.erp.ejb.persistence.vo.SepulturaVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -989,22 +992,11 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	public ContratoDTO createOrUpdateContrato(ContratoVO contratoVO) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateContrato");
-		Persona difuntoPersona;
+		
 		NichoDTO nichoDTO;
 		CatalogoEucaristiaDTO formaPago;
-				 
-		List<Persona> listPersona;
-			
+					
 		try {
-			difuntoPersona = contratoVO.getDifunto();
-			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(difuntoPersona);
-			if(listPersona.size()<=0)
-				difuntoPersona=factoryDAO.getPersonaDAOImpl().create(difuntoPersona);
-				
-			else
-				difuntoPersona=listPersona.get(0);
-			
-			contratoVO.getContratoDTO().setConDifunto(difuntoPersona.getPerPk());
 			
 									
 			if(contratoVO.getContratoDTO().getConCodigo()!=null){
@@ -1109,7 +1101,69 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		return sepultura;
 	}
 
-	
-	
+	@Override
+	public PagoDTO createOrUpdatePagoContrato(PagoVO pagoVO) throws SeguridadesException
+	{
+		slf4jLogger.info("createOrUpdatePagoContrato");
 		
+										
+		try{
+			
+		if(pagoVO.getPago().getPagCodigo()!=null){
+				return  eucaristiaFactoryDAO.getPagoDAOImpl().update(pagoVO.getPago());
+			}
+			else{
+				return  eucaristiaFactoryDAO.getPagoDAOImpl().create(pagoVO.getPago());
+				
+			} }catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdatePagoContrato {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+	
+	}
+	
+	@Override
+	public List<PagoContratoListDTO> readPago(PagoContratoListDTO pago) throws SeguridadesException {
+		slf4jLogger.info("readPago");
+		List<PagoContratoListDTO> listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getPagoDAOImpl().getByAnd(pago);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al readPago {}", e.getMessage());
+			throw new SeguridadesException("No se pudo readPago de la base de datos");
+		}
+		return listResultado;
+	}
+	
+	@Override
+	public PagoVO obtenerPagoPorId(PagoContratoListDTO pagoContratoListDTO) throws SeguridadesException {
+		slf4jLogger.info("obtenerPagoPorId");
+		PagoVO pago=new PagoVO();
+		
+		pago.setPago(eucaristiaFactoryDAO.getPagoDAOImpl().find(pagoContratoListDTO.getPagCodigo()));
+		/*pago.setContratoListDTO(eucaristiaFactoryDAO.getContratoDAOImpl().getByAnd(pagoContratoListDTO.getConCodigo()));*/
+		
+		return pago;
+	}
+
+	
+	@Override
+	public PagoDTO updatePagoContrato(PagoDTO pago) throws SeguridadesException
+	{
+		slf4jLogger.info("createOrUpdatePagoContrato");
+		PagoDTO pagoInter;										
+		try{
+			pagoInter=eucaristiaFactoryDAO.getPagoDAOImpl().find(pago.getPagCodigo());
+			pagoInter.setPagFecha(pago.getPagFecha());
+			pagoInter.setPagValor(pago.getPagValor());
+		eucaristiaFactoryDAO.getPagoDAOImpl().update(pagoInter);		
+		 
+		}catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdatePagoContrato {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		return pagoInter;
+	
+	}
+
 }

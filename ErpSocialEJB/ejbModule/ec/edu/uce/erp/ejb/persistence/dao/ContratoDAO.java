@@ -11,4 +11,7 @@ public interface ContratoDAO extends AbstractFacade<ContratoDTO> {
 	List<ContratoListDTO> obtenerContrato(ContratoListDTO contratoListDTO)
 			throws SeguridadesException;
 
+	List<ContratoListDTO> getByAnd(ContratoListDTO objetoDTO)
+			throws SeguridadesException;
+
 }

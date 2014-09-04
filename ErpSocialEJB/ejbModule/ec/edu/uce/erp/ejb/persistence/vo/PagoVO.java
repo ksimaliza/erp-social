@@ -3,43 +3,48 @@ package ec.edu.uce.erp.ejb.persistence.vo;
 import java.io.Serializable;
 
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoDTO;
 
 public class PagoVO implements Serializable {
+private static final long serialVersionUID = 1L;
 	
-	
-	private static final long serialVersionUID = 1L;
-	
-	private ContratoDTO contrato;
 	private PagoDTO pago;
+	private ContratoDTO contratoDTO;
+	private ContratoListDTO contratoListDTO;
 	
-
-	public PagoVO() {
-	
-		setContrato(new ContratoDTO());
-		setPago(new PagoDTO());	
+	public PagoVO ()
+	{
+		pago=new PagoDTO();
+		contratoDTO=new ContratoDTO();
+		contratoListDTO=new ContratoListDTO();
 	}
-
-
-	public ContratoDTO getContrato() {
-		return contrato;
-	}
-
-
-	public void setContrato(ContratoDTO contrato) {
-		this.contrato = contrato;
-	}
-
 
 	public PagoDTO getPago() {
 		return pago;
 	}
 
+	public ContratoDTO getContratoDTO() {
+		return contratoDTO;
+	}
 
 	public void setPago(PagoDTO pago) {
 		this.pago = pago;
 	}
 
+	public ContratoListDTO getContratoListDTO() {
+		return contratoListDTO;
+	}
 
+	public void setContratoListDTO(ContratoListDTO contratoListDTO) {
+		this.contratoListDTO = contratoListDTO;
+	}
+
+	public void setContratoDTO(ContratoDTO contratoDTO) {
+		this.contratoDTO = contratoDTO;
+	}
+	
 	
 }
+
+
