@@ -54,9 +54,20 @@
 			
 			<tr>
 				<td colspan="2">
-					<p:commandButton value="#{i18n['label.guardar']}" actionListener="#{registroAsistenciaController.registrar}" update="pnlMessagesG,pnlDatos" process="pnlDatos"/>
+					<p:commandButton value="#{i18n['label.guardar']}" actionListener="#{registroAsistenciaController.registrar}" update="pnlMessagesG,pnlDatos" process="pnlDatos"
+					/>
+	
 				</td>									
 			</tr>
+			
+			<p:panel id="pnlboton" visible="#{registroAsistenciaDataManager.registro.rasTipoEntrada=='atraso'}">
+			<tr>
+				<td colspan="2" >
+					<p:commandButton value="#{i18n['label.imprimir']}" 
+					/>
+				</td>									
+			</tr>
+			</p:panel>
 		</table>
 		</p:panel>
 		
