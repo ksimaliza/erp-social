@@ -167,31 +167,6 @@ public class SepulturaController extends BaseController {
 	}
 	
 
-	/*public void buscarDifunto () {
-		slf4jLogger.info("buscarDifunto");
-		
-		List<Persona> listaDifunto=null;
-		
-		try {
-			
-			sepulturaDataManager.getDifuntoInsertar().setPerNombres(null);
-			sepulturaDataManager.getDifuntoInsertar().setPerApellidos(null);
-					
-			listaDifunto=this.servicioAdministracion.buscarPersona(sepulturaDataManager.getDifuntoInsertar());
-							
-			if (CollectionUtils.isEmpty(listaDifunto) && listaDifunto.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.sepulturaDataManager.setDifuntoInsertar(listaDifunto.get(0));
-							
-			}
-			
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarDifunto {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-		
-	}*/
 	
 	public void buscarDefuncion () {
 		slf4jLogger.info("buscarDefuncion");
