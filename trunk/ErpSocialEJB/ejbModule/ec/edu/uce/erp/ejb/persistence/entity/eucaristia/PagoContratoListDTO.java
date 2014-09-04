@@ -3,6 +3,7 @@ package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -28,7 +29,6 @@ public class PagoContratoListDTO implements Serializable {
 	@Column(name="con_anio_arrendamiento")
 	private Integer conAnioArrendamiento;
 
-	@Id
 	@Column(name="con_codigo")
 	private Integer conCodigo;
 
@@ -67,6 +67,19 @@ public class PagoContratoListDTO implements Serializable {
 
 	@Column(name="nni_nivel")
 	private Integer nniNivel;
+
+	@Id
+	@Column(name="pag_codigo")
+	private Integer pagCodigo;
+
+	@Column(name="pag_contrato")
+	private Integer pagContrato;
+
+	@Column(name="pag_fecha")
+	private Timestamp pagFecha;
+
+	@Column(name="pag_valor")
+	private BigDecimal pagValor;
 
 	@Column(name="per_apellidos")
 	private String perApellidos;
@@ -223,6 +236,38 @@ public class PagoContratoListDTO implements Serializable {
 
 	public void setNniNivel(Integer nniNivel) {
 		this.nniNivel = nniNivel;
+	}
+
+	public Integer getPagCodigo() {
+		return this.pagCodigo;
+	}
+
+	public void setPagCodigo(Integer pagCodigo) {
+		this.pagCodigo = pagCodigo;
+	}
+
+	public Integer getPagContrato() {
+		return this.pagContrato;
+	}
+
+	public void setPagContrato(Integer pagContrato) {
+		this.pagContrato = pagContrato;
+	}
+
+	public Timestamp getPagFecha() {
+		return this.pagFecha;
+	}
+
+	public void setPagFecha(Timestamp pagFecha) {
+		this.pagFecha = pagFecha;
+	}
+
+	public BigDecimal getPagValor() {
+		return this.pagValor;
+	}
+
+	public void setPagValor(BigDecimal pagValor) {
+		this.pagValor = pagValor;
 	}
 
 	public String getPerApellidos() {

@@ -143,10 +143,10 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ExumacionListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoListDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoContratoListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoAtrasoListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaListDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoContratoListDTO</class>
 		<properties>
 			<property name="hibernate.connection.username" value="postgres" />
 			<property name="hibernate.connection.password" value="root" />

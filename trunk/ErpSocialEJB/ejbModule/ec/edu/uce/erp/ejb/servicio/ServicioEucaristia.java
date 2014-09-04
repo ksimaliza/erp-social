@@ -5,6 +5,8 @@ import java.util.List;
 import javax.ejb.Local;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoContratoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionListDTO;
@@ -44,6 +46,7 @@ import ec.edu.uce.erp.ejb.persistence.vo.DoctorVO;
 import ec.edu.uce.erp.ejb.persistence.vo.EucaristiaVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ExhumacionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.MatrimonioVO;
+import ec.edu.uce.erp.ejb.persistence.vo.PagoVO;
 import ec.edu.uce.erp.ejb.persistence.vo.SacerdoteVO;
 import ec.edu.uce.erp.ejb.persistence.vo.SepulturaVO;
 
@@ -204,6 +207,18 @@ public interface ServicioEucaristia {
 
 	List<NichoListDTO> readNicho(NichoListDTO nichoListDTO)
 			throws SeguridadesException;
+
+	
+	List<PagoContratoListDTO> readPago(PagoContratoListDTO pago)
+			throws SeguridadesException;
+
+	PagoDTO createOrUpdatePagoContrato(PagoVO pagoVO)
+			throws SeguridadesException;
+
+	PagoVO obtenerPagoPorId(PagoContratoListDTO pagoContratoListDTO)
+			throws SeguridadesException;
+
+	PagoDTO updatePagoContrato(PagoDTO pago) throws SeguridadesException;
 
 
 }
