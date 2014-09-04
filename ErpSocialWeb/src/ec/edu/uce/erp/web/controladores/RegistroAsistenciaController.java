@@ -68,7 +68,10 @@ public class RegistroAsistenciaController extends BaseController {
 		registroAsistenciaDataManager.setEmpleado(new EmpleadoDTO());
 		registroAsistenciaDataManager.setRegistro(new RegistroDTO());
 	}
-
+	
+	
+	
+	
 	@Override
 	public void refrescarFormulario() {
 		// TODO Auto-generated method stub
