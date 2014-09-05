@@ -27,15 +27,24 @@
 
 			<p:panel id="pnlBuscar" header="#{i18n['erp.asistencia.horas.buscar']}">
 				<table class="formulario">
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFecha" value="#{i18n['erp.asistencia.horas.fecha']}" />
+						</td>
+						<td width="70%">
+							<p:calendar id="txtFecha" showOn="button"  value="#{reporteHorasDataManager.fecha}" pattern="MM/dd/yyyy"/>
+						</td>	
+					</tr>
+					
 					<tr>						
 						<td width="30%">
 							<h:outputLabel for="txtCi" value="#{i18n['erp.asistencia.empleado.cedula']}" />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCi" label="#{i18n['erp.asistencia.empleado.cedula']}" 
-							>
+								value="#{reporteHorasDataManager.registroListDTO.perCi}">
 								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-								<!--  <p:ajax event="blur" update="txtNombreBuscar,txtApellidosBuscar,tablaHorasTrabajadas" listener="#{reporteHorasTrabajadasController.buscar}" process="@this"/>-->
 							</p:inputText>
 						</td>
 					</tr>
@@ -45,7 +54,7 @@
 						<td width="30%"><h:outputLabel value="#{i18n['erp.asistencia.empleado.nombres']}" /> </td>
 						<td width="70%">
 								<p:inputText id="txtNombreBuscar"
-									 />
+								 value="#{reporteHorasDataManager.registroListDTO.perNombres}"	 />
 						</td>					
 					</tr>
 					
@@ -53,7 +62,7 @@
 						<td width="30%"><h:outputLabel value="#{i18n['erp.asistencia.empleado.apellidos']}" /> </td>
 						<td width="70%">
 								<p:inputText id="txtApellidosBuscar"
-									 />
+							value="#{reporteHorasDataManager.registroListDTO.perApellidos}"		 />
 						</td>
 					
 					</tr>
@@ -62,7 +71,7 @@
 
 			<p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
-					
+					actionListener="#{reporteHorasController.buscarEmpleado}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,tablaHorasTrabajadas"
 					update=":formHorasTrabajadas:pnlMessages,tablaHorasTrabajadas,pnlBuscar" />
@@ -94,17 +103,14 @@
 			<h:outputText value="#{emp.perApellidos}" />
 		</p:column>
 		
-		<p:column headerText="#{i18n['erp.asistencia.horas.total']}" width="40%">
-			<h:outputText value="#{emp.perFechaNac}" />
-		</p:column>	
-	
+			
 	<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
 			<h:panelGroup>
 				<p:commandLink styleClass="no-decor"
 					title="#{i18n['erp.asistencia.horas.lista']}"
-					oncomplete="dlgHorasTrabajadass.show()"
+					oncomplete="dlgHorasTrabajadas.show()"
 					
-					process="@this" update=":formdialogHorasTrabajadass:tablaFalta2">
+					process="@this" update=":formdialogHorasTrabajadas:tablaFalta2">
 					<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['erp.asistencia.horas.lista']}"/>
 				</p:commandLink>
 			</h:panelGroup>
