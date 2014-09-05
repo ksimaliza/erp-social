@@ -31,7 +31,6 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(EucaristiaData
 	private List<SacerdoteListDTO> sacerdoteDTOs;
 	private Date Fecha;
 	private SacerdoteListDTO sacerdoteListDTO;
-
 	
 	
 	@PostConstruct
@@ -43,6 +42,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(EucaristiaData
 		this.eucaristiaInsertar=new EucaristiaDTO();
 		this.Fecha=new Date();
 		this.sacerdoteListDTO=new SacerdoteListDTO();
+
 		
 	}
 
@@ -60,6 +60,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(EucaristiaData
 	public List<EucaristiaListDTO> getEucaristiaListDTOs() {
 		return eucaristiaListDTOs;
 	}
+
 
 
 	public void setEucaristiaListDTOs(List<EucaristiaListDTO> eucaristiaListDTOs) {
