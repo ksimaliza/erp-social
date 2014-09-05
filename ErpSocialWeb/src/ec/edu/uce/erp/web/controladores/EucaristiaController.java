@@ -3,6 +3,7 @@ package ec.edu.uce.erp.web.controladores;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
+import ec.edu.uce.erp.ejb.persistence.util.dto.FiltroFechaDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EucaristiaVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
@@ -99,8 +101,26 @@ public void registrarEucaristia () throws ParseException {
 public void buscar() {
 	slf4jLogger.info("buscarEucaristia");
 	List<EucaristiaListDTO> listResultado=new ArrayList<EucaristiaListDTO>();
+	FiltroFechaDTO filtro;
+	;
 	try {
-		listResultado = this.servicioEucaristia.buscarEucaristia(eucaristiaDataManager.getEucaristiaListDTO());
+		filtro=new FiltroFechaDTO();
+		if(this.eucaristiaDataManager.getFecha()!=null)
+		{	
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(this.eucaristiaDataManager.getFecha());
+		
+		int year = cal.get(Calendar.YEAR);
+	    int month = cal.get(Calendar.MONTH);
+	    int day = cal.get(Calendar.DAY_OF_MONTH);
+	    
+	    filtro.setAnio(year);
+	    filtro.setMes(month+1);
+	    filtro.setDia(day);
+		}
+		
+		listResultado = this.servicioEucaristia.buscarEucaristia(eucaristiaDataManager.getEucaristiaListDTO(), filtro);
 			
 		if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
 			MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");

@@ -9,8 +9,11 @@ import javax.faces.bean.ViewScoped;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoAtrasoListDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAsistencia;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
+import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.datamanager.ReporteHorasDataManager;
 
 @ViewScoped
@@ -47,6 +50,72 @@ public class ReporteHorasController extends BaseController {
 		this.reporteHorasDataManager = reporteHorasDataManager;
 	}
 
+	
+	public void buscarEmpleado()
+	{
+		try {
+			reporteHorasDataManager.setRegistroList(this.servicioAsistencia.readAtraso(this.reporteHorasDataManager.getRegistroListDTO()));
+			this.reporteHorasDataManager.setRegistroListDTO(new EmpleadoAtrasoListDTO());
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscar el empleado {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+
+	}
+	
+	/*public void buscar() {
+		slf4jLogger.info("buscarHoras");
+		List<EmpleadoAtrasoListDTO> listResultado=new ArrayList<EmpleadoAtrasoListDTO>();
+		FiltroFechaDTO filtro;
+		;
+		try {
+			filtro=new FiltroFechaDTO();
+			if(this.reporteHorasDataManager.getFecha()!=null)
+			{	
+			
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(this.reporteHorasDataManager.getFecha());
+			
+			int year = cal.get(Calendar.YEAR);
+		    int month = cal.get(Calendar.MONTH);
+		    int day = cal.get(Calendar.DAY_OF_MONTH);
+		    
+		    filtro.setAnio(year);
+		    filtro.setMes(month+1);
+		    filtro.setDia(day);
+			}
+			
+			listResultado = this.servicioAsistencia.read(eucaristiaDataManager.getEucaristiaListDTO(), filtro);
+				
+			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.eucaristiaDataManager.setEucaristiaListDTOs(listResultado);
+				
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarEucaristia {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+	}
+	*/
+	
+	public void registros(EmpleadoAtrasoListDTO registroListDTO)
+	{
+		EmpleadoAtrasoListDTO registroListDTO2;
+		try {
+			registroListDTO2=new EmpleadoAtrasoListDTO();
+			registroListDTO2.setAemEmpleado(registroListDTO.getAemEmpleado());
+			reporteHorasDataManager.setRegistroLists(this.servicioAsistencia.readAtraso(registroListDTO2));
+						
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscar registro {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+
+	}
 	@Override
 	public void refrescarFormulario() {
 		// TODO Auto-generated method stub
