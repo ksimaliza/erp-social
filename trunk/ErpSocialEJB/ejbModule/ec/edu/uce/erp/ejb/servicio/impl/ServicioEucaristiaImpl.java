@@ -43,6 +43,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.TipoNichoDTO;
+import ec.edu.uce.erp.ejb.persistence.util.dto.FiltroFechaDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.AutorizacionExhumacionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.BautizoVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ComunionVO;
@@ -843,11 +844,13 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	
 		
 	@Override
-	public List<EucaristiaListDTO> buscarEucaristia(EucaristiaListDTO eucaristiaListDTO) throws SeguridadesException {
+	public List<EucaristiaListDTO> buscarEucaristia(EucaristiaListDTO eucaristiaListDTO, FiltroFechaDTO fecha) throws SeguridadesException {
 		slf4jLogger.info("buscarEucaristia");
 		List<EucaristiaListDTO> listResultado = null;
 		try {
-			listResultado = eucaristiaFactoryDAO.getEucaristiaDAOImpl().obtenerEucaristia(eucaristiaListDTO);
+			
+			
+			listResultado = eucaristiaFactoryDAO.getEucaristiaDAOImpl().obtenerEucaristia(eucaristiaListDTO,fecha);
 			
 		} catch (Exception e) {
 			slf4jLogger.info("Error al buscarEucaristia {}", e.getMessage());

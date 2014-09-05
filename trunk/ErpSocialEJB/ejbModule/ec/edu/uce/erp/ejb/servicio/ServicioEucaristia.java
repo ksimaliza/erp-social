@@ -36,6 +36,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.TipoNichoDTO;
+import ec.edu.uce.erp.ejb.persistence.util.dto.FiltroFechaDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.AutorizacionExhumacionVO;
 import ec.edu.uce.erp.ejb.persistence.vo.BautizoVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ComunionVO;
@@ -161,9 +162,7 @@ public interface ServicioEucaristia {
 	EucaristiaDTO createOrUpdateEucaristia(EucaristiaVO eucaristiaVO)
 			throws SeguridadesException;
 
-	List<EucaristiaListDTO> buscarEucaristia(EucaristiaListDTO eucaristiaListDTO)
-			throws SeguridadesException;
-
+	
 	EucaristiaVO obtenerEucaristiaPorId(EucaristiaListDTO eucaristiaListDTO)
 			throws SeguridadesException;
 
@@ -219,6 +218,10 @@ public interface ServicioEucaristia {
 			throws SeguridadesException;
 
 	PagoDTO updatePagoContrato(PagoDTO pago) throws SeguridadesException;
+
+	List<EucaristiaListDTO> buscarEucaristia(
+			EucaristiaListDTO eucaristiaListDTO, FiltroFechaDTO fecha)
+			throws SeguridadesException;
 
 
 }

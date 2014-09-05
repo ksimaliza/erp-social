@@ -124,9 +124,64 @@ public class RegistroDAOImpl extends AbstractFacadeImpl<RegistroDTO> implements 
 			predicateList=null;
 		}		
 	}
+
 	
+	/*@Override
+	public List<EmpleadoAtrasoListDTO> obtenerEucaristia(EmpleadoAtrasoListDTO eucaristiaListDTO, FiltroFechaDTO filtro) throws SeguridadesException {
+		
+		slf4jLogger.info("obtenerEucaristia");
+		List<EmpleadoAtrasoListDTO> eucaristiaEncontrada = null;
+		
+		List<Predicate> criteriaList = null;
+		Predicate predicate = null;
+		CriteriaBuilder cb;
+		CriteriaQuery<EmpleadoAtrasoListDTO> cq;
+		Root<EmpleadoAtrasoListDTO> from;
+		
+		CriteriaQuery<EmpleadoAtrasoListDTO> select;
+		try {
+			cb=entityManager.getCriteriaBuilder();
+			cq=cb.createQuery(EmpleadoAtrasoListDTO.class);
+			from = cq.from(EmpleadoAtrasoListDTO.class);
+			
+			criteriaList = new ArrayList<Predicate>();
+		
+		
+			select = cq.select(from);
+		
+					
+			//por año
+			if (filtro.getAnio()!=null){
+				predicate=cb.equal(cb.function("year", Integer.class, from.get("eucFechaHora")),filtro.getAnio());
+				criteriaList.add(predicate);
+			}
+			
+			//por mes
+			if (filtro.getMes()!=null){
+				predicate=cb.equal(cb.function("month", Integer.class, from.get("eucFechaHora")),filtro.getMes());
+				criteriaList.add(predicate);
+			}
+			
+			//por dia
+			if (filtro.getDia()!=null){
+				predicate=cb.equal(cb.function("day", Integer.class, from.get("eucFechaHora")),filtro.getDia());
+				criteriaList.add(predicate);
+			}
+		
+		
+		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
+		
+		TypedQuery<EmpleadoAtrasoListDTO> typedQuery = entityManager.createQuery(select);
+		eucaristiaEncontrada = typedQuery.getResultList();
+		
+	} catch (Exception e) {
+		slf4jLogger.info("No se pudo obtener los parametros de la BD {}", e);
+		throw new SeguridadesException(e);
+	}
 	
+	return eucaristiaEncontrada;
+}
 	
-	
+	*/
 
 }
