@@ -27,14 +27,17 @@ public class TransaccionMasivaBienDataManager  extends BaseDataManager {
 	private VistaBien vistaBienBuscar;
 	private VistaBien vistaBienEditar;
 	private List<VistaBien> listVistaBien;
+	private List<VistaBien> listVistaBienTraslado;
 	
 	private List<VistaBien> listVistaBienTramitar;
+	private List<VistaBien> listVistaBienTramitado;
 	
 	public TransaccionMasivaBienDataManager () {
 		slf4jLogger.info("transaccionMasivaBienDataManager");
 		this.vistaBienBuscar = new VistaBien();
 		this.vistaBienEditar = new VistaBien();
 		this.listVistaBien = new ArrayList<VistaBien>();
+		this.listVistaBienTraslado = new ArrayList<VistaBien>();
 	}
 	
 	
@@ -98,6 +101,38 @@ public class TransaccionMasivaBienDataManager  extends BaseDataManager {
 	 */
 	public void setVistaBienEditar(VistaBien vistaBienEditar) {
 		this.vistaBienEditar = vistaBienEditar;
+	}
+
+
+	/**
+	 * @return the listVistaBienTramitado
+	 */
+	public List<VistaBien> getListVistaBienTramitado() {
+		return listVistaBienTramitado;
+	}
+
+
+	/**
+	 * @param listVistaBienTramitado the listVistaBienTramitado to set
+	 */
+	public void setListVistaBienTramitado(List<VistaBien> listVistaBienTramitado) {
+		this.listVistaBienTramitado = listVistaBienTramitado;
+	}
+
+
+	/**
+	 * @return the listVistaBienTraslado
+	 */
+	public List<VistaBien> getListVistaBienTraslado() {
+		return listVistaBienTraslado;
+	}
+
+
+	/**
+	 * @param listVistaBienTraslado the listVistaBienTraslado to set
+	 */
+	public void setListVistaBienTraslado(List<VistaBien> listVistaBienTraslado) {
+		this.listVistaBienTraslado = listVistaBienTraslado;
 	}
 	
 

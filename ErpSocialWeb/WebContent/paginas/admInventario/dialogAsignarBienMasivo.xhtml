@@ -61,8 +61,9 @@
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{transaccionMasivaBienController.asignarBienMasivo}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgAsignarBienMasivo.hide()"
-					process="@this,pnlAsignarBienMasivo" update="pnlAsignarBienMasivo,:formBien:tablaBienesSeleccionados,:formBien:tablaBienes,:formBien:pnlMessages"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" type="button" onclick="dlgAsignarBienMasivo.hide();"/>
+					process="@this,pnlAsignarBienMasivo,:formBien:acp:pgResultadoAsigMasivo"
+					update="pnlAsignarBienMasivo,:formBien:acp:tablaBienesSeleccionados,:formBien:acp:tablaBienes,:formBien:pnlMessages,:formBien:acp:pgResultadoAsigMasivo" />
+				<p:commandButton value="#{i18n['label.cancelar']}" type="button" onclick="dlgAsignarBienMasivo.hide();" />
 			</p:panel>
 		</h:form>
 	</p:dialog>
