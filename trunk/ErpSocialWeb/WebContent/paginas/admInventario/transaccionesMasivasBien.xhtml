@@ -12,211 +12,26 @@
 		<h:form id="formBien">
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
 			
-			<!-- <p:panel id="pnlSelectTransaccion" header="Seleccione transaccion:"> -->
-			
-				<table class="formulario">
-					<tr>
-						<td width="20%">
-							<h:outputLabel for="selectTipoIngresoBien" value="#{i18n['erp.bien.tipo.transaccion']}" />
-						</td>
-						<td width="80%">
-							<p:selectOneMenu id="selectTipoIngresoBien" style="width: 50%" label="#{i18n['erp.bien.categoria']}"
-								value="#{transaccionMasivaBienController.idTransaccionSeleccionado}">
-								<f:selectItems value="#{transaccionMasivaBienController.dcTipoTransaccion}"/>
-							</p:selectOneMenu>
-						</td>
-					</tr>
-				</table>
+			<p:accordionPanel id="acp">
+				<!-- <p:ajax event="tabChange" 
+					listener="#{transaccionMasivaBienController.limpiarFiltrosBusqueda}" 
+					update="tabAsignacion, tabTraslado"/> -->
+				<p:tab id="tabAsignacion" title="#{i18n['erp.bien.transacciones.masivas.tab.asignacion.title']}" 
+					titletip="#{i18n['erp.bien.transacciones.masivas.tab.asignacion.title']}">
+					<ui:include src="seccionAsignacionMasiva.xhtml" />
+				</p:tab>
 				
-				<!-- <p:panel rendered="true"> -->
+				<p:tab id="tabTraslado" title="#{i18n['erp.bien.transacciones.masivas.tab.traslado.title']}" 
+					titletip="#{i18n['erp.bien.transacciones.masivas.tab.traslado.title']}">
+					<ui:include src="seccionTrasladoMasivo.xhtml" />
+				</p:tab>
 				
-					<p:panel id="pnlBuscarBien" header="#{i18n['erp.bien.buscar']}">
-						<table class="formulario">
-							<!-- <tr>
-								<td width="20%">
-									<h:outputLabel for="selectTipoIngresoBien" value="#{i18n['erp.bien.tipo.transaccion']}" />
-								</td>
-								<td width="80%">
-									<p:selectOneMenu id="selectTipoIngresoBien" style="width: 50%" label="#{i18n['erp.bien.categoria']}"
-										value="#{transaccionMasivaBienController.idTransaccionSeleccionado}">
-										<f:selectItems value="#{transaccionMasivaBienController.dcTipoTransaccion}"/>
-									</p:selectOneMenu>
-								</td>
-							</tr> -->
-							<tr>
-								<td width="20%">
-									<h:outputLabel for="selectCategoria" value="#{i18n['erp.bien.categoria']}" />
-								</td>
-								<td width="80%">
-									<p:selectOneMenu id="selectCategoria"
-										style="width: 50%" label="#{i18n['erp.bien.categoria']}"
-										value="#{transaccionMasivaBienController.idCategoriaBienSeleccionado}">
-										<f:selectItem itemValue="#{transaccionMasivaBienDataManager.estadoInvalido}" itemLabel="#{i18n['label.seleccione']}"/>
-										<f:selectItems value="#{transaccionMasivaBienController.dcCategoriaBien}"/>
-										<p:ajax event="change" process="@this" update="txtLinea" listener="#{transaccionMasivaBienController.cargarDcLineaBien}"/>
-									</p:selectOneMenu>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<h:outputLabel for="txtLinea" value="#{i18n['erp.bien.linea']}" />
-								</td>
-								<td>
-									<p:selectOneMenu id="txtLinea"
-										style="width: 50%" label="#{i18n['erp.bien.linea']}"
-										value="#{transaccionMasivaBienController.idLineaBienSeleccionado}">
-										<f:selectItem itemValue="#{transaccionMasivaBienDataManager.estadoInvalido}" itemLabel="#{i18n['label.seleccione']}"/>
-										<f:selectItems value="#{transaccionMasivaBienController.dcLineaBien}"/>
-									</p:selectOneMenu>
-								</td>
-							</tr>
-						</table>
-					</p:panel>
-					<p:panel id="botonesBuscar">
-						<p:commandButton id="btnBuscar"
-							actionListener="#{transaccionMasivaBienController.buscarVistaBien}"
-							value="#{i18n['label.buscar']}" 
-							process="@this,pnlBuscarBien"
-							update="pnlMessages,pnlBuscarBien,tablaBienes" />
-						<p:commandButton id="btnLimpiar"
-							actionListener="#{transaccionMasivaBienController.limpiarFiltrosBusqueda}"
-							value="#{i18n['label.limpiar']}" 
-							process="@this,pnlBuscarBien" 
-							update="pnlMessages,tablaBienes,pnlBuscarBien" />
-					</p:panel>
-					
-					<h:panelGrid columns="2" cellspacing="10" cellpadding="10" border="3" styleClass="formulario">
-					
-						<p:dataTable id="tablaBienes"
-							value="#{transaccionMasivaBienDataManager.listVistaBien}"
-							var="vistaBien" rowIndexVar="rowIndex"
-							paginator="true" rows="5" paginatorPosition="bottom"
-							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							rowsPerPageTemplate="5,10,15" >
-							<f:facet name="header">
-								<h:outputText value="Bienes disponibles para asignar" />
-							</f:facet>
-							
-							<p:column styleClass="centered" width="5%">
-								<f:facet name="header">
-									<h:outputText value="#" />
-								</f:facet>
-								<h:outputText value="#{rowIndex+1}"/>
-							</p:column>
-							
-							<p:column styleClass="centered" width="10%">
-								<f:facet name="header">
-									<h:outputText value="Seleccione" />
-								</f:facet>
-								<p:selectBooleanCheckbox value="#{vistaBien.isSelected}">
-									<p:ajax event="change" 
-										listener="#{transaccionMasivaBienController.asignarElementoTramitar(vistaBien)}"
-										process="@this" update=":formBien:tablaBienesSeleccionados,:formBien:tablaBienes"/>
-								</p:selectBooleanCheckbox>
-							</p:column>
-							
-							<p:column width="10%">
-								<f:facet name="header">
-									<h:outputText value="#{i18n['erp.bien.nombre']}" />
-								</f:facet>
-								<h:outputText value="#{vistaBien.bieNombre}" />
-							</p:column>
-							<p:column width="10%">
-								<f:facet name="header">
-									<h:outputText value="#{i18n['erp.bien.categoria']}" />
-								</f:facet>
-								<h:outputText value="#{vistaBien.catBienNombre}" />
-							</p:column>
-							<p:column width="10%">
-								<f:facet name="header">
-									<h:outputText value="#{i18n['erp.bien.linea']}" />
-								</f:facet>
-								<h:outputText value="#{vistaBien.linBienNombre}" />
-							</p:column>
-							<p:column width="10%">
-								<f:facet name="header">
-									<h:outputText value="#{i18n['erp.bien.marca.material']}" />
-								</f:facet>
-								<h:outputText value="#{vistaBien.marBienNombre}" />
-							</p:column>
-							
-						</p:dataTable>
-						
-						<p:dataTable id="tablaBienesSeleccionados"
-							value="#{transaccionMasivaBienDataManager.listVistaBienTramitar}"
-							var="vistaBien" rowIndexVar="rowIndex"
-							paginator="true" rows="5" paginatorPosition="bottom"
-							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							rowsPerPageTemplate="5,10,15">
-							<f:facet name="header">
-								<h:outputText value="Bienes seleccionados" />
-							</f:facet>
-							
-							<p:column styleClass="centered" width="5%">
-								<f:facet name="header">
-									<h:outputText value="#" />
-								</f:facet>
-								<h:outputText value="#{rowIndex+1}"/>
-							</p:column>
-							<p:column styleClass="centered" width="10%">
-								<f:facet name="header">
-									<h:outputText value="Seleccione" />
-								</f:facet>
-								<p:selectBooleanCheckbox value="#{vistaBien.isSelected}">
-									<p:ajax event="change" 
-										listener="#{transaccionMasivaBienController.asignarElementoTramitar(vistaBien)}"
-										process="@this" update=":formBien:tablaBienesSeleccionados,:formBien:tablaBienes"/>
-								</p:selectBooleanCheckbox>
-							</p:column>
-							<p:column width="10%">
-								<f:facet name="header">
-									<h:outputText value="#{i18n['erp.bien.nombre']}" />
-								</f:facet>
-								<h:outputText value="#{vistaBien.bieNombre}" />
-							</p:column>
-							<p:column width="10%">
-								<f:facet name="header">
-									<h:outputText value="#{i18n['erp.bien.categoria']}" />
-								</f:facet>
-								<h:outputText value="#{vistaBien.catBienNombre}" />
-							</p:column>
-							<p:column width="10%">
-								<f:facet name="header">
-									<h:outputText value="#{i18n['erp.bien.linea']}" />
-								</f:facet>
-								<h:outputText value="#{vistaBien.linBienNombre}" />
-							</p:column>
-							<p:column width="10%">
-								<f:facet name="header">
-									<h:outputText value="#{i18n['erp.bien.marca.material']}" />
-								</f:facet>
-								<h:outputText value="#{vistaBien.marBienNombre}" />
-							</p:column>
-							
-						</p:dataTable>
-					
-					</h:panelGrid>
-					
-					<p:panel id="botonesAsignar">
-						<p:commandButton id="btnAsignar"
-							oncomplete="dlgAsignarBienMasivo.show()" value="Asignar" 
-							process="@this,pnlBuscarBien" update="pnlMessages,pnlBuscarBien,tablaBienes" />
-						<p:commandButton id="btnLimpiarSeleccionado"
-							actionListener="#{transaccionMasivaBienController.limpiarFiltrosBusqueda}"
-							value="#{i18n['label.limpiar']}" 
-							process="@this,pnlBuscarBien" 
-							update="pnlMessages,tablaBienes,pnlBuscarBien" />
-					</p:panel>
-				
-				<!-- </p:panel> -->
-			
-			<!-- </p:panel> -->
-			
-			
+			</p:accordionPanel>
 			
 		</h:form>
 		
 		<ui:include src="dialogAsignarBienMasivo.xhtml" />
+		<ui:include src="dialogReasignarBienMasivo.xhtml" />
 		
 	</ui:define>
 </ui:composition>

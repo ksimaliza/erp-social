@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsf/composite/components">
+	
+	<p:panel id="pnlBuscarBienTraslado" header="#{i18n['erp.bien.buscar']}">
+		<table class="formulario">
+			<tr>
+				<td width="15%"><h:outputLabel for="txtNombreCustodio" value="#{i18n['label.custodio']}" /></td>
+				<td width="85%">
+					<h:panelGrid columns="2" border="0">
+						<h:outputText id="txtNombreCustodio" value="#{transaccionMasivaBienController.buscarUsuarioComponent.vistaEmpleadoSeleccionado.nombresCompletos}" />
+						<c:buscarUsuarioComponent controller="#{transaccionMasivaBienController.buscarUsuarioComponent}" render=":formBien:acp:txtNombreCustodio"/>
+					</h:panelGrid>
+				</td>
+			</tr>
+		</table>
+	</p:panel>
+	<p:panel id="botonesBuscarTraslado">
+		<p:commandButton id="btnBuscarTraslado"
+			actionListener="#{transaccionMasivaBienController.buscarVistaBienTraslado}"
+			value="#{i18n['label.buscar']}" 
+			process="@this,pnlBuscarBienTraslado"
+			update=":formBien:pnlMessages,pnlBuscarBienTraslado,tablaBienesTraslado,tblBienesSelecTraslado"/>
+		<p:commandButton id="btnLimpiarTraslado"
+			actionListener="#{transaccionMasivaBienController.limpiarFiltrosBusqueda}"
+			value="#{i18n['label.limpiar']}" 
+			process="@this,pnlBuscarBienTraslado" 
+			update=":formBien:pnlMessages,pnlBuscarBienTraslado,tablaBienesTraslado,tblBienesSelecTraslado" />
+	</p:panel>
+	<h:panelGroup layout="block">
+	
+		<h:panelGrid columns="2" cellspacing="5" cellpadding="5" border="2" styleClass="formulario">
+		
+			<p:dataTable id="tablaBienesTraslado"
+				value="#{transaccionMasivaBienDataManager.listVistaBienTraslado}"
+				var="vistaBien" rowIndexVar="rowIndex"
+				paginator="true" rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15" >
+				<f:facet name="header">
+					<h:outputText value="Bienes disponibles para asignar" />
+				</f:facet>
+				
+				<p:column styleClass="centered" width="5%">
+					<f:facet name="header">
+						<h:outputText value="#" />
+					</f:facet>
+					<h:outputText value="#{rowIndex+1}"/>
+				</p:column>
+				
+				<p:column styleClass="centered" width="10%">
+					<f:facet name="header">
+						<h:outputText value="Seleccione" />
+					</f:facet>
+					<p:selectBooleanCheckbox value="#{vistaBien.isSelected}">
+						<p:ajax event="change" process="@this,:formBien:acp:botonesTraslado" 
+							listener="#{transaccionMasivaBienController.asignarElementoTramitar(vistaBien)}"
+							update=":formBien:acp:tblBienesSelecTraslado,:formBien:acp:tablaBienesTraslado,:formBien:acp:btnTraslado,:formBien:acp:botonesTraslado"/>
+					</p:selectBooleanCheckbox>
+				</p:column>
+				
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.bien.nombre']}" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.bieNombre}" />
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.bien.categoria']}" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.catBienNombre}" />
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.bien.linea']}" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.linBienNombre}" />
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.bien.marca.material']}" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.marBienNombre}" />
+				</p:column>
+				
+			</p:dataTable>
+			
+			<p:dataTable id="tblBienesSelecTraslado"
+				value="#{transaccionMasivaBienDataManager.listVistaBienTramitar}"
+				var="vistaBien" rowIndexVar="rowIndex"
+				paginator="true" rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<f:facet name="header">
+					<h:outputText value="Bienes seleccionados" />
+				</f:facet>
+				
+				<p:column styleClass="centered" width="5%">
+					<f:facet name="header">
+						<h:outputText value="#" />
+					</f:facet>
+					<h:outputText value="#{rowIndex+1}"/>
+				</p:column>
+				<p:column styleClass="centered" width="10%">
+					<f:facet name="header">
+						<h:outputText value="Seleccione" />
+					</f:facet>
+					<p:selectBooleanCheckbox value="#{vistaBien.isSelected}">
+						<p:ajax event="change" process="@this,:formBien:acp:botonesTraslado"
+							listener="#{transaccionMasivaBienController.asignarElementoTramitar(vistaBien)}"
+							update=":formBien:acp:tblBienesSelecTraslado,:formBien:acp:tablaBienesTraslado,:formBien:acp:btnTraslado,:formBien:acp:botonesTraslado"/>
+					</p:selectBooleanCheckbox>
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.bien.nombre']}" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.bieNombre}" />
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.bien.categoria']}" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.catBienNombre}" />
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.bien.linea']}" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.linBienNombre}" />
+				</p:column>
+				<p:column width="10%">
+					<f:facet name="header">
+						<h:outputText value="#{i18n['erp.bien.marca.material']}" />
+					</f:facet>
+					<h:outputText value="#{vistaBien.marBienNombre}" />
+				</p:column>
+			</p:dataTable>
+		</h:panelGrid>
+	</h:panelGroup>
+	
+	<p:panel id="botonesTraslado">
+		<p:commandButton id="btnTraslado"
+			oncomplete="dlgReasignarBienMasivo.show()" value="Trasladar"
+			actionListener="#{transaccionMasivaBienController.asignarElementoTrasladar}"
+			disabled="#{empty transaccionMasivaBienDataManager.listVistaBienTramitar}"
+			process="@this,pnlBuscarBien" update=":formBien:pnlMessages,pnlBuscarBien,tablaBienes,:formReasignarBienMasivo:pnlReasignarBienMasivo" />
+		<p:commandButton id="btnLimpiarTrasladoLista"
+			actionListener="#{transaccionMasivaBienController.limpiarFiltrosBusqueda}"
+			value="#{i18n['label.limpiar']}" 
+			process="@this,pnlBuscarBien" 
+			update=":formBien:pnlMessages,tablaBienes,pnlBuscarBien,:formReasignarBienMasivo:pnlReasignarBienMasivo" />
+	</p:panel>
+	
+</ui:composition>

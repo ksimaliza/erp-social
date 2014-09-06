@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpReasignarBienMasivo" header="#{i18n['erp.bien.reasignar']}" 
+		widgetVar="dlgReasignarBienMasivo" modal="true" minWidth="600" width="600" appendTo="@(body)" draggable="false">
+		<h:form id="formReasignarBienMasivo" styleClass="formulario">
+			<p:panel id="pnlReasignarBienMasivo" >
+				<table class="formulario">
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.nombre']}" />
+						</td>
+						<td width="70%">
+							<h:outputText id="txtNombre" value="#{transaccionMasivaBienDataManager.vistaBienEditar.bieNombre}" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<h:outputLabel for="txtCodigo" value="#{i18n['label.codigo']}" />
+						</td>
+						<td>
+							<h:outputText id="txtCodigo" value="#{transaccionMasivaBienDataManager.vistaBienEditar.bieCodigo}" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<h:outputLabel value="#{i18n['erp.bien.fecha.reasignacion']}" />
+						</td>
+						<td>
+							<h:outputText value="#{transaccionMasivaBienController.fechaTransaccion}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtCustodio" value="#{i18n['erp.bien.custodio']}" />
+						</td>
+						<td>
+							<p:selectOneMenu id="txtCustodio" style="width: 100%"
+								label="#{i18n['erp.bien.custodio']}" value="#{transaccionMasivaBienDataManager.vistaBienEditar.empAsignadoFk}" disabled="true">
+								<f:selectItems value="#{transaccionMasivaBienController.dcEmpleadosEmpresa}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtCustodioRe" value="#{i18n['erp.bien.custodio.reemplazar']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:selectOneMenu id="txtCustodioRe" style="width: 100%"
+								label="#{i18n['erp.bien.custodio']}" required="true"
+								value="#{transaccionMasivaBienController.idCustudioReasignado}" >
+								<f:selectItem itemValue="0" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItems value="#{transaccionMasivaBienController.dcEmpleadosEmpresa}"/>
+								<p:ajax listener="#{transaccionMasivaBienController.validarAsignacionCustodio}" update=":formBien:pnlMessages,txtCustodioRe" event="change" process="@this"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>
+							<h:outputLabel for="txtUbicacion" value="#{i18n['erp.bien.ubicacion']}" />
+						</td>
+						<td>
+							<p:inputText id="txtUbicacion" style="width: 100%"
+								value="#{transaccionMasivaBienDataManager.vistaBienEditar.bieUbicacion}"/>
+						</td>
+					</tr>
+					
+				</table>
+			</p:panel>
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+					actionListener="#{transaccionMasivaBienController.trasladoBienMasivo}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgReasignarBienMasivo.hide()"
+					process="@this,pnlReasignarBienMasivo" 
+					update="pnlReasignarBienMasivo,:formBien:acp:tablaBienesSeleccionados,:formBien:acp:tablaBienes,:formBien:pnlMessages"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgReasignarBienMasivo.hide();" type="button" />
+			</p:panel>
+		</h:form>
+	</p:dialog>
+	
+</ui:composition>
