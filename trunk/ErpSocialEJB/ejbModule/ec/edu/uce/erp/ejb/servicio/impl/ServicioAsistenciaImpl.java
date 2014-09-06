@@ -375,6 +375,7 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 					}
 				}
 				else{
+					verificarFaltas(registroAsistencia);
 					actual=new Timestamp(new Date().getTime());
 					//A tiempo
 					parametro.setPasCodigo(1);
@@ -404,6 +405,11 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		return registro;
 	}
 	
+	
+	private void verificarFaltas(RegistroAsistenciaVO registroAsistencia)
+	{
+		
+	}
 	
 	@Override
 	public void deleteRegistro(RegistroDTO registroDTO) throws SeguridadesException
