@@ -21,104 +21,27 @@
 
 			<table>
 
-
 				<tr>
-					<td width="30%"><h:outputLabel value="Foto Estudiante:" /></td>
-
+					<td width="30%"><h:outputLabel value="Cédula:" /></td>
+					<td width="70%"><p:inputText /></td>
 				</tr>
 
 				<tr>
-					<td width="30%"><h:outputLabel value="Nro.Mátricula" /></td>
-					<td><p:inputText /></td>
-				</tr>
-				<tr>
-					<td width="30%"><h:outputLabel value="Cédula" /></td>
-					<td><p:inputText /></td>
-				</tr>
-				<tr>
-					<td width="30%"><h:outputLabel value="Estudiante" /></td>
-					<td><p:inputText /></td>
+					<td width="30%"><h:outputLabel value="Nombres:" /></td>
+					<td width="70%"><p:inputText /></td>
 				</tr>
 
 				<tr>
-					<td width="30%"><h:outputLabel value="Sexo" /></td>
-					<td><p:selectOneMenu id="sexo"
-							value="#{i18n['erp.matricula.estudiante.estado']}" filter="true">
-							<f:selectItem itemLabel="#{i18n['label.seleccione']}" />
-							<f:selectItems
-								value="#{nivelParaleloDataManager.nivelParaleloList}"
-								var="nivelParalelo"
-								itemLabel="#{nivelParalelo.matParalelo.parDescripcion}"
-								itemValue="#{nivelParalelo.matParalelo.parCodigo}" />
-						</p:selectOneMenu></td>
-				</tr>
-				<tr>
-					<td width="30%"><h:outputLabel
-							value="#{i18n['erp.matricula.registro.nivel']}" /></td>
-					<td><p:selectOneMenu id="curso"
-							value="#{matriculaDataManager.nivelCodigo}" filter="true"
-							required="true">
-							<f:selectItem itemLabel="#{i18n['label.seleccione']}" />
-							<f:selectItems
-								value="#{matriculaController.matriculaDataManager.nivelList}"
-								var="nivel" itemLabel="#{nivel.nivDescaripcion} "
-								itemValue="#{nivel.nivCodigo}" />
-							<p:ajax listener="#{matriculaController.buscarNivelParalelo}"
-								process="@this" update="paralelo" />
-						</p:selectOneMenu></td>
-				</tr>
-
-
-				<tr>
-					<td width="30%"><h:outputLabel value="Paralelo" /></td>
-					<td><p:selectOneMenu id="paralelo"
-							value="#{nivelParaleloDataManager.paraleloCodigo}" filter="true">
-							<f:selectItem itemLabel="#{i18n['label.seleccione']}" />
-							<f:selectItems
-								value="#{nivelParaleloDataManager.nivelParaleloList}"
-								var="nivelParalelo"
-								itemLabel="#{nivelParalelo.matParalelo.parDescripcion}"
-								itemValue="#{nivelParalelo.matParalelo.parCodigo}" />
-						</p:selectOneMenu></td>
+					<td width="30%"><h:outputLabel value="Apellidos:" /></td>
+					<td width="70%"><p:inputText /></td>
 				</tr>
 
 				<tr>
-					<td><h:outputLabel for="selectAnio" value="Año Lectivo" /></td>
-					<td><p:selectOneMenu id="selectAnio"
-							value="#{diaLaboralDataManager.anio}"
-							label="#{i18n['erp.asistencia.seleccione.anio']}" required="true">
-							<f:selectItem itemValue=""
-								itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true" />
-							<f:selectItems value="#{selectItemsController.catalogoListAnio}" />
-						</p:selectOneMenu></td>
+					<td width="30%"><h:outputLabel value="Matricula:" /></td>
+					<td width="70%"><p:inputText /></td>
 				</tr>
 
-				<tr>
-					<td width="30%"><h:outputLabel for="txtFecha"
-							value="#{i18n['erp.matricula.estudiante.fechanac']}" /></td>
-					<td width="70%"><p:calendar id="txtFecha" style="width: 100%"
-							navigator="true" value="#{matriculaDataManager.fechaInsertar}"
-							showOn="button" required="true" /></td>
-				</tr>
-
-				<tr>
-					<td width="30%"><h:outputLabel value="Nombre Institución" /></td>
-					<td><p:inputText /></td>
-				</tr>
-
-				<tr>
-					<td><h:outputLabel for="inputEstado"
-							value="#{i18n['label.estado']}" /></td>
-					<td><h:selectOneMenu id="inputEstado"
-							value="#{perfilDataManager.perfilBuscar.estado}">
-							<f:selectItem itemLabel="#{i18n['label.seleccione']}"
-								itemValue="" />
-							<f:selectItem itemLabel="#{i18n['label.estado.activo']}"
-								itemValue="#{perfilDataManager.estadoActivo}" />
-							<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}"
-								itemValue="#{perfilDataManager.estadoInactivo}" />
-						</h:selectOneMenu></td>
-				</tr>
+				
 			</table>
 		</h:form>
 	</ui:define>
