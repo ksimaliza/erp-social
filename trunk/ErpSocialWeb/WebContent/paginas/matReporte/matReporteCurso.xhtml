@@ -1,4 +1,4 @@
-!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -39,7 +39,7 @@
 					
 					<tr>
 						<td>
-							<p:commandButton value="Pdf" actionListener="#{reporteCursoController.exportar}" icon="pdf" ajax="false"/>
+							<p:commandButton value="Pdf" actionListener="#{reporteCursoController.exportar}" icon="exportPdf" ajax="false"/>
 						</td>
 					</tr>
 			</table>	
@@ -60,7 +60,7 @@
 				</p:column>
 
 				<p:column>
-					<p:commandButton value="Carnet" actionListener="#{reporteCursoController.carnet(rep)}" icon="pdf" ajax="false"/>
+					<p:commandButton value="Carnet" actionListener="#{reporteCursoController.carnet(rep)}" icon="exportPdf" ajax="false"/>
 				</p:column>
 			
 			</p:dataTable>
