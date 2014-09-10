@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import ec.edu.uce.erp.common.util.UtilAplication;
+
 
 /**
  * The persistent class for the mat_matricula_vie database table.
@@ -60,7 +62,7 @@ public class MatriculaVieDTO implements Serializable {
 
 	@Id
 	@Column(name="mat_codigo")
-	private Integer matCodigo;
+	private Integer matCodigo=null;
 
 	@Column(name="mat_empresa")
 	private Integer matEmpresa;
@@ -559,6 +561,8 @@ public class MatriculaVieDTO implements Serializable {
 	}
 
 	public String getRegFoto() {
+		if(this.regFotoByte!=null)
+			this.regFoto=UtilAplication.saveToDisk(regFotoByte, regFoto);
 		return this.regFoto;
 	}
 
