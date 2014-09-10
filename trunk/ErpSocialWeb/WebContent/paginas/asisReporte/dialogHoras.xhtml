@@ -5,46 +5,40 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	
-	<p:dialog id="popUpAtrasos" header="#{i18n['erp.asistencia.falta.lista1']}" resizable="false" draggable="false"
-		widgetVar="dlgAtrasos" modal="true" width="500" minWidth="500" appendTo="@(body)" height="500">
+	<p:dialog id="popUpHoras" header="#{i18n['erp.asistencia.falta.lista1']}" resizable="false" draggable="false"
+		widgetVar="dlgHoras" modal="true" width="500" minWidth="500" appendTo="@(body)" height="500">
 		
 		<p:scrollPanel>
 		
-		<h:form id="formdialogAtrasos" styleClass="formulario">
+		<h:form id="formdialogHoras" styleClass="formulario">
 		
 		<p:dataTable id="tablaFalta2"
-			value="#{reporteAtrasoDataManager.atrasoList2}" var="atraso"
+			value="#{reporteHorasDataManager.horasTrabajadasListDTOs}" var="registro"
 			rowIndexVar="rowIndex" paginator="true" rows="5" paginatorPosition="bottom"
 			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.asistencia.atrasos.lista']}">
+			rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.asistencia.horas.listahoras']}">
 			
 			<f:facet name="header">
-				#{i18n['erp.asistencia.atrasos.lista']}
+				#{i18n['erp.asistencia.horas.lista']}
 			</f:facet>
 			<p:column headerText="#" styleClass="centered" width="5%">
 				#{rowIndex+1}
 			</p:column>
 						
-			<p:column headerText="#{i18n['erp.asistencia.horas.fecha']}" width="35%">
-					<h:outputText value="#{atraso.rasHoraInicio}" />
-			</p:column>
-			
 			<p:column headerText="#{i18n['erp.asistencia.horas.hora.entrada']}" width="35%">
-					<h:outputText value="#{atraso.rasHoraInicio}" />
+					<h:outputText value="#{registro.rasHoraInicio}" />
 			</p:column>
 			
-			<p:column headerText="#{i18n['erp.asistencia.horas.hora.salida']}" width="40%">
-				<h:outputText value="#{atraso.rasHoraSalida}" />
+			<p:column headerText="#{i18n['erp.asistencia.horas.hora.salida']}" width="35%">
+					<h:outputText value="#{registro.rasHoraSalida}" />
 			</p:column>
-			
+				
 			<p:column headerText="#{i18n['erp.asistencia.horas.horas']}" width="40%">
-				<h:outputText value="#{atraso.rasHoraSalida}" />
-			</p:column>
+				<h:outputText value="#{registro.horasTrabajadas}" />
+			</p:column> 
 			
 		</p:dataTable>
-			
 		</h:form>
-		
 		</p:scrollPanel>
 		
 	</p:dialog>
