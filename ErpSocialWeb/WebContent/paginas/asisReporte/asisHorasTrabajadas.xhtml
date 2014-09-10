@@ -71,15 +71,15 @@
 
 			<p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
-					actionListener="#{reporteHorasController.buscarEmpleado}"
+					actionListener="#{reporteHorasController.buscar}"
 					value="#{i18n['label.buscar']}" 
-					process="@this,tablaHorasTrabajadas"
+					process="@this,tablaHorasTrabajadas,pnlBuscar"
 					update=":formHorasTrabajadas:pnlMessages,tablaHorasTrabajadas,pnlBuscar" />
 			</p:panel>
 
 
 	<p:dataTable id="tablaHorasTrabajadas"
-
+		value="#{reporteHorasDataManager.empleadoList}" var="emp"
 		rowIndexVar="rowIndex"
 		paginator="true" rows="5" paginatorPosition="bottom"
 		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -95,22 +95,22 @@
 			<h:outputText value="#{emp.perCi}" />
 		</p:column>
 		
-		<p:column headerText="#{i18n['erp.asistencia.empleado.nombres']}" width="35%">
-				<h:outputText value="#{emp.perNombres}" />
-		</p:column>
-		
 		<p:column headerText="#{i18n['erp.asistencia.empleado.apellidos']}" width="40%">
 			<h:outputText value="#{emp.perApellidos}" />
 		</p:column>
 		
+		<p:column headerText="#{i18n['erp.asistencia.empleado.nombres']}" width="35%">
+				<h:outputText value="#{emp.perNombres}" />
+		</p:column>
+		
 			
-	<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
+		<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
 			<h:panelGroup>
 				<p:commandLink styleClass="no-decor"
 					title="#{i18n['erp.asistencia.horas.lista']}"
-					oncomplete="dlgHorasTrabajadas.show()"
-					
-					process="@this" update=":formdialogHorasTrabajadas:tablaFalta2">
+					oncomplete="dlgHoras.show()"
+					actionListener="#{reporteHorasController.registros(emp)}"
+					process="@this,tablaHorasTrabajadas" update=":formdialogHoras:tablaFalta2">
 					<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['erp.asistencia.horas.lista']}"/>
 				</p:commandLink>
 			</h:panelGroup>
@@ -120,7 +120,7 @@
 	
 </h:form>			
 		
-	<ui:include src="dialogHorasTrabajadas.xhtml" />
+	<ui:include src="dialogHoras.xhtml" />
 		
 	</ui:define>
 </ui:composition>
