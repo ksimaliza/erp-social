@@ -1,16 +1,23 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoAtrasoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorasTrabajadasListDTO;
+import ec.edu.uce.erp.ejb.persistence.util.dto.FiltroFechaDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAsistencia;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
@@ -64,7 +71,7 @@ public class ReporteHorasController extends BaseController {
 
 	}
 	
-	/*public void buscar() {
+	public void buscar() {
 		slf4jLogger.info("buscarHoras");
 		List<EmpleadoAtrasoListDTO> listResultado=new ArrayList<EmpleadoAtrasoListDTO>();
 		FiltroFechaDTO filtro;
@@ -73,42 +80,41 @@ public class ReporteHorasController extends BaseController {
 			filtro=new FiltroFechaDTO();
 			if(this.reporteHorasDataManager.getFecha()!=null)
 			{	
-			
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(this.reporteHorasDataManager.getFecha());
-			
-			int year = cal.get(Calendar.YEAR);
-		    int month = cal.get(Calendar.MONTH);
-		    int day = cal.get(Calendar.DAY_OF_MONTH);
-		    
-		    filtro.setAnio(year);
-		    filtro.setMes(month+1);
-		    filtro.setDia(day);
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(this.reporteHorasDataManager.getFecha());
+				
+				int year = cal.get(Calendar.YEAR);
+			    int month = cal.get(Calendar.MONTH);
+			    int day = cal.get(Calendar.DAY_OF_MONTH);
+			    
+			    filtro.setAnio(year);
+			    filtro.setMes(month+1);
+			    filtro.setDia(day);
 			}
 			
-			listResultado = this.servicioAsistencia.read(eucaristiaDataManager.getEucaristiaListDTO(), filtro);
+			listResultado = this.servicioAsistencia.buscarHoras(reporteHorasDataManager.getRegistroListDTO(), filtro);
 				
 			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
-				this.eucaristiaDataManager.setEucaristiaListDTOs(listResultado);
-				
+				this.reporteHorasDataManager.setEmpleadoList(listResultado);
+							
 			}
 			
 		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarEucaristia {} ", e);
+			slf4jLogger.info("Error al buscarHoras {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 	}
-	*/
 	
-	public void registros(EmpleadoAtrasoListDTO registroListDTO)
+	
+	public void registros(EmpleadoAtrasoListDTO horasTrabajadasListDTO)
 	{
-		EmpleadoAtrasoListDTO registroListDTO2;
+		HorasTrabajadasListDTO horasTrabajadasListDTO2;
 		try {
-			registroListDTO2=new EmpleadoAtrasoListDTO();
-			registroListDTO2.setAemEmpleado(registroListDTO.getAemEmpleado());
-			reporteHorasDataManager.setRegistroLists(this.servicioAsistencia.readAtraso(registroListDTO2));
+			horasTrabajadasListDTO2=new HorasTrabajadasListDTO();
+			horasTrabajadasListDTO2.setRasEmpleado(horasTrabajadasListDTO.getRasEmpleado());
+			reporteHorasDataManager.setHorasTrabajadasListDTOs(this.servicioAsistencia.readHoras(horasTrabajadasListDTO2));
 						
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscar registro {} ", e);
@@ -116,6 +122,8 @@ public class ReporteHorasController extends BaseController {
 		}
 
 	}
+	
+	
 	@Override
 	public void refrescarFormulario() {
 		// TODO Auto-generated method stub

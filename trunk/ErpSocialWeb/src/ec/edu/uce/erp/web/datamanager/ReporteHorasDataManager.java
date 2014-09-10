@@ -8,7 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoAtrasoListDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorasTrabajadasListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.RegistroDTO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
@@ -19,21 +19,23 @@ public class ReporteHorasDataManager extends BaseDataManager {
 	private static final long serialVersionUID = 1L;
 	
 	private List<EmpleadoAtrasoListDTO> registroList;
-	private List<EmpleadoListDTO> empleadoList;
+	private List<EmpleadoAtrasoListDTO> empleadoList;
 	private RegistroDTO registroDTO;
 	private EmpleadoAtrasoListDTO registroListDTO;
 	private List<EmpleadoAtrasoListDTO> registroLists;
 	private Date fecha;
+	private List<HorasTrabajadasListDTO> horasTrabajadasListDTOs;
 	
 	
 	public ReporteHorasDataManager() {
 	
 		registroList=new ArrayList<EmpleadoAtrasoListDTO>();
-		empleadoList=new ArrayList<EmpleadoListDTO>();
+		empleadoList=new ArrayList<EmpleadoAtrasoListDTO>();
 		registroDTO=new RegistroDTO();
 		registroListDTO=new EmpleadoAtrasoListDTO();
 		registroLists=new ArrayList<EmpleadoAtrasoListDTO>();
-		fecha=new Date();
+		horasTrabajadasListDTOs=new ArrayList<HorasTrabajadasListDTO>();
+		//fecha=new Date();
 		
 	}
 
@@ -43,7 +45,7 @@ public class ReporteHorasDataManager extends BaseDataManager {
 	}
 
 
-	public List<EmpleadoListDTO> getEmpleadoList() {
+	public List<EmpleadoAtrasoListDTO> getEmpleadoList() {
 		return empleadoList;
 	}
 
@@ -68,7 +70,7 @@ public class ReporteHorasDataManager extends BaseDataManager {
 	}
 
 
-	public void setEmpleadoList(List<EmpleadoListDTO> empleadoList) {
+	public void setEmpleadoList(List<EmpleadoAtrasoListDTO> empleadoList) {
 		this.empleadoList = empleadoList;
 	}
 
@@ -95,6 +97,17 @@ public class ReporteHorasDataManager extends BaseDataManager {
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
+	}
+
+
+	public List<HorasTrabajadasListDTO> getHorasTrabajadasListDTOs() {
+		return horasTrabajadasListDTOs;
+	}
+
+
+	public void setHorasTrabajadasListDTOs(
+			List<HorasTrabajadasListDTO> horasTrabajadasListDTOs) {
+		this.horasTrabajadasListDTOs = horasTrabajadasListDTOs;
 	}
 	
 	
