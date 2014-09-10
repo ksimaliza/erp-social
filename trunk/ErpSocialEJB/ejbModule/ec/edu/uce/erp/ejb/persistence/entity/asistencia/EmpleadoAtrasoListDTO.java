@@ -1,7 +1,9 @@
 package ec.edu.uce.erp.ejb.persistence.entity.asistencia;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -97,6 +99,17 @@ public class EmpleadoAtrasoListDTO implements Serializable {
 	public EmpleadoAtrasoListDTO() {
 	}
 
+	public EmpleadoAtrasoListDTO(Integer rasEmpleado,String perCi,
+			String perApellidos, 
+			String perNombres) {
+		super();
+		this.rasEmpleado=rasEmpleado;
+		this.perApellidos = perApellidos;
+		this.perCi = perCi;
+		this.perNombres = perNombres;
+	}
+	
+	
 	public String getAemClave() {
 		return this.aemClave;
 	}
