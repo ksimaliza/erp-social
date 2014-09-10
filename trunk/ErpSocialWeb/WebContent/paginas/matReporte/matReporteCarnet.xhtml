@@ -19,30 +19,65 @@
 
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true" />
 
-			<table>
+
+			<p:panel id="pnlBuscar" header="Buscar">
+
+			<table id="tblData">
 
 				<tr>
 					<td width="30%"><h:outputLabel value="Cédula:" /></td>
-					<td width="70%"><p:inputText /></td>
+					<td width="70%"><p:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perCi}"/></td>
 				</tr>
 
 				<tr>
 					<td width="30%"><h:outputLabel value="Nombres:" /></td>
-					<td width="70%"><p:inputText /></td>
+					<td width="70%"><p:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perNombres}"/></td>
 				</tr>
 
 				<tr>
 					<td width="30%"><h:outputLabel value="Apellidos:" /></td>
-					<td width="70%"><p:inputText /></td>
+					<td width="70%"><p:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perApellidos}"/></td>
 				</tr>
 
 				<tr>
 					<td width="30%"><h:outputLabel value="Matricula:" /></td>
-					<td width="70%"><p:inputText /></td>
+					<td width="70%"><p:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.matCodigo}"/></td>
 				</tr>
-
 				
 			</table>
+			
+			</p:panel>
+			
+			<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{reporteCarnetController.buscar}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscar"
+					update="pnlBuscar,tblReporte" />
+			</p:panel>
+			
+			
+			<p:dataTable id="tblReporte" value="#{reporteCarnetDataManager.matriculaVieDTOList}" var="rep">
+			
+				<p:column headerText="Nombres">
+					<h:outputText value="#{rep.perNombres}" />
+				</p:column>
+	
+				<p:column headerText="Apellidos">
+					<h:outputText value="#{rep.perApellidos}" />				
+				</p:column>
+	
+				<p:column headerText="Foto">
+					<p:graphicImage value="#{rep.regFoto}" height="45" cache="false"/>
+				</p:column>
+
+				<p:column>
+					<p:commandButton value="Carnet" actionListener="#{reporteCarnetController.carnet(rep)}" icon="exportPdf" ajax="false"/>
+				</p:column>
+			
+			</p:dataTable>
+			
+			
 		</h:form>
 	</ui:define>
 </ui:composition>
