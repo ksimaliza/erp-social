@@ -297,7 +297,7 @@ public class MatriculaVieDAOImpl extends AbstractFacadeImpl<MatriculaVieDTO> imp
 				    
 				    value = getter.invoke(objectDTO, new Object[0]);
 				
-				    if(value!=null){
+				    if(value!=null &&value!=""){
 				    	
 				    	predicate=cb.equal(from.get(fieldName), value);
 				    	predicateList.add(predicate);                	

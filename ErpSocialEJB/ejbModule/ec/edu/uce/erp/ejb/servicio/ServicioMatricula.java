@@ -169,6 +169,9 @@ public interface ServicioMatricula {
 	List<MatriculaVieDTO> readRepNivelParalelo(MatriculaVieDTO objectDTO)
 			throws SeguridadesException;
 
+	List<MatriculaVieDTO> readRepCarnetBuscar(MatriculaVieDTO objectDTO)
+			throws SeguridadesException;
+
 		
 
 	
