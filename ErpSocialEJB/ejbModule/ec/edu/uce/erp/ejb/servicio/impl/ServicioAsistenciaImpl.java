@@ -30,12 +30,14 @@ import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioEmpleadoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorasTrabajadasListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.ParametroDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.RegistroDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.TipoDTO;
 import ec.edu.uce.erp.ejb.persistence.util.dto.AnioDTO;
+import ec.edu.uce.erp.ejb.persistence.util.dto.FiltroFechaDTO;
 import ec.edu.uce.erp.ejb.persistence.util.dto.TiempoDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EmpleadoVO;
 import ec.edu.uce.erp.ejb.persistence.vo.FaltaVO;
@@ -281,6 +283,19 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		} catch (Exception e) {
 			slf4jLogger.info("Error al readFalta {}", e.getMessage());
 			throw new SeguridadesException("No se pudo obtener falta de la base de datos");
+		}
+		return listResultado;
+	}
+	
+	@Override
+	public List<HorasTrabajadasListDTO> readHoras(HorasTrabajadasListDTO horas) throws SeguridadesException {
+		slf4jLogger.info("readHoras");
+		List<HorasTrabajadasListDTO> listResultado = null;
+		try {
+			listResultado = asistenciaFactoryDAO.getRegistroDAOImpl().getByAndHoras(horas);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al readHoras {}", e.getMessage());
+			throw new SeguridadesException("No se pudo readHoras  de la base de datos");
 		}
 		return listResultado;
 	}
@@ -812,6 +827,23 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		return falta;
 	}
 
+	
+	@Override
+	public List<EmpleadoAtrasoListDTO> buscarHoras(EmpleadoAtrasoListDTO empleadoAtrasoListDTO,FiltroFechaDTO filtro) throws SeguridadesException {
+		slf4jLogger.info("buscarHoras");
+		List<EmpleadoAtrasoListDTO> listHoras = null;
+		try {
+			listHoras=asistenciaFactoryDAO.getRegistroDAOImpl().obtenerHoras(empleadoAtrasoListDTO, filtro);
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarHoras {}", e.getMessage());
+			throw new SeguridadesException("No se pudo buscarHoras de la base de datos");
+		}
+		
+		return listHoras;
+	}
+	
+	
 }
 	
 

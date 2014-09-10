@@ -147,6 +147,9 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoContratoListDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorasTrabajadasListDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.AnioRegistroVieDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.MesRegistroVieDTO</class>
 		<properties>
 			<property name="hibernate.connection.username" value="postgres" />
 			<property name="hibernate.connection.password" value="root" />

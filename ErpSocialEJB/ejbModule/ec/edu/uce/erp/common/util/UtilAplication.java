@@ -122,4 +122,20 @@ public final class UtilAplication {
 		return fecha1-fecha2;
 	}
 	
+	public static Boolean isDouble(Object number)
+	{
+		Boolean flag=Boolean.FALSE;
+		try
+		{
+		  Double.parseDouble(String.valueOf(number));
+		  flag=Boolean.TRUE;
+		}
+		catch(NumberFormatException e)
+		{
+			flag=Boolean.FALSE;
+		}
+		return flag;
+	}
+
+	
 }

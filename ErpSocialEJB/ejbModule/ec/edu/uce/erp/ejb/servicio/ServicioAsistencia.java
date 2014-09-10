@@ -14,12 +14,14 @@ import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioEmpleadoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorasTrabajadasListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.ParametroDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.RegistroDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.TipoDTO;
 import ec.edu.uce.erp.ejb.persistence.util.dto.AnioDTO;
+import ec.edu.uce.erp.ejb.persistence.util.dto.FiltroFechaDTO;
 import ec.edu.uce.erp.ejb.persistence.util.dto.TiempoDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EmpleadoVO;
 import ec.edu.uce.erp.ejb.persistence.vo.FaltaVO;
@@ -129,6 +131,13 @@ public interface ServicioAsistencia{
 			throws SeguridadesException;
 
 	List<EmpleadoAtrasoListDTO> readAtraso(EmpleadoAtrasoListDTO atraso)
+			throws SeguridadesException;
+
+	List<EmpleadoAtrasoListDTO> buscarHoras(
+			EmpleadoAtrasoListDTO empleadoAtrasoListDTO, FiltroFechaDTO filtro)
+			throws SeguridadesException;
+
+	List<HorasTrabajadasListDTO> readHoras(HorasTrabajadasListDTO horas)
 			throws SeguridadesException;
 	
 

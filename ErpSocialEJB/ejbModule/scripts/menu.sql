@@ -155,6 +155,13 @@ INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
     --Menu
     INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
     VALUES ('Asistencia Reporte Faltas', 'Asistencia Reporte Faltas', '/paginas/asisReporte/asisFalta.xhtml', '2014-06-06');
+  
+    
+    --Menu
+    INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
+    VALUES ('Asistencia Reporte Horas Trabajadas', 'Asistencia Reporte Horas Trabajadas', '/paginas/asisReporte/asisHorasTrabajadas.xhtml', '2014-06-06');
+    
+
     
 
 --Eucaristia    
@@ -252,6 +259,7 @@ INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (3,22);
 INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (3,23);
 INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (3,505);
 INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (3,506);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (3,507);
 
 -----Administracion
 INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (4,3);
