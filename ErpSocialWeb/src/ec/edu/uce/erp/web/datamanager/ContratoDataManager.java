@@ -16,6 +16,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoListDTO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
@@ -41,6 +42,9 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 	private List<NichoListDTO>  nichoListDTOs;
 	private Persona beneficiariInsertar;
 	private ContratoListDTO contratoListDTOEditar;
+	private NichoDTO nichoDTOEditar;
+	private Boolean exportDesactivado;
+	
 	
 	
 	
@@ -60,6 +64,9 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 		this.nichoListDTOs=new ArrayList<NichoListDTO>();
 		this.beneficiariInsertar=new Persona();
 		this.contratoListDTOEditar=new ContratoListDTO();
+		this.nichoDTOEditar=new NichoDTO();
+		exportDesactivado=true;
+		
 	}
 
 	public Persona getDifuntoInsertar() {
@@ -240,6 +247,22 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 
 	public void setBeneficiariInsertar(Persona beneficiariInsertar) {
 		this.beneficiariInsertar = beneficiariInsertar;
+	}
+
+	public NichoDTO getNichoDTOEditar() {
+		return nichoDTOEditar;
+	}
+
+	public void setNichoDTOEditar(NichoDTO nichoDTOEditar) {
+		this.nichoDTOEditar = nichoDTOEditar;
+	}
+
+	public Boolean getExportDesactivado() {
+		return exportDesactivado;
+	}
+
+	public void setExportDesactivado(Boolean exportDesactivado) {
+		this.exportDesactivado = exportDesactivado;
 	}
 
 
