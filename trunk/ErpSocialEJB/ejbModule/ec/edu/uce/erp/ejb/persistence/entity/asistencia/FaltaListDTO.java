@@ -84,6 +84,22 @@ public class FaltaListDTO implements Serializable {
 	public FaltaListDTO() {
 	}
 
+	public FaltaListDTO(Integer aemEmpleado,
+			String perCi,
+			String perApellidos,
+			String perNombres,
+			String perDireccion,
+			Date perFechaNac){
+		
+		super();
+		this.aemEmpleado=aemEmpleado;
+		this.perCi=perCi;
+		this.perApellidos=perApellidos;
+		this.perNombres=perNombres;
+		this.perDireccion=perDireccion;
+		this.perFechaNac=perFechaNac;
+	}
+	
 	public String getAemClave() {
 		return this.aemClave;
 	}
