@@ -43,6 +43,36 @@
 					
 					<tr>
 						<td width="30%">
+							<h:outputLabel for="txtCiBen" value="#{i18n['erp.despacho.contrato.cedula']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCiBen" style="width: 70%" 
+								 required="true" value="#{pagoContratoDataManager.pagoContratoListDTOEditar.benci}">
+							</p:inputText>
+						</td>	
+					</tr>
+											
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombresBen" value="#{i18n['erp.despacho.contrato.nombres']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombresBen" label="#{i18n['erp.despacho.contrato.nombres']}" style="width: 70%"
+							value="#{pagoContratoDataManager.pagoContratoListDTOEditar.benapellidos}" readonly="true"/>
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApellidosBen" value="#{i18n['erp.despacho.contrato.apellidos']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApellidosBen" label="#{i18n['erp.despacho.contrato.apellidos']}" style="width: 70%" 
+							value="#{pagoContratoDataManager.pagoContratoListDTOEditar.benapellidos}" readonly="true"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
 							<h:outputLabel for="txtFechaInicio" value="#{i18n['erp.despacho.contrato.fecha.inicio']}" />
 						</td>
 						<td width="70%">
