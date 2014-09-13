@@ -31,7 +31,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNombres" label="#{i18n['erp.despacho.contrato.nombres']}" style="width: 70%"
-							value="#{contratoDataManager.defuncionListDTO.perNombres}" readonly="true"/>
+							value="#{contratoDataManager.contratoListDTOEditar.perNombres}" readonly="true"/>
 						</td>
 					</tr>
 					<tr>
@@ -40,7 +40,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApellidos" label="#{i18n['erp.despacho.contrato.apellidos']}" style="width: 70%" 
-							value="#{contratoDataManager.defuncionListDTO.perApellidos}" readonly="true"/>
+							value="#{contratoDataManager.contratoListDTOEditar.perApellidos}" readonly="true"/>
 						</td>
 					</tr>
 									
@@ -50,7 +50,7 @@
 						</td>
 						<td width="70%">
 							<p:calendar id="txtFechaInicio" style="width: 70%" navigator="true"   showOn="button" required="true"
-							value="#{contratoDataManager.fechaInicio}"/>
+							value="#{contratoDataManager.contratoListDTOEditar.conFechaInicio}"/>
 						</td>
 					</tr>
 					<tr>
@@ -59,7 +59,7 @@
 						</td>
 						<td width="70%">
 							<p:calendar id="txtFechaFinalizacion" style="width: 70%" navigator="true"   showOn="button" required="true"
-							value="#{contratoDataManager.fechaFin}"/>
+							value="#{contratoDataManager.contratoListDTOEditar.conFechaFin}"/>
 						</td>
 					</tr>
 					
