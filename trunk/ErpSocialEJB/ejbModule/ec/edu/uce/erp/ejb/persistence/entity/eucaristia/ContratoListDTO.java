@@ -16,6 +16,16 @@ import java.util.Date;
 public class ContratoListDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Column(name="ben_apellidos")
+	private String benApellidos;
+
+	@Column(name="ben_ci")
+	private String benCi;
+
+	@Column(name="ben_nombres")
+	private String benNombres;
+
+	@Id
 	@Column(name="cat_codigo")
 	private Integer catCodigo;
 
@@ -28,7 +38,9 @@ public class ContratoListDTO implements Serializable {
 	@Column(name="con_anio_arrendamiento")
 	private Integer conAnioArrendamiento;
 
-	@Id
+	@Column(name="con_beneficiario")
+	private Integer conBeneficiario;
+
 	@Column(name="con_codigo")
 	private Integer conCodigo;
 
@@ -89,6 +101,30 @@ public class ContratoListDTO implements Serializable {
 	public ContratoListDTO() {
 	}
 
+	public String getBenApellidos() {
+		return this.benApellidos;
+	}
+
+	public void setBenApellidos(String benApellidos) {
+		this.benApellidos = benApellidos;
+	}
+
+	public String getBenCi() {
+		return this.benCi;
+	}
+
+	public void setBenCi(String benCi) {
+		this.benCi = benCi;
+	}
+
+	public String getBenNombres() {
+		return this.benNombres;
+	}
+
+	public void setBenNombres(String benNombres) {
+		this.benNombres = benNombres;
+	}
+
 	public Integer getCatCodigo() {
 		return this.catCodigo;
 	}
@@ -119,6 +155,14 @@ public class ContratoListDTO implements Serializable {
 
 	public void setConAnioArrendamiento(Integer conAnioArrendamiento) {
 		this.conAnioArrendamiento = conAnioArrendamiento;
+	}
+
+	public Integer getConBeneficiario() {
+		return this.conBeneficiario;
+	}
+
+	public void setConBeneficiario(Integer conBeneficiario) {
+		this.conBeneficiario = conBeneficiario;
 	}
 
 	public Integer getConCodigo() {

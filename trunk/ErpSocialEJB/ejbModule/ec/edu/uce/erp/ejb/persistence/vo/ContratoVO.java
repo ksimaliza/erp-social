@@ -15,6 +15,8 @@ private static final long serialVersionUID = 1L;
 	private CatalogoEucaristiaDTO formaPago;
 	private ContratoDTO contratoDTO;
 	private NichoDTO nichoDTO;
+	private Persona beneficiario;
+	
 	
 	public ContratoVO() {
 	
@@ -22,16 +24,45 @@ private static final long serialVersionUID = 1L;
 		formaPago=new CatalogoEucaristiaDTO();
 		nichoDTO=new NichoDTO();
 		contratoDTO=new ContratoDTO();
+		beneficiario=new Persona();
 		
 	}
+
+	
+
+
 
 	public Persona getDifunto() {
 		return difunto;
 	}
 
+
+
+
+
 	public void setDifunto(Persona difunto) {
 		this.difunto = difunto;
 	}
+
+
+
+
+
+	public Persona getBeneficiario() {
+		return beneficiario;
+	}
+
+
+
+
+
+	public void setBeneficiario(Persona beneficiario) {
+		this.beneficiario = beneficiario;
+	}
+
+
+
+
 
 	public CatalogoEucaristiaDTO getFormaPago() {
 		return formaPago;

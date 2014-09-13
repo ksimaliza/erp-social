@@ -998,10 +998,22 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		
 		NichoDTO nichoDTO;
 		CatalogoEucaristiaDTO formaPago;
+		Persona beneficiario;
+		
+		List<Persona> listPersona;
 					
 		try {
 			
-									
+			beneficiario =contratoVO.getBeneficiario();
+			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(beneficiario);
+			
+			if(listPersona.size()<=0)
+				beneficiario=factoryDAO.getPersonaDAOImpl().create(beneficiario);
+			else
+				beneficiario=listPersona.get(0);
+			
+				contratoVO.getContratoDTO().setConBeneficiario(beneficiario.getPerPk());
+												
 			if(contratoVO.getContratoDTO().getConCodigo()!=null){
 				nichoDTO=eucaristiaFactoryDAO.getNichoDAOImpl().find(contratoVO.getNichoDTO().getNicCodigo());
 				formaPago=eucaristiaFactoryDAO.getCatalogoDAOImpl().find(contratoVO.getFormaPago().getCatCodigo());
@@ -1047,6 +1059,7 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		slf4jLogger.info("obtenerContratoPorId");
 		ContratoVO contrato=new ContratoVO();
 		contrato.setDifunto(factoryDAO.getPersonaDAOImpl().find(contratoListDTO.getConDifunto()));
+		contrato.setBeneficiario(factoryDAO.getPersonaDAOImpl().find(contratoListDTO.getConBeneficiario()));
 		contrato.setContratoDTO(eucaristiaFactoryDAO.getContratoDAOImpl().find(contratoListDTO.getConCodigo()));
 		
 		return contrato;
@@ -1166,6 +1179,29 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			throw new SeguridadesException(e);
 		}
 		return pagoInter;
+	
+	}
+	
+	@Override
+	public ContratoDTO updateContrato(ContratoDTO contrato) throws SeguridadesException
+	{
+		slf4jLogger.info("updateContrato");
+		ContratoDTO contratoInter;										
+		try{
+			contratoInter=eucaristiaFactoryDAO.getContratoDAOImpl().find(contrato.getConCodigo());
+			contratoInter.setConAnioArrendamiento(contrato.getConAnioArrendamiento());
+			contratoInter.setConFechaFin(contrato.getConFechaFin());
+			contratoInter.setConFechaInicio(contrato.getConFechaInicio());
+			contratoInter.setConFormaPago(contrato.getConFormaPago());
+			contratoInter.setConObservacion(contrato.getConObservacion());
+			eucaristiaFactoryDAO.getContratoDAOImpl().update(contratoInter);
+			
+		
+		}catch (Exception e) {
+			slf4jLogger.info("error al updateContrato {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		return contratoInter;
 	
 	}
 
