@@ -26,6 +26,9 @@ public class RegistroAsistenciaDataManager extends BaseDataManager{
 	
 	private EmpleadoDTO empleado;
 	
+	private Boolean desactivarImprimir=true;
+	
+	
 	@PostConstruct
 	public void inicializarObjetos () {
 		slf4jLogger.info("inicializarObjetos");
@@ -48,5 +51,15 @@ public class RegistroAsistenciaDataManager extends BaseDataManager{
 	public void setEmpleado(EmpleadoDTO empleado) {
 		this.empleado = empleado;
 	}
+
+	public Boolean getDesactivarImprimir() {
+		return desactivarImprimir;
+	}
+
+	public void setDesactivarImprimir(Boolean desactivarImprimir) {
+		this.desactivarImprimir = desactivarImprimir;
+	}
+
+	
 	
 }

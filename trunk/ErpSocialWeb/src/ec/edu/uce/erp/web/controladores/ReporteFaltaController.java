@@ -64,7 +64,7 @@ public class ReporteFaltaController extends BaseController {
 		List<FaltaListDTO> listResultado=new ArrayList<FaltaListDTO>();
 		try {
 			reporteFaltasDataManager.getFaltaListDTO();
-			listResultado = this.servicioAsistencia.readFalta(this.reporteFaltasDataManager.getFaltaListDTO());
+			listResultado = this.servicioAsistencia.readFaltaReport(this.reporteFaltasDataManager.getFaltaListDTO());
 			
 			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
