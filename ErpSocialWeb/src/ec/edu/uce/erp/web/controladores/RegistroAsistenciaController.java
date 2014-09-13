@@ -50,11 +50,14 @@ public class RegistroAsistenciaController extends BaseController {
 	public void registrar()
 	{
 		slf4jLogger.info("registrar");
+		RegistroAsistenciaVO registroAsistenciaVO;
 		try {
-			RegistroAsistenciaVO registroAsistenciaVO=new RegistroAsistenciaVO();
+			registroAsistenciaVO=new RegistroAsistenciaVO();
 			registroAsistenciaVO.setEmpleadoDTO(registroAsistenciaDataManager.getEmpleado());
 			registroAsistenciaVO.setRegistroDTO(registroAsistenciaDataManager.getRegistro());
-			servicioAsistencia.createOrUpdateRegistroAsistencia(registroAsistenciaVO);
+			RegistroDTO reg=servicioAsistencia.createOrUpdateRegistroAsistencia(registroAsistenciaVO);
+			if(reg.getRasTipoEntrada()=="Atraso")
+				registroAsistenciaDataManager.setDesactivarImprimir(false);
 			clear();
 			MensajesWebController.aniadirMensajeInformacion("Guardado Exitosamente");
 		} catch (SeguridadesException e) {
