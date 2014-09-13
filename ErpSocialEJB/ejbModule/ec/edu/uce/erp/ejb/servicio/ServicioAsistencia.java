@@ -139,6 +139,9 @@ public interface ServicioAsistencia{
 
 	List<HorasTrabajadasListDTO> readHoras(HorasTrabajadasListDTO horas)
 			throws SeguridadesException;
+
+	List<FaltaListDTO> readFaltaReport(FaltaListDTO falta)
+			throws SeguridadesException;
 	
 
 }

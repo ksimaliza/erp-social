@@ -146,4 +146,71 @@ public class FaltaDAOImpl extends AbstractFacadeImpl<FaltaDTO> implements FaltaD
 			predicateList=null;
 		}		
 	}
+	
+	@Override
+	public List<FaltaListDTO> getDistinctByAnd(FaltaListDTO objetoDTO) throws SeguridadesException
+	{
+		CriteriaBuilder cb;
+		CriteriaQuery<FaltaListDTO> cq;
+		Root<FaltaListDTO> from;
+		List<FaltaListDTO> list;
+		Predicate predicate;
+		List<Predicate> predicateList = null;
+		String fieldName;
+		Method getter;
+		Object value;
+		Field[] fields;
+		try{
+			cb=entityManager.getCriteriaBuilder();
+			cq=cb.createQuery(FaltaListDTO.class);
+			
+			from= cq.from(FaltaListDTO.class);
+			
+			cq.multiselect(
+					from.get("aemEmpleado"),
+					from.get("perCi"),
+					from.get("perApellidos"),
+					from.get("perNombres"),
+					from.get("perDireccion"),
+					from.get("perFechaNac")
+					).distinct(true);
+			
+			predicateList=new ArrayList<Predicate>();
+			
+			fields = objetoDTO.getClass().getDeclaredFields();
+
+	        for(Field f : fields){
+	            fieldName = f.getName();
+				if(!fieldName.equals("serialVersionUID"))
+				{
+				    getter = objetoDTO.getClass().getMethod("get" + String.valueOf(fieldName.charAt(0)).toUpperCase() +
+				            fieldName.substring(1));
+				    
+				    value = getter.invoke(objetoDTO, new Object[0]);
+				
+				    if(value!=null && value!="")
+				    {
+				    	predicate=cb.equal(from.get(fieldName), value);
+				    	predicateList.add(predicate);                	
+				    }
+				}
+	        }
+	
+	        if(!predicateList.isEmpty())
+	        	cq.where(cb.and(predicateList.toArray(new Predicate[0])));		
+			
+			TypedQuery<FaltaListDTO> tq=entityManager.createQuery(cq);
+			list=tq.getResultList();
+			
+			return list;
+			
+		}catch(Exception e){
+			slf4jLogger.info(e.toString());
+			throw new SeguridadesException(e);
+		}finally{
+			predicate=null;
+			predicateList=null;
+		}		
+	}
+	
 }
