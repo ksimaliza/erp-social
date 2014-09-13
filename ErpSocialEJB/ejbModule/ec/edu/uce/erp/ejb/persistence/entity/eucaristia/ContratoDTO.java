@@ -36,6 +36,9 @@ public class ContratoDTO implements Serializable {
 	@Column(name="con_forma_pago")
 	private Integer conFormaPago;
 
+	@Column(name="con_beneficiario")
+	private Integer conBeneficiario;
+	
 	@Column(name="con_observacion")
 	private String conObservacion;
 
@@ -109,6 +112,14 @@ public class ContratoDTO implements Serializable {
 
 	public void setEucNicho(NichoDTO eucNicho) {
 		this.eucNicho = eucNicho;
+	}
+
+	public Integer getConBeneficiario() {
+		return conBeneficiario;
+	}
+
+	public void setConBeneficiario(Integer conBeneficiario) {
+		this.conBeneficiario = conBeneficiario;
 	}
 
 }

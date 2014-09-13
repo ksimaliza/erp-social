@@ -223,5 +223,8 @@ public interface ServicioEucaristia {
 			EucaristiaListDTO eucaristiaListDTO, FiltroFechaDTO fecha)
 			throws SeguridadesException;
 
+	ContratoDTO updateContrato(ContratoDTO contrato)
+			throws SeguridadesException;
+
 
 }
