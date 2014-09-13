@@ -78,6 +78,34 @@ public class ContratoDAOImpl extends AbstractFacadeImpl<ContratoDTO> implements 
 					predicate = cb.like(cb.upper(from.<String>get("perCi")), cedulaDifunto);
 					criteriaList.add(predicate);
 				}
+				
+
+				//por nombre beneficiario
+				if (!StringUtils.isEmpty(contratoListDTO.getBenNombres())) {
+					Expression<String> nombreBeneficiario = 
+							cb.upper(cb.literal
+									(UtilAplication.concatenarPorcenteje(contratoListDTO.getBenNombres())));
+					predicate = cb.like(cb.upper(from.<String>get("benNombres")), nombreBeneficiario);
+					criteriaList.add(predicate);
+				}
+				//por apellidos beneficiario
+						if (!StringUtils.isEmpty(contratoListDTO.getBenApellidos())) {
+							Expression<String> apellidoBeneficiario = 
+									cb.upper(cb.literal
+											(UtilAplication.concatenarPorcenteje(contratoListDTO.getBenApellidos())));
+							predicate = cb.like(cb.upper(from.<String>get("benApellidos")), apellidoBeneficiario);
+							criteriaList.add(predicate);
+						}
+				//por cedula beneficiario
+						if (!StringUtils.isEmpty(contratoListDTO.getBenCi())) {
+							Expression<String> cedulaBeneficiario = 
+									cb.upper(cb.literal
+											(UtilAplication.concatenarPorcenteje(contratoListDTO.getBenCi())));
+							predicate = cb.like(cb.upper(from.<String>get("benCi")), cedulaBeneficiario);
+							criteriaList.add(predicate);
+						}				
+				
+				
 		
 				
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));

@@ -17,6 +17,12 @@ import java.util.Date;
 public class PagoContratoListDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	private String benapellidos;
+
+	private String benci;
+
+	private String bennombres;
+
 	@Column(name="cat_codigo")
 	private Integer catCodigo;
 
@@ -29,6 +35,10 @@ public class PagoContratoListDTO implements Serializable {
 	@Column(name="con_anio_arrendamiento")
 	private Integer conAnioArrendamiento;
 
+	@Column(name="con_beneficiario")
+	private Integer conBeneficiario;
+
+	@Id
 	@Column(name="con_codigo")
 	private Integer conCodigo;
 
@@ -50,6 +60,9 @@ public class PagoContratoListDTO implements Serializable {
 	@Column(name="con_observacion")
 	private String conObservacion;
 
+	@Column(name="meses_faltantes")
+	private Integer mesesFaltantes;
+
 	@Column(name="nic_codigo")
 	private Integer nicCodigo;
 
@@ -68,7 +81,6 @@ public class PagoContratoListDTO implements Serializable {
 	@Column(name="nni_nivel")
 	private Integer nniNivel;
 
-	@Id
 	@Column(name="pag_codigo")
 	private Integer pagCodigo;
 
@@ -77,6 +89,9 @@ public class PagoContratoListDTO implements Serializable {
 
 	@Column(name="pag_fecha")
 	private Timestamp pagFecha;
+
+	@Column(name="pag_meses_pagados")
+	private Integer pagMesesPagados;
 
 	@Column(name="pag_valor")
 	private BigDecimal pagValor;
@@ -100,6 +115,30 @@ public class PagoContratoListDTO implements Serializable {
 	private String tniDescripcion;
 
 	public PagoContratoListDTO() {
+	}
+
+	public String getBenapellidos() {
+		return this.benapellidos;
+	}
+
+	public void setBenapellidos(String benapellidos) {
+		this.benapellidos = benapellidos;
+	}
+
+	public String getBenci() {
+		return this.benci;
+	}
+
+	public void setBenci(String benci) {
+		this.benci = benci;
+	}
+
+	public String getBennombres() {
+		return this.bennombres;
+	}
+
+	public void setBennombres(String bennombres) {
+		this.bennombres = bennombres;
 	}
 
 	public Integer getCatCodigo() {
@@ -132,6 +171,14 @@ public class PagoContratoListDTO implements Serializable {
 
 	public void setConAnioArrendamiento(Integer conAnioArrendamiento) {
 		this.conAnioArrendamiento = conAnioArrendamiento;
+	}
+
+	public Integer getConBeneficiario() {
+		return this.conBeneficiario;
+	}
+
+	public void setConBeneficiario(Integer conBeneficiario) {
+		this.conBeneficiario = conBeneficiario;
 	}
 
 	public Integer getConCodigo() {
@@ -188,6 +235,14 @@ public class PagoContratoListDTO implements Serializable {
 
 	public void setConObservacion(String conObservacion) {
 		this.conObservacion = conObservacion;
+	}
+
+	public Integer getMesesFaltantes() {
+		return this.mesesFaltantes;
+	}
+
+	public void setMesesFaltantes(Integer mesesFaltantes) {
+		this.mesesFaltantes = mesesFaltantes;
 	}
 
 	public Integer getNicCodigo() {
@@ -260,6 +315,14 @@ public class PagoContratoListDTO implements Serializable {
 
 	public void setPagFecha(Timestamp pagFecha) {
 		this.pagFecha = pagFecha;
+	}
+
+	public Integer getPagMesesPagados() {
+		return this.pagMesesPagados;
+	}
+
+	public void setPagMesesPagados(Integer pagMesesPagados) {
+		this.pagMesesPagados = pagMesesPagados;
 	}
 
 	public BigDecimal getPagValor() {
