@@ -55,13 +55,12 @@ public class ReporteAtrasoController extends BaseController {
 	public void buscarEmpleado()
 	{
 		try {
-			reporteAtrasoDataManager.setAtrasoList(this.servicioAsistencia.readAtraso(this.reporteAtrasoDataManager.getEmpleadoAtrasoListDTO()));
+			reporteAtrasoDataManager.setAtrasoList(this.servicioAsistencia.readAtrasoReport(this.reporteAtrasoDataManager.getEmpleadoAtrasoListDTO()));
 			this.reporteAtrasoDataManager.setEmpleadoAtrasoListDTO(new EmpleadoAtrasoListDTO());
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscar el empleado {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
-
 	}
 	
 	public void atrasos(EmpleadoAtrasoListDTO atrasoListDTO)
@@ -69,7 +68,7 @@ public class ReporteAtrasoController extends BaseController {
 		EmpleadoAtrasoListDTO atrasoListDTO2;
 		try {
 			atrasoListDTO2=new EmpleadoAtrasoListDTO();
-			atrasoListDTO2.setAemEmpleado(atrasoListDTO.getAemEmpleado());
+			atrasoListDTO2.setRasEmpleado(atrasoListDTO.getRasEmpleado());
 			reporteAtrasoDataManager.setAtrasoList2(this.servicioAsistencia.readAtraso(atrasoListDTO2));
 			
 		} catch (SeguridadesException e) {
