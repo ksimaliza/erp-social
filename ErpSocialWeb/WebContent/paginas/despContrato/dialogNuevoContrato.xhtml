@@ -11,7 +11,7 @@
 			<p:panel id="pnlNuevoContrato">
 				<table class="formulario">
 												
-						<tr>
+					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtCi" value="#{i18n['erp.despacho.contrato.cedula']}" />
 						</td>
@@ -41,6 +41,39 @@
 						<td width="70%">
 							<p:inputText id="txtApellidos" label="#{i18n['erp.despacho.contrato.apellidos']}" style="width: 70%" 
 							value="#{contratoDataManager.defuncionListDTO.perApellidos}" readonly="true"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCiBen" value="#{i18n['erp.despacho.contrato.cedula.beneficiario']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCiBen" style="width: 70%" 
+								 required="true" value="#{contratoDataManager.beneficiariInsertar.perCi}" >
+							<f:validateLength maximum="10" minimum="10"/>
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+							<p:ajax event="blur" update="txtNombresBen,txtApellidosBen" listener="#{contratoController.buscarBeneficiario}" process="@this"/>
+						</p:inputText>
+						</td>	
+					</tr>
+											
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombresBen" value="#{i18n['erp.despacho.contrato.nombres.beneficiario']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombresBen" label="#{i18n['erp.despacho.contrato.nombres']}" style="width: 70%"
+							value="#{contratoDataManager.beneficiariInsertar.perNombres}" readonly="true"/>
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApellidosBen" value="#{i18n['erp.despacho.contrato.apellidos.beneficiario']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApellidosBen" label="#{i18n['erp.despacho.contrato.apellidos']}" style="width: 70%" 
+							value="#{contratoDataManager.beneficiariInsertar.perApellidos}" readonly="true"/>
 						</td>
 					</tr>
 									
