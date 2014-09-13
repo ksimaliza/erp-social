@@ -1057,13 +1057,16 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	@Override
 	public ContratoVO obtenerContratoPorId(ContratoListDTO contratoListDTO) throws SeguridadesException {
 		slf4jLogger.info("obtenerContratoPorId");
-		ContratoVO contrato=new ContratoVO();
-		contrato.setDifunto(factoryDAO.getPersonaDAOImpl().find(contratoListDTO.getConDifunto()));
-		contrato.setBeneficiario(factoryDAO.getPersonaDAOImpl().find(contratoListDTO.getConBeneficiario()));
-		contrato.setContratoDTO(eucaristiaFactoryDAO.getContratoDAOImpl().find(contratoListDTO.getConCodigo()));
 		
-		return contrato;
+		ContratoVO contratoVO=new ContratoVO();
+		contratoVO.setContratoDTO(eucaristiaFactoryDAO.getContratoDAOImpl().find(contratoListDTO.getConCodigo()));
+		contratoVO.setBeneficiario(factoryDAO.getPersonaDAOImpl().find(contratoListDTO.getConBeneficiario()));
+		contratoVO.setDifunto(factoryDAO.getPersonaDAOImpl().find(contratoListDTO.getConDifunto()));
+		contratoVO.setNichoDTO(eucaristiaFactoryDAO.getNichoDAOImpl().find(contratoListDTO.getNicCodigo()));
+		
+		return contratoVO;
 	}
+	
 
 	
 	@Override
