@@ -3,13 +3,17 @@ package ec.edu.uce.erp.web.controladores;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+
+import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -29,6 +33,7 @@ import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
+import ec.edu.uce.erp.web.common.util.ReporteUtil;
 import ec.edu.uce.erp.web.datamanager.ContratoDataManager;
 
 @ViewScoped
@@ -103,14 +108,24 @@ public ContratoController() {
 			contratoVO.getContratoDTO().setConFechaInicio(new Timestamp(contratoDataManager.getFechaInicio().getTime()));
 			
 			ContratoDTO contratoNuevo=this.servicioEucaristia.createOrUpdateContrato(contratoVO);
-									
+			contratoDataManager.setExportDesactivado(false);						
+			
+			ContratoListDTO con=new ContratoListDTO();
+			con.setConCodigo(contratoNuevo.getConCodigo());
+			con.setConBeneficiario(contratoNuevo.getConBeneficiario());
+			con.setConDifunto(contratoNuevo.getConDifunto());
+			con.setNicCodigo(contratoNuevo.getEucNicho().getNicCodigo());
+			
+			cargarDatosContrato(con);
+			
+			
 			if (contratoNuevo!= null) {
-				contratoDataManager.setContratoDTO(new ContratoDTO());
-				contratoDataManager.setNichoCodigo(0);
-				contratoDataManager.setFormaPagoCodigo(0);
-				contratoDataManager.setFechaFin(new Date());
-				contratoDataManager.setFechaInicio(new Date());
-				contratoDataManager.setBeneficiariInsertar(new Persona());
+//				contratoDataManager.setContratoDTO(new ContratoDTO());
+//				contratoDataManager.setNichoCodigo(0);
+//				contratoDataManager.setFormaPagoCodigo(0);
+//				contratoDataManager.setFechaFin(new Date());
+//				contratoDataManager.setFechaInicio(new Date());
+//				contratoDataManager.setBeneficiariInsertar(new Persona());
 															
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.contrato.registrar.exito");
 			}
@@ -266,18 +281,28 @@ public ContratoController() {
 		
 	}
 
-	public void cargarDatosContrato (ContratoListDTO contrato) {
+	public void cargarDatosContrato(ContratoListDTO contrato) {
 		try {
-			this.contratoDataManager.setContratoListDTOEditar(contrato);
 			
-													
-		} catch (Exception e) {
+			ContratoVO contratoEncontrado=servicioEucaristia.obtenerContratoPorId(contrato);
+			contratoDataManager.setBeneficiariInsertar(contratoEncontrado.getBeneficiario());
+			contratoDataManager.setContratoDTO(contratoEncontrado.getContratoDTO());
+			contratoDataManager.setDifuntoInsertar(contratoEncontrado.getDifunto());
+			contratoDataManager.setFormaPagoCodigo(contratoEncontrado.getContratoDTO().getConFormaPago());
+			contratoDataManager.setFechaFin(contratoEncontrado.getContratoDTO().getConFechaFin());
+			contratoDataManager.setFechaInicio(contratoEncontrado.getContratoDTO().getConFechaInicio());
+			contratoDataManager.setNichoCodigo(contratoEncontrado.getContratoDTO().getEucNicho().getNicCodigo());
+			contratoDataManager.setNichoDTOEditar(contratoEncontrado.getNichoDTO());
+			
+							
+		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosContrato {}", e.getMessage());
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosContrato seleccionado");
 		}
 	}
 	
-	public void actualizar()
+	
+	/*public void actualizar()
 	{
 		ContratoDTO contrato;
 		try {
@@ -298,7 +323,7 @@ public ContratoController() {
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 	}
-	
+	*/
 
 	@Override
 	public void refrescarFormulario() {
@@ -307,4 +332,30 @@ public ContratoController() {
 	}
 	
 
+	public void exportar()
+	{
+		
+		//Date fechaActual = new Date();
+		Map<String, Object> mapParametros = new HashMap<String, Object>();
+		mapParametros.put("beneficiarioNombre", contratoDataManager.getBeneficiariInsertar().getPerNombres());
+		mapParametros.put("beneficiarioApellido", contratoDataManager.getBeneficiariInsertar().getPerApellidos());
+		mapParametros.put("beneficiarioCedula", contratoDataManager.getBeneficiariInsertar().getPerCi());
+		mapParametros.put("tipoNicho", contratoDataManager.getNichoListDTOs().get(0).getTniDescripcion());
+		mapParametros.put("numeroNicho", contratoDataManager.getNichoListDTOs().get(0).getNicDescripcion());
+		mapParametros.put("seccionNicho", contratoDataManager.getNichoListDTOs().get(0).getCatDescripcion());
+		mapParametros.put("nivelNicho", contratoDataManager.getNichoListDTOs().get(0).getNniDescripcion());
+		mapParametros.put("difuntoApellido", contratoDataManager.getDifuntoInsertar().getPerApellidos());
+		mapParametros.put("difuntoNombre", contratoDataManager.getDifuntoInsertar().getPerNombres());
+		mapParametros.put("aniosArrendamiento", contratoDataManager.getContratoDTO().getConAnioArrendamiento());
+		mapParametros.put("fechaInicio", contratoDataManager.getContratoDTO().getConFechaInicio());
+		mapParametros.put("empresa", getEmpresaTbl().getEmrNombre());
+		//mapParametros.put("fecha", fechaActual);
+		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
+		
+		
+		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), "comprobanteContrato", mapParametros);
+		ReporteUtil.generarReporte(jasperPrint, this.contratoDataManager.getFormatoPdf(), "actaBien");
+		
+	}
+	
 }

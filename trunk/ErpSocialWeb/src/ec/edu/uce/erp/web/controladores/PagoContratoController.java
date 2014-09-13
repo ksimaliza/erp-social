@@ -2,13 +2,17 @@ package ec.edu.uce.erp.web.controladores;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+
+import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -24,6 +28,7 @@ import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
+import ec.edu.uce.erp.web.common.util.ReporteUtil;
 import ec.edu.uce.erp.web.datamanager.PagoContratoDataManager;
 
 
@@ -171,6 +176,32 @@ public class PagoContratoController extends BaseController {
 		}
 	}
 
+	public void exportar()
+	{
+		
+		//Date fechaActual = new Date();
+		Map<String, Object> mapParametros = new HashMap<String, Object>();
+		mapParametros.put("beneficiarioNombre", pagoContratoDataManager.getPagoContratoListDTOEditar().getBennombres());
+		mapParametros.put("beneficiarioApellido", pagoContratoDataManager.getPagoContratoListDTOEditar().getBenapellidos());
+		mapParametros.put("beneficiarioCedula", pagoContratoDataManager.getPagoContratoListDTOEditar().getBenci());
+		mapParametros.put("tipoNicho", pagoContratoDataManager.getPagoContratoListDTOEditar().getTniDescripcion());
+		mapParametros.put("numeroNicho", pagoContratoDataManager.getPagoContratoListDTOEditar().getNicDescripcion());
+		mapParametros.put("seccionNicho", pagoContratoDataManager.getPagoContratoListDTOEditar().getCatDescripcion());
+		mapParametros.put("nivelNicho", pagoContratoDataManager.getPagoContratoListDTOEditar().getNniDescripcion());
+		mapParametros.put("difuntoApellido", pagoContratoDataManager.getPagoContratoListDTOEditar().getPerApellidos());
+		mapParametros.put("difuntoNombre", pagoContratoDataManager.getPagoContratoListDTOEditar().getPerNombres());
+		mapParametros.put("valorPagar", pagoContratoDataManager.getPagoDTO().getPagValor());
+		mapParametros.put("fechaPago", pagoContratoDataManager.getPagoDTO().getPagFecha());
+		mapParametros.put("empresa", getEmpresaTbl().getEmrNombre());
+		//mapParametros.put("fecha", fechaActual);
+		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
+		
+		
+		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), "comprobantePago", mapParametros);
+		ReporteUtil.generarReporte(jasperPrint, this.pagoContratoDataManager.getFormatoPdf(), "comprobantePago");
+		
+	}
+	
 
 	@Override
 	public void refrescarFormulario() {

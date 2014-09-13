@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -106,11 +107,16 @@ public class ReporteUtil {
 	public static JasperPrint jasperPrint (FacesContext facesContext,List listaObjeto,String nombreArchivo, Map<String, Object> mapParametros){
 		
 		JasperPrint jp = null;
+		JRBeanCollectionDataSource beanCollectionDataSource = null;
 		try {
-			JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(listaObjeto);
+			if(listaObjeto!=null)
+				beanCollectionDataSource = new JRBeanCollectionDataSource(listaObjeto);
 			String reportePath = facesContext.getExternalContext().getRealPath("/paginas/reportes/"+nombreArchivo+".jrxml");
 			JasperReport jr = JasperCompileManager.compileReport(reportePath);
-			jp = JasperFillManager.fillReport(jr, mapParametros, beanCollectionDataSource);
+			if(listaObjeto!=null)
+				jp = JasperFillManager.fillReport(jr, mapParametros, beanCollectionDataSource);
+			else
+				jp = JasperFillManager.fillReport(jr, mapParametros, new JREmptyDataSource());
 			String pdfPath = facesContext.getExternalContext().getRealPath("/paginas/reportes/"+nombreArchivo+".pdf");
 			JasperExportManager.exportReportToPdfFile(jp, pdfPath);
 		} catch (Exception e) {
@@ -118,6 +124,11 @@ public class ReporteUtil {
 		}
 		
 		return jp;
+	}
+
+	
+	public static JasperPrint jasperPrint(FacesContext facesContext,String nombreArchivo, Map<String, Object> mapParametros){
+		return jasperPrint(facesContext, null, nombreArchivo, mapParametros);
 	}
 	
 }
