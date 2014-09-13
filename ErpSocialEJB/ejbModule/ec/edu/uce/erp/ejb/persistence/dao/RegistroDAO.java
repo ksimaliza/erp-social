@@ -34,4 +34,8 @@ public interface RegistroDAO extends AbstractFacade<RegistroDTO>{
 	List<EmpleadoAtrasoListDTO> getByAnd(EmpleadoAtrasoListDTO objetoDTO)
 			throws SeguridadesException;
 
+
+	List<EmpleadoAtrasoListDTO> getDistinctByAnd(EmpleadoAtrasoListDTO objetoDTO)
+			throws SeguridadesException;
+
 }
