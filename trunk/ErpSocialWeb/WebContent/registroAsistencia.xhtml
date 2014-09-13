@@ -17,58 +17,49 @@
 		<div class="center">
 			<p:growl id="pnlMessagesG"/>
 		</div>
-	<p:panel id="pnlDatos">
-		<table class="center">
-			<tr>
-				<td width="100%" colspan="2">
-					<p:messages id="messages" autoUpdate="true" closable="true" />
-				</td>
-			</tr>
-			
-			<tr>
-				<td width="30%">
-					<h:outputLabel for="txtUsuario" value="#{i18n['erp.asistencia.empleado.usuario']}" />
-				</td>
-				<td width="70%">
-					<p:inputText id="txtUsuario" style="width: 100%" value="#{registroAsistenciaDataManager.empleado.aemUsuario}" required="true"/>
-				</td>						
-			</tr>
-			
-			<tr>
-				<td width="30%">
-					<h:outputLabel for="txtClave" value="#{i18n['erp.asistencia.empleado.clave']}" />
-				</td>
-				<td width="70%">
-					<p:inputText id="txtClave" style="width: 100%" value="#{registroAsistenciaDataManager.empleado.aemClave}" required="true"/>
-				</td>						
-			</tr>
-
-			<tr>
-				<td width="30%">
-					<h:outputLabel for="txtCodigo" value="#{i18n['erp.asistencia.empleado.codigo.asistencia']}" />
-				</td>
-				<td width="70%">
-					<p:inputText id="txtCodigo" style="width: 100%" value="#{registroAsistenciaDataManager.empleado.aemCodigoRegistro}" required="true"/>
-				</td>						
-			</tr>
-			
-			<tr>
-				<td colspan="2">
-					<p:commandButton value="#{i18n['label.guardar']}" actionListener="#{registroAsistenciaController.registrar}" update="pnlMessagesG,pnlDatos" process="pnlDatos"
-					/>
+		<p:panel id="pnlDatos">
+			<table class="center">
+				<tr>
+					<td width="100%" colspan="2">
+						<p:messages id="messages" autoUpdate="true" closable="true" />
+					</td>
+				</tr>
+				
+				<tr>
+					<td width="30%">
+						<h:outputLabel for="txtUsuario" value="#{i18n['erp.asistencia.empleado.usuario']}" />
+					</td>
+					<td width="70%">
+						<p:inputText id="txtUsuario" style="width: 100%" value="#{registroAsistenciaDataManager.empleado.aemUsuario}" required="true"/>
+					</td>						
+				</tr>
+				
+				<tr>
+					<td width="30%">
+						<h:outputLabel for="txtClave" value="#{i18n['erp.asistencia.empleado.clave']}" />
+					</td>
+					<td width="70%">
+						<p:inputText id="txtClave" style="width: 100%" value="#{registroAsistenciaDataManager.empleado.aemClave}" required="true"/>
+					</td>						
+				</tr>
 	
-				</td>									
-			</tr>
-			
-			<p:panel id="pnlboton" visible="#{registroAsistenciaDataManager.registro.rasTipoEntrada=='atraso'}">
-			<tr>
-				<td colspan="2" >
-					<p:commandButton value="#{i18n['label.imprimir']}" 
-					/>
-				</td>									
-			</tr>
-			</p:panel>
-		</table>
+				<tr>
+					<td width="30%">
+						<h:outputLabel for="txtCodigo" value="#{i18n['erp.asistencia.empleado.codigo.asistencia']}" />
+					</td>
+					<td width="70%">
+						<p:inputText id="txtCodigo" style="width: 100%" value="#{registroAsistenciaDataManager.empleado.aemCodigoRegistro}" required="true"/>
+					</td>						
+				</tr>
+				
+				<tr>
+					<td colspan="2">
+						<p:commandButton value="#{i18n['label.guardar']}" actionListener="#{registroAsistenciaController.registrar}" update="pnlMessagesG,pnlDatos" process="pnlDatos"/>
+						<p:commandButton value="#{i18n['label.imprimir']}" disabled="#{registroAsistenciaDataManager.desactivarImprimir}"/>
+					</td>									
+				</tr>
+	
+			</table>
 		</p:panel>
 		
 	</h:form>
