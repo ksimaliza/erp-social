@@ -39,6 +39,8 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 	private List<CatalogoEucaristiaDTO> formaPagoListDTOs;
 	private DefuncionListDTO defuncionListDTO;
 	private List<NichoListDTO>  nichoListDTOs;
+	private Persona beneficiariInsertar;
+	private ContratoListDTO contratoListDTOEditar;
 	
 	
 	
@@ -56,16 +58,13 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 		this.formaPagoListDTOs=new ArrayList<CatalogoEucaristiaDTO>();
 		this.defuncionListDTO=new DefuncionListDTO();
 		this.nichoListDTOs=new ArrayList<NichoListDTO>();
+		this.beneficiariInsertar=new Persona();
+		this.contratoListDTOEditar=new ContratoListDTO();
 	}
-
-
-
 
 	public Persona getDifuntoInsertar() {
 		return difuntoInsertar;
 	}
-
-
 
 
 	public void setDifuntoInsertar(Persona difuntoInsertar) {
@@ -73,26 +72,27 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 	}
 
 
-
-
 	public ContratoDTO getContratoDTO() {
 		return contratoDTO;
 	}
 
 
+	public ContratoListDTO getContratoListDTOEditar() {
+		return contratoListDTOEditar;
+	}
 
+	public void setContratoListDTOEditar(ContratoListDTO contratoListDTOEditar) {
+		this.contratoListDTOEditar = contratoListDTOEditar;
+	}
 
 	public void setContratoDTO(ContratoDTO contratoDTO) {
 		this.contratoDTO = contratoDTO;
 	}
 
 
-
-
 	public List<ContratoListDTO> getContratoListDTOs() {
 		return contratoListDTOs;
 	}
-
 
 
 
@@ -226,6 +226,20 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 
 	public void setNichoListDTOs(List<NichoListDTO> nichoListDTOs) {
 		this.nichoListDTOs = nichoListDTOs;
+	}
+
+
+
+
+	public Persona getBeneficiariInsertar() {
+		return beneficiariInsertar;
+	}
+
+
+
+
+	public void setBeneficiariInsertar(Persona beneficiariInsertar) {
+		this.beneficiariInsertar = beneficiariInsertar;
 	}
 
 
