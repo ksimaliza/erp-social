@@ -57,9 +57,42 @@
 						</td>
 					</tr>
 					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCiBen" value="#{i18n['erp.despacho.contrato.cedula.beneficiario']}" />
+						</td>
+						<td >
+							<p:inputText id="txtCiBen" 
+								  value="#{contratoDataManager.contratoListDTO.perCi}" >
+								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+						</p:inputText>
+						</td>	
+					</tr>
+					
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombreBen" value="#{i18n['erp.despacho.contrato.nombres.beneficiario']}" />
+						</td>
+						<td>
+							<p:inputText for="txtNombreBen" label="#{i18n['erp.despacho.contrato.nombres.beneficiario']}" 
+							value="#{contratoDataManager.contratoListDTO.perNombres}" />
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApeBen" value="#{i18n['erp.despacho.contrato.apellidos.beneficiario']}" />
+						</td>
+						<td>
+							<p:inputText for="txtApeBen" label="#{i18n['erp.despacho.contrato.apellidos.beneficiario']}" 
+							value="#{contratoDataManager.contratoListDTO.perApellidos}"/>
+						</td>
+					</tr>
+					
+					
 				</table>
 			</p:panel>
-<p:panel id="botonesBuscar">
+			<p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
 					actionListener="#{contratoController.buscarContrato}"
 					value="#{i18n['label.buscar']}" 
