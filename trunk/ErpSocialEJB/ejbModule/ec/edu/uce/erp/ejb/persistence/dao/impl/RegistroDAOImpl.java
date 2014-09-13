@@ -180,6 +180,73 @@ public class RegistroDAOImpl extends AbstractFacadeImpl<RegistroDTO> implements 
 		}		
 	}
 
+	
+	@Override
+	public List<EmpleadoAtrasoListDTO> getDistinctByAnd(EmpleadoAtrasoListDTO objetoDTO) throws SeguridadesException
+	{
+		CriteriaBuilder cb;
+		CriteriaQuery<EmpleadoAtrasoListDTO> cq;
+		Root<EmpleadoAtrasoListDTO> from;
+		List<EmpleadoAtrasoListDTO> list;
+		Predicate predicate;
+		List<Predicate> predicateList = null;
+		String fieldName;
+		Method getter;
+		Object value;
+		Field[] fields;
+		try{
+			cb=entityManager.getCriteriaBuilder();
+			cq=cb.createQuery(EmpleadoAtrasoListDTO.class);
+			
+			from= cq.from(EmpleadoAtrasoListDTO.class);
+			
+			cq.multiselect(
+					from.get("rasEmpleado"),
+					from.get("perCi"),
+					from.get("perApellidos"),
+					from.get("perNombres"),
+					from.get("perDireccion"),
+					from.get("perFechaNac")
+					).distinct(true);
+			
+			predicateList=new ArrayList<Predicate>();
+			
+			fields = objetoDTO.getClass().getDeclaredFields();
+
+	        for(Field f : fields){
+	            fieldName = f.getName();
+				if(!fieldName.equals("serialVersionUID"))
+				{
+				    getter = objetoDTO.getClass().getMethod("get" + String.valueOf(fieldName.charAt(0)).toUpperCase() +
+				            fieldName.substring(1));
+				    
+				    value = getter.invoke(objetoDTO, new Object[0]);
+				
+				    if(value!=null && value!="")
+				    {
+				    	predicate=cb.equal(from.get(fieldName), value);
+				    	predicateList.add(predicate);                	
+				    }
+				}
+	        }
+	
+	        if(!predicateList.isEmpty())
+	        	cq.where(cb.and(predicateList.toArray(new Predicate[0])));		
+			
+			TypedQuery<EmpleadoAtrasoListDTO> tq=entityManager.createQuery(cq);
+			list=tq.getResultList();
+			
+			return list;
+			
+		}catch(Exception e){
+			slf4jLogger.info(e.toString());
+			throw new SeguridadesException(e);
+		}finally{
+			predicate=null;
+			predicateList=null;
+		}		
+	}
+	
 
 	@Override
 	public List<HorasTrabajadasListDTO> getByAndHoras(HorasTrabajadasListDTO objetoDTO) throws SeguridadesException

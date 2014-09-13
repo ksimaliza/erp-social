@@ -108,6 +108,23 @@ public class EmpleadoAtrasoListDTO implements Serializable {
 		this.perCi = perCi;
 		this.perNombres = perNombres;
 	}
+
+	
+	public EmpleadoAtrasoListDTO(Integer rasEmpleado,
+			String perCi,
+			String perApellidos,
+			String perNombres,
+			String perDireccion,
+			Date perFechaNac) {
+		super();
+		this.rasEmpleado=rasEmpleado;
+		this.perCi = perCi;
+		this.perApellidos = perApellidos;
+		this.perNombres = perNombres;
+		this.perDireccion = perDireccion;
+		this.perFechaNac = perFechaNac;
+	}
+
 	
 	
 	public String getAemClave() {

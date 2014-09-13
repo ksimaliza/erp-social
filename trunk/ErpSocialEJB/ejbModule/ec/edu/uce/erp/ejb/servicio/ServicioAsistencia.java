@@ -142,6 +142,9 @@ public interface ServicioAsistencia{
 
 	List<FaltaListDTO> readFaltaReport(FaltaListDTO falta)
 			throws SeguridadesException;
+
+	List<EmpleadoAtrasoListDTO> readAtrasoReport(EmpleadoAtrasoListDTO atraso)
+			throws SeguridadesException;
 	
 
 }

@@ -295,6 +295,8 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		slf4jLogger.info("readAtraso");
 		List<EmpleadoAtrasoListDTO> listResultado = null;
 		try {
+			atraso.setRasTipoEntrada("Atraso");
+			slf4jLogger.info("setRasTipoEntrada",atraso.getRasTipoEntrada());
 			listResultado = asistenciaFactoryDAO.getRegistroDAOImpl().getByAnd(atraso);
 		} catch (Exception e) {
 			slf4jLogger.info("Error al readFalta {}", e.getMessage());
@@ -302,6 +304,20 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		}
 		return listResultado;
 	}
+	
+	@Override
+	public List<EmpleadoAtrasoListDTO> readAtrasoReport(EmpleadoAtrasoListDTO atraso) throws SeguridadesException {
+		slf4jLogger.info("readAtraso");
+		List<EmpleadoAtrasoListDTO> listResultado = null;
+		try {
+			listResultado = asistenciaFactoryDAO.getRegistroDAOImpl().getDistinctByAnd(atraso);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al readFalta {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener falta de la base de datos");
+		}
+		return listResultado;
+	}
+	
 	
 	@Override
 	public List<HorasTrabajadasListDTO> readHoras(HorasTrabajadasListDTO horas) throws SeguridadesException {
