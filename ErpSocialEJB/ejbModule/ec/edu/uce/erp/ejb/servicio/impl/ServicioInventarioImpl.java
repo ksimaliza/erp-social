@@ -194,6 +194,11 @@ public class ServicioInventarioImpl implements ServicioInventario {
 	public LineaBien registrarLineaBien(LineaBien lineaBien) throws SeguridadesException {
 		LineaBien lineaBienNuevo = null;
 		try {
+			
+			if (this.esIndiceLineaBienRepetido(lineaBien)) {
+				throw new SeguridadesException("El indice de la linea debe ser \u00FAnico ya existe una linea con el indice: " + lineaBien.getLinBienIndice());
+			}
+			
 			lineaBien.setLinBienEstado(ESTADO_ACTIVO);
 			lineaBienNuevo = inventarioFactory.getLineaBienDAOImpl().create(lineaBien);
 			inventarioFactory.getHistoricoTransaccioneDAOImpl()
@@ -210,6 +215,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 	public LineaBien actualizarLineaBien(LineaBien lineaBien) throws SeguridadesException {
 		LineaBien lineaBienUpdate = null;
 		try {
+			
 			lineaBienUpdate = inventarioFactory.getLineaBienDAOImpl().update(lineaBien);
 			inventarioFactory.getHistoricoTransaccioneDAOImpl()
 					.registrarHistoricoTransaccion(
@@ -219,6 +225,22 @@ public class ServicioInventarioImpl implements ServicioInventario {
 			throw new SeguridadesException();
 		}
 		return lineaBienUpdate;
+	}
+	
+	private Boolean esIndiceLineaBienRepetido (LineaBien lineaBien) throws SeguridadesException {
+		
+		LineaBien lineaBienBuscar = new LineaBien();
+		lineaBienBuscar.setCatBienPk(lineaBien.getCatBienPk());
+		lineaBienBuscar.setLinBienIndice(lineaBien.getLinBienIndice());
+		
+		List<LineaBien> listLineaBien = this.inventarioFactory.getLineaBienDAOImpl().obtenerLineaBienCriterios(lineaBienBuscar);
+		
+		if (CollectionUtils.isEmpty(listLineaBien)) {
+			return Boolean.FALSE;
+		} else {
+			return Boolean.TRUE;
+		}
+		
 	}
 
 	@Override
@@ -285,6 +307,11 @@ public class ServicioInventarioImpl implements ServicioInventario {
 	public CategoriaBien actualizarCategoriaBien(CategoriaBien categoriaBien) throws SeguridadesException {
 		CategoriaBien categoriaBienUpdate = null;
 		try {
+			
+//			if (this.esIndiceRepetido(categoriaBien.getCatBienIndice())) {
+//				throw new SeguridadesException("El indice de la categoria debe ser \u00FAnico ya existe una categoria con el indice: " + categoriaBien.getCatBienIndice());
+//			}
+			
 			categoriaBienUpdate = inventarioFactory.getCategoriaBienDAOImpl().update(categoriaBien);
 			inventarioFactory.getHistoricoTransaccioneDAOImpl()
 					.registrarHistoricoTransaccion(
@@ -292,7 +319,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 									.getIdUsuario(), ServicioInventarioImpl.class.getName(), "actualizarCategoriaBien", EnumTipoTransaccion.UPDATE));
 			
 		} catch (Exception e) {
-			slf4jLogger.info("error al actualizarCategoriaBien {}", e.getCause().getMessage());
+			slf4jLogger.info("error al actualizarCategoriaBien {}", e.getMessage());
 			throw new SeguridadesException(e);
 		}
 		return categoriaBienUpdate;

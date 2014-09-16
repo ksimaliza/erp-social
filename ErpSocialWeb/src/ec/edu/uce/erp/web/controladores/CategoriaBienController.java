@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,8 +63,9 @@ public class CategoriaBienController extends BaseController{
 			}
 			
 		} catch (SeguridadesException e) {
-			slf4jLogger.info("error al registrarCategoriaBien {}", e.getCause().getMessage());
-			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
+			slf4jLogger.info("error al registrarCategoriaBien {}", e.getMessage());
+			RequestContext.getCurrentInstance().addCallbackParam("validationFailed", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 	}
 	
@@ -81,6 +83,7 @@ public class CategoriaBienController extends BaseController{
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("error al actualizarCategoriaBien {}", e.getCause().getMessage());
+			RequestContext.getCurrentInstance().addCallbackParam("validationFailed", e);
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
 		}
 	}
