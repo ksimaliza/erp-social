@@ -473,9 +473,21 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		return registroAsistencia;
 	}
 	
-	private void verificarFaltas(RegistroAsistenciaVO registroAsistencia)
+	private void verificarFaltas(RegistroAsistenciaVO registroAsistencia) throws SeguridadesException
 	{
-		
+		Timestamp actual,anterior;
+		try{
+			actual=new Timestamp(new Date().getTime());
+			for(int i=7;i==0;i--)
+			{
+				 anterior=CalendarUtil.addDay(actual, -i);
+			}
+		}
+		catch(Exception e)
+		{
+			slf4jLogger.info("Error al verificarFaltas {}", e.getMessage());
+			throw new SeguridadesException(e);
+		}
 	}
 	
 	@Override
