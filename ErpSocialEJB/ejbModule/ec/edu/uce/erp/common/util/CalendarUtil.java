@@ -179,5 +179,14 @@ public class CalendarUtil {
 		String formattedDate = sdf.format(date);
 		return formattedDate;
 	}
+	
+	
+	public static Timestamp addDay(Timestamp time,int day)
+	{
+		Calendar cal=Calendar.getInstance();
+		cal.setTimeInMillis(time.getTime());
+		cal.add(Calendar.DAY_OF_YEAR, day);
+		return new Timestamp(cal.getTime().getTime());
+	}
 
 }
