@@ -13,6 +13,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,8 +77,9 @@ public class LineaBienController extends BaseController{
 				MensajesWebController.aniadirMensajeInformacion("erp.mensaje.registro.exito");
 			}
 		} catch (Exception e) {
-			MensajesWebController.aniadirMensajeError(e.toString());
 			slf4jLogger.info("Error al registrarLineaBien {}", e.toString());
+			RequestContext.getCurrentInstance().addCallbackParam("validationFailed", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 	}
 	

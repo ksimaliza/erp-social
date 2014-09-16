@@ -68,6 +68,12 @@ public class LineaBienDAOImpl extends AbstractFacadeImpl<LineaBien> implements L
 				criteriaList.add(predicate);
 			}
 			
+			//por indice
+			if (lineaBien.getLinBienIndice()!=null) {
+				predicate = criteriaBuilder.equal(fromLineaBien.get("linBienIndice"), lineaBien.getLinBienIndice());
+				criteriaList.add(predicate);
+			}
+			
 			//por id del padre
 			if (lineaBien.getCatBienPk()!=null && lineaBien.getCatBienPk()!=0) {
 				predicate = criteriaBuilder.equal(fromLineaBien.get("catBienPk"), lineaBien.getCatBienPk());

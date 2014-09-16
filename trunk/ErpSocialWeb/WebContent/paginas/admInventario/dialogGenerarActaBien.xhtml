@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<p:dialog id="popUpGenerarActaBien" header="#{i18n['erp.bien.titulo.generar.acta.bien.masivo']}" visible=""
+		widgetVar="dlgGenerarActaBien" modal="true" minWidth="400" width="400" appendTo="@(body)" draggable="false" closable="false">
+		<h:form id="formGenerarActaBien" styleClass="formulario">
+			<p:panel>
+			
+				<h:panelGroup layout="block">
+					<h:panelGrid cellspacing="0" border="0" cellpadding="0">
+					
+						<h:outputLabel value="#{i18n['erp.bien.mensaje.asignacion.masiva']}" />
+						<p:commandButton value="#{i18n['label.aceptar']}" ajax="false" 
+							oncomplete="dlgGenerarActaBien.hide()"
+							actionListener="#{transaccionMasivaBienController.generarActaBien}" />
+						<h:commandButton value="Generar" action="#{transaccionMasivaBienController.generarActaBien}" />
+					
+					</h:panelGrid>
+				</h:panelGroup>
+			
+			</p:panel>
+			
+		</h:form>
+	</p:dialog>
+</ui:composition>

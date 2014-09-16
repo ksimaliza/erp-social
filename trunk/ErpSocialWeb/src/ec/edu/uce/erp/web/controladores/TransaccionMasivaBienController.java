@@ -4,7 +4,9 @@
 package ec.edu.uce.erp.web.controladores;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -12,6 +14,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
+
+import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.primefaces.context.RequestContext;
@@ -27,6 +31,7 @@ import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
+import ec.edu.uce.erp.web.common.util.ReporteUtil;
 import ec.edu.uce.erp.web.common.util.UtilSelectItems;
 import ec.edu.uce.erp.web.controladores.componentes.BuscarUsuarioComponent;
 import ec.edu.uce.erp.web.datamanager.TransaccionMasivaBienDataManager;
@@ -267,6 +272,33 @@ public class TransaccionMasivaBienController extends BaseController{
 		if (CollectionUtils.isNotEmpty(this.transaccionMasivaBienDataManager.getListVistaBienTramitar())) {
 			this.transaccionMasivaBienDataManager.setVistaBienEditar(this.transaccionMasivaBienDataManager.getListVistaBienTramitar().iterator().next());
 		}
+	}
+	
+	public void generarActaBien () {
+		
+		List<VistaBien> listVistaBien = new ArrayList<VistaBien>();
+		listVistaBien.addAll(this.transaccionMasivaBienDataManager.getListVistaBienTramitado());
+		
+		Map<String, Object> mapParametros = new HashMap<String, Object>();
+		mapParametros.put("nombreEmpresa", this.transaccionMasivaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrNombre());
+		mapParametros.put("nombreCustodio", this.transaccionMasivaBienDataManager.getListVistaBienTramitado().iterator().next().getNombresCompletos());
+		mapParametros.put("identificacionCustodio", this.transaccionMasivaBienDataManager.getListVistaBienTramitado().iterator().next().getPerCi());
+		mapParametros.put("total", String.valueOf(listVistaBien.size()));
+		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
+		
+		if (this.transaccionMasivaBienDataManager.getListVistaBienTramitado().iterator().next().getDetBienTipBieNivel1().
+				equals(EnumTipoBien.ASIGNADO.getId())) {
+			mapParametros.put("tituloActa", "Acta asignaci\u00F3n bien");
+			mapParametros.put("tipoMovimiento", "Asignaci\u00F3n de bienes");
+		} else if (this.transaccionMasivaBienDataManager.getListVistaBienTramitado().iterator().next().getDetBienTipBieNivel1().
+				equals(EnumTipoBien.REASIGNADO.getId())) {
+			mapParametros.put("tituloActa", "Acta reasignaci\u00F3n bien");
+			mapParametros.put("tipoMovimiento", "Reasignaci\u00F3n de bienes");
+		}
+		
+		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), listVistaBien, "actaAsignacionBien", mapParametros);
+		ReporteUtil.generarReporte(jasperPrint, this.transaccionMasivaBienDataManager.getFormatoPdf(), "actaBien");
+		
 	}
 	
 	/**

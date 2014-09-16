@@ -27,7 +27,7 @@
 								value="#{transaccionMasivaBienDataManager.vistaBienEditar.bieUbicacion}" label="#{i18n['erp.bien.ubicacion']}" />
 						</td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td>
 							<h:outputLabel for="txtCodigo" value="#{i18n['erp.bien.codigo']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
@@ -40,7 +40,7 @@
 								rendered="#{transaccionMasivaBienDataManager.vistaBienEditar.detBienTipBieNivel1 eq 'DEVUE'}"
 								value="#{transaccionMasivaBienDataManager.vistaBienEditar.bieCodigo}" />
 						</td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td>
 							<h:outputLabel for="txtCustodio" value="#{i18n['erp.bien.custodio']}" />
@@ -60,11 +60,13 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{transaccionMasivaBienController.asignarBienMasivo}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgAsignarBienMasivo.hide()"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) {dlgAsignarBienMasivo.hide(), dlgGenerarActaBien.show()}"
 					process="@this,pnlAsignarBienMasivo,:formBien:acp:pgResultadoAsigMasivo"
 					update="pnlAsignarBienMasivo,:formBien:acp:tablaBienesSeleccionados,:formBien:acp:tablaBienes,:formBien:pnlMessages,:formBien:acp:pgResultadoAsigMasivo" />
 				<p:commandButton value="#{i18n['label.cancelar']}" type="button" onclick="dlgAsignarBienMasivo.hide();" />
 			</p:panel>
+			
+			
 		</h:form>
 	</p:dialog>
 </ui:composition>
