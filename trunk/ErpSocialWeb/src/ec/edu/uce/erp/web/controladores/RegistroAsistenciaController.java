@@ -1,9 +1,14 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+
+import net.sf.jasperreports.engine.JasperPrint;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +20,7 @@ import ec.edu.uce.erp.ejb.persistence.vo.RegistroAsistenciaVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAsistencia;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
+import ec.edu.uce.erp.web.common.util.ReporteUtil;
 import ec.edu.uce.erp.web.datamanager.RegistroAsistenciaDataManager;
 
 
@@ -75,7 +81,25 @@ public class RegistroAsistenciaController extends BaseController {
 	
 	public void imprimir()
 	{
+		Map<String, Object> mapParametros = new HashMap<String, Object>();
+//		mapParametros.put("beneficiarioNombre", contratoDataManager.getBeneficiariInsertar().getPerNombres());
+//		mapParametros.put("beneficiarioApellido", contratoDataManager.getBeneficiariInsertar().getPerApellidos());
+//		mapParametros.put("beneficiarioCedula", contratoDataManager.getBeneficiariInsertar().getPerCi());
+//		mapParametros.put("tipoNicho", contratoDataManager.getNichoListDTOs().get(0).getTniDescripcion());
+//		mapParametros.put("numeroNicho", contratoDataManager.getNichoListDTOs().get(0).getNicDescripcion());
+//		mapParametros.put("seccionNicho", contratoDataManager.getNichoListDTOs().get(0).getCatDescripcion());
+//		mapParametros.put("nivelNicho", contratoDataManager.getNichoListDTOs().get(0).getNniDescripcion());
+//		mapParametros.put("difuntoApellido", contratoDataManager.getDifuntoInsertar().getPerApellidos());
+//		mapParametros.put("difuntoNombre", contratoDataManager.getDifuntoInsertar().getPerNombres());
+//		mapParametros.put("aniosArrendamiento", contratoDataManager.getContratoDTO().getConAnioArrendamiento());
+//		mapParametros.put("fechaInicio", contratoDataManager.getContratoDTO().getConFechaInicio());
+		mapParametros.put("empresa", getEmpresaTbl().getEmrNombre());
+		//mapParametros.put("fecha", fechaActual);
+		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
+		
+		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), "imprimirAtraso", mapParametros);
+		ReporteUtil.generarReporte(jasperPrint, this.registroAsistenciaDataManager.getFormatoPdf(), "imprimirAtraso");
 	}
 	
 	
