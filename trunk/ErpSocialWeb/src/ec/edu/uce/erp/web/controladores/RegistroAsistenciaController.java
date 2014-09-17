@@ -70,9 +70,13 @@ public class RegistroAsistenciaController extends BaseController {
 	{
 		registroAsistenciaDataManager.setEmpleado(new EmpleadoDTO());
 		registroAsistenciaDataManager.setRegistro(new RegistroDTO());
+		registroAsistenciaDataManager.setDesactivarImprimir(true);
 	}
 	
-	
+	public void imprimir()
+	{
+		
+	}
 	
 	
 	@Override
