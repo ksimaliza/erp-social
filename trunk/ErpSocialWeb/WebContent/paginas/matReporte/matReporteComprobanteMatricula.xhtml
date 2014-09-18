@@ -19,64 +19,70 @@
 
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true" />
 
-			<table>
+
+			<p:panel id="pnlBuscar" header="Buscar">
+
+			<table id="tblData">
 
 				<tr>
-					<td width="30%"><h:outputLabel value="Nro.Mátricula" /></td>
-					<td><p:inputText /></td>
+					<td width="30%"><h:outputLabel value="Cédula:" /></td>
+					<td width="70%"><p:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perCi}"/></td>
 				</tr>
 
 				<tr>
-					<td width="30%"><h:outputLabel value="Cédula" /></td>
-					<td><p:inputText /></td>
+					<td width="30%"><h:outputLabel value="Nombres:" /></td>
+					<td width="70%"><p:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perNombres}"/></td>
 				</tr>
 
 				<tr>
-					<td width="30%"><h:outputLabel value="Estudiante" /></td>
-					<td><p:inputText /></td>
+					<td width="30%"><h:outputLabel value="Apellidos:" /></td>
+					<td width="70%"><p:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perApellidos}"/></td>
 				</tr>
 
 				<tr>
-					<td><h:outputLabel for="selectAnio"
-							value="#{i18n['erp.asistencia.seleccione.anio']}" /></td>
-					<td><p:selectOneMenu id="selectAnio"
-							value="#{diaLaboralDataManager.anio}"
-							label="#{i18n['erp.asistencia.seleccione.anio']}" required="true">
-							<f:selectItem itemValue=""
-								itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true" />
-							<f:selectItems value="#{selectItemsController.catalogoListAnio}" />
-						</p:selectOneMenu></td>
+					<td width="30%"><h:outputLabel value="Matricula:" /></td>
+					<td width="70%"><p:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.matCodigo}"/></td>
 				</tr>
-
+				
+				
 				<tr>
-					<td width="30%"><h:outputLabel
-							value="#{i18n['erp.matricula.registro.nivel']}" /></td>
-					<td><p:selectOneMenu id="curso"
-							value="#{matriculaDataManager.nivelCodigo}" filter="true"
-							required="true">
-							<f:selectItem itemLabel="#{i18n['label.seleccione']}" />
-							<f:selectItems
-								value="#{matriculaController.matriculaDataManager.nivelList}"
-								var="nivel" itemLabel="#{nivel.nivDescaripcion} "
-								itemValue="#{nivel.nivCodigo}" />
-							<p:ajax listener="#{matriculaController.buscarNivelParalelo}"
-								process="@this" update="paralelo" />
-						</p:selectOneMenu></td>
+					<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.registro.nivel']}"  /> </td>
+					<td><p:selectOneMenu id="nivel" value="#{reporteCursoDataManager.nivelCodigo}" filter="true" required="true">
+							<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+							<f:selectItems value="#{reporteCursoController.reporteCursoDataManager.nivelList}" var="nivel" itemLabel="#{nivel.nivDescaripcion} " itemValue="#{nivel.nivCodigo}"/>
+							<p:ajax listener="#{reporteCursoController.buscarNivelParalelo}" process="@this" update="paralelo,tblReporte"/>
+						</p:selectOneMenu>
+					</td>
 				</tr>
-
+						
 				<tr>
-					<td width="30%"><h:outputLabel value="Paralelo" /></td>
-					<td><p:selectOneMenu id="paralelo"
-							value="#{nivelParaleloDataManager.paraleloCodigo}" filter="true">
-							<f:selectItem itemLabel="#{i18n['label.seleccione']}" />
-							<f:selectItems
-								value="#{nivelParaleloDataManager.nivelParaleloList}"
-								var="nivelParalelo"
-								itemLabel="#{nivelParalelo.matParalelo.parDescripcion}"
-								itemValue="#{nivelParalelo.matParalelo.parCodigo}" />
-						</p:selectOneMenu></td>
+					<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.registro.paralelo']}"  /> </td>
+					<td><p:selectOneMenu id="paralelo" value="#{reporteCursoDataManager.paraleloCodigo}" filter="true" required="true">
+							<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+							<f:selectItems value="#{reporteCursoDataManager.nivelParaleloList}" var="nivelParalelo" itemLabel="#{nivelParalelo.matParalelo.parDescripcion}" itemValue="#{nivelParalelo.matParalelo.parCodigo}"/>
+							<p:ajax listener="#{reporteCursoController.buscar}" process="@this" update="tblReporte"/>		
+						</p:selectOneMenu>
+					</td>
 				</tr>
+				
 			</table>
-		</h:form>
+			
+			</p:panel>
+			
+			<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{reporteCarnetController.buscar}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscar"
+					update="pnlBuscar,tblReporte" />
+			</p:panel>
+			
+			
+			<p:dataTable id="tblReporte">
+			
+			
+			</p:dataTable>
+			
+		</h:form>	
 	</ui:define>
 </ui:composition>
