@@ -23,7 +23,7 @@
 							required="true"  value="#{partidaBautizoDataManager.bautizadoInsertar.perCi}">
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-							 <p:ajax event="blur" update="txtApeBau,txtNomBau" listener="#{partidaBautizoController.buscarBautizado}" process="@this"/> 
+							<p:ajax event="blur" update="txtApeBau,txtNomBau" listener="#{partidaBautizoController.buscarBautizado}" process="@this"/> 
 							</p:inputText>
 						</td>
 					</tr>
