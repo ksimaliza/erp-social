@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comprobanteContrato" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b259b1fb-2886-42ac-9875-22ee5fce1ec1">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="48"/>
 	<property name="ireport.callouts" value="##Sat Sep 13 12:06:56 COT 2014"/>
 	<parameter name="fecha" class="java.lang.String">
 		<parameterDescription><![CDATA[]]></parameterDescription>
@@ -18,7 +18,7 @@
 	<parameter name="difuntoNombre" class="java.lang.String"/>
 	<parameter name="difuntoApellido" class="java.lang.String"/>
 	<parameter name="valorPagar" class="java.lang.String"/>
-	<parameter name="aniosArrendamiento" class="java.lang.Integer"/>
+	<parameter name="mesesArrendamiento" class="java.lang.Integer"/>
 	<parameter name="fechaInicio" class="java.util.Date"/>
 	<title>
 		<band height="612" splitType="Stretch">

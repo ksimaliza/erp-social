@@ -146,7 +146,7 @@
 							required="true" label="#{i18n['erp.despacho.partida.comunion.cedula.padrino.madrina']}">
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" value="#{partidaPrimeraComunionDataManager.mad_padInsertar.perCi}" />
-							<p:ajax event="blur" update="txtApePad,txtNomPad" listener="#{partidaComunionController.buscarMadrina()}" process="@this"/>
+							<p:ajax event="blur" update="txtApePad,txtNomPad" listener="#{partidaComunionController.buscarMadrina}" process="@this"/>
 						</p:inputText>
 						
 						</td>

@@ -44,7 +44,7 @@
 							<h:outputLabel for="txtValor" value="#{i18n['erp.despacho.eucaristia.valor']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtValor" style="width: 100%" onkeypress="return isNumberKey(event)"
+							<p:inputText id="txtValor" style="width: 100%" onkeypress="return NumCheck(event,this)"
 								 label="#{i18n['erp.despacho.eucaristia.valor']}" value="#{eucaristiaDataManager.eucaristiaInsertar.eucValor}" >
 						
 						</p:inputText>

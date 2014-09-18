@@ -10,17 +10,20 @@
 		<h:form id="formNuevoSacerdote" styleClass="formulario">
 			<p:panel id="pnlNuevoSacerdote">
 				<table class="formulario">
-									
+					
+					<tr>
+						<td width="100%" colspan="2"><p:graphicImage id="image" height="80" cache="false" value="#{sacerdoteDataManager.sacerdotePersonaInsertar.perFoto}"/></td>
+					</tr>
+				
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtFoto" value="#{i18n['erp.despacho.sacerdote.foto']}" />
+							<h:outputLabel value="#{i18n['erp.despacho.sacerdote.foto']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtFoto" value="#{sacerdoteDataManager.sacerdotePersonaInsertar.perFoto}" style="width: 100%"
-							required="true" label="#{i18n['erp.despacho.sacerdote.foto']}">			
-							</p:inputText>
+							    <p:fileUpload fileUploadListener="#{sacerdoteController.handleFileUpload}" mode="advanced" dragDropSupport="true"
+                     				 update="image" auto="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Seleccionar" process="@this"/>
 						</td>
-					</tr>
+					</tr>				
 					
 					<tr>	
 						<td width="30%">
@@ -31,6 +34,7 @@
 								required="true" label="#{i18n['erp.despacho.sacerdote.cedula']}">
 								<f:validateLength maximum="10" minimum="10"/>
 								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+								<p:ajax event="blur" update="txtNombres,txtApe,txtFecNac,txtDir,txtTelefono,txtCelular,txtEmail" listener="#{sacerdoteController.buscarSacerdote2}" process="@this"/>
 							</p:inputText>			
 						</td>
 					</tr>
@@ -51,9 +55,7 @@
 						<td width="70%">
 							<p:inputText id="txtApe" style="width: 100%" 
 								value="#{sacerdoteDataManager.sacerdotePersonaInsertar.perApellidos}" label="#{i18n['erp.despacho.sacerdote.apellidos']}"/>
-							
 						</td>
-						
 					</tr>
 					
 					<tr>
@@ -74,6 +76,7 @@
 								value="#{sacerdoteDataManager.sacerdotePersonaInsertar.perDireccion}" label="#{i18n['erp.despacho.sacerdote.direccion']}" required="true" />
 						</td>	
 					</tr>
+					
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtTelefono" value="#{i18n['erp.despacho.sacerdote.telefono']}" />
@@ -83,6 +86,7 @@
 								value="#{sacerdoteDataManager.sacerdotePersonaInsertar.perTelefono}" label="#{i18n['erp.despacho.sacerdote.telefono']}" onkeypress="return isNumberKey(event)" />
 						</td>	
 					</tr>
+					
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtCelular" value="#{i18n['erp.despacho.sacerdote.celular']}" />
@@ -92,6 +96,7 @@
 								value="#{sacerdoteDataManager.sacerdotePersonaInsertar.perCelular}" label="#{i18n['erp.despacho.sacerdote.celular']}" onkeypress="return isNumberKey(event)" />
 						</td>	
 					</tr>
+					
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtEmail" value="#{i18n['erp.despacho.sacerdote.email']}" />

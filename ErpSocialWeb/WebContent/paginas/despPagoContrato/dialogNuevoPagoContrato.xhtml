@@ -20,7 +20,7 @@
 								 required="true"   value="#{pagoContratoDataManager.contratoListDTO.perCi}">
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-							<p:ajax event="blur"  listener="#{pagoContratoController.buscarContrato}" process="@this" update="txtNombres,txtApellidos,txtFechaInicio,txtFechaFinalizacion,txtNumNicho,txtSeccionNicho,txtTipoNicho,txtNivelNicho,txtAñosArrend,txtFormaPago,txtObs"/>
+							<p:ajax event="blur"  listener="#{pagoContratoController.buscarContrato}" process="@this" update="txtNombres,txtApellidos,txtFechaInicio,txtFechaFinalizacion,txtNumNicho,txtSeccionNicho,txtTipoNicho,txtNivelNicho,txtMesesArrend,txtFormaPago,txtObs,txtNombresBen,txtApellidosBen,txtCiBen"/>
 						</p:inputText>
 						</td>	
 					</tr>
@@ -138,11 +138,11 @@
 				
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtAñosArrend" value="#{i18n['erp.despacho.contrato.anios.arrendamiento']}" />
+							<h:outputLabel for="txtMesesArrend" value="#{i18n['erp.despacho.contrato.meses.arrendamiento']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtAñosArrend" style="width: 70%" 
-								 label="#{i18n['erp.despacho.contrato.anios.arrendamiento']}" value="#{pagoContratoDataManager.contratoListDTO.conAnioArrendamiento}"
+							<p:inputText id="txtMesesArrend" style="width: 70%" 
+								 label="#{i18n['erp.despacho.contrato.meses.arrendamiento']}" value="#{pagoContratoDataManager.contratoListDTO.conMesesPorPagar}"
 								 readonly="true">
 						</p:inputText>
 						</td>	
@@ -170,6 +170,17 @@
 						</p:inputTextarea>
 						</td>	
 					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtMesesPago" value="#{i18n['erp.despacho.contrato.pago.meses']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtMesesPago" label="#{i18n['erp.despacho.contrato.pago.meses']}" style="width: 70%"
+							value="#{pagoContratoDataManager.pagoDTO.pagMesesPagados}"/>
+						</td>
+					</tr>
+					
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtValorTotal" value="#{i18n['erp.despacho.contrato.pago.valor.total']}" />
@@ -196,10 +207,10 @@
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{pagoContratoController.registrarPagoContrato}"
 					
-					process="@this,pnlNuevoPagoContrato" update="pnlNuevoPagoContrato,:formPagoContrato:pnlMessages,:formPagoContrato:tablaPagoContrato"/>
+					process="@this,pnlNuevoPagoContrato" update="pnlNuevoPagoContrato,:formPagoContrato:pnlMessages,:formPagoContrato:tablaPagoContrato,:formNuevoPagoContrato:pnlBotones"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoPagoContrato.hide()" type="button" />
-				<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{contratoController.exportar}" icon="exportPdf" ajax="false"
-				disabled="#{contratoDataManager.exportDesactivado}" />
+				<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{pagoContratoController.exportar}" icon="exportPdf" ajax="false"
+				disabled="#{pagoContratoDataManager.exportDesactivado}" />
 			</p:panel>
 		</h:form>
 	</p:dialog>
