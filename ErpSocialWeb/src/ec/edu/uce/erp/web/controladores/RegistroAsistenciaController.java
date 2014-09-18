@@ -1,5 +1,6 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.RegistroDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.RegistroAsistenciaVO;
@@ -63,8 +65,12 @@ public class RegistroAsistenciaController extends BaseController {
 			registroAsistenciaVO.setRegistroDTO(registroAsistenciaDataManager.getRegistro());
 			RegistroDTO reg=servicioAsistencia.createOrUpdateRegistroAsistencia(registroAsistenciaVO);
 			if(reg.getRasTipoEntrada()=="Atraso")
+			{
 				registroAsistenciaDataManager.setDesactivarImprimir(false);
-			clear();
+				registroAsistenciaDataManager.setRegistro(reg);
+			}
+			else
+				clear();
 			MensajesWebController.aniadirMensajeInformacion("Guardado Exitosamente");
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
@@ -82,19 +88,12 @@ public class RegistroAsistenciaController extends BaseController {
 	public void imprimir()
 	{
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
-//		mapParametros.put("beneficiarioNombre", contratoDataManager.getBeneficiariInsertar().getPerNombres());
-//		mapParametros.put("beneficiarioApellido", contratoDataManager.getBeneficiariInsertar().getPerApellidos());
-//		mapParametros.put("beneficiarioCedula", contratoDataManager.getBeneficiariInsertar().getPerCi());
-//		mapParametros.put("tipoNicho", contratoDataManager.getNichoListDTOs().get(0).getTniDescripcion());
-//		mapParametros.put("numeroNicho", contratoDataManager.getNichoListDTOs().get(0).getNicDescripcion());
-//		mapParametros.put("seccionNicho", contratoDataManager.getNichoListDTOs().get(0).getCatDescripcion());
-//		mapParametros.put("nivelNicho", contratoDataManager.getNichoListDTOs().get(0).getNniDescripcion());
-//		mapParametros.put("difuntoApellido", contratoDataManager.getDifuntoInsertar().getPerApellidos());
-//		mapParametros.put("difuntoNombre", contratoDataManager.getDifuntoInsertar().getPerNombres());
-//		mapParametros.put("aniosArrendamiento", contratoDataManager.getContratoDTO().getConAnioArrendamiento());
-//		mapParametros.put("fechaInicio", contratoDataManager.getContratoDTO().getConFechaInicio());
-		mapParametros.put("empresa", getEmpresaTbl().getEmrNombre());
-		//mapParametros.put("fecha", fechaActual);
+		
+		mapParametros.put("nombreUsuario", registroAsistenciaDataManager.getEmpleado().getAemUsuario());
+		mapParametros.put("horaRegistro", registroAsistenciaDataManager.getRegistro().getRasHoraInicio());
+		mapParametros.put("tiempoAtraso", (registroAsistenciaDataManager.getRegistro().getRasHoraInicio().getTime()-new Date().getTime())/(1000*60));
+		mapParametros.put("horaImpresion", UtilAplication.fechaActualConFormato("yyyy-MM-dd hh:mm:ss"));
+		
 		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 		
