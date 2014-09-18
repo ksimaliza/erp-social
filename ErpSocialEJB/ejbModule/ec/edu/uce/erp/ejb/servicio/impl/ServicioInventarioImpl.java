@@ -552,7 +552,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 	}
 
 	@Override
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	@TransactionAttribute(TransactionAttributeType.SUPPORTS)
 	public VistaBien asignarBien(VistaBien vistaBien) throws SeguridadesException {
 		
 		try {

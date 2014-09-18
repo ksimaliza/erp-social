@@ -10,14 +10,13 @@
 		<h:form id="formGenerarActaBien" styleClass="formulario">
 			<p:panel>
 			
-				<h:panelGroup layout="block">
+				<h:panelGroup layout="block" styleClass="centered">
 					<h:panelGrid cellspacing="0" border="0" cellpadding="0">
 					
 						<h:outputLabel value="#{i18n['erp.bien.mensaje.asignacion.masiva']}" />
 						<p:commandButton value="#{i18n['label.aceptar']}" ajax="false" 
-							oncomplete="dlgGenerarActaBien.hide()"
+							onclick="dlgGenerarActaBien.hide()"
 							actionListener="#{transaccionMasivaBienController.generarActaBien}" />
-						<h:commandButton value="Generar" action="#{transaccionMasivaBienController.generarActaBien}" />
 					
 					</h:panelGrid>
 				</h:panelGroup>
