@@ -55,7 +55,7 @@
 				<tr>
 					<td colspan="2">
 						<p:commandButton value="#{i18n['label.guardar']}" actionListener="#{registroAsistenciaController.registrar}" update="pnlMessagesG,pnlDatos" process="pnlDatos"/>
-						<p:commandButton value="#{i18n['label.imprimir']}" disabled="#{registroAsistenciaDataManager.desactivarImprimir}"/>
+						<p:commandButton value="#{i18n['label.imprimir']}" disabled="#{registroAsistenciaDataManager.desactivarImprimir}" actionListener="#{registroAsistenciaController.imprimir}"/>
 					</td>									
 				</tr>
 	
