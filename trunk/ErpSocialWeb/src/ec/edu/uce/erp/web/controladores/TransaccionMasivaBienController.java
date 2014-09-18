@@ -83,6 +83,7 @@ public class TransaccionMasivaBienController extends BaseController{
 	
 	@PostConstruct
 	public void inicializarObjetos () {
+		this.transaccionMasivaBienDataManager.setListVistaBien(new ArrayList<VistaBien>());
 		this.transaccionMasivaBienDataManager.setListVistaBienTramitar(new ArrayList<VistaBien>());
 		this.transaccionMasivaBienDataManager.setListVistaBienTramitado(new ArrayList<VistaBien>());
 		this.transaccionMasivaBienDataManager.setListVistaBienTraslado(new ArrayList<VistaBien>());
@@ -204,17 +205,22 @@ public class TransaccionMasivaBienController extends BaseController{
 					vistaBien.setUsuarioRegistro(this.transaccionMasivaBienDataManager.getUsuarioSession());
 					vistaBien.setEmpAsignadoFk(this.idCustudioAsignado);
 					vistaBien.setNpNombreEmpresa(this.transaccionMasivaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrNombre());
-					VistaBien vistaBienAsignado = servicioInventario.asignarBien(vistaBien);
+					VistaBien vistaBienBuscar = new VistaBien();
+					vistaBienBuscar.setEmrPk(this.transaccionMasivaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
+					vistaBienBuscar.setBiePk(servicioInventario.asignarBien(vistaBien).getBiePk());
+					vistaBienBuscar.setTraEstado(this.transaccionMasivaBienDataManager.getEstadoActivo());
+					VistaBien vistaBienAsignado = servicioInventario.buscarVistaBienCriterios(vistaBienBuscar).iterator().next();
 					listVistaBien.add(vistaBienAsignado);
 				}
 				
 				if (CollectionUtils.isNotEmpty(listVistaBien)) {
-					MensajesWebController.aniadirMensajeInformacion("Bienes asignados correctamente");
 					this.idCustudioAsignado = null;
+					this.transaccionMasivaBienDataManager.setVistaBienEditar(new VistaBien());
 					this.transaccionMasivaBienDataManager.getListVistaBienTramitar().clear();
 					this.transaccionMasivaBienDataManager.getListVistaBien().clear();
 					this.transaccionMasivaBienDataManager.getListVistaBienTramitado().clear();
 					this.transaccionMasivaBienDataManager.getListVistaBienTramitado().addAll(listVistaBien);
+					MensajesWebController.aniadirMensajeInformacion("Bienes asignados correctamente");
 				}
 				
 			}

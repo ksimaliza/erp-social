@@ -166,11 +166,11 @@
 		<p:commandButton id="btnAsignar"
 			oncomplete="dlgAsignarBienMasivo.show()" value="Asignar"
 			disabled="#{empty transaccionMasivaBienDataManager.listVistaBienTramitar}"
-			process="@this,pnlBuscarBien" update=":formBien:pnlMessages,pnlBuscarBien,tablaBienes" />
+			process="@this" update=":formBien:pnlMessages,pnlBuscarBien,tablaBienes,:formAsignarBienMasivo:pnlAsignarBienMasivo" />
 		<p:commandButton id="btnLimpiarSeleccionado"
 			actionListener="#{transaccionMasivaBienController.limpiarFiltrosBusqueda}"
 			value="#{i18n['label.limpiar']}" 
-			process="@this,pnlBuscarBien" 
+			process="@this" 
 			update=":formBien:pnlMessages,tablaBienes,pnlBuscarBien" />
 	</p:panel>
 	
