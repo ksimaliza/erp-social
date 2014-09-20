@@ -12,32 +12,29 @@
 			<p:panel id="pnlEditarPartidaPrimeraComunion">
 				<table class="formulario">
 												
-						<tr>
-						
+					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtCiCom" value="#{i18n['erp.despacho.partida.comunion.cedula']}" />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiCom"  style="width: 100%"
-							required="true" label="#{i18n['erp.despacho.partida.comunion.cedula']}">
+							required="true" label="#{i18n['erp.despacho.partida.comunion.cedula']}" value="#{partidaPrimeraComunionDataManager.bautizoListDTO.perCi}">
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-							<p:ajax event="blur" update="txtApeCom,txtNomCom,txtProv,txtParroquia,txtCanton,txtFechaBautizo" listener="#{partidaComunionController.buscarAsignado}" process="@this"/>
+							<p:ajax event="blur" update="txtApeCom,txtNomCom,txtProv,txtCanton,txtParroquia,txtFechaBautizo" listener="#{partidaComunionController.buscarBautizo}" process="@this"/>
 						</p:inputText>
-						
 						</td>
-						</tr>
+					</tr>
 						
-						<tr>
+					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtNomCom" value="#{i18n['erp.despacho.partida.comunion.nombres']}" />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomCom" style="width: 100%"
-								required="true" value="#{partidaPrimeraComunionDataManager.asignadoInsertar.perNombres}" />
+								value="#{partidaPrimeraComunionDataManager.bautizoListDTO.perNombres}" readonly="true"/>
 						</td>	
 					</tr>
-					
 					
 					<tr>
 						<td width="30%">
@@ -45,7 +42,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApeCom" style="width: 100%"
-								required="true" value="#{partidaPrimeraComunionDataManager.asignadoInsertar.perApellidos}" />
+								value="#{partidaPrimeraComunionDataManager.bautizoListDTO.perApellidos}" readonly="true" />
 						</td>	
 					</tr>
 						
@@ -146,7 +143,7 @@
 							required="true" label="#{i18n['erp.despacho.partida.comunion.cedula.padrino.madrina']}">
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" value="#{partidaPrimeraComunionDataManager.mad_padInsertar.perCi}" />
-							<p:ajax event="blur" update="txtApePad,txtNomPad" listener="#{partidaComunionController.buscarMadrina()}" process="@this"/>
+							<p:ajax event="blur" update="txtApePad,txtNomPad" listener="#{partidaComunionController.buscarMadrina}" process="@this"/>
 						</p:inputText>
 						
 						</td>
@@ -184,7 +181,7 @@
 							<h:outputLabel for="txtNotaM" value="#{i18n['erp.despacho.partida.comunion.nota.marginal']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNotaM" style="width: 100%"  required="true" value="#{partidaPrimeraComunionDataManager.primeraComunionInsertar.pcoNotaMarginal}"/>
+							<p:inputText id="txtNotaM" style="width: 100%"  value="#{partidaPrimeraComunionDataManager.primeraComunionInsertar.pcoNotaMarginal}"/>
 						</td>	
 					</tr>
 					
@@ -194,7 +191,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtTomo" style="width: 100%"  
-								 required="true" value="#{partidaPrimeraComunionDataManager.primeraComunionInsertar.pcoTomo}" />
+								  value="#{partidaPrimeraComunionDataManager.primeraComunionInsertar.pcoTomo}" />
 						</td>	
 					</tr>
 					<tr>
@@ -203,7 +200,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtActa"  style="width: 100%"
-							required="true" label="#{i18n['erp.despacho.partida.comunion.acta']}" value="#{partidaPrimeraComunionDataManager.primeraComunionInsertar.pcoActa}">
+							 label="#{i18n['erp.despacho.partida.comunion.acta']}" value="#{partidaPrimeraComunionDataManager.primeraComunionInsertar.pcoActa}">
 							
 						</p:inputText>
 						
@@ -216,7 +213,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtPagina" style="width: 100%"  
-								 required="true" value="#{partidaPrimeraComunionDataManager.primeraComunionInsertar.pcoPagina}" />
+								 value="#{partidaPrimeraComunionDataManager.primeraComunionInsertar.pcoPagina}" />
 						</td>	
 					</tr>
 					
@@ -227,13 +224,13 @@
 		<p:panel id="pnlBautizo">
 				<table class="formulario">
 												
-						<tr>
+					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtProv" value="#{i18n['erp.despacho.partida.bautizo.provincia']}"  />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtProv" style="width: 100%"  
-								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.catProvincia}" readonly="true" />
+								value="#{partidaPrimeraComunionDataManager.bautizoListDTO.catProvincia}" readonly="true" />
 						</td>
 					</tr>
 					
@@ -243,7 +240,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCanton" style="width: 100%"  
-								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.catCanton}"  readonly="true"/>
+								value="#{partidaPrimeraComunionDataManager.bautizoListDTO.catCanton}"  readonly="true"/>
 						</td>
 					</tr>	
 					
@@ -253,7 +250,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtParroquia" style="width: 100%"  
-								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO}" readonly="true" />
+							 	value="#{partidaPrimeraComunionDataManager.bautizoListDTO.catParroquia}" readonly="true" />
 						</td>
 					</tr>					
 					
@@ -264,22 +261,18 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtFechaBautizo" style="width: 100%"  
-								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.bauFechaBautizo}" readonly="true"/>
+							 	value="#{partidaPrimeraComunionDataManager.bautizoListDTO.bauFechaBautizo}" readonly="true"/>
 						</td>
-					</tr>
-				
-					
+					</tr>					
 						
 				</table>
 			</p:panel>
-		
-		
 		
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{partidaComunionController.registrarPrimeraComunion}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarPartidaPrimeraComunion.hide()"
-					process="@this,pnlEditarPartidaPrimeraComunion,pnlDatos,pnlDatosPadrino" update="pnlEditarPartidaPrimeraComunion,:formPartidaPrimeraComunion:pnlMessages,:formPartidaPrimeraComunion:tablaPartidaPrimeraComunion"/>
+					process="@this,pnlEditarPartidaPrimeraComunion,pnlDatos,pnlDatosPadrino" update="pnlEditarPartidaPrimeraComunion,pnlDatos,pnlDatosPadrino,:formPartidaPrimeraComunion:pnlMessages,:formPartidaPrimeraComunion:tablaPartidaPrimeraComunion"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarPartidaPrimeraComunion.hide()" type="button" />
 			</p:panel>
 	</h:form>
