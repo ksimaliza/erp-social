@@ -134,16 +134,23 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	{
 		slf4jLogger.info("createOrUpdateSacerdote");
 		Persona personaNueva;
+		List<Persona> listPersona;
+		
 		try {
+			personaNueva = sacerdoteVO.getPersona();
+			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(personaNueva);
+			if(listPersona.size()<=0)
+				personaNueva=factoryDAO.getPersonaDAOImpl().create(personaNueva);
+			else
+				personaNueva=listPersona.get(0);	
+				sacerdoteVO.getSacerdoteDTO().setSacPersona(personaNueva.getPerPk());
+			
 		if(sacerdoteVO.getSacerdoteDTO().getSacCodigo()!=null){
 			personaNueva=factoryDAO.getPersonaDAOImpl().update(sacerdoteVO.getPersona());
 			return eucaristiaFactoryDAO.getSacerdoteDAOImpl().update(sacerdoteVO.getSacerdoteDTO());
 		}
 		else{
-			personaNueva=factoryDAO.getPersonaDAOImpl().create(sacerdoteVO.getPersona());
-			sacerdoteVO.getSacerdoteDTO().setSacPersona(personaNueva.getPerPk());	
 			return eucaristiaFactoryDAO.getSacerdoteDAOImpl().create(sacerdoteVO.getSacerdoteDTO());
-			
 		}
 		} catch (Exception e) {
 			slf4jLogger.info("error al createOrUpdateSacerdote {}", e.toString());
@@ -251,12 +258,11 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		
 		BautizoVO bautizo=new BautizoVO();
 		
-		bautizo.setBautizado(factoryDAO.getPersonaDAOImpl().find(bautizoListDTO.getPerPk()));
 		bautizo.setBautizo(eucaristiaFactoryDAO.getBautizoDAOImpl().find(bautizoListDTO.getBauCodigo()));
+		bautizo.setBautizado(factoryDAO.getPersonaDAOImpl().find(bautizoListDTO.getPerPk()));
 		bautizo.setMadrina(factoryDAO.getPersonaDAOImpl().find(bautizoListDTO.getBauMadrina()));
 		bautizo.setPadrino(factoryDAO.getPersonaDAOImpl().find(bautizoListDTO.getBauPadrino()));
 	
-		
 		return bautizo;
 	}
 	
@@ -1124,14 +1130,16 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	public PagoDTO createOrUpdatePagoContrato(PagoVO pagoVO) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdatePagoContrato");
-		
-										
+		Integer mesesFaltantes;
 		try{
 			
 		if(pagoVO.getPago().getPagCodigo()!=null){
 				return  eucaristiaFactoryDAO.getPagoDAOImpl().update(pagoVO.getPago());
 			}
 			else{
+				mesesFaltantes=pagoVO.getContratoDTO().getConMesesPorPagar()-pagoVO.getPago().getPagMesesPagados();
+				pagoVO.getContratoDTO().setConMesesPorPagar(mesesFaltantes);
+				eucaristiaFactoryDAO.getContratoDAOImpl().update(pagoVO.getContratoDTO());
 				return  eucaristiaFactoryDAO.getPagoDAOImpl().create(pagoVO.getPago());
 				
 			} }catch (Exception e) {
@@ -1175,7 +1183,8 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			pagoInter=eucaristiaFactoryDAO.getPagoDAOImpl().find(pago.getPagCodigo());
 			pagoInter.setPagFecha(pago.getPagFecha());
 			pagoInter.setPagValor(pago.getPagValor());
-		eucaristiaFactoryDAO.getPagoDAOImpl().update(pagoInter);		
+			pagoInter.setPagMesesPagados(pago.getPagMesesPagados());
+			eucaristiaFactoryDAO.getPagoDAOImpl().update(pagoInter);		
 		 
 		}catch (Exception e) {
 			slf4jLogger.info("error al createOrUpdatePagoContrato {}", e.toString());
@@ -1185,7 +1194,7 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	
 	}
 	
-	@Override
+	/*@Override
 	public ContratoDTO updateContrato(ContratoDTO contrato) throws SeguridadesException
 	{
 		slf4jLogger.info("updateContrato");
@@ -1206,6 +1215,6 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		}
 		return contratoInter;
 	
-	}
+	}*/
 
 }

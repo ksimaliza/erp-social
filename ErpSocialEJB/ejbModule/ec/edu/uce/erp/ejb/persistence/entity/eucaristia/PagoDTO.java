@@ -25,9 +25,15 @@ public class PagoDTO implements Serializable {
 	@Column(name="pag_contrato")
 	private Integer pagContrato;
 
+	@Column(name="pag_meses_pagados")
+	private Integer pagMesesPagados;
+	
+	@Column(name="pag_meses_faltantes")
+	private Integer pagMesesFaltantes;
+
 	@Column(name="pag_fecha")
 	private Timestamp pagFecha;
-
+	
 	@Column(name="pag_valor")
 	private BigDecimal pagValor;
 
@@ -64,6 +70,22 @@ public class PagoDTO implements Serializable {
 
 	public void setPagValor(BigDecimal pagValor) {
 		this.pagValor = pagValor;
+	}
+
+	public Integer getPagMesesPagados() {
+		return pagMesesPagados;
+	}
+
+	public Integer getPagMesesFaltantes() {
+		return pagMesesFaltantes;
+	}
+
+	public void setPagMesesPagados(Integer pagMesesPagados) {
+		this.pagMesesPagados = pagMesesPagados;
+	}
+
+	public void setPagMesesFaltantes(Integer pagMesesFaltantes) {
+		this.pagMesesFaltantes = pagMesesFaltantes;
 	}
 
 }

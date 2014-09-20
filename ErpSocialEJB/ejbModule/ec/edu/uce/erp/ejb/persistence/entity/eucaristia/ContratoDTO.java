@@ -21,8 +21,8 @@ public class ContratoDTO implements Serializable {
 	@Column(name="con_codigo")
 	private Integer conCodigo;
 
-	@Column(name="con_anio_arrendamiento")
-	private Integer conAnioArrendamiento;
+	@Column(name="con_meses_arrendamiento")
+	private Integer conMesesArrendamiento;
 
 	@Column(name="con_difunto")
 	private Integer conDifunto;
@@ -41,6 +41,9 @@ public class ContratoDTO implements Serializable {
 	
 	@Column(name="con_observacion")
 	private String conObservacion;
+	
+	@Column(name="con_meses_por_pagar")
+	private Integer conMesesPorPagar;
 
 	//bi-directional many-to-one association to NichoDTO
 	@ManyToOne
@@ -58,12 +61,14 @@ public class ContratoDTO implements Serializable {
 		this.conCodigo = conCodigo;
 	}
 
-	public Integer getConAnioArrendamiento() {
-		return this.conAnioArrendamiento;
+	
+
+	public Integer getConMesesArrendamiento() {
+		return conMesesArrendamiento;
 	}
 
-	public void setConAnioArrendamiento(Integer conAnioArrendamiento) {
-		this.conAnioArrendamiento = conAnioArrendamiento;
+	public void setConMesesArrendamiento(Integer conMesesArrendamiento) {
+		this.conMesesArrendamiento = conMesesArrendamiento;
 	}
 
 	public Integer getConDifunto() {
@@ -120,6 +125,14 @@ public class ContratoDTO implements Serializable {
 
 	public void setConBeneficiario(Integer conBeneficiario) {
 		this.conBeneficiario = conBeneficiario;
+	}
+
+	public Integer getConMesesPorPagar() {
+		return conMesesPorPagar;
+	}
+
+	public void setConMesesPorPagar(Integer conMesesPorPagar) {
+		this.conMesesPorPagar = conMesesPorPagar;
 	}
 
 }

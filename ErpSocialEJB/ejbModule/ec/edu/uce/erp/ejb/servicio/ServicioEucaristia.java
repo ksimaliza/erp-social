@@ -5,9 +5,6 @@ import java.util.List;
 import javax.ejb.Local;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoContratoListDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
@@ -31,9 +28,12 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NivelNichoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoContratoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PrimeraComunionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.TipoNichoDTO;
 import ec.edu.uce.erp.ejb.persistence.util.dto.FiltroFechaDTO;
@@ -186,8 +186,6 @@ public interface ServicioEucaristia {
 	ExhumacionVO obtenerExhumacionPorId(ExumacionListDTO exumacionListDTO)
 			throws SeguridadesException;
 
-	ContratoDTO createOrUpdateContrato(ContratoVO contratoVO)
-			throws SeguridadesException;
 
 	List<ContratoListDTO> buscarContrato(ContratoListDTO contratoListDTO)
 			throws SeguridadesException;
@@ -223,8 +221,10 @@ public interface ServicioEucaristia {
 			EucaristiaListDTO eucaristiaListDTO, FiltroFechaDTO fecha)
 			throws SeguridadesException;
 
-	ContratoDTO updateContrato(ContratoDTO contrato)
+	ContratoDTO createOrUpdateContrato(ContratoVO contratoVO)
 			throws SeguridadesException;
+
+	
 
 
 }
