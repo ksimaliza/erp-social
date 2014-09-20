@@ -32,8 +32,8 @@ public class PagoContratoListDTO implements Serializable {
 	@Column(name="cat_predecesor")
 	private Integer catPredecesor;
 
-	@Column(name="con_anio_arrendamiento")
-	private Integer conAnioArrendamiento;
+	@Column(name="con_meses_arrendamiento")
+	private Integer conMesesArrendamiento;
 
 	@Column(name="con_beneficiario")
 	private Integer conBeneficiario;
@@ -165,12 +165,13 @@ public class PagoContratoListDTO implements Serializable {
 		this.catPredecesor = catPredecesor;
 	}
 
-	public Integer getConAnioArrendamiento() {
-		return this.conAnioArrendamiento;
+
+	public Integer getConMesesArrendamiento() {
+		return conMesesArrendamiento;
 	}
 
-	public void setConAnioArrendamiento(Integer conAnioArrendamiento) {
-		this.conAnioArrendamiento = conAnioArrendamiento;
+	public void setConMesesArrendamiento(Integer conMesesArrendamiento) {
+		this.conMesesArrendamiento = conMesesArrendamiento;
 	}
 
 	public Integer getConBeneficiario() {

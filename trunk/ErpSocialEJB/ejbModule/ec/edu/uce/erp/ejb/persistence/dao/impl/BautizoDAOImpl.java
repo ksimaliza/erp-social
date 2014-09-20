@@ -52,6 +52,16 @@ public class BautizoDAOImpl extends AbstractFacadeImpl<BautizoDTO>implements Bau
 		
 		CriteriaQuery<BautizoListDTO> select = cq.select(from);
 		
+		//por cedula
+		if (!StringUtils.isEmpty(bautizo.getPerCi())) {
+			Expression<String> cedulaBautizado = 
+					cb.upper(cb.literal
+							(UtilAplication.concatenarPorcenteje(bautizo.getPerCi())));
+			predicate = cb.like(cb.upper(from.<String>get("perCi")), cedulaBautizado);
+			criteriaList.add(predicate);
+		}
+		
+		
 		//por nombre
 		if (!StringUtils.isEmpty(bautizo.getPerNombres())) {
 			Expression<String> nombreBautizado = 
@@ -68,14 +78,7 @@ public class BautizoDAOImpl extends AbstractFacadeImpl<BautizoDTO>implements Bau
 					predicate = cb.like(cb.upper(from.<String>get("perApellidos")), apellidoBautizado);
 					criteriaList.add(predicate);
 				}
-		//por cedula
-				if (!StringUtils.isEmpty(bautizo.getPerCi())) {
-					Expression<String> cedulaBautizado = 
-							cb.upper(cb.literal
-									(UtilAplication.concatenarPorcenteje(bautizo.getPerCi())));
-					predicate = cb.like(cb.upper(from.<String>get("perCi")), cedulaBautizado);
-					criteriaList.add(predicate);
-				}
+		
 		
 				
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
