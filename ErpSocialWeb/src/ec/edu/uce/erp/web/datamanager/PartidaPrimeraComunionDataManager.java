@@ -36,6 +36,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PartidaConfirm
 	private Date fechaApComInsertar;
 	private ComunionListDTO comunionListDTO;
 	private List<ComunionListDTO> comunionListDTOs;
+
 	
 	private List<Persona> asignadoListDTO;
 	

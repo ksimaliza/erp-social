@@ -116,8 +116,15 @@ public class PartidaBautizoController extends BaseController{
 			bautizoVO.getBautizo().setBauParroquia(parroquia.getCatCodigo());
 			bautizoVO.getBautizo().setBauEstado(estado.getCatCodigo());
 			
-			bautizoVO.getBautizo().setBauFechaAprobacionCruso(new Timestamp(partidaBautizoDataManager.getFechaApCInsertar().getTime()));
-			bautizoVO.getBautizo().setBauFechaBautizo(new Timestamp(partidaBautizoDataManager.getFechaBautizoInsertar().getTime()));
+			if(partidaBautizoDataManager.getFechaBautizoInsertar().getTime()>partidaBautizoDataManager.getFechaApCInsertar().getTime())
+			{
+				MensajesWebController.aniadirMensajeError("Ingrese fecha de Bautizo correcta");
+				return;
+			}
+			
+				bautizoVO.getBautizo().setBauFechaAprobacionCruso(new Timestamp(partidaBautizoDataManager.getFechaApCInsertar().getTime()));
+				bautizoVO.getBautizo().setBauFechaBautizo(new Timestamp(partidaBautizoDataManager.getFechaBautizoInsertar().getTime()));
+			
 			BautizoDTO bautizoNuevo=this.servicioEucaristia.createOrUpdateBautizo(bautizoVO);
 						
 			if (bautizoNuevo != null) {
