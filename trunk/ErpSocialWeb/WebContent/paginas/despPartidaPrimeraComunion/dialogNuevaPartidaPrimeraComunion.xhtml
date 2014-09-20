@@ -19,10 +19,10 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiCom"  style="width: 100%"
-							required="true" label="#{i18n['erp.despacho.partida.comunion.cedula']}">
+							required="true" label="#{i18n['erp.despacho.partida.comunion.cedula']}" value="#{partidaPrimeraComunionDataManager.bautizoListDTO.perCi}">
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-							<p:ajax event="blur" update="txtApeCom,txtNomCom,txtProv,txtParroquia,txtCanton,txtFechaBautizo" listener="#{partidaComunionController.buscarAsignado}" process="@this"/>
+							<p:ajax event="blur" update="txtApeCom,txtNomCom,txtProv,txtCanton,txtParroquia,txtFechaBautizo" listener="#{partidaComunionController.buscarBautizo}" process="@this"/>
 						</p:inputText>
 						
 						</td>
@@ -34,7 +34,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomCom" style="width: 100%"
-								required="true" value="#{partidaPrimeraComunionDataManager.asignadoInsertar.perNombres}" />
+								value="#{partidaPrimeraComunionDataManager.bautizoListDTO.perNombres}" readonly="true"/>
 						</td>	
 					</tr>
 					
@@ -45,10 +45,51 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApeCom" style="width: 100%"
-								required="true" value="#{partidaPrimeraComunionDataManager.asignadoInsertar.perApellidos}" />
+								value="#{partidaPrimeraComunionDataManager.bautizoListDTO.perApellidos}" readonly="true" />
 						</td>	
 					</tr>
 						
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtProv" value="#{i18n['erp.despacho.partida.bautizo.provincia']}"  />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtProv" style="width: 100%"  
+								value="#{partidaPrimeraComunionDataManager.bautizoListDTO.catProvincia}" readonly="true" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCanton" value="#{i18n['erp.despacho.partida.bautizo.canton']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCanton" style="width: 100%"  
+								value="#{partidaPrimeraComunionDataManager.bautizoListDTO.catCanton}"  readonly="true"/>
+						</td>
+					</tr>	
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtParroquia" value="#{i18n['erp.despacho.partida.bautizo.parroquia']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtParroquia" style="width: 100%"  
+							 	value="#{partidaPrimeraComunionDataManager.bautizoListDTO.catParroquia}" readonly="true" />
+						</td>
+					</tr>					
+					
+							
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFechaBautizo" value="#{i18n['erp.despacho.partida.bautizo.fecha.bautizo']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtFechaBautizo" style="width: 100%"  
+							 	value="#{partidaConfirmacionDataManager.bautizoListDTO.bauFechaBautizo}" readonly="true"/>
+						</td>
+					</tr>
+					
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtFechaComunion" value="#{i18n['erp.despacho.partida.comunion.fecha']}" />
@@ -227,46 +268,7 @@
 		<p:panel id="pnlBautizo">
 				<table class="formulario">
 												
-						<tr>
-						<td width="30%">
-							<h:outputLabel for="txtProv" value="#{i18n['erp.despacho.partida.bautizo.provincia']}"  />
-						</td>
-						<td width="70%">
-							<p:inputText id="txtProv" style="width: 100%"  
-								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.catProvincia}" readonly="true" />
-						</td>
-					</tr>
-					
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtCanton" value="#{i18n['erp.despacho.partida.bautizo.canton']}" />
-						</td>
-						<td width="70%">
-							<p:inputText id="txtCanton" style="width: 100%"  
-								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.catCanton}"  readonly="true"/>
-						</td>
-					</tr>	
-					
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtParroquia" value="#{i18n['erp.despacho.partida.bautizo.parroquia']}" />
-						</td>
-						<td width="70%">
-							<p:inputText id="txtParroquia" style="width: 100%"  
-								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.catParroquia}" readonly="true" />
-						</td>
-					</tr>					
-					
-							
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtFechaBautizo" value="#{i18n['erp.despacho.partida.bautizo.fecha.bautizo']}" />
-						</td>
-						<td width="70%">
-							<p:inputText id="txtFechaBautizo" style="width: 100%"  
-								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.bauFechaBautizo}" readonly="true"/>
-						</td>
-					</tr>
+						
 				
 					
 						
@@ -279,7 +281,7 @@
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{partidaComunionController.registrarPrimeraComunion}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaPartidaPrimeraComunion.hide()"
-					process="@this,pnlNuevaPartidaPrimeraComunion,pnlDatos,pnlDatosPadrino" update="pnlNuevaPartidaPrimeraComunion,:formPartidaPrimeraComunion:pnlMessages,:formPartidaPrimeraComunion:tablaPartidaPrimeraComunion"/>
+					process="@this,pnlNuevaPartidaPrimeraComunion,pnlDatos,pnlDatosPadrino" update="pnlNuevaPartidaPrimeraComunion,pnlDatos,pnlDatosPadrino,:formPartidaPrimeraComunion:pnlMessages,:formPartidaPrimeraComunion:tablaPartidaPrimeraComunion"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaPartidaPrimeraComunion.hide()" type="button" />
 			</p:panel>
 	</h:form>
