@@ -131,7 +131,6 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionListDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ComunionListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepNivelEstudianteDTO</class>
@@ -150,6 +149,7 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.MesRegistroVieDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoContratoListDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ComunionListDTO</class>
 		<properties>
 			<property name="hibernate.connection.username" value="postgres" />
 			<property name="hibernate.connection.password" value="root" />
