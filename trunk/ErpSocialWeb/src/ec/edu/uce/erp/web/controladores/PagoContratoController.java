@@ -1,7 +1,6 @@
 package ec.edu.uce.erp.web.controladores;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -89,14 +88,23 @@ public class PagoContratoController extends BaseController {
 			
 			
 			PagoDTO pagoNuevo=this.servicioEucaristia.createOrUpdatePagoContrato(pago);
+			pagoContratoDataManager.setExportDesactivado(false);
 			
-														
+			/*ContratoListDTO con=new ContratoListDTO();
+			con.setConCodigo(contratoNuevo.getConCodigo());
+			con.setConBeneficiario(contratoNuevo.getConBeneficiario());
+			con.setConDifunto(contratoNuevo.getConDifunto());
+			con.setNicCodigo(contratoNuevo.getEucNicho().getNicCodigo());
+			
+			cargarDatosContrato(con);
+			*/
+			
 			if (pagoNuevo!= null) {
-				pagoContratoDataManager.setPagoDTO(new PagoDTO());
+				/*pagoContratoDataManager.setPagoDTO(new PagoDTO());
 				pagoContratoDataManager.setContratoListDTO(new ContratoListDTO());
-				pagoContratoDataManager.setFechaPago(new Date());
+				pagoContratoDataManager.setFechaPago(new Date());*/
 				
-				MensajesWebController.aniadirMensajeInformacion("erp.despacho.pago.registrar.exito");
+				MensajesWebController.aniadirMensajeInformacion("erp.despacho.contrato.pago.registrar.exito");
 			}
 			
 		} catch (SeguridadesException e) {
@@ -114,9 +122,10 @@ public class PagoContratoController extends BaseController {
 			pago.setPagCodigo(pagoContratoDataManager.getPagoContratoListDTOEditar().getPagCodigo());
 			pago.setPagValor(pagoContratoDataManager.getPagoContratoListDTOEditar().getPagValor());
 			pago.setPagFecha(pagoContratoDataManager.getPagoContratoListDTOEditar().getPagFecha());
+			pago.setPagMesesPagados(pagoContratoDataManager.getPagoContratoListDTOEditar().getPagMesesPagados());
 			servicioEucaristia.updatePagoContrato(pago);
 			
-			MensajesWebController.aniadirMensajeInformacion("erp.despacho.pago.actualizar.exito");
+			MensajesWebController.aniadirMensajeInformacion("erp.despacho.contrato.pago.actualizar");
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
 			MensajesWebController.aniadirMensajeError(e.getMessage());

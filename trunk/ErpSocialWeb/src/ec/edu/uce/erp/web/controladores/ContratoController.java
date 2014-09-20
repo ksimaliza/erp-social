@@ -94,7 +94,11 @@ public ContratoController() {
 			nichoDTO=new NichoDTO();
 			formaPago=new CatalogoEucaristiaDTO();
 		
+			
+			
 			contratoVO.setContratoDTO(contratoDataManager.getContratoDTO());
+			
+			
 			nichoDTO.setNicCodigo(contratoDataManager.getNichoCodigo());
 			formaPago.setCatCodigo(contratoDataManager.getFormaPagoCodigo());
 			contratoVO.setFormaPago(formaPago);
@@ -105,6 +109,8 @@ public ContratoController() {
 			contratoVO.getContratoDTO().setConDifunto(defuncion.getDefPersona());
 			contratoVO.getContratoDTO().setConFechaFin(new Timestamp(contratoDataManager.getFechaFin().getTime()));
 			contratoVO.getContratoDTO().setConFechaInicio(new Timestamp(contratoDataManager.getFechaInicio().getTime()));
+			
+			contratoVO.getContratoDTO().setConMesesPorPagar(contratoVO.getContratoDTO().getConMesesArrendamiento());
 			
 			ContratoDTO contratoNuevo=this.servicioEucaristia.createOrUpdateContrato(contratoVO);
 			contratoDataManager.setExportDesactivado(false);						
@@ -345,7 +351,7 @@ public ContratoController() {
 		mapParametros.put("nivelNicho", contratoDataManager.getNichoListDTOs().get(0).getNniDescripcion());
 		mapParametros.put("difuntoApellido", contratoDataManager.getDifuntoInsertar().getPerApellidos());
 		mapParametros.put("difuntoNombre", contratoDataManager.getDifuntoInsertar().getPerNombres());
-		mapParametros.put("aniosArrendamiento", contratoDataManager.getContratoDTO().getConAnioArrendamiento());
+		mapParametros.put("mesesArrendamiento", contratoDataManager.getContratoDTO().getConMesesArrendamiento());
 		mapParametros.put("fechaInicio", contratoDataManager.getContratoDTO().getConFechaInicio());
 		mapParametros.put("empresa", getEmpresaTbl().getEmrNombre());
 		//mapParametros.put("fecha", fechaActual);

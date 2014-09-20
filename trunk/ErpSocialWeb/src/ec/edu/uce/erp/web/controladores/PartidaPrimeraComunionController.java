@@ -162,7 +162,7 @@ public void registrarPrimeraComunion () {
 	}
 	
 		
-	public void buscarAsignado () {
+	/*public void buscarAsignado () {
 		slf4jLogger.info("buscarAsignado");
 		
 		List<Persona> listaAsignado=null;
@@ -173,14 +173,14 @@ public void registrarPrimeraComunion () {
 			partidaPrimeraComunionDataManager.getAsignadoInsertar().setPerNombres(null);
 			partidaPrimeraComunionDataManager.getAsignadoInsertar().setPerApellidos(null);
 			listaAsignado=this.servicioAdministracion.buscarPersona(partidaPrimeraComunionDataManager.getAsignadoInsertar());
-			bautizo.setPerCi(partidaPrimeraComunionDataManager.getAsignadoInsertar().getPerCi());
-			list=this.servicioEucaristia.buscarPartidaBautizo(bautizo);		
+			//bautizo.setPerCi(partidaPrimeraComunionDataManager.getAsignadoInsertar().getPerCi());
+			//list=this.servicioEucaristia.buscarPartidaBautizo(bautizo);		
 			
 			if (CollectionUtils.isEmpty(listaAsignado) && listaAsignado.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.partidaPrimeraComunionDataManager.setAsignadoInsertar(listaAsignado.get(0));
-				this.partidaPrimeraComunionDataManager.setBautizoListDTO(list.get(0));	
+				//this.partidaPrimeraComunionDataManager.setBautizoListDTO(list.get(0));	
 			}
 			
 		} catch (SeguridadesException e) {
@@ -188,9 +188,29 @@ public void registrarPrimeraComunion () {
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 		
-	}
+	}*/
 	
-
+	public void buscarBautizo () {
+		slf4jLogger.info("buscarBautizo");
+		
+		List<BautizoListDTO> listaBautizo=null;
+		
+		try {
+			
+			listaBautizo=this.servicioEucaristia.buscarPartidaBautizo(partidaPrimeraComunionDataManager.getBautizoListDTO());
+			
+			if (CollectionUtils.isEmpty(listaBautizo) && listaBautizo.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.partidaPrimeraComunionDataManager.setBautizoListDTO(listaBautizo.get(0));
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarContrato {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
 	
 	public void buscarMadrina () {
 		slf4jLogger.info("buscarMadrina");
