@@ -364,7 +364,6 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	public PrimeraComunionDTO createOrUpdateComunion(ComunionVO comunionVO) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateComunion");
-		Persona asignadoPersona;
 		Persona mad_pad;
 		SacerdoteDTO sacerdote;
 		
@@ -372,13 +371,6 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		List<Persona> listPersona;
 			
 		try {
-			asignadoPersona = comunionVO.getAsignado();
-			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(asignadoPersona);
-			if(listPersona.size()<=0)
-				asignadoPersona=factoryDAO.getPersonaDAOImpl().create(asignadoPersona);
-			else
-				asignadoPersona=listPersona.get(0);
-			
 			mad_pad=comunionVO.getMad_pad();
 			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(mad_pad);
 			if(listPersona.size()<=0)
@@ -386,15 +378,12 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			else
 				mad_pad=listPersona.get(0);
 			
-			comunionVO.getComunion().setPcoAsignado(asignadoPersona.getPerPk());
 			comunionVO.getComunion().setPcoPadrino(mad_pad.getPerPk());
 									
 			if(comunionVO.getComunion().getPcoCodigo()!=null){
 				sacerdote= eucaristiaFactoryDAO.getSacerdoteDAOImpl().find(comunionVO.getSacerdote().getSacCodigo());	
 				comunionVO.getComunion().setEucSacerdote(sacerdote);
-													
 				return  eucaristiaFactoryDAO.getPrimeraComunionDAOImpl().update(comunionVO.getComunion());
-				
 			}
 			else{
 				sacerdote= eucaristiaFactoryDAO.getSacerdoteDAOImpl().find(comunionVO.getSacerdote().getSacCodigo());	
@@ -431,9 +420,9 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		slf4jLogger.info("obtenerComunionPorId");
 		
 		ComunionVO comunion =new ComunionVO();
-		comunion.setAsignado(factoryDAO.getPersonaDAOImpl().find(comunionListDTO.getPcoAsignado()));
 		comunion.setComunion(eucaristiaFactoryDAO.getPrimeraComunionDAOImpl().find(comunionListDTO.getPcoCodigo()));	
 		comunion.setMad_pad(factoryDAO.getPersonaDAOImpl().find(comunionListDTO.getPcoPadrino()));
+		comunion.getComunion().setPcoAsignado(comunionListDTO.getPcoAsignado());
 		
 		return comunion;
 	}

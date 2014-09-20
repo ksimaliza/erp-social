@@ -11,7 +11,7 @@ public class ComunionVO implements Serializable {
 	
 private static final long serialVersionUID = 1L;
 	
-	private Persona asignado;
+	
 	private Persona mad_pad;
 	private Persona sacerdotePersona;
 	private Persona doctorPersona;
@@ -21,7 +21,6 @@ private static final long serialVersionUID = 1L;
 	private DoctorDTO doctor;
 
 	public ComunionVO() {
-		asignado=new Persona();
 		mad_pad=new Persona();
 		comunion=new PrimeraComunionDTO();
 		sacerdote= new SacerdoteDTO();
@@ -31,13 +30,6 @@ private static final long serialVersionUID = 1L;
 	
 	}
 
-	public Persona getAsignado() {
-		return asignado;
-	}
-
-	public void setAsignado(Persona asignado) {
-		this.asignado = asignado;
-	}
 
 	public Persona getMad_pad() {
 		return mad_pad;
