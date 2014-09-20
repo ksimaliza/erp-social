@@ -97,14 +97,10 @@ public class PartidaBautizoController extends BaseController{
 			bautizoVO.setMadrina(partidaBautizoDataManager.getMadrinaInsertar());
 			bautizoVO.setPadrino(partidaBautizoDataManager.getPadrinoInsertar());
 				
-			
 			bautizoVO.setBautizo(partidaBautizoDataManager.getBautizoDTO());
-			
-			
+
 			sacerdoteDTO.setSacCodigo(partidaBautizoDataManager.getSacerdoteCodigo());
 			bautizoVO.setSacerdote(sacerdoteDTO);
-			
-			
 			
 			provincia.setCatCodigo(partidaBautizoDataManager.getProvinciaCodigo());
 			canton.setCatCodigo(partidaBautizoDataManager.getCantonCodigo());
@@ -282,8 +278,8 @@ public class PartidaBautizoController extends BaseController{
 			this.partidaBautizoDataManager.setSacerdoteCodigo(bautizoEncontrado.getBautizo().getEucSacerdote().getSacCodigo());
 			this.partidaBautizoDataManager.setEstadoCodigo(bautizoEncontrado.getBautizo().getBauEstado());
 			this.partidaBautizoDataManager.setProvinciaCodigo(bautizoEncontrado.getBautizo().getBauProvincia());
-			
-			
+			this.partidaBautizoDataManager.setCantonCodigo(bautizoEncontrado.getBautizo().getBauCanton());
+			this.partidaBautizoDataManager.setParroquiaCodigo(bautizoEncontrado.getBautizo().getBauParroquia());
 							
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosBautizo {}", e.getMessage());

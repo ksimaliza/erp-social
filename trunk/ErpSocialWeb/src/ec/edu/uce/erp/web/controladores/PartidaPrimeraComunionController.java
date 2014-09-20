@@ -19,7 +19,6 @@ import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ComunionListDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PrimeraComunionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
@@ -74,7 +73,6 @@ public void registrarPrimeraComunion () {
 		slf4jLogger.info("registrarPrimeraComunion");
 		ComunionVO comunionVO;
 		SacerdoteDTO sacerdoteDTO;
-		DoctorDTO doctorDTO;
 		CatalogoEucaristiaDTO provincia;
 		CatalogoEucaristiaDTO canton;
 		CatalogoEucaristiaDTO parroquia;
@@ -84,15 +82,13 @@ public void registrarPrimeraComunion () {
 			
 			comunionVO=new ComunionVO();
 			sacerdoteDTO=new SacerdoteDTO();
-			doctorDTO=new DoctorDTO();
 			provincia=new CatalogoEucaristiaDTO();
 			canton=new CatalogoEucaristiaDTO();
 			parroquia=new CatalogoEucaristiaDTO();
 			estado=new CatalogoEucaristiaDTO();
 			
-			partidaPrimeraComunionDataManager.getComunionListDTO().setPcoCertificadoPor(getPersonaCode());
+			partidaPrimeraComunionDataManager.getPrimeraComunionInsertar().setPcoCertificadoPor(getPersonaCode());
 						
-			comunionVO.setAsignado(partidaPrimeraComunionDataManager.getAsignadoInsertar());
 			comunionVO.setMad_pad(partidaPrimeraComunionDataManager.getMad_padInsertar());
 			comunionVO.setComunion(partidaPrimeraComunionDataManager.getPrimeraComunionInsertar());		
 			
@@ -101,6 +97,7 @@ public void registrarPrimeraComunion () {
 			parroquia.setCatCodigo(partidaPrimeraComunionDataManager.getParroquiaCodigo());
 			estado.setCatCodigo(partidaPrimeraComunionDataManager.getEstadoCodigo());
 			
+			comunionVO.getComunion().setPcoAsignado(partidaPrimeraComunionDataManager.getBautizoListDTO().getBauCodigo());
 			comunionVO.getComunion().setPcoProvincia(provincia.getCatCodigo());
 			comunionVO.getComunion().setPcoCanton(canton.getCatCodigo());
 			comunionVO.getComunion().setPcoParroquia(parroquia.getCatCodigo());
@@ -108,25 +105,27 @@ public void registrarPrimeraComunion () {
 			
 			
 			sacerdoteDTO.setSacCodigo(partidaPrimeraComunionDataManager.getSacerdoteCodigo());
-			doctorDTO.setDocCodigo(partidaPrimeraComunionDataManager.getDoctorCodigo());
 			comunionVO.setSacerdote(sacerdoteDTO);
-			comunionVO.setDoctor(doctorDTO);
-					
 			comunionVO.getComunion().setPcoFechaAprobacionCurso(new Timestamp(partidaPrimeraComunionDataManager.getFechaApComInsertar().getTime()));
 			comunionVO.getComunion().setPcoFechaHora(new Timestamp(partidaPrimeraComunionDataManager.getFechaComunionInsertar().getTime()));
+			
+			if(partidaPrimeraComunionDataManager.getFechaComunionInsertar().getTime()>partidaPrimeraComunionDataManager.getFechaApComInsertar().getTime())
+			{
+				MensajesWebController.aniadirMensajeError("Ingrese fecha de Primera Comunión correcta");
+				return;
+			}
 			
 			PrimeraComunionDTO comunionNuevo=this.servicioEucaristia.createOrUpdateComunion(comunionVO);	
 						
 			if (comunionNuevo != null) {
 				
-				partidaPrimeraComunionDataManager.setAsignadoInsertar(new Persona());
+				partidaPrimeraComunionDataManager.setBautizoListDTO(new BautizoListDTO());
 				partidaPrimeraComunionDataManager.setMad_padInsertar(new Persona());
 				partidaPrimeraComunionDataManager.setPrimeraComunionInsertar(new PrimeraComunionDTO());
 				partidaPrimeraComunionDataManager.setSacerdoteCodigo(0);
 				partidaPrimeraComunionDataManager.setFechaApComInsertar(new Date());
 				partidaPrimeraComunionDataManager.setFechaComunionInsertar(new Date());
 				partidaPrimeraComunionDataManager.setEstadoCodigo(0);
-				
 															
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.partida.comunion.registrar.exito");
 			}
@@ -160,35 +159,6 @@ public void registrarPrimeraComunion () {
 		}
 		
 	}
-	
-		
-	/*public void buscarAsignado () {
-		slf4jLogger.info("buscarAsignado");
-		
-		List<Persona> listaAsignado=null;
-		BautizoListDTO bautizo=new BautizoListDTO();
-		List<BautizoListDTO> list=null;
-		
-		try {
-			partidaPrimeraComunionDataManager.getAsignadoInsertar().setPerNombres(null);
-			partidaPrimeraComunionDataManager.getAsignadoInsertar().setPerApellidos(null);
-			listaAsignado=this.servicioAdministracion.buscarPersona(partidaPrimeraComunionDataManager.getAsignadoInsertar());
-			//bautizo.setPerCi(partidaPrimeraComunionDataManager.getAsignadoInsertar().getPerCi());
-			//list=this.servicioEucaristia.buscarPartidaBautizo(bautizo);		
-			
-			if (CollectionUtils.isEmpty(listaAsignado) && listaAsignado.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.partidaPrimeraComunionDataManager.setAsignadoInsertar(listaAsignado.get(0));
-				//this.partidaPrimeraComunionDataManager.setBautizoListDTO(list.get(0));	
-			}
-			
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarAsignado {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-		
-	}*/
 	
 	public void buscarBautizo () {
 		slf4jLogger.info("buscarBautizo");
@@ -264,7 +234,7 @@ public void registrarPrimeraComunion () {
 		try {
 			
 			ComunionVO comunionEncontrada=servicioEucaristia.obtenerComunionPorId(comunion);
-			this.partidaPrimeraComunionDataManager.setAsignadoInsertar(comunionEncontrada.getAsignado());
+			//this.partidaPrimeraComunionDataManager.setBautizoListDTO(comunionEncontrada);
 			this.partidaPrimeraComunionDataManager.setPrimeraComunionInsertar(comunionEncontrada.getComunion());
 			this.partidaPrimeraComunionDataManager.setMad_padInsertar(comunionEncontrada.getMad_pad());
 			this.partidaPrimeraComunionDataManager.setSacerdoteCodigo(comunionEncontrada.getComunion().getEucSacerdote().getSacCodigo());
