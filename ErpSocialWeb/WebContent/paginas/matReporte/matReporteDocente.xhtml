@@ -19,18 +19,41 @@
 
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true" />
 
-			<table>
+			<p:panel id="pnlBuscar" header="Buscar">
+
+			<table id="tblData">
+
 				<tr>
-					<td width="30%"><h:outputLabel value="Cédula" /></td>
-					<td><p:inputText /></td>
+					<td width="30%"><h:outputLabel value="Cédula:" /></td>
+					<td width="70%"><p:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perCi}"/></td>
 				</tr>
 
 				<tr>
-					<td width="30%"><h:outputLabel value="Docente" /></td>
-					<td><p:inputText /></td>
+					<td width="30%"><h:outputLabel value="Nombres:" /></td>
+					<td width="70%"><p:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perNombres}"/></td>
 				</tr>
 
+				<tr>
+					<td width="30%"><h:outputLabel value="Apellidos:" /></td>
+					<td width="70%"><p:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perApellidos}"/></td>
+				</tr>
+				
 			</table>
+			
+			</p:panel>
+			
+			<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{reporteComprobanteMatriculaController.buscar}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscar"
+					update="pnlBuscar,tblReporte" />
+			</p:panel>
+
+
+			<p:dataTable id="tblReporte">
+			</p:dataTable>
+			
 		</h:form>
 	</ui:define>
 </ui:composition>
