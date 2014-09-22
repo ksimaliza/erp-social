@@ -172,6 +172,9 @@ public interface ServicioMatricula {
 	List<MatriculaVieDTO> readRepCarnetBuscar(MatriculaVieDTO objectDTO)
 			throws SeguridadesException;
 
+	List<MatriculaVieDTO> readRepComprobanteMatricula(MatriculaVieDTO objectDTO)
+			throws SeguridadesException;
+
 		
 
 	
