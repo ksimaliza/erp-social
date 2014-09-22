@@ -47,20 +47,19 @@
 				
 				<tr>
 					<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.registro.nivel']}"  /> </td>
-					<td><p:selectOneMenu id="nivel" value="#{reporteCursoDataManager.nivelCodigo}" filter="true" required="true">
+					<td><p:selectOneMenu id="nivel" value="#{reporteComprobanteMatriculaDataManager.nivelCodigo}" filter="true">
 							<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-							<f:selectItems value="#{reporteCursoController.reporteCursoDataManager.nivelList}" var="nivel" itemLabel="#{nivel.nivDescaripcion} " itemValue="#{nivel.nivCodigo}"/>
-							<p:ajax listener="#{reporteCursoController.buscarNivelParalelo}" process="@this" update="paralelo,tblReporte"/>
+							<f:selectItems value="#{reporteComprobanteMatriculaController.reporteComprobanteMatriculaDataManager.nivelList}" var="nivel" itemLabel="#{nivel.nivDescaripcion} " itemValue="#{nivel.nivCodigo}"/>
+							<p:ajax listener="#{reporteComprobanteMatriculaController.buscarNivelParalelo}" process="@this" update="paralelo,tblReporte"/>
 						</p:selectOneMenu>
 					</td>
 				</tr>
 						
 				<tr>
 					<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.registro.paralelo']}"  /> </td>
-					<td><p:selectOneMenu id="paralelo" value="#{reporteCursoDataManager.paraleloCodigo}" filter="true" required="true">
+					<td><p:selectOneMenu id="paralelo" value="#{reporteComprobanteMatriculaDataManager.paraleloCodigo}" filter="true">
 							<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-							<f:selectItems value="#{reporteCursoDataManager.nivelParaleloList}" var="nivelParalelo" itemLabel="#{nivelParalelo.matParalelo.parDescripcion}" itemValue="#{nivelParalelo.matParalelo.parCodigo}"/>
-							<p:ajax listener="#{reporteCursoController.buscar}" process="@this" update="tblReporte"/>		
+							<f:selectItems value="#{reporteComprobanteMatriculaDataManager.nivelParaleloList}" var="nivelParalelo" itemLabel="#{nivelParalelo.matParalelo.parDescripcion}" itemValue="#{nivelParalelo.matParalelo.parCodigo}"/>
 						</p:selectOneMenu>
 					</td>
 				</tr>
@@ -71,17 +70,33 @@
 			
 			<p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
-					actionListener="#{reporteCarnetController.buscar}"
+					actionListener="#{reporteComprobanteMatriculaController.buscar}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscar"
 					update="pnlBuscar,tblReporte" />
 			</p:panel>
 			
 			
-			<p:dataTable id="tblReporte">
+			<p:dataTable id="tblReporte" value="#{reporteComprobanteMatriculaDataManager.matriculaVieList}" var="rep">
 			
+				<p:column headerText="Nombres">
+					<h:outputText value="#{rep.perNombres}" />
+				</p:column>
+	
+				<p:column headerText="Apellidos">
+					<h:outputText value="#{rep.perApellidos}" />				
+				</p:column>
+	
+				<p:column headerText="Foto">
+					<p:graphicImage value="#{rep.regFoto}" height="45" cache="false"/>
+				</p:column>
+
+				<p:column>
+					<p:commandButton value="Comprobante" actionListener="#{reporteComprobanteMatriculaController.exportar(rep)}" icon="exportPdf" ajax="false"/>
+				</p:column>
 			
 			</p:dataTable>
+			
 			
 		</h:form>	
 	</ui:define>
