@@ -107,10 +107,17 @@ public ContratoController() {
 			
 			defuncion.setDefPersona(contratoDataManager.getDefuncionListDTO().getDefPersona());
 			contratoVO.getContratoDTO().setConDifunto(defuncion.getDefPersona());
-			contratoVO.getContratoDTO().setConFechaFin(new Timestamp(contratoDataManager.getFechaFin().getTime()));
-			contratoVO.getContratoDTO().setConFechaInicio(new Timestamp(contratoDataManager.getFechaInicio().getTime()));
 			
 			contratoVO.getContratoDTO().setConMesesPorPagar(contratoVO.getContratoDTO().getConMesesArrendamiento());
+			
+			contratoVO.getContratoDTO().setConFechaFin(new Timestamp(contratoDataManager.getFechaFin().getTime()));
+			contratoVO.getContratoDTO().setConFechaInicio(new Timestamp(contratoDataManager.getFechaInicio().getTime()));
+
+			if(contratoDataManager.getFechaInicio().getTime()>contratoDataManager.getFechaFin().getTime())
+			{
+				MensajesWebController.aniadirMensajeError("Fecha Inicialización excede a Fecha Finalización");
+				return;
+			}
 			
 			ContratoDTO contratoNuevo=this.servicioEucaristia.createOrUpdateContrato(contratoVO);
 			contratoDataManager.setExportDesactivado(false);						
@@ -149,7 +156,7 @@ public ContratoController() {
 		
 		try {
 		 
-			listaDefuncion=this.servicioEucaristia.buscarDefuncion(new DefuncionListDTO());
+			listaDefuncion=this.servicioEucaristia.buscarDefuncion(contratoDataManager.getDefuncionListDTO());
 					
 			if (CollectionUtils.isEmpty(listaDefuncion) && listaDefuncion.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");

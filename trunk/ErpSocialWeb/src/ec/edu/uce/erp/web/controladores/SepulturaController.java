@@ -175,7 +175,7 @@ public class SepulturaController extends BaseController {
 		
 		try {
 		 
-			listaDefuncion=this.servicioEucaristia.buscarDefuncion(new DefuncionListDTO());
+			listaDefuncion=this.servicioEucaristia.buscarDefuncion(sepulturaDataManager.getDefuncionlistDTO());
 					
 			if (CollectionUtils.isEmpty(listaDefuncion) && listaDefuncion.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
@@ -194,7 +194,7 @@ public class SepulturaController extends BaseController {
 	public void cargarDatosSepultura (SepulturaListDTO sepultura) {
 		try {
 			SepulturaVO sepulturaEncontrado=servicioEucaristia.obtenerSepulturaPorId(sepultura);
-			this.sepulturaDataManager.setCodigoNicho(sepulturaEncontrado.getNichoDTO().getNicCodigo());
+			this.sepulturaDataManager.setCodigoNicho(sepulturaEncontrado.getSepultura().getSepNicho());
 			this.sepulturaDataManager.setSepulturaDTO(sepulturaEncontrado.getSepultura());
 			
 													

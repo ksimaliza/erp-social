@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.event.FileUploadEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +20,7 @@ import ec.edu.uce.erp.ejb.persistence.vo.DoctorVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
+import ec.edu.uce.erp.web.common.util.JsfUtil;
 import ec.edu.uce.erp.web.datamanager.DoctorDataManager;
 
 @ViewScoped
@@ -109,6 +111,12 @@ public void registrarDoctor () {
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosDoctor seleccionado");
 		}
 	}
+	
+	public void handleFileUpload(FileUploadEvent event) {
+		doctorDataManager.getDoctorPersonaInsertar().setPerFoto(JsfUtil.saveToDiskUpdload(event.getFile().getContents(), JsfUtil.getRandomName(event.getFile().getFileName().split("\\.")[1])));
+		doctorDataManager.getDoctorPersonaInsertar().setPerFotoByte(event.getFile().getContents());
+    }
+	
 
 	@Override
 	public void refrescarFormulario() {

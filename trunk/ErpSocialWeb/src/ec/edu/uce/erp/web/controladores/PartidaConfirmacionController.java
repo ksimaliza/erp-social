@@ -109,6 +109,11 @@ public void registrarConfirmacion () {
 			confirmacionVO.getConfirmacion().setConParroquia(parroquia.getCatCodigo());
 			confirmacionVO.getConfirmacion().setConEstado(estado.getCatCodigo());
 			
+			if(partidaConfirmacionDataManager.getFechaApCInsertar().getTime()>partidaConfirmacionDataManager.getFechaComunionInsertar().getTime())
+			{
+				MensajesWebController.aniadirMensajeError("Ingrese fecha de Aprobación de curso correcta");
+				return;
+			}
 			
 			confirmacionVO.getConfirmacion().setConFechaAprobacionCurso(new Timestamp(partidaConfirmacionDataManager.getFechaApCInsertar().getTime()));
 			confirmacionVO.getConfirmacion().setConFecha(new Timestamp(partidaConfirmacionDataManager.getFechaComunionInsertar().getTime()));

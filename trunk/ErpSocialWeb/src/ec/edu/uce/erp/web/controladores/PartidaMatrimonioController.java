@@ -108,6 +108,12 @@ public void registrarMatrimonio () {
 			sacerdoteDTO.setSacCodigo(partidaMatrimonioDataManager.getSacerdoteCodigo());
 			
 			matrimonioVO.setSacerdote(sacerdoteDTO);
+			
+			if(partidaMatrimonioDataManager.getFechaApCurInsertar().getTime()>partidaMatrimonioDataManager.getFechaMatrInsertar().getTime())
+			{
+				MensajesWebController.aniadirMensajeError("Ingrese fecha de Aprobación del curso correcta");
+				return;
+			}
 			matrimonioVO.getMatrimonio().setMatFechaAprobacionCurso(new Timestamp(partidaMatrimonioDataManager.getFechaApCurInsertar().getTime()));
 			matrimonioVO.getMatrimonio().setMatFecha(new Timestamp(partidaMatrimonioDataManager.getFechaMatrInsertar().getTime()));
 			
