@@ -184,7 +184,7 @@
 							<h:outputLabel for="txtNotaM" value="#{i18n['erp.despacho.partida.confirmacion.nota.marginal']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNotaM" style="width: 100%"  required="true" value="#{partidaConfirmacionDataManager.confirmacionDTO.conNotaMarginal}"/>
+							<p:inputText id="txtNotaM" style="width: 100%"   value="#{partidaConfirmacionDataManager.confirmacionDTO.conNotaMarginal}"/>
 						</td>	
 					</tr>
 					
@@ -194,7 +194,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtTomo" style="width: 100%"  
-								 required="true" value="#{partidaConfirmacionDataManager.confirmacionDTO.conToma}" />
+								  value="#{partidaConfirmacionDataManager.confirmacionDTO.conToma}" />
 						</td>	
 					</tr>
 					<tr>
@@ -203,7 +203,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtActa"  style="width: 100%"
-							required="true" label="#{i18n['erp.despacho.partida.confirmacion.acta']}" value="#{partidaConfirmacionDataManager.confirmacionDTO.conActa}">
+							 	label="#{i18n['erp.despacho.partida.confirmacion.acta']}" value="#{partidaConfirmacionDataManager.confirmacionDTO.conActa}">
 							
 						</p:inputText>
 						
@@ -216,11 +216,9 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtPagina" style="width: 100%"  
-								 required="true" value="#{partidaConfirmacionDataManager.confirmacionDTO.conPagina}" />
+								value="#{partidaConfirmacionDataManager.confirmacionDTO.conPagina}" />
 						</td>	
 					</tr>
-					
-					
 				</table>
 			</p:panel>
 		
