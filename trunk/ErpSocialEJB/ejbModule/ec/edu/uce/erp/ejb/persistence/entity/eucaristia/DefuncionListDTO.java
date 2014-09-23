@@ -2,8 +2,8 @@ package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
+import java.sql.Timestamp;
 
 
 /**
@@ -85,6 +85,7 @@ public class DefuncionListDTO implements Serializable {
 	@Column(name="doc_ci")
 	private String docCi;
 
+	@Id
 	@Column(name="doc_codigo")
 	private Integer docCodigo;
 
@@ -100,7 +101,6 @@ public class DefuncionListDTO implements Serializable {
 	@Column(name="per_celular")
 	private String perCelular;
 
-	@Id
 	@Column(name="per_ci")
 	private String perCi;
 
