@@ -111,6 +111,12 @@ public void registrarDefuncion () {
 			defuncionVO.getDefuncion().setDefParroquia(parroquia.getCatCodigo());
 			defuncionVO.getDefuncion().setDefEstadoCivil(estadoCivil.getCatCodigo());
 			
+			if(defuncionDataManager.getFechaMuerteInsertar().getTime()>defuncionDataManager.getFechaSepelioInsertar().getTime())
+			{
+				MensajesWebController.aniadirMensajeError("Fecha de Muerte no debe exceder a la Fecha de Sepelio");
+				return;
+			}
+			
 			defuncionVO.getDefuncion().setDefFecha(new Timestamp(defuncionDataManager.getFechaSepelioInsertar().getTime()));
 			defuncionVO.getDefuncion().setDefFechaDifunto(new Timestamp(defuncionDataManager.getFechaMuerteInsertar().getTime()));
 			
