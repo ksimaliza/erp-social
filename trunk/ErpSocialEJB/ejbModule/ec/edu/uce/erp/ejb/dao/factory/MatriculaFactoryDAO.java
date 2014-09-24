@@ -3,6 +3,7 @@ package ec.edu.uce.erp.ejb.dao.factory;
 import javax.ejb.Local;
 
 import ec.edu.uce.erp.ejb.persistence.dao.AsinacionDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.DocenteAsignadoVieDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.EstudianteDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.EstudianteListDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.EstudianteRepresentanteDAO;
@@ -56,5 +57,7 @@ public interface MatriculaFactoryDAO {
 	RepNivelEstudianteDAO getRepNivelEstudianteDAOImpl();
 
 	MatriculaVieDAO getMatriculaVieDAOImpl();
+
+	DocenteAsignadoVieDAO getDocenteAsignadoVieDAOImpl();
 
 }
