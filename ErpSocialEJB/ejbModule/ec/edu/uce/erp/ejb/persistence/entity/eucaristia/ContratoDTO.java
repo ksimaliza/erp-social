@@ -35,6 +35,12 @@ public class ContratoDTO implements Serializable {
 
 	@Column(name="con_forma_pago")
 	private Integer conFormaPago;
+	
+	@Column(name="con_valor_total")
+	private Integer conValorTotal;
+	
+	@Column(name="con_valor_mes")
+	private Integer conValorMes;
 
 	@Column(name="con_beneficiario")
 	private Integer conBeneficiario;
@@ -133,6 +139,22 @@ public class ContratoDTO implements Serializable {
 
 	public void setConMesesPorPagar(Integer conMesesPorPagar) {
 		this.conMesesPorPagar = conMesesPorPagar;
+	}
+
+	public Integer getConValorTotal() {
+		return conValorTotal;
+	}
+
+	public Integer getConValorMes() {
+		return conValorMes;
+	}
+
+	public void setConValorTotal(Integer conValorTotal) {
+		this.conValorTotal = conValorTotal;
+	}
+
+	public void setConValorMes(Integer conValorMes) {
+		this.conValorMes = conValorMes;
 	}
 
 }
