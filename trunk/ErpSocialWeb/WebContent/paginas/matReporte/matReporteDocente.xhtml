@@ -25,17 +25,17 @@
 
 				<tr>
 					<td width="30%"><h:outputLabel value="Cédula:" /></td>
-					<td width="70%"><p:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perCi}"/></td>
+					<td width="70%"><p:inputText value="#{reporteDocenteDataManager.docenteAsignadoVieDTO.perCi}"/></td>
 				</tr>
 
 				<tr>
 					<td width="30%"><h:outputLabel value="Nombres:" /></td>
-					<td width="70%"><p:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perNombres}"/></td>
+					<td width="70%"><p:inputText value="#{reporteDocenteDataManager.docenteAsignadoVieDTO.perNombres}"/></td>
 				</tr>
 
 				<tr>
 					<td width="30%"><h:outputLabel value="Apellidos:" /></td>
-					<td width="70%"><p:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perApellidos}"/></td>
+					<td width="70%"><p:inputText value="#{reporteDocenteDataManager.docenteAsignadoVieDTO.perApellidos}"/></td>
 				</tr>
 				
 			</table>
@@ -44,7 +44,7 @@
 			
 			<p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
-					actionListener="#{reporteComprobanteMatriculaController.buscar}"
+					actionListener="#{reporteDocenteController.buscar}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscar"
 					update="pnlBuscar,tblReporte" />
@@ -52,6 +52,9 @@
 
 
 			<p:dataTable id="tblReporte">
+			
+						
+			
 			</p:dataTable>
 			
 		</h:form>
