@@ -1183,27 +1183,20 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	
 	}
 	
-	/*@Override
-	public ContratoDTO updateContrato(ContratoDTO contrato) throws SeguridadesException
+	@Override
+	public Integer calcularValorTotal(ContratoDTO contrato) throws SeguridadesException
 	{
-		slf4jLogger.info("updateContrato");
-		ContratoDTO contratoInter;										
+		slf4jLogger.info("calcularValorTotal");
+		Integer valorTotal;										
 		try{
-			contratoInter=eucaristiaFactoryDAO.getContratoDAOImpl().find(contrato.getConCodigo());
-			contratoInter.setConAnioArrendamiento(contrato.getConAnioArrendamiento());
-			contratoInter.setConFechaFin(contrato.getConFechaFin());
-			contratoInter.setConFechaInicio(contrato.getConFechaInicio());
-			contratoInter.setConFormaPago(contrato.getConFormaPago());
-			contratoInter.setConObservacion(contrato.getConObservacion());
-			eucaristiaFactoryDAO.getContratoDAOImpl().update(contratoInter);
-			
-		
+			valorTotal=contrato.getConValorMes()*contrato.getConMesesArrendamiento();
+		 
 		}catch (Exception e) {
-			slf4jLogger.info("error al updateContrato {}", e.toString());
+			slf4jLogger.info("error al calcularValorTotal {}", e.toString());
 			throw new SeguridadesException(e);
 		}
-		return contratoInter;
+		return valorTotal;
 	
-	}*/
+	}
 
 }

@@ -224,6 +224,9 @@ public interface ServicioEucaristia {
 	ContratoDTO createOrUpdateContrato(ContratoVO contratoVO)
 			throws SeguridadesException;
 
+	Integer calcularValorTotal(ContratoDTO contrato)
+			throws SeguridadesException;
+
 	
 
 

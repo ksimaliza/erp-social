@@ -32,9 +32,6 @@ public class PagoContratoListDTO implements Serializable {
 	@Column(name="cat_predecesor")
 	private Integer catPredecesor;
 
-	@Column(name="con_meses_arrendamiento")
-	private Integer conMesesArrendamiento;
-
 	@Column(name="con_beneficiario")
 	private Integer conBeneficiario;
 
@@ -54,11 +51,23 @@ public class PagoContratoListDTO implements Serializable {
 	@Column(name="con_forma_pago")
 	private Integer conFormaPago;
 
+	@Column(name="con_meses_arrendamiento")
+	private Integer conMesesArrendamiento;
+
+	@Column(name="con_meses_por_pagar")
+	private Integer conMesesPorPagar;
+
 	@Column(name="con_nicho")
 	private Integer conNicho;
 
 	@Column(name="con_observacion")
 	private String conObservacion;
+
+	@Column(name="con_valor_mes")
+	private Integer conValorMes;
+
+	@Column(name="con_valor_total")
+	private Integer conValorTotal;
 
 	@Column(name="meses_faltantes")
 	private Integer mesesFaltantes;
@@ -165,15 +174,6 @@ public class PagoContratoListDTO implements Serializable {
 		this.catPredecesor = catPredecesor;
 	}
 
-
-	public Integer getConMesesArrendamiento() {
-		return conMesesArrendamiento;
-	}
-
-	public void setConMesesArrendamiento(Integer conMesesArrendamiento) {
-		this.conMesesArrendamiento = conMesesArrendamiento;
-	}
-
 	public Integer getConBeneficiario() {
 		return this.conBeneficiario;
 	}
@@ -222,6 +222,22 @@ public class PagoContratoListDTO implements Serializable {
 		this.conFormaPago = conFormaPago;
 	}
 
+	public Integer getConMesesArrendamiento() {
+		return this.conMesesArrendamiento;
+	}
+
+	public void setConMesesArrendamiento(Integer conMesesArrendamiento) {
+		this.conMesesArrendamiento = conMesesArrendamiento;
+	}
+
+	public Integer getConMesesPorPagar() {
+		return this.conMesesPorPagar;
+	}
+
+	public void setConMesesPorPagar(Integer conMesesPorPagar) {
+		this.conMesesPorPagar = conMesesPorPagar;
+	}
+
 	public Integer getConNicho() {
 		return this.conNicho;
 	}
@@ -236,6 +252,22 @@ public class PagoContratoListDTO implements Serializable {
 
 	public void setConObservacion(String conObservacion) {
 		this.conObservacion = conObservacion;
+	}
+
+	public Integer getConValorMes() {
+		return this.conValorMes;
+	}
+
+	public void setConValorMes(Integer conValorMes) {
+		this.conValorMes = conValorMes;
+	}
+
+	public Integer getConValorTotal() {
+		return this.conValorTotal;
+	}
+
+	public void setConValorTotal(Integer conValorTotal) {
+		this.conValorTotal = conValorTotal;
 	}
 
 	public Integer getMesesFaltantes() {
