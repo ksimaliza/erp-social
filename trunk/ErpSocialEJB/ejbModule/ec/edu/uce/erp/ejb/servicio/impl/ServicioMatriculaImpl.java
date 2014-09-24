@@ -14,6 +14,7 @@ import ec.edu.uce.erp.ejb.dao.factory.MatriculaFactoryDAO;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteAsignadoVieDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
@@ -880,4 +881,23 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		
 		return lista;
 	}
+	
+	
+	@Override
+	public List<DocenteAsignadoVieDTO> readDocenteAsignado(DocenteAsignadoVieDTO objectDTO) throws SeguridadesException
+	{
+		slf4jLogger.info("readRepNivelParalelo");
+		List<DocenteAsignadoVieDTO> lista = null;
+		try {
+			lista = matriculaFactoryDAO.getDocenteAsignadoVieDAOImpl().getByAndDistinct(objectDTO);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al readRepNivelParalelo {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener datos de la base de datos");
+		}
+		
+		return lista;
+	}
+
+	
+	
 }

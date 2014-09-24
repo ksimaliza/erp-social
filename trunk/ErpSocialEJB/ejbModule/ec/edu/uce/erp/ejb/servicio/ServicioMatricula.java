@@ -7,6 +7,7 @@ import javax.ejb.Local;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteAsignadoVieDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
@@ -174,6 +175,9 @@ public interface ServicioMatricula {
 
 	List<MatriculaVieDTO> readRepComprobanteMatricula(MatriculaVieDTO objectDTO)
 			throws SeguridadesException;
+
+	List<DocenteAsignadoVieDTO> readDocenteAsignado(
+			DocenteAsignadoVieDTO objectDTO) throws SeguridadesException;
 
 		
 
