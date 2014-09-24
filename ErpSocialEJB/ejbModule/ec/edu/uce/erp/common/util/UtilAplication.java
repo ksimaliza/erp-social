@@ -97,7 +97,7 @@ public final class UtilAplication {
 		try {
 			//date=String.valueOf(CalendarUtil.getYear())+"\\"+String.valueOf(CalendarUtil.getMonth())+"\\"+String.valueOf(CalendarUtil.getDay());
 			
-			pathDir="C:\\JavaEE\\jboss-as-7.1.1.Final\\standalone\\deployments\\ErpSocial.ear\\ErpSocialWeb.war\\images\\tmp\\upload\\";
+			pathDir="C:\\JavaEE\\jboss-as-7.1.1.Final\\standalone\\deploymeents\\ErpSocial.ear\\ErpSocialWeb.war\\images\\tmp\\upload\\";
 			pathFile="C:\\JavaEE\\jboss-as-7.1.1.Final\\standalone\\deployments\\ErpSocial.ear\\ErpSocialWeb.war\\"+fileName;
 			
 			f= new File(pathDir);
