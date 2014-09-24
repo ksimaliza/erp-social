@@ -6,6 +6,7 @@ import javax.persistence.PersistenceContext;
 
 import ec.edu.uce.erp.ejb.dao.factory.MatriculaFactoryDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.AsinacionDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.DocenteAsignadoVieDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.EstudianteDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.EstudianteListDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.EstudianteRepresentanteDAO;
@@ -23,6 +24,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.ProfesorDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.RepNivelEstudianteDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.RepresentanteDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.AsinacionDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.DocenteAsignadoVieDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.EstudianteDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.EstudianteListDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.EstudianteRepresentanteDAOImpl;
@@ -64,7 +66,8 @@ public class MatriculaFactoryDAOImpl implements MatriculaFactoryDAO{
 	
 	private RepNivelEstudianteDAO repNivelEstudianteDAO;
 	private MatriculaVieDAO matriculaVieDAO;
-	
+
+	private DocenteAsignadoVieDAO docenteAsignadoVieDAO;
 	
 	@Override
 	public AsinacionDAO getAsinacionDAOImpl()
@@ -217,6 +220,15 @@ public class MatriculaFactoryDAOImpl implements MatriculaFactoryDAO{
 			matriculaVieDAO = new MatriculaVieDAOImpl(entityManager);
 		}
 		return matriculaVieDAO;
+	}
+
+	@Override
+	public DocenteAsignadoVieDAO getDocenteAsignadoVieDAOImpl()
+	{
+		if (docenteAsignadoVieDAO == null) {
+			docenteAsignadoVieDAO = new DocenteAsignadoVieDAOImpl(entityManager);
+		}
+		return docenteAsignadoVieDAO;
 	}
 
 	
