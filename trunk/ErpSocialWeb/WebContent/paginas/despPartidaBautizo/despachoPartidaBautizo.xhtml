@@ -4,6 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/WEB-INF/templates/template.xhtml">
 	
 <ui:define name="title">
@@ -89,11 +90,11 @@
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.fecha.bautizo']}" width="40%">
-					<h:outputText value="#{bautizo.bauFechaBautizo}" />
+					<h:outputText value="#{fn:substring(bautizo.bauFechaBautizo,0,10)}"  />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.fecha.curso']}" width="40%">
-					<h:outputText value="#{bautizo.bauFechaAprobacionCruso}" />
+					<h:outputText value="#{fn:substring(bautizo.bauFechaAprobacionCruso,0,10)}" />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.provincia']}" width="40%">

@@ -3,7 +3,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 	
 	<p:dialog id="popUpNuevaPartidaConfirmacion" header="#{i18n['erp.despacho.partida.confirmacion.registrar']}" resizable="false" draggable="false"
 		widgetVar="dlgNuevaPartidaConfirmacion" modal="true" width="500" minWidth="500" appendTo="@(body)">
@@ -18,8 +19,7 @@
 					</td>
 						<td width="70%">
 							<p:inputText id="txtCiConf"  style="width: 100%"
-								required="true"  value="#{partidaConfirmacionDataManager.confirmadoInsertar.perCi}">
-									<f:validateLength maximum="10" minimum="10"/>
+								  value="#{partidaConfirmacionDataManager.confirmadoInsertar.perCi}">
 									<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 									<p:ajax event="blur" update="txtApeConf,txtNomConf,txtProv,txtCiudad,txtCanton,txtFechaBautizo" listener="#{partidaConfirmacionController.buscarConfirmado}" process="@this"/>
 							</p:inputText>
@@ -262,7 +262,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtFechaBautizo" style="width: 100%"  
-								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.bauFechaBautizo}" readonly="true"/>
+								 required="true" value="#{fn:substring(partidaConfirmacionDataManager.bautizoListDTO.bauFechaBautizo,0,10)}" readonly="true"/>
 						</td>
 					</tr>
 								

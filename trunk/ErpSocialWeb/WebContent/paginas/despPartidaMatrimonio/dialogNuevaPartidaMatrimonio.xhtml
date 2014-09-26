@@ -18,9 +18,8 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiNovio"  style="width: 70%"
-							required="true" label="#{i18n['erp.despacho.partida.matrimonio.cedulanovio']}" value="#{partidaMatrimonioDataManager.novioInsertar.perCi}">
+							 label="#{i18n['erp.despacho.partida.matrimonio.cedulanovio']}" value="#{partidaMatrimonioDataManager.novioInsertar.perCi}">
 							<p:ajax event="blur" update="txtNomNovio,txtApeNovio" listener="#{partidaMatrimonioController.buscarNovio}" process="@this"/>
-							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							
 						</p:inputText>

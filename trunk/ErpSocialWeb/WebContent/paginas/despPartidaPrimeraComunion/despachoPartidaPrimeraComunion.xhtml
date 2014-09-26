@@ -4,7 +4,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	template="/WEB-INF/templates/template.xhtml">
+	template="/WEB-INF/templates/template.xhtml"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 	
 <ui:define name="title">
 		<h3><h:outputLabel	value="#{i18n['erp.despacho.partida.comunion.pagina.titulo']}" /></h3>
@@ -90,7 +91,7 @@
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.comunion.fecha']}" width="40%">
-					<h:outputText  value="#{comunion.pcoFechaHora}" />
+					<h:outputText value="#{fn:substring(comunion.pcoFechaHora,0,10)}" />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.bautizo.provincia']}" width="40%">
