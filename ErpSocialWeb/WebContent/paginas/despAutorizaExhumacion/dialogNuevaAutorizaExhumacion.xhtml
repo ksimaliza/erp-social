@@ -102,7 +102,7 @@
 					actionListener="#{autorizaExhumacionController.registrarAutorizacionExhumacion}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaAutorizaExhumacion.hide()"
 					process="@this,pnlNuevaAutorizaExhumacion" update="pnlNuevaAutorizaExhumacion,:formAutorizaExhumacion:pnlMessages,:formAutorizaExhumacion:tablaAutorizaExhumacion"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaAutorizaExhumacion.hide()" type="button" />
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaAutorizaExhumacion.hide()" type="button"  />
 			</p:panel>
 		</h:form>
 	</p:dialog>

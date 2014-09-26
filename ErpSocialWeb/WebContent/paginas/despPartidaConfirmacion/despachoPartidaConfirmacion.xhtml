@@ -4,6 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/WEB-INF/templates/template.xhtml">
 	
 <ui:define name="title">
@@ -89,7 +90,7 @@
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.confirmacion.fecha']}" width="40%">
-					<h:outputText value="#{confirmacion.conFecha}"  />
+					<h:outputText value="#{fn:substring(confirmacion.conFecha,0,10)}" />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.confirmacion.provincia']}" width="40%">

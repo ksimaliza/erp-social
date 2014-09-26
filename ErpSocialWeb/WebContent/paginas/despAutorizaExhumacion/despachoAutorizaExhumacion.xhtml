@@ -58,7 +58,7 @@
 				rowIndexVar="rowIndex"
 				paginator="true" rows="5" paginatorPosition="bottom"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.despacho.autorizacion.lista']}">
+				rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.despacho.autorizacion.lista']}" rowKey="#{autoriza.autCodigo}" >
 				<f:facet name="header">
 					#{i18n['erp.despacho.autorizacion.lista']}
 				</f:facet>
