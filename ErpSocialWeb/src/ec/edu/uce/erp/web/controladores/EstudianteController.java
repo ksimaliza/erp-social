@@ -78,7 +78,7 @@ public class EstudianteController extends BaseController{
 					estudianteDataManager.setEstudiantePersonaInsertar(new Persona());
 					MensajesWebController.aniadirMensajeInformacion("erp.matricula.estudiante.registrar.exito");
 				}
-				
+				buscarEstudiantes();
 			} catch (SeguridadesException e) {
 				slf4jLogger.info(e.toString());
 				MensajesWebController.aniadirMensajeError(e.getMessage());
