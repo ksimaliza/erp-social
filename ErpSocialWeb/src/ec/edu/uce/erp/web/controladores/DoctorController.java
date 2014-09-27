@@ -17,6 +17,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.DoctorVO;
+import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
@@ -35,6 +36,9 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(DocenteControl
 	
 	@EJB
 	private ServicioEucaristia servicioEucaristia;
+	
+	@EJB
+	private ServicioAdministracion servicioAdministracion;
 	
 	@ManagedProperty(value="#{doctorDataManager}")
 	private DoctorDataManager doctorDataManager;
@@ -69,6 +73,7 @@ public void registrarDoctor () {
 				doctorDataManager.setDoctorPersonaInsertar(new Persona());
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.doctor.registrar.exito");
 			}
+			buscarDoctor();
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
@@ -99,6 +104,35 @@ public void registrarDoctor () {
 		}
 		
 	}
+	
+	public void buscarDoctor2 () {
+		slf4jLogger.info("buscarDoctor2");
+		
+		List<Persona> listaDoctor=null;
+		
+		try {
+			if(doctorDataManager.getDoctorPersonaInsertar()!=null && doctorDataManager.getDoctorPersonaInsertar().getPerCi()!="" )
+			{
+				doctorDataManager.getDoctorPersonaInsertar().setPerApellidos(null);
+				doctorDataManager.getDoctorPersonaInsertar().setPerNombres(null);
+				
+				listaDoctor=this.servicioAdministracion.buscarPersona(doctorDataManager.getDoctorPersonaInsertar());
+				
+				if (CollectionUtils.isEmpty(listaDoctor) && listaDoctor.size()==0) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.doctorDataManager.setDoctorPersonaInsertar(listaDoctor.get(0));
+					
+				}
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarDoctor2 {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
 	
 	public void cargarDatosDoctor (DoctorListDTO doctor) {
 		try {

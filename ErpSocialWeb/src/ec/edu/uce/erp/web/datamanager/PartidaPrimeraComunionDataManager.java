@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
-@SessionScoped
+@ViewScoped
 @ManagedBean (name = "partidaPrimeraComunionDataManager")
 public class PartidaPrimeraComunionDataManager extends BaseDataManager{
 private static final Logger slf4jLogger = LoggerFactory.getLogger(PartidaConfirmacionDataManager.class);
@@ -35,6 +35,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PartidaConfirm
 	private Date fechaComunionInsertar;
 	private Date fechaApComInsertar;
 	private ComunionListDTO comunionListDTO;
+	private ComunionListDTO comunionListDTOEditar;
 	private List<ComunionListDTO> comunionListDTOs;
 
 	
@@ -74,6 +75,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PartidaConfirm
 		this.comunionListDTOs=new ArrayList<ComunionListDTO>();
 		this.tipoEucaristiaDTOs=new ArrayList<CatalogoEucaristiaDTO>();
 		this.bautizoListDTO=new BautizoListDTO();
+		this.comunionListDTOEditar=new ComunionListDTO();
 		
 		
 	}
@@ -284,6 +286,15 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PartidaConfirm
 	public BautizoListDTO getBautizoListDTO() {
 		return bautizoListDTO;
 	}
+
+	public ComunionListDTO getComunionListDTOEditar() {
+		return comunionListDTOEditar;
+	}
+
+	public void setComunionListDTOEditar(ComunionListDTO comunionListDTOEditar) {
+		this.comunionListDTOEditar = comunionListDTOEditar;
+	}
+
 	
 
 }

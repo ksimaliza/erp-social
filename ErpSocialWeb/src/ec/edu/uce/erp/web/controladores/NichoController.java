@@ -94,6 +94,7 @@ public void registrarNicho () {
 			nichoDataManager.setCodigoTipoNicho(0);
 			
 		}
+		buscar();
 		
 	} catch (SeguridadesException e) {
 		slf4jLogger.info(e.toString());

@@ -2,6 +2,7 @@ package ec.edu.uce.erp.web.controladores;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,6 +142,7 @@ public ContratoController() {
 															
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.contrato.registrar.exito");
 			}
+			buscarContrato();
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
@@ -292,6 +294,20 @@ public ContratoController() {
 		}
 		
 	}
+	
+	public void calcularValorTotal()
+	{
+		slf4jLogger.info("calcularValorTotal");
+		int valorTotal;
+		try {
+		valorTotal=servicioEucaristia.calcularValorTotal(contratoDataManager.getContratoDTO());		
+		contratoDataManager.getContratoDTO().setConValorTotal(valorTotal);
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al calcularValorTotal {}", e.getMessage());
+			MensajesWebController.aniadirMensajeError("Error al calcularValorTotal seleccionado");
+		}
+	}
+	
 
 	public void cargarDatosContrato(ContratoListDTO contrato) {
 		try {
@@ -347,7 +363,9 @@ public ContratoController() {
 	public void exportar()
 	{
 		
-		//Date fechaActual = new Date();
+		//Integer numero=0;
+		//numero=contratoDataManager.getFormaPagoCodigo();
+		Date fechaActual = new Date();
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
 		mapParametros.put("beneficiarioNombre", contratoDataManager.getBeneficiariInsertar().getPerNombres());
 		mapParametros.put("beneficiarioApellido", contratoDataManager.getBeneficiariInsertar().getPerApellidos());
@@ -356,12 +374,14 @@ public ContratoController() {
 		mapParametros.put("numeroNicho", contratoDataManager.getNichoListDTOs().get(0).getNicDescripcion());
 		mapParametros.put("seccionNicho", contratoDataManager.getNichoListDTOs().get(0).getCatDescripcion());
 		mapParametros.put("nivelNicho", contratoDataManager.getNichoListDTOs().get(0).getNniDescripcion());
-		mapParametros.put("difuntoApellido", contratoDataManager.getDifuntoInsertar().getPerApellidos());
-		mapParametros.put("difuntoNombre", contratoDataManager.getDifuntoInsertar().getPerNombres());
+		mapParametros.put("difuntoApellido", contratoDataManager.getDefuncionListDTO().getPerApellidos());
+		mapParametros.put("difuntoNombre", contratoDataManager.getDefuncionListDTO().getPerNombres());
 		mapParametros.put("mesesArrendamiento", contratoDataManager.getContratoDTO().getConMesesArrendamiento());
 		mapParametros.put("fechaInicio", contratoDataManager.getContratoDTO().getConFechaInicio());
-		mapParametros.put("empresa", getEmpresaTbl().getEmrNombre());
-		//mapParametros.put("fecha", fechaActual);
+		mapParametros.put("parroquia", contratoDataManager.getDefuncionListDTO().getCatParroquia());
+		mapParametros.put("fecha", fechaActual.toString());
+		mapParametros.put("valorPagar", contratoDataManager.getContratoDTO().getConValorTotal().toString());
+		//mapParametros.put("formaPago", contratoDataManager.getFormaPagoListDTOs().get(numero).getCatDescripcion());
 		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 		

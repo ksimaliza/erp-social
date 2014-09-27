@@ -40,10 +40,8 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(EucaristiaData
 		this.sacerdoteDTOs=new ArrayList<SacerdoteListDTO>();
 		this.eucaristiaListDTO=new EucaristiaListDTO();
 		this.eucaristiaInsertar=new EucaristiaDTO();
-		this.Fecha=new Date();
-		this.sacerdoteListDTO=new SacerdoteListDTO();
-
 		
+		this.sacerdoteListDTO=new SacerdoteListDTO();
 	}
 
 

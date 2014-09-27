@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.event.FileUploadEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,9 +17,11 @@ import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.AutorizacionExhumacionVO;
+import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
+import ec.edu.uce.erp.web.common.util.JsfUtil;
 import ec.edu.uce.erp.web.datamanager.AutorizaExhumacionDataManager;
 
 @ViewScoped
@@ -34,6 +37,9 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(AutorizaExhuma
 	
 	@EJB
 	private ServicioEucaristia servicioEucaristia;
+	
+	@EJB
+	private ServicioAdministracion servicioAdministracion;
 	
 	@ManagedProperty(value="#{autorizaExhumacionDataManager}")
 	private AutorizaExhumacionDataManager autorizaExhumacionDataManager;
@@ -72,6 +78,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(AutorizaExhuma
 				
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.autorizacion.registrar.exito");
 			}
+			buscarAutorizacion();
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
@@ -103,6 +110,29 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(AutorizaExhuma
 		
 	}
 	
+	public void buscarAutorizacion2 () {
+		slf4jLogger.info("buscarAutorizacion2");
+		
+		List<Persona> listaAutoriza=null;
+		
+		try {
+							
+			listaAutoriza=this.servicioAdministracion.buscarPersona(autorizaExhumacionDataManager.getAutorizaExhuPerInsertar());
+			
+			if (CollectionUtils.isEmpty(listaAutoriza) && listaAutoriza.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				autorizaExhumacionDataManager.setAutorizaExhuPerInsertar(listaAutoriza.get(0));
+							
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarAutorizacion2 {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
 	public void cargarDatosAutoriza (AutorizaExhumacionListDTO autorizaExhumacionListDTO) {
 		try {
 			AutorizacionExhumacionVO autorizaEncontrado= servicioEucaristia.obtenerAutorizacionPorId(autorizaExhumacionListDTO.getAutPersona(), autorizaExhumacionListDTO.getAutCodigo());
@@ -115,6 +145,11 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(AutorizaExhuma
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosAutoriza seleccionado");
 		}
 	}
+	
+	public void handleFileUpload(FileUploadEvent event) {
+		autorizaExhumacionDataManager.getAutorizaExhuPerInsertar().setPerFoto(JsfUtil.saveToDiskUpdload(event.getFile().getContents(), JsfUtil.getRandomName(event.getFile().getFileName().split("\\.")[1])));
+		autorizaExhumacionDataManager.getAutorizaExhuPerInsertar().setPerFotoByte(event.getFile().getContents());
+    }
 
 	@Override
 	public void refrescarFormulario() {

@@ -77,6 +77,7 @@ public void registrarPrimeraComunion () {
 		CatalogoEucaristiaDTO canton;
 		CatalogoEucaristiaDTO parroquia;
 		CatalogoEucaristiaDTO estado;
+		CatalogoEucaristiaDTO tipo;
 		
 		try {
 			
@@ -86,22 +87,27 @@ public void registrarPrimeraComunion () {
 			canton=new CatalogoEucaristiaDTO();
 			parroquia=new CatalogoEucaristiaDTO();
 			estado=new CatalogoEucaristiaDTO();
+			tipo=new CatalogoEucaristiaDTO();
 			
 			partidaPrimeraComunionDataManager.getPrimeraComunionInsertar().setPcoCertificadoPor(getPersonaCode());
 						
 			comunionVO.setMad_pad(partidaPrimeraComunionDataManager.getMad_padInsertar());
+			comunionVO.setAsignadoPersona(partidaPrimeraComunionDataManager.getAsignadoInsertar());
 			comunionVO.setComunion(partidaPrimeraComunionDataManager.getPrimeraComunionInsertar());		
 			
 			provincia.setCatCodigo(partidaPrimeraComunionDataManager.getProvinciaCodigo());
 			canton.setCatCodigo(partidaPrimeraComunionDataManager.getCantonCodigo());
 			parroquia.setCatCodigo(partidaPrimeraComunionDataManager.getParroquiaCodigo());
 			estado.setCatCodigo(partidaPrimeraComunionDataManager.getEstadoCodigo());
+			tipo.setCatCodigo(partidaPrimeraComunionDataManager.getTipoCodigo());
 			
-			comunionVO.getComunion().setPcoAsignado(partidaPrimeraComunionDataManager.getBautizoListDTO().getBauCodigo());
+			
+			comunionVO.getComunion().setPcoAsignado(partidaPrimeraComunionDataManager.getAsignadoInsertar().getPerPk());
 			comunionVO.getComunion().setPcoProvincia(provincia.getCatCodigo());
 			comunionVO.getComunion().setPcoCanton(canton.getCatCodigo());
 			comunionVO.getComunion().setPcoParroquia(parroquia.getCatCodigo());
 			comunionVO.getComunion().setPcoEstado(estado.getCatCodigo());
+			comunionVO.getComunion().setPcoTipo(tipo.getCatCodigo());
 			
 			
 			sacerdoteDTO.setSacCodigo(partidaPrimeraComunionDataManager.getSacerdoteCodigo());
@@ -126,9 +132,11 @@ public void registrarPrimeraComunion () {
 				partidaPrimeraComunionDataManager.setFechaApComInsertar(new Date());
 				partidaPrimeraComunionDataManager.setFechaComunionInsertar(new Date());
 				partidaPrimeraComunionDataManager.setEstadoCodigo(0);
+				partidaPrimeraComunionDataManager.setTipoCodigo(0);
 															
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.partida.comunion.registrar.exito");
 			}
+			buscarPartidaComunion();
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
@@ -150,9 +158,7 @@ public void registrarPrimeraComunion () {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.partidaPrimeraComunionDataManager.setSacerdoteListDTO(listaSacerdote);
-					
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarSacerdote {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -160,27 +166,37 @@ public void registrarPrimeraComunion () {
 		
 	}
 	
-	public void buscarBautizo () {
+	
+	public void buscarBautizo() {
 		slf4jLogger.info("buscarBautizo");
 		
-		List<BautizoListDTO> listaBautizo=null;
+		List<Persona> listaBautizado=null;
+		BautizoListDTO bautizo=new BautizoListDTO();
+		List<BautizoListDTO> list=null;
 		
 		try {
-			
-			listaBautizo=this.servicioEucaristia.buscarPartidaBautizo(partidaPrimeraComunionDataManager.getBautizoListDTO());
-			
-			if (CollectionUtils.isEmpty(listaBautizo) && listaBautizo.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.partidaPrimeraComunionDataManager.setBautizoListDTO(listaBautizo.get(0));
+			if(partidaPrimeraComunionDataManager.getAsignadoInsertar().getPerCi()!=null && partidaPrimeraComunionDataManager.getAsignadoInsertar().getPerCi()!="")
+			{
+				partidaPrimeraComunionDataManager.getAsignadoInsertar().setPerNombres(null);
+				partidaPrimeraComunionDataManager.getAsignadoInsertar().setPerApellidos(null);
+				listaBautizado=this.servicioAdministracion.buscarPersona(partidaPrimeraComunionDataManager.getAsignadoInsertar());					
+				bautizo.setPerCi(partidaPrimeraComunionDataManager.getAsignadoInsertar().getPerCi());
+				list=this.servicioEucaristia.buscarPartidaBautizo(bautizo);
+				
+				if ((CollectionUtils.isEmpty(listaBautizado) && listaBautizado.size()==0) || (CollectionUtils.isEmpty(list) && list.size()==0)) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.partidaPrimeraComunionDataManager.setAsignadoInsertar(listaBautizado.get(0));
+					this.partidaPrimeraComunionDataManager.setBautizoListDTO(list.get(0));			
+				}
 			}
-			
 		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarContrato {} ", e);
+			slf4jLogger.info("Error al buscarBautizo {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 		
 	}
+	
 	
 	public void buscarMadrina () {
 		slf4jLogger.info("buscarMadrina");
@@ -188,17 +204,18 @@ public void registrarPrimeraComunion () {
 		List<Persona> listaMad_Pad=null;
 		
 		try {
-			partidaPrimeraComunionDataManager.getMad_padInsertar().setPerApellidos(null);
-			partidaPrimeraComunionDataManager.getMad_padInsertar().setPerNombres(null);
-			listaMad_Pad=this.servicioAdministracion.buscarPersona(partidaPrimeraComunionDataManager.getMad_padInsertar());
-										
-			if (CollectionUtils.isEmpty(listaMad_Pad) && listaMad_Pad.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.partidaPrimeraComunionDataManager.setMad_padInsertar(listaMad_Pad.get(0));
-							
+			if(partidaPrimeraComunionDataManager.getMad_padInsertar().getPerCi()!=null && partidaPrimeraComunionDataManager.getMad_padInsertar().getPerCi()!="")
+			{
+				partidaPrimeraComunionDataManager.getMad_padInsertar().setPerApellidos(null);
+				partidaPrimeraComunionDataManager.getMad_padInsertar().setPerNombres(null);
+				listaMad_Pad=this.servicioAdministracion.buscarPersona(partidaPrimeraComunionDataManager.getMad_padInsertar());
+											
+				if (CollectionUtils.isEmpty(listaMad_Pad) && listaMad_Pad.size()==0) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.partidaPrimeraComunionDataManager.setMad_padInsertar(listaMad_Pad.get(0));
+				}
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarMadrina {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -234,16 +251,21 @@ public void registrarPrimeraComunion () {
 		try {
 			
 			ComunionVO comunionEncontrada=servicioEucaristia.obtenerComunionPorId(comunion);
-			//this.partidaPrimeraComunionDataManager.setBautizoListDTO(comunionEncontrada);
+			this.partidaPrimeraComunionDataManager.setAsignadoInsertar(comunionEncontrada.getAsignadoPersona());
 			this.partidaPrimeraComunionDataManager.setPrimeraComunionInsertar(comunionEncontrada.getComunion());
 			this.partidaPrimeraComunionDataManager.setMad_padInsertar(comunionEncontrada.getMad_pad());
 			this.partidaPrimeraComunionDataManager.setSacerdoteCodigo(comunionEncontrada.getComunion().getEucSacerdote().getSacCodigo());
 			this.partidaPrimeraComunionDataManager.setEstadoCodigo(comunionEncontrada.getComunion().getPcoEstado());
 			this.partidaPrimeraComunionDataManager.setProvinciaCodigo(comunionEncontrada.getComunion().getPcoProvincia());
+			buscarCanton();
+			this.partidaPrimeraComunionDataManager.setCantonCodigo(comunionEncontrada.getComunion().getPcoCanton());
+			buscarParroquia();
+			this.partidaPrimeraComunionDataManager.setParroquiaCodigo(comunionEncontrada.getComunion().getPcoParroquia());
+			this.partidaPrimeraComunionDataManager.setTipoCodigo(comunionEncontrada.getComunion().getPcoTipo());
+			this.partidaPrimeraComunionDataManager.setFechaApComInsertar(comunionEncontrada.getComunion().getPcoFechaAprobacionCurso());
+			this.partidaPrimeraComunionDataManager.setFechaComunionInsertar(comunionEncontrada.getComunion().getPcoFechaHora());
+			buscarBautizo();
 			
-			
-			
-							
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosComunion {}", e.getMessage());
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosComunion seleccionado");

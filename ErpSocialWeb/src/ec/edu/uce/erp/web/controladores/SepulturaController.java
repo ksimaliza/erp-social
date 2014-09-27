@@ -97,6 +97,7 @@ public class SepulturaController extends BaseController {
 																		
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.sepultura.registrar.exito");
 			}
+			buscarSepultura();
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());

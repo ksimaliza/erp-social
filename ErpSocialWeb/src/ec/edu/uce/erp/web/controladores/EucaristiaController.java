@@ -89,7 +89,7 @@ public void registrarEucaristia () throws ParseException {
 						
 			MensajesWebController.aniadirMensajeInformacion("erp.despacho.eucaristia.registrar.exito");
 		}
-		
+		buscar();
 	} catch (SeguridadesException e) {
 		slf4jLogger.info(e.toString());
 		MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -162,6 +162,7 @@ public void buscarSacerdote () {
 public void cargarDatosEucaristia (EucaristiaListDTO eucaristiaListDTO) {
 	try {
 		EucaristiaVO eucaristiaEncontrado=servicioEucaristia.obtenerEucaristiaPorId(eucaristiaListDTO);
+		this.eucaristiaDataManager.setFecha(eucaristiaEncontrado.getEucaristiaDTO().getEucFechaHora());
 		this.eucaristiaDataManager.setEucaristiaInsertar(eucaristiaEncontrado.getEucaristiaDTO());
 		this.eucaristiaDataManager.setCodigoSacerdote(eucaristiaEncontrado.getEucaristiaDTO().getEucSacerdoteBean().getSacCodigo());		
 						
