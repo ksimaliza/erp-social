@@ -23,7 +23,6 @@
 									<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 									<p:ajax event="blur" update="txtApeConf,txtNomConf,txtProv,txtCiudad,txtCanton,txtFechaBautizo" listener="#{partidaConfirmacionController.buscarConfirmado}" process="@this"/>
 							</p:inputText>
-						
 					</td>
 					</tr>
 					
@@ -142,7 +141,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiPad"  style="width: 100%"
-							required="true" label="#{i18n['erp.despacho.partida.confirmacion.apellidos.padrino.madrina']}" value="#{partidaConfirmacionDataManager.mad_padInsertar.perCi}">
+							 label="#{i18n['erp.despacho.partida.confirmacion.apellidos.padrino.madrina']}" value="#{partidaConfirmacionDataManager.mad_padInsertar.perCi}">
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur" update="txtApePad,txtNomPad" listener="#{partidaConfirmacionController.buscarMadrina}" process="@this"/>
@@ -265,7 +264,6 @@
 								 required="true" value="#{fn:substring(partidaConfirmacionDataManager.bautizoListDTO.bauFechaBautizo,0,10)}" readonly="true"/>
 						</td>
 					</tr>
-								
 				</table>
 			</p:panel>
 		

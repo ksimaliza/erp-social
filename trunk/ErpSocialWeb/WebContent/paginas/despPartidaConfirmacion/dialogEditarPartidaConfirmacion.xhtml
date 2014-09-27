@@ -18,12 +18,10 @@
 					</td>
 						<td width="70%">
 							<p:inputText id="txtCiConf"  style="width: 100%"
-								required="true"  value="#{partidaConfirmacionDataManager.confirmadoInsertar.perCi}">
-									<f:validateLength maximum="10" minimum="10"/>
+								  value="#{partidaConfirmacionDataManager.confirmadoInsertar.perCi}">
 									<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 									<p:ajax event="blur" update="txtApeConf,txtNomConf,txtProv,txtCiudad,txtCanton,txtFechaBautizo" listener="#{partidaConfirmacionController.buscarConfirmado}" process="@this"/>
 							</p:inputText>
-						
 					</td>
 					</tr>
 					
@@ -33,7 +31,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomConf" style="width: 100%"
-								required="true" value="#{partidaConfirmacionDataManager.confirmadoInsertar.perNombres}"/>
+								 value="#{partidaConfirmacionDataManager.confirmadoInsertar.perNombres}"/>
 						</td>	
 					</tr>
 					
@@ -142,7 +140,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiPad"  style="width: 100%"
-							required="true" label="#{i18n['erp.despacho.partida.confirmacion.apellidos.padrino.madrina']}" value="#{partidaConfirmacionDataManager.mad_padInsertar.perCi}">
+							label="#{i18n['erp.despacho.partida.confirmacion.apellidos.padrino.madrina']}" value="#{partidaConfirmacionDataManager.mad_padInsertar.perCi}">
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur" update="txtApePad,txtNomPad" listener="#{partidaConfirmacionController.buscarMadrina}" process="@this"/>
@@ -158,7 +156,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomPad" style="width: 100%"
-								 required="true" value="#{partidaConfirmacionDataManager.mad_padInsertar.perNombres}"/>
+								 value="#{partidaConfirmacionDataManager.mad_padInsertar.perNombres}"/>
 						</td>	
 					</tr>
 						
@@ -168,7 +166,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApePad" style="width: 100%"
-								 required="true"  value="#{partidaConfirmacionDataManager.mad_padInsertar.perApellidos}" />
+								 value="#{partidaConfirmacionDataManager.mad_padInsertar.perApellidos}" />
 						</td>	
 					</tr>
 					
@@ -184,7 +182,7 @@
 							<h:outputLabel for="txtNotaM" value="#{i18n['erp.despacho.partida.confirmacion.nota.marginal']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNotaM" style="width: 100%"  required="true" value="#{partidaConfirmacionDataManager.confirmacionDTO.conNotaMarginal}"/>
+							<p:inputText id="txtNotaM" style="width: 100%"  value="#{partidaConfirmacionDataManager.confirmacionDTO.conNotaMarginal}"/>
 						</td>	
 					</tr>
 					
@@ -194,7 +192,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtTomo" style="width: 100%"  
-								 required="true" value="#{partidaConfirmacionDataManager.confirmacionDTO.conToma}" />
+								 value="#{partidaConfirmacionDataManager.confirmacionDTO.conToma}" />
 						</td>	
 					</tr>
 					<tr>
@@ -203,7 +201,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtActa"  style="width: 100%"
-							required="true" label="#{i18n['erp.despacho.partida.confirmacion.acta']}" value="#{partidaConfirmacionDataManager.confirmacionDTO.conActa}">
+							label="#{i18n['erp.despacho.partida.confirmacion.acta']}" value="#{partidaConfirmacionDataManager.confirmacionDTO.conActa}">
 							
 						</p:inputText>
 						
@@ -216,7 +214,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtPagina" style="width: 100%"  
-								 required="true" value="#{partidaConfirmacionDataManager.confirmacionDTO.conPagina}" />
+								value="#{partidaConfirmacionDataManager.confirmacionDTO.conPagina}" />
 						</td>	
 					</tr>
 					
@@ -233,7 +231,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtProv" style="width: 100%"  
-								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.catProvincia}" readonly="true" />
+								  value="#{partidaConfirmacionDataManager.bautizoListDTO.catProvincia}" readonly="true" />
 						</td>
 					</tr>
 					
@@ -243,7 +241,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCanton" style="width: 100%"  
-								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.catCanton}"  readonly="true"/>
+								 value="#{partidaConfirmacionDataManager.bautizoListDTO.catCanton}"  readonly="true"/>
 						</td>
 					</tr>	
 					
@@ -253,7 +251,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiudad" style="width: 100%"  
-								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.catParroquia}" readonly="true" />
+								 value="#{partidaConfirmacionDataManager.bautizoListDTO.catParroquia}" readonly="true" />
 						</td>
 					</tr>					
 					
@@ -264,7 +262,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtFechaBautizo" style="width: 100%"  
-								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.bauFechaBautizo}" readonly="true"/>
+								value="#{fn:substring(partidaConfirmacionDataManager.bautizoListDTO.bauFechaBautizo,0,10)}" readonly="true"/>
 						</td>
 					</tr>
 								

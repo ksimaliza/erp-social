@@ -19,7 +19,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiCom"  style="width: 100%"
-							 label="#{i18n['erp.despacho.partida.comunion.cedula']}" value="#{partidaPrimeraComunionDataManager.bautizoListDTO.perCi}">
+							 label="#{i18n['erp.despacho.partida.comunion.cedula']}" value="#{partidaPrimeraComunionDataManager.asignadoInsertar.perCi}">
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur" update="txtApeCom,txtNomCom,txtProv,txtCanton,txtParroquia,txtFechaBautizo" listener="#{partidaComunionController.buscarBautizo}" process="@this"/>
 						</p:inputText>
@@ -32,7 +32,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomCom" style="width: 100%"
-								value="#{partidaPrimeraComunionDataManager.bautizoListDTO.perNombres}" readonly="true"/>
+								value="#{partidaPrimeraComunionDataManager.asignadoInsertar.perNombres}" readonly="true"/>
 						</td>	
 					</tr>
 					
@@ -42,7 +42,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApeCom" style="width: 100%"
-								value="#{partidaPrimeraComunionDataManager.bautizoListDTO.perApellidos}" readonly="true" />
+								value="#{partidaPrimeraComunionDataManager.asignadoInsertar.perApellidos}" readonly="true" />
 						</td>	
 					</tr>
 						
@@ -68,7 +68,8 @@
 							
 					<tr >
 						<td width="30%">
-							<h:outputLabel value="#{i18n['erp.despacho.partida.comunion.sacerdote']}"  /> </td>
+							<h:outputLabel value="#{i18n['erp.despacho.partida.comunion.sacerdote']}"  /> 
+						</td>
 					
 					<td width="70%">
 						<p:selectOneMenu id="sacerdote" value="#{partidaPrimeraComunionDataManager.sacerdoteCodigo}" filter="true" required="true">
