@@ -112,9 +112,9 @@ public class PartidaBautizoController extends BaseController{
 			bautizoVO.getBautizo().setBauParroquia(parroquia.getCatCodigo());
 			bautizoVO.getBautizo().setBauEstado(estado.getCatCodigo());
 			
-			if(partidaBautizoDataManager.getFechaBautizoInsertar().getTime()>partidaBautizoDataManager.getFechaApCInsertar().getTime())
+			if(partidaBautizoDataManager.getFechaApCInsertar().getTime()>partidaBautizoDataManager.getFechaBautizoInsertar().getTime())
 			{
-				MensajesWebController.aniadirMensajeError("Ingrese fecha de Bautizo correcta");
+				MensajesWebController.aniadirMensajeError("Ingrese fecha de Aprobación del Curso Correcta");
 				return;
 			}
 			
@@ -136,6 +136,7 @@ public class PartidaBautizoController extends BaseController{
 							
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.partida.bautizo.registrar.exito");
 			}
+			buscarPartidaBautizo();
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
@@ -174,17 +175,19 @@ public class PartidaBautizoController extends BaseController{
 		List<Persona> listaBautizado=null;
 		
 		try {
-			partidaBautizoDataManager.getBautizadoInsertar().setPerNombres(null);
-			partidaBautizoDataManager.getBautizadoInsertar().setPerApellidos(null);
-			listaBautizado=this.servicioAdministracion.buscarPersona(partidaBautizoDataManager.getBautizadoInsertar());
-							
-			if (CollectionUtils.isEmpty(listaBautizado) && listaBautizado.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.partidaBautizoDataManager.setBautizadoInsertar(listaBautizado.get(0));
-							
+			if(partidaBautizoDataManager.getBautizadoInsertar().getPerCi()!=null && partidaBautizoDataManager.getBautizadoInsertar().getPerCi()!="" )
+			{
+				partidaBautizoDataManager.getBautizadoInsertar().setPerNombres(null);
+				partidaBautizoDataManager.getBautizadoInsertar().setPerApellidos(null);
+				listaBautizado=this.servicioAdministracion.buscarPersona(partidaBautizoDataManager.getBautizadoInsertar());
+								
+				if (CollectionUtils.isEmpty(listaBautizado) && listaBautizado.size()==0) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.partidaBautizoDataManager.setBautizadoInsertar(listaBautizado.get(0));
+								
+				}
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarBautizado {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -200,15 +203,18 @@ public class PartidaBautizoController extends BaseController{
 		List<Persona> listaMadrina=null;
 		
 		try {
-			partidaBautizoDataManager.getMadrinaInsertar().setPerNombres(null);
-			partidaBautizoDataManager.getMadrinaInsertar().setPerApellidos(null);
-			listaMadrina=this.servicioAdministracion.buscarPersona(partidaBautizoDataManager.getMadrinaInsertar());
-							
-			if (CollectionUtils.isEmpty(listaMadrina) && listaMadrina.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.partidaBautizoDataManager.setMadrinaInsertar(listaMadrina.get(0));
-							
+			if(partidaBautizoDataManager.getMadrinaInsertar().getPerCi()!=null && partidaBautizoDataManager.getMadrinaInsertar().getPerCi()!="" )
+			{
+				partidaBautizoDataManager.getMadrinaInsertar().setPerNombres(null);
+				partidaBautizoDataManager.getMadrinaInsertar().setPerApellidos(null);
+				listaMadrina=this.servicioAdministracion.buscarPersona(partidaBautizoDataManager.getMadrinaInsertar());
+								
+				if (CollectionUtils.isEmpty(listaMadrina) && listaMadrina.size()==0) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.partidaBautizoDataManager.setMadrinaInsertar(listaMadrina.get(0));
+								
+				}
 			}
 			
 		} catch (SeguridadesException e) {
@@ -224,17 +230,19 @@ public class PartidaBautizoController extends BaseController{
 		List<Persona> listaPadrino=null;
 		
 		try {
-			partidaBautizoDataManager.getPadrinoInsertar().setPerNombres(null);
-			partidaBautizoDataManager.getPadrinoInsertar().setPerApellidos(null);
-			listaPadrino=this.servicioAdministracion.buscarPersona(partidaBautizoDataManager.getPadrinoInsertar());
-							
-			if (CollectionUtils.isEmpty(listaPadrino) && listaPadrino.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.partidaBautizoDataManager.setPadrinoInsertar(listaPadrino.get(0));
-							
+			if(partidaBautizoDataManager.getPadrinoInsertar().getPerCi()!=null && partidaBautizoDataManager.getPadrinoInsertar().getPerCi()!="" )
+			{
+				partidaBautizoDataManager.getPadrinoInsertar().setPerNombres(null);
+				partidaBautizoDataManager.getPadrinoInsertar().setPerApellidos(null);
+				listaPadrino=this.servicioAdministracion.buscarPersona(partidaBautizoDataManager.getPadrinoInsertar());
+								
+				if (CollectionUtils.isEmpty(listaPadrino) && listaPadrino.size()==0) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.partidaBautizoDataManager.setPadrinoInsertar(listaPadrino.get(0));
+								
+				}
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarPadrino {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -248,17 +256,12 @@ public class PartidaBautizoController extends BaseController{
 		List<BautizoListDTO> listaBautizo=null;
 		
 		try {
-			
-			listaBautizo=this.servicioEucaristia.buscarPartidaBautizo(partidaBautizoDataManager.getBautizoListDTO());
-								
-			
-			if (CollectionUtils.isEmpty(listaBautizo) && listaBautizo.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.partidaBautizoDataManager.setBautizoListDTOs(listaBautizo);
-				
+				listaBautizo=this.servicioEucaristia.buscarPartidaBautizo(partidaBautizoDataManager.getBautizoListDTO());
+				if (CollectionUtils.isEmpty(listaBautizo) && listaBautizo.size()==0) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.partidaBautizoDataManager.setBautizoListDTOs(listaBautizo);
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarPartidaBautizo {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -278,8 +281,12 @@ public class PartidaBautizoController extends BaseController{
 			this.partidaBautizoDataManager.setSacerdoteCodigo(bautizoEncontrado.getBautizo().getEucSacerdote().getSacCodigo());
 			this.partidaBautizoDataManager.setEstadoCodigo(bautizoEncontrado.getBautizo().getBauEstado());
 			this.partidaBautizoDataManager.setProvinciaCodigo(bautizoEncontrado.getBautizo().getBauProvincia());
+			buscarCanton();
 			this.partidaBautizoDataManager.setCantonCodigo(bautizoEncontrado.getBautizo().getBauCanton());
+			buscarParroquia();
 			this.partidaBautizoDataManager.setParroquiaCodigo(bautizoEncontrado.getBautizo().getBauParroquia());
+			this.partidaBautizoDataManager.setFechaApCInsertar(bautizoEncontrado.getBautizo().getBauFechaAprobacionCruso());
+			this.partidaBautizoDataManager.setFechaBautizoInsertar(bautizoEncontrado.getBautizo().getBauFechaBautizo());
 							
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosBautizo {}", e.getMessage());

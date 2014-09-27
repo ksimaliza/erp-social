@@ -57,6 +57,8 @@ public void registrarTipoNicho () {
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.tipo.nicho.registrar.exito");
 			}
 			
+			buscarTipoNicho();
+			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
 			MensajesWebController.aniadirMensajeError(e.getMessage());

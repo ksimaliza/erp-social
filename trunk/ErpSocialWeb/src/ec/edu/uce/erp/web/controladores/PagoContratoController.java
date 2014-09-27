@@ -106,7 +106,7 @@ public class PagoContratoController extends BaseController {
 				
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.contrato.pago.registrar.exito");
 			}
-			
+			buscarPagoContrato();
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
 			MensajesWebController.aniadirMensajeError(e.getMessage());

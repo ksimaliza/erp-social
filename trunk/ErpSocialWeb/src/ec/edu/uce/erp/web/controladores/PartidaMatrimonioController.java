@@ -139,6 +139,7 @@ public void registrarMatrimonio () {
 				
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.partida.matrimonio.registrar.exito");
 			}
+			buscarPartidaMatrimonio();
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
@@ -178,18 +179,20 @@ public void registrarMatrimonio () {
 		List<Persona> listaNovio=null;
 		
 		try {
-			partidaMatrimonioDataManager.getNovioInsertar().setPerApellidos(null);
-			partidaMatrimonioDataManager.getNovioInsertar().setPerNombres(null);
-			
-			listaNovio=this.servicioAdministracion.buscarPersona(partidaMatrimonioDataManager.getNovioInsertar());
-										
-			if (CollectionUtils.isEmpty(listaNovio) && listaNovio.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.partidaMatrimonioDataManager.setNovioInsertar(listaNovio.get(0));
-							
+			if(partidaMatrimonioDataManager.getNovioInsertar().getPerCi()!=null && partidaMatrimonioDataManager.getNovioInsertar().getPerCi()!="" )
+			{
+				partidaMatrimonioDataManager.getNovioInsertar().setPerApellidos(null);
+				partidaMatrimonioDataManager.getNovioInsertar().setPerNombres(null);
+				
+				listaNovio=this.servicioAdministracion.buscarPersona(partidaMatrimonioDataManager.getNovioInsertar());
+											
+				if (CollectionUtils.isEmpty(listaNovio) && listaNovio.size()==0) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.partidaMatrimonioDataManager.setNovioInsertar(listaNovio.get(0));
+								
+				}
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarNovio {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -205,18 +208,20 @@ public void registrarMatrimonio () {
 		List<Persona> listaNovia=null;
 		
 		try {
-			partidaMatrimonioDataManager.getNoviaInsertar().setPerApellidos(null);
-			partidaMatrimonioDataManager.getNoviaInsertar().setPerNombres(null);
-			
-			listaNovia=this.servicioAdministracion.buscarPersona(partidaMatrimonioDataManager.getNoviaInsertar());
-										
-			if (CollectionUtils.isEmpty(listaNovia) && listaNovia.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.partidaMatrimonioDataManager.setNoviaInsertar(listaNovia.get(0));
-							
+			if(partidaMatrimonioDataManager.getNoviaInsertar().getPerCi()!=null && partidaMatrimonioDataManager.getNoviaInsertar().getPerCi()!="" )
+			{
+				partidaMatrimonioDataManager.getNoviaInsertar().setPerApellidos(null);
+				partidaMatrimonioDataManager.getNoviaInsertar().setPerNombres(null);
+				
+				listaNovia=this.servicioAdministracion.buscarPersona(partidaMatrimonioDataManager.getNoviaInsertar());
+											
+				if (CollectionUtils.isEmpty(listaNovia) && listaNovia.size()==0) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.partidaMatrimonioDataManager.setNoviaInsertar(listaNovia.get(0));
+								
+				}
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarNovia {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -230,18 +235,20 @@ public void registrarMatrimonio () {
 		List<Persona> listaMad_Novia=null;
 		
 		try {
-			partidaMatrimonioDataManager.getMad_noviaInsertar().setPerApellidos(null);
-			partidaMatrimonioDataManager.getMad_noviaInsertar().setPerNombres(null);
-			
-			listaMad_Novia=this.servicioAdministracion.buscarPersona(partidaMatrimonioDataManager.getMad_noviaInsertar());
-										
-			if (CollectionUtils.isEmpty(listaMad_Novia) && listaMad_Novia.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.partidaMatrimonioDataManager.setMad_noviaInsertar(listaMad_Novia.get(0));
-							
+			if(partidaMatrimonioDataManager.getMad_noviaInsertar().getPerCi()!=null && partidaMatrimonioDataManager.getMad_noviaInsertar().getPerCi()!="" )
+			{
+				partidaMatrimonioDataManager.getMad_noviaInsertar().setPerApellidos(null);
+				partidaMatrimonioDataManager.getMad_noviaInsertar().setPerNombres(null);
+				
+				listaMad_Novia=this.servicioAdministracion.buscarPersona(partidaMatrimonioDataManager.getMad_noviaInsertar());
+											
+				if (CollectionUtils.isEmpty(listaMad_Novia) && listaMad_Novia.size()==0) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.partidaMatrimonioDataManager.setMad_noviaInsertar(listaMad_Novia.get(0));
+								
+				}
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarMad_Novia {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -255,18 +262,20 @@ public void registrarMatrimonio () {
 		List<Persona> listaMad_Novio=null;
 		
 		try {
-			partidaMatrimonioDataManager.getMad_novioInsertar().setPerApellidos(null);
-			partidaMatrimonioDataManager.getMad_novioInsertar().setPerNombres(null);
-			
-			listaMad_Novio=this.servicioAdministracion.buscarPersona(partidaMatrimonioDataManager.getMad_novioInsertar());
-										
-			if (CollectionUtils.isEmpty(listaMad_Novio) && listaMad_Novio.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.partidaMatrimonioDataManager.setMad_novioInsertar(listaMad_Novio.get(0));
-							
+			if(partidaMatrimonioDataManager.getMad_novioInsertar().getPerCi()!=null && partidaMatrimonioDataManager.getMad_novioInsertar().getPerCi()!="" )
+			{
+				partidaMatrimonioDataManager.getMad_novioInsertar().setPerApellidos(null);
+				partidaMatrimonioDataManager.getMad_novioInsertar().setPerNombres(null);
+				
+				listaMad_Novio=this.servicioAdministracion.buscarPersona(partidaMatrimonioDataManager.getMad_novioInsertar());
+											
+				if (CollectionUtils.isEmpty(listaMad_Novio) && listaMad_Novio.size()==0) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.partidaMatrimonioDataManager.setMad_novioInsertar(listaMad_Novio.get(0));
+								
+				}
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarMad_Novio {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -280,18 +289,20 @@ public void registrarMatrimonio () {
 		List<Persona> listaPad_Novia=null;
 		
 		try {
-			partidaMatrimonioDataManager.getPad_noviaInsertar().setPerApellidos(null);
-			partidaMatrimonioDataManager.getPad_noviaInsertar().setPerNombres(null);
-			
-			listaPad_Novia=this.servicioAdministracion.buscarPersona(partidaMatrimonioDataManager.getPad_noviaInsertar());
-										
-			if (CollectionUtils.isEmpty(listaPad_Novia) && listaPad_Novia.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.partidaMatrimonioDataManager.setPad_noviaInsertar(listaPad_Novia.get(0));
-							
+			if(partidaMatrimonioDataManager.getPad_noviaInsertar().getPerCi()!=null && partidaMatrimonioDataManager.getPad_noviaInsertar().getPerCi()!="" )
+			{
+				partidaMatrimonioDataManager.getPad_noviaInsertar().setPerApellidos(null);
+				partidaMatrimonioDataManager.getPad_noviaInsertar().setPerNombres(null);
+				
+				listaPad_Novia=this.servicioAdministracion.buscarPersona(partidaMatrimonioDataManager.getPad_noviaInsertar());
+											
+				if (CollectionUtils.isEmpty(listaPad_Novia) && listaPad_Novia.size()==0) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.partidaMatrimonioDataManager.setPad_noviaInsertar(listaPad_Novia.get(0));
+								
+				}
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarPad_Novia {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -305,18 +316,19 @@ public void registrarMatrimonio () {
 		List<Persona> listaPad_Novio=null;
 		
 		try {
-			partidaMatrimonioDataManager.getPad_novioInsertar().setPerApellidos(null);
-			partidaMatrimonioDataManager.getPad_novioInsertar().setPerNombres(null);
-			
-			listaPad_Novio=this.servicioAdministracion.buscarPersona(partidaMatrimonioDataManager.getPad_novioInsertar());
-										
-			if (CollectionUtils.isEmpty(listaPad_Novio) && listaPad_Novio.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.partidaMatrimonioDataManager.setPad_novioInsertar(listaPad_Novio.get(0));
-							
+			if(partidaMatrimonioDataManager.getPad_novioInsertar().getPerCi()!=null && partidaMatrimonioDataManager.getPad_novioInsertar().getPerCi()!="" )
+			{
+				partidaMatrimonioDataManager.getPad_novioInsertar().setPerApellidos(null);
+				partidaMatrimonioDataManager.getPad_novioInsertar().setPerNombres(null);
+				
+				listaPad_Novio=this.servicioAdministracion.buscarPersona(partidaMatrimonioDataManager.getPad_novioInsertar());
+											
+				if (CollectionUtils.isEmpty(listaPad_Novio) && listaPad_Novio.size()==0) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.partidaMatrimonioDataManager.setPad_novioInsertar(listaPad_Novio.get(0));
+				}
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarPad_Novio {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -331,10 +343,7 @@ public void registrarMatrimonio () {
 		List<MatrimonioListDTO> listaMatrimonio=null;
 		
 		try {
-			
 			listaMatrimonio=this.servicioEucaristia.buscarPartidaMatrimonio(partidaMatrimonioDataManager.getMatrimonioListDTO());
-								
-			
 			if (CollectionUtils.isEmpty(listaMatrimonio) && listaMatrimonio.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
@@ -362,8 +371,12 @@ public void registrarMatrimonio () {
 			this.partidaMatrimonioDataManager.setPad_novioInsertar(matrimonioEncontrado.getPad_novio());
 			this.partidaMatrimonioDataManager.setSacerdoteCodigo(matrimonioEncontrado.getMatrimonio().getEucSacerdote().getSacCodigo());
 			this.partidaMatrimonioDataManager.setProvincia(matrimonioEncontrado.getMatrimonio().getMatProvincia());
-			
-							
+			buscarCanton();
+			this.partidaMatrimonioDataManager.setCanton(matrimonioEncontrado.getMatrimonio().getMatCanton());
+			buscarParroquia();
+			this.partidaMatrimonioDataManager.setParroquia(matrimonioEncontrado.getMatrimonio().getMatParroquia());
+			this.partidaMatrimonioDataManager.setFechaApCurInsertar(matrimonioEncontrado.getMatrimonio().getMatFechaAprobacionCurso());
+			this.partidaMatrimonioDataManager.setFechaMatrInsertar(matrimonioEncontrado.getMatrimonio().getMatFecha());
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosMatrimonio {}", e.getMessage());
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosMatrimonio seleccionado");

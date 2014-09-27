@@ -138,6 +138,7 @@ public void registrarDefuncion () {
 							
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.partida.bautizo.registrar.exito");
 			}
+			buscarDefuncion();
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
@@ -279,7 +280,9 @@ public void registrarDefuncion () {
 			this.defuncionDataManager.setDoctorCodigo(defuncionEncontrada.getDefuncion().getDefDoctorCertifica());
 			this.defuncionDataManager.setSacerdoteCodigo(defuncionEncontrada.getDefuncion().getEucSacerdote().getSacCodigo());
 			this.defuncionDataManager.setProvinciaCodigo(defuncionEncontrada.getDefuncion().getDefProvincia());
+			buscarCanton();
 			this.defuncionDataManager.setCantonCodigo(defuncionEncontrada.getDefuncion().getDefCanton());
+			buscarParroquia();
 			this.defuncionDataManager.setParroquiaCodigo(defuncionEncontrada.getDefuncion().getDefParroquia());
 			this.defuncionDataManager.setFechaMuerteInsertar(defuncionEncontrada.getDefuncion().getDefFechaDifunto());
 			this.defuncionDataManager.setFechaSepelioInsertar(defuncionEncontrada.getDefuncion().getDefFecha());

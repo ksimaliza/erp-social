@@ -73,6 +73,7 @@ public void registrarSacerdote () {
 				sacerdoteDataManager.setSacerdotePersonaInsertar(new Persona());
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.sacerdote.registrar.exito");
 			}
+			buscarSacerdote();
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
@@ -111,16 +112,19 @@ public void registrarSacerdote () {
 		List<Persona> listaSacerdote=null;
 		
 		try {
-			sacerdoteDataManager.getSacerdotePersonaInsertar().setPerApellidos(null);
-			sacerdoteDataManager.getSacerdotePersonaInsertar().setPerNombres(null);
-
-			listaSacerdote=this.servicioAdministracion.buscarPersona(sacerdoteDataManager.getSacerdotePersonaInsertar());
-							
-			if (CollectionUtils.isEmpty(listaSacerdote) && listaSacerdote.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.sacerdoteDataManager.setSacerdotePersonaInsertar(listaSacerdote.get(0));
-							
+			if(sacerdoteDataManager.getSacerdotePersonaInsertar().getPerCi()!=null && sacerdoteDataManager.getSacerdotePersonaInsertar().getPerCi()!="" )
+			{
+				sacerdoteDataManager.getSacerdotePersonaInsertar().setPerApellidos(null);
+				sacerdoteDataManager.getSacerdotePersonaInsertar().setPerNombres(null);
+	
+				listaSacerdote=this.servicioAdministracion.buscarPersona(sacerdoteDataManager.getSacerdotePersonaInsertar());
+								
+				if (CollectionUtils.isEmpty(listaSacerdote) && listaSacerdote.size()==0) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.sacerdoteDataManager.setSacerdotePersonaInsertar(listaSacerdote.get(0));
+								
+				}
 			}
 			
 		} catch (SeguridadesException e) {

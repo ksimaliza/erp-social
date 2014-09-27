@@ -56,7 +56,7 @@ public void registrarNivelNicho () {
 				nivelNichoDataManager.setNivelNichoInsertar(new NivelNichoDTO());
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.nivel.nicho.registrar.exito");
 			}
-			
+			buscarNivelNicho();
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
 			MensajesWebController.aniadirMensajeError(e.getMessage());

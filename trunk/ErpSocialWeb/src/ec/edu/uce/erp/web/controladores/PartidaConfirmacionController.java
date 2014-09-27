@@ -132,6 +132,7 @@ public void registrarConfirmacion () {
 				
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.partida.confirmacion.registrar.exito");
 			}
+			buscarPartidaConfirmacion();
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
@@ -172,19 +173,21 @@ public void registrarConfirmacion () {
 		List<BautizoListDTO> list=null;
 		
 		try {
-			partidaConfirmacionDataManager.getConfirmadoInsertar().setPerNombres(null);
-			partidaConfirmacionDataManager.getConfirmadoInsertar().setPerApellidos(null);
-			listaConfirmado=this.servicioAdministracion.buscarPersona(partidaConfirmacionDataManager.getConfirmadoInsertar());					
-			bautizo.setPerCi(partidaConfirmacionDataManager.getConfirmadoInsertar().getPerCi());
-			list=this.servicioEucaristia.buscarPartidaBautizo(bautizo);
-			
-			if (CollectionUtils.isEmpty(listaConfirmado) && listaConfirmado.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.partidaConfirmacionDataManager.setConfirmadoInsertar(listaConfirmado.get(0));
-				this.partidaConfirmacionDataManager.setBautizoListDTO(list.get(0));			
+			if(partidaConfirmacionDataManager.getConfirmadoInsertar().getPerCi()!=null && partidaConfirmacionDataManager.getConfirmadoInsertar().getPerCi()!="" )
+			{
+				partidaConfirmacionDataManager.getConfirmadoInsertar().setPerNombres(null);
+				partidaConfirmacionDataManager.getConfirmadoInsertar().setPerApellidos(null);
+				listaConfirmado=this.servicioAdministracion.buscarPersona(partidaConfirmacionDataManager.getConfirmadoInsertar());					
+				bautizo.setPerCi(partidaConfirmacionDataManager.getConfirmadoInsertar().getPerCi());
+				list=this.servicioEucaristia.buscarPartidaBautizo(bautizo);
+				
+				if ((CollectionUtils.isEmpty(listaConfirmado) && listaConfirmado.size()==0) || (CollectionUtils.isEmpty(list) && list.size()==0)) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.partidaConfirmacionDataManager.setConfirmadoInsertar(listaConfirmado.get(0));
+					this.partidaConfirmacionDataManager.setBautizoListDTO(list.get(0));			
+				}
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarBautizado {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -200,15 +203,18 @@ public void registrarConfirmacion () {
 		List<Persona> listaMad_Pad=null;
 		
 		try {
-			partidaConfirmacionDataManager.getMad_padInsertar().setPerApellidos(null);
-			partidaConfirmacionDataManager.getMad_padInsertar().setPerNombres(null);
-			listaMad_Pad=this.servicioAdministracion.buscarPersona(partidaConfirmacionDataManager.getMad_padInsertar());
-										
-			if (CollectionUtils.isEmpty(listaMad_Pad) && listaMad_Pad.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.partidaConfirmacionDataManager.setMad_padInsertar(listaMad_Pad.get(0));
-							
+			if(partidaConfirmacionDataManager.getMad_padInsertar().getPerCi()!=null && partidaConfirmacionDataManager.getMad_padInsertar().getPerCi()!="" )
+			{
+				partidaConfirmacionDataManager.getMad_padInsertar().setPerApellidos(null);
+				partidaConfirmacionDataManager.getMad_padInsertar().setPerNombres(null);
+				listaMad_Pad=this.servicioAdministracion.buscarPersona(partidaConfirmacionDataManager.getMad_padInsertar());
+											
+				if (CollectionUtils.isEmpty(listaMad_Pad) && listaMad_Pad.size()==0) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.partidaConfirmacionDataManager.setMad_padInsertar(listaMad_Pad.get(0));
+								
+				}
 			}
 			
 		} catch (SeguridadesException e) {
@@ -252,11 +258,14 @@ public void registrarConfirmacion () {
 			this.partidaConfirmacionDataManager.setSacerdoteCodigo(confirmacionEncontrada.getConfirmacion().getEucSacerdote().getSacCodigo());
 			this.partidaConfirmacionDataManager.setEstadoCodigo(confirmacionEncontrada.getConfirmacion().getConEstado());
 			this.partidaConfirmacionDataManager.setProvincia(confirmacionEncontrada.getConfirmacion().getConProvincia());
+			buscarCanton();
 			this.partidaConfirmacionDataManager.setCanton(confirmacionEncontrada.getConfirmacion().getConCanton());
+			buscarParroquia();
 			this.partidaConfirmacionDataManager.setParroquia(confirmacionEncontrada.getConfirmacion().getConParroquia());
-		
+			this.partidaConfirmacionDataManager.setFechaApCInsertar(confirmacionEncontrada.getConfirmacion().getConFechaAprobacionCurso());
+			this.partidaConfirmacionDataManager.setFechaComunionInsertar(confirmacionEncontrada.getConfirmacion().getConFecha());
+			buscarConfirmado();
 			
-							
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosConfirmacion {}", e.getMessage());
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosConfirmacion seleccionado");
