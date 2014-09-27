@@ -23,8 +23,6 @@
                      				 update="image" auto="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Seleccionar" process="@this"/>
 						</td>
 					</tr>				
-										
-					
 					
 					<tr>	
 						<td width="30%">
@@ -32,9 +30,10 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCi" value="#{doctorDataManager.doctorPersonaInsertar.perCi}" style="width: 100%"
-								required="true" label="#{i18n['erp.despacho.doctor.cedula']}">
+								 label="#{i18n['erp.despacho.doctor.cedula']}">
 								<f:validateLength maximum="10" minimum="10"/>
 								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+								<p:ajax event="blur" update="txtNombres,txtApe,txtFecNac,txtDir,txtTelefono,txtCelular,txtEmail,image" listener="#{doctorController.buscarDoctor2}" process="@this"/>
 							</p:inputText>			
 						</td>
 					</tr>

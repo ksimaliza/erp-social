@@ -11,6 +11,20 @@
 			<p:panel id="pnlNuevaAutorizaExhumacion">
 				<table class="formulario">
 					
+					<tr>
+						<td width="100%" colspan="2"><p:graphicImage id="image" height="80" cache="false" value="#{autorizaExhumacionDataManager.autorizaExhuPerInsertar.perFoto}"/></td>
+					</tr>
+				
+					<tr>
+						<td width="30%">
+							<h:outputLabel value="#{i18n['erp.despacho.autorizacion.foto']}" />
+						</td>
+						<td width="70%">
+							    <p:fileUpload fileUploadListener="#{autorizaExhumacionController.handleFileUpload}" mode="advanced" dragDropSupport="true"
+                     				 update="image" auto="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Seleccionar" process="@this"/>
+						</td>
+					</tr>	
+					
 					
 					<tr>	
 						<td width="30%">
@@ -19,8 +33,8 @@
 						<td width="70%">
 							<p:inputText id="txtCi" value="#{autorizaExhumacionDataManager.autorizaExhuPerInsertar.perCi}" style="width: 100%"
 								required="true" label="#{i18n['erp.despacho.autorizacion.cedula']}">
-								<f:validateLength maximum="10" minimum="10"/>
 								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+								<p:ajax event="blur" update="txtNombres,txtApe,txtFecNac,txtDir,txtTelefono,txtCelular,txtEmail,image" listener="#{autorizaExhumacionController.buscarAutorizacion2}" process="@this"/>
 							</p:inputText>			
 						</td>
 					</tr>

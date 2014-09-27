@@ -32,7 +32,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomNovio" style="width: 100%"
-								required="true" value="#{partidaMatrimonioDataManager.novioInsertar.perNombres}" />
+								 value="#{partidaMatrimonioDataManager.novioInsertar.perNombres}" />
 						</td>	
 					</tr>
 					
@@ -43,7 +43,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApeNovio" style="width: 100%"
-								required="true" value="#{partidaMatrimonioDataManager.novioInsertar.perApellidos}" />
+								 value="#{partidaMatrimonioDataManager.novioInsertar.perApellidos}" />
 						</td>	
 					</tr>
 					
@@ -79,9 +79,8 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiPadNov"  style="width: 70%"
-							required="true" label="#{i18n['erp.despacho.partida.matrimonio.cedula.padrinonovio']}" value="#{partidaMatrimonioDataManager.pad_novioInsertar.perCi}">
+							 label="#{i18n['erp.despacho.partida.matrimonio.cedula.padrinonovio']}" value="#{partidaMatrimonioDataManager.pad_novioInsertar.perCi}">
 							<p:ajax event="blur" update="txtNomPadNov,txtApePadNov" listener="#{partidaMatrimonioController.buscarPad_Novio}" process="@this"/>
-							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							
 						</p:inputText>
@@ -124,9 +123,8 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiMadNov"  style="width: 100%"
-							required="true" label="#{i18n['erp.despacho.partida.matrimonio.cedula.madrinanovio']}" value="#{partidaMatrimonioDataManager.mad_novioInsertar.perCi}">
+							label="#{i18n['erp.despacho.partida.matrimonio.cedula.madrinanovio']}" value="#{partidaMatrimonioDataManager.mad_novioInsertar.perCi}">
 							<p:ajax event="blur" update="txtNomMadNov,txtApeMadNov" listener="#{partidaMatrimonioController.buscarMad_Novio}" process="@this"/>
-							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 						
 						</p:inputText>
@@ -167,7 +165,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiNovia"  style="width: 70%"
-							required="true" label="#{i18n['erp.despacho.partida.matrimonio.cedulanovia']}" value="#{partidaMatrimonioDataManager.noviaInsertar.perCi}">
+							 label="#{i18n['erp.despacho.partida.matrimonio.cedulanovia']}" value="#{partidaMatrimonioDataManager.noviaInsertar.perCi}">
 							<p:ajax event="blur" update="txtNomNovia,txtApeNovia" listener="#{partidaMatrimonioController.buscarNovia}" process="@this"/>
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
@@ -182,7 +180,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomNovia" style="width: 100%"
-								required="true" value="#{partidaMatrimonioDataManager.noviaInsertar.perNombres}" />
+								value="#{partidaMatrimonioDataManager.noviaInsertar.perNombres}" />
 						</td>	
 					</tr>
 					
@@ -229,9 +227,8 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiPadNovia"  style="width: 70%"
-							required="true" label="#{i18n['erp.despacho.partida.matrimonio.cedula.padrinonovia']}" value="#{partidaMatrimonioDataManager.pad_noviaInsertar.perCi}">
+							 label="#{i18n['erp.despacho.partida.matrimonio.cedula.padrinonovia']}" value="#{partidaMatrimonioDataManager.pad_noviaInsertar.perCi}">
 							<p:ajax event="blur" update="txtNomPadNovia,txtApePadNovia" listener="#{partidaMatrimonioController.buscarPad_Novia}" process="@this"/>
-							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 										
 						</p:inputText>
@@ -274,11 +271,9 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiMadNovia"  style="width: 100%"
-							required="true" label="#{i18n['erp.despacho.partida.matrimonio.cedula.madrinanovia']}" value="#{partidaMatrimonioDataManager.mad_noviaInsertar.perCi}">
+							 label="#{i18n['erp.despacho.partida.matrimonio.cedula.madrinanovia']}" value="#{partidaMatrimonioDataManager.mad_noviaInsertar.perCi}">
 							 <p:ajax event="blur" update="txtNomMadNovia,txtApeMadNovia" listener="#{partidaMatrimonioController.buscarMad_Novia}" process="@this"/> 
-							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-										
 						</p:inputText>
 						
 						</td>

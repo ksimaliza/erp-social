@@ -11,15 +11,13 @@
 				<h:form id="formEditarPartidaPrimeraComunion" styleClass="formulario">
 			<p:panel id="pnlEditarPartidaPrimeraComunion">
 				<table class="formulario">
-												
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtCiCom" value="#{i18n['erp.despacho.partida.comunion.cedula']}" />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiCom"  style="width: 100%"
-							required="true" label="#{i18n['erp.despacho.partida.comunion.cedula']}" value="#{partidaPrimeraComunionDataManager.comunionListDTOEditar.perCi}">
-							<f:validateLength maximum="10" minimum="10"/>
+							label="#{i18n['erp.despacho.partida.comunion.cedula']}" value="#{partidaPrimeraComunionDataManager.asignadoInsertar.perCi}">
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur" update="txtApeCom,txtNomCom,txtProv,txtCanton,txtParroquia,txtFechaBautizo" listener="#{partidaComunionController.buscarBautizo}" process="@this"/>
 						</p:inputText>
@@ -32,7 +30,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomCom" style="width: 100%"
-								value="#{partidaPrimeraComunionDataManager.comunionListDTOEditar.perNombres}" readonly="true"/>
+								value="#{partidaPrimeraComunionDataManager.asignadoInsertar.perNombres}" readonly="true"/>
 						</td>	
 					</tr>
 					
@@ -42,7 +40,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApeCom" style="width: 100%"
-								value="#{partidaPrimeraComunionDataManager.comunionListDTOEditar.perApellidos}" readonly="true" />
+								value="#{partidaPrimeraComunionDataManager.asignadoInsertar.perApellidos}" readonly="true" />
 						</td>	
 					</tr>
 						
@@ -51,7 +49,8 @@
 							<h:outputLabel for="txtFechaComunion" value="#{i18n['erp.despacho.partida.comunion.fecha']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFechaComunion" style="width: 100%" navigator="true"   showOn="button" required="true" value="#{partidaPrimeraComunionDataManager.fechaComunionInsertar}"/>
+							<p:calendar id="txtFechaComunion" style="width: 100%" navigator="true"   showOn="button"  
+							value="#{partidaPrimeraComunionDataManager.fechaComunionInsertar}"/>
 						</td>	
 					</tr>
 					
@@ -60,11 +59,10 @@
 							<h:outputLabel for="txtFechaCurso" value="#{i18n['erp.despacho.partida.comunion.fecha.curso']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFechaCurso" style="width: 100%" navigator="true"   showOn="button" required="true" value="#{partidaPrimeraComunionDataManager.fechaApComInsertar}"/>
+							<p:calendar id="txtFechaCurso" style="width: 100%" navigator="true"   showOn="button"  
+							value="#{partidaPrimeraComunionDataManager.fechaApComInsertar}"/>
 						</td>	
 					</tr>
-					
-										
 							
 					<tr >
 						<td width="30%">
@@ -121,7 +119,6 @@
 			
 			<p:panel id="pnlDatosPadrino">
 				<table class="formulario">
-						
 					<tr>
 						<td width="30%">
 							<h:outputLabel value="#{i18n['erp.despacho.partida.tipo.padrino']}" />
@@ -140,8 +137,8 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiPad"  style="width: 100%"
-							 	label="#{i18n['erp.despacho.partida.comunion.cedula.padrino.madrina']}">
-								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" value="#{partidaPrimeraComunionDataManager.mad_padInsertar.perCi}" />
+							 	label="#{i18n['erp.despacho.partida.comunion.cedula.padrino.madrina']}" value="#{partidaPrimeraComunionDataManager.mad_padInsertar.perCi}">
+								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator"  />
 								<p:ajax event="blur" update="txtApePad,txtNomPad" listener="#{partidaComunionController.buscarMadrina}" process="@this"/>
 							</p:inputText>
 						</td>
@@ -166,7 +163,6 @@
 								  value="#{partidaPrimeraComunionDataManager.mad_padInsertar.perApellidos}" />
 						</td>	
 					</tr>
-					
 				</table>
 			</p:panel>
 			
@@ -228,7 +224,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtProv" style="width: 100%"  
-								value="#{partidaPrimeraComunionDataManager.comunionListDTOEditar.catProvincia}" readonly="true" />
+								value="#{partidaPrimeraComunionDataManager.bautizoListDTO.catProvincia}" readonly="true" />
 						</td>
 					</tr>
 					
@@ -238,7 +234,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCanton" style="width: 100%"  
-								value="#{partidaPrimeraComunionDataManager.comunionListDTOEditar.catCanton}"  readonly="true"/>
+								value="#{partidaPrimeraComunionDataManager.bautizoListDTO.catCanton}"  readonly="true"/>
 						</td>
 					</tr>	
 					
@@ -248,7 +244,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtParroquia" style="width: 100%"  
-							 	value="#{partidaPrimeraComunionDataManager.comunionListDTOEditar.catParroquia}" readonly="true" />
+							 	value="#{partidaPrimeraComunionDataManager.bautizoListDTO.catParroquia}" readonly="true" />
 						</td>
 					</tr>					
 					
@@ -259,7 +255,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtFechaBautizo" style="width: 100%"  
-							 	value="#{fn:substring(partidaPrimeraComunionDataManager.comunionListDTOEditar.bauFechaBautizo,0,10)}" readonly="true"/>
+							 	value="#{fn:substring(partidaPrimeraComunionDataManager.bautizoListDTO.bauFechaBautizo,0,10)}" readonly="true"/>
 						</td>
 					</tr>					
 						
