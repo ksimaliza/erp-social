@@ -134,6 +134,7 @@ public class TransaccionBienController extends BaseController{
 				this.buscarVistaBien();
 				MensajesWebController.aniadirMensajeInformacion("Bien asignado correctamente con el c\u00F3digo: " + listVistaBien.iterator().next().getBieCodigo());
 				this.vistaBienDataManager.setIdCustudioAsignado(null);
+				this.vistaBienDataManager.setVistaBienEditar(new VistaBien());
 			}
 			
 		} catch (SeguridadesException e) {
