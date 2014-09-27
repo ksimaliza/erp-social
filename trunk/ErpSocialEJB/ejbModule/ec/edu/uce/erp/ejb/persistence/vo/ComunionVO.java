@@ -15,6 +15,7 @@ private static final long serialVersionUID = 1L;
 	private Persona mad_pad;
 	private Persona sacerdotePersona;
 	private Persona doctorPersona;
+	private Persona asignadoPersona;
 	
 	private PrimeraComunionDTO comunion;
 	private SacerdoteDTO sacerdote;
@@ -27,9 +28,8 @@ private static final long serialVersionUID = 1L;
 		doctor=new DoctorDTO();
 		doctorPersona=new Persona();
 		sacerdotePersona=new Persona();
-	
+		asignadoPersona=new Persona();
 	}
-
 
 	public Persona getMad_pad() {
 		return mad_pad;
@@ -77,6 +77,14 @@ private static final long serialVersionUID = 1L;
 
 	public void setDoctor(DoctorDTO doctor) {
 		this.doctor = doctor;
+	}
+
+	public Persona getAsignadoPersona() {
+		return asignadoPersona;
+	}
+
+	public void setAsignadoPersona(Persona asignadoPersona) {
+		this.asignadoPersona = asignadoPersona;
 	}
 	
 	

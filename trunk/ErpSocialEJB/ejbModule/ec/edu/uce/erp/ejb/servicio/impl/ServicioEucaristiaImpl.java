@@ -190,16 +190,21 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	{
 		slf4jLogger.info("createOrUpdateDoctor");
 		Persona personaNueva;
+		List<Persona>listPersona;
 		try {
+			personaNueva = doctorVO.getPersona();
+			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(personaNueva);
+			if(listPersona.size()<=0)
+				personaNueva=factoryDAO.getPersonaDAOImpl().create(personaNueva);
+			else
+				personaNueva=listPersona.get(0);	
+				doctorVO.getDoctorDTO().setDocPersona(personaNueva.getPerPk());
+			
 		if(doctorVO.getDoctorDTO().getDocCodigo()!=null){
 			personaNueva=factoryDAO.getPersonaDAOImpl().update(doctorVO.getPersona());
 			return  eucaristiaFactoryDAO.getDoctorDAOImpl().update(doctorVO.getDoctorDTO());
-					
-			
 		}
 		else{
-			personaNueva=factoryDAO.getPersonaDAOImpl().create(doctorVO.getPersona());
-			doctorVO.getDoctorDTO().setDocPersona(personaNueva.getPerPk());	
 			return eucaristiaFactoryDAO.getDoctorDAOImpl().create(doctorVO.getDoctorDTO());
 			
 		}
@@ -366,11 +371,18 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		slf4jLogger.info("createOrUpdateComunion");
 		Persona mad_pad;
 		SacerdoteDTO sacerdote;
-		
+		Persona asignadoPersona;
 		
 		List<Persona> listPersona;
 			
 		try {
+			asignadoPersona = comunionVO.getAsignadoPersona();
+			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(asignadoPersona);
+			if(listPersona.size()<=0)
+				asignadoPersona=factoryDAO.getPersonaDAOImpl().create(asignadoPersona);
+			else
+				asignadoPersona=listPersona.get(0);
+			
 			mad_pad=comunionVO.getMad_pad();
 			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(mad_pad);
 			if(listPersona.size()<=0)
@@ -379,6 +391,7 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 				mad_pad=listPersona.get(0);
 			
 			comunionVO.getComunion().setPcoPadrino(mad_pad.getPerPk());
+			comunionVO.getComunion().setPcoAsignado(asignadoPersona.getPerPk());
 									
 			if(comunionVO.getComunion().getPcoCodigo()!=null){
 				sacerdote= eucaristiaFactoryDAO.getSacerdoteDAOImpl().find(comunionVO.getSacerdote().getSacCodigo());	
@@ -418,8 +431,8 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	@Override
 	public ComunionVO obtenerComunionPorId(ComunionListDTO comunionListDTO) throws SeguridadesException {
 		slf4jLogger.info("obtenerComunionPorId");
-		
 		ComunionVO comunion =new ComunionVO();
+		comunion.setAsignadoPersona(factoryDAO.getPersonaDAOImpl().find(comunionListDTO.getPcoAsignado()));
 		comunion.setComunion(eucaristiaFactoryDAO.getPrimeraComunionDAOImpl().find(comunionListDTO.getPcoCodigo()));	
 		comunion.setMad_pad(factoryDAO.getPersonaDAOImpl().find(comunionListDTO.getPcoPadrino()));
 		comunion.getComunion().setPcoAsignado(comunionListDTO.getPcoAsignado());

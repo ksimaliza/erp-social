@@ -2,8 +2,8 @@ package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.Date;
 import java.sql.Timestamp;
+import java.util.Date;
 
 
 /**
@@ -107,9 +107,6 @@ public class ComunionListDTO implements Serializable {
 	@Column(name="pco_fecha_hora")
 	private Timestamp pcoFechaHora;
 
-	@Column(name="pco_lugar")
-	private String pcoLugar;
-
 	@Column(name="pco_nota_marginal")
 	private String pcoNotaMarginal;
 
@@ -127,6 +124,9 @@ public class ComunionListDTO implements Serializable {
 
 	@Column(name="pco_sacerdote")
 	private Integer pcoSacerdote;
+
+	@Column(name="pco_tipo")
+	private Integer pcoTipo;
 
 	@Column(name="pco_tomo")
 	private String pcoTomo;
@@ -405,14 +405,6 @@ public class ComunionListDTO implements Serializable {
 		this.pcoFechaHora = pcoFechaHora;
 	}
 
-	public String getPcoLugar() {
-		return this.pcoLugar;
-	}
-
-	public void setPcoLugar(String pcoLugar) {
-		this.pcoLugar = pcoLugar;
-	}
-
 	public String getPcoNotaMarginal() {
 		return this.pcoNotaMarginal;
 	}
@@ -459,6 +451,14 @@ public class ComunionListDTO implements Serializable {
 
 	public void setPcoSacerdote(Integer pcoSacerdote) {
 		this.pcoSacerdote = pcoSacerdote;
+	}
+
+	public Integer getPcoTipo() {
+		return this.pcoTipo;
+	}
+
+	public void setPcoTipo(Integer pcoTipo) {
+		this.pcoTipo = pcoTipo;
 	}
 
 	public String getPcoTomo() {

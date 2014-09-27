@@ -44,8 +44,8 @@ public class PrimeraComunionDTO implements Serializable {
 	@Column(name="pco_fecha_hora")
 	private Timestamp pcoFechaHora;
 
-	@Column(name="pco_lugar")
-	private String pcoLugar;
+	@Column(name="pco_tipo")
+	private Integer pcoTipo;
 
 	@Column(name="pco_nota_marginal")
 	private String pcoNotaMarginal;
@@ -138,12 +138,14 @@ public class PrimeraComunionDTO implements Serializable {
 		this.pcoFechaHora = pcoFechaHora;
 	}
 
-	public String getPcoLugar() {
-		return this.pcoLugar;
+	
+
+	public Integer getPcoTipo() {
+		return pcoTipo;
 	}
 
-	public void setPcoLugar(String pcoLugar) {
-		this.pcoLugar = pcoLugar;
+	public void setPcoTipo(Integer pcoTipo) {
+		this.pcoTipo = pcoTipo;
 	}
 
 	public String getPcoNotaMarginal() {
