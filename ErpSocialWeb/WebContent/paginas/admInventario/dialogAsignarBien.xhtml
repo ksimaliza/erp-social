@@ -33,6 +33,7 @@
 						</td>
 						<td>
 							<p:inputText id="txtUbicacion" style="width: 100%" required="true"
+								onchange="toUpperCase(this)" onkeypress="toUpperCase(this)" onblur="toUpperCase(this)"
 								value="#{vistaBienDataManager.vistaBienEditar.bieUbicacion}" label="#{i18n['erp.bien.ubicacion']}" />
 						</td>
 					</tr>

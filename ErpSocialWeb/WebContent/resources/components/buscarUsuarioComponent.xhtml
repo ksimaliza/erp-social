@@ -13,8 +13,8 @@
 
 <body>
 	<composite:interface>
-		<composite:attribute name="render" required="true" shortDescription="Seccion a actualizar de la pagina que incluye el componente"/>
-		<composite:attribute name="controller" required="true" shortDescription="Clase que administra el componente"/>
+		<composite:attribute name="render" required="true" shortDescription="Seccion a actualizar de la pagina que incluye el componente" />
+		<composite:attribute name="controller" required="true" shortDescription="Clase que administra el componente" />
 	</composite:interface>
 
 	<composite:implementation>
@@ -22,7 +22,7 @@
 		<ui:param name="controller" value="#{cc.attrs.controller}"/>
 		<ui:param name="render" value="#{cc.attrs.render}"/>
 		
-		<p:commandLink value="Buscar..." oncomplete="dlgBuscarUsuario.show()"/>
+		<p:commandButton value="Buscar..." oncomplete="dlgBuscarUsuario.show()"/>
 		
 		<p:dialog id="popUpBuscarUsuario" header="#{i18n['erp.asistencia.empleado.buscar']}" 
 				widgetVar="dlgBuscarUsuario" modal="true" minWidth="650" width="650" appendTo="@(body)">

@@ -17,6 +17,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Transformer;
 import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,6 +85,7 @@ public class BienController extends BaseController{
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void registrarBien () {
 		
 		slf4jLogger.info("registrarBien");
@@ -100,16 +102,18 @@ public class BienController extends BaseController{
 				this.bienDataManager.getBienInstancia().setMarBienPk(null);
 			}
 			
-			Collection<Integer> listBienPK = new ArrayList<>();
+			this.bienDataManager.getBienInstancia().setNpCantidadIngresada(this.cantidadBienesIngresados);
+			List<Bien> listBien = servicioInventario.registrarBien(this.bienDataManager.getBienInstancia());
 			
-			for (int i = 0; i<this.cantidadBienesIngresados; i++) {
-				Bien bienNuevo = servicioInventario.registrarBien(this.bienDataManager.getBienInstancia());
-				if (bienNuevo != null) {
-					listBienPK.add(bienNuevo.getBiePk());
-				}
-			}
-			
-			if (CollectionUtils.isNotEmpty(listBienPK)) {
+			if (CollectionUtils.isNotEmpty(listBien)) {
+				
+				Collection<Integer> listBienPK = CollectionUtils.collect(listBien, new Transformer() {
+					@Override
+					public Object transform(Object arg0) {
+						return ((Bien)arg0).getBiePk();
+					}
+				});
+				
 				VistaBien vistaBienBuscar = new VistaBien();
 				vistaBienBuscar.setBiePk(null);
 				vistaBienBuscar.setBieEstado(ESTADO_ACTIVO);

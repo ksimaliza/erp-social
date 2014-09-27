@@ -85,7 +85,8 @@
 							<h:outputLabel for="txtModelo" value="#{i18n['erp.bien.modelo']}" />
 						</td>
 						<td>
-							<p:inputText id="txtModelo" style="width: 100%" required="true" onkeypress="toUpperCase(this)"
+							<p:inputText id="txtModelo" style="width: 100%" required="true" 
+								onchange="toUpperCase(this)" onkeypress="toUpperCase(this)" onblur="toUpperCase(this)"
 								value="#{bienDataManager.bienEditar.bieModelo}" label="#{i18n['erp.bien.modelo']}" />
 						</td>
 					</tr>
@@ -95,6 +96,7 @@
 						</td>
 						<td>
 							<p:inputText id="txtColor" style="width: 100%"
+								onchange="toUpperCase(this)" onkeypress="toUpperCase(this)" onblur="toUpperCase(this)"
 								value="#{bienDataManager.bienEditar.bieColor}" label="#{i18n['erp.bien.color']}" />
 						</td>
 					</tr>
@@ -105,6 +107,7 @@
 						</td>
 						<td>
 							<p:inputText id="txtNombre" style="width: 100%" required="true"
+								onchange="toUpperCase(this)" onkeypress="toUpperCase(this)" onblur="toUpperCase(this)"
 								value="#{bienDataManager.bienEditar.bieNombre}" label="#{i18n['erp.bien.nombre']}" />
 						</td>
 					</tr>
@@ -147,6 +150,7 @@
 						</td>
 						<td>
 							<p:inputTextarea id="txtNota" style="width: 100%" required="true"
+								onchange="toUpperCase(this)" onkeypress="toUpperCase(this)" onblur="toUpperCase(this)"
 								value="#{bienDataManager.bienEditar.bieNotas}" label="#{i18n['erp.bien.nota']}" />
 						</td>
 					</tr>
