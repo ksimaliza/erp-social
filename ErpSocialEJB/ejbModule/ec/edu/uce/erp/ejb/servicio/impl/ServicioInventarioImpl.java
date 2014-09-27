@@ -650,7 +650,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 			throw new SeguridadesException(e);
 		}
 		
-		return null;
+		return listVistaBien;
 	}
 	
 	@Override
