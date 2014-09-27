@@ -176,7 +176,7 @@ public interface ServicioInventario {
 	 * @return
 	 * @throws SeguridadesException
 	 */
-	Bien registrarBien (Bien bien) throws SeguridadesException;
+	List<Bien> registrarBien (Bien bien) throws SeguridadesException;
 	
 	/**
 	 * Actualizar <code>Bien</code> en la BD
@@ -208,7 +208,7 @@ public interface ServicioInventario {
 	 * @return
 	 * @throws SeguridadesException
 	 */
-	VistaBien asignarBien (VistaBien vistaBien) throws SeguridadesException;
+	List<VistaBien> asignarBien (List<VistaBien> colVistaBien) throws SeguridadesException;
 	
 	/**
 	 * Reasignar <code>Bien</code> a un funcionario 

@@ -5,6 +5,7 @@ package ec.edu.uce.erp.ejb.dao.factory;
 
 import javax.ejb.Local;
 
+import ec.edu.uce.erp.ejb.persistence.dao.ActaBienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.BienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.CabeceraBienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.CategoriaBienDAO;
@@ -42,6 +43,8 @@ public interface InventarioFactory {
 	MarcaBienDAO getMarcaBienDAOImpl();
 	
 	TransaccionDAO getTransaccionDAOImpl();
+	
+	ActaBienDAO getActaBienDAOImpl();
 	
 	VistaBienDAO getVistaBienDAOImpl();
 	

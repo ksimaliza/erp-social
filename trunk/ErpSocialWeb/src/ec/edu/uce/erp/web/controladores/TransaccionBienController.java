@@ -65,7 +65,9 @@ public class TransaccionBienController extends BaseController{
 	
 	@PostConstruct
 	public void inicializarObjetos() {
-		this.buscarUsuarioComponent = new BuscarUsuarioComponent(servicioInventario);
+		
+		this.buscarUsuarioComponent = new BuscarUsuarioComponent(servicioInventario, 
+				this.vistaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
 	}
 	
 
@@ -121,13 +123,18 @@ public class TransaccionBienController extends BaseController{
 			this.vistaBienDataManager.getVistaBienEditar().setUsuarioRegistro(this.vistaBienDataManager.getUsuarioSession());
 			this.vistaBienDataManager.getVistaBienEditar().setEmpAsignadoFk(this.vistaBienDataManager.getIdCustudioAsignado());
 			this.vistaBienDataManager.getVistaBienEditar().setNpNombreEmpresa(this.vistaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrNombre());
-			VistaBien vistaBien = servicioInventario.asignarBien(this.vistaBienDataManager.getVistaBienEditar());
 			
-			if (vistaBien != null) {
-				this.buscarVistaBien();
-				MensajesWebController.aniadirMensajeInformacion("Bien asignado correctamente con el c\u00F3digo: " + vistaBien.getBieCodigo());
-				this.vistaBienDataManager.setIdCustudioAsignado(null);
-			}
+			List<VistaBien> listVistaBienAsignar = new ArrayList<VistaBien>();
+			listVistaBienAsignar.add(this.vistaBienDataManager.getVistaBienEditar());
+			
+			this.servicioInventario.asignarBien(listVistaBienAsignar);
+//			List<VistaBien> listVistaBien = servicioInventario.asignarBien(listVistaBienAsignar);
+//			
+//			if (vistaBien != null) {
+//				this.buscarVistaBien();
+//				MensajesWebController.aniadirMensajeInformacion("Bien asignado correctamente con el c\u00F3digo: " + vistaBien.getBieCodigo());
+//				this.vistaBienDataManager.setIdCustudioAsignado(null);
+//			}
 			
 		} catch (SeguridadesException e) {
 			RequestContext.getCurrentInstance().addCallbackParam("validationFailed", e);

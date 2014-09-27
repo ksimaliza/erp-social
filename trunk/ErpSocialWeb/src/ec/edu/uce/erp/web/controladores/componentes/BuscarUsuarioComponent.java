@@ -15,43 +15,49 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.view.VistaEmpleado;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
-import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 /**
  * @author
  *
  */
 
-public class BuscarUsuarioComponent extends BaseDataManager {
+public class BuscarUsuarioComponent {
 	
-	private static final long serialVersionUID = 1L;
-
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(BuscarUsuarioComponent.class);
+	private Integer emrPk;
 	
 	private VistaEmpleado vistaEmpleado;
 	private List<VistaEmpleado> listVistaEmpleado;
 	private ServicioInventario servicioInventario;
 	private VistaEmpleado vistaEmpleadoSeleccionado;
 	
-	public BuscarUsuarioComponent (ServicioInventario servicioInventario) {
+	
+	public BuscarUsuarioComponent (ServicioInventario servicioInventario, Integer emrPk) {
 		this.vistaEmpleado = new VistaEmpleado();
 		this.vistaEmpleadoSeleccionado = new VistaEmpleado();
 		this.servicioInventario = servicioInventario;
 		this.listVistaEmpleado = new ArrayList<VistaEmpleado>();
+		this.emrPk = emrPk;
 	}
 	
 	public void buscarEmpleado () {
 		slf4jLogger.info("buscarEmpleado");
 		
 		try {
-			this.listVistaEmpleado.clear();
-			this.vistaEmpleado.setEmrFk(this.getUsuarioSession().getEmpresaTbl().getEmrPk());
-			List<VistaEmpleado> listVistaEmpleado = servicioInventario.obtenerEmpleadoEmpresa(this.vistaEmpleado);
-			if (CollectionUtils.isEmpty(listVistaEmpleado)) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			if (this.vistaEmpleado != null) {
+				
+				this.listVistaEmpleado.clear();
+				this.vistaEmpleado.setEmrFk(emrPk);
+				List<VistaEmpleado> listVistaEmpleado = servicioInventario.obtenerEmpleadoEmpresa(this.vistaEmpleado);
+				if (CollectionUtils.isEmpty(listVistaEmpleado)) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					setListVistaEmpleado(listVistaEmpleado);
+				}
 			} else {
-				setListVistaEmpleado(listVistaEmpleado);
+				slf4jLogger.info("vistaEmpleado null");
 			}
+			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("error al buscarEmpleado {}", e.getCause().getMessage());
 			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
@@ -116,6 +122,20 @@ public class BuscarUsuarioComponent extends BaseDataManager {
 	 */
 	public void setVistaEmpleadoSeleccionado(VistaEmpleado vistaEmpleadoSeleccionado) {
 		this.vistaEmpleadoSeleccionado = vistaEmpleadoSeleccionado;
+	}
+
+	/**
+	 * @return the emrPk
+	 */
+	public Integer getEmrPk() {
+		return emrPk;
+	}
+
+	/**
+	 * @param emrPk the emrPk to set
+	 */
+	public void setEmrPk(Integer emrPk) {
+		this.emrPk = emrPk;
 	}
 	
 }

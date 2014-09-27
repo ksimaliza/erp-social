@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -112,7 +113,7 @@ public class Bien extends AuditoriaUtil implements Serializable {
 	private List<Ingreso> ingresoTbls;
 
 	//bi-directional many-to-one association to Transaccion
-	@OneToMany(mappedBy="bienTbl")
+	@OneToMany(mappedBy="bienTbl", cascade= CascadeType.ALL)
 	private List<Transaccion> transaccionTbls;
 	
 	@Column(name="bie_notas")

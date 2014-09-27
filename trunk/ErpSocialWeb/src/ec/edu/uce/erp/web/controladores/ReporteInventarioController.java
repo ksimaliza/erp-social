@@ -53,7 +53,8 @@ public class ReporteInventarioController extends BaseController {
 	
 	@PostConstruct
 	public void inicializarObjetos() {
-		this.buscarUsuarioComponent = new BuscarUsuarioComponent(servicioInventario);
+		this.buscarUsuarioComponent = new BuscarUsuarioComponent(servicioInventario, 
+				this.vistaHistoricoTransaccionDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
 	}
 	
 	public void generarReporte (String formatoReporte) {

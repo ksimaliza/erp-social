@@ -152,6 +152,8 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoContratoListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteAsignadoVieDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ComunionListDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.ActaBien</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.TransaccionActaBien</class>
 		<properties>
 			<property name="hibernate.connection.username" value="postgres" />
 			<property name="hibernate.connection.password" value="root" />

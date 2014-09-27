@@ -13,7 +13,8 @@
 				<td width="85%">
 					<h:panelGrid columns="2" border="0">
 						<h:outputText id="txtNombreCustodio" value="#{transaccionMasivaBienController.buscarUsuarioComponent.vistaEmpleadoSeleccionado.nombresCompletos}" />
-						<c:buscarUsuarioComponent controller="#{transaccionMasivaBienController.buscarUsuarioComponent}" render=":formBien:acp:txtNombreCustodio"/>
+						<c:buscarUsuarioComponent controller="#{transaccionMasivaBienController.buscarUsuarioComponent}" 
+							render=":formBien:acp:txtNombreCustodio" />
 					</h:panelGrid>
 				</td>
 			</tr>

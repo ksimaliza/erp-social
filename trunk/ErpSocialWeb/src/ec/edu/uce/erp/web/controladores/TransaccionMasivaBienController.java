@@ -76,6 +76,8 @@ public class TransaccionMasivaBienController extends BaseController{
 		this.transaccionMasivaBienDataManager = transaccionMasivaBienDataManager;
 	}
 	
+	public TransaccionMasivaBienController () {}
+	
 	@Override
 	public void refrescarFormulario() {
 		
@@ -87,8 +89,9 @@ public class TransaccionMasivaBienController extends BaseController{
 		this.transaccionMasivaBienDataManager.setListVistaBienTramitar(new ArrayList<VistaBien>());
 		this.transaccionMasivaBienDataManager.setListVistaBienTramitado(new ArrayList<VistaBien>());
 		this.transaccionMasivaBienDataManager.setListVistaBienTraslado(new ArrayList<VistaBien>());
+		this.buscarUsuarioComponent = new BuscarUsuarioComponent(servicioInventario, 
+				this.transaccionMasivaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
 		this.dcLineaBien = new ArrayList<SelectItem>();
-		this.buscarUsuarioComponent = new BuscarUsuarioComponent(servicioInventario);
 	}
 
 	/**
@@ -205,13 +208,16 @@ public class TransaccionMasivaBienController extends BaseController{
 					vistaBien.setUsuarioRegistro(this.transaccionMasivaBienDataManager.getUsuarioSession());
 					vistaBien.setEmpAsignadoFk(this.idCustudioAsignado);
 					vistaBien.setNpNombreEmpresa(this.transaccionMasivaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrNombre());
-					VistaBien vistaBienBuscar = new VistaBien();
-					vistaBienBuscar.setEmrPk(this.transaccionMasivaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
-					vistaBienBuscar.setBiePk(servicioInventario.asignarBien(vistaBien).getBiePk());
-					vistaBienBuscar.setTraEstado(this.transaccionMasivaBienDataManager.getEstadoActivo());
-					VistaBien vistaBienAsignado = servicioInventario.buscarVistaBienCriterios(vistaBienBuscar).iterator().next();
-					listVistaBien.add(vistaBienAsignado);
+					listVistaBien.add(vistaBien);
+//					VistaBien vistaBienBuscar = new VistaBien();
+//					vistaBienBuscar.setEmrPk(this.transaccionMasivaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
+//					vistaBienBuscar.setBiePk(servicioInventario.asignarBien(vistaBien).getBiePk());
+//					vistaBienBuscar.setTraEstado(this.transaccionMasivaBienDataManager.getEstadoActivo());
+//					VistaBien vistaBienAsignado = servicioInventario.buscarVistaBienCriterios(vistaBienBuscar).iterator().next();
+//					listVistaBien.add(vistaBienAsignado);
 				}
+				
+				servicioInventario.asignarBien(listVistaBien);
 				
 				if (CollectionUtils.isNotEmpty(listVistaBien)) {
 					this.idCustudioAsignado = null;

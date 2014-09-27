@@ -505,3 +505,34 @@ CREATE SEQUENCE bien_codigo_seq
   START 1
   CACHE 1;
 ALTER TABLE bien_codigo_seq OWNER TO postgres;
+
+
+/*==============================================================*/
+/* Table: ACTA_BIEN_TBL                                         */
+/*==============================================================*/
+create table ACTA_BIEN_TBL (
+   ACT_BIE_PK           SERIAL               not null,
+   ACT_BIE_NUM          VARCHAR(50)          not null,
+   ACT_BIE_FECHA_GEN    DATE                 null,
+   constraint PK_ACTA_BIEN_TBL primary key (ACT_BIE_PK)
+);
+
+/*==============================================================*/
+/* Table: TRANSACCION_ACTA_BIEN                                 */
+/*==============================================================*/
+create table TRANSACCION_ACTA_BIEN (
+   TRA_ACT_BIE          SERIAL               not null,
+   ACT_BIE_PK           INT4                 null,
+   TRA_PK               INT4                 null,
+   constraint PK_TRANSACCION_ACTA_BIEN primary key (TRA_ACT_BIE)
+);
+
+alter table TRANSACCION_ACTA_BIEN
+   add constraint FK_TRANSACC_REFERENCE_ACTA_BIE foreign key (ACT_BIE_PK)
+      references ACTA_BIEN_TBL (ACT_BIE_PK)
+      on delete restrict on update restrict;
+
+alter table TRANSACCION_ACTA_BIEN
+   add constraint FK_TRANSACC_REFERENCE_TRANSACC foreign key (TRA_PK)
+      references TRANSACCION_TBL (TRA_PK)
+      on delete restrict on update restrict;
