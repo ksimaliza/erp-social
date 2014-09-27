@@ -127,14 +127,14 @@ public class TransaccionBienController extends BaseController{
 			List<VistaBien> listVistaBienAsignar = new ArrayList<VistaBien>();
 			listVistaBienAsignar.add(this.vistaBienDataManager.getVistaBienEditar());
 			
-			this.servicioInventario.asignarBien(listVistaBienAsignar);
-//			List<VistaBien> listVistaBien = servicioInventario.asignarBien(listVistaBienAsignar);
-//			
-//			if (vistaBien != null) {
-//				this.buscarVistaBien();
-//				MensajesWebController.aniadirMensajeInformacion("Bien asignado correctamente con el c\u00F3digo: " + vistaBien.getBieCodigo());
-//				this.vistaBienDataManager.setIdCustudioAsignado(null);
-//			}
+//			this.servicioInventario.asignarBien(listVistaBienAsignar);
+			List<VistaBien> listVistaBien = servicioInventario.asignarBien(listVistaBienAsignar);
+			
+			if (CollectionUtils.isNotEmpty(listVistaBien)) {
+				this.buscarVistaBien();
+				MensajesWebController.aniadirMensajeInformacion("Bien asignado correctamente con el c\u00F3digo: " + listVistaBien.iterator().next().getBieCodigo());
+				this.vistaBienDataManager.setIdCustudioAsignado(null);
+			}
 			
 		} catch (SeguridadesException e) {
 			RequestContext.getCurrentInstance().addCallbackParam("validationFailed", e);
