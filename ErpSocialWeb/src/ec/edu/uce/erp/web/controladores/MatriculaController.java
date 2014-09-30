@@ -206,6 +206,7 @@ public class MatriculaController extends BaseController {
 				
 				if (CollectionUtils.isEmpty(asinacionListDTOs) && asinacionListDTOs.size()==0) {
 					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+					this.matriculaDataManager.setAsinacionList(new ArrayList<AsinacionListDTO>());
 				} else {
 					this.matriculaDataManager.setAsinacionList(asinacionListDTOs);
 				}
