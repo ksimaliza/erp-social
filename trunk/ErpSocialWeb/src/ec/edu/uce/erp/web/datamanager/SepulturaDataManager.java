@@ -5,19 +5,19 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaListDTO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
-@SessionScoped
+@ViewScoped
 @ManagedBean (name = "sepulturaDataManager")
 public class SepulturaDataManager extends BaseDataManager {
 private static final Logger slf4jLogger = LoggerFactory.getLogger(SepulturaDataManager.class);
@@ -33,6 +33,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(SepulturaDataM
 	private List<DefuncionListDTO> defuncionListDTOs;
 	private DefuncionListDTO defuncionlistDTO; 
 	private NichoListDTO nichoListDTO;
+	private Persona defuncionInsertar;
 	
 	
 	
@@ -48,6 +49,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(SepulturaDataM
 		this.defuncionListDTOs=new ArrayList<DefuncionListDTO>();
 		this.defuncionlistDTO=new DefuncionListDTO();
 		this.nichoListDTO=new NichoListDTO();
+		this.defuncionInsertar=new Persona();
 	}
 
 
@@ -133,6 +135,16 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(SepulturaDataM
 
 	public NichoListDTO getNichoListDTO() {
 		return nichoListDTO;
+	}
+
+
+	public Persona getDefuncionInsertar() {
+		return defuncionInsertar;
+	}
+
+
+	public void setDefuncionInsertar(Persona defuncionInsertar) {
+		this.defuncionInsertar = defuncionInsertar;
 	}
 
 

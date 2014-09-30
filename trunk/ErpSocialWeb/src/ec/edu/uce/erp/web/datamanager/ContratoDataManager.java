@@ -44,7 +44,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 	private ContratoListDTO contratoListDTOEditar;
 	private NichoDTO nichoDTOEditar;
 	private Boolean exportDesactivado;
-	
+	private CatalogoEucaristiaDTO formaPagoList;
 	
 	
 	
@@ -66,7 +66,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 		this.contratoListDTOEditar=new ContratoListDTO();
 		this.nichoDTOEditar=new NichoDTO();
 		exportDesactivado=true;
-		
+		this.formaPagoList=new CatalogoEucaristiaDTO();
 	}
 
 	public Persona getDifuntoInsertar() {
@@ -263,6 +263,14 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 
 	public void setExportDesactivado(Boolean exportDesactivado) {
 		this.exportDesactivado = exportDesactivado;
+	}
+
+	public CatalogoEucaristiaDTO getFormaPagoList() {
+		return formaPagoList;
+	}
+
+	public void setFormaPagoList(CatalogoEucaristiaDTO formaPagoList) {
+		this.formaPagoList = formaPagoList;
 	}
 
 

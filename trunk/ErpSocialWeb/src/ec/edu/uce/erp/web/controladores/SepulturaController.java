@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoDTO;
@@ -85,7 +86,7 @@ public class SepulturaController extends BaseController {
 			sepulturaVO.setSepultura(sepulturaDataManager.getSepulturaDTO());
 			nichoDTO.setNicCodigo(sepulturaDataManager.getCodigoNicho());
 			sepulturaVO.setNichoDTO(nichoDTO);
-			defuncion.setDefPersona(sepulturaDataManager.getDefuncionlistDTO().getDefPersona());
+			defuncion.setDefPersona(sepulturaDataManager.getDefuncionInsertar().getPerPk());
 			
 			sepulturaVO.getSepultura().setSepDifunto(defuncion.getDefPersona());
 					
@@ -94,6 +95,7 @@ public class SepulturaController extends BaseController {
 			if (sepulturaNueva!= null) {
 				sepulturaDataManager.setCodigoNicho(0);
 				sepulturaDataManager.setSepulturaDTO(new SepulturaDTO());
+				sepulturaDataManager.setDefuncionInsertar(new Persona());
 																		
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.sepultura.registrar.exito");
 			}
@@ -168,35 +170,49 @@ public class SepulturaController extends BaseController {
 	}
 	
 
-	
-	public void buscarDefuncion () {
-		slf4jLogger.info("buscarDefuncion");
+	public void buscarDifunto () {
+		slf4jLogger.info("buscarDifunto");
 		
-		List<DefuncionListDTO> listaDefuncion=null;
+		List<Persona> listaDifunto=null;
+		DefuncionListDTO difunto=new DefuncionListDTO();
+		List<DefuncionListDTO> list=null;
 		
 		try {
-		 
-			listaDefuncion=this.servicioEucaristia.buscarDefuncion(sepulturaDataManager.getDefuncionlistDTO());
-					
-			if (CollectionUtils.isEmpty(listaDefuncion) && listaDefuncion.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.sepulturaDataManager.setDefuncionlistDTO(listaDefuncion.get(0));
-						
+			if(sepulturaDataManager.getDefuncionInsertar().getPerCi()!=null && sepulturaDataManager.getDefuncionInsertar().getPerCi()!="" )
+			{
+				sepulturaDataManager.getDefuncionInsertar().setPerNombres(null);
+				sepulturaDataManager.getDefuncionInsertar().setPerApellidos(null);
+				listaDifunto=this.servicioAdministracion.buscarPersona(sepulturaDataManager.getDefuncionInsertar());					
+				difunto.setPerCi(sepulturaDataManager.getDefuncionInsertar().getPerCi());
+				list=this.servicioEucaristia.buscarDefuncion(difunto);
+				
+				if ((CollectionUtils.isEmpty(listaDifunto) && listaDifunto.size()==0) || (CollectionUtils.isEmpty(list) && list.size()==0)) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					sepulturaDataManager.setDefuncionInsertar(listaDifunto.get(0));
+					sepulturaDataManager.setDefuncionlistDTO(list.get(0));
+								
+				}
 			}
-			
 		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarDefuncion {} ", e);
+			slf4jLogger.info("Error al buscarBautizado {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 		
 	}
+	
 
 	public void cargarDatosSepultura (SepulturaListDTO sepultura) {
 		try {
 			SepulturaVO sepulturaEncontrado=servicioEucaristia.obtenerSepulturaPorId(sepultura);
-			this.sepulturaDataManager.setCodigoNicho(sepulturaEncontrado.getSepultura().getSepNicho());
+			
+			this.sepulturaDataManager.setDefuncionInsertar(sepulturaEncontrado.getDefuncionPersona());
 			this.sepulturaDataManager.setSepulturaDTO(sepulturaEncontrado.getSepultura());
+			this.sepulturaDataManager.setCodigoNicho(sepulturaEncontrado.getSepultura().getSepNicho());
+			buscarNicho2();
+			//buscarDefuncion();
+			
+			
 			
 													
 		} catch (SeguridadesException e) {

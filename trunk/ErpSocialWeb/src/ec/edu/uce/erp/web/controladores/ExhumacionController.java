@@ -18,6 +18,7 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ExumacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ExumacionListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.ExhumacionVO;
@@ -88,9 +89,15 @@ public class ExhumacionController extends BaseController{
 			
 			exhumacionVO.setAutorizaExhumacionDTO(autorizaExhumacionDTO);
 			
+			if(exhumacionDataManager.getFechaSepelio().getTime()>exhumacionDataManager.getFechaExhumacion().getTime())
+			{
+				MensajesWebController.aniadirMensajeError("Ingrese fecha de Exhumación Correcta");
+				return;
+			}			
+			
+			
 			exhumacionVO.getExumacionDTO().setExuFechaExhumacion(new Timestamp(exhumacionDataManager.getFechaExhumacion().getTime()));
 			exhumacionVO.getExumacionDTO().setExuFechaCepelio(new Timestamp(exhumacionDataManager.getFechaSepelio().getTime()));
-			
 			ExumacionDTO exhumacionNuevo=this.servicioEucaristia.createOrUpdateExhumacion(exhumacionVO);
 						
 			if (exhumacionNuevo != null) {
@@ -114,7 +121,7 @@ public class ExhumacionController extends BaseController{
 	
 
 	
-	public void buscarDifunto () {
+/*	public void buscarDifunto () {
 		slf4jLogger.info("buscarDifunto");
 		
 		List<Persona> listaDifunto=null;
@@ -137,6 +144,38 @@ public class ExhumacionController extends BaseController{
 		}
 		
 	}
+	*/
+	
+	public void buscarDifunto () {
+		slf4jLogger.info("buscarDifunto");
+		
+		List<Persona> listaDifunto=null;
+		DefuncionListDTO difunto=new DefuncionListDTO();
+		List<DefuncionListDTO> list=null;
+		
+		try {
+			if(exhumacionDataManager.getDifuntoInsertar().getPerCi()!=null && exhumacionDataManager.getDifuntoInsertar().getPerCi()!="" )
+			{
+				exhumacionDataManager.getDifuntoInsertar().setPerNombres(null);
+				exhumacionDataManager.getDifuntoInsertar().setPerApellidos(null);
+				listaDifunto=this.servicioAdministracion.buscarPersona(exhumacionDataManager.getDifuntoInsertar());					
+				difunto.setPerCi(exhumacionDataManager.getDifuntoInsertar().getPerCi());
+				list=this.servicioEucaristia.buscarDefuncion(difunto);
+				
+				if ((CollectionUtils.isEmpty(listaDifunto) && listaDifunto.size()==0) || (CollectionUtils.isEmpty(list) && list.size()==0)) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					exhumacionDataManager.setDifuntoInsertar(listaDifunto.get(0));
+								
+				}
+			}
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarBautizado {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
 	
 	
 	public void buscarAutorizacion () {

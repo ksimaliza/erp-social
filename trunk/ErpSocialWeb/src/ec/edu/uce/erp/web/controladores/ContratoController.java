@@ -1,5 +1,6 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -94,23 +95,15 @@ public ContratoController() {
 			contratoVO=new ContratoVO();
 			nichoDTO=new NichoDTO();
 			formaPago=new CatalogoEucaristiaDTO();
-		
-			
-			
 			contratoVO.setContratoDTO(contratoDataManager.getContratoDTO());
-			
-			
 			nichoDTO.setNicCodigo(contratoDataManager.getNichoCodigo());
 			formaPago.setCatCodigo(contratoDataManager.getFormaPagoCodigo());
 			contratoVO.setFormaPago(formaPago);
 			contratoVO.setNichoDTO(nichoDTO);
 			contratoVO.setBeneficiario(contratoDataManager.getBeneficiariInsertar());
-			
 			defuncion.setDefPersona(contratoDataManager.getDefuncionListDTO().getDefPersona());
 			contratoVO.getContratoDTO().setConDifunto(defuncion.getDefPersona());
-			
 			contratoVO.getContratoDTO().setConMesesPorPagar(contratoVO.getContratoDTO().getConMesesArrendamiento());
-			
 			contratoVO.getContratoDTO().setConFechaFin(new Timestamp(contratoDataManager.getFechaFin().getTime()));
 			contratoVO.getContratoDTO().setConFechaInicio(new Timestamp(contratoDataManager.getFechaInicio().getTime()));
 
@@ -122,15 +115,12 @@ public ContratoController() {
 			
 			ContratoDTO contratoNuevo=this.servicioEucaristia.createOrUpdateContrato(contratoVO);
 			contratoDataManager.setExportDesactivado(false);						
-			
 			ContratoListDTO con=new ContratoListDTO();
 			con.setConCodigo(contratoNuevo.getConCodigo());
 			con.setConBeneficiario(contratoNuevo.getConBeneficiario());
 			con.setConDifunto(contratoNuevo.getConDifunto());
-			con.setNicCodigo(contratoNuevo.getEucNicho().getNicCodigo());
-			
+			con.setNicCodigo(contratoNuevo.getConNicho());
 			cargarDatosContrato(con);
-			
 			
 			if (contratoNuevo!= null) {
 //				contratoDataManager.setContratoDTO(new ContratoDTO());
@@ -157,17 +147,12 @@ public ContratoController() {
 		List<DefuncionListDTO> listaDefuncion=null;
 		
 		try {
-		 
 			listaDefuncion=this.servicioEucaristia.buscarDefuncion(contratoDataManager.getDefuncionListDTO());
-					
 			if (CollectionUtils.isEmpty(listaDefuncion) && listaDefuncion.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.contratoDataManager.setDefuncionListDTO(listaDefuncion.get(0));
-				
-						
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarDefuncion {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -190,7 +175,6 @@ public ContratoController() {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.contratoDataManager.setFormaPagoListDTOs(listaCatalogo);
-				
 			}
 			
 		} catch (SeguridadesException e) {
@@ -221,52 +205,36 @@ public ContratoController() {
 	public void buscarNicho2() {
 		slf4jLogger.info("buscarNicho");
 		List<NichoListDTO> listResultado=new ArrayList<NichoListDTO>();
-		
 		try {
-			
 			NichoListDTO nicho=new NichoListDTO();
 			nicho.setNicCodigo(this.contratoDataManager.getNichoCodigo());
-			
 			listResultado = this.servicioEucaristia.buscarNicho(nicho);
-			
 			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.contratoDataManager.setNichoListDTO(listResultado.get(0));
-			
-				
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscar el buscarNicho {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 	}
 	
-	
-	
-	
 	public void buscarContrato () {
 		slf4jLogger.info("buscarContrato");
 		
 		List<ContratoListDTO> listaContrato=null;
-		
 		try {
-			
 			listaContrato=this.servicioEucaristia.buscarContrato(contratoDataManager.getContratoListDTO());
-			
 			if (CollectionUtils.isEmpty(listaContrato) && listaContrato.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.contratoDataManager.setContratoListDTOs(listaContrato);
-				
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarContrato {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
-		
 	}
 	
 	
@@ -278,7 +246,7 @@ public ContratoController() {
 		try {
 			contratoDataManager.getBeneficiariInsertar().setPerNombres(null);
 			contratoDataManager.getBeneficiariInsertar().setPerApellidos(null);
-			
+
 			listaBautizado=this.servicioAdministracion.buscarPersona(contratoDataManager.getBeneficiariInsertar());
 							
 			if (CollectionUtils.isEmpty(listaBautizado) && listaBautizado.size()==0) {
@@ -298,10 +266,10 @@ public ContratoController() {
 	public void calcularValorTotal()
 	{
 		slf4jLogger.info("calcularValorTotal");
-		int valorTotal;
+		Double valorTotal;
 		try {
 		valorTotal=servicioEucaristia.calcularValorTotal(contratoDataManager.getContratoDTO());		
-		contratoDataManager.getContratoDTO().setConValorTotal(valorTotal);
+		contratoDataManager.getContratoDTO().setConValorTotal(BigDecimal.valueOf(valorTotal));
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al calcularValorTotal {}", e.getMessage());
 			MensajesWebController.aniadirMensajeError("Error al calcularValorTotal seleccionado");
@@ -319,8 +287,9 @@ public ContratoController() {
 			contratoDataManager.setFormaPagoCodigo(contratoEncontrado.getContratoDTO().getConFormaPago());
 			contratoDataManager.setFechaFin(contratoEncontrado.getContratoDTO().getConFechaFin());
 			contratoDataManager.setFechaInicio(contratoEncontrado.getContratoDTO().getConFechaInicio());
-			contratoDataManager.setNichoCodigo(contratoEncontrado.getContratoDTO().getEucNicho().getNicCodigo());
+			contratoDataManager.setNichoCodigo(contratoEncontrado.getContratoDTO().getConNicho());
 			contratoDataManager.setNichoDTOEditar(contratoEncontrado.getNichoDTO());
+			buscarNicho2();
 			
 							
 		} catch (SeguridadesException e) {
@@ -329,29 +298,6 @@ public ContratoController() {
 		}
 	}
 	
-	
-	/*public void actualizar()
-	{
-		ContratoDTO contrato;
-		try {
-			contrato=new ContratoDTO();
-			contrato.setConCodigo(contratoDataManager.getContratoListDTOEditar().getConCodigo());
-			contrato.setConAnioArrendamiento(contratoDataManager.getContratoListDTOEditar().getConAnioArrendamiento());
-			contrato.setConBeneficiario(contratoDataManager.getContratoListDTOEditar().getConBeneficiario());
-			contrato.setConFechaFin(contratoDataManager.getContratoListDTOEditar().getConFechaFin());
-			contrato.setConFechaInicio(contratoDataManager.getContratoListDTOEditar().getConFechaInicio());
-			contrato.setConFormaPago(contratoDataManager.getContratoListDTOEditar().getConFormaPago());
-			contrato.setConObservacion(contratoDataManager.getContratoListDTOEditar().getConObservacion());
-						
-			servicioEucaristia.updateContrato(contrato);
-			
-			MensajesWebController.aniadirMensajeInformacion("erp.despacho.contrato.actualizar.exito");
-		} catch (SeguridadesException e) {
-			slf4jLogger.info(e.toString());
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-	}
-	*/
 
 	@Override
 	public void refrescarFormulario() {
@@ -359,12 +305,11 @@ public ContratoController() {
 		
 	}
 	
-
 	public void exportar()
 	{
+		ContratoListDTO contrato=new ContratoListDTO();
+		contrato.setConFormaPago(contratoDataManager.getFormaPagoCodigo());
 		
-		//Integer numero=0;
-		//numero=contratoDataManager.getFormaPagoCodigo();
 		Date fechaActual = new Date();
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
 		mapParametros.put("beneficiarioNombre", contratoDataManager.getBeneficiariInsertar().getPerNombres());
@@ -380,8 +325,8 @@ public ContratoController() {
 		mapParametros.put("fechaInicio", contratoDataManager.getContratoDTO().getConFechaInicio());
 		mapParametros.put("parroquia", contratoDataManager.getDefuncionListDTO().getCatParroquia());
 		mapParametros.put("fecha", fechaActual.toString());
-		mapParametros.put("valorPagar", contratoDataManager.getContratoDTO().getConValorTotal().toString());
-		//mapParametros.put("formaPago", contratoDataManager.getFormaPagoListDTOs().get(numero).getCatDescripcion());
+		mapParametros.put("valorPagar", contratoDataManager.getContratoDTO().getConValorMes().toString());
+		mapParametros.put("formaPago", contratoDataManager.getFormaPagoList().getCatDescripcion());
 		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 		
