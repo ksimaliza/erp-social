@@ -17,7 +17,7 @@ public class PagoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="EUC_PAGO_PAGCODIGO_GENERATOR", sequenceName="EUC_PAGO_PAG_CODIGO_SEQ",allocationSize=1)
+	@SequenceGenerator(name="EUC_PAGO_PAGCODIGO_GENERATOR", sequenceName="EUC_PAGO_PAG_CODIGO_SEQ")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EUC_PAGO_PAGCODIGO_GENERATOR")
 	@Column(name="pag_codigo")
 	private Integer pagCodigo;
@@ -25,17 +25,23 @@ public class PagoDTO implements Serializable {
 	@Column(name="pag_contrato")
 	private Integer pagContrato;
 
-	@Column(name="pag_meses_pagados")
-	private Integer pagMesesPagados;
-	
+	@Column(name="pag_fecha")
+	private Timestamp pagFecha;
+
 	@Column(name="pag_meses_faltantes")
 	private Integer pagMesesFaltantes;
 
-	@Column(name="pag_fecha")
-	private Timestamp pagFecha;
-	
-	@Column(name="pag_valor")
-	private BigDecimal pagValor;
+	@Column(name="pag_meses_pagados")
+	private Integer pagMesesPagados;
+
+	@Column(name="pag_saldo")
+	private BigDecimal pagSaldo;
+
+	@Column(name="pag_valor_pagado")
+	private BigDecimal pagValorPagado;
+
+	@Column(name="pag_valor_total")
+	private BigDecimal pagValorTotal;
 
 	public PagoDTO() {
 	}
@@ -64,28 +70,44 @@ public class PagoDTO implements Serializable {
 		this.pagFecha = pagFecha;
 	}
 
-	public BigDecimal getPagValor() {
-		return this.pagValor;
+	public Integer getPagMesesFaltantes() {
+		return this.pagMesesFaltantes;
 	}
 
-	public void setPagValor(BigDecimal pagValor) {
-		this.pagValor = pagValor;
+	public void setPagMesesFaltantes(Integer pagMesesFaltantes) {
+		this.pagMesesFaltantes = pagMesesFaltantes;
 	}
 
 	public Integer getPagMesesPagados() {
-		return pagMesesPagados;
-	}
-
-	public Integer getPagMesesFaltantes() {
-		return pagMesesFaltantes;
+		return this.pagMesesPagados;
 	}
 
 	public void setPagMesesPagados(Integer pagMesesPagados) {
 		this.pagMesesPagados = pagMesesPagados;
 	}
 
-	public void setPagMesesFaltantes(Integer pagMesesFaltantes) {
-		this.pagMesesFaltantes = pagMesesFaltantes;
+	public BigDecimal getPagSaldo() {
+		return this.pagSaldo;
+	}
+
+	public void setPagSaldo(BigDecimal pagSaldo) {
+		this.pagSaldo = pagSaldo;
+	}
+
+	public BigDecimal getPagValorPagado() {
+		return this.pagValorPagado;
+	}
+
+	public void setPagValorPagado(BigDecimal pagValorPagado) {
+		this.pagValorPagado = pagValorPagado;
+	}
+
+	public BigDecimal getPagValorTotal() {
+		return this.pagValorTotal;
+	}
+
+	public void setPagValorTotal(BigDecimal pagValorTotal) {
+		this.pagValorTotal = pagValorTotal;
 	}
 
 }

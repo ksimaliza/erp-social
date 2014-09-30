@@ -3,6 +3,7 @@ package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.math.BigDecimal;
 
 
 /**
@@ -16,13 +17,13 @@ public class ContratoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="EUC_CONTRATO_CONCODIGO_GENERATOR", sequenceName="EUC_CONTRATO_CON_CODIGO_SEQ",allocationSize=1)
+	@SequenceGenerator(name="EUC_CONTRATO_CONCODIGO_GENERATOR", sequenceName="EUC_CONTRATO_CON_CODIGO_SEQ")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EUC_CONTRATO_CONCODIGO_GENERATOR")
 	@Column(name="con_codigo")
 	private Integer conCodigo;
 
-	@Column(name="con_meses_arrendamiento")
-	private Integer conMesesArrendamiento;
+	@Column(name="con_beneficiario")
+	private Integer conBeneficiario;
 
 	@Column(name="con_difunto")
 	private Integer conDifunto;
@@ -35,26 +36,24 @@ public class ContratoDTO implements Serializable {
 
 	@Column(name="con_forma_pago")
 	private Integer conFormaPago;
-	
-	@Column(name="con_valor_total")
-	private Integer conValorTotal;
-	
-	@Column(name="con_valor_mes")
-	private Integer conValorMes;
 
-	@Column(name="con_beneficiario")
-	private Integer conBeneficiario;
-	
-	@Column(name="con_observacion")
-	private String conObservacion;
-	
+	@Column(name="con_meses_arrendamiento")
+	private Integer conMesesArrendamiento;
+
 	@Column(name="con_meses_por_pagar")
 	private Integer conMesesPorPagar;
 
-	//bi-directional many-to-one association to NichoDTO
-	@ManyToOne
-	@JoinColumn(name="con_nicho")
-	private NichoDTO eucNicho;
+	@Column(name="con_nicho")
+	private Integer conNicho;
+
+	@Column(name="con_observacion")
+	private String conObservacion;
+
+	@Column(name="con_valor_mes")
+	private BigDecimal conValorMes;
+
+	@Column(name="con_valor_total")
+	private BigDecimal conValorTotal;
 
 	public ContratoDTO() {
 	}
@@ -67,14 +66,12 @@ public class ContratoDTO implements Serializable {
 		this.conCodigo = conCodigo;
 	}
 
-	
-
-	public Integer getConMesesArrendamiento() {
-		return conMesesArrendamiento;
+	public Integer getConBeneficiario() {
+		return this.conBeneficiario;
 	}
 
-	public void setConMesesArrendamiento(Integer conMesesArrendamiento) {
-		this.conMesesArrendamiento = conMesesArrendamiento;
+	public void setConBeneficiario(Integer conBeneficiario) {
+		this.conBeneficiario = conBeneficiario;
 	}
 
 	public Integer getConDifunto() {
@@ -109,6 +106,30 @@ public class ContratoDTO implements Serializable {
 		this.conFormaPago = conFormaPago;
 	}
 
+	public Integer getConMesesArrendamiento() {
+		return this.conMesesArrendamiento;
+	}
+
+	public void setConMesesArrendamiento(Integer conMesesArrendamiento) {
+		this.conMesesArrendamiento = conMesesArrendamiento;
+	}
+
+	public Integer getConMesesPorPagar() {
+		return this.conMesesPorPagar;
+	}
+
+	public void setConMesesPorPagar(Integer conMesesPorPagar) {
+		this.conMesesPorPagar = conMesesPorPagar;
+	}
+
+	public Integer getConNicho() {
+		return this.conNicho;
+	}
+
+	public void setConNicho(Integer conNicho) {
+		this.conNicho = conNicho;
+	}
+
 	public String getConObservacion() {
 		return this.conObservacion;
 	}
@@ -117,44 +138,20 @@ public class ContratoDTO implements Serializable {
 		this.conObservacion = conObservacion;
 	}
 
-	public NichoDTO getEucNicho() {
-		return this.eucNicho;
+	public BigDecimal getConValorMes() {
+		return this.conValorMes;
 	}
 
-	public void setEucNicho(NichoDTO eucNicho) {
-		this.eucNicho = eucNicho;
-	}
-
-	public Integer getConBeneficiario() {
-		return conBeneficiario;
-	}
-
-	public void setConBeneficiario(Integer conBeneficiario) {
-		this.conBeneficiario = conBeneficiario;
-	}
-
-	public Integer getConMesesPorPagar() {
-		return conMesesPorPagar;
-	}
-
-	public void setConMesesPorPagar(Integer conMesesPorPagar) {
-		this.conMesesPorPagar = conMesesPorPagar;
-	}
-
-	public Integer getConValorTotal() {
-		return conValorTotal;
-	}
-
-	public Integer getConValorMes() {
-		return conValorMes;
-	}
-
-	public void setConValorTotal(Integer conValorTotal) {
-		this.conValorTotal = conValorTotal;
-	}
-
-	public void setConValorMes(Integer conValorMes) {
+	public void setConValorMes(BigDecimal conValorMes) {
 		this.conValorMes = conValorMes;
+	}
+
+	public BigDecimal getConValorTotal() {
+		return this.conValorTotal;
+	}
+
+	public void setConValorTotal(BigDecimal conValorTotal) {
+		this.conValorTotal = conValorTotal;
 	}
 
 }

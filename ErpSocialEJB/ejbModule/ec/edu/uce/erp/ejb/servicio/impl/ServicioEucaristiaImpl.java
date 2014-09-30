@@ -1,5 +1,6 @@
 package ec.edu.uce.erp.ejb.servicio.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -812,6 +813,7 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		slf4jLogger.info("obtenerNichoPorId");
 		
 		NichoDTO nicho=new NichoDTO();
+		nicho=eucaristiaFactoryDAO.getNichoDAOImpl().find(nichoListDTO.getNicCodigo());
 		nicho.setEucNivelNicho(eucaristiaFactoryDAO.getNivelNichoDAOImpl().find(nichoListDTO.getNniNivel()));
 		nicho.setEucTipoNicho(eucaristiaFactoryDAO.getTipoNichoDAOImpl().find(nichoListDTO.getNicTipo()));
 		nicho.setNicSeccion(nichoListDTO.getCatCodigo());
@@ -1025,7 +1027,7 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			if(contratoVO.getContratoDTO().getConCodigo()!=null){
 				nichoDTO=eucaristiaFactoryDAO.getNichoDAOImpl().find(contratoVO.getNichoDTO().getNicCodigo());
 				formaPago=eucaristiaFactoryDAO.getCatalogoDAOImpl().find(contratoVO.getFormaPago().getCatCodigo());
-				contratoVO.getContratoDTO().setEucNicho(nichoDTO);
+				contratoVO.getContratoDTO().setConNicho(nichoDTO.getNicCodigo());
 				contratoVO.getContratoDTO().setConFormaPago(formaPago.getCatCodigo());
 							
 				return  eucaristiaFactoryDAO.getContratoDAOImpl().update(contratoVO.getContratoDTO());
@@ -1033,7 +1035,7 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			else{
 				nichoDTO=eucaristiaFactoryDAO.getNichoDAOImpl().find(contratoVO.getNichoDTO().getNicCodigo());
 				formaPago=eucaristiaFactoryDAO.getCatalogoDAOImpl().find(contratoVO.getFormaPago().getCatCodigo());
-				contratoVO.getContratoDTO().setEucNicho(nichoDTO);
+				contratoVO.getContratoDTO().setConNicho(nichoDTO.getNicCodigo());
 				contratoVO.getContratoDTO().setConFormaPago(formaPago.getCatCodigo());
 							
 				return  eucaristiaFactoryDAO.getContratoDAOImpl().create(contratoVO.getContratoDTO());
@@ -1088,7 +1090,6 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			
 		if(sepulturaVO.getSepultura().getSepCodigo()!=null){
 			
-				
 				nichoDTO=eucaristiaFactoryDAO.getNichoDAOImpl().find(sepulturaVO.getNichoDTO().getNicCodigo());
 				sepulturaVO.getSepultura().setSepNicho(nichoDTO.getNicCodigo());
 							
@@ -1125,6 +1126,7 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		
 		SepulturaVO sepultura=new SepulturaVO();
 		sepultura.setSepultura(eucaristiaFactoryDAO.getSepulturaDAOImpl().find(sepulturaListDTO.getSepCodigo()));
+		sepultura.setDefuncionPersona(factoryDAO.getPersonaDAOImpl().find(sepulturaListDTO.getSepDifunto()));;
 		return sepultura;
 	}
 
@@ -1184,7 +1186,7 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		try{
 			pagoInter=eucaristiaFactoryDAO.getPagoDAOImpl().find(pago.getPagCodigo());
 			pagoInter.setPagFecha(pago.getPagFecha());
-			pagoInter.setPagValor(pago.getPagValor());
+			pagoInter.setPagValorPagado(pago.getPagValorPagado());
 			pagoInter.setPagMesesPagados(pago.getPagMesesPagados());
 			eucaristiaFactoryDAO.getPagoDAOImpl().update(pagoInter);		
 		 
@@ -1197,12 +1199,12 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	}
 	
 	@Override
-	public Integer calcularValorTotal(ContratoDTO contrato) throws SeguridadesException
+	public Double  calcularValorTotal(ContratoDTO contrato) throws SeguridadesException
 	{
 		slf4jLogger.info("calcularValorTotal");
-		Integer valorTotal;										
+		Double valorTotal;										
 		try{
-			valorTotal=contrato.getConValorMes()*contrato.getConMesesArrendamiento();
+			valorTotal=Double.parseDouble(contrato.getConValorMes().toString())*contrato.getConMesesArrendamiento();
 		 
 		}catch (Exception e) {
 			slf4jLogger.info("error al calcularValorTotal {}", e.toString());
@@ -1212,4 +1214,19 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	
 	}
 
+	@Override
+	public BigDecimal calcularSaldo(PagoDTO pago) throws SeguridadesException
+	{
+		slf4jLogger.info("calcularSaldo");
+		BigDecimal saldo;										
+		try{
+			saldo=pago.getPagSaldo().subtract(pago.getPagValorPagado());
+		}catch (Exception e) {
+			slf4jLogger.info("error al calcularSaldo {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		return saldo;
+	
+	}
+	
 }

@@ -112,7 +112,6 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ExumacionDTO</class>
@@ -123,14 +122,12 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.TipoNichoDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CostoDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.CatalogoAsistenciaDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepNivelEstudianteDTO</class>
@@ -143,17 +140,20 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ExumacionListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoAtrasoListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorasTrabajadasListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.AnioRegistroVieDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.MesRegistroVieDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoListDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoContratoListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteAsignadoVieDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ComunionListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.ActaBien</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.TransaccionActaBien</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionListDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaListDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoListDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoContratoListDTO</class>
 		<properties>
 			<property name="hibernate.connection.username" value="postgres" />
 			<property name="hibernate.connection.password" value="root" />

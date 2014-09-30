@@ -1,8 +1,17 @@
 package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 
 /**
@@ -27,10 +36,10 @@ public class NichoDTO implements Serializable {
 	@Column(name="nic_seccion")
 	private Integer nicSeccion;
 
-	//bi-directional many-to-one association to ContratoDTO
+	/*//bi-directional many-to-one association to ContratoDTO
 	@OneToMany(mappedBy="eucNicho")
 	private List<ContratoDTO> eucContratos;
-
+*/
 	//bi-directional many-to-one association to TipoNichoDTO
 	@ManyToOne
 	@JoinColumn(name="nic_tipo")
@@ -60,7 +69,7 @@ public class NichoDTO implements Serializable {
 		this.nicDescripcion = nicDescripcion;
 	}
 
-	public List<ContratoDTO> getEucContratos() {
+	/*public List<ContratoDTO> getEucContratos() {
 		return this.eucContratos;
 	}
 
@@ -80,7 +89,7 @@ public class NichoDTO implements Serializable {
 		eucContrato.setEucNicho(null);
 
 		return eucContrato;
-	}
+	}*/
 
 	public NivelNichoDTO getEucNivelNicho() {
 		return this.eucNivelNicho;
