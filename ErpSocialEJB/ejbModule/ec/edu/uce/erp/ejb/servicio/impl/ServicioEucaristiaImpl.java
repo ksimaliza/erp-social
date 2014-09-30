@@ -1060,7 +1060,6 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			slf4jLogger.info("Error al buscarContrato {}", e.getMessage());
 			throw new SeguridadesException("No se pudo obtener buscarContrato de la base de datos");
 		}
-		
 		return listContrato;
 	}
 	
@@ -1141,9 +1140,11 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 				return  eucaristiaFactoryDAO.getPagoDAOImpl().update(pagoVO.getPago());
 			}
 			else{
-				mesesFaltantes=pagoVO.getContratoDTO().getConMesesPorPagar()-pagoVO.getPago().getPagMesesPagados();
-				pagoVO.getContratoDTO().setConMesesPorPagar(mesesFaltantes);
+				
+				//mesesFaltantes=pagoVO.getContratoDTO().getConMesesPorPagar()-pagoVO.getPago().getPagMesesPagados();
+				//pagoVO.getContratoDTO().setConMesesPorPagar(mesesFaltantes);
 				eucaristiaFactoryDAO.getContratoDAOImpl().update(pagoVO.getContratoDTO());
+				
 				return  eucaristiaFactoryDAO.getPagoDAOImpl().create(pagoVO.getPago());
 				
 			} }catch (Exception e) {

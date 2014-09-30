@@ -17,7 +17,7 @@ public class ContratoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="EUC_CONTRATO_CONCODIGO_GENERATOR", sequenceName="EUC_CONTRATO_CON_CODIGO_SEQ")
+	@SequenceGenerator(name="EUC_CONTRATO_CONCODIGO_GENERATOR", sequenceName="EUC_CONTRATO_CON_CODIGO_SEQ", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EUC_CONTRATO_CONCODIGO_GENERATOR")
 	@Column(name="con_codigo")
 	private Integer conCodigo;
@@ -54,6 +54,9 @@ public class ContratoDTO implements Serializable {
 
 	@Column(name="con_valor_total")
 	private BigDecimal conValorTotal;
+	
+	@Column(name="con_valor_saldo")
+	private BigDecimal conValorSaldo;
 
 	public ContratoDTO() {
 	}
@@ -152,6 +155,14 @@ public class ContratoDTO implements Serializable {
 
 	public void setConValorTotal(BigDecimal conValorTotal) {
 		this.conValorTotal = conValorTotal;
+	}
+
+	public BigDecimal getConValorSaldo() {
+		return conValorSaldo;
+	}
+
+	public void setConValorSaldo(BigDecimal conValorSaldo) {
+		this.conValorSaldo = conValorSaldo;
 	}
 
 }
