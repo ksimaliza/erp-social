@@ -3,6 +3,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpEditarPagoContrato" header="#{i18n['erp.despacho.contrato.registrar']}" resizable="false" draggable="false"
@@ -77,7 +78,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtFechaInicio" label="#{i18n['erp.despacho.contrato.fecha.inicio']}" style="width: 70%" 
-							value="#{pagoContratoDataManager.pagoContratoListDTOEditar.conFechaInicio}" readonly="true"/>
+							value="#{fn:substring(pagoContratoDataManager.pagoContratoListDTOEditar.conFechaInicio,0,10)}" readonly="true"/>
 						</td>
 					</tr>
 					
@@ -87,7 +88,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtFechaFinalizacion" label="#{i18n['erp.despacho.contrato.fecha.fin']}" style="width: 70%" 
-							value="#{pagoContratoDataManager.pagoContratoListDTOEditar.conFechaFin}" readonly="true"/>
+							value="#{fn:substring(pagoContratoDataManager.pagoContratoListDTOEditar.conFechaFin,0,10)}" readonly="true"/>
 						</td>
 					</tr>
 					
@@ -146,6 +147,27 @@
 					
 					<tr>
 						<td width="30%">
+							<h:outputLabel for="txtValorMes" value="#{i18n['erp.despacho.contrato.valor.mes']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtValorMes" label="#{i18n['erp.despacho.contrato.valor.mes']}" style="width: 70%"
+							value="#{pagoContratoDataManager.pagoContratoListDTOEditar.conValorMes}"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtValorTotal" value="#{i18n['erp.despacho.contrato.pago.valor.total']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtValorTotal" label="#{i18n['erp.despacho.contrato.pago.valor.total']}" style="width: 70%"
+							value="#{pagoContratoDataManager.pagoContratoListDTOEditar.conValorTotal}"/>
+						</td>
+					</tr>
+					
+					
+					<tr>
+						<td width="30%">
 							<h:outputLabel for="txtFormaPago" value="#{i18n['erp.despacho.contrato.forma.pago']}" />
 						</td>
 						<td width="70%">
@@ -166,25 +188,37 @@
 						</p:inputTextarea>
 						</td>	
 					</tr>
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtValorTotal" value="#{i18n['erp.despacho.contrato.pago.valor.total']}" />
-						</td>
-						<td width="70%">
-							<p:inputText id="txtValorTotal" label="#{i18n['erp.despacho.contrato.pago.valor.total']}" style="width: 70%"
-							value="#{pagoContratoDataManager.pagoContratoListDTOEditar.pagValorPagado}"/>
-						</td>
-					</tr>
-									
+					
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtFechaPago" value="#{i18n['erp.despacho.contrato.pago.fecha.pago']}" />
 						</td>
 						<td width="70%">
 							<p:calendar id="txtFechaPago" style="width: 70%" navigator="true"   showOn="button" required="true"
-							value="#{pagoContratoDataManager.fechaPago}"/>
+							value="#{pagoContratoDataManager.pagoContratoListDTOEditar.pagFecha}"/>
 						</td>
 					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtMesesPago" value="#{i18n['erp.despacho.contrato.pago.meses']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtMesesPago" label="#{i18n['erp.despacho.contrato.pago.meses']}" style="width: 70%"
+							value="#{pagoContratoDataManager.pagoContratoListDTOEditar.pagMesesPagados}"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtMontoPagar" value="#{i18n['erp.despacho.contrato.pago.monto']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtMontoPagar" label="#{i18n['erp.despacho.contrato.pago.monto']}" style="width: 70%"
+							value="#{pagoContratoDataManager.pagoContratoListDTOEditar.pagValorPagado}"/>
+						</td>
+					</tr>		
+					
 									
 				</table>
 			</p:panel>

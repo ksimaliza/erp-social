@@ -3,11 +3,14 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpNuevoPagoContrato" header="#{i18n['erp.despacho.contrato.registrar']}" resizable="false" draggable="false"
 		widgetVar="dlgNuevoPagoContrato" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<p:scrollPanel style="height:500px" mode="native">
 		<h:form id="formNuevoPagoContrato" styleClass="formulario">
+			
 			<p:panel id="pnlNuevoPagoContrato">
 				<table class="formulario">
 						
@@ -19,7 +22,7 @@
 							<p:inputText id="txtCi" style="width: 70%" 
 								   value="#{pagoContratoDataManager.contratoListDTO.perCi}">
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-							<p:ajax event="blur"  listener="#{pagoContratoController.buscarContrato}" process="@this" update="txtNombres,txtApellidos,txtFechaInicio,txtFechaFinalizacion,txtNumNicho,txtSeccionNicho,txtTipoNicho,txtNivelNicho,txtMesesArrend,txtFormaPago,txtObs,txtNombresBen,txtApellidosBen,txtCiBen"/>
+							<p:ajax event="blur"  listener="#{pagoContratoController.buscarContrato}" process="@this" update="txtNombres,txtApellidos,txtFechaInicio,txtFechaFinalizacion,txtNumNicho,txtSeccionNicho,txtTipoNicho,txtNivelNicho,txtMesesArrend,txtFormaPago,txtObs,txtNombresBen,txtApellidosBen,txtCiBen,txtValorMes,txtValorTotal"/>
 						</p:inputText>
 						</td>	
 					</tr>
@@ -80,7 +83,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtFechaInicio" label="#{i18n['erp.despacho.contrato.fecha.inicio']}" style="width: 70%" 
-							value="#{pagoContratoDataManager.contratoListDTO.conFechaInicio}" readonly="true"/>
+							value="#{fn:substring(pagoContratoDataManager.contratoListDTO.conFechaInicio,0,10)}" readonly="true"/>
 						</td>
 					</tr>
 					
@@ -90,7 +93,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtFechaFinalizacion" label="#{i18n['erp.despacho.contrato.fecha.fin']}" style="width: 70%" 
-							value="#{pagoContratoDataManager.contratoListDTO.conFechaFin}" readonly="true"/>
+							value="#{fn:substring(pagoContratoDataManager.contratoListDTO.conFechaFin,0,10)}" readonly="true"/>
 						</td>
 					</tr>
 					
@@ -148,10 +151,30 @@
 					
 					<tr>
 						<td width="30%">
+							<h:outputLabel for="txtValorMes" value="#{i18n['erp.despacho.contrato.valor.mes']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtValorMes" label="#{i18n['erp.despacho.contrato.valor.mes']}" style="width: 70%"
+							value="#{pagoContratoDataManager.contratoListDTO.conValorMes}"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtValorTotal" value="#{i18n['erp.despacho.contrato.pago.valor.total']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtValorTotal" label="#{i18n['erp.despacho.contrato.pago.valor.total']}" style="width: 70%"
+							value="#{pagoContratoDataManager.contratoListDTO.conValorTotal}"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
 							<h:outputLabel for="txtFormaPago" value="#{i18n['erp.despacho.contrato.forma.pago']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtFormaPago" label="#{i18n['erp.despacho.contrato.forma.pago']}" style="width: 70%" 
+							<p:inputText id="txtFormaPago"  label="#{i18n['erp.despacho.contrato.forma.pago']}" style="width: 70%" 
 							value="#{pagoContratoDataManager.contratoListDTO.catDescripcion}" readonly="true"/>
 						</td>
 					</tr>
@@ -169,15 +192,7 @@
 						</td>	
 					</tr>
 					
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtValorTotal" value="#{i18n['erp.despacho.contrato.pago.valor.total']}" />
-						</td>
-						<td width="70%">
-							<p:inputText id="txtValorTotal" label="#{i18n['erp.despacho.contrato.pago.valor.total']}" style="width: 70%"
-							value="#{pagoContratoDataManager.contratoListDTO.conValorTotal}"/>
-						</td>
-					</tr>
+					
 					
 					<tr>
 						<td width="30%">
@@ -221,6 +236,7 @@
 				disabled="#{pagoContratoDataManager.exportDesactivado}" />
 			</p:panel>
 		</h:form>
+		</p:scrollPanel>
 	</p:dialog>
 	
 </ui:composition>

@@ -25,7 +25,7 @@
 	</style>
 	<subDataset name="dataset1" uuid="443456f3-7348-4155-8645-9f228d87a0a3"/>
 	<subDataset name="Table Dataset 1" uuid="ea08d522-439e-4f47-a628-ebae95162158"/>
-	<parameter name="empresa" class="java.lang.String"/>
+	<parameter name="parroquia" class="java.lang.String"/>
 	<parameter name="beneficiarioNombre" class="java.lang.String"/>
 	<parameter name="beneficiarioApellido" class="java.lang.String"/>
 	<parameter name="beneficiarioCedula" class="java.lang.String"/>
@@ -39,6 +39,8 @@
 	<parameter name="aniosArrendamiento" class="java.lang.Integer"/>
 	<parameter name="fechaPago" class="java.util.Date"/>
 	<parameter name="mesPago" class="java.lang.String"/>
+	<parameter name="fechaActual" class="java.lang.String"/>
+	<parameter name="parameter1" class="java.lang.String"/>
 	<variable name="fecha" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -57,18 +59,18 @@
 	<pageHeader>
 		<band height="50">
 			<textField>
-				<reportElement x="264" y="15" width="93" height="21" uuid="c23a23d3-19b4-44cb-bbed-7193b846484e"/>
+				<reportElement x="289" y="10" width="100" height="20" uuid="0242a50c-bdb3-42ae-b9ed-ae1129e2c406"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{empresa}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{parroquia}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="357" y="15" width="176" height="20" uuid="f35ddb62-9a5e-499f-a1f1-fbdc17b8b7d8"/>
+				<reportElement x="389" y="10" width="129" height="20" uuid="6d09b043-bc1e-47ce-9fbd-e5a18e918363"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{fecha}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{fechaActual}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -103,7 +105,7 @@
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Número de mes pago:]]></text>
+				<text><![CDATA[Número de meses pago:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="35" y="106" width="102" height="20" uuid="f5ae21bf-e3ae-4e13-9768-d0f833e4b7b9"/>
@@ -212,6 +214,13 @@
 			</staticText>
 			<frame>
 				<reportElement style="table" x="31" y="35" width="508" height="31" uuid="9e27961a-a9f9-40ad-892a-5f6dc00576fb"/>
+				<textField>
+					<reportElement x="175" y="6" width="100" height="20" uuid="812c472a-768f-40af-8c7b-8b1e7705591c"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{mesPago}]]></textFieldExpression>
+				</textField>
 			</frame>
 			<frame>
 				<reportElement style="table" x="31" y="66" width="508" height="31" uuid="daf7dcd0-d835-42c9-947f-2a6992f0fd49"/>
