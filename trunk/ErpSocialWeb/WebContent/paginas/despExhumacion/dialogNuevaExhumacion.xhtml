@@ -18,7 +18,6 @@
 						<td width="70%">
 							<p:inputText id="txtCi" style="width: 70%" 
 								 required="true" value="#{exhumacionDataManager.difuntoInsertar.perCi}" >
-							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur" update="txtNombres,txtApellidos" listener="#{exhumacionController.buscarDifunto}" process="@this"/>
 						</p:inputText>

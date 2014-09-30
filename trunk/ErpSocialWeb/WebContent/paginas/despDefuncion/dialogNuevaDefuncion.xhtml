@@ -19,9 +19,8 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCi" style="width: 70%" 
-								 required="true" value="#{defuncionDataManager.difuntoInsertar.perCi}" >
+								 value="#{defuncionDataManager.difuntoInsertar.perCi}" >
 							<p:ajax event="blur" update="txtNombres,txtApellidos" listener="#{defuncionController.buscarDifunto}" process="@this"/>
-							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 						</p:inputText>
 						</td>	
@@ -71,7 +70,6 @@
 							<p:inputText id="txtCiConyuge" style="width: 70%" 
 								value="#{defuncionDataManager.conyugeInsertar.perCi}" >
 							<p:ajax event="blur" update="txtNomConyuge,txtApeConyuge" listener="#{defuncionController.buscarConyuge}" process="@this"/>
-						<!--  	<f:validateLength maximum="10" minimum="10"/>-->
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 						</p:inputText>
 						</td>	

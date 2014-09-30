@@ -318,14 +318,14 @@
 				<text><![CDATA["]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="362" y="11" width="17" height="24" uuid="d34ce960-648a-4522-9d46-ffe10af92a2f"/>
+				<reportElement x="400" y="11" width="17" height="24" uuid="d34ce960-648a-4522-9d46-ffe10af92a2f"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA["]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="299" y="11" width="59" height="24" uuid="b7381c4a-6cb2-4acc-a753-33d398ac0bcd"/>
+				<reportElement x="307" y="11" width="86" height="24" uuid="b7381c4a-6cb2-4acc-a753-33d398ac0bcd"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
