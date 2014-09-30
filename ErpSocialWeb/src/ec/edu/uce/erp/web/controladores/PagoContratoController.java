@@ -85,20 +85,20 @@ public class PagoContratoController extends BaseController {
 			contratoDTO.setConCodigo(pagoContratoDataManager.getContratoListDTO().getConCodigo());
 			pago.getPago().setPagContrato(contratoDTO.getConCodigo());
 			pago.getPago().setPagFecha(new Timestamp(pagoContratoDataManager.getFechaPago().getTime()));
-			
-			
+			if(pago.getPago().getPagSaldo()!=null)
+			{
+				pago.getPago().setPagSaldo(servicioEucaristia.calcularSaldo(pago.getPago()));
+			}	
+				else
+				{		
+					pago.getPago().setPagSaldo(pagoContratoDataManager.getContratoListDTO().getConValorTotal());
+					pago.getPago().setPagSaldo(servicioEucaristia.calcularSaldo(pago.getPago()));
+				}	
+					
 			PagoDTO pagoNuevo=this.servicioEucaristia.createOrUpdatePagoContrato(pago);
 			pagoContratoDataManager.setExportDesactivado(false);
 			
-			/*ContratoListDTO con=new ContratoListDTO();
-			con.setConCodigo(contratoNuevo.getConCodigo());
-			con.setConBeneficiario(contratoNuevo.getConBeneficiario());
-			con.setConDifunto(contratoNuevo.getConDifunto());
-			con.setNicCodigo(contratoNuevo.getEucNicho().getNicCodigo());
-			
-			cargarDatosContrato(con);
-			*/
-			
+						
 			if (pagoNuevo!= null) {
 				/*pagoContratoDataManager.setPagoDTO(new PagoDTO());
 				pagoContratoDataManager.setContratoListDTO(new ContratoListDTO());
@@ -120,7 +120,7 @@ public class PagoContratoController extends BaseController {
 		try {
 			pago=new PagoDTO();
 			pago.setPagCodigo(pagoContratoDataManager.getPagoContratoListDTOEditar().getPagCodigo());
-			pago.setPagValor(pagoContratoDataManager.getPagoContratoListDTOEditar().getPagValor());
+			pago.setPagValorPagado(pagoContratoDataManager.getPagoContratoListDTOEditar().getPagValorPagado());
 			pago.setPagFecha(pagoContratoDataManager.getPagoContratoListDTOEditar().getPagFecha());
 			pago.setPagMesesPagados(pagoContratoDataManager.getPagoContratoListDTOEditar().getPagMesesPagados());
 			servicioEucaristia.updatePagoContrato(pago);
@@ -136,11 +136,8 @@ public class PagoContratoController extends BaseController {
 	public void buscarPagoContrato()
 	{
 		try {
-			
 			pagoContratoDataManager.setPagoContratoListDTOs(this.servicioEucaristia.readPago(this.pagoContratoDataManager.getPagoContratoListDTO()));
 			this.pagoContratoDataManager.setPagoContratoListDTO(new PagoContratoListDTO());
-			
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarPagoContrato {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -151,25 +148,19 @@ public class PagoContratoController extends BaseController {
 
 	public void buscarContrato () {
 		slf4jLogger.info("buscarContrato");
-		
 		List<ContratoListDTO> listaContrato=null;
-		
 		try {
-			
 			listaContrato=this.servicioEucaristia.buscarContrato(new ContratoListDTO());
-			
 			if (CollectionUtils.isEmpty(listaContrato) && listaContrato.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.pagoContratoDataManager.setContratoListDTO(listaContrato.get(0));
-				
 			}
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarContrato {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
-		
 	}
 	
 	
@@ -177,7 +168,6 @@ public class PagoContratoController extends BaseController {
 	public void cargarDatosPagoContrato(PagoContratoListDTO pagoContratoListDTO) {
 		try {
 			this.pagoContratoDataManager.setPagoContratoListDTOEditar(pagoContratoListDTO);
-						
 													
 		} catch (Exception e) {
 			slf4jLogger.info("Error al cargarDatosSepultura {}", e.getMessage());
@@ -199,7 +189,7 @@ public class PagoContratoController extends BaseController {
 		mapParametros.put("nivelNicho", pagoContratoDataManager.getPagoContratoListDTOEditar().getNniDescripcion());
 		mapParametros.put("difuntoApellido", pagoContratoDataManager.getPagoContratoListDTOEditar().getPerApellidos());
 		mapParametros.put("difuntoNombre", pagoContratoDataManager.getPagoContratoListDTOEditar().getPerNombres());
-		mapParametros.put("valorPagar", pagoContratoDataManager.getPagoDTO().getPagValor());
+		mapParametros.put("valorPagar", pagoContratoDataManager.getPagoDTO().getPagValorPagado());
 		mapParametros.put("fechaPago", pagoContratoDataManager.getPagoDTO().getPagFecha());
 		mapParametros.put("empresa", getEmpresaTbl().getEmrNombre());
 		//mapParametros.put("fecha", fechaActual);

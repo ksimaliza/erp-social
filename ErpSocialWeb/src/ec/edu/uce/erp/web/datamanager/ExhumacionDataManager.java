@@ -34,6 +34,7 @@ public class ExhumacionDataManager extends BaseDataManager {
 	private int autorizaCodigo;
 	private ExumacionListDTO exumacionListDTO;
 	private List<AutorizaExhumacionListDTO> autorizaExhumacionListDTOs;
+
 	
 	
 	
