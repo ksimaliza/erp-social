@@ -1,5 +1,6 @@
 package ec.edu.uce.erp.ejb.servicio;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -224,10 +225,12 @@ public interface ServicioEucaristia {
 	ContratoDTO createOrUpdateContrato(ContratoVO contratoVO)
 			throws SeguridadesException;
 
-	Integer calcularValorTotal(ContratoDTO contrato)
-			throws SeguridadesException;
+	Double calcularValorTotal(ContratoDTO contrato) throws SeguridadesException;
+
+	BigDecimal calcularSaldo(PagoDTO pago) throws SeguridadesException;
 
 	
+		
 
 
 }

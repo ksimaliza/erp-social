@@ -64,13 +64,10 @@ public class PagoContratoListDTO implements Serializable {
 	private String conObservacion;
 
 	@Column(name="con_valor_mes")
-	private Integer conValorMes;
+	private BigDecimal conValorMes;
 
 	@Column(name="con_valor_total")
-	private Integer conValorTotal;
-
-	@Column(name="meses_faltantes")
-	private Integer mesesFaltantes;
+	private BigDecimal conValorTotal;
 
 	@Column(name="nic_codigo")
 	private Integer nicCodigo;
@@ -99,11 +96,20 @@ public class PagoContratoListDTO implements Serializable {
 	@Column(name="pag_fecha")
 	private Timestamp pagFecha;
 
+	@Column(name="pag_meses_faltantes")
+	private Integer pagMesesFaltantes;
+
 	@Column(name="pag_meses_pagados")
 	private Integer pagMesesPagados;
 
-	@Column(name="pag_valor")
-	private BigDecimal pagValor;
+	@Column(name="pag_saldo")
+	private BigDecimal pagSaldo;
+
+	@Column(name="pag_valor_pagado")
+	private BigDecimal pagValorPagado;
+
+	@Column(name="pag_valor_total")
+	private BigDecimal pagValorTotal;
 
 	@Column(name="per_apellidos")
 	private String perApellidos;
@@ -117,6 +123,9 @@ public class PagoContratoListDTO implements Serializable {
 
 	@Column(name="per_nombres")
 	private String perNombres;
+
+	@Column(name="per_pk")
+	private Integer perPk;
 
 	private String seccion;
 
@@ -254,28 +263,20 @@ public class PagoContratoListDTO implements Serializable {
 		this.conObservacion = conObservacion;
 	}
 
-	public Integer getConValorMes() {
+	public BigDecimal getConValorMes() {
 		return this.conValorMes;
 	}
 
-	public void setConValorMes(Integer conValorMes) {
+	public void setConValorMes(BigDecimal conValorMes) {
 		this.conValorMes = conValorMes;
 	}
 
-	public Integer getConValorTotal() {
+	public BigDecimal getConValorTotal() {
 		return this.conValorTotal;
 	}
 
-	public void setConValorTotal(Integer conValorTotal) {
+	public void setConValorTotal(BigDecimal conValorTotal) {
 		this.conValorTotal = conValorTotal;
-	}
-
-	public Integer getMesesFaltantes() {
-		return this.mesesFaltantes;
-	}
-
-	public void setMesesFaltantes(Integer mesesFaltantes) {
-		this.mesesFaltantes = mesesFaltantes;
 	}
 
 	public Integer getNicCodigo() {
@@ -350,6 +351,14 @@ public class PagoContratoListDTO implements Serializable {
 		this.pagFecha = pagFecha;
 	}
 
+	public Integer getPagMesesFaltantes() {
+		return this.pagMesesFaltantes;
+	}
+
+	public void setPagMesesFaltantes(Integer pagMesesFaltantes) {
+		this.pagMesesFaltantes = pagMesesFaltantes;
+	}
+
 	public Integer getPagMesesPagados() {
 		return this.pagMesesPagados;
 	}
@@ -358,12 +367,28 @@ public class PagoContratoListDTO implements Serializable {
 		this.pagMesesPagados = pagMesesPagados;
 	}
 
-	public BigDecimal getPagValor() {
-		return this.pagValor;
+	public BigDecimal getPagSaldo() {
+		return this.pagSaldo;
 	}
 
-	public void setPagValor(BigDecimal pagValor) {
-		this.pagValor = pagValor;
+	public void setPagSaldo(BigDecimal pagSaldo) {
+		this.pagSaldo = pagSaldo;
+	}
+
+	public BigDecimal getPagValorPagado() {
+		return this.pagValorPagado;
+	}
+
+	public void setPagValorPagado(BigDecimal pagValorPagado) {
+		this.pagValorPagado = pagValorPagado;
+	}
+
+	public BigDecimal getPagValorTotal() {
+		return this.pagValorTotal;
+	}
+
+	public void setPagValorTotal(BigDecimal pagValorTotal) {
+		this.pagValorTotal = pagValorTotal;
 	}
 
 	public String getPerApellidos() {
@@ -396,6 +421,14 @@ public class PagoContratoListDTO implements Serializable {
 
 	public void setPerNombres(String perNombres) {
 		this.perNombres = perNombres;
+	}
+
+	public Integer getPerPk() {
+		return this.perPk;
+	}
+
+	public void setPerPk(Integer perPk) {
+		this.perPk = perPk;
 	}
 
 	public String getSeccion() {

@@ -2,6 +2,7 @@ package ec.edu.uce.erp.ejb.persistence.vo;
 
 import java.io.Serializable;
 
+import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaDTO;
 
@@ -11,12 +12,14 @@ private static final long serialVersionUID = 1L;
 	
 	private SepulturaDTO sepultura;
 	private NichoDTO nichoDTO;
+	private Persona defuncionPersona;
 
 		
 	public SepulturaVO() {
 	
 		sepultura=new SepulturaDTO();
 		nichoDTO=new NichoDTO();
+		defuncionPersona=new Persona();
 			
 	}
 
@@ -36,6 +39,13 @@ private static final long serialVersionUID = 1L;
 		this.nichoDTO = nichoDTO;
 	}
 
-	
+	public Persona getDefuncionPersona() {
+		return defuncionPersona;
+	}
+
+	public void setDefuncionPersona(Persona defuncionPersona) {
+		this.defuncionPersona = defuncionPersona;
+	}
+
 	
 }

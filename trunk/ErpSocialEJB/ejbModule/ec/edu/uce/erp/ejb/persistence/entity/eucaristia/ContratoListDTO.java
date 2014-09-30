@@ -3,6 +3,7 @@ package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -25,7 +26,6 @@ public class ContratoListDTO implements Serializable {
 	@Column(name="ben_nombres")
 	private String benNombres;
 
-	@Id
 	@Column(name="cat_codigo")
 	private Integer catCodigo;
 
@@ -38,6 +38,7 @@ public class ContratoListDTO implements Serializable {
 	@Column(name="con_beneficiario")
 	private Integer conBeneficiario;
 
+	@Id
 	@Column(name="con_codigo")
 	private Integer conCodigo;
 
@@ -66,10 +67,10 @@ public class ContratoListDTO implements Serializable {
 	private String conObservacion;
 
 	@Column(name="con_valor_mes")
-	private Integer conValorMes;
+	private BigDecimal conValorMes;
 
 	@Column(name="con_valor_total")
-	private Integer conValorTotal;
+	private BigDecimal conValorTotal;
 
 	@Column(name="nic_codigo")
 	private Integer nicCodigo;
@@ -238,19 +239,19 @@ public class ContratoListDTO implements Serializable {
 		this.conObservacion = conObservacion;
 	}
 
-	public Integer getConValorMes() {
+	public BigDecimal getConValorMes() {
 		return this.conValorMes;
 	}
 
-	public void setConValorMes(Integer conValorMes) {
+	public void setConValorMes(BigDecimal conValorMes) {
 		this.conValorMes = conValorMes;
 	}
 
-	public Integer getConValorTotal() {
+	public BigDecimal getConValorTotal() {
 		return this.conValorTotal;
 	}
 
-	public void setConValorTotal(Integer conValorTotal) {
+	public void setConValorTotal(BigDecimal conValorTotal) {
 		this.conValorTotal = conValorTotal;
 	}
 
