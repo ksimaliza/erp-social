@@ -78,6 +78,12 @@ public class MatriculaController extends BaseController {
 				estudianteDTO=new EstudianteDTO();
 				matriculado= new ArrayList<MatriculaDTO>();
 				
+				if(matriculaDataManager.getAsinacionList()!=null&&matriculaDataManager.getAsinacionList().size()<=0)
+				{
+					MensajesWebController.aniadirMensajeError("No existen datos del curso o paralelo");
+					return;
+				}
+				
 				estudianteDTO.setEstCodigo(matriculaDataManager.getEstudianteCodigo());
 				matriculaDataManager.getMatriculaInsertar().setMatEstudiante(estudianteDTO);
 				matriculaDataManager.getMatriculaInsertar().setRegFecha(new Timestamp(matriculaDataManager.getFechaInsertar().getTime()));
