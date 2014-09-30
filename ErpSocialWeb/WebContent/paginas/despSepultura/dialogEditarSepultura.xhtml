@@ -16,8 +16,8 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCi" style="width: 70%" 
-								 required="true" value="#{sepulturaDataManager.defuncionlistDTO.perCi}" >
-							<f:validateLength maximum="10" minimum="10"/>
+								  value="#{sepulturaDataManager.defuncionInsertar.perCi}" >
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur"  listener="#{sepulturaController.buscarDefuncion}" process="@this" update="txtNombres,txtApellidos"/>
 						</p:inputText>
 						</td>	
@@ -29,7 +29,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNombres" label="#{i18n['erp.despacho.defuncion.nombres']}" style="width: 70%"
-							value="#{sepulturaDataManager.defuncionlistDTO.perNombres}" readonly="true"/>
+							value="#{sepulturaDataManager.defuncionInsertar.perNombres}" readonly="true"/>
 						</td>
 					</tr>
 					<tr>
@@ -38,7 +38,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApellidos" label="#{i18n['erp.despacho.defuncion.apellidos']}" style="width: 70%" 
-							 value="#{sepulturaDataManager.defuncionlistDTO.perApellidos}" readonly="true"/>
+							 value="#{sepulturaDataManager.defuncionInsertar.perApellidos}" readonly="true"/>
 						</td>
 					</tr>
 					
@@ -99,7 +99,7 @@
 						</td>
 						<td width="70%">
 							<p:inputTextarea id="txtObservacion" style="width: 100%"
-							required="true" label="#{i18n['erp.despacho.sepultura.observacion']}" 
+							 label="#{i18n['erp.despacho.sepultura.observacion']}" 
 								value="#{sepulturaDataManager.sepulturaDTO.sepObservacion}" />
 						</td>
 					</tr>

@@ -18,8 +18,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCi" style="width: 70%" 
-								 required="true" value="#{contratoDataManager.difuntoInsertar.perCi}" >
-							<f:validateLength maximum="10" minimum="10"/>
+								  value="#{contratoDataManager.difuntoInsertar.perCi}" >
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur" update="txtNombres,txtApellidos" listener="#{contratoController.buscarDefuncion}" process="@this"/>
 						</p:inputText>
@@ -51,8 +50,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiBen" style="width: 70%" 
-								 required="true" value="#{contratoDataManager.beneficiariInsertar.perCi}" >
-							<f:validateLength maximum="10" minimum="10"/>
+								 value="#{contratoDataManager.beneficiariInsertar.perCi}" >
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur" update="txtNombresBen,txtApellidosBen" listener="#{contratoController.buscarBeneficiario}" process="@this"/>
 						</p:inputText>
@@ -83,7 +81,7 @@
 							<h:outputLabel for="txtFechaInicio" value="#{i18n['erp.despacho.contrato.fecha.inicio']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFechaInicio" style="width: 70%" navigator="true"   showOn="button" required="true"
+							<p:calendar id="txtFechaInicio" style="width: 70%" navigator="true"   showOn="button" 
 							value="#{contratoDataManager.fechaInicio}"/>
 						</td>
 					</tr>
@@ -92,7 +90,7 @@
 							<h:outputLabel for="txtFechaFinalizacion" value="#{i18n['erp.despacho.contrato.fecha.fin']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFechaFinalizacion" style="width: 70%" navigator="true"   showOn="button" required="true"
+							<p:calendar id="txtFechaFinalizacion" style="width: 70%" navigator="true"   showOn="button" 
 							value="#{contratoDataManager.fechaFin}"/>
 						</td>
 					</tr>
@@ -163,7 +161,7 @@
 						
 						</td>
 					<td width="70%">
-					<p:selectOneMenu id="formaPago" value="#{contratoDataManager.formaPagoCodigo}" filter="true" required="true" >
+					<p:selectOneMenu id="formaPago" value="#{contratoDataManager.formaPagoCodigo}" filter="true"  >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{contratoController.contratoDataManager.formaPagoListDTOs}" var="formaPago" itemLabel="#{formaPago.catDescripcion}" itemValue="#{formaPago.catCodigo}"/>
 					</p:selectOneMenu>

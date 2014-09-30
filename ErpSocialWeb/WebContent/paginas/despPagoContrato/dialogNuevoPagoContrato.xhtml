@@ -17,8 +17,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCi" style="width: 70%" 
-								 required="true"   value="#{pagoContratoDataManager.contratoListDTO.perCi}">
-							<f:validateLength maximum="10" minimum="10"/>
+								   value="#{pagoContratoDataManager.contratoListDTO.perCi}">
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur"  listener="#{pagoContratoController.buscarContrato}" process="@this" update="txtNombres,txtApellidos,txtFechaInicio,txtFechaFinalizacion,txtNumNicho,txtSeccionNicho,txtTipoNicho,txtNivelNicho,txtMesesArrend,txtFormaPago,txtObs,txtNombresBen,txtApellidosBen,txtCiBen"/>
 						</p:inputText>
@@ -51,7 +50,6 @@
 						<td width="70%">
 							<p:inputText id="txtCiBen" style="width: 70%" 
 								 required="true" value="#{pagoContratoDataManager.contratoListDTO.benCi}"  readonly="true">
-							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator"  />
 						</p:inputText>
 						</td>	
@@ -173,6 +171,26 @@
 					
 					<tr>
 						<td width="30%">
+							<h:outputLabel for="txtValorTotal" value="#{i18n['erp.despacho.contrato.pago.valor.total']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtValorTotal" label="#{i18n['erp.despacho.contrato.pago.valor.total']}" style="width: 70%"
+							value="#{pagoContratoDataManager.contratoListDTO.conValorTotal}"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFechaPago" value="#{i18n['erp.despacho.contrato.pago.fecha.pago']}" />
+						</td>
+						<td width="70%">
+							<p:calendar id="txtFechaPago" style="width: 70%" navigator="true"   showOn="button" required="true"
+							value="#{pagoContratoDataManager.fechaPago}"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
 							<h:outputLabel for="txtMesesPago" value="#{i18n['erp.despacho.contrato.pago.meses']}" />
 						</td>
 						<td width="70%">
@@ -183,21 +201,11 @@
 					
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtValorTotal" value="#{i18n['erp.despacho.contrato.pago.valor.total']}" />
+							<h:outputLabel for="txtMontoPagar" value="#{i18n['erp.despacho.contrato.pago.monto']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtValorTotal" label="#{i18n['erp.despacho.contrato.pago.valor.total']}" style="width: 70%"
-							value="#{pagoContratoDataManager.pagoDTO.pagValor}"/>
-						</td>
-					</tr>
-									
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtFechaPago" value="#{i18n['erp.despacho.contrato.pago.fecha.pago']}" />
-						</td>
-						<td width="70%">
-							<p:calendar id="txtFechaPago" style="width: 70%" navigator="true"   showOn="button" required="true"
-							value="#{pagoContratoDataManager.fechaPago}"/>
+							<p:inputText id="txtMontoPagar" label="#{i18n['erp.despacho.contrato.pago.monto']}" style="width: 70%"
+							value="#{pagoContratoDataManager.pagoDTO.pagValorPagado}"/>
 						</td>
 					</tr>
 									

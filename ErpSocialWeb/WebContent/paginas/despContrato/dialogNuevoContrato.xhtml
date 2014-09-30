@@ -18,8 +18,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCi" style="width: 70%" 
-								 required="true" value="#{contratoDataManager.defuncionListDTO.perCi}" >
-							<f:validateLength maximum="10" minimum="10"/>
+								  value="#{contratoDataManager.defuncionListDTO.perCi}" >
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur" update="txtNombres,txtApellidos" listener="#{contratoController.buscarDefuncion}" process="@this"/>
 						</p:inputText>
@@ -51,8 +50,8 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiBen" style="width: 70%" 
-								 required="true" value="#{contratoDataManager.beneficiariInsertar.perCi}" >
-							<f:validateLength maximum="10" minimum="10"/>
+								 value="#{contratoDataManager.beneficiariInsertar.perCi}" >
+							
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur" update="txtNombresBen,txtApellidosBen" listener="#{contratoController.buscarBeneficiario}" process="@this"/>
 						</p:inputText>
