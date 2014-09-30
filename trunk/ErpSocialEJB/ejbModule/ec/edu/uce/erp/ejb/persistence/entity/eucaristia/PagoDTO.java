@@ -17,7 +17,7 @@ public class PagoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="EUC_PAGO_PAGCODIGO_GENERATOR", sequenceName="EUC_PAGO_PAG_CODIGO_SEQ")
+	@SequenceGenerator(name="EUC_PAGO_PAGCODIGO_GENERATOR", sequenceName="EUC_PAGO_PAG_CODIGO_SEQ",allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="EUC_PAGO_PAGCODIGO_GENERATOR")
 	@Column(name="pag_codigo")
 	private Integer pagCodigo;
