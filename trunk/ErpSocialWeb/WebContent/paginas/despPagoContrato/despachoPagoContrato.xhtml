@@ -4,6 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/WEB-INF/templates/template.xhtml">
 	
 <ui:define name="title">
@@ -123,11 +124,11 @@
 				</p:column>
 	
 				<p:column headerText="#{i18n['erp.despacho.contrato.fecha.inicio']}" width="40%">
-					<h:outputText  value="#{pago.conFechaInicio}" />
+					<h:outputText  value="#{fn:substring(pago.conFechaInicio,0,10)}" />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.contrato.fecha.inicio']}" width="40%">
-					<h:outputText  value="#{pago.conFechaFin}" />
+					<h:outputText  value="#{fn:substring(pago.conFechaFin,0,10)}" />
 				</p:column>
 			
 				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
