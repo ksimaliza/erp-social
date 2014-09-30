@@ -68,9 +68,10 @@
 					
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.registro.paralelo']}"  /> </td>
-						<td><p:selectOneMenu id="paralelo" value="#{matriculaDataManager.paraleloCodigo}" filter="true" required="true">
+						<td><p:selectOneMenu id="paralelo" value="#{matriculaDataManager.paraleloCodigo}" required="true">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{matriculaDataManager.nivelParaleloList}" var="nivelParalelo" itemLabel="#{nivelParalelo.matParalelo.parDescripcion}" itemValue="#{nivelParalelo.matParalelo.parCodigo}"/>
+								<p:ajax listener="#{matriculaController.buscarAsignacion}" process="@this,pnlAnadirMatricula" update="tablaAsinacion"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
