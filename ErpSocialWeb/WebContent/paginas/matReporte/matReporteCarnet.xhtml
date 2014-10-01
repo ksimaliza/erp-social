@@ -7,72 +7,95 @@
 	template="/WEB-INF/templates/template.xhtml">
 
 	<ui:define name="title">
-		<h3>
+	<h4>
 			<h:outputLabel value="Reporte Carnet" />
-		</h3>
+		</h4>
 	</ui:define>
 
 
 	<ui:define name="content">
-
 		<h:form id="form">
+		<p:growl id="pnlMessages" autoUpdate="true" closable="true" />
+		<p:toolbar style="ToolBar">
+				<p:toolbarGroup align="left">
+					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
+					</p:commandButton>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panel id="pnlBuscar" header="Generar Carné" style="width: 650px;" toggleable="true">
 
-			<p:growl id="pnlMessages" autoUpdate="true" closable="true" />
-
-
-			<p:panel id="pnlBuscar" header="Buscar">
-
-			<table id="tblData">
+			<table id="tblData" cellspacing="5">
 
 				<tr>
-					<td width="30%"><h:outputLabel value="Cédula:" /></td>
-					<td width="70%"><p:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perCi}"/></td>
+				<td align="right"><h:outputLabel value="Nro. Matricula:" /></td>
+					<td ><h:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.matCodigo}"/></td>
+					<td align="right"><h:outputLabel value="Cédula:" /></td>
+					<td ><h:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perCi}" style=" width : 161px;"/></td>
+					<td>
+					<p:commandButton id="btnBuscar"
+					actionListener="#{reporteCarnetController.buscar}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscar"
+					update="pnlBuscar,tblReporte" 
+					icon="ui-icon-search"
+					title="Buscar"/>
+					</td>
+				
+	
 				</tr>
 
 				<tr>
-					<td width="30%"><h:outputLabel value="Nombres:" /></td>
-					<td width="70%"><p:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perNombres}"/></td>
+					<td align="right" ><h:outputLabel value="Nombres:" /></td>
+					<td colspan="3"><h:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perNombres}" style=" width : 386px;"/></td>
 				</tr>
 
 				<tr>
-					<td width="30%"><h:outputLabel value="Apellidos:" /></td>
-					<td width="70%"><p:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perApellidos}"/></td>
+					<td align="right"><h:outputLabel value="Apellidos:" /></td>
+					<td colspan="3" ><h:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perApellidos}" style=" width : 386px;"/></td>
 				</tr>
 
 				<tr>
-					<td width="30%"><h:outputLabel value="Matricula:" /></td>
-					<td width="70%"><p:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.matCodigo}"/></td>
-				</tr>
+				<td>
+				</td>
+								</tr>
 				
 			</table>
 			
 			</p:panel>
 			
-			<p:panel id="botonesBuscar">
-				<p:commandButton id="btnBuscar"
-					actionListener="#{reporteCarnetController.buscar}"
-					value="#{i18n['label.buscar']}" 
-					process="@this,pnlBuscar"
-					update="pnlBuscar,tblReporte" />
-			</p:panel>
-			
-			
-			<p:dataTable id="tblReporte" value="#{reporteCarnetDataManager.matriculaVieDTOList}" var="rep">
-			
-				<p:column headerText="Nombres">
-					<h:outputText value="#{rep.perNombres}" />
+			<p:dataTable id="tblReporte" value="#{reporteCarnetDataManager.matriculaVieDTOList}" 
+			rowIndexVar="rowIndex"
+			var="rep"
+			paginator="true" rows="5" paginatorPosition="bottom"
+		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		rowsPerPageTemplate="5,10,15">
+			<p:column headerText="#" styleClass="centered" width="5%">
+			#{rowIndex+1}
+		</p:column>
+		<p:column headerText="Nro. Matricula">
+					<h:outputText value="2014-GM-#{rep.regCodigo}" />
 				</p:column>
-	
-				<p:column headerText="Apellidos">
-					<h:outputText value="#{rep.perApellidos}" />				
+		<p:column headerText="Foto">
+					<p:graphicImage value="#{rep.regFoto}" height="45" />
 				</p:column>
-	
-				<p:column headerText="Foto">
-					<p:graphicImage value="#{rep.regFoto}" height="45" cache="false"/>
+			<p:column headerText="Cédula">
+					<h:outputText value="#{rep.perCi}" />
 				</p:column>
-
-				<p:column>
-					<p:commandButton value="Carnet" actionListener="#{reporteCarnetController.carnet(rep)}" icon="exportPdf" ajax="false"/>
+				
+				
+							
+				<p:column headerText="Apellidos y Nombres">
+					<h:outputText value="#{rep.perApellidos} #{rep.perNombres}" />				
+				</p:column>
+				<p:column headerText="Nivel">
+					<h:outputText value="#{rep.nivDescaripcion}" />
+				</p:column>
+				<p:column headerText="Paralelo">
+					<h:outputText value="#{rep.parDescripcion}" />
+				</p:column>
+				
+				<p:column headerText="Carné">
+					<p:commandButton title="Generar Carné" actionListener="#{reporteCarnetController.carnet(rep)}" icon="exportPdf" ajax="false"/>
 				</p:column>
 			
 			</p:dataTable>
