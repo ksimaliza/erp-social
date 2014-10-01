@@ -209,3 +209,34 @@ textarea[disabled],input[type="text"][disabled],input[type="password"][disabled]
 .ui-selectonemenu-label {
 	width: 100% !important;
 }
+
+
+
+
+TD.ToolBar {
+	vertical-align: middle;
+	text-align: left;
+	padding: 0 0 5px;
+}
+
+
+.value {
+    vertical-align: central;
+    white-space: nowrap;
+    padding: 0px;
+    box-shadow:0 0 0 #8F8F8F inset;
+    border-radius:3px 3px 3px 3px;
+}
+
+
+.label {
+    color: #4E7CB2;
+    text-align: right;
+    vertical-align: central;
+    horizontal-align:middle;
+    margin-top: 10px; 
+    width: 100px;
+    white-space: nowrap;
+    padding-right: 5px;
+    height: 20px;
+}
