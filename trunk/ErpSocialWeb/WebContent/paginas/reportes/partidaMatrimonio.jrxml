@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="partidaMatrimonio" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ffbea6fa-01cf-4c50-a0f6-0e07021ca6b0">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1"/>
+	<property name="ireport.y" value="183"/>
 	<title>
 		<band height="621" splitType="Stretch">
 			<textField>
@@ -113,7 +113,7 @@
 			<staticText>
 				<reportElement x="55" y="292" width="116" height="20" uuid="fb9bacac-3a8e-41f3-9837-a6560006a734"/>
 				<textElement>
-					<font size="12"/>
+					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[FECHA BAUTISMO:]]></text>
 			</staticText>
