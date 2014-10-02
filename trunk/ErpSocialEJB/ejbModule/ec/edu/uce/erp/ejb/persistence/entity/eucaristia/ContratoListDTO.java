@@ -71,6 +71,10 @@ public class ContratoListDTO implements Serializable {
 
 	@Column(name="con_valor_total")
 	private BigDecimal conValorTotal;
+	
+	@Column(name="con_valor_saldo")
+	private BigDecimal conValorSaldo;
+
 
 	@Column(name="nic_codigo")
 	private Integer nicCodigo;
@@ -129,6 +133,14 @@ public class ContratoListDTO implements Serializable {
 
 	public String getBenNombres() {
 		return this.benNombres;
+	}
+
+	public BigDecimal getConValorSaldo() {
+		return conValorSaldo;
+	}
+
+	public void setConValorSaldo(BigDecimal conValorSaldo) {
+		this.conValorSaldo = conValorSaldo;
 	}
 
 	public void setBenNombres(String benNombres) {
