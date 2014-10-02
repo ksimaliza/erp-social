@@ -40,7 +40,6 @@
 	<parameter name="fechaPago" class="java.util.Date"/>
 	<parameter name="mesPago" class="java.lang.String"/>
 	<parameter name="fechaActual" class="java.lang.String"/>
-	<parameter name="parameter1" class="java.lang.String"/>
 	<variable name="fecha" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>

@@ -8,6 +8,7 @@
 	
 	<p:dialog id="popUpEditarPagoContrato" header="#{i18n['erp.despacho.contrato.registrar']}" resizable="false" draggable="false"
 		widgetVar="dlgEditarPagoContrato" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		<p:scrollPanel style="height:500px" mode="native">		
 		<h:form id="formEditarPagoContrato" styleClass="formulario">
 			<p:panel id="pnlEditarPagoContrato">
 				<table class="formulario">
@@ -134,10 +135,10 @@
 				
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtAñosArrend" value="#{i18n['erp.despacho.contrato.meses.arrendamiento']}" />
+							<h:outputLabel for="txtMesesArrend" value="#{i18n['erp.despacho.contrato.meses.arrendamiento']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtAñosArrend" style="width: 70%" 
+							<p:inputText id="txtMesesArrend" style="width: 70%" 
 								 label="#{i18n['erp.despacho.contrato.meses.arrendamiento']}" 
 								 value="#{pagoContratoDataManager.pagoContratoListDTOEditar.conMesesArrendamiento}"
 								 readonly="true">
@@ -205,7 +206,9 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtMesesPago" label="#{i18n['erp.despacho.contrato.pago.meses']}" style="width: 70%"
-							value="#{pagoContratoDataManager.pagoContratoListDTOEditar.pagMesesPagados}"/>
+							value="#{pagoContratoDataManager.pagoContratoListDTOEditar.pagMesesPagados}">
+							<p:ajax event="blur" update="txtMontoPagar" listener="#{pagoContratoController.calcularValorPagar}" process="@this,txtMesesArrend"/>
+							</p:inputText>
 						</td>
 					</tr>
 					
@@ -230,6 +233,7 @@
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarPagoContrato.hide()" type="button" />
 			</p:panel>
 		</h:form>
+		</p:scrollPanel>
 	</p:dialog>
 	
 </ui:composition>
