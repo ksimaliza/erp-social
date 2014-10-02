@@ -102,8 +102,10 @@ public ContratoController() {
 			contratoVO.setNichoDTO(nichoDTO);
 			contratoVO.setBeneficiario(contratoDataManager.getBeneficiariInsertar());
 			defuncion.setDefPersona(contratoDataManager.getDefuncionListDTO().getDefPersona());
+			
 			contratoVO.getContratoDTO().setConDifunto(defuncion.getDefPersona());
 			contratoVO.getContratoDTO().setConMesesPorPagar(contratoVO.getContratoDTO().getConMesesArrendamiento());
+			contratoVO.getContratoDTO().setConValorSaldo(contratoVO.getContratoDTO().getConValorTotal());
 			contratoVO.getContratoDTO().setConFechaFin(new Timestamp(contratoDataManager.getFechaFin().getTime()));
 			contratoVO.getContratoDTO().setConFechaInicio(new Timestamp(contratoDataManager.getFechaInicio().getTime()));
 
@@ -123,13 +125,13 @@ public ContratoController() {
 			cargarDatosContrato(con);
 			
 			if (contratoNuevo!= null) {
-//				contratoDataManager.setContratoDTO(new ContratoDTO());
-//				contratoDataManager.setNichoCodigo(0);
-//				contratoDataManager.setFormaPagoCodigo(0);
-//				contratoDataManager.setFechaFin(new Date());
-//				contratoDataManager.setFechaInicio(new Date());
-//				contratoDataManager.setBeneficiariInsertar(new Persona());
-															
+			/*	contratoDataManager.setContratoDTO(new ContratoDTO());
+				contratoDataManager.setNichoCodigo(0);
+				contratoDataManager.setFormaPagoCodigo(0);
+				contratoDataManager.setFechaFin(new Date());
+				contratoDataManager.setFechaInicio(new Date());
+				contratoDataManager.setBeneficiariInsertar(new Persona());
+				*/											
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.contrato.registrar.exito");
 			}
 			buscarContrato();
@@ -307,8 +309,8 @@ public ContratoController() {
 	
 	public void exportar()
 	{
-		ContratoListDTO contrato=new ContratoListDTO();
-		contrato.setConFormaPago(contratoDataManager.getFormaPagoCodigo());
+		//ContratoListDTO contrato=new ContratoListDTO();
+		//contrato.setConFormaPago(contratoDataManager.getFormaPagoCodigo());
 		
 		Date fechaActual = new Date();
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
@@ -326,12 +328,12 @@ public ContratoController() {
 		mapParametros.put("parroquia", contratoDataManager.getDefuncionListDTO().getCatParroquia());
 		mapParametros.put("fecha", fechaActual.toString());
 		mapParametros.put("valorPagar", contratoDataManager.getContratoDTO().getConValorMes().toString());
-		mapParametros.put("formaPago", contratoDataManager.getFormaPagoList().getCatDescripcion());
+		//mapParametros.put("formaPago", contratoDataManager.getFormaPagoList().getCatDescripcion());
 		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 		
 		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), "comprobanteContrato", mapParametros);
-		ReporteUtil.generarReporte(jasperPrint, this.contratoDataManager.getFormatoPdf(), "actaBien");
+		ReporteUtil.generarReporte(jasperPrint, this.contratoDataManager.getFormatoPdf(), "Comprobante Contrato");
 		
 	}
 	

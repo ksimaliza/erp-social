@@ -115,7 +115,7 @@ public void registrarPrimeraComunion () {
 			comunionVO.getComunion().setPcoFechaAprobacionCurso(new Timestamp(partidaPrimeraComunionDataManager.getFechaApComInsertar().getTime()));
 			comunionVO.getComunion().setPcoFechaHora(new Timestamp(partidaPrimeraComunionDataManager.getFechaComunionInsertar().getTime()));
 			
-			if(partidaPrimeraComunionDataManager.getFechaComunionInsertar().getTime()>partidaPrimeraComunionDataManager.getFechaApComInsertar().getTime())
+			if(partidaPrimeraComunionDataManager.getFechaApComInsertar().getTime()>partidaPrimeraComunionDataManager.getFechaComunionInsertar().getTime())
 			{
 				MensajesWebController.aniadirMensajeError("Ingrese fecha de Primera Comunión correcta");
 				return;
