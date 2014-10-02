@@ -229,6 +229,11 @@ public interface ServicioEucaristia {
 
 	BigDecimal calcularSaldo(PagoDTO pago) throws SeguridadesException;
 
+	Integer calcularMeses(PagoDTO pago) throws SeguridadesException;
+
+	BigDecimal calcularValorPagar(PagoDTO pago, ContratoListDTO contrato)
+			throws SeguridadesException;
+
 	
 		
 

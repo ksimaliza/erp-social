@@ -1133,17 +1133,18 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	public PagoDTO createOrUpdatePagoContrato(PagoVO pagoVO) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdatePagoContrato");
-		Integer mesesFaltantes;
 		try{
 			
 		if(pagoVO.getPago().getPagCodigo()!=null){
 				return  eucaristiaFactoryDAO.getPagoDAOImpl().update(pagoVO.getPago());
 			}
 			else{
+				pagoVO.getContratoDTO().setConMesesPorPagar(calcularMeses(pagoVO.getPago()));
+				pagoVO.getContratoDTO().setConValorSaldo(calcularSaldo(pagoVO.getPago()));
 				
-				//mesesFaltantes=pagoVO.getContratoDTO().getConMesesPorPagar()-pagoVO.getPago().getPagMesesPagados();
-				//pagoVO.getContratoDTO().setConMesesPorPagar(mesesFaltantes);
 				eucaristiaFactoryDAO.getContratoDAOImpl().update(pagoVO.getContratoDTO());
+				pagoVO.getPago().setPagSaldo(calcularSaldo(pagoVO.getPago()));
+				pagoVO.getPago().setPagMesesFaltantes(calcularMeses(pagoVO.getPago()));
 				
 				return  eucaristiaFactoryDAO.getPagoDAOImpl().create(pagoVO.getPago());
 				
@@ -1212,7 +1213,21 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			throw new SeguridadesException(e);
 		}
 		return valorTotal;
+	}
 	
+	@Override
+	public BigDecimal  calcularValorPagar(PagoDTO pago,ContratoListDTO contrato) throws SeguridadesException
+	{
+		slf4jLogger.info("calcularValorPagar");
+		BigDecimal valorPagar;										
+		try{
+			valorPagar=contrato.getConValorMes().multiply(BigDecimal.valueOf(pago.getPagMesesPagados()));
+		 
+		}catch (Exception e) {
+			slf4jLogger.info("error al calcularValorTotal {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		return valorPagar;
 	}
 
 	@Override
@@ -1227,7 +1242,19 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			throw new SeguridadesException(e);
 		}
 		return saldo;
-	
 	}
 	
+	@Override
+	public Integer calcularMeses(PagoDTO pago) throws SeguridadesException
+	{
+		slf4jLogger.info("calcularMeses");
+		Integer mesesFaltantes;										
+		try{
+			mesesFaltantes=pago.getPagMesesFaltantes()-pago.getPagMesesPagados();
+		}catch (Exception e) {
+			slf4jLogger.info("error al calcularSaldo {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		return mesesFaltantes;
+	}
 }

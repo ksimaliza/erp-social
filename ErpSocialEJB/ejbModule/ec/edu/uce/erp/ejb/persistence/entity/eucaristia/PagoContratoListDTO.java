@@ -69,6 +69,9 @@ public class PagoContratoListDTO implements Serializable {
 	@Column(name="con_valor_total")
 	private BigDecimal conValorTotal;
 
+	@Column(name="con_valor_saldo")
+	private BigDecimal conValorSaldo;
+	
 	@Column(name="nic_codigo")
 	private Integer nicCodigo;
 
@@ -445,6 +448,14 @@ public class PagoContratoListDTO implements Serializable {
 
 	public void setTniDescripcion(String tniDescripcion) {
 		this.tniDescripcion = tniDescripcion;
+	}
+
+	public BigDecimal getConValorSaldo() {
+		return conValorSaldo;
+	}
+
+	public void setConValorSaldo(BigDecimal conValorSaldo) {
+		this.conValorSaldo = conValorSaldo;
 	}
 
 }
