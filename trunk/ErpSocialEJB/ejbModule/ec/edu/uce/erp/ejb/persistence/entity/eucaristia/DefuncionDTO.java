@@ -35,6 +35,12 @@ public class DefuncionDTO implements Serializable {
 
 	@Column(name="def_conyugue")
 	private Integer defConyugue;
+	
+	@Column(name="def_madre")
+	private Integer defMadre;
+	
+	@Column(name="def_Padre")
+	private Integer defPadre;
 
 	@Column(name="def_doctor_certifica")
 	private int defDoctorCertifica;
@@ -190,6 +196,22 @@ public class DefuncionDTO implements Serializable {
 
 	public void setDefDoctorCertifica(int defDoctorCertifica) {
 		this.defDoctorCertifica = defDoctorCertifica;
+	}
+
+	public Integer getDefMadre() {
+		return defMadre;
+	}
+
+	public Integer getDefPadre() {
+		return defPadre;
+	}
+
+	public void setDefMadre(Integer defMadre) {
+		this.defMadre = defMadre;
+	}
+
+	public void setDefPadre(Integer defPadre) {
+		this.defPadre = defPadre;
 	}
 
 }

@@ -13,6 +13,8 @@ public class BautizoVO implements Serializable{
 	
 	
 	private Persona bautizado;
+	private Persona madre;
+	private Persona padre;
 	private Persona padrino;
 	private Persona madrina;
 	private Persona sacerdotePersona;
@@ -37,6 +39,8 @@ public class BautizoVO implements Serializable{
 		provincia=new CatalogoEucaristiaDTO();
 		canton=new CatalogoEucaristiaDTO();
 		ciudad=new CatalogoEucaristiaDTO();
+		madre=new Persona();
+		padre=new Persona();
 	}
 
 	public Persona getBautizado() {
@@ -125,6 +129,22 @@ public class BautizoVO implements Serializable{
 
 	public void setCanton(CatalogoEucaristiaDTO canton) {
 		this.canton = canton;
+	}
+
+	public Persona getMadre() {
+		return madre;
+	}
+
+	public Persona getPadre() {
+		return padre;
+	}
+
+	public void setMadre(Persona madre) {
+		this.madre = madre;
+	}
+
+	public void setPadre(Persona padre) {
+		this.padre = padre;
 	}
 
 
