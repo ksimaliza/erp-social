@@ -30,6 +30,8 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 	private static final long serialVersionUID = 1L;
 	
 	private  Persona bautizadoInsertar;
+	private  Persona madreInsertar;
+	private  Persona padreInsertar;
 	private  Persona madrinaInsertar;
 	private  Persona padrinoInsertar;
 	private SacerdoteDTO sacerdoteInsertar;
@@ -73,6 +75,8 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 		this.bautizoListDTO=new BautizoListDTO();
 		this.bautizoListDTOs=new ArrayList<BautizoListDTO>();
 		this.catalogoEucaristiaDTOs=new ArrayList<CatalogoEucaristiaDTO>();		
+		this.madreInsertar=new Persona();
+		this.padreInsertar=new Persona();
 			
 	}
 	
@@ -281,6 +285,22 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 	public void setParroquiaEucaristiaDTOs(
 			List<CatalogoEucaristiaDTO> parroquiaEucaristiaDTOs) {
 		this.parroquiaEucaristiaDTOs = parroquiaEucaristiaDTOs;
+	}
+
+	public Persona getMadreInsertar() {
+		return madreInsertar;
+	}
+
+	public Persona getPadreInsertar() {
+		return padreInsertar;
+	}
+
+	public void setMadreInsertar(Persona madreInsertar) {
+		this.madreInsertar = madreInsertar;
+	}
+
+	public void setPadreInsertar(Persona padreInsertar) {
+		this.padreInsertar = padreInsertar;
 	}
 
 	
