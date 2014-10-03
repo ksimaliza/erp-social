@@ -44,6 +44,12 @@ public class BautizoDTO implements Serializable {
 
 	@Column(name="bau_madrina")
 	private Integer bauMadrina;
+	
+	@Column(name="bau_madre")
+	private Integer bauMadre;
+	
+	@Column(name="bau_padre")
+	private Integer bauPadre;
 
 	@Column(name="bau_nota_marginal")
 	private String bauNotaMarginal;
@@ -56,6 +62,8 @@ public class BautizoDTO implements Serializable {
 
 	@Column(name="bau_provincia")
 	private Integer bauProvincia;
+
+	
 
 	@Column(name="bau_toma")
 	private String bauToma;
@@ -198,6 +206,26 @@ public class BautizoDTO implements Serializable {
 	}
 
 	public void setBauEstado(int bauEstado) {
+		this.bauEstado = bauEstado;
+	}
+	
+	public Integer getBauMadre() {
+		return bauMadre;
+	}
+
+	public Integer getBauPadre() {
+		return bauPadre;
+	}
+
+	public void setBauMadre(Integer bauMadre) {
+		this.bauMadre = bauMadre;
+	}
+
+	public void setBauPadre(Integer bauPadre) {
+		this.bauPadre = bauPadre;
+	}
+
+	public void setBauEstado(Integer bauEstado) {
 		this.bauEstado = bauEstado;
 	}
 

@@ -2,8 +2,8 @@ package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.Date;
 import java.sql.Timestamp;
+import java.util.Date;
 
 
 /**
@@ -28,6 +28,7 @@ public class BautizoListDTO implements Serializable {
 	@Column(name="bau_certificado_por")
 	private Integer bauCertificadoPor;
 
+	@Id
 	@Column(name="bau_codigo")
 	private Integer bauCodigo;
 
@@ -40,11 +41,17 @@ public class BautizoListDTO implements Serializable {
 	@Column(name="bau_fecha_bautizo")
 	private Timestamp bauFechaBautizo;
 
+	@Column(name="bau_madre")
+	private Integer bauMadre;
+
 	@Column(name="bau_madrina")
 	private Integer bauMadrina;
 
 	@Column(name="bau_nota_marginal")
 	private String bauNotaMarginal;
+
+	@Column(name="bau_padre")
+	private Integer bauPadre;
 
 	@Column(name="bau_padrino")
 	private Integer bauPadrino;
@@ -82,6 +89,15 @@ public class BautizoListDTO implements Serializable {
 	@Column(name="mad_nombres")
 	private String madNombres;
 
+	@Column(name="madre_apellidos")
+	private String madreApellidos;
+
+	@Column(name="madre_ci")
+	private String madreCi;
+
+	@Column(name="madre_nombres")
+	private String madreNombres;
+
 	@Column(name="pad_apellidos")
 	private String padApellidos;
 
@@ -90,6 +106,15 @@ public class BautizoListDTO implements Serializable {
 
 	@Column(name="pad_nombres")
 	private String padNombres;
+
+	@Column(name="padre_apellidos")
+	private String padreApellidos;
+
+	@Column(name="padre_ci")
+	private String padreCi;
+
+	@Column(name="padre_nombres")
+	private String padreNombres;
 
 	@Column(name="per_apellidos")
 	private String perApellidos;
@@ -116,7 +141,6 @@ public class BautizoListDTO implements Serializable {
 	@Column(name="per_nombres")
 	private String perNombres;
 
-	@Id
 	@Column(name="per_pk")
 	private Integer perPk;
 
@@ -205,6 +229,14 @@ public class BautizoListDTO implements Serializable {
 		this.bauFechaBautizo = bauFechaBautizo;
 	}
 
+	public Integer getBauMadre() {
+		return this.bauMadre;
+	}
+
+	public void setBauMadre(Integer bauMadre) {
+		this.bauMadre = bauMadre;
+	}
+
 	public Integer getBauMadrina() {
 		return this.bauMadrina;
 	}
@@ -219,6 +251,14 @@ public class BautizoListDTO implements Serializable {
 
 	public void setBauNotaMarginal(String bauNotaMarginal) {
 		this.bauNotaMarginal = bauNotaMarginal;
+	}
+
+	public Integer getBauPadre() {
+		return this.bauPadre;
+	}
+
+	public void setBauPadre(Integer bauPadre) {
+		this.bauPadre = bauPadre;
 	}
 
 	public Integer getBauPadrino() {
@@ -317,6 +357,30 @@ public class BautizoListDTO implements Serializable {
 		this.madNombres = madNombres;
 	}
 
+	public String getMadreApellidos() {
+		return this.madreApellidos;
+	}
+
+	public void setMadreApellidos(String madreApellidos) {
+		this.madreApellidos = madreApellidos;
+	}
+
+	public String getMadreCi() {
+		return this.madreCi;
+	}
+
+	public void setMadreCi(String madreCi) {
+		this.madreCi = madreCi;
+	}
+
+	public String getMadreNombres() {
+		return this.madreNombres;
+	}
+
+	public void setMadreNombres(String madreNombres) {
+		this.madreNombres = madreNombres;
+	}
+
 	public String getPadApellidos() {
 		return this.padApellidos;
 	}
@@ -339,6 +403,30 @@ public class BautizoListDTO implements Serializable {
 
 	public void setPadNombres(String padNombres) {
 		this.padNombres = padNombres;
+	}
+
+	public String getPadreApellidos() {
+		return this.padreApellidos;
+	}
+
+	public void setPadreApellidos(String padreApellidos) {
+		this.padreApellidos = padreApellidos;
+	}
+
+	public String getPadreCi() {
+		return this.padreCi;
+	}
+
+	public void setPadreCi(String padreCi) {
+		this.padreCi = padreCi;
+	}
+
+	public String getPadreNombres() {
+		return this.padreNombres;
+	}
+
+	public void setPadreNombres(String padreNombres) {
+		this.padreNombres = padreNombres;
 	}
 
 	public String getPerApellidos() {

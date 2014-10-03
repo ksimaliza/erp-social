@@ -2,8 +2,8 @@ package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.Date;
 import java.sql.Timestamp;
+import java.util.Date;
 
 
 /**
@@ -43,6 +43,24 @@ public class MatrimonioListDTO implements Serializable {
 	@Column(name="mad_novio_nombres")
 	private String madNovioNombres;
 
+	@Column(name="madre_novia_apellidos")
+	private String madreNoviaApellidos;
+
+	@Column(name="madre_novia_ci")
+	private String madreNoviaCi;
+
+	@Column(name="madre_novia_nombres")
+	private String madreNoviaNombres;
+
+	@Column(name="madre_novio_apellidos")
+	private String madreNovioApellidos;
+
+	@Column(name="madre_novio_ci")
+	private String madreNovioCi;
+
+	@Column(name="madre_novio_nombres")
+	private String madreNovioNombres;
+
 	@Column(name="mat_acta")
 	private String matActa;
 
@@ -58,6 +76,7 @@ public class MatrimonioListDTO implements Serializable {
 	@Column(name="mat_certificado_por")
 	private Integer matCertificadoPor;
 
+	@Id
 	@Column(name="mat_codigo")
 	private Integer matCodigo;
 
@@ -158,6 +177,24 @@ public class MatrimonioListDTO implements Serializable {
 	@Column(name="pad_novio_nombres")
 	private String padNovioNombres;
 
+	@Column(name="padre_novia_apellidos")
+	private String padreNoviaApellidos;
+
+	@Column(name="padre_novia_ci")
+	private String padreNoviaCi;
+
+	@Column(name="padre_novia_nombres")
+	private String padreNoviaNombres;
+
+	@Column(name="padre_novio_apellidos")
+	private String padreNovioApellidos;
+
+	@Column(name="padre_novio_ci")
+	private String padreNovioCi;
+
+	@Column(name="padre_novio_nombres")
+	private String padreNovioNombres;
+
 	@Column(name="per_apellidos")
 	private String perApellidos;
 
@@ -183,7 +220,6 @@ public class MatrimonioListDTO implements Serializable {
 	@Column(name="per_nombres")
 	private String perNombres;
 
-	@Id
 	@Column(name="per_pk")
 	private Integer perPk;
 
@@ -278,6 +314,54 @@ public class MatrimonioListDTO implements Serializable {
 
 	public void setMadNovioNombres(String madNovioNombres) {
 		this.madNovioNombres = madNovioNombres;
+	}
+
+	public String getMadreNoviaApellidos() {
+		return this.madreNoviaApellidos;
+	}
+
+	public void setMadreNoviaApellidos(String madreNoviaApellidos) {
+		this.madreNoviaApellidos = madreNoviaApellidos;
+	}
+
+	public String getMadreNoviaCi() {
+		return this.madreNoviaCi;
+	}
+
+	public void setMadreNoviaCi(String madreNoviaCi) {
+		this.madreNoviaCi = madreNoviaCi;
+	}
+
+	public String getMadreNoviaNombres() {
+		return this.madreNoviaNombres;
+	}
+
+	public void setMadreNoviaNombres(String madreNoviaNombres) {
+		this.madreNoviaNombres = madreNoviaNombres;
+	}
+
+	public String getMadreNovioApellidos() {
+		return this.madreNovioApellidos;
+	}
+
+	public void setMadreNovioApellidos(String madreNovioApellidos) {
+		this.madreNovioApellidos = madreNovioApellidos;
+	}
+
+	public String getMadreNovioCi() {
+		return this.madreNovioCi;
+	}
+
+	public void setMadreNovioCi(String madreNovioCi) {
+		this.madreNovioCi = madreNovioCi;
+	}
+
+	public String getMadreNovioNombres() {
+		return this.madreNovioNombres;
+	}
+
+	public void setMadreNovioNombres(String madreNovioNombres) {
+		this.madreNovioNombres = madreNovioNombres;
 	}
 
 	public String getMatActa() {
@@ -582,6 +666,54 @@ public class MatrimonioListDTO implements Serializable {
 
 	public void setPadNovioNombres(String padNovioNombres) {
 		this.padNovioNombres = padNovioNombres;
+	}
+
+	public String getPadreNoviaApellidos() {
+		return this.padreNoviaApellidos;
+	}
+
+	public void setPadreNoviaApellidos(String padreNoviaApellidos) {
+		this.padreNoviaApellidos = padreNoviaApellidos;
+	}
+
+	public String getPadreNoviaCi() {
+		return this.padreNoviaCi;
+	}
+
+	public void setPadreNoviaCi(String padreNoviaCi) {
+		this.padreNoviaCi = padreNoviaCi;
+	}
+
+	public String getPadreNoviaNombres() {
+		return this.padreNoviaNombres;
+	}
+
+	public void setPadreNoviaNombres(String padreNoviaNombres) {
+		this.padreNoviaNombres = padreNoviaNombres;
+	}
+
+	public String getPadreNovioApellidos() {
+		return this.padreNovioApellidos;
+	}
+
+	public void setPadreNovioApellidos(String padreNovioApellidos) {
+		this.padreNovioApellidos = padreNovioApellidos;
+	}
+
+	public String getPadreNovioCi() {
+		return this.padreNovioCi;
+	}
+
+	public void setPadreNovioCi(String padreNovioCi) {
+		this.padreNovioCi = padreNovioCi;
+	}
+
+	public String getPadreNovioNombres() {
+		return this.padreNovioNombres;
+	}
+
+	public void setPadreNovioNombres(String padreNovioNombres) {
+		this.padreNovioNombres = padreNovioNombres;
 	}
 
 	public String getPerApellidos() {

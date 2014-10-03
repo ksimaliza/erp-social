@@ -49,7 +49,12 @@ public class ConfirmacionDTO implements Serializable {
 	
 	@Column(name="con_provincia")
 	private Integer conProvincia;
-
+	
+	@Column(name="con_madre")
+	private Integer conMadre;
+	
+	@Column(name="con_padre")
+	private Integer conPadre;
 
 	@Column(name="con_nota_marginal")
 	private String conNotaMarginal;
@@ -190,6 +195,22 @@ public class ConfirmacionDTO implements Serializable {
 
 	public void setConProvincia(Integer conProvincia) {
 		this.conProvincia = conProvincia;
+	}
+
+	public Integer getConMadre() {
+		return conMadre;
+	}
+
+	public Integer getConPadre() {
+		return conPadre;
+	}
+
+	public void setConMadre(Integer conMadre) {
+		this.conMadre = conMadre;
+	}
+
+	public void setConPadre(Integer conPadre) {
+		this.conPadre = conPadre;
 	}
 
 }

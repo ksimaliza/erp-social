@@ -28,7 +28,6 @@ public class ConfirmacionListDTO implements Serializable {
 	@Column(name="bau_certificado_por")
 	private Integer bauCertificadoPor;
 
-	@Id
 	@Column(name="bau_codigo")
 	private Integer bauCodigo;
 
@@ -83,6 +82,7 @@ public class ConfirmacionListDTO implements Serializable {
 	@Column(name="con_certificado_por")
 	private Integer conCertificadoPor;
 
+	@Id
 	@Column(name="con_codigo")
 	private Integer conCodigo;
 
@@ -122,6 +122,15 @@ public class ConfirmacionListDTO implements Serializable {
 	@Column(name="con_toma")
 	private String conToma;
 
+	@Column(name="madre_apellidos")
+	private String madreApellidos;
+
+	@Column(name="madre_ci")
+	private String madreCi;
+
+	@Column(name="madre_nombres")
+	private String madreNombres;
+
 	@Column(name="pad_apellidos")
 	private String padApellidos;
 
@@ -130,6 +139,15 @@ public class ConfirmacionListDTO implements Serializable {
 
 	@Column(name="pad_nombres")
 	private String padNombres;
+
+	@Column(name="padre_apellidos")
+	private String padreApellidos;
+
+	@Column(name="padre_ci")
+	private String padreCi;
+
+	@Column(name="padre_nombres")
+	private String padreNombres;
 
 	@Column(name="per_apellidos")
 	private String perApellidos;
@@ -460,6 +478,30 @@ public class ConfirmacionListDTO implements Serializable {
 		this.conToma = conToma;
 	}
 
+	public String getMadreApellidos() {
+		return this.madreApellidos;
+	}
+
+	public void setMadreApellidos(String madreApellidos) {
+		this.madreApellidos = madreApellidos;
+	}
+
+	public String getMadreCi() {
+		return this.madreCi;
+	}
+
+	public void setMadreCi(String madreCi) {
+		this.madreCi = madreCi;
+	}
+
+	public String getMadreNombres() {
+		return this.madreNombres;
+	}
+
+	public void setMadreNombres(String madreNombres) {
+		this.madreNombres = madreNombres;
+	}
+
 	public String getPadApellidos() {
 		return this.padApellidos;
 	}
@@ -482,6 +524,30 @@ public class ConfirmacionListDTO implements Serializable {
 
 	public void setPadNombres(String padNombres) {
 		this.padNombres = padNombres;
+	}
+
+	public String getPadreApellidos() {
+		return this.padreApellidos;
+	}
+
+	public void setPadreApellidos(String padreApellidos) {
+		this.padreApellidos = padreApellidos;
+	}
+
+	public String getPadreCi() {
+		return this.padreCi;
+	}
+
+	public void setPadreCi(String padreCi) {
+		this.padreCi = padreCi;
+	}
+
+	public String getPadreNombres() {
+		return this.padreNombres;
+	}
+
+	public void setPadreNombres(String padreNombres) {
+		this.padreNombres = padreNombres;
 	}
 
 	public String getPerApellidos() {

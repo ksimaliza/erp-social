@@ -49,6 +49,18 @@ public class MatrimonioDTO implements Serializable {
 
 	@Column(name="mat_novia")
 	private Integer matNovia;
+	
+	@Column(name="mat_madre_novia")
+	private Integer matMadreNovia;
+	
+	@Column(name="mat_madre_novio")
+	private Integer matMadreNovio;
+	
+	@Column(name="mat_padre_novia")
+	private Integer matPadreNovia;
+	
+	@Column(name="mat_padre_novio")
+	private Integer matPadreNovio;
 
 	@Column(name="mat_novio")
 	private Integer matNovio;
@@ -267,6 +279,38 @@ public class MatrimonioDTO implements Serializable {
 
 	public void setMatCertificadoPor(Integer matCertificadoPor) {
 		this.matCertificadoPor = matCertificadoPor;
+	}
+
+	public Integer getMatMadreNovia() {
+		return matMadreNovia;
+	}
+
+	public Integer getMatMadreNovio() {
+		return matMadreNovio;
+	}
+
+	public Integer getMatPadreNovia() {
+		return matPadreNovia;
+	}
+
+	public Integer getMatPadreNovio() {
+		return matPadreNovio;
+	}
+
+	public void setMatMadreNovia(Integer matMadreNovia) {
+		this.matMadreNovia = matMadreNovia;
+	}
+
+	public void setMatMadreNovio(Integer matMadreNovio) {
+		this.matMadreNovio = matMadreNovio;
+	}
+
+	public void setMatPadreNovia(Integer matPadreNovia) {
+		this.matPadreNovia = matPadreNovia;
+	}
+
+	public void setMatPadreNovio(Integer matPadreNovio) {
+		this.matPadreNovio = matPadreNovio;
 	}
 
 	
