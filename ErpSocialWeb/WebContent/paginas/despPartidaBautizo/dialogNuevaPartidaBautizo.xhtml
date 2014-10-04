@@ -324,9 +324,10 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{partidaBautizoController.registrarBautizo}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaPartidaBautizo.hide()"
-					process="@this,pnlNuevaPartidaBautizo,pnlDatosPadrino,pnlDatosMadrina,pnlDatos" update="pnlNuevaPartidaBautizo,:formPartidaBautizo:pnlMessages,:formPartidaBautizo:tablaPartidaBautizo"/>
+					process="@this,pnlNuevaPartidaBautizo,pnlDatosPadrino,pnlDatosMadrina,pnlDatos" update="pnlNuevaPartidaBautizo,:formPartidaBautizo:pnlMessages,:formPartidaBautizo:tablaPartidaBautizo,pnlBotones"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaPartidaBautizo.hide()" type="button" />
+				<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{partidaBautizoController.exportar}" icon="exportPdf" ajax="false"
+				disabled="#{partidaBautizoDataManager.exportDesactivado}" oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaPartidaBautizo.hide()"/>
 			</p:panel>
 	</h:form>
 	</p:scrollPanel>
