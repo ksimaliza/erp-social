@@ -28,6 +28,7 @@ public class ConfirmacionListDTO implements Serializable {
 	@Column(name="bau_certificado_por")
 	private Integer bauCertificadoPor;
 
+	@Id
 	@Column(name="bau_codigo")
 	private Integer bauCodigo;
 
@@ -82,7 +83,6 @@ public class ConfirmacionListDTO implements Serializable {
 	@Column(name="con_certificado_por")
 	private Integer conCertificadoPor;
 
-	@Id
 	@Column(name="con_codigo")
 	private Integer conCodigo;
 
@@ -98,8 +98,14 @@ public class ConfirmacionListDTO implements Serializable {
 	@Column(name="con_fecha_aprobacion_curso")
 	private Timestamp conFechaAprobacionCurso;
 
+	@Column(name="con_madre")
+	private Integer conMadre;
+
 	@Column(name="con_nota_marginal")
 	private String conNotaMarginal;
+
+	@Column(name="con_padre")
+	private Integer conPadre;
 
 	@Column(name="con_padrino")
 	private Integer conPadrino;
@@ -414,12 +420,28 @@ public class ConfirmacionListDTO implements Serializable {
 		this.conFechaAprobacionCurso = conFechaAprobacionCurso;
 	}
 
+	public Integer getConMadre() {
+		return this.conMadre;
+	}
+
+	public void setConMadre(Integer conMadre) {
+		this.conMadre = conMadre;
+	}
+
 	public String getConNotaMarginal() {
 		return this.conNotaMarginal;
 	}
 
 	public void setConNotaMarginal(String conNotaMarginal) {
 		this.conNotaMarginal = conNotaMarginal;
+	}
+
+	public Integer getConPadre() {
+		return this.conPadre;
+	}
+
+	public void setConPadre(Integer conPadre) {
+		this.conPadre = conPadre;
 	}
 
 	public Integer getConPadrino() {

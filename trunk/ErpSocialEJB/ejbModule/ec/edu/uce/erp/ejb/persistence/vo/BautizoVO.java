@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 
 public class BautizoVO implements Serializable{
@@ -17,14 +15,8 @@ public class BautizoVO implements Serializable{
 	private Persona padre;
 	private Persona padrino;
 	private Persona madrina;
-	private Persona sacerdotePersona;
-	private Persona doctorVOPersona;
 	private BautizoDTO bautizo;
 	private SacerdoteDTO sacerdote;
-	private DoctorDTO doctorVO;
-	private CatalogoEucaristiaDTO provincia;
-	private CatalogoEucaristiaDTO ciudad;
-	private CatalogoEucaristiaDTO canton;
 
 	public BautizoVO() {
 	
@@ -32,15 +24,9 @@ public class BautizoVO implements Serializable{
 		padrino=new Persona();
 		madrina=new Persona();
 		bautizo=new BautizoDTO();
-		sacerdote= new SacerdoteDTO();
-		doctorVO=new DoctorDTO();
-		sacerdotePersona=new Persona();
-		doctorVOPersona=new Persona();
-		provincia=new CatalogoEucaristiaDTO();
-		canton=new CatalogoEucaristiaDTO();
-		ciudad=new CatalogoEucaristiaDTO();
 		madre=new Persona();
 		padre=new Persona();
+		sacerdote=new SacerdoteDTO();
 	}
 
 	public Persona getBautizado() {
@@ -63,6 +49,14 @@ public class BautizoVO implements Serializable{
 		return madrina;
 	}
 
+	public SacerdoteDTO getSacerdote() {
+		return sacerdote;
+	}
+
+	public void setSacerdote(SacerdoteDTO sacerdote) {
+		this.sacerdote = sacerdote;
+	}
+
 	public void setMadrina(Persona madrina) {
 		this.madrina = madrina;
 	}
@@ -73,62 +67,6 @@ public class BautizoVO implements Serializable{
 
 	public void setBautizo(BautizoDTO bautizo) {
 		this.bautizo = bautizo;
-	}
-
-	public SacerdoteDTO getSacerdote() {
-		return sacerdote;
-	}
-
-	public void setSacerdote(SacerdoteDTO sacerdote) {
-		this.sacerdote = sacerdote;
-	}
-
-	public DoctorDTO getDoctorVO() {
-		return doctorVO;
-	}
-
-	public void setDoctorVO(DoctorDTO doctorVO) {
-		this.doctorVO = doctorVO;
-	}
-
-	public Persona getSacerdotePersona() {
-		return sacerdotePersona;
-	}
-
-	public void setSacerdotePersona(Persona sacerdotePersona) {
-		this.sacerdotePersona = sacerdotePersona;
-	}
-
-	public Persona getDoctorVOPersona() {
-		return doctorVOPersona;
-	}
-
-	public void setDoctorVOPersona(Persona doctorVOPersona) {
-		this.doctorVOPersona = doctorVOPersona;
-	}
-
-	public CatalogoEucaristiaDTO getProvincia() {
-		return provincia;
-	}
-
-	public void setProvincia(CatalogoEucaristiaDTO provincia) {
-		this.provincia = provincia;
-	}
-
-	public CatalogoEucaristiaDTO getCiudad() {
-		return ciudad;
-	}
-
-	public void setCiudad(CatalogoEucaristiaDTO ciudad) {
-		this.ciudad = ciudad;
-	}
-
-	public CatalogoEucaristiaDTO getCanton() {
-		return canton;
-	}
-
-	public void setCanton(CatalogoEucaristiaDTO canton) {
-		this.canton = canton;
 	}
 
 	public Persona getMadre() {

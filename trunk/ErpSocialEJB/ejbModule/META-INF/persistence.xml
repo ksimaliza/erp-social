@@ -151,10 +151,10 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoContratoListDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionListDTO</class>
 		<properties>
 			<property name="hibernate.connection.username" value="postgres" />
 			<property name="hibernate.connection.password" value="root" />

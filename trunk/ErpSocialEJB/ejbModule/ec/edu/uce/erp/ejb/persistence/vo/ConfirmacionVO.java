@@ -13,6 +13,8 @@ private static final long serialVersionUID = 1L;
 	private Persona confirmado;
 	private Persona mad_pad;
 	private Persona sacerdotePersona;
+	private Persona madrePersona;
+	private Persona padrePersona;
 	
 	private ConfirmacionDTO confirmacion;
 	private SacerdoteDTO sacerdote;
@@ -25,7 +27,8 @@ private static final long serialVersionUID = 1L;
 		sacerdote= new SacerdoteDTO();
 		doctorVO=new DoctorDTO();
 		sacerdotePersona=new Persona();
-	
+		madrePersona=new Persona();
+		padrePersona=new Persona();
 	}
 
 	public Persona getConfirmado() {
@@ -34,6 +37,22 @@ private static final long serialVersionUID = 1L;
 
 	public void setConfirmado(Persona confirmado) {
 		this.confirmado = confirmado;
+	}
+
+	public Persona getMadrePersona() {
+		return madrePersona;
+	}
+
+	public void setMadrePersona(Persona madrePersona) {
+		this.madrePersona = madrePersona;
+	}
+
+	public Persona getPadrePersona() {
+		return padrePersona;
+	}
+
+	public void setPadrePersona(Persona padrePersona) {
+		this.padrePersona = padrePersona;
 	}
 
 	public Persona getMad_pad() {

@@ -55,6 +55,9 @@ public class ConfirmacionDTO implements Serializable {
 	
 	@Column(name="con_padre")
 	private Integer conPadre;
+	
+	@Column(name="con_tipo")
+	private Integer conTipo;
 
 	@Column(name="con_nota_marginal")
 	private String conNotaMarginal;
@@ -211,6 +214,14 @@ public class ConfirmacionDTO implements Serializable {
 
 	public void setConPadre(Integer conPadre) {
 		this.conPadre = conPadre;
+	}
+
+	public Integer getConTipo() {
+		return conTipo;
+	}
+
+	public void setConTipo(Integer conTipo) {
+		this.conTipo = conTipo;
 	}
 
 }
