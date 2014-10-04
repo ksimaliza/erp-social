@@ -1,14 +1,19 @@
 package ec.edu.uce.erp.web.controladores;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+
+import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -27,6 +32,7 @@ import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
+import ec.edu.uce.erp.web.common.util.ReporteUtil;
 import ec.edu.uce.erp.web.datamanager.PartidaConfirmacionDataManager;
 
 @ViewScoped
@@ -77,6 +83,7 @@ public void registrarConfirmacion () {
 		CatalogoEucaristiaDTO canton;
 		CatalogoEucaristiaDTO parroquia;
 		CatalogoEucaristiaDTO estado;
+		CatalogoEucaristiaDTO tipo;
 		
 		try {
 			
@@ -86,12 +93,14 @@ public void registrarConfirmacion () {
 			canton=new CatalogoEucaristiaDTO();
 			parroquia=new CatalogoEucaristiaDTO();
 			estado=new CatalogoEucaristiaDTO();
-			
+			tipo=new CatalogoEucaristiaDTO();
 			
 			partidaConfirmacionDataManager.getConfirmacionDTO().setConCertificadoPor(getPersonaCode());
 			
 			confirmacionVO.setConfirmado(partidaConfirmacionDataManager.getConfirmadoInsertar());
 			confirmacionVO.setMad_pad(partidaConfirmacionDataManager.getMad_padInsertar());
+			confirmacionVO.setMadrePersona(partidaConfirmacionDataManager.getMadreInsertar());
+			confirmacionVO.setPadrePersona(partidaConfirmacionDataManager.getPadreInsertar());
 			
 			confirmacionVO.setConfirmacion(partidaConfirmacionDataManager.getConfirmacionDTO());
 									
@@ -103,11 +112,13 @@ public void registrarConfirmacion () {
 			canton.setCatCodigo(partidaConfirmacionDataManager.getCanton());
 			parroquia.setCatCodigo(partidaConfirmacionDataManager.getParroquia());
 			estado.setCatCodigo(partidaConfirmacionDataManager.getEstadoCodigo());
+			tipo.setCatCodigo(partidaConfirmacionDataManager.getTipoCodigo());
 			
 			confirmacionVO.getConfirmacion().setConProvincia(provincia.getCatCodigo());
 			confirmacionVO.getConfirmacion().setConCanton(canton.getCatCodigo());
 			confirmacionVO.getConfirmacion().setConParroquia(parroquia.getCatCodigo());
 			confirmacionVO.getConfirmacion().setConEstado(estado.getCatCodigo());
+			confirmacionVO.getConfirmacion().setConTipo(tipo.getCatCodigo());
 			
 			if(partidaConfirmacionDataManager.getFechaApCInsertar().getTime()>partidaConfirmacionDataManager.getFechaComunionInsertar().getTime())
 			{
@@ -118,18 +129,19 @@ public void registrarConfirmacion () {
 			confirmacionVO.getConfirmacion().setConFechaAprobacionCurso(new Timestamp(partidaConfirmacionDataManager.getFechaApCInsertar().getTime()));
 			confirmacionVO.getConfirmacion().setConFecha(new Timestamp(partidaConfirmacionDataManager.getFechaComunionInsertar().getTime()));
 			ConfirmacionDTO confirmacionNuevo= this.servicioEucaristia.createOrUpdateConfirmacion(confirmacionVO);
-				
-						
+
+			partidaConfirmacionDataManager.setExportDesactivado(false);
+			
 			if (confirmacionNuevo != null) {
 				
-				partidaConfirmacionDataManager.setConfirmadoInsertar(new Persona());		
+				/*partidaConfirmacionDataManager.setConfirmadoInsertar(new Persona());		
 				partidaConfirmacionDataManager.setMad_padInsertar(new Persona());
 				partidaConfirmacionDataManager.setConfirmacionDTO(new ConfirmacionDTO());
 				partidaConfirmacionDataManager.setSacerdoteCodigo(0);
 				partidaConfirmacionDataManager.setFechaApCInsertar(new Date());
 				partidaConfirmacionDataManager.setFechaComunionInsertar(new Date());
 				partidaConfirmacionDataManager.setEstadoCodigo(0);
-				
+				*/
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.partida.confirmacion.registrar.exito");
 			}
 			buscarPartidaConfirmacion();
@@ -224,6 +236,54 @@ public void registrarConfirmacion () {
 		
 	}
 	
+	public void buscarMadre () {
+		slf4jLogger.info("buscarMadre");
+		
+		List<Persona> listaPersona=null;
+		
+		try {
+			if(partidaConfirmacionDataManager.getMadreInsertar().getPerCi()!=null && partidaConfirmacionDataManager.getMadreInsertar().getPerCi()!="" )
+			{
+				partidaConfirmacionDataManager.getMadreInsertar().setPerNombres(null);
+				partidaConfirmacionDataManager.getMadreInsertar().setPerApellidos(null);
+				listaPersona=this.servicioAdministracion.buscarPersona(partidaConfirmacionDataManager.getMadreInsertar());
+								
+				if (CollectionUtils.isEmpty(listaPersona) && listaPersona.size()==0) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.partidaConfirmacionDataManager.setMadreInsertar(listaPersona.get(0));
+				}
+			}
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarMadre {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+	}
+	
+	public void buscarPadre () {
+		slf4jLogger.info("buscarPadre");
+		
+		List<Persona> listaPersona=null;
+		
+		try {
+			if(partidaConfirmacionDataManager.getPadreInsertar().getPerCi()!=null && partidaConfirmacionDataManager.getPadreInsertar().getPerCi()!="" )
+			{
+				partidaConfirmacionDataManager.getPadreInsertar().setPerNombres(null);
+				partidaConfirmacionDataManager.getPadreInsertar().setPerApellidos(null);
+				listaPersona=this.servicioAdministracion.buscarPersona(partidaConfirmacionDataManager.getPadreInsertar());
+								
+				if (CollectionUtils.isEmpty(listaPersona) && listaPersona.size()==0) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.partidaConfirmacionDataManager.setPadreInsertar(listaPersona.get(0));
+				}
+			}
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarMadre {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+	}
+	
 	
 	public void buscarPartidaConfirmacion () {
 		slf4jLogger.info("buscarPartidaConfirmacion");
@@ -255,6 +315,8 @@ public void registrarConfirmacion () {
 			this.partidaConfirmacionDataManager.setConfirmadoInsertar(confirmacionEncontrada.getConfirmado());
 			this.partidaConfirmacionDataManager.setConfirmacionDTO(confirmacionEncontrada.getConfirmacion());
 			this.partidaConfirmacionDataManager.setMad_padInsertar(confirmacionEncontrada.getMad_pad());
+			this.partidaConfirmacionDataManager.setMadreInsertar(confirmacionEncontrada.getMadrePersona());
+			this.partidaConfirmacionDataManager.setPadreInsertar(confirmacionEncontrada.getPadrePersona());
 			this.partidaConfirmacionDataManager.setSacerdoteCodigo(confirmacionEncontrada.getConfirmacion().getEucSacerdote().getSacCodigo());
 			this.partidaConfirmacionDataManager.setEstadoCodigo(confirmacionEncontrada.getConfirmacion().getConEstado());
 			this.partidaConfirmacionDataManager.setProvincia(confirmacionEncontrada.getConfirmacion().getConProvincia());
@@ -393,6 +455,37 @@ public void registrarConfirmacion () {
 		}
 		
 	}
+	
+	public void exportar()
+	{
+		Date fechaActual = new Date();
+		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
+				
+		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
+		
+		Map<String, Object> mapParametros = new HashMap<String, Object>();
+		
+		mapParametros.put("canton", partidaConfirmacionDataManager.getCantonEucaristiaDTOs().get(0).getCatDescripcion().toUpperCase());
+		mapParametros.put("parroquiaCabecera", "\"" + partidaConfirmacionDataManager.getParroquiaEucaristiaDTOs().get(0).getCatDescripcion().toUpperCase() +"\"");
+		mapParametros.put("parroquia", partidaConfirmacionDataManager.getParroquiaEucaristiaDTOs().get(0).getCatDescripcion().toUpperCase());
+		mapParametros.put("tomo", partidaConfirmacionDataManager.getConfirmacionDTO().getConToma());
+		mapParametros.put("pagina", partidaConfirmacionDataManager.getConfirmacionDTO().getConPagina());
+		mapParametros.put("acta", partidaConfirmacionDataManager.getConfirmacionDTO().getConActa());
+		mapParametros.put("fechaConfirmacion", pequeña.format(partidaConfirmacionDataManager.getFechaComunionInsertar()));
+		mapParametros.put("confirmado", partidaConfirmacionDataManager.getConfirmadoInsertar().getPerApellidos().toUpperCase() + " "+   partidaConfirmacionDataManager.getConfirmadoInsertar().getPerNombres().toUpperCase());
+		mapParametros.put("sacerdote", partidaConfirmacionDataManager.getSacerdoteListDTO().get(0).getPerApellidos().toUpperCase() + " "+  partidaConfirmacionDataManager.getSacerdoteListDTO().get(0).getPerNombres().toUpperCase());
+		mapParametros.put("padrino", partidaConfirmacionDataManager.getMad_padInsertar().getPerApellidos().toUpperCase() + " "+ partidaConfirmacionDataManager.getMad_padInsertar().getPerNombres().toUpperCase());
+		mapParametros.put("parroquiafechaActual", partidaConfirmacionDataManager.getParroquiaEucaristiaDTOs().get(0).getCatDescripcion()+ ", "+full.format(fechaActual));
+		mapParametros.put("notaMarginal", partidaConfirmacionDataManager.getConfirmacionDTO().getConNotaMarginal());
+		mapParametros.put("provincia", partidaConfirmacionDataManager.getProvinciaEucaristiaDTOs().get(0).getCatDescripcion().toUpperCase());
+		mapParametros.put("madre", partidaConfirmacionDataManager.getMadreInsertar().getPerApellidos().toUpperCase() + " "+ partidaConfirmacionDataManager.getMadreInsertar().getPerNombres().toUpperCase());
+		mapParametros.put("padre", partidaConfirmacionDataManager.getPadreInsertar().getPerApellidos().toUpperCase() +  " "+ partidaConfirmacionDataManager.getPadreInsertar().getPerApellidos().toUpperCase());
+		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
+		
+		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), "certificadoConfirmacion", mapParametros);
+		ReporteUtil.generarReporte(jasperPrint, this.partidaConfirmacionDataManager.getFormatoPdf(), "certificadoConfirmacion");
+	}
+	
 
 	@Override
 	public void refrescarFormulario() {
