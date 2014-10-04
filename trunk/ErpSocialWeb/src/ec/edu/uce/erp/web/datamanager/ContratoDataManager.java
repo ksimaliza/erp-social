@@ -122,58 +122,33 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 	}
 
 
-
-
 	public Date getFechaFin() {
 		return fechaFin;
 	}
-
-
-
 
 	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
 
-
-
-
 	public int getNichoCodigo() {
 		return nichoCodigo;
 	}
-
-
-
 
 	public void setNichoCodigo(int nichoCodigo) {
 		this.nichoCodigo = nichoCodigo;
 	}
 
-
-
-
 	public ContratoListDTO getContratoListDTO() {
 		return contratoListDTO;
 	}
-
-
-
 
 	public void setContratoListDTO(ContratoListDTO contratoListDTO) {
 		this.contratoListDTO = contratoListDTO;
 	}
 
-
-
-
-	
-
 	public NichoListDTO getNichoListDTO() {
 		return nichoListDTO;
 	}
-
-
-
 
 	public void setNichoListDTO(NichoListDTO nichoListDTO) {
 		this.nichoListDTO = nichoListDTO;

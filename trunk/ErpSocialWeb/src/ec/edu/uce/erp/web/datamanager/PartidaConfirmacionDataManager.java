@@ -32,6 +32,8 @@ public class PartidaConfirmacionDataManager extends BaseDataManager {
 	
 	private  Persona confirmadoInsertar;
 	private  Persona mad_padInsertar;
+	private  Persona madreInsertar;
+	private  Persona padreInsertar;
 	private SacerdoteDTO sacerdoteInsertar;
 	private List<ConfirmacionDTO> confirmacionDTOs;
 	private Date fechaComunionInsertar;
@@ -59,6 +61,8 @@ public class PartidaConfirmacionDataManager extends BaseDataManager {
 	private int canton;
 	private BautizoListDTO bautizoListDTO;
 	private int estadoCodigo;
+	private Boolean exportDesactivado;
+	
 	
 	
 	@PostConstruct
@@ -76,11 +80,11 @@ public class PartidaConfirmacionDataManager extends BaseDataManager {
 		this.confirmacionListDTOs=new ArrayList<ConfirmacionListDTO>();
 		this.tipoEucaristiaDTOs=new ArrayList<CatalogoEucaristiaDTO>();
 		this.bautizoListDTO=new BautizoListDTO();
-		
+		exportDesactivado=true;
+		madreInsertar=new Persona();
+		padreInsertar=new Persona();
 		
 	}
-	
-	
 	public Persona getConfirmadoInsertar() {
 		return confirmadoInsertar;
 	}
@@ -305,6 +309,36 @@ public class PartidaConfirmacionDataManager extends BaseDataManager {
 
 	public void setCanton(int canton) {
 		this.canton = canton;
+	}
+
+
+	public Boolean getExportDesactivado() {
+		return exportDesactivado;
+	}
+
+
+	public void setExportDesactivado(Boolean exportDesactivado) {
+		this.exportDesactivado = exportDesactivado;
+	}
+
+
+	public Persona getMadreInsertar() {
+		return madreInsertar;
+	}
+
+
+	public void setMadreInsertar(Persona madreInsertar) {
+		this.madreInsertar = madreInsertar;
+	}
+
+
+	public Persona getPadreInsertar() {
+		return padreInsertar;
+	}
+
+
+	public void setPadreInsertar(Persona padreInsertar) {
+		this.padreInsertar = padreInsertar;
 	}
 	
 	

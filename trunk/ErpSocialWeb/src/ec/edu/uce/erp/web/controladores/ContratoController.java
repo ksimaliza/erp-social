@@ -122,6 +122,8 @@ public ContratoController() {
 			con.setConBeneficiario(contratoNuevo.getConBeneficiario());
 			con.setConDifunto(contratoNuevo.getConDifunto());
 			con.setNicCodigo(contratoNuevo.getConNicho());
+			con.setConFormaPago(contratoNuevo.getConFormaPago());
+			
 			cargarDatosContrato(con);
 			
 			if (contratoNuevo!= null) {

@@ -57,6 +57,7 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 	private List<CatalogoEucaristiaDTO> cantonEucaristiaDTOs;
 	private List<CatalogoEucaristiaDTO> parroquiaEucaristiaDTOs;
 	private List<CatalogoEucaristiaDTO> estadoEucaristiaDTOs;
+	private Boolean exportDesactivado;
 	
 	
 	
@@ -77,6 +78,7 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 		this.catalogoEucaristiaDTOs=new ArrayList<CatalogoEucaristiaDTO>();		
 		this.madreInsertar=new Persona();
 		this.padreInsertar=new Persona();
+		exportDesactivado=true;
 			
 	}
 	
@@ -301,6 +303,14 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 
 	public void setPadreInsertar(Persona padreInsertar) {
 		this.padreInsertar = padreInsertar;
+	}
+
+	public Boolean getExportDesactivado() {
+		return exportDesactivado;
+	}
+
+	public void setExportDesactivado(Boolean exportDesactivado) {
+		this.exportDesactivado = exportDesactivado;
 	}
 
 	

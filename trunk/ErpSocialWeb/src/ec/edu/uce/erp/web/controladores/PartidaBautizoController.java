@@ -1,14 +1,19 @@
 package ec.edu.uce.erp.web.controladores;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+
+import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -26,6 +31,7 @@ import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
+import ec.edu.uce.erp.web.common.util.ReporteUtil;
 import ec.edu.uce.erp.web.datamanager.PartidaBautizoDataManager;
 
 @ViewScoped
@@ -119,9 +125,22 @@ public class PartidaBautizoController extends BaseController{
 			bautizoVO.getBautizo().setBauFechaBautizo(new Timestamp(partidaBautizoDataManager.getFechaBautizoInsertar().getTime()));
 			
 			BautizoDTO bautizoNuevo=this.servicioEucaristia.createOrUpdateBautizo(bautizoVO);
-						
+			
+			partidaBautizoDataManager.setExportDesactivado(false);
+			
+			BautizoListDTO bautizo=new BautizoListDTO();
+			bautizo.setBauCodigo(bautizoNuevo.getBauCodigo());
+			bautizo.setBauBautizado(bautizoNuevo.getBauBautizado());
+			bautizo.setBauMadre(bautizoNuevo.getBauMadre());
+			bautizo.setBauPadre(bautizoNuevo.getBauPadre());
+			bautizo.setBauMadrina(bautizoNuevo.getBauMadrina());
+			bautizo.setBauPadrino(bautizoNuevo.getBauMadrina());
+			bautizo.setBauSacerdote(bautizoNuevo.getEucSacerdote().getSacCodigo());
+			
+			cargarDatosBautizo(bautizo);		
+			
 			if (bautizoNuevo != null) {
-				partidaBautizoDataManager.setBautizadoInsertar(new Persona());
+				/*partidaBautizoDataManager.setBautizadoInsertar(new Persona());
 				partidaBautizoDataManager.setMadrinaInsertar(new Persona());
 				partidaBautizoDataManager.setPadrinoInsertar(new Persona());
 				partidaBautizoDataManager.setMadreInsertar(new Persona());
@@ -130,8 +149,9 @@ public class PartidaBautizoController extends BaseController{
 				partidaBautizoDataManager.setSacerdoteCodigo(0);
 				partidaBautizoDataManager.setFechaApCInsertar(new Date());
 				partidaBautizoDataManager.setFechaBautizoInsertar(new Date());
-				partidaBautizoDataManager.setEstadoCodigo(0);
+				partidaBautizoDataManager.setEstadoCodigo(0);*/
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.partida.bautizo.registrar.exito");
+			
 			}
 			buscarPartidaBautizo();
 		} catch (SeguridadesException e) {
@@ -196,7 +216,6 @@ public class PartidaBautizoController extends BaseController{
 					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 				} else {
 					this.partidaBautizoDataManager.setMadrinaInsertar(listaMadrina.get(0));
-								
 				}
 			}
 		} catch (SeguridadesException e) {
@@ -294,13 +313,11 @@ public class PartidaBautizoController extends BaseController{
 			slf4jLogger.info("Error al buscarPartidaBautizo {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
-		
 	}
 	
 
 	public void cargarDatosBautizo (BautizoListDTO bautizo) {
 		try {
-			
 			BautizoVO bautizoEncontrado=servicioEucaristia.obtenerBautizoPorId(bautizo);
 			this.partidaBautizoDataManager.setBautizadoInsertar(bautizoEncontrado.getBautizado());
 			this.partidaBautizoDataManager.setBautizoDTO(bautizoEncontrado.getBautizo());
@@ -317,7 +334,6 @@ public class PartidaBautizoController extends BaseController{
 			this.partidaBautizoDataManager.setParroquiaCodigo(bautizoEncontrado.getBautizo().getBauParroquia());
 			this.partidaBautizoDataManager.setFechaApCInsertar(bautizoEncontrado.getBautizo().getBauFechaAprobacionCruso());
 			this.partidaBautizoDataManager.setFechaBautizoInsertar(bautizoEncontrado.getBautizo().getBauFechaBautizo());
-							
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosBautizo {}", e.getMessage());
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosBautizo seleccionado");
@@ -351,26 +367,20 @@ public class PartidaBautizoController extends BaseController{
 	
 	public void buscarCanton () {
 		slf4jLogger.info("buscarCanton");
-		
 		List<CatalogoEucaristiaDTO> listaCatalogo=null;
-		
 		try {
 			CatalogoEucaristiaDTO cat=new CatalogoEucaristiaDTO();
 			cat.setCatCodigo(partidaBautizoDataManager.getProvinciaCodigo());
 			listaCatalogo=this.servicioEucaristia.buscarCatalogo(cat);
-			
 			if (CollectionUtils.isEmpty(listaCatalogo) && listaCatalogo.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.partidaBautizoDataManager.setCantonEucaristiaDTOs(listaCatalogo);
-				
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarCanton {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
-		
 	}
 	
 	public void buscarParroquia () {
@@ -387,7 +397,6 @@ public class PartidaBautizoController extends BaseController{
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.partidaBautizoDataManager.setParroquiaEucaristiaDTOs(listaCatalogo);
-				
 			}
 			
 		} catch (SeguridadesException e) {
@@ -421,38 +430,47 @@ public class PartidaBautizoController extends BaseController{
 		
 	}
 	
-	/*public void exportar()
+	public void exportar()
 	{
-		//ContratoListDTO contrato=new ContratoListDTO();
-		//contrato.setConFormaPago(contratoDataManager.getFormaPagoCodigo());
-		
 		Date fechaActual = new Date();
+		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
+				
+		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
+		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
-		mapParametros.put("beneficiarioNombre", contratoDataManager.getBeneficiariInsertar().getPerNombres());
-		mapParametros.put("beneficiarioApellido", contratoDataManager.getBeneficiariInsertar().getPerApellidos());
-		mapParametros.put("beneficiarioCedula", contratoDataManager.getBeneficiariInsertar().getPerCi());
-		mapParametros.put("tipoNicho", contratoDataManager.getNichoListDTOs().get(0).getTniDescripcion());
-		mapParametros.put("numeroNicho", contratoDataManager.getNichoListDTOs().get(0).getNicDescripcion());
-		mapParametros.put("seccionNicho", contratoDataManager.getNichoListDTOs().get(0).getCatDescripcion());
-		mapParametros.put("nivelNicho", contratoDataManager.getNichoListDTOs().get(0).getNniDescripcion());
-		mapParametros.put("difuntoApellido", contratoDataManager.getDefuncionListDTO().getPerApellidos());
-		mapParametros.put("difuntoNombre", contratoDataManager.getDefuncionListDTO().getPerNombres());
-		mapParametros.put("mesesArrendamiento", contratoDataManager.getContratoDTO().getConMesesArrendamiento());
-		mapParametros.put("fechaInicio", contratoDataManager.getContratoDTO().getConFechaInicio());
-		mapParametros.put("parroquia", contratoDataManager.getDefuncionListDTO().getCatParroquia());
-		mapParametros.put("fecha", fechaActual.toString());
-		mapParametros.put("valorPagar", contratoDataManager.getContratoDTO().getConValorMes().toString());
-		//mapParametros.put("formaPago", contratoDataManager.getFormaPagoList().getCatDescripcion());
+		
+		mapParametros.put("canton", partidaBautizoDataManager.getCantonEucaristiaDTOs().get(0).getCatDescripcion().toUpperCase());
+		mapParametros.put("parroquiaCabecera", "\"" + partidaBautizoDataManager.getParroquiaEucaristiaDTOs().get(0).getCatDescripcion().toUpperCase() +"\"");
+		mapParametros.put("parroquia", partidaBautizoDataManager.getParroquiaEucaristiaDTOs().get(0).getCatDescripcion().toUpperCase());
+		mapParametros.put("tomo", partidaBautizoDataManager.getBautizoDTO().getBauToma());
+		mapParametros.put("pagina", partidaBautizoDataManager.getBautizoDTO().getBauPagina());
+		mapParametros.put("acta", partidaBautizoDataManager.getBautizoDTO().getBauActa());
+		mapParametros.put("fechaBautizo", pequeña.format(partidaBautizoDataManager.getFechaBautizoInsertar()));
+		mapParametros.put("bautizado", partidaBautizoDataManager.getBautizadoInsertar().getPerApellidos().toUpperCase() + " "+   partidaBautizoDataManager.getBautizadoInsertar().getPerNombres().toUpperCase());
+		mapParametros.put("sacerdote", partidaBautizoDataManager.getSacerdoteListDTO().get(0).getPerApellidos().toUpperCase() + " "+  partidaBautizoDataManager.getSacerdoteListDTO().get(0).getPerNombres().toUpperCase());
+		mapParametros.put("padrino", partidaBautizoDataManager.getPadrinoInsertar().getPerApellidos().toUpperCase() + " "+ partidaBautizoDataManager.getPadrinoInsertar().getPerNombres().toUpperCase());
+		mapParametros.put("parroquiafechaActual", partidaBautizoDataManager.getParroquiaEucaristiaDTOs().get(0).getCatDescripcion()+ ", "+full.format(fechaActual));
+		mapParametros.put("madrina", partidaBautizoDataManager.getMadrinaInsertar().getPerApellidos().toUpperCase() +  " "+partidaBautizoDataManager.getMadrinaInsertar().getPerNombres().toUpperCase());
+		mapParametros.put("notaMarginal", partidaBautizoDataManager.getBautizoDTO().getBauNotaMarginal());
+		mapParametros.put("provincia", partidaBautizoDataManager.getProvinciasEucaristiaDTOs().get(0).getCatDescripcion().toUpperCase());
+		mapParametros.put("madre", partidaBautizoDataManager.getMadreInsertar().getPerApellidos().toUpperCase() + " "+ partidaBautizoDataManager.getMadreInsertar().getPerNombres().toUpperCase());
+		mapParametros.put("padre", partidaBautizoDataManager.getPadreInsertar().getPerApellidos().toUpperCase() +  " "+partidaBautizoDataManager.getPadreInsertar().getPerNombres().toUpperCase());
 		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
-		
-		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), "comprobanteContrato", mapParametros);
-		ReporteUtil.generarReporte(jasperPrint, this.contratoDataManager.getFormatoPdf(), "Comprobante Contrato");
-		
+		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), "certificadoBautismo", mapParametros);
+		ReporteUtil.generarReporte(jasperPrint, this.partidaBautizoDataManager.getFormatoPdf(), "certificadoBautismo");
+	
+		partidaBautizoDataManager.setBautizadoInsertar(new Persona());
+		partidaBautizoDataManager.setMadrinaInsertar(new Persona());
+		partidaBautizoDataManager.setPadrinoInsertar(new Persona());
+		partidaBautizoDataManager.setMadreInsertar(new Persona());
+		partidaBautizoDataManager.setPadreInsertar(new Persona());
+		partidaBautizoDataManager.setBautizoDTO(new BautizoDTO());
+		partidaBautizoDataManager.setSacerdoteCodigo(0);
+		partidaBautizoDataManager.setFechaApCInsertar(new Date());
+		partidaBautizoDataManager.setFechaBautizoInsertar(new Date());
+		partidaBautizoDataManager.setEstadoCodigo(0);
 	}
-	*/
-	
-	
 
 	@Override
 	public void refrescarFormulario() {
