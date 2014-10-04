@@ -312,12 +312,14 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		slf4jLogger.info("obtenerComunionPorId");
 		
 		BautizoVO bautizo=new BautizoVO();
-		
+		bautizo.setBautizado(factoryDAO.getPersonaDAOImpl().find(bautizoListDTO.getBauBautizado()));
 		bautizo.setBautizo(eucaristiaFactoryDAO.getBautizoDAOImpl().find(bautizoListDTO.getBauCodigo()));
-		bautizo.setBautizado(factoryDAO.getPersonaDAOImpl().find(bautizoListDTO.getPerPk()));
+		
 		bautizo.setMadrina(factoryDAO.getPersonaDAOImpl().find(bautizoListDTO.getBauMadrina()));
 		bautizo.setPadrino(factoryDAO.getPersonaDAOImpl().find(bautizoListDTO.getBauPadrino()));
-	
+		bautizo.setPadre(factoryDAO.getPersonaDAOImpl().find(bautizoListDTO.getBauPadre()));
+		bautizo.setMadre(factoryDAO.getPersonaDAOImpl().find(bautizoListDTO.getBauMadre()));
+		
 		return bautizo;
 	}
 	
@@ -328,35 +330,76 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		slf4jLogger.info("createOrUpdateConfirmacion");
 		Persona confirmadoPersona;
 		Persona mad_pad;
+		Persona madre;
+		Persona padre;
 		SacerdoteDTO sacerdote;
 				 
 		List<Persona> listPersona;
 			
 		try {
 			confirmadoPersona = confirmacionVO.getConfirmado();
-			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(confirmadoPersona);
-			if(listPersona.size()<=0)
-				confirmadoPersona=factoryDAO.getPersonaDAOImpl().create(confirmadoPersona);
-			else
-				confirmadoPersona=listPersona.get(0);
+			if(confirmadoPersona.getPerApellidos()!=null && confirmadoPersona.getPerNombres()!=null)
+			{
+				confirmadoPersona=factoryDAO.getPersonaDAOImpl().update(confirmadoPersona);
+			}
+				else	
+				{
+					listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(confirmadoPersona);
+					if(listPersona.size()<=0)
+						confirmadoPersona=factoryDAO.getPersonaDAOImpl().create(confirmadoPersona);
+					else
+						confirmadoPersona=listPersona.get(0);
+				}
 			
 			mad_pad=confirmacionVO.getMad_pad();
-			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(mad_pad);
-			if(listPersona.size()<=0)
-				mad_pad=factoryDAO.getPersonaDAOImpl().create(mad_pad);
-			else
-				mad_pad=listPersona.get(0);
+			if(mad_pad.getPerApellidos()!=null && mad_pad.getPerNombres()!=null)
+			{
+				mad_pad=factoryDAO.getPersonaDAOImpl().update(mad_pad);
+			}
+				else	
+				{
+					listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(mad_pad);
+					if(listPersona.size()<=0)
+						mad_pad=factoryDAO.getPersonaDAOImpl().create(mad_pad);
+					else
+						mad_pad=listPersona.get(0);
+				}
 			
+			madre=confirmacionVO.getMadrePersona();
+			if(madre.getPerApellidos()!=null && madre.getPerNombres()!=null)
+			{
+				madre=factoryDAO.getPersonaDAOImpl().update(madre);
+			}
+				else	
+				{
+					listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(madre);
+					if(listPersona.size()<=0)
+						madre=factoryDAO.getPersonaDAOImpl().create(madre);
+					else
+						madre=listPersona.get(0);
+				}
+			
+			padre=confirmacionVO.getPadrePersona();
+			if(padre.getPerApellidos()!=null && padre.getPerNombres()!=null)
+			{
+				padre=factoryDAO.getPersonaDAOImpl().update(padre);
+			}
+				else	
+				{
+					listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(padre);
+					if(listPersona.size()<=0)
+						padre=factoryDAO.getPersonaDAOImpl().create(padre);
+					else
+						padre=listPersona.get(0);
+				}
+
 			confirmacionVO.getConfirmacion().setConConfirmado(confirmadoPersona.getPerPk());
 			confirmacionVO.getConfirmacion().setConPadrino(mad_pad.getPerPk());
 						
 			if(confirmacionVO.getConfirmacion().getConCodigo()!=null){
 				sacerdote= eucaristiaFactoryDAO.getSacerdoteDAOImpl().find(confirmacionVO.getSacerdote().getSacCodigo());	
-				
 				confirmacionVO.getConfirmacion().setEucSacerdote(sacerdote);
-						
 				return  eucaristiaFactoryDAO.getConfirmacionDAOImpl().update(confirmacionVO.getConfirmacion());
-			
 			}
 			else{
 				sacerdote= eucaristiaFactoryDAO.getSacerdoteDAOImpl().find(confirmacionVO.getSacerdote().getSacCodigo());	
@@ -368,8 +411,6 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			slf4jLogger.info("error al createOrUpdateConfirmacion {}", e.toString());
 			throw new SeguridadesException(e);
 		}
-		
-		
 	}
 	
 	@Override
@@ -378,7 +419,6 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		List<ConfirmacionListDTO> listConfirmacion = null;
 		try {
 			listConfirmacion=eucaristiaFactoryDAO.getConfirmacionDAOImpl().obtenerConfirmacion(confirmacionListDTO);
-			
 		} catch (Exception e) {
 			slf4jLogger.info("Error al buscarPartidaConfirmacion {}", e.getMessage());
 			throw new SeguridadesException("No se pudo obtener buscarPartidaConfirmacion de la base de datos");
@@ -395,7 +435,8 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		confirmacion.setConfirmado(factoryDAO.getPersonaDAOImpl().find(confirmacionListDTO.getConConfirmado()));
 		confirmacion.setConfirmacion(eucaristiaFactoryDAO.getConfirmacionDAOImpl().find(confirmacionListDTO.getConCodigo()));	
 		confirmacion.setMad_pad(factoryDAO.getPersonaDAOImpl().find(confirmacionListDTO.getConPadrino()));
-		
+		confirmacion.setMadrePersona(factoryDAO.getPersonaDAOImpl().find(confirmacionListDTO.getConMadre()));
+		confirmacion.setPadrePersona(factoryDAO.getPersonaDAOImpl().find(confirmacionListDTO.getConPadre()));
 		
 		return confirmacion;
 	}
