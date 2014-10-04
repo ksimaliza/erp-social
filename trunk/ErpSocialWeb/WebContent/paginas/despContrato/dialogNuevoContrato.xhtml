@@ -212,7 +212,6 @@
 					process="@this,pnlNuevoContrato" update="pnlNuevoContrato,:formContrato:pnlMessages,:formContrato:tablaContrato,pnlBotones"/>
 					
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoContrato.hide()" type="button" />
-				
 				<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{contratoController.exportar}" icon="exportPdf" ajax="false"
 				disabled="#{contratoDataManager.exportDesactivado}"/>
 				

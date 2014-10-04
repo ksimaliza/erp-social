@@ -48,6 +48,72 @@
 						
 					<tr>
 						<td width="30%">
+							<h:outputText for="txtCiMadre" value="#{i18n['erp.despacho.partida.confirmacion.cedula.madre']}" />
+						</td>
+						<td width="70%" >
+						<p:inputText id="txtCiMadre"  style="width: 100%"
+							  value="#{partidaConfirmacionDataManager.madreInsertar.perCi}">
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+							<p:ajax event="blur" update="txtApeMadre,txtNomMadre" listener="#{partidaConfirmacionController.buscarMadre}" process="@this"/> 
+							</p:inputText>
+						</td>
+					</tr>
+
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApeMadre" value="#{i18n['erp.despacho.partida.confirmacion.apellidos.madre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApeMadre" style="width: 100%"
+								 value="#{partidaConfirmacionDataManager.madreInsertar.perApellidos}" />
+						</td>	
+					</tr>
+		
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNomMadre" value="#{i18n['erp.despacho.partida.confirmacion.nombres.madre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNomMadre" style="width: 100%"
+								 value="#{partidaConfirmacionDataManager.madreInsertar.perNombres}" />
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputText for="txtCiPadre" value="#{i18n['erp.despacho.partida.confirmacion.cedula.padre']}" />
+						</td>
+						<td width="70%" >
+						<p:inputText id="txtCiPadre"  style="width: 100%"
+							  value="#{partidaConfirmacionDataManager.padreInsertar.perCi}">
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+							<p:ajax event="blur" update="txtNomPadre,txtApePadre" listener="#{partidaConfirmacionController.buscarPadre}" process="@this"/> 
+							</p:inputText>
+						</td>
+					</tr>
+
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApePadre" value="#{i18n['erp.despacho.partida.confirmacion.apellidos.padre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApePadre" style="width: 100%"
+								 value="#{partidaConfirmacionDataManager.padreInsertar.perApellidos}" />
+						</td>	
+					</tr>
+		
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNomPadre" value="#{i18n['erp.despacho.partida.confirmacion.nombres.padre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNomPadre" style="width: 100%"
+								 value="#{partidaConfirmacionDataManager.padreInsertar.perNombres}" />
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
 							<h:outputLabel for="txtFechaConfirmacion" value="#{i18n['erp.despacho.partida.confirmacion.fecha']}" />
 						</td>
 						<td width="70%">
@@ -121,7 +187,6 @@
 			
 			<p:panel id="pnlDatosPadrino">
 				<table class="formulario">
-
 					<tr>
 						<td width="30%">
 							<h:outputLabel value="#{i18n['erp.despacho.partida.confirmacion.tipo.padrino']}" />
@@ -177,7 +242,6 @@
 					
 			<p:panel id="pnlDatos" visible="#{partidaConfirmacionDataManager.estadoCodigo.toString()=='24'}">
 				<table class="formulario">
-												
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtNotaM" value="#{i18n['erp.despacho.partida.confirmacion.nota.marginal']}" />
@@ -270,9 +334,11 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{partidaConfirmacionController.registrarConfirmacion}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaPartidaConfirmacion.hide()"
+					
 					process="@this,pnlNuevaPartidaConfirmacion,pnlDatos,pnlDatosPadrino" update="pnlNuevaPartidaConfirmacion,:formPartidaConfirmacion:pnlMessages,:formPartidaConfirmacion:tablaPartidaConfirmacion"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaPartidaConfirmacion.hide()" type="button" />
+				<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{partidaConfirmacionController.exportar}" icon="exportPdf" ajax="false"
+				disabled="#{partidaConfirmacionDataManager.exportDesactivado}" oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaPartidaConfirmacion.hide()"/>
 			</p:panel>
 	</h:form>
 	</p:scrollPanel>

@@ -1,275 +1,283 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="certificadoConfirmación" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d7194322-d6d9-4509-8b84-4f36b45a963f">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="36"/>
-	<property name="ireport.y" value="96"/>
+	<property name="ireport.zoom" value="0.9090909090909091"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="121"/>
+	<parameter name="canton" class="java.lang.String"/>
+	<parameter name="parroquia" class="java.lang.String"/>
+	<parameter name="tomo" class="java.lang.String"/>
+	<parameter name="pagina" class="java.lang.String"/>
+	<parameter name="acta" class="java.lang.String"/>
+	<parameter name="fechaConfirmacion" class="java.lang.String"/>
+	<parameter name="confirmado" class="java.lang.String"/>
+	<parameter name="sacerdote" class="java.lang.String"/>
+	<parameter name="padrino" class="java.lang.String"/>
+	<parameter name="parroquiafechaActual" class="java.lang.String"/>
+	<parameter name="notaMarginal" class="java.lang.String"/>
+	<parameter name="provincia" class="java.lang.String"/>
+	<parameter name="madre" class="java.lang.String"/>
+	<parameter name="padre" class="java.lang.String"/>
+	<parameter name="parroquiaCabecera" class="java.lang.String"/>
 	<title>
 		<band height="606" splitType="Stretch">
 			<staticText>
-				<reportElement x="129" y="211" width="59" height="20" uuid="a3f4bd52-32f2-4964-ae99-0b11ebbb235a"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[PÁGINA:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="255" y="362" width="235" height="20" uuid="261f5d53-4a7f-46fe-9a99-31cef14a9a7f"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{madrina}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="255" y="302" width="235" height="20" uuid="9e07e7a7-1390-4453-bc0a-6a3299a433e7"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{bautizado}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="216" y="211" width="39" height="20" uuid="f25b61a8-e10a-4246-ab97-0ace4603a4a7"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[ACTA: ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="406" y="88" width="17" height="24" uuid="26f9e7c9-f46f-4598-ad33-8f54edafba8f"/>
-				<textElement>
-					<font size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA["]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="45" y="322" width="86" height="20" uuid="fd5b6864-7920-4407-a3ab-6b6ced0cb9ea"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[SACERDOTE:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="24" y="191" width="472" height="20" uuid="a3d2498b-4ffa-4a3f-9674-2a9eef22c90e"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[Yo, el Infrascripto, certifico en forma legal, a petición de la parte interesada que:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="246" y="431" width="73" height="20" uuid="e75cb831-1dd6-4e89-b24b-bdd2e3372317"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{canton}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="45" y="282" width="116" height="20" uuid="6411d799-6684-4dfa-a867-9308344420f9"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[FECHA BAUTISMO:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="393" y="431" width="100" height="20" uuid="3c543aab-98cd-42c9-9d18-9ec1ffd67735"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{parroquia}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="145" y="23" width="276" height="24" uuid="8226bd7e-4053-481b-a0a1-d66c750709d0"/>
+				<reportElement x="131" y="10" width="276" height="24" uuid="7f1233ba-cdec-439a-b254-e8ab95a79413"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ARQUIDIOCESIS DE]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="255" y="322" width="235" height="20" uuid="c9d2fbc2-40bf-40c8-bb91-ef3cac991e1f"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{sacerdote}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="45" y="342" width="64" height="20" uuid="667e7077-5175-431d-8d84-a1d0d149636d"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[PADRINO:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="185" y="211" width="31" height="20" uuid="5c23a80d-a974-471d-87d8-b5c410808360"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{pagina}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="30" y="431" width="103" height="20" uuid="978d4c0a-3687-4db0-9dad-e6888d0c251a"/>
+				<reportElement x="16" y="456" width="103" height="20" uuid="3b88b246-9d2f-4a76-b14a-22fd753eb635"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[R.C. Provincia: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="178" y="243" width="207" height="24" uuid="fb052458-7715-435a-9900-cdf2d06a3303"/>
-				<textElement>
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[PARTIDA DE CONFIRMACIÓN]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="45" y="362" width="64" height="20" uuid="70fff7ae-5949-485a-b73d-29c892c9cd1b"/>
+				<reportElement x="31" y="329" width="131" height="20" uuid="a51edc38-247c-49ae-89a9-6d2bf331b65a"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[MADRINA:]]></text>
+				<text><![CDATA[NOMBRE DEL PADRE:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="125" y="431" width="72" height="20" uuid="e4b62995-e746-4c6d-b325-0f588d72c1ec"/>
+				<reportElement x="233" y="456" width="73" height="20" uuid="1fae32cc-e978-412f-809d-213c547dca34"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{provincia}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="298" y="88" width="100" height="24" uuid="aa5e3915-7750-4ed7-ba80-e73b290c36a7"/>
-				<textElement>
-					<font size="16"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{parroquia}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{canton}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="197" y="539" width="165" height="18" uuid="bdd28349-8e1c-41e7-b264-f9e09459d693"/>
+				<reportElement x="162" y="33" width="191" height="24" uuid="bdd03999-4ec9-43de-aa53-606a88355da3"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SERVICIO PARROQUIAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="349" width="153" height="20" uuid="70a4ba4c-602a-4df4-bc26-ef24baa088a0"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE DE LA MADRE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="184" y="556" width="165" height="18" uuid="0dc7bcf3-c1b2-41eb-8b56-22a9c083e746"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Firma y Sello Encargado]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="45" y="382" width="115" height="20" uuid="006e1f33-43eb-4a7d-bc9f-fd4904dff701"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[NOTA MARGINAL:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="306" y="22" width="124" height="24" uuid="6b02ff43-5ddd-4be3-9b65-0a19984ef39d"/>
-				<textElement>
-					<font size="16"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{canton}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="24" y="211" width="85" height="20" uuid="6488c696-2a5d-412a-ba7b-5da5939d517b"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[en el TOMO: ]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="106" y="211" width="24" height="20" uuid="274ccc27-b41a-4234-bf72-ee1b24fb7bb4"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{tomo}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="324" y="431" width="68" height="20" uuid="7182aa50-949a-4e55-b79a-572c393737b0"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Parroquia:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="313" y="211" width="248" height="20" uuid="35a5839b-3e87-444d-ab06-12fb706e5128"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[del Archivo Parroquial se halla la siguiente]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="269" y="88" width="17" height="24" uuid="dac8e310-4839-4bb1-80e2-025541298762"/>
-				<textElement>
-					<font size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA["]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="197" y="431" width="49" height="20" uuid="6450a620-1cec-4c6b-9aad-c9c5e3e24f5e"/>
+				<reportElement x="186" y="456" width="49" height="20" uuid="6f4f019b-5f08-43e2-9cbb-ccda2167b5d8"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cantón: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="176" y="46" width="191" height="24" uuid="42c6acd9-a854-428c-a71c-2b170a2c0cb5"/>
-				<textElement>
-					<font size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[SERVICIO PARROQUIAL]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="255" y="281" width="191" height="20" uuid="7e7dbdec-8970-4267-808a-d092707ce174"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{fechaBautizo}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="255" y="342" width="235" height="20" uuid="1dcbea2d-9896-4576-a403-d77f3148a575"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{padrino}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="255" y="211" width="53" height="20" uuid="09c8631a-7fc0-4789-a049-ec35c35b1d1d"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{acta}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="127" y="88" width="134" height="24" uuid="c4e90fbb-724f-40b5-a3c6-cc4ad128ce47"/>
-				<textElement>
-					<font size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[ PARROQUIA DE ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="45" y="302" width="115" height="20" uuid="6f1cd11d-89a9-44df-b250-da40ec8f44a7"/>
+				<reportElement x="31" y="369" width="131" height="20" uuid="a3f61924-63c4-407d-96b1-2aa3eff70cfa"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[BAUTIZADO/A:]]></text>
+				<text><![CDATA[PADRINO/MADRINA:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="255" y="382" width="235" height="20" uuid="38328d54-bb36-40c5-ba27-ae848754371e"/>
+				<reportElement x="273" y="75" width="157" height="24" uuid="80976809-dc51-407a-b445-a57f63b7dea7"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parroquiaCabecera}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="31" y="389" width="64" height="20" uuid="8abc142b-267f-4f7a-8f8d-d2d256a4608b"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DA FÉ:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="289" width="115" height="20" uuid="d2b46427-db22-461e-8f47-f8d88c9c82ae"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRES:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="241" y="328" width="235" height="20" uuid="6f32dc0e-e630-40cc-95c4-d1e076e7a81b"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{madre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="456" width="60" height="20" uuid="757cea13-00f8-4963-83b6-4e5601e19013"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{provincia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="241" y="409" width="235" height="20" uuid="a489ad89-d4f0-4061-8f87-a7ab701b9cee"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{notaMarginal}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="324" y="147" width="228" height="20" uuid="fe9f1791-8264-440b-bdd2-55dc06fb7f4c"/>
+				<reportElement x="84" y="198" width="24" height="20" uuid="9eb1fb0e-d618-40e3-bfee-8a6612fd622e"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{fechaActual}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{tomo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="292" y="10" width="124" height="24" uuid="7dc38828-2a0b-4d5b-92a2-fde537c6bf9a"/>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{canton}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="315" y="147" width="10" height="20" uuid="d5c40fe5-f7c4-478f-bf3b-e0ec59ff7222"/>
+				<reportElement x="109" y="198" width="59" height="20" uuid="3ccf75f4-361a-4b00-808e-dba018b352f3"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[,]]></text>
+				<text><![CDATA[PÁGINA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="309" width="64" height="20" uuid="e1ddff6a-da92-4d6d-b9cf-23782092979b"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SACERDOTE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="409" width="115" height="20" uuid="5db4f83f-332f-41a3-a3b9-84a217086837"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOTA MARGINAL:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="311" y="456" width="68" height="20" uuid="d1d489cc-6338-4c1e-a64d-09f7543728cf"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Parroquia:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="269" width="168" height="20" uuid="cf00e4d9-5598-4b72-9283-bf2e3f4f7ae1"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA DE CONFIRMACIÓN:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="215" y="147" width="100" height="20" uuid="b43a33c9-ea0b-4031-bc5d-9417e13c5905"/>
+				<reportElement x="163" y="198" width="31" height="20" uuid="e7bffa0c-c89d-41d9-9248-66bac6c5000d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pagina}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="456" width="100" height="20" uuid="0c997b7a-5075-4b40-92e4-a16ba7889ce9"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{parroquia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="239" y="198" width="31" height="20" uuid="821f04e8-597b-4746-bc5d-3d7cb1607359"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{acta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="134" y="230" width="212" height="24" uuid="41b34f5e-bb7e-4cf1-ad17-2732b95a6fa3"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTIDA DE CONFIMACIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="199" y="198" width="39" height="20" uuid="1114276f-9777-4136-8047-0acd37f5bb6b"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[ACTA: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="267" y="124" width="274" height="20" uuid="01b9e605-61a4-46ab-819d-b268bac35874"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parroquiafechaActual}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="178" width="472" height="20" uuid="cccc7210-b7a3-4a04-a064-703ba5bdacd0"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Yo, el Infrascripto, certifico en forma legal, a petición de la parte interesada que:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="198" width="82" height="20" uuid="729d0ba0-3f13-4001-86b8-b250575c8315"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[en el TOMO: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="241" y="309" width="235" height="20" uuid="8cc1d53e-fb13-4db9-b95b-bf26f45cfd0c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{madre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="267" y="198" width="248" height="20" uuid="cfd40fc4-0fae-4d59-b9e6-28acbc939d7f"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[del Archivo Parroquial se halla la siguiente]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="241" y="349" width="235" height="20" uuid="e27458e0-51e5-4827-a1de-1bee31161861"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sacerdote}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="137" y="75" width="134" height="24" uuid="317db0d1-5d17-4482-8782-bd7abf7d167b"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ PARROQUIA DE ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="241" y="369" width="235" height="20" uuid="8547001c-c6b7-4f4e-a1b3-406962961104"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{padrino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="242" y="269" width="100" height="20" uuid="eb6bab01-f9f9-4c13-81e6-1260c36b1a46"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaConfirmacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="242" y="289" width="238" height="20" uuid="c04872da-3b52-4e13-b6d1-57088d23a0ae"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{confirmado}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

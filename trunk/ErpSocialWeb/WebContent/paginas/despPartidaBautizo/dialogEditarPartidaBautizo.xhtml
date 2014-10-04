@@ -20,21 +20,20 @@
 						</td>
 						<td width="70%" >
 						<p:inputText id="txtCiBau"  style="width: 100%"
-							required="true"  value="#{partidaBautizoDataManager.bautizadoInsertar.perCi}">
+							  value="#{partidaBautizoDataManager.bautizadoInsertar.perCi}">
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-							 <p:ajax event="blur" update="txtApeBau,txtNomBau" listener="#{partidaBautizoController.buscarBautizado}" process="@this"/> 
-						</p:inputText>
+							<p:ajax event="blur" update="txtApeBau,txtNomBau" listener="#{partidaBautizoController.buscarBautizado}" process="@this"/> 
+							</p:inputText>
 						</td>
 					</tr>
-					
-		
+
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtApeBau" value="#{i18n['erp.despacho.partida.bautizo.apellidos.bautizado']}" />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApeBau" style="width: 100%"
-								required="true" value="#{partidaBautizoDataManager.bautizadoInsertar.perApellidos}" />
+								 value="#{partidaBautizoDataManager.bautizadoInsertar.perApellidos}" />
 						</td>	
 					</tr>
 		
@@ -44,7 +43,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomBau" style="width: 100%"
-								required="true" value="#{partidaBautizoDataManager.bautizadoInsertar.perNombres}" />
+								 value="#{partidaBautizoDataManager.bautizadoInsertar.perNombres}" />
 						</td>	
 					</tr>
 					
@@ -113,7 +112,6 @@
 								 value="#{partidaBautizoDataManager.padreInsertar.perNombres}" />
 						</td>	
 					</tr>
-					
 						
 					<tr>
 						<td width="30%">
@@ -143,19 +141,20 @@
 						</td>
 					</tr>
 														
-					<tr>
+					<tr >
 						<td width="30%">
 						
 							<h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.sacerdote']}"  /> 
 						
 						</td>
 					<td width="70%">
-						<p:selectOneMenu id="sacerdote" value="#{partidaBautizoDataManager.sacerdoteCodigo}" filter="true"  >
+					<p:selectOneMenu id="sacerdote" value="#{partidaBautizoDataManager.sacerdoteCodigo}" filter="true" required="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{partidaBautizoDataManager.sacerdoteListDTO}" var="sac" itemLabel="#{sac.perNombres} #{sac.perApellidos}" itemValue="#{sac.sacCodigo}"/>
 							</p:selectOneMenu>
 					</td>
 					</tr>
+					
 									
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.provincia']}"  /> </td>
@@ -190,19 +189,22 @@
 			
 			<p:panel id="pnlDatosPadrino">
 				<table class="formulario">
-					<tr>
+												
+						<tr>
 						<td width="30%">
 							<h:outputLabel for="txtCiPad" value="#{i18n['erp.despacho.partida.bautizo.cedula.padrino']}" />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiPad"  style="width: 100%"
-							required="true" label="#{i18n['erp.despacho.partida.bautizo.cedula.padrino']}" value="#{partidaBautizoDataManager.padrinoInsertar.perCi}">
+							 label="#{i18n['erp.despacho.partida.bautizo.cedula.padrino']}" value="#{partidaBautizoDataManager.padrinoInsertar.perCi}">
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 								<p:ajax event="blur" update="txtApePad,txtNomPad" listener="#{partidaBautizoController.buscarPadrino}" process="@this"/>
 							</p:inputText>
+											
 						</td>
 					</tr>
+						
 						
 					<tr>
 						<td width="30%">
@@ -210,7 +212,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomPad" style="width: 100%"
-								 required="true" value="#{partidaBautizoDataManager.padrinoInsertar.perNombres}"/>
+								 value="#{partidaBautizoDataManager.padrinoInsertar.perNombres}"/>
 						</td>	
 					</tr>
 						
@@ -220,7 +222,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApePad" style="width: 100%"
-								 required="true" value="#{partidaBautizoDataManager.padrinoInsertar.perApellidos}"/>
+								  value="#{partidaBautizoDataManager.padrinoInsertar.perApellidos}"/>
 						</td>	
 					</tr>
 					
@@ -238,7 +240,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiMad"  style="width: 100%"
-							required="true" label="#{i18n['erp.despacho.partida.bautizo.cedula.madrina']}" value="#{partidaBautizoDataManager.madrinaInsertar.perCi}">
+							 label="#{i18n['erp.despacho.partida.bautizo.cedula.madrina']}" value="#{partidaBautizoDataManager.madrinaInsertar.perCi}">
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 								<p:ajax event="blur" update="txtApeMad,txtNomMad" listener="#{partidaBautizoController.buscarMadrina()}" process="@this"/>
@@ -253,7 +255,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomMad" style="width: 100%"  
-								 required="true" value="#{partidaBautizoDataManager.madrinaInsertar.perNombres}"/>
+								  value="#{partidaBautizoDataManager.madrinaInsertar.perNombres}"/>
 						</td>	
 					</tr>
 					
@@ -263,7 +265,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApeMad" style="width: 100%"  
-								 required="true" value="#{partidaBautizoDataManager.madrinaInsertar.perApellidos}" />
+								  value="#{partidaBautizoDataManager.madrinaInsertar.perApellidos}" />
 						</td>	
 					</tr>
 					
@@ -322,9 +324,10 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{partidaBautizoController.registrarBautizo}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarPartidaBautizo.hide()"
-					process="@this,pnlEditarPartidaBautizo,pnlDatosPadrino,pnlDatosMadrina,pnlDatos" update="pnlEditarPartidaBautizo,:formPartidaBautizo:pnlMessages,:formPartidaBautizo:tablaPartidaBautizo"/>
+					process="@this,pnlEditarPartidaBautizo,pnlDatosPadrino,pnlDatosMadrina,pnlDatos" update="pnlEditarPartidaBautizo,:formPartidaBautizo:pnlMessages,:formPartidaBautizo:tablaPartidaBautizo,pnlBotones"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarPartidaBautizo.hide()" type="button" />
+				<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{partidaBautizoController.exportar}" icon="exportPdf" ajax="false"
+				disabled="#{partidaBautizoDataManager.exportDesactivado}" oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarPartidaBautizo.hide()"/>
 			</p:panel>
 	</h:form>
 	</p:scrollPanel>
