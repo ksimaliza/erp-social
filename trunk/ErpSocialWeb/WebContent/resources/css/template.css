@@ -230,7 +230,7 @@ TD.ToolBar {
 
 
 .label {
-    color: #4E7CB2;
+    
     text-align: right;
     vertical-align: central;
     horizontal-align:middle;
@@ -262,4 +262,113 @@ TD.ToolBar {
 	color: White;
 	font-style: normal;
 	font-size: x-small
+}
+
+#logoCabecera {
+	float: left;
+	 background-image: url(../img/headerIcon01.png); 
+	background-repeat: no-repeat;
+	background-position: right top;
+	width: 250px;
+	height: 65px;
+	margin-top: 5px;
+	margin-left: 0px;
+}
+
+#HeaderIcon3 {
+	
+	 background-image: url(../img/headerIcon03.png); 
+	 height: 50px;
+	 background-position: left top;
+	 
+	
+	
+}
+
+#HeaderIcon2 {
+	float: right;
+	 background-image: url(../img/icono3.png); 
+	background-repeat: no-repeat;
+	background-position: right top;
+	width: 300px;
+	height: 70px;
+	
+}
+
+#logoCabecera2 {
+	
+	float: left;
+	 background-image: url(../img/headerIcon08.png); 
+	background-repeat: no-repeat;
+	background-position: right top;
+	width: 65px;
+	height: 65px;
+	margin-top: 0px;
+	margin-left: 0px;
+}
+
+#Header01 {
+    border: 2px #80bce1 solid;
+    border-radius: 5px;
+	
+}
+#HeaderIcon4 {
+	float: left;
+	 background-image: url(../img/headerIcon04.png); 
+	background-repeat: no-repeat;
+	background-position: left top;
+	width: 16px;
+	height: 27px;
+	margin-top: 5px;
+	margin-left: 5px;
+	vertical-align:middle;
+}
+
+
+#HeaderIcon4 {
+	float: left;
+	 background-image: url(../img/headerIcon04.png); 
+	background-repeat: no-repeat;
+	background-position: left top;
+	width: 16px;
+	height: 27px;
+	margin-top: 5px;
+	margin-left: 5px;
+	vertical-align:middle;
+}
+
+#HeaderIcon5 {
+	float: left;
+	 background-image: url(../img/headerIcon05.png); 
+	background-repeat: no-repeat;
+	background-position: left top;
+	width: 16px;
+	height: 27px;
+	margin-top: 5px;
+	margin-left: 5px;
+	vertical-align:middle;
+}
+
+#HeaderIcon6 {
+	float: left;
+	 background-image: url(../img/headerIcon06.png); 
+	background-repeat: no-repeat;
+	background-position: left top;
+	width: 16px;
+	height: 27px;
+	margin-top: 5px;
+	margin-left: 5px;
+	vertical-align:middle;
+}
+
+#HeaderIcon7 {
+	float: left;
+	 background-image: url(../img/headerIcon07.png); 
+	background-repeat: no-repeat;
+	background-position: left top;
+	width: 16px;
+	height: 27px;
+	margin-top: 5px;
+	margin-left: 5px;
+	vertical-align:middle;
 }
