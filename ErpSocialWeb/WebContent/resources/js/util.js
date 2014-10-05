@@ -53,3 +53,10 @@ function toLowerCase(object) {
 	} catch (exception) {
 	}
 }
+
+function ButtonAyuda_onclick()
+{
+	window.open("Ayuda.pdf",null,"top=160,left=260,height=800,width=950");
+	return;
+}	
+
