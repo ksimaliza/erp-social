@@ -372,3 +372,15 @@ TD.ToolBar {
 	margin-left: 5px;
 	vertical-align:middle;
 }
+
+body {
+    margin: 0px;
+    height: 100%;
+    width: 100%;
+    background-color:#e6ecf0;
+}
+
+.ui-top, .ui-top .ui-layout, .ui-top .ui-layout-bd, .ui-top .ui-layout-unit {
+    background-image: none;
+    background-color: #e6ecf0; 
+      border: none;}
