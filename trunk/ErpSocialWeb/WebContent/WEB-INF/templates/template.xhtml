@@ -1,56 +1,163 @@
+<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	<h:head>
-		<f:view contentType="text/html" locale="es" />
-		<title>Erp Social</title>
-		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-		<link rel="stylesheet" type="text/css" href="#{request.contextPath}/resources/css/template.css" />
-		<h:outputScript library="js" name="util.js" target="head"/>
-		<h:outputScript library="js" name="validator.js" target="head"/>
-	</h:head>
-	<body>
-			<p:layout fullPage="true">
-				<p:layoutUnit id="top" position="north" >
-					<h:form>
-						<p:panel id="pnlCabecera" columns="3">
-							<h:panelGroup >
-								<h:outputText value="#{i18n['label.empresa']}: " />
-								<h:outputText value="#{menuUsuarioController.usuarioSession.empresaTbl.emrNombre}" />
-								<h:outputText value=" - " />
-							</h:panelGroup>
-							<h:panelGroup >
-								<h:outputText value="#{i18n['label.usuario']}: " />
-								<h:outputText value="#{menuUsuarioController.usuarioSession.npNombresCompletos}" />
-							</h:panelGroup>
-							<h:panelGroup styleClass="right">
-								<h:commandLink value="#{i18n['login.cerrar.sesion']}" action="#{loginController.cerrarSesion}"/>
-							</h:panelGroup >
-						</p:panel>
-					</h:form>
-				</p:layoutUnit>
-				<p:layoutUnit id="menu" position="west">
-					<ui:include src="/WEB-INF/templates/menu.xhtml" />
-				</p:layoutUnit>
-				<p:layoutUnit position="center" resizable="true">
-					<ui:insert name="title" />
-					<ui:insert name="content" />
-					<ui:insert name="dialogos" />
-				</p:layoutUnit>
+
+<h:head>
+	<f:view contentType="text/html" locale="es" />
+	<title>ERP-social</title>
+		<link rel="icon" type="image/png"
+			href="#{request.contextPath}/resources/img/favicon.png" />
+	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+	<link rel="stylesheet" type="text/css"
+		href="#{request.contextPath}/resources/css/template.css" />
+	<h:outputScript library="js" name="util.js" target="head" />
+	<script type="text/javascript"><!--
+		
+		--></script>
+		
+    
+</h:head>
+<body>
+	<p:layout fullPage="true">
+		<p:layoutUnit id="top" position="north"  styleClass="ui-top" >
+			<h:form style="border-style:none;background-color:#e6ecf0;">
 				
-				<p:layoutUnit position="south" resizable="true">
-					south
-				</p:layoutUnit>
-			</p:layout>
+					<table  cellspacing="0" cellpadding="0" style="background-color:#e6ecf0;margin:0px;padding:0px;"
+						>
+
+						<tr >
+						    
+							<td  id="logoCabecera"></td>
+							<td  ></td>
+							<td id="HeaderIcon22" style="width: 45px;">&#160;</td>
+							<td id="HeaderIcon31" style="width: 50%;">&#160;</td>
+							<td id="HeaderIcon31" style="width: 99px;">&#160;</td>
+							<td id="HeaderIcon31" style="width: 400px;">
+								<table  cellspacing="0" cellpadding="0" border="0px"
+									style="width: 400px;">
+									<tr>
+										<td colspan="8" style="width: 400px;">
+											<table>
+												<tr>
+												<td
+														style="COLOR: #990099; height: 16px; text-align: right;  width: 50px;">
+														<h:commandLink title="Inicio"
+															style="FONT-SIZE: x-small; FONT-FAMILY: 'Arial'; COLOR:#990099; text-decoration:none;padding:0px 5px;white-space: nowrap;font-weight: bold;"
+															value="Inicio"
+															 />
+													</td>
+													<td id="HeaderIcon4"></td>
+													<td
+														style="COLOR: #990099; height: 16px; text-align: right;  width: 50px;">
+														<h:commandLink title="Información"
+															style="FONT-SIZE: x-small; FONT-FAMILY: 'Arial'; COLOR: #990099; text-decoration:none;padding:0px 5px;white-space: nowrap;font-weight: bold;"
+															value="Información"
+															 />
+													</td>
+													<td id="HeaderIcon7"></td>
+													<td style="COLOR: #990099; height: 16px; text-align: right; ;"><h:commandLink
+															style="FONT-SIZE: x-small; FONT-FAMILY: 'Arial'; COLOR: #990099; text-decoration:none;padding:0px 5px;white-space: nowrap;font-weight: bold;"
+															onclick="javascript:ButtonAyuda_onclick();" title="Ayuda">
+															<h:outputText value="Ayuda" />
+															<f:ajax event="click" />
+														</h:commandLink></td>
+													<td id="HeaderIcon5"></td>
+
+													<td
+														style="COLOR: #990099; height: 16px; text-align: right; width: 50px;">
+														<h:commandLink title="Salir"
+															style="FONT-SIZE: x-small; FONT-FAMILY: 'Arial'; COLOR: #990099; text-decoration:none;padding:0px 5px;white-space: nowrap;font-weight: bold;"
+															value="#{i18n['login.cerrar.sesion']}"
+															action="#{loginController.cerrarSesion}" />
+													</td>
+													<td id="HeaderIcon6"></td>
+													<td></td>
+												</tr>
+												<tr style="height:30px;"></tr>
+												
+											</table>
+										</td>
+										<td id="logoCabecera2"></td>
+									</tr>
+								</table>
+							</td>
+							<td id="HeaderIcon31" style="width: 5px;">
+								<table cellspacing="0" cellpadding="0" border="0px"
+									style="width: 5px;">
+									<tr>
+										<td>&#160;</td>
+									</tr>
+								</table>
+							</td>
+							<td id="HeaderIcon31" style="width: 28px;"></td>
+						</tr>
+						<tr id="Header01">
+							<td style="width: 7px; background-color: #e6ecf0;"></td>
+							<td style="background-color: #e6ecf0;">&#160;</td>
+							<td  style="background-color: #e6ecf0;width: 120px; height: 16px;">&#160;
+							</td>
+							<td style="background-color: #e6ecf0; width: 50%; height: 16px;">&#160;
+							</td>
+							<td colspan="8" style="FONT-SIZE: medium; COLOR: #949599; FONT-WEIGHT: bold;background-color: #e6ecf0;font-family:Arial;" align="right" >
+								<table id="opcion"
+									style="table-layout: fixed; font-size: 6pt;" cellspacing="0"
+									cellpadding="0" border="0px">
+									<tr>
+									<td>
+									
+									<h:outputText value="#{i18n['label.empresa']}: " />
+									&nbsp;
+									</td>
+									<td>
+								     <h:outputText value="#{menuUsuarioController.usuarioSession.empresaTbl.emrNombre}"/>&nbsp; &nbsp; 
+								     </td>
+								     <td>|&nbsp;</td>
+								     
+								     <td>
+								     <h:outputText value="#{i18n['label.usuario']}: " />
+								     &nbsp;
+								     </td>
+								     <td>
+								    
+								<h:outputText value="#{menuUsuarioController.usuarioSession.npNombresCompletos}" />
+								</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
 			
-			<p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>
+
+			</h:form >
+		</p:layoutUnit>
+		<p:layoutUnit id="menu" position="west">
+			<ui:include src="/WEB-INF/templates/menu.xhtml" />
+		</p:layoutUnit>
+		<p:layoutUnit position="center" resizable="true">
+			<p:ajaxStatus onstart="PF('statusDialog').show();"
+				onsuccess="PF('statusDialog').hide();" />
+			<ui:insert name="title" />
+			<ui:insert name="content" />
+			<ui:insert name="dialogos" />
 			<p:dialog modal="true" widgetVar="statusDialog" header="Status"
 				draggable="false" closable="false" appendTo="@(body)">
 				<p:graphicImage value="/resources/img/ajaxloadingbar.gif" />
 			</p:dialog>
-			
-	</body>
+		</p:layoutUnit>
+		<p:layoutUnit styleClass="myLayoutStyleClass"  position="south" resizable="true">
+					
+				</p:layoutUnit>
+	</p:layout>
+	<p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>
+			<p:dialog modal="true" widgetVar="statusDialog" header="Buscando por favor espere..."
+				draggable="false" closable="false" appendTo="@(body)">
+				<p:graphicImage value="/resources/img/ajaxloadingbar.gif" />
+			</p:dialog>
+</body>
 </html>
+
+
