@@ -3,6 +3,9 @@
  */
 package ec.edu.uce.erp.web.controladores;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,9 +38,11 @@ public class MenuUsuarioController extends BaseController {
 	private static final long serialVersionUID = 1L;
 
 	private MenuModel model;
+	private String fecha;
 
 	public MenuUsuarioController() {
-		
+
+		this.obtenerFecha();
 		this.model = new DefaultMenuModel();
 		
 		if (getSessionParameter("usuario") != null && getSessionParameter("loginVO") != null) {
@@ -135,6 +140,26 @@ public class MenuUsuarioController extends BaseController {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void obtenerFecha() {
+	Date now = new Date();
+	DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL);
+	fecha=dateFormat.format(now).toUpperCase();
+	
+	}
+	
+	
+	
+	public String getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}
+	
+	
+	
 
 
 }
