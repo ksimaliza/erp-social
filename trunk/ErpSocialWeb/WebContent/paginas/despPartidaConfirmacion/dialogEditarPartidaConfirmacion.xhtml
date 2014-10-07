@@ -3,7 +3,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 	
 	<p:dialog id="popUpEditarPartidaConfirmacion" header="#{i18n['erp.despacho.partida.confirmacion.registrar']}" resizable="false" draggable="false"
 		widgetVar="dlgEditarPartidaConfirmacion" modal="true" width="500" minWidth="500" appendTo="@(body)">
@@ -31,7 +32,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomConf" style="width: 100%"
-								 value="#{partidaConfirmacionDataManager.confirmadoInsertar.perNombres}"/>
+								required="true" value="#{partidaConfirmacionDataManager.confirmadoInsertar.perNombres}"/>
 						</td>	
 					</tr>
 					
@@ -45,6 +46,72 @@
 						</td>	
 					</tr>
 						
+					<tr>
+						<td width="30%">
+							<h:outputText for="txtCiMadre" value="#{i18n['erp.despacho.partida.confirmacion.cedula.madre']}" />
+						</td>
+						<td width="70%" >
+						<p:inputText id="txtCiMadre"  style="width: 100%"
+							  value="#{partidaConfirmacionDataManager.madreInsertar.perCi}">
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+							<p:ajax event="blur" update="txtApeMadre,txtNomMadre" listener="#{partidaConfirmacionController.buscarMadre}" process="@this"/> 
+							</p:inputText>
+						</td>
+					</tr>
+
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApeMadre" value="#{i18n['erp.despacho.partida.confirmacion.apellidos.madre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApeMadre" style="width: 100%"
+								 value="#{partidaConfirmacionDataManager.madreInsertar.perApellidos}" />
+						</td>	
+					</tr>
+		
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNomMadre" value="#{i18n['erp.despacho.partida.confirmacion.nombres.madre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNomMadre" style="width: 100%"
+								 value="#{partidaConfirmacionDataManager.madreInsertar.perNombres}" />
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputText for="txtCiPadre" value="#{i18n['erp.despacho.partida.confirmacion.cedula.padre']}" />
+						</td>
+						<td width="70%" >
+						<p:inputText id="txtCiPadre"  style="width: 100%"
+							  value="#{partidaConfirmacionDataManager.padreInsertar.perCi}">
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+							<p:ajax event="blur" update="txtNomPadre,txtApePadre" listener="#{partidaConfirmacionController.buscarPadre}" process="@this"/> 
+							</p:inputText>
+						</td>
+					</tr>
+
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApePadre" value="#{i18n['erp.despacho.partida.confirmacion.apellidos.padre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApePadre" style="width: 100%"
+								 value="#{partidaConfirmacionDataManager.padreInsertar.perApellidos}" />
+						</td>	
+					</tr>
+		
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNomPadre" value="#{i18n['erp.despacho.partida.confirmacion.nombres.padre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNomPadre" style="width: 100%"
+								 value="#{partidaConfirmacionDataManager.padreInsertar.perNombres}" />
+						</td>	
+					</tr>
+					
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtFechaConfirmacion" value="#{i18n['erp.despacho.partida.confirmacion.fecha']}" />
@@ -120,7 +187,6 @@
 			
 			<p:panel id="pnlDatosPadrino">
 				<table class="formulario">
-
 					<tr>
 						<td width="30%">
 							<h:outputLabel value="#{i18n['erp.despacho.partida.confirmacion.tipo.padrino']}" />
@@ -140,7 +206,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiPad"  style="width: 100%"
-							label="#{i18n['erp.despacho.partida.confirmacion.apellidos.padrino.madrina']}" value="#{partidaConfirmacionDataManager.mad_padInsertar.perCi}">
+							 label="#{i18n['erp.despacho.partida.confirmacion.apellidos.padrino.madrina']}" value="#{partidaConfirmacionDataManager.mad_padInsertar.perCi}">
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur" update="txtApePad,txtNomPad" listener="#{partidaConfirmacionController.buscarMadrina}" process="@this"/>
@@ -156,7 +222,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomPad" style="width: 100%"
-								 value="#{partidaConfirmacionDataManager.mad_padInsertar.perNombres}"/>
+								 required="true" value="#{partidaConfirmacionDataManager.mad_padInsertar.perNombres}"/>
 						</td>	
 					</tr>
 						
@@ -166,7 +232,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApePad" style="width: 100%"
-								 value="#{partidaConfirmacionDataManager.mad_padInsertar.perApellidos}" />
+								 required="true"  value="#{partidaConfirmacionDataManager.mad_padInsertar.perApellidos}" />
 						</td>	
 					</tr>
 					
@@ -174,15 +240,14 @@
 			</p:panel>
 			
 					
-			<p:panel id="pnlDatos" visible="#{partidaConfirmacionDataManager.estadoCodigo.toString()=='20'}">
+			<p:panel id="pnlDatos" visible="#{partidaConfirmacionDataManager.estadoCodigo.toString()=='24'}">
 				<table class="formulario">
-												
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtNotaM" value="#{i18n['erp.despacho.partida.confirmacion.nota.marginal']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNotaM" style="width: 100%"  value="#{partidaConfirmacionDataManager.confirmacionDTO.conNotaMarginal}"/>
+							<p:inputText id="txtNotaM" style="width: 100%"   value="#{partidaConfirmacionDataManager.confirmacionDTO.conNotaMarginal}"/>
 						</td>	
 					</tr>
 					
@@ -192,7 +257,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtTomo" style="width: 100%"  
-								 value="#{partidaConfirmacionDataManager.confirmacionDTO.conToma}" />
+								  value="#{partidaConfirmacionDataManager.confirmacionDTO.conToma}" />
 						</td>	
 					</tr>
 					<tr>
@@ -201,7 +266,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtActa"  style="width: 100%"
-							label="#{i18n['erp.despacho.partida.confirmacion.acta']}" value="#{partidaConfirmacionDataManager.confirmacionDTO.conActa}">
+							 	label="#{i18n['erp.despacho.partida.confirmacion.acta']}" value="#{partidaConfirmacionDataManager.confirmacionDTO.conActa}">
 							
 						</p:inputText>
 						
@@ -217,8 +282,6 @@
 								value="#{partidaConfirmacionDataManager.confirmacionDTO.conPagina}" />
 						</td>	
 					</tr>
-					
-					
 				</table>
 			</p:panel>
 		
@@ -231,7 +294,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtProv" style="width: 100%"  
-								  value="#{partidaConfirmacionDataManager.bautizoListDTO.catProvincia}" readonly="true" />
+								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.catProvincia}" readonly="true" />
 						</td>
 					</tr>
 					
@@ -241,7 +304,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCanton" style="width: 100%"  
-								 value="#{partidaConfirmacionDataManager.bautizoListDTO.catCanton}"  readonly="true"/>
+								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.catCanton}"  readonly="true"/>
 						</td>
 					</tr>	
 					
@@ -251,7 +314,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiudad" style="width: 100%"  
-								 value="#{partidaConfirmacionDataManager.bautizoListDTO.catParroquia}" readonly="true" />
+								 required="true" value="#{partidaConfirmacionDataManager.bautizoListDTO.catParroquia}" readonly="true" />
 						</td>
 					</tr>					
 					
@@ -262,19 +325,20 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtFechaBautizo" style="width: 100%"  
-								value="#{fn:substring(partidaConfirmacionDataManager.bautizoListDTO.bauFechaBautizo,0,10)}" readonly="true"/>
+								 required="true" value="#{fn:substring(partidaConfirmacionDataManager.bautizoListDTO.bauFechaBautizo,0,10)}" readonly="true"/>
 						</td>
 					</tr>
-								
 				</table>
 			</p:panel>
 		
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{partidaConfirmacionController.registrarConfirmacion}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarPartidaConfirmacion.hide()"
-					process="@this,pnlEditarPartidaConfirmacion,pnlDatos,pnlDatosPadrino" update="pnlEditarPartidaConfirmacion,:formPartidaConfirmacion:pnlMessages,:formPartidaConfirmacion:tablaPartidaConfirmacion"/>
+					
+					process="@this,pnlEditarPartidaConfirmacion,pnlDatos,pnlDatosPadrino" update="pnlEditarPartidaConfirmacion,:formPartidaConfirmacion:pnlMessages,:formPartidaConfirmacion:tablaPartidaConfirmacion,pnlBotones"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarPartidaConfirmacion.hide()" type="button" />
+				<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{partidaConfirmacionController.exportar}" icon="exportPdf" ajax="false"
+				disabled="#{partidaConfirmacionDataManager.exportDesactivado}" oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarPartidaConfirmacion.hide()"/>
 			</p:panel>
 	</h:form>
 	</p:scrollPanel>
