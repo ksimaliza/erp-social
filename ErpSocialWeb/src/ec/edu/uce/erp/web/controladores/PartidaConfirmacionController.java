@@ -193,10 +193,11 @@ public void registrarConfirmacion () {
 				bautizo.setPerCi(partidaConfirmacionDataManager.getConfirmadoInsertar().getPerCi());
 				list=this.servicioEucaristia.buscarPartidaBautizo(bautizo);
 				
-				if ((CollectionUtils.isEmpty(listaConfirmado) && listaConfirmado.size()==0) || (CollectionUtils.isEmpty(list) && list.size()==0)) {
+				if (CollectionUtils.isEmpty(listaConfirmado) && listaConfirmado.size()==0){
 					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 				} else {
 					this.partidaConfirmacionDataManager.setConfirmadoInsertar(listaConfirmado.get(0));
+					if(!CollectionUtils.isEmpty(list) && list.size()!=0)
 					this.partidaConfirmacionDataManager.setBautizoListDTO(list.get(0));			
 				}
 			}
@@ -308,31 +309,7 @@ public void registrarConfirmacion () {
 		
 	}
 	
-	public void cargarDatosConfirmacion (ConfirmacionListDTO confirmacion) {
-		try {
-			
-			ConfirmacionVO confirmacionEncontrada=servicioEucaristia.obtenerConfirmacionPorId(confirmacion);
-			this.partidaConfirmacionDataManager.setConfirmadoInsertar(confirmacionEncontrada.getConfirmado());
-			this.partidaConfirmacionDataManager.setConfirmacionDTO(confirmacionEncontrada.getConfirmacion());
-			this.partidaConfirmacionDataManager.setMad_padInsertar(confirmacionEncontrada.getMad_pad());
-			this.partidaConfirmacionDataManager.setMadreInsertar(confirmacionEncontrada.getMadrePersona());
-			this.partidaConfirmacionDataManager.setPadreInsertar(confirmacionEncontrada.getPadrePersona());
-			this.partidaConfirmacionDataManager.setSacerdoteCodigo(confirmacionEncontrada.getConfirmacion().getEucSacerdote().getSacCodigo());
-			this.partidaConfirmacionDataManager.setEstadoCodigo(confirmacionEncontrada.getConfirmacion().getConEstado());
-			this.partidaConfirmacionDataManager.setProvincia(confirmacionEncontrada.getConfirmacion().getConProvincia());
-			buscarCanton();
-			this.partidaConfirmacionDataManager.setCanton(confirmacionEncontrada.getConfirmacion().getConCanton());
-			buscarParroquia();
-			this.partidaConfirmacionDataManager.setParroquia(confirmacionEncontrada.getConfirmacion().getConParroquia());
-			this.partidaConfirmacionDataManager.setFechaApCInsertar(confirmacionEncontrada.getConfirmacion().getConFechaAprobacionCurso());
-			this.partidaConfirmacionDataManager.setFechaComunionInsertar(confirmacionEncontrada.getConfirmacion().getConFecha());
-			buscarConfirmado();
-			
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al cargarDatosConfirmacion {}", e.getMessage());
-			MensajesWebController.aniadirMensajeError("Error al cargarDatosConfirmacion seleccionado");
-		}
-	}
+	
 	
 	public void buscarTipo () {
 		slf4jLogger.info("buscarTipo");
@@ -454,6 +431,32 @@ public void registrarConfirmacion () {
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 		
+	}
+	
+	public void cargarDatosConfirmacion (ConfirmacionListDTO confirmacion) {
+		try {
+			
+			ConfirmacionVO confirmacionEncontrada=servicioEucaristia.obtenerConfirmacionPorId(confirmacion);
+			this.partidaConfirmacionDataManager.setConfirmadoInsertar(confirmacionEncontrada.getConfirmado());
+			this.partidaConfirmacionDataManager.setConfirmacionDTO(confirmacionEncontrada.getConfirmacion());
+			this.partidaConfirmacionDataManager.setMad_padInsertar(confirmacionEncontrada.getMad_pad());
+			this.partidaConfirmacionDataManager.setMadreInsertar(confirmacionEncontrada.getMadrePersona());
+			this.partidaConfirmacionDataManager.setPadreInsertar(confirmacionEncontrada.getPadrePersona());
+			this.partidaConfirmacionDataManager.setSacerdoteCodigo(confirmacionEncontrada.getConfirmacion().getEucSacerdote().getSacCodigo());
+			this.partidaConfirmacionDataManager.setEstadoCodigo(confirmacionEncontrada.getConfirmacion().getConEstado());
+			this.partidaConfirmacionDataManager.setProvincia(confirmacionEncontrada.getConfirmacion().getConProvincia());
+			buscarCanton();
+			this.partidaConfirmacionDataManager.setCanton(confirmacionEncontrada.getConfirmacion().getConCanton());
+			buscarParroquia();
+			this.partidaConfirmacionDataManager.setParroquia(confirmacionEncontrada.getConfirmacion().getConParroquia());
+			this.partidaConfirmacionDataManager.setFechaApCInsertar(confirmacionEncontrada.getConfirmacion().getConFechaAprobacionCurso());
+			this.partidaConfirmacionDataManager.setFechaComunionInsertar(confirmacionEncontrada.getConfirmacion().getConFecha());
+			buscarConfirmado();
+			this.partidaConfirmacionDataManager.setTipoCodigo(confirmacionEncontrada.getConfirmacion().getConTipo());
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al cargarDatosConfirmacion {}", e.getMessage());
+			MensajesWebController.aniadirMensajeError("Error al cargarDatosConfirmacion seleccionado");
+		}
 	}
 	
 	public void exportar()
