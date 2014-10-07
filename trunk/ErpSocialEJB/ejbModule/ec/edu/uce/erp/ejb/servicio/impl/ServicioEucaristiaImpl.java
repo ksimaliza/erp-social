@@ -395,6 +395,8 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 
 			confirmacionVO.getConfirmacion().setConConfirmado(confirmadoPersona.getPerPk());
 			confirmacionVO.getConfirmacion().setConPadrino(mad_pad.getPerPk());
+			confirmacionVO.getConfirmacion().setConPadre(padre.getPerPk());
+			confirmacionVO.getConfirmacion().setConMadre(madre.getPerPk());
 						
 			if(confirmacionVO.getConfirmacion().getConCodigo()!=null){
 				sacerdote= eucaristiaFactoryDAO.getSacerdoteDAOImpl().find(confirmacionVO.getSacerdote().getSacCodigo());	
