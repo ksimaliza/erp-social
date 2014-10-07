@@ -335,7 +335,7 @@
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{partidaConfirmacionController.registrarConfirmacion}"
 					
-					process="@this,pnlNuevaPartidaConfirmacion,pnlDatos,pnlDatosPadrino" update="pnlNuevaPartidaConfirmacion,:formPartidaConfirmacion:pnlMessages,:formPartidaConfirmacion:tablaPartidaConfirmacion"/>
+					process="@this,pnlNuevaPartidaConfirmacion,pnlDatos,pnlDatosPadrino" update="pnlNuevaPartidaConfirmacion,:formPartidaConfirmacion:pnlMessages,:formPartidaConfirmacion:tablaPartidaConfirmacion,pnlBotones"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaPartidaConfirmacion.hide()" type="button" />
 				<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{partidaConfirmacionController.exportar}" icon="exportPdf" ajax="false"
 				disabled="#{partidaConfirmacionDataManager.exportDesactivado}" oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaPartidaConfirmacion.hide()"/>
