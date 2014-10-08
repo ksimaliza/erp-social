@@ -106,9 +106,9 @@ public class PagoContratoController extends BaseController {
 			pago.setContratoDTO(contratoDTO);
 			pago.getPago().setPagContrato(contratoDTO.getConCodigo());
 			
-			if(pagoContratoDataManager.getContratoListDTO().getConValorSaldo().equals(0.00))
+			if(pagoContratoDataManager.getPagoDTO().getPagMesesPagados()>pagoContratoDataManager.getContratoListDTO().getConMesesArrendamiento())
 			{
-				MensajesWebController.aniadirMensajeError("El valor del contrato ha sido cancelado");
+				MensajesWebController.aniadirMensajeError("Meses a Pagar superior a los Meses del Contrato");
 				return;
 			}
 			

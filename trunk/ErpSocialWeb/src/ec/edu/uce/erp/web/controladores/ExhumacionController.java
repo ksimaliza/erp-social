@@ -117,34 +117,8 @@ public class ExhumacionController extends BaseController{
 		
 	}
 	
-	
-	
 
-	
-/*	public void buscarDifunto () {
-		slf4jLogger.info("buscarDifunto");
-		
-		List<Persona> listaDifunto=null;
-		
-		try {
-			exhumacionDataManager.getDifuntoInsertar().setPerNombres(null);
-			exhumacionDataManager.getDifuntoInsertar().setPerApellidos(null);
-			listaDifunto=this.servicioAdministracion.buscarPersona(exhumacionDataManager.getDifuntoInsertar());
-							
-			if (CollectionUtils.isEmpty(listaDifunto) && listaDifunto.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.exhumacionDataManager.setDifuntoInsertar(listaDifunto.get(0));
-							
-			}
-			
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarBautizado {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-		
-	}
-	*/
+
 	
 	public void buscarDifunto () {
 		slf4jLogger.info("buscarDifunto");
@@ -162,11 +136,11 @@ public class ExhumacionController extends BaseController{
 				difunto.setPerCi(exhumacionDataManager.getDifuntoInsertar().getPerCi());
 				list=this.servicioEucaristia.buscarDefuncion(difunto);
 				
-				if ((CollectionUtils.isEmpty(listaDifunto) && listaDifunto.size()==0) || (CollectionUtils.isEmpty(list) && list.size()==0)) {
+				if ((CollectionUtils.isEmpty(listaDifunto) && listaDifunto.size()==0)||CollectionUtils.isEmpty(list) && list.size()==0) {
 					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 				} else {
 					exhumacionDataManager.setDifuntoInsertar(listaDifunto.get(0));
-								
+					exhumacionDataManager.setDefuncionListDTO(list.get(0));
 				}
 			}
 		} catch (SeguridadesException e) {
@@ -175,7 +149,6 @@ public class ExhumacionController extends BaseController{
 		}
 		
 	}
-	
 	
 	
 	public void buscarAutorizacion () {
