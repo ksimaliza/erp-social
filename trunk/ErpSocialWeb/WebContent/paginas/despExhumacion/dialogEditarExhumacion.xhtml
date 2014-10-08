@@ -3,6 +3,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpEditarExhumacion" header="#{i18n['erp.despacho.exhumacion.registrar']}" resizable="false" draggable="false"
@@ -18,9 +19,8 @@
 						<td width="70%">
 							<p:inputText id="txtCi" style="width: 70%" 
 								 required="true" value="#{exhumacionDataManager.difuntoInsertar.perCi}" >
-							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-							<p:ajax event="blur" update="txtNombres,txtApellidos" listener="#{exhumacionController.buscarDifunto()}" process="@this"/>
+							<p:ajax event="blur" update="txtNombres,txtApellidos,txtFechaSepelio" listener="#{exhumacionController.buscarDifunto}" process="@this"/>
 						</p:inputText>
 						</td>	
 					</tr>
@@ -31,7 +31,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNombres" label="#{i18n['erp.despacho.exhumacion.nombres']}" style="width: 70%" 
-							value="#{exhumacionDataManager.difuntoInsertar.perNombres}"/>
+							value="#{exhumacionDataManager.difuntoInsertar.perNombres}" readonly="true"/>
 						</td>
 					</tr>
 					<tr>
@@ -41,7 +41,17 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApellidos" label="#{i18n['erp.despacho.exhumacion.apellidos']}" style="width: 70%"
-							value="#{exhumacionDataManager.difuntoInsertar.perApellidos}" />
+							value="#{exhumacionDataManager.difuntoInsertar.perApellidos}"  readonly="true"/>
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFechaSepelio" value="#{i18n['erp.despacho.exhumacion.fecha.sepelio']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtFechaSepelio" label="#{i18n['erp.despacho.exhumacion.apellidos']}" style="width: 70%"
+							value="#{fn:substring(exhumacionDataManager.defuncionListDTO.defFecha,0,10)}" readonly="true" />
 						</td>
 					</tr>
 					
@@ -70,17 +80,6 @@
 								 label="#{i18n['erp.despacho.exhumacion.causa']}" value="#{exhumacionDataManager.exumacionDTO.exuCausa}">
 						</p:inputText>
 						</td>	
-					</tr>
-					
-					
-										
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtFechaSepelio" value="#{i18n['erp.despacho.exhumacion.fecha.sepelio']}" />
-						</td>
-						<td width="70%">
-							<p:calendar id="txtFechaSepelio" style="width: 70%" navigator="true"   showOn="button" required="true" value="#{exhumacionDataManager.fechaSepelio}"/>
-						</td>
 					</tr>
 					
 					<tr>

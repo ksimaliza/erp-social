@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comprobantePago" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be81c4a4-db54-48b2-8555-d8c6b7b41f8b">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comprobantePago" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be81c4a4-db54-48b2-8555-d8c6b7b41f8b">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="44"/>
+	<property name="ireport.x" value="33"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -25,52 +25,53 @@
 	</style>
 	<subDataset name="dataset1" uuid="443456f3-7348-4155-8645-9f228d87a0a3"/>
 	<subDataset name="Table Dataset 1" uuid="ea08d522-439e-4f47-a628-ebae95162158"/>
-	<parameter name="parroquia" class="java.lang.String"/>
-	<parameter name="beneficiarioNombre" class="java.lang.String"/>
-	<parameter name="beneficiarioApellido" class="java.lang.String"/>
+	<parameter name="parroquiaFechaActual" class="java.lang.String"/>
+	<parameter name="beneficiario" class="java.lang.String"/>
 	<parameter name="beneficiarioCedula" class="java.lang.String"/>
-	<parameter name="tipoNicho" class="java.lang.String"/>
-	<parameter name="numeroNicho" class="java.lang.String"/>
-	<parameter name="seccionNicho" class="java.lang.String"/>
-	<parameter name="nivelNicho" class="java.lang.String"/>
-	<parameter name="difuntoNombre" class="java.lang.String"/>
-	<parameter name="difuntoApellido" class="java.lang.String"/>
+	<parameter name="nicho" class="java.lang.String"/>
+	<parameter name="difunto" class="java.lang.String"/>
 	<parameter name="valorPagar" class="java.lang.String"/>
-	<parameter name="aniosArrendamiento" class="java.lang.Integer"/>
 	<parameter name="fechaPago" class="java.util.Date"/>
 	<parameter name="mesPago" class="java.lang.String"/>
-	<parameter name="fechaActual" class="java.lang.String"/>
+	<parameter name="parroquiaCabecera" class="java.lang.String"/>
 	<variable name="fecha" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="62" splitType="Stretch">
+			<textField>
+				<reportElement x="325" y="31" width="214" height="20" uuid="048849f6-6eb4-4155-abac-26924ff518f1"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parroquiaFechaActual}]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement x="190" y="32" width="191" height="20" uuid="f66405f1-41f0-4a70-abf3-5842b0ea0700"/>
+				<reportElement x="133" y="0" width="207" height="21" uuid="003363c3-e48a-4402-af1e-ebbb301d5db5"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CEMENTERIO PARROQUIA DE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="340" y="1" width="116" height="20" uuid="ed9ecd7e-37b8-47a3-9735-33bf2f013f7e"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parroquiaCabecera}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="50">
+			<staticText>
+				<reportElement x="189" y="30" width="191" height="20" uuid="f66405f1-41f0-4a70-abf3-5842b0ea0700"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[COMPROBANTE DE PAGO]]></text>
 			</staticText>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="50">
-			<textField>
-				<reportElement x="289" y="10" width="100" height="20" uuid="0242a50c-bdb3-42ae-b9ed-ae1129e2c406"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{parroquia}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="389" y="10" width="129" height="20" uuid="6d09b043-bc1e-47ce-9fbd-e5a18e918363"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{fechaActual}]]></textFieldExpression>
-			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
