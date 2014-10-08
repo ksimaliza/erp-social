@@ -26,6 +26,7 @@ public class ContratoListDTO implements Serializable {
 	@Column(name="ben_nombres")
 	private String benNombres;
 
+	@Id
 	@Column(name="cat_codigo")
 	private Integer catCodigo;
 
@@ -38,7 +39,6 @@ public class ContratoListDTO implements Serializable {
 	@Column(name="con_beneficiario")
 	private Integer conBeneficiario;
 
-	@Id
 	@Column(name="con_codigo")
 	private Integer conCodigo;
 
@@ -69,12 +69,14 @@ public class ContratoListDTO implements Serializable {
 	@Column(name="con_valor_mes")
 	private BigDecimal conValorMes;
 
-	@Column(name="con_valor_total")
-	private BigDecimal conValorTotal;
-	
 	@Column(name="con_valor_saldo")
 	private BigDecimal conValorSaldo;
 
+	@Column(name="con_valor_total")
+	private BigDecimal conValorTotal;
+
+	@Column(name="def_parroquia")
+	private Integer defParroquia;
 
 	@Column(name="nic_codigo")
 	private Integer nicCodigo;
@@ -93,6 +95,8 @@ public class ContratoListDTO implements Serializable {
 
 	@Column(name="nni_nivel")
 	private Integer nniNivel;
+
+	private String parroquia;
 
 	@Column(name="per_apellidos")
 	private String perApellidos;
@@ -133,14 +137,6 @@ public class ContratoListDTO implements Serializable {
 
 	public String getBenNombres() {
 		return this.benNombres;
-	}
-
-	public BigDecimal getConValorSaldo() {
-		return conValorSaldo;
-	}
-
-	public void setConValorSaldo(BigDecimal conValorSaldo) {
-		this.conValorSaldo = conValorSaldo;
 	}
 
 	public void setBenNombres(String benNombres) {
@@ -259,12 +255,28 @@ public class ContratoListDTO implements Serializable {
 		this.conValorMes = conValorMes;
 	}
 
+	public BigDecimal getConValorSaldo() {
+		return this.conValorSaldo;
+	}
+
+	public void setConValorSaldo(BigDecimal conValorSaldo) {
+		this.conValorSaldo = conValorSaldo;
+	}
+
 	public BigDecimal getConValorTotal() {
 		return this.conValorTotal;
 	}
 
 	public void setConValorTotal(BigDecimal conValorTotal) {
 		this.conValorTotal = conValorTotal;
+	}
+
+	public Integer getDefParroquia() {
+		return this.defParroquia;
+	}
+
+	public void setDefParroquia(Integer defParroquia) {
+		this.defParroquia = defParroquia;
 	}
 
 	public Integer getNicCodigo() {
@@ -313,6 +325,14 @@ public class ContratoListDTO implements Serializable {
 
 	public void setNniNivel(Integer nniNivel) {
 		this.nniNivel = nniNivel;
+	}
+
+	public String getParroquia() {
+		return this.parroquia;
+	}
+
+	public void setParroquia(String parroquia) {
+		this.parroquia = parroquia;
 	}
 
 	public String getPerApellidos() {

@@ -5,26 +5,23 @@ import java.io.Serializable;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoDTO;
 
 public class ContratoVO implements Serializable {
 private static final long serialVersionUID = 1L;
 	
 	
 	private Persona difunto;
-	private CatalogoEucaristiaDTO formaPago;
 	private ContratoDTO contratoDTO;
-	private NichoDTO nichoDTO;
 	private Persona beneficiario;
+	private CatalogoEucaristiaDTO formaPago;
 	
 	
 	public ContratoVO() {
 	
 		difunto=new Persona();
-		formaPago=new CatalogoEucaristiaDTO();
-		nichoDTO=new NichoDTO();
 		contratoDTO=new ContratoDTO();
 		beneficiario=new Persona();
+		formaPago=new CatalogoEucaristiaDTO();
 		
 	}
 
@@ -60,18 +57,6 @@ private static final long serialVersionUID = 1L;
 		this.beneficiario = beneficiario;
 	}
 
-
-
-
-
-	public CatalogoEucaristiaDTO getFormaPago() {
-		return formaPago;
-	}
-
-	public void setFormaPago(CatalogoEucaristiaDTO formaPago) {
-		this.formaPago = formaPago;
-	}
-
 	public ContratoDTO getContratoDTO() {
 		return contratoDTO;
 	}
@@ -80,12 +65,20 @@ private static final long serialVersionUID = 1L;
 		this.contratoDTO = contratoDTO;
 	}
 
-	public NichoDTO getNichoDTO() {
-		return nichoDTO;
+
+
+
+
+	public CatalogoEucaristiaDTO getFormaPago() {
+		return formaPago;
 	}
 
-	public void setNichoDTO(NichoDTO nichoDTO) {
-		this.nichoDTO = nichoDTO;
+
+
+
+
+	public void setFormaPago(CatalogoEucaristiaDTO formaPago) {
+		this.formaPago = formaPago;
 	}
 
 	
