@@ -49,6 +49,72 @@
 					
 					<tr>
 						<td width="30%">
+							<h:outputText for="txtCiMadreNovio" value="#{i18n['erp.despacho.partida.matrimonio.cedulanovio.madre']}" />
+						</td>
+						<td width="70%" >
+						<p:inputText id="txtCiMadreNovio"  style="width: 100%"
+							  value="#{partidaMatrimonioDataManager.madre_novioInsertar.perCi}">
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+							<p:ajax event="blur" update="txtApeMadreNovio,txtNomMadreNovio" listener="#{partidaMatrimonioController.buscarMadre_Novio}" process="@this"/> 
+							</p:inputText>
+						</td>
+					</tr>
+
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApeMadreNovio" value="#{i18n['erp.despacho.partida.matrimonio.apellidosnovio.madre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApeMadreNovio" style="width: 100%"
+								 value="#{partidaMatrimonioDataManager.madre_novioInsertar.perApellidos}" />
+						</td>	
+					</tr>
+		
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNomMadreNovio" value="#{i18n['erp.despacho.partida.matrimonio.nombresnovio.madre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNomMadreNovio" style="width: 100%"
+								 value="#{partidaMatrimonioDataManager.madre_novioInsertar.perNombres}" />
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputText for="txtCiPadreNovio" value="#{i18n['erp.despacho.partida.matrimonio.cedulanovio.padre']}" />
+						</td>
+						<td width="70%" >
+						<p:inputText id="txtCiPadreNovio"  style="width: 100%"
+							  value="#{partidaMatrimonioDataManager.padre_novioInsertar.perCi}">
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+							<p:ajax event="blur" update="txtApePadreNovio,txtNomPadreNovio" listener="#{partidaMatrimonioController.buscarPadre_Novio}" process="@this"/> 
+							</p:inputText>
+						</td>
+					</tr>
+
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApePadreNovio" value="#{i18n['erp.despacho.partida.matrimonio.apellidosnovio.padre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApePadreNovio" style="width: 100%"
+								 value="#{partidaMatrimonioDataManager.padre_novioInsertar.perApellidos}" />
+						</td>	
+					</tr>
+		
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNomPadreNovio" value="#{i18n['erp.despacho.partida.matrimonio.nombresnovio.padre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNomPadreNovio" style="width: 100%"
+								 value="#{partidaMatrimonioDataManager.padre_novioInsertar.perNombres}" />
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
 							<h:outputLabel for="txtParroquiaNovio" value="#{i18n['erp.despacho.partida.matrimonio.parroquianovio']}" />
 						</td>
 						<td width="70%">
@@ -192,6 +258,72 @@
 						<td width="70%">
 							<p:inputText id="txtApeNovia" style="width: 100%"
 								required="true" value="#{partidaMatrimonioDataManager.noviaInsertar.perApellidos}" />
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputText for="txtCiMadreNovia" value="#{i18n['erp.despacho.partida.matrimonio.cedulanovia.madre']}" />
+						</td>
+						<td width="70%" >
+						<p:inputText id="txtCiMadreNovia"  style="width: 100%"
+							  value="#{partidaMatrimonioDataManager.madre_noviaInsertar.perCi}">
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+							<p:ajax event="blur" update="txtApeMadreNovia,txtNomMadreNovia" listener="#{partidaMatrimonioController.buscarMadre_Novia}" process="@this"/> 
+							</p:inputText>
+						</td>
+					</tr>
+
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApeMadreNovia" value="#{i18n['erp.despacho.partida.matrimonio.apellidosnovia.madre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApeMadreNovia" style="width: 100%"
+								 value="#{partidaMatrimonioDataManager.madre_noviaInsertar.perApellidos}" />
+						</td>	
+					</tr>
+		
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNomMadreNovia" value="#{i18n['erp.despacho.partida.matrimonio.nombresnovia.madre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNomMadreNovia" style="width: 100%"
+								 value="#{partidaMatrimonioDataManager.madre_noviaInsertar.perNombres}" />
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputText for="txtCiPadreNovia" value="#{i18n['erp.despacho.partida.matrimonio.cedulanovia.padre']}" />
+						</td>
+						<td width="70%" >
+						<p:inputText id="txtCiPadreNovia"  style="width: 100%"
+							  value="#{partidaMatrimonioDataManager.padre_noviaInsertar.perCi}">
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+							<p:ajax event="blur" update="txtApePadreNovia,txtNomPadreNovia" listener="#{partidaMatrimonioController.buscarPadre_Novia}" process="@this"/> 
+							</p:inputText>
+						</td>
+					</tr>
+
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApePadreNovia" value="#{i18n['erp.despacho.partida.matrimonio.apellidosnovia.padre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApePadreNovia" style="width: 100%"
+								 value="#{partidaMatrimonioDataManager.padre_noviaInsertar.perApellidos}" />
+						</td>	
+					</tr>
+		
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNomPadreNovia" value="#{i18n['erp.despacho.partida.matrimonio.nombresnovia.padre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNomPadreNovia" style="width: 100%"
+								 value="#{partidaMatrimonioDataManager.padre_noviaInsertar.perNombres}" />
 						</td>	
 					</tr>
 					
@@ -421,9 +553,11 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{partidaMatrimonioController.registrarMatrimonio}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaPartidaMatrimonio.hide()"
-					process="@this,pnlNuevaPartidaMatrimonio,pnlDatos,pnlDatosPadrinoNovio,pnlDatosMadrinaNovio,pnlDatosNovia,pnlDatosMadrinaNovia,pnlDatosPadrinoNovia,pnlDatos,pnlDatosMatrimonio" update="pnlNuevaPartidaMatrimonio,pnlDatos,pnlDatosPadrinoNovio,pnlDatosMadrinaNovio,pnlDatosNovia,pnlDatosMadrinaNovia,pnlDatosPadrinoNovia,pnlDatos,pnlDatosMatrimonio,:formPartidaMatrimonio:pnlMessages,:formPartidaMatrimonio:tablaPartidaMatrimonio"/>
+					
+					process="@this,pnlNuevaPartidaMatrimonio,pnlDatos,pnlDatosPadrinoNovio,pnlDatosMadrinaNovio,pnlDatosNovia,pnlDatosMadrinaNovia,pnlDatosPadrinoNovia,pnlDatos,pnlDatosMatrimonio" update="pnlNuevaPartidaMatrimonio,pnlDatos,pnlDatosPadrinoNovio,pnlDatosMadrinaNovio,pnlDatosNovia,pnlDatosMadrinaNovia,pnlDatosPadrinoNovia,pnlDatos,pnlDatosMatrimonio,:formPartidaMatrimonio:pnlMessages,:formPartidaMatrimonio:tablaPartidaMatrimonio,pnlBotones"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaPartidaMatrimonio.hide()" type="button" />
+				<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{partidaMatrimonioController.exportar}" icon="exportPdf" ajax="false"
+				disabled="#{partidaMatrimonioDataManager.exportDesactivado}" />
 			</p:panel>
 	</h:form>
 	</p:scrollPanel>
