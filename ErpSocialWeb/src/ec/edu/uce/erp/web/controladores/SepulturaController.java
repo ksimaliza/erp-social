@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoListDTO;
@@ -76,19 +75,17 @@ public class SepulturaController extends BaseController {
 		
 		SepulturaVO sepulturaVO;
 		NichoDTO nichoDTO;
-		DefuncionDTO defuncion;	
 		
 		try {
 		
-			defuncion=new DefuncionDTO();
 			sepulturaVO=new SepulturaVO();
 			nichoDTO=new NichoDTO();
 			sepulturaVO.setSepultura(sepulturaDataManager.getSepulturaDTO());
 			nichoDTO.setNicCodigo(sepulturaDataManager.getCodigoNicho());
 			sepulturaVO.setNichoDTO(nichoDTO);
-			defuncion.setDefPersona(sepulturaDataManager.getDefuncionInsertar().getPerPk());
-			
-			sepulturaVO.getSepultura().setSepDifunto(defuncion.getDefPersona());
+						
+			sepulturaVO.setDefuncionPersona(sepulturaDataManager.getDefuncionInsertar());
+			sepulturaVO.getSepultura().setSepDifunto(sepulturaDataManager.getDefuncionInsertar().getPerPk());
 					
 			SepulturaDTO sepulturaNueva=this.servicioEucaristia.createOrUpdateSepultura(sepulturaVO);
 												
@@ -186,11 +183,12 @@ public class SepulturaController extends BaseController {
 				difunto.setPerCi(sepulturaDataManager.getDefuncionInsertar().getPerCi());
 				list=this.servicioEucaristia.buscarDefuncion(difunto);
 				
-				if ((CollectionUtils.isEmpty(listaDifunto) && listaDifunto.size()==0) || (CollectionUtils.isEmpty(list) && list.size()==0)) {
+				if ((CollectionUtils.isEmpty(listaDifunto) && listaDifunto.size()==0)) {
 					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 				} else {
 					sepulturaDataManager.setDefuncionInsertar(listaDifunto.get(0));
-					sepulturaDataManager.setDefuncionlistDTO(list.get(0));
+					if(!CollectionUtils.isEmpty(list) && list.size()!=0)
+						sepulturaDataManager.setDefuncionlistDTO(list.get(0));
 								
 				}
 			}

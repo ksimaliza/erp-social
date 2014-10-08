@@ -15,9 +15,9 @@ import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoListDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaListDTO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 @SessionScoped
@@ -38,14 +38,13 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 	private NichoListDTO nichoListDTO;
 	private int formaPagoCodigo;
 	private List<CatalogoEucaristiaDTO> formaPagoListDTOs;
-	private DefuncionListDTO defuncionListDTO;
-	private List<NichoListDTO>  nichoListDTOs;
+	private SepulturaListDTO sepulturaListDTO;
 	private Persona beneficiariInsertar;
 	private ContratoListDTO contratoListDTOEditar;
 	private NichoDTO nichoDTOEditar;
 	private Boolean exportDesactivado;
 	private CatalogoEucaristiaDTO formaPagoList;
-	
+	private List<SepulturaListDTO> sepulturaListDTOs;
 	
 	
 	@PostConstruct
@@ -60,8 +59,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 		fechaFin=new Date();
 		this.contratoListDTOs= new ArrayList<ContratoListDTO>();
 		this.formaPagoListDTOs=new ArrayList<CatalogoEucaristiaDTO>();
-		this.defuncionListDTO=new DefuncionListDTO();
-		this.nichoListDTOs=new ArrayList<NichoListDTO>();
+		this.sepulturaListDTO=new SepulturaListDTO();
 		this.beneficiariInsertar=new Persona();
 		this.contratoListDTOEditar=new ContratoListDTO();
 		this.nichoDTOEditar=new NichoDTO();
@@ -185,32 +183,6 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 
 
 
-	public DefuncionListDTO getDefuncionListDTO() {
-		return defuncionListDTO;
-	}
-
-
-
-
-	public void setDefuncionListDTO(DefuncionListDTO defuncionListDTO) {
-		this.defuncionListDTO = defuncionListDTO;
-	}
-
-
-
-
-	public List<NichoListDTO> getNichoListDTOs() {
-		return nichoListDTOs;
-	}
-
-
-
-
-	public void setNichoListDTOs(List<NichoListDTO> nichoListDTOs) {
-		this.nichoListDTOs = nichoListDTOs;
-	}
-
-
 
 
 	public Persona getBeneficiariInsertar() {
@@ -246,6 +218,22 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 
 	public void setFormaPagoList(CatalogoEucaristiaDTO formaPagoList) {
 		this.formaPagoList = formaPagoList;
+	}
+
+	public SepulturaListDTO getSepulturaListDTO() {
+		return sepulturaListDTO;
+	}
+
+	public void setSepulturaListDTO(SepulturaListDTO sepulturaListDTO) {
+		this.sepulturaListDTO = sepulturaListDTO;
+	}
+
+	public List<SepulturaListDTO> getSepulturaListDTOs() {
+		return sepulturaListDTOs;
+	}
+
+	public void setSepulturaListDTOs(List<SepulturaListDTO> sepulturaListDTOs) {
+		this.sepulturaListDTOs = sepulturaListDTOs;
 	}
 
 

@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ExumacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ExumacionListDTO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
@@ -34,7 +35,7 @@ public class ExhumacionDataManager extends BaseDataManager {
 	private int autorizaCodigo;
 	private ExumacionListDTO exumacionListDTO;
 	private List<AutorizaExhumacionListDTO> autorizaExhumacionListDTOs;
-
+	private DefuncionListDTO defuncionListDTO;
 	
 	
 	
@@ -50,7 +51,8 @@ public class ExhumacionDataManager extends BaseDataManager {
 		this.autorizaExhumacionListDTOs = new ArrayList<AutorizaExhumacionListDTO>();
 		fechaExhumacion=new Date();
 		fechaSepelio=new Date();
-		this.exumacionListDTOs= new ArrayList<ExumacionListDTO>();		
+		this.exumacionListDTOs= new ArrayList<ExumacionListDTO>();	
+		this.defuncionListDTO=new DefuncionListDTO();
 			
 	}
 
@@ -69,8 +71,6 @@ public class ExhumacionDataManager extends BaseDataManager {
 	public void setDifuntoInsertar(Persona difuntoInsertar) {
 		this.difuntoInsertar = difuntoInsertar;
 	}
-
-
 
 
 
@@ -181,6 +181,22 @@ public class ExhumacionDataManager extends BaseDataManager {
 	public void setAutorizaExhumacionListDTOs(
 			List<AutorizaExhumacionListDTO> autorizaExhumacionListDTOs) {
 		this.autorizaExhumacionListDTOs = autorizaExhumacionListDTOs;
+	}
+
+
+
+
+
+	public DefuncionListDTO getDefuncionListDTO() {
+		return defuncionListDTO;
+	}
+
+
+
+
+
+	public void setDefuncionListDTO(DefuncionListDTO defuncionListDTO) {
+		this.defuncionListDTO = defuncionListDTO;
 	}
 	
 

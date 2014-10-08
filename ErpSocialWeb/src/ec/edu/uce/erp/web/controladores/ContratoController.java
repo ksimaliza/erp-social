@@ -2,7 +2,7 @@ package ec.edu.uce.erp.web.controladores;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -25,10 +25,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoListDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.ContratoVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -73,7 +70,6 @@ public ContratoController() {
 	@PostConstruct
 	public void inicializarObjetos () {
 		buscarFormaPago();
-		buscarNicho();
 		
 	
 	}
@@ -84,28 +80,22 @@ public ContratoController() {
 		slf4jLogger.info("registrarContrato");
 		
 		ContratoVO contratoVO;
-		NichoDTO nichoDTO;
+		
 		CatalogoEucaristiaDTO formaPago;
-		DefuncionDTO defuncion;
-		
-					
+
 		try {
-		
-			defuncion=new DefuncionDTO();
+			
 			contratoVO=new ContratoVO();
-			nichoDTO=new NichoDTO();
 			formaPago=new CatalogoEucaristiaDTO();
 			contratoVO.setContratoDTO(contratoDataManager.getContratoDTO());
-			nichoDTO.setNicCodigo(contratoDataManager.getNichoCodigo());
 			formaPago.setCatCodigo(contratoDataManager.getFormaPagoCodigo());
 			contratoVO.setFormaPago(formaPago);
-			contratoVO.setNichoDTO(nichoDTO);
 			contratoVO.setBeneficiario(contratoDataManager.getBeneficiariInsertar());
-			defuncion.setDefPersona(contratoDataManager.getDefuncionListDTO().getDefPersona());
-			
-			contratoVO.getContratoDTO().setConDifunto(defuncion.getDefPersona());
+			contratoVO.getContratoDTO().setConDifunto(contratoDataManager.getDifuntoInsertar().getPerPk());
 			contratoVO.getContratoDTO().setConMesesPorPagar(contratoVO.getContratoDTO().getConMesesArrendamiento());
 			contratoVO.getContratoDTO().setConValorSaldo(contratoVO.getContratoDTO().getConValorTotal());
+			contratoVO.getContratoDTO().setConNicho(contratoDataManager.getSepulturaListDTO().getNicCodigo());
+			
 			contratoVO.getContratoDTO().setConFechaFin(new Timestamp(contratoDataManager.getFechaFin().getTime()));
 			contratoVO.getContratoDTO().setConFechaInicio(new Timestamp(contratoDataManager.getFechaInicio().getTime()));
 
@@ -121,8 +111,6 @@ public ContratoController() {
 			con.setConCodigo(contratoNuevo.getConCodigo());
 			con.setConBeneficiario(contratoNuevo.getConBeneficiario());
 			con.setConDifunto(contratoNuevo.getConDifunto());
-			con.setNicCodigo(contratoNuevo.getConNicho());
-			con.setConFormaPago(contratoNuevo.getConFormaPago());
 			
 			cargarDatosContrato(con);
 			
@@ -145,20 +133,32 @@ public ContratoController() {
 		
 	}
 	
-	public void buscarDefuncion () {
-		slf4jLogger.info("buscarDefuncion");
+	
+	public void buscarDifunto () {
+		slf4jLogger.info("buscarDifunto");
 		
-		List<DefuncionListDTO> listaDefuncion=null;
+		List<Persona> listaDifunto=null;
+		SepulturaListDTO difunto=new SepulturaListDTO();
+		List<SepulturaListDTO> list=null;
 		
 		try {
-			listaDefuncion=this.servicioEucaristia.buscarDefuncion(contratoDataManager.getDefuncionListDTO());
-			if (CollectionUtils.isEmpty(listaDefuncion) && listaDefuncion.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.contratoDataManager.setDefuncionListDTO(listaDefuncion.get(0));
+			if(contratoDataManager.getDifuntoInsertar().getPerCi()!=null && contratoDataManager.getDifuntoInsertar().getPerCi()!="" )
+			{
+				contratoDataManager.getDifuntoInsertar().setPerNombres(null);
+				contratoDataManager.getDifuntoInsertar().setPerApellidos(null);
+				listaDifunto=this.servicioAdministracion.buscarPersona(contratoDataManager.getDifuntoInsertar());					
+				difunto.setPerCi(contratoDataManager.getDifuntoInsertar().getPerCi());
+				list=this.servicioEucaristia.readSepultura(difunto);
+				
+				if ((CollectionUtils.isEmpty(listaDifunto) && listaDifunto.size()==0)||CollectionUtils.isEmpty(list) && list.size()==0) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					contratoDataManager.setDifuntoInsertar(listaDifunto.get(0));
+					contratoDataManager.setSepulturaListDTO(list.get(0));
+				}
 			}
 		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarDefuncion {} ", e);
+			slf4jLogger.info("Error al buscarBautizado {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 		
@@ -186,42 +186,6 @@ public ContratoController() {
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 		
-	}
-	
-	public void buscarNicho() {
-		slf4jLogger.info("buscarNicho");
-		List<NichoListDTO> listResultado=new ArrayList<NichoListDTO>();
-		try {
-			listResultado = this.servicioEucaristia.buscarNicho(new NichoListDTO());
-			
-			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.contratoDataManager.setNichoListDTOs(listResultado);
-			}
-			
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscar el buscarNicho {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-	}
-	
-	public void buscarNicho2() {
-		slf4jLogger.info("buscarNicho");
-		List<NichoListDTO> listResultado=new ArrayList<NichoListDTO>();
-		try {
-			NichoListDTO nicho=new NichoListDTO();
-			nicho.setNicCodigo(this.contratoDataManager.getNichoCodigo());
-			listResultado = this.servicioEucaristia.buscarNicho(nicho);
-			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.contratoDataManager.setNichoListDTO(listResultado.get(0));
-			}
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscar el buscarNicho {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
 	}
 	
 	public void buscarContrato () {
@@ -288,12 +252,10 @@ public ContratoController() {
 			contratoDataManager.setBeneficiariInsertar(contratoEncontrado.getBeneficiario());
 			contratoDataManager.setContratoDTO(contratoEncontrado.getContratoDTO());
 			contratoDataManager.setDifuntoInsertar(contratoEncontrado.getDifunto());
+			buscarDifunto();
 			contratoDataManager.setFormaPagoCodigo(contratoEncontrado.getContratoDTO().getConFormaPago());
 			contratoDataManager.setFechaFin(contratoEncontrado.getContratoDTO().getConFechaFin());
 			contratoDataManager.setFechaInicio(contratoEncontrado.getContratoDTO().getConFechaInicio());
-			contratoDataManager.setNichoCodigo(contratoEncontrado.getContratoDTO().getConNicho());
-			contratoDataManager.setNichoDTOEditar(contratoEncontrado.getNichoDTO());
-			buscarNicho2();
 			
 							
 		} catch (SeguridadesException e) {
@@ -311,26 +273,27 @@ public ContratoController() {
 	
 	public void exportar()
 	{
-		//ContratoListDTO contrato=new ContratoListDTO();
-		//contrato.setConFormaPago(contratoDataManager.getFormaPagoCodigo());
-		
 		Date fechaActual = new Date();
+		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
+				
+		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
+		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
-		mapParametros.put("beneficiarioNombre", contratoDataManager.getBeneficiariInsertar().getPerNombres());
-		mapParametros.put("beneficiarioApellido", contratoDataManager.getBeneficiariInsertar().getPerApellidos());
+		
+		mapParametros.put("beneficiario", contratoDataManager.getBeneficiariInsertar().getPerNombres()+" "+contratoDataManager.getBeneficiariInsertar().getPerApellidos());
 		mapParametros.put("beneficiarioCedula", contratoDataManager.getBeneficiariInsertar().getPerCi());
-		mapParametros.put("tipoNicho", contratoDataManager.getNichoListDTOs().get(0).getTniDescripcion());
-		mapParametros.put("numeroNicho", contratoDataManager.getNichoListDTOs().get(0).getNicDescripcion());
-		mapParametros.put("seccionNicho", contratoDataManager.getNichoListDTOs().get(0).getCatDescripcion());
-		mapParametros.put("nivelNicho", contratoDataManager.getNichoListDTOs().get(0).getNniDescripcion());
-		mapParametros.put("difuntoApellido", contratoDataManager.getDefuncionListDTO().getPerApellidos());
-		mapParametros.put("difuntoNombre", contratoDataManager.getDefuncionListDTO().getPerNombres());
+		mapParametros.put("difunto", contratoDataManager.getDifuntoInsertar().getPerNombres()+" "+ contratoDataManager.getDifuntoInsertar().getPerApellidos());
+		mapParametros.put("tipoNicho", contratoDataManager.getSepulturaListDTO().getTniDescripcion());
+		mapParametros.put("numeroNicho", contratoDataManager.getSepulturaListDTO().getNicDescripcion());
+		mapParametros.put("seccionNicho", contratoDataManager.getSepulturaListDTO().getSeccion());
+		mapParametros.put("nivelNicho", contratoDataManager.getSepulturaListDTO().getNniDescripcion());
 		mapParametros.put("mesesArrendamiento", contratoDataManager.getContratoDTO().getConMesesArrendamiento());
 		mapParametros.put("fechaInicio", contratoDataManager.getContratoDTO().getConFechaInicio());
-		mapParametros.put("parroquia", contratoDataManager.getDefuncionListDTO().getCatParroquia());
-		mapParametros.put("fecha", fechaActual.toString());
+		mapParametros.put("parroquia", contratoDataManager.getContratoListDTO().getParroquia());
+		mapParametros.put("fecha", pequeña.format(fechaActual));
 		mapParametros.put("valorPagar", contratoDataManager.getContratoDTO().getConValorMes().toString());
-		//mapParametros.put("formaPago", contratoDataManager.getFormaPagoList().getCatDescripcion());
+		mapParametros.put("formaPago", contratoDataManager.getFormaPagoList().getCatDescripcion());
+		mapParametros.put("parroquiaCabecera", "\"" + contratoDataManager.getContratoListDTO().getParroquia().toUpperCase() +"\"");
 		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 		
