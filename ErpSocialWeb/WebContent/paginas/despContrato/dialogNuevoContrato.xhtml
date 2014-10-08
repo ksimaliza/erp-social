@@ -18,9 +18,9 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCi" style="width: 70%" 
-								  value="#{contratoDataManager.defuncionListDTO.perCi}" >
+								  value="#{contratoDataManager.difuntoInsertar.perCi}" >
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-							<p:ajax event="blur" update="txtNombres,txtApellidos" listener="#{contratoController.buscarDefuncion}" process="@this"/>
+							<p:ajax event="blur" update="txtNombres,txtApellidos,nicho,txtSeccionNicho,txtTipoNicho,txtNivelNicho" listener="#{contratoController.buscarDifunto}" process="@this"/>
 						</p:inputText>
 						</td>	
 					</tr>
@@ -31,7 +31,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNombres" label="#{i18n['erp.despacho.contrato.nombres']}" style="width: 70%"
-							value="#{contratoDataManager.defuncionListDTO.perNombres}" readonly="true"/>
+							value="#{contratoDataManager.difuntoInsertar.perNombres}" readonly="true"/>
 						</td>
 					</tr>
 					<tr>
@@ -40,7 +40,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApellidos" label="#{i18n['erp.despacho.contrato.apellidos']}" style="width: 70%" 
-							value="#{contratoDataManager.defuncionListDTO.perApellidos}" readonly="true"/>
+							value="#{contratoDataManager.difuntoInsertar.perApellidos}" readonly="true"/>
 						</td>
 					</tr>
 					
@@ -96,19 +96,14 @@
 						</td>
 					</tr>
 					
-					<tr >
+					<tr>
 						<td width="30%">
-						
-							<h:outputLabel value="#{i18n['erp.despacho.contrato.numero.nicho']}"  /> 
-						
+							<h:outputLabel for="nicho" value="#{i18n['erp.despacho.contrato.numero.nicho']}"  />
 						</td>
-					<td width="70%">
-					<p:selectOneMenu id="nicho" value="#{contratoDataManager.nichoCodigo}" filter="true" required="true" >
-								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-								<f:selectItems value="#{contratoController.contratoDataManager.nichoListDTOs}" var="nicho" itemLabel="#{nicho.nicDescripcion}" itemValue="#{nicho.nicCodigo}"/>
-								<p:ajax listener="#{contratoController.buscarNicho2}" process="@this" update="txtSeccionNicho,txtTipoNicho,txtNivelNicho"/>
-					</p:selectOneMenu>
-					</td>
+						<td width="70%">
+							<h:inputText id="nicho"  style="width: 70%" 
+							value="#{contratoDataManager.sepulturaListDTO.nicDescripcion}" readonly="true"/>
+						</td>
 					</tr>
 					
 									
@@ -118,7 +113,7 @@
 						</td>
 						<td width="70%">
 							<h:inputText id="txtSeccionNicho"  style="width: 70%" 
-							value="#{contratoDataManager.nichoListDTO.catDescripcion}" readonly="true"/>
+							value="#{contratoDataManager.sepulturaListDTO.seccion}" readonly="true"/>
 						</td>
 					</tr>
 					
@@ -128,19 +123,17 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtTipoNicho" label="#{i18n['erp.despacho.contrato.tipo.nicho']}" style="width: 70%"
-							value="#{contratoDataManager.nichoListDTO.tniDescripcion}" readonly="true"/>
+							value="#{contratoDataManager.sepulturaListDTO.tniDescripcion}" readonly="true"/>
 						</td>
 					</tr>
 					
-									
-												
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtNivelNicho" value="#{i18n['erp.despacho.contrato.nivel.nicho']}" />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNivelNicho" label="#{i18n['erp.despacho.contrato.nivel.nicho']}" style="width: 70%"
-							value="#{contratoDataManager.nichoListDTO.nniDescripcion}" readonly="true" />
+							value="#{contratoDataManager.sepulturaListDTO.nniDescripcion}" readonly="true" />
 						</td>
 					</tr>
 					
@@ -160,7 +153,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtValorMes" style="width: 70%" 
-								 label="#{i18n['erp.despacho.contrato.valor.mes']}" value="#{contratoDataManager.contratoDTO.conValorMes}" >
+								 label="#{i18n['erp.despacho.contrato.valor.mes']}" value="#{contratoDataManager.contratoDTO.conValorMes}" onkeypress="return NumCheck(event,this)">
 						<p:ajax event="blur" update="txtValorTotal" listener="#{contratoController.calcularValorTotal}" process="@this,txtMesesArrend"/>
 						</p:inputText>
 						</td>	
