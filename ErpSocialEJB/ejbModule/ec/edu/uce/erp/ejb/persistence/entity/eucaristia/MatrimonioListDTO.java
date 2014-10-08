@@ -86,6 +86,12 @@ public class MatrimonioListDTO implements Serializable {
 	@Column(name="mat_fecha_aprobacion_curso")
 	private Timestamp matFechaAprobacionCurso;
 
+	@Column(name="mat_madre_novia")
+	private Integer matMadreNovia;
+
+	@Column(name="mat_madre_novio")
+	private Integer matMadreNovio;
+
 	@Column(name="mat_madrina_novia")
 	private Integer matMadrinaNovia;
 
@@ -100,6 +106,12 @@ public class MatrimonioListDTO implements Serializable {
 
 	@Column(name="mat_novio")
 	private Integer matNovio;
+
+	@Column(name="mat_padre_novia")
+	private Integer matPadreNovia;
+
+	@Column(name="mat_padre_novio")
+	private Integer matPadreNovio;
 
 	@Column(name="mat_padrino_novia")
 	private Integer matPadrinoNovia;
@@ -428,6 +440,22 @@ public class MatrimonioListDTO implements Serializable {
 		this.matFechaAprobacionCurso = matFechaAprobacionCurso;
 	}
 
+	public Integer getMatMadreNovia() {
+		return this.matMadreNovia;
+	}
+
+	public void setMatMadreNovia(Integer matMadreNovia) {
+		this.matMadreNovia = matMadreNovia;
+	}
+
+	public Integer getMatMadreNovio() {
+		return this.matMadreNovio;
+	}
+
+	public void setMatMadreNovio(Integer matMadreNovio) {
+		this.matMadreNovio = matMadreNovio;
+	}
+
 	public Integer getMatMadrinaNovia() {
 		return this.matMadrinaNovia;
 	}
@@ -466,6 +494,22 @@ public class MatrimonioListDTO implements Serializable {
 
 	public void setMatNovio(Integer matNovio) {
 		this.matNovio = matNovio;
+	}
+
+	public Integer getMatPadreNovia() {
+		return this.matPadreNovia;
+	}
+
+	public void setMatPadreNovia(Integer matPadreNovia) {
+		this.matPadreNovia = matPadreNovia;
+	}
+
+	public Integer getMatPadreNovio() {
+		return this.matPadreNovio;
+	}
+
+	public void setMatPadreNovio(Integer matPadreNovio) {
+		this.matPadreNovio = matPadreNovio;
 	}
 
 	public Integer getMatPadrinoNovia() {
