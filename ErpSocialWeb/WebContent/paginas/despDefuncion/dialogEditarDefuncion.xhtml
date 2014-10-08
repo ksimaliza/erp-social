@@ -10,6 +10,7 @@
 		<p:scrollPanel style="height:500px" mode="native">
 		<h:form id="formEditarDefuncion" styleClass="formulario">
 			<p:panel id="pnlEditarDefuncion">
+				
 				<table class="formulario">
 												
 						<tr>
@@ -18,9 +19,8 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCi" style="width: 70%" 
-								 required="true" value="#{defuncionDataManager.difuntoInsertar.perCi}" >
+								 value="#{defuncionDataManager.difuntoInsertar.perCi}" >
 							<p:ajax event="blur" update="txtNombres,txtApellidos" listener="#{defuncionController.buscarDifunto}" process="@this"/>
-							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 						</p:inputText>
 						</td>	
@@ -43,6 +43,71 @@
 						</td>
 					</tr>
 					
+					<tr>
+						<td width="30%">
+							<h:outputText for="txtCiMadre" value="#{i18n['erp.despacho.defuncion.cedula.madre']}" />
+						</td>
+						<td width="70%" >
+						<p:inputText id="txtCiMadre"  style="width: 70%"
+							  value="#{defuncionDataManager.madreInsertar.perCi}">
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+							<p:ajax event="blur" update="txtApeMadre,txtNomMadre" listener="#{defuncionController.buscarMadre}" process="@this"/> 
+							</p:inputText>
+						</td>
+					</tr>
+
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApeMadre" value="#{i18n['erp.despacho.defuncion.apellidos.madre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApeMadre" style="width: 70%"
+								 value="#{defuncionDataManager.madreInsertar.perApellidos}" />
+						</td>	
+					</tr>
+		
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNomMadre" value="#{i18n['erp.despacho.defuncion.nombres.madre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNomMadre" style="width: 70%"
+								 value="#{defuncionDataManager.madreInsertar.perNombres}" />
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputText for="txtCiPadre" value="#{i18n['erp.despacho.defuncion.cedula.padre']}" />
+						</td>
+						<td width="70%" >
+						<p:inputText id="txtCiPadre"  style="width: 70%"
+							  value="#{defuncionDataManager.madreInsertar.perCi}">
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+							<p:ajax event="blur" update="txtNomPadre,txtApePadre" listener="#{defuncionController.buscarPadre}" process="@this"/> 
+							</p:inputText>
+						</td>
+					</tr>
+
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApePadre" value="#{i18n['erp.despacho.defuncion.apellidos.padre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApePadre" style="width: 70%"
+								 value="#{defuncionDataManager.madreInsertar.perApellidos}" />
+						</td>	
+					</tr>
+		
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNomPadre" value="#{i18n['erp.despacho.defuncion.nombres.padre']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNomPadre" style="width: 70%"
+								 value="#{defuncionDataManager.madreInsertar.perNombres}" />
+						</td>	
+					</tr>
 									
 					<tr >
 						<td width="30%">
@@ -70,7 +135,6 @@
 							<p:inputText id="txtCiConyuge" style="width: 70%" 
 								value="#{defuncionDataManager.conyugeInsertar.perCi}" >
 							<p:ajax event="blur" update="txtNomConyuge,txtApeConyuge" listener="#{defuncionController.buscarConyuge}" process="@this"/>
-							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 						</p:inputText>
 						</td>	
@@ -116,7 +180,6 @@
 					</td>
 					</tr> 
 					
-					
 					<tr >
 						<td width="30%">
 						
@@ -130,7 +193,6 @@
 							</p:selectOneMenu>
 					</td>
 					</tr>
-					
 					
 					<tr>
 						<td width="30%">
@@ -226,14 +288,29 @@
 						</td>	
 					</tr>
 					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNotaMarginal" value="#{i18n['erp.despacho.defuncion.nota.marginal']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNotaMarginal" style="width: 70%" 
+								onkeypress="return isNumberKey(event)" label="#{i18n['erp.despacho.defuncion.nota.marginal']}" value="#{defuncionDataManager.defuncionInsertar.defNotaMarginal}">
+						</p:inputText>
+						</td>	
+					</tr>
+					
 				</table>
 			</p:panel>
+			
+			
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{defuncionController.registrarDefuncion}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarDefuncion.hide()"
-					process="@this,pnlEditarDefuncion,pnlConyuge,pnlDatos" update="pnlEditarDefuncion,:formDefuncion:pnlMessages,:formDefuncion:tablaDefuncion"/>
+					
+					process="@this,pnlEditarDefuncion,pnlConyuge,pnlDatos" update="pnlEditarDefuncion,:formDefuncion:pnlMessages,:formDefuncion:tablaDefuncion,pnlBotones"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarDefuncion.hide()" type="button" />
+				<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{defuncionController.exportar}" icon="exportPdf" ajax="false"
+				disabled="#{defuncionDataManager.exportDesactivado}" />
 			</p:panel>
 		</h:form>
 		</p:scrollPanel>
