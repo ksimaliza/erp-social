@@ -62,6 +62,15 @@ public class DefuncionListDTO implements Serializable {
 	@Column(name="def_fecha_difunto")
 	private Timestamp defFechaDifunto;
 
+	@Column(name="def_madre")
+	private Integer defMadre;
+
+	@Column(name="def_nota_marginal")
+	private String defNotaMarginal;
+
+	@Column(name="def_padre")
+	private Integer defPadre;
+
 	@Column(name="def_pagina")
 	private String defPagina;
 
@@ -280,6 +289,30 @@ public class DefuncionListDTO implements Serializable {
 
 	public void setDefFechaDifunto(Timestamp defFechaDifunto) {
 		this.defFechaDifunto = defFechaDifunto;
+	}
+
+	public Integer getDefMadre() {
+		return this.defMadre;
+	}
+
+	public void setDefMadre(Integer defMadre) {
+		this.defMadre = defMadre;
+	}
+
+	public String getDefNotaMarginal() {
+		return this.defNotaMarginal;
+	}
+
+	public void setDefNotaMarginal(String defNotaMarginal) {
+		this.defNotaMarginal = defNotaMarginal;
+	}
+
+	public Integer getDefPadre() {
+		return this.defPadre;
+	}
+
+	public void setDefPadre(Integer defPadre) {
+		this.defPadre = defPadre;
 	}
 
 	public String getDefPagina() {

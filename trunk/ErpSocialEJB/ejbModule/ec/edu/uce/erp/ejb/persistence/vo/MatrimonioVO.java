@@ -15,6 +15,10 @@ private static final long serialVersionUID = 1L;
 	private Persona mad_novia;
 	private Persona pad_novio;
 	private Persona pad_novia;
+	private Persona padre_novia;
+	private Persona padre_novio;
+	private Persona madre_novia;
+	private Persona madre_novio;
 	private Persona sacerdotePersona;
 	
 	private MatrimonioDTO matrimonio;
@@ -29,9 +33,53 @@ private static final long serialVersionUID = 1L;
 		mad_novia=new Persona();
 		pad_novio=new Persona();
 		pad_novia=new Persona();
+		padre_novia=new Persona();
+		padre_novio=new Persona();
+		madre_novia=new Persona();
+		padre_novio=new Persona();
 		matrimonio=new MatrimonioDTO();
 		sacerdote= new SacerdoteDTO();
 		sacerdotePersona=new Persona();
+	}
+
+
+	public Persona getPadre_novia() {
+		return padre_novia;
+	}
+
+
+	public void setPadre_novia(Persona padre_novia) {
+		this.padre_novia = padre_novia;
+	}
+
+
+	public Persona getPadre_novio() {
+		return padre_novio;
+	}
+
+
+	public void setPadre_novio(Persona padre_novio) {
+		this.padre_novio = padre_novio;
+	}
+
+
+	public Persona getMadre_novia() {
+		return madre_novia;
+	}
+
+
+	public void setMadre_novia(Persona madre_novia) {
+		this.madre_novia = madre_novia;
+	}
+
+
+	public Persona getMadre_novio() {
+		return madre_novio;
+	}
+
+
+	public void setMadre_novio(Persona madre_novio) {
+		this.madre_novio = madre_novio;
 	}
 
 

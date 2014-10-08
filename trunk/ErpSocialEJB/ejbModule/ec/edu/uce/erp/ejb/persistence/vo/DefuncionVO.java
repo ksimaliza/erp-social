@@ -3,7 +3,6 @@ package ec.edu.uce.erp.ejb.persistence.vo;
 import java.io.Serializable;
 
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
@@ -15,21 +14,21 @@ private static final long serialVersionUID = 1L;
 	
 	private Persona difunto;
 	private Persona conyuge;
+	private Persona madre;
+	private Persona padre;
 	private DefuncionDTO defuncion;
 	private SacerdoteDTO sacerdote;
 	private DoctorDTO doctor;
-	private CatalogoEucaristiaDTO provincia;
-	private CatalogoEucaristiaDTO parroquia;
-	private CatalogoEucaristiaDTO canton;
+	
 
 	public DefuncionVO() {
 		difunto=new Persona();
 		conyuge=new Persona();
+		madre=new Persona();
+		padre=new Persona();
 		sacerdote= new SacerdoteDTO();
 		doctor=new DoctorDTO();
-		provincia=new CatalogoEucaristiaDTO();
-		canton=new CatalogoEucaristiaDTO();
-		parroquia=new CatalogoEucaristiaDTO();
+		
 		}
 
 	public Persona getDifunto() {
@@ -72,30 +71,21 @@ private static final long serialVersionUID = 1L;
 		this.doctor = doctor;
 	}
 
-	public CatalogoEucaristiaDTO getProvincia() {
-		return provincia;
-	}
-
-	public void setProvincia(CatalogoEucaristiaDTO provincia) {
-		this.provincia = provincia;
-	}
-
 	
-
-	public CatalogoEucaristiaDTO getParroquia() {
-		return parroquia;
+	public Persona getMadre() {
+		return madre;
 	}
 
-	public void setParroquia(CatalogoEucaristiaDTO parroquia) {
-		this.parroquia = parroquia;
+	public void setMadre(Persona madre) {
+		this.madre = madre;
 	}
 
-	public CatalogoEucaristiaDTO getCanton() {
-		return canton;
+	public Persona getPadre() {
+		return padre;
 	}
 
-	public void setCanton(CatalogoEucaristiaDTO canton) {
-		this.canton = canton;
+	public void setPadre(Persona padre) {
+		this.padre = padre;
 	}
 	
 	
