@@ -290,7 +290,7 @@ public class PartidaBautizoController extends BaseController{
 				}
 			}
 		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarMadre {} ", e);
+			slf4jLogger.info("Error al buscarPadre {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 	}

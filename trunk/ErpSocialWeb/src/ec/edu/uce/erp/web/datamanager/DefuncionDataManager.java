@@ -29,6 +29,8 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(DefuncionDataM
 	
 	private  Persona difuntoInsertar;
 	private  Persona conyugeInsertar;
+	private  Persona madreInsertar;
+	private  Persona padreInsertar;
 	private  Persona difuntoBuscar;
 	private  Persona conyugeBuscar;
 	private List<DefuncionListDTO> defuncionDTOs;
@@ -52,7 +54,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(DefuncionDataM
 	private List<SacerdoteListDTO> sacerdoteListDTO;
 	private DefuncionListDTO defuncionListDTO;
 
-	
+	private Boolean exportDesactivado;
 	
 
 
@@ -62,6 +64,8 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(DefuncionDataM
 		slf4jLogger.info("inicializarObjetos");
 		this.conyugeInsertar=new Persona();
 		this.difuntoInsertar=new Persona();
+		this.madreInsertar=new Persona();
+		this.padreInsertar=new Persona();
 		this.conyugeBuscar=new Persona();
 		this.difuntoBuscar=new Persona();
 		this.defuncionDTOs= new ArrayList<DefuncionListDTO>();
@@ -76,7 +80,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(DefuncionDataM
 		this.parroquiaEucaristiaDTOs=new ArrayList<CatalogoEucaristiaDTO>();
 		this.defuncionListDTO=new DefuncionListDTO();
 		this.estadoCivils=new ArrayList<CatalogoEucaristiaDTO>();
-		
+		exportDesactivado=true;
 			
 	}
 
@@ -307,6 +311,36 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(DefuncionDataM
 
 	public void setConyugeBuscar(Persona conyugeBuscar) {
 		this.conyugeBuscar = conyugeBuscar;
+	}
+
+
+	public Persona getMadreInsertar() {
+		return madreInsertar;
+	}
+
+
+	public void setMadreInsertar(Persona madreInsertar) {
+		this.madreInsertar = madreInsertar;
+	}
+
+
+	public Persona getPadreInsertar() {
+		return padreInsertar;
+	}
+
+
+	public void setPadreInsertar(Persona padreInsertar) {
+		this.padreInsertar = padreInsertar;
+	}
+
+
+	public Boolean getExportDesactivado() {
+		return exportDesactivado;
+	}
+
+
+	public void setExportDesactivado(Boolean exportDesactivado) {
+		this.exportDesactivado = exportDesactivado;
 	}
 
 

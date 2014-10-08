@@ -33,6 +33,10 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PartidaMatrimo
 	private  Persona mad_novioInsertar;
 	private  Persona pad_noviaInsertar;
 	private  Persona pad_novioInsertar;
+	private  Persona padre_novioInsertar;
+	private  Persona madre_novioInsertar;
+	private  Persona madre_noviaInsertar;
+	private  Persona padre_noviaInsertar;
 	private SacerdoteDTO sacerdoteInsertar;
 	private List<MatrimonioDTO> matrimonioDTOs;
 	private Date fechaMatrInsertar;
@@ -58,6 +62,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PartidaMatrimo
 	private List<CatalogoEucaristiaDTO> provinciaEucaristiaDTOs;
 	private List<CatalogoEucaristiaDTO> cantonEucaristiaDTOs;
 	private List<CatalogoEucaristiaDTO> parroquiaEucaristiaDTOs;
+	private Boolean exportDesactivado;
 	
 	@PostConstruct
 	public void inicializarObjetos () {
@@ -69,6 +74,10 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PartidaMatrimo
 		this.mad_noviaInsertar= new Persona();
 		this.pad_novioInsertar= new Persona();
 		this.pad_noviaInsertar= new Persona();
+		this.padre_noviaInsertar= new Persona();
+		this.madre_noviaInsertar= new Persona();
+		this.padre_novioInsertar= new Persona();
+		this.madre_novioInsertar= new Persona();
 		this.matrimonioDTOs = new ArrayList<MatrimonioDTO>();
 		fechaMatrInsertar=new Date();
 		fechaApCurInsertar=new Date();
@@ -80,6 +89,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PartidaMatrimo
 		this.sacerdoteListDTO=new ArrayList<SacerdoteListDTO>();
 		this.tipoEucaristiaDTOs=new ArrayList<CatalogoEucaristiaDTO>();
 		this.sacerdoteInsertar=new SacerdoteDTO();
+		exportDesactivado=true;
 		
 	}
 
@@ -334,6 +344,56 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PartidaMatrimo
 
 	public void setTipoEucaristiaDTOs(List<CatalogoEucaristiaDTO> tipoEucaristiaDTOs) {
 		this.tipoEucaristiaDTOs = tipoEucaristiaDTOs;
+	}
+
+
+	public Persona getPadre_novioInsertar() {
+		return padre_novioInsertar;
+	}
+
+
+	public void setPadre_novioInsertar(Persona padre_novioInsertar) {
+		this.padre_novioInsertar = padre_novioInsertar;
+	}
+
+
+	public Persona getMadre_novioInsertar() {
+		return madre_novioInsertar;
+	}
+
+
+	public void setMadre_novioInsertar(Persona madre_novioInsertar) {
+		this.madre_novioInsertar = madre_novioInsertar;
+	}
+
+
+	public Persona getMadre_noviaInsertar() {
+		return madre_noviaInsertar;
+	}
+
+
+	public void setMadre_noviaInsertar(Persona madre_noviaInsertar) {
+		this.madre_noviaInsertar = madre_noviaInsertar;
+	}
+
+
+	public Persona getPadre_noviaInsertar() {
+		return padre_noviaInsertar;
+	}
+
+
+	public void setPadre_noviaInsertar(Persona padre_noviaInsertar) {
+		this.padre_noviaInsertar = padre_noviaInsertar;
+	}
+
+
+	public Boolean getExportDesactivado() {
+		return exportDesactivado;
+	}
+
+
+	public void setExportDesactivado(Boolean exportDesactivado) {
+		this.exportDesactivado = exportDesactivado;
 	}
 	
 	
