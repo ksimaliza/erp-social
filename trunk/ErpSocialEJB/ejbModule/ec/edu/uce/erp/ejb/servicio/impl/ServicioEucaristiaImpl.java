@@ -1254,7 +1254,6 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	{
 		slf4jLogger.info("createOrUpdateContrato");
 		
-		NichoDTO nichoDTO;
 		CatalogoEucaristiaDTO formaPago;
 		Persona beneficiario;
 		
@@ -1263,27 +1262,30 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		try {
 			
 			beneficiario =contratoVO.getBeneficiario();
-			listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(beneficiario);
-			
-			if(listPersona.size()<=0)
-				beneficiario=factoryDAO.getPersonaDAOImpl().create(beneficiario);
-			else
-				beneficiario=listPersona.get(0);
-			
+			if(beneficiario.getPerApellidos()!=null && beneficiario.getPerNombres()!=null)
+			{
+				beneficiario=factoryDAO.getPersonaDAOImpl().update(beneficiario);
+			}
+				else	
+				{
+					listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(beneficiario);
+					
+					if(listPersona.size()<=0)
+						beneficiario=factoryDAO.getPersonaDAOImpl().create(beneficiario);
+					else
+						beneficiario=listPersona.get(0);
+				}
 				contratoVO.getContratoDTO().setConBeneficiario(beneficiario.getPerPk());
 												
 			if(contratoVO.getContratoDTO().getConCodigo()!=null){
-				nichoDTO=eucaristiaFactoryDAO.getNichoDAOImpl().find(contratoVO.getNichoDTO().getNicCodigo());
+				
 				formaPago=eucaristiaFactoryDAO.getCatalogoDAOImpl().find(contratoVO.getFormaPago().getCatCodigo());
-				contratoVO.getContratoDTO().setConNicho(nichoDTO.getNicCodigo());
 				contratoVO.getContratoDTO().setConFormaPago(formaPago.getCatCodigo());
 							
 				return  eucaristiaFactoryDAO.getContratoDAOImpl().update(contratoVO.getContratoDTO());
 			}
 			else{
-				nichoDTO=eucaristiaFactoryDAO.getNichoDAOImpl().find(contratoVO.getNichoDTO().getNicCodigo());
 				formaPago=eucaristiaFactoryDAO.getCatalogoDAOImpl().find(contratoVO.getFormaPago().getCatCodigo());
-				contratoVO.getContratoDTO().setConNicho(nichoDTO.getNicCodigo());
 				contratoVO.getContratoDTO().setConFormaPago(formaPago.getCatCodigo());
 							
 				return  eucaristiaFactoryDAO.getContratoDAOImpl().create(contratoVO.getContratoDTO());
@@ -1319,12 +1321,9 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		contratoVO.setContratoDTO(eucaristiaFactoryDAO.getContratoDAOImpl().find(contratoListDTO.getConCodigo()));
 		contratoVO.setBeneficiario(factoryDAO.getPersonaDAOImpl().find(contratoListDTO.getConBeneficiario()));
 		contratoVO.setDifunto(factoryDAO.getPersonaDAOImpl().find(contratoListDTO.getConDifunto()));
-		contratoVO.setNichoDTO(eucaristiaFactoryDAO.getNichoDAOImpl().find(contratoListDTO.getNicCodigo()));
-		
 		return contratoVO;
 	}
 	
-
 	
 	@Override
 	public SepulturaDTO createOrUpdateSepultura(SepulturaVO sepulturaVO) throws SeguridadesException
@@ -1332,11 +1331,28 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		slf4jLogger.info("createOrUpdateSepultura");
 		
 		NichoDTO nichoDTO;
+		Persona difuntoPersona;
+		List<Persona> listPersona;
 									
 		try{
+			difuntoPersona = sepulturaVO.getDefuncionPersona();
+			if(difuntoPersona.getPerApellidos()!=null && difuntoPersona.getPerNombres()!=null)
+			{
+				difuntoPersona=factoryDAO.getPersonaDAOImpl().update(difuntoPersona);
+			}
+				else	
+				{
+				listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(difuntoPersona);
+				if(listPersona.size()<=0)
+					difuntoPersona=factoryDAO.getPersonaDAOImpl().create(difuntoPersona);
+				else
+					difuntoPersona=listPersona.get(0);
+				}	
+			
+			sepulturaVO.getSepultura().setSepDifunto(difuntoPersona.getPerPk());
+			
 			
 		if(sepulturaVO.getSepultura().getSepCodigo()!=null){
-			
 				nichoDTO=eucaristiaFactoryDAO.getNichoDAOImpl().find(sepulturaVO.getNichoDTO().getNicCodigo());
 				sepulturaVO.getSepultura().setSepNicho(nichoDTO.getNicCodigo());
 							
