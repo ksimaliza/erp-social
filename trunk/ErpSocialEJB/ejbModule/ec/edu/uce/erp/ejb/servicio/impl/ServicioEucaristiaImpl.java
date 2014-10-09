@@ -1140,20 +1140,16 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		if(autorizacionExhumacionVO.getAutorizaExhumacionDTO().getAutCodigo()!=null){
 			personaNueva=factoryDAO.getPersonaDAOImpl().update(autorizacionExhumacionVO.getPersona());
 			return  eucaristiaFactoryDAO.getAutorizacionExhumacionDAOImpl().update(autorizacionExhumacionVO.getAutorizaExhumacionDTO());
-
-			
 		}
 		else{
 			personaNueva=factoryDAO.getPersonaDAOImpl().create(autorizacionExhumacionVO.getPersona());
 			autorizacionExhumacionVO.getAutorizaExhumacionDTO().setAutPersona(personaNueva.getPerPk());	
 			return eucaristiaFactoryDAO.getAutorizacionExhumacionDAOImpl().create(autorizacionExhumacionVO.getAutorizaExhumacionDTO());
-			
-		}
+			}
 		} catch (Exception e) {
 			slf4jLogger.info("error al createOrUpdateAutorizacion {}", e.toString());
 			throw new SeguridadesException(e);
 		}
-		
 		
 	}
 	
