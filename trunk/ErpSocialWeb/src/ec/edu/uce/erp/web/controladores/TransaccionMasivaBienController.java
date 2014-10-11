@@ -3,6 +3,7 @@
  */
 package ec.edu.uce.erp.web.controladores;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +28,9 @@ import ec.edu.uce.erp.common.enums.EnumTipoTransaccionMasiva;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien;
+import ec.edu.uce.erp.ejb.persistence.view.VistaActaBien;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
+import ec.edu.uce.erp.ejb.persistence.view.VistaEmpleado;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
@@ -67,12 +70,12 @@ public class TransaccionMasivaBienController extends BaseController{
 	private Boolean verTablaResultadoAsignar = Boolean.FALSE;
 	
 	private BuscarUsuarioComponent buscarUsuarioComponent;
+	private VistaEmpleado vistaEmpleado;
 	
 	/**
 	 * @param transaccionMasivaBienDataManager the transaccionMasivaBienDataManager to set
 	 */
-	public void setTransaccionMasivaBienDataManager(
-			TransaccionMasivaBienDataManager transaccionMasivaBienDataManager) {
+	public void setTransaccionMasivaBienDataManager(TransaccionMasivaBienDataManager transaccionMasivaBienDataManager) {
 		this.transaccionMasivaBienDataManager = transaccionMasivaBienDataManager;
 	}
 	
@@ -92,6 +95,7 @@ public class TransaccionMasivaBienController extends BaseController{
 		this.buscarUsuarioComponent = new BuscarUsuarioComponent(servicioInventario, 
 				this.transaccionMasivaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
 		this.dcLineaBien = new ArrayList<SelectItem>();
+		this.vistaEmpleado = new VistaEmpleado();
 	}
 
 	/**
@@ -148,7 +152,8 @@ public class TransaccionMasivaBienController extends BaseController{
 				this.transaccionMasivaBienDataManager.getVistaBienBuscar().setEmrPk(this.transaccionMasivaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
 				this.transaccionMasivaBienDataManager.getVistaBienBuscar().setCatBienPk(this.idCategoriaBienSeleccionado);
 				this.transaccionMasivaBienDataManager.getVistaBienBuscar().setLinBienPk(this.idLineaBienSeleccionado);
-//				this.transaccionMasivaBienDataManager.getVistaBienBuscar().setDetBienTipBieNivel1(EnumTipoBien.INGRESADO.getId());
+//				this.transaccionMasivaBienDataManager.getVistaBienBuscar().setDetBienTipBieNivel1(EnumTipoBien.ASIGNADO.getId());
+				this.transaccionMasivaBienDataManager.getVistaBienBuscar().setDetBienTipBieNivel1(null);
 				this.transaccionMasivaBienDataManager.getVistaBienBuscar().setBieEstado(this.transaccionMasivaBienDataManager.getEstadoActivo());
 				this.transaccionMasivaBienDataManager.getVistaBienBuscar().setTraEstado(this.transaccionMasivaBienDataManager.getEstadoActivo());
 				this.transaccionMasivaBienDataManager.getVistaBienBuscar().setPerCi(this.buscarUsuarioComponent.getVistaEmpleadoSeleccionado().getPerCi());
@@ -204,17 +209,12 @@ public class TransaccionMasivaBienController extends BaseController{
 				List<VistaBien> listVistaBien = new ArrayList<VistaBien>();
 				
 				for (VistaBien vistaBien : this.transaccionMasivaBienDataManager.getListVistaBienTramitar()) {
+					
 					vistaBien.setBieUbicacion(this.transaccionMasivaBienDataManager.getVistaBienEditar().getBieUbicacion());
 					vistaBien.setUsuarioRegistro(this.transaccionMasivaBienDataManager.getUsuarioSession());
 					vistaBien.setEmpAsignadoFk(this.idCustudioAsignado);
 					vistaBien.setNpNombreEmpresa(this.transaccionMasivaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrNombre());
 					listVistaBien.add(vistaBien);
-//					VistaBien vistaBienBuscar = new VistaBien();
-//					vistaBienBuscar.setEmrPk(this.transaccionMasivaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
-//					vistaBienBuscar.setBiePk(servicioInventario.asignarBien(vistaBien).getBiePk());
-//					vistaBienBuscar.setTraEstado(this.transaccionMasivaBienDataManager.getEstadoActivo());
-//					VistaBien vistaBienAsignado = servicioInventario.buscarVistaBienCriterios(vistaBienBuscar).iterator().next();
-//					listVistaBien.add(vistaBienAsignado);
 				}
 				
 				servicioInventario.asignarBien(listVistaBien);
@@ -247,17 +247,30 @@ public class TransaccionMasivaBienController extends BaseController{
 		
 		try {
 			
-			if (CollectionUtils.isNotEmpty(this.transaccionMasivaBienDataManager.getListVistaBienTramitar())) {
-				for (VistaBien vistaBien  : this.transaccionMasivaBienDataManager.getListVistaBienTramitar()) {
+			this.transaccionMasivaBienDataManager.getListVistaBienTramitado().clear();
+			
+			List<VistaBien> listVistaBienTramitar = this.transaccionMasivaBienDataManager.getListVistaBienTramitar();
+			
+			if (CollectionUtils.isNotEmpty(listVistaBienTramitar)) {
+				
+				for (VistaBien vistaBien  : listVistaBienTramitar) {
 					vistaBien.setEmpAsignadoFk(this.idCustudioReasignado);
-					VistaBien vistaBienTraslado = servicioInventario.reasignarBien(this.transaccionMasivaBienDataManager.getVistaBienEditar());
-					if (vistaBienTraslado != null) {
-						this.transaccionMasivaBienDataManager.getListVistaBienTramitado().add(vistaBienTraslado);
-					}
+					vistaBien.setBieUbicacion(this.transaccionMasivaBienDataManager.getVistaBienEditar().getBieUbicacion());
 				}
+				
+				this.transaccionMasivaBienDataManager
+						.setListVistaBienTramitado(this.servicioInventario.reasignarBien(listVistaBienTramitar));
+				
 				if (CollectionUtils.isNotEmpty(this.transaccionMasivaBienDataManager.getListVistaBienTramitado())) {
-					MensajesWebController.aniadirMensajeInformacion("Bienes trasladados correctament");
+					this.idCustudioAsignado = null;
+					this.transaccionMasivaBienDataManager.setVistaBienEditar(new VistaBien());
+					this.transaccionMasivaBienDataManager.getListVistaBienTramitar().clear();
+					this.transaccionMasivaBienDataManager.getListVistaBien().clear();
+					this.transaccionMasivaBienDataManager
+							.getListVistaBienTramitado().addAll(this.transaccionMasivaBienDataManager.getListVistaBienTramitado());
+					MensajesWebController.aniadirMensajeInformacion("Bienes trasladados correctamente");
 				}
+				
 			}
 			
 			this.limpiarFiltrosBusqueda();
@@ -282,34 +295,60 @@ public class TransaccionMasivaBienController extends BaseController{
 	
 	public void asignarElementoTrasladar () {
 		if (CollectionUtils.isNotEmpty(this.transaccionMasivaBienDataManager.getListVistaBienTramitar())) {
-			this.transaccionMasivaBienDataManager.setVistaBienEditar(this.transaccionMasivaBienDataManager.getListVistaBienTramitar().iterator().next());
+			VistaBien vistaBienTramitar = this.transaccionMasivaBienDataManager.getListVistaBienTramitar().iterator().next();
+			vistaBienTramitar.setBieUbicacion(null);
+			this.transaccionMasivaBienDataManager.setVistaBienEditar(vistaBienTramitar);
 		}
 	}
 	
 	public void generarActaBien () {
 		
-		List<VistaBien> listVistaBien = new ArrayList<VistaBien>();
-		listVistaBien.addAll(this.transaccionMasivaBienDataManager.getListVistaBienTramitado());
-		
-		Map<String, Object> mapParametros = new HashMap<String, Object>();
-		mapParametros.put("nombreEmpresa", this.transaccionMasivaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrNombre());
-		mapParametros.put("nombreCustodio", this.transaccionMasivaBienDataManager.getListVistaBienTramitado().iterator().next().getNombresCompletos());
-		mapParametros.put("identificacionCustodio", this.transaccionMasivaBienDataManager.getListVistaBienTramitado().iterator().next().getPerCi());
-		mapParametros.put("total", String.valueOf(listVistaBien.size()));
-		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
-		
-		if (this.transaccionMasivaBienDataManager.getListVistaBienTramitado().iterator().next().getDetBienTipBieNivel1().
-				equals(EnumTipoBien.ASIGNADO.getId())) {
-			mapParametros.put("tituloActa", "Acta asignaci\u00F3n bien");
-			mapParametros.put("tipoMovimiento", "Asignaci\u00F3n de bienes");
-		} else if (this.transaccionMasivaBienDataManager.getListVistaBienTramitado().iterator().next().getDetBienTipBieNivel1().
-				equals(EnumTipoBien.REASIGNADO.getId())) {
-			mapParametros.put("tituloActa", "Acta reasignaci\u00F3n bien");
-			mapParametros.put("tipoMovimiento", "Reasignaci\u00F3n de bienes");
+		try {
+			
+			if (CollectionUtils.isEmpty(this.transaccionMasivaBienDataManager.getListVistaBienTramitado())) {
+				MensajesWebController.aniadirMensajeAdvertencia("No hay datos para generar el acta del bien");
+			} else {
+				
+				VistaActaBien vistaActaBien = new VistaActaBien();
+				vistaActaBien.setBiePk(this.transaccionMasivaBienDataManager.getListVistaBienTramitado().iterator().next().getBiePk());
+				vistaActaBien.setEmrPk(this.transaccionMasivaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
+				List<VistaActaBien> listVistaActaBien = servicioInventario.obtenerActaBien(vistaActaBien);
+				
+				if (CollectionUtils.isEmpty(listVistaActaBien)) {
+					
+					MensajesWebController.aniadirMensajeAdvertencia("No hay datos para generar el acta del bien");
+					
+				} else {
+					
+					Map<String, Object> mapParametros = new HashMap<String, Object>();
+					mapParametros.put("nombreEmpresa", this.transaccionMasivaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrNombre());
+					mapParametros.put("nombreCustodio", listVistaActaBien.iterator().next().getNombresCompletos());
+					mapParametros.put("identificacionCustodio", listVistaActaBien.iterator().next().getPerCi());
+					mapParametros.put("fechaGeneracionActa", listVistaActaBien.iterator().next().getActBieFechaGen());
+					mapParametros.put("total", String.valueOf(listVistaActaBien.size()));
+					mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
+					
+					if (listVistaActaBien.iterator().next().getDetBienTipBieNivel1().equals(EnumTipoBien.ASIGNADO.getId())) {
+						mapParametros.put("tituloActa", "Acta asignaci\u00F3n bien");
+						mapParametros.put("tipoMovimiento", "Asignaci\u00F3n de bienes");
+					} else if (listVistaActaBien.iterator().next().getDetBienTipBieNivel1().equals(EnumTipoBien.REASIGNADO.getId())) {
+						mapParametros.put("tituloActa", "Acta reasignaci\u00F3n bien");
+						mapParametros.put("tipoMovimiento", "Reasignaci\u00F3n de bienes");
+					}
+					
+					JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), listVistaActaBien, "actaAsignacionBien", mapParametros);
+					ReporteUtil.generarReporte(jasperPrint, this.transaccionMasivaBienDataManager.getFormatoPdf(), "actaBien");
+					
+				}
+				
+			}
+			
+		} catch (SeguridadesException e) {
+			
+			slf4jLogger.info("error al obtenerTrazabilidadBien {}", e.toString());
+			MensajesWebController.aniadirMensajeError(e.toString());
+			
 		}
-		
-		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), listVistaBien, "actaAsignacionBien", mapParametros);
-		ReporteUtil.generarReporte(jasperPrint, this.transaccionMasivaBienDataManager.getFormatoPdf(), "actaBien");
 		
 	}
 	
@@ -397,6 +436,19 @@ public class TransaccionMasivaBienController extends BaseController{
 		}
 		
 		return dcEmpleadosEmpresa;
+	}
+	
+	public void limpiarListaBienesTramitar () {
+		this.transaccionMasivaBienDataManager.getListVistaBienTraslado().clear();
+	}
+	
+	public void buscarUsuario () {
+		try {
+			this.buscarUsuarioComponent.buscarEmpleado();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -503,6 +555,20 @@ public class TransaccionMasivaBienController extends BaseController{
 	 */
 	public void setIdCustudioReasignado(Integer idCustudioReasignado) {
 		this.idCustudioReasignado = idCustudioReasignado;
+	}
+
+	/**
+	 * @return the vistaEmpleado
+	 */
+	public VistaEmpleado getVistaEmpleado() {
+		return vistaEmpleado;
+	}
+
+	/**
+	 * @param vistaEmpleado the vistaEmpleado to set
+	 */
+	public void setVistaEmpleado(VistaEmpleado vistaEmpleado) {
+		this.vistaEmpleado = vistaEmpleado;
 	}
 	
 }

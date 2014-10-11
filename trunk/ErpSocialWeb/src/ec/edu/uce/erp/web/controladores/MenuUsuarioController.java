@@ -4,7 +4,6 @@
 package ec.edu.uce.erp.web.controladores;
 
 import java.text.DateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -94,11 +93,11 @@ public class MenuUsuarioController extends BaseController {
 									item.setUrl(menuDTO.getUrlMenu());
 									item.setAjax(true);
 									item.setTitle(menuDTO.getDescMenu());
+									item.setUpdate(":frmMenu:pgMenuUsuario");
 									defaultSubMenu.addElement(item);
 									
 									mapMenuUsuario.put(menuDTO.getIdMenu(), menuDTO.getUrlMenu());
 								}
-								
 								
 							}
 							

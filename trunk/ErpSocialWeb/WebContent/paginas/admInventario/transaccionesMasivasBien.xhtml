@@ -13,9 +13,7 @@
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
 			
 			<p:accordionPanel id="acp">
-				<!-- <p:ajax event="tabChange" 
-					listener="#{transaccionMasivaBienController.limpiarFiltrosBusqueda}" 
-					update="tabAsignacion, tabTraslado"/> -->
+			
 				<p:tab id="tabAsignacion" title="#{i18n['erp.bien.transacciones.masivas.tab.asignacion.title']}" 
 					titletip="#{i18n['erp.bien.transacciones.masivas.tab.asignacion.title']}">
 					<ui:include src="seccionAsignacionMasiva.xhtml" />

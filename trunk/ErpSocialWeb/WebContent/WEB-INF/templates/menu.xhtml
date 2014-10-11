@@ -4,8 +4,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-	<h:form>
-	<h:outputText  value="#{menuUsuarioController.fecha}" style="FONT-WEIGHT: bold; color:#990099;"/>
-		<p:panelMenu  model="#{menuUsuarioController.model}"/>
+	<h:form id="frmMenu">
+		<h:panelGroup id="pgMenuUsuario" layout="block">
+			<h:outputText value="#{menuUsuarioController.fecha}" style="FONT-WEIGHT: bold; color:#990099;"/>
+			<p:panelMenu model="#{menuUsuarioController.model}"/>
+		</h:panelGroup>
 	</h:form>
 </ui:composition>

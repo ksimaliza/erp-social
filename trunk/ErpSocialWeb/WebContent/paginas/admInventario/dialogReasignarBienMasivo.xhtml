@@ -10,23 +10,23 @@
 		<h:form id="formReasignarBienMasivo" styleClass="formulario">
 			<p:panel id="pnlReasignarBienMasivo" >
 				<table class="formulario">
-					<tr>
+					<!-- <tr>
 						<td width="30%">
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.nombre']}" />
 						</td>
 						<td width="70%">
 							<h:outputText id="txtNombre" value="#{transaccionMasivaBienDataManager.vistaBienEditar.bieNombre}" />
 						</td>
-					</tr>
+					</tr> -->
 					
-					<tr>
+					<!-- <tr>
 						<td>
 							<h:outputLabel for="txtCodigo" value="#{i18n['label.codigo']}" />
 						</td>
 						<td>
 							<h:outputText id="txtCodigo" value="#{transaccionMasivaBienDataManager.vistaBienEditar.bieCodigo}" />
 						</td>
-					</tr>
+					</tr> -->
 					
 					<tr>
 						<td>
@@ -78,9 +78,9 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{transaccionMasivaBienController.trasladoBienMasivo}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgReasignarBienMasivo.hide()"
-					process="@this,pnlReasignarBienMasivo" 
-					update="pnlReasignarBienMasivo,:formBien:acp:tablaBienesSeleccionados,:formBien:acp:tablaBienes,:formBien:pnlMessages"/>
+					oncomplete="if (args &amp;&amp; !args.validationFailed) {dlgReasignarBienMasivo.hide(), dlgGenerarActaBien.show()}"
+					process="@this,pnlReasignarBienMasivo,:formBien:acp:pgResultadoAsigMasivo" 
+					update="pnlReasignarBienMasivo,:formBien:acp:tablaBienesSeleccionados,:formBien:acp:tablaBienesTraslado,:formBien:pnlMessages,:formBien:acp:pgResultadoAsigMasivo"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgReasignarBienMasivo.hide();" type="button" />
 			</p:panel>
 		</h:form>

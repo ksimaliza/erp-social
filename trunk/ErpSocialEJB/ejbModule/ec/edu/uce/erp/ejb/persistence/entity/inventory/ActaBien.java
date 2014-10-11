@@ -16,6 +16,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 
 /**
@@ -44,6 +45,12 @@ public class ActaBien implements Serializable {
 	//bi-directional many-to-one association to TransaccionActaBien
 	@OneToMany(mappedBy="actaBienTbl", cascade = CascadeType.ALL)
 	private List<TransaccionActaBien> transaccionActaBiens;
+	
+	@Transient
+	private Integer npBiePk;
+	
+	@Transient
+	private Integer npEmrPk;
 
 	public ActaBien() {
 	}
@@ -92,6 +99,34 @@ public class ActaBien implements Serializable {
 		transaccionActaBien.setActaBienTbl(null);
 
 		return transaccionActaBien;
+	}
+
+	/**
+	 * @return the npBiePk
+	 */
+	public Integer getNpBiePk() {
+		return npBiePk;
+	}
+
+	/**
+	 * @param npBiePk the npBiePk to set
+	 */
+	public void setNpBiePk(Integer npBiePk) {
+		this.npBiePk = npBiePk;
+	}
+
+	/**
+	 * @return the npEmrPk
+	 */
+	public Integer getNpEmrPk() {
+		return npEmrPk;
+	}
+
+	/**
+	 * @param npEmrPk the npEmrPk to set
+	 */
+	public void setNpEmrPk(Integer npEmrPk) {
+		this.npEmrPk = npEmrPk;
 	}
 
 }

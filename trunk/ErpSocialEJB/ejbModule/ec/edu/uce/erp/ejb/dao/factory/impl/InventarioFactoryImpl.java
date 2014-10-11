@@ -18,6 +18,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.LineaBienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.MarcaBienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ProveedorDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.TransaccionDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.VistaActaBienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.VistaBienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.VistaEmpleadoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.VistaTransaccionDAO;
@@ -31,6 +32,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.impl.LineaBienDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.MarcaBienDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.ProveedorDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.TransaccionDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.VistaActaBienDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.VistaBienDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.VistaEmpleadoDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.VistaTransaccionDAOImpl;
@@ -61,6 +63,7 @@ public class InventarioFactoryImpl implements InventarioFactory{
 	private VistaBienDAO vistaBienDAO;
 	private VistaEmpleadoDAO vistaEmpleadoDAO;
 	private VistaTransaccionDAO vistaTransaccionDAO;
+	private VistaActaBienDAO vistaActaBienDAO;
 	
 
 	@Override
@@ -165,9 +168,17 @@ public class InventarioFactoryImpl implements InventarioFactory{
 	 */
 	public ActaBienDAO getActaBienDAOImpl() {
 		if (actaBienDAO == null) {
-			actaBienDAO =new ActaBienDAOImpl(entityManager);
+			actaBienDAO = new ActaBienDAOImpl(entityManager);
 		}
 		return actaBienDAO;
+	}
+
+	@Override
+	public VistaActaBienDAO getVistaActaBienDAOImpl() {
+		if (vistaActaBienDAO == null) {
+			vistaActaBienDAO = new VistaActaBienDAOImpl(entityManager);
+		}
+		return vistaActaBienDAO;
 	}
 
 }

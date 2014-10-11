@@ -536,3 +536,31 @@ alter table TRANSACCION_ACTA_BIEN
    add constraint FK_TRANSACC_REFERENCE_TRANSACC foreign key (TRA_PK)
       references TRANSACCION_TBL (TRA_PK)
       on delete restrict on update restrict;
+      
+      
+DROP view IF EXISTS acta_bien_view;
+create view acta_bien_view as
+select bie_pk, emr_pk, 
+b.bie_nombre, b.bie_modelo, b.bie_color, bie_costo_venta, bie_ubicacion, bie_notas, 
+bie_estado, CASE WHEN bie_estado='1' THEN 'ACTIVO' ELSE 'INACTIVO' END as bie_estado_string, 
+bie_estado_uso, CASE WHEN bie_estado_uso='1' THEN 'EN USO' ELSE 'SIN USO' END as bie_estado_uso_string, 
+b.cat_bien_pk, b.bie_codigo, b.lin_bien_pk, lb.lin_bien_nombre, lb.lin_bien_estado, b.mar_bien_pk, 
+mb.mar_bien_nombre, mb.mar_bien_estado, cb.cat_bien_nombre, cb.cat_bien_estado, 
+t.cab_bien_tip_bie_fk, t.det_bien_tip_bie_nivel1,
+t.cab_bien_est_conserv_fk, t.det_bien_est_conserv_nivel1_fk, t.cab_bien_tip_baj_fk, t.det_bien_tip_baj_nivel1, 
+t.tra_estado, t.emp_asignado_fk, t.emp_reasignado_fk, t.tra_descripcion, t.tra_fecha_inicio,
+per.per_ci, (per.per_nombres || ' ' || per.per_apellidos) as nombres_completos,
+dbti.det_bien_descripcion as tipo_ingreso_bien, dbec.det_bien_descripcion as estado_conservacion_bien,
+ab.act_bie_num, ab.act_bie_fecha_gen
+from bien_tbl b
+inner join categoria_bien_tbl cb on cb.cat_bien_pk=b.cat_bien_pk
+inner join linea_bien_tbl lb on lb.lin_bien_pk = b.lin_bien_pk and lb.cat_bien_pk = cb.cat_bien_pk
+inner join marca_bien_tbl mb on mb.mar_bien_pk = b.mar_bien_pk
+left join transaccion_tbl t on t.bie_fk = b.bie_pk
+inner join detalle_bien_tbl dbti on dbti.cab_bien_fk = t.cab_bien_tip_bie_fk and dbti.det_bien_nivel1 = t.det_bien_tip_bie_nivel1
+inner join detalle_bien_tbl dbec on dbec.cab_bien_fk = t.cab_bien_est_conserv_fk and dbec.det_bien_nivel1 = t.det_bien_est_conserv_nivel1_fk
+left join  empleado_tbl emp on emp.emp_pk = t.emp_asignado_fk 
+left JOIN persona_tbl per ON emp.per_fk = per.per_pk
+inner join transaccion_acta_bien tab on tab.tra_pk = t.tra_pk
+inner join acta_bien_tbl ab on ab.act_bie_pk = tab.act_bie_pk
+;
