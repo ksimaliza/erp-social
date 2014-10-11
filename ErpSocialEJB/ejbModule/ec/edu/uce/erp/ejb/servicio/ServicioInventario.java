@@ -15,6 +15,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.MarcaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
+import ec.edu.uce.erp.ejb.persistence.view.VistaActaBien;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
 import ec.edu.uce.erp.ejb.persistence.view.VistaEmpleado;
 import ec.edu.uce.erp.ejb.persistence.view.VistaTransaccion;
@@ -216,7 +217,7 @@ public interface ServicioInventario {
 	 * @return
 	 * @throws SeguridadesException
 	 */
-	VistaBien reasignarBien (VistaBien vistaBien) throws SeguridadesException;
+	List<VistaBien> reasignarBien (List<VistaBien> colVistaBien) throws SeguridadesException;
 	
 	/**
 	 * Dar de baja un <code>Bien</code>
@@ -260,4 +261,12 @@ public interface ServicioInventario {
 	 * @throws SeguridadesException
 	 */
 	ReporteInventarioVO obtenerReporteInventario(ReporteInventarioVO reporteInventarioVO) throws SeguridadesException;
+	
+	/**
+	 * Obtener las actas generadas de un bien
+	 * @param vistaActaBien
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	List<VistaActaBien> obtenerActaBien (VistaActaBien vistaActaBien) throws SeguridadesException;
 }

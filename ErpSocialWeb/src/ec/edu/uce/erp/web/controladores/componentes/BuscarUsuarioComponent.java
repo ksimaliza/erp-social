@@ -3,8 +3,12 @@
  */
 package ec.edu.uce.erp.web.controladores.componentes;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.faces.component.FacesComponent;
+import javax.faces.component.UINamingContainer;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.primefaces.event.SelectEvent;
@@ -20,8 +24,8 @@ import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
  * @author
  *
  */
-
-public class BuscarUsuarioComponent {
+@FacesComponent("ec.edu.uce.erp.web.controladores.componentes.BuscarUsuarioComponent")
+public class BuscarUsuarioComponent extends UINamingContainer {
 	
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(BuscarUsuarioComponent.class);
 	private Integer emrPk;
@@ -31,7 +35,6 @@ public class BuscarUsuarioComponent {
 	private ServicioInventario servicioInventario;
 	private VistaEmpleado vistaEmpleadoSeleccionado;
 	
-	
 	public BuscarUsuarioComponent (ServicioInventario servicioInventario, Integer emrPk) {
 		this.vistaEmpleado = new VistaEmpleado();
 		this.vistaEmpleadoSeleccionado = new VistaEmpleado();
@@ -40,15 +43,25 @@ public class BuscarUsuarioComponent {
 		this.emrPk = emrPk;
 	}
 	
-	public void buscarEmpleado () {
-		slf4jLogger.info("buscarEmpleado");
+	public Boolean getRenderUserId() {
+		return (Boolean) getStateHelper().eval("txtNombre", Boolean.FALSE);
+	}
+
+	public void setRenderUserId(Boolean renderUserId) {
+		getStateHelper().put("txtNombre", renderUserId);
 		
+	}
+	
+	public void buscarEmpleado () throws IOException {
+		slf4jLogger.info("buscarEmpleado");
 		try {
-			if (this.vistaEmpleado != null) {
+			encodeAll(getFacesContext());
+			getAttributes().get("txtNombre");
+			if (vistaEmpleado != null) {
 				
 				this.listVistaEmpleado.clear();
-				this.vistaEmpleado.setEmrFk(emrPk);
-				List<VistaEmpleado> listVistaEmpleado = servicioInventario.obtenerEmpleadoEmpresa(this.vistaEmpleado);
+				vistaEmpleado.setEmrFk(emrPk);
+				List<VistaEmpleado> listVistaEmpleado = servicioInventario.obtenerEmpleadoEmpresa(vistaEmpleado);
 				if (CollectionUtils.isEmpty(listVistaEmpleado)) {
 					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 				} else {

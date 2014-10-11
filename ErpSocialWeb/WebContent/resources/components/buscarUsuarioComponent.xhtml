@@ -13,19 +13,23 @@
 
 <body>
 	<composite:interface>
+	
 		<composite:attribute name="render" required="true" shortDescription="Seccion a actualizar de la pagina que incluye el componente" />
 		<composite:attribute name="controller" required="true" shortDescription="Clase que administra el componente" />
+		<composite:attribute name="onComplete" required="false" method-signature="void listener(javax.faces.event.AjaxBehaviorEvent)" />
+		
 	</composite:interface>
 
 	<composite:implementation>
 	
 		<ui:param name="controller" value="#{cc.attrs.controller}"/>
 		<ui:param name="render" value="#{cc.attrs.render}"/>
+		<ui:param name="onComplete" value="#{cc.attrs.onComplete}"/>
 		
-		<p:commandButton value="Buscar..." oncomplete="dlgBuscarUsuario.show()"/>
+		<p:commandButton value="Buscar..." actionListener="#{onComplete}" oncomplete="dlgBuscarUsuario.show()"/>
 		
 		<p:dialog id="popUpBuscarUsuario" header="#{i18n['erp.asistencia.empleado.buscar']}" 
-				widgetVar="dlgBuscarUsuario" modal="true" minWidth="650" width="650" appendTo="@(body)">
+				widgetVar="dlgBuscarUsuario" modal="true" minWidth="650" width="650" appendTo="@(body)" closable="false">
 				
 			<h:form id="formBuscarUsuario" styleClass="formulario">
 				<p:panel id="pnlBuscarUsuario">
@@ -64,16 +68,13 @@
 				</p:panel>
 				<p:panel id="pnlBotones">
 					<p:commandButton id="btnBuscar" value="#{i18n['label.buscar']}"
-						actionListener="#{controller.buscarEmpleado}"
-						process="@this" update="pnlBuscarUsuario, tableUsuarios"/>
+						actionListener="#{controller.buscarEmpleado}" process="@this" update="pnlBuscarUsuario, tableUsuarios"/>
 				</p:panel>
 				<p:dataTable id="tableUsuarios"
-					value="#{controller.listVistaEmpleado}" 
-					rowKey="#{vistaEmpleado.empPk}"
-					var="vistaEmpleado" selectionMode="single">
+					value="#{controller.listVistaEmpleado}" rowKey="#{vistaEmpleado.empPk}"	var="vistaEmpleado" selectionMode="single">
 					
 					<p:ajax event="rowSelect" listener="#{controller.asignarDatosEmpleadoSeleccionado}"
-						update="#{render}" oncomplete="dlgBuscarUsuario.hide()" />
+						update="#{render}" oncomplete="dlgBuscarUsuario.hide()"/>
 						
 					<f:facet name="header">
 						<h:outputLabel value="Empleados Encontrados" />

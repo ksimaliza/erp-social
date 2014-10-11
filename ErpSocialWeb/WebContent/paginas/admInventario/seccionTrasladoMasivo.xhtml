@@ -14,7 +14,8 @@
 					<h:panelGrid columns="2" border="0">
 						<h:outputText id="txtNombreCustodio" value="#{transaccionMasivaBienController.buscarUsuarioComponent.vistaEmpleadoSeleccionado.nombresCompletos}" />
 						<c:buscarUsuarioComponent controller="#{transaccionMasivaBienController.buscarUsuarioComponent}" 
-							render=":formBien:acp:txtNombreCustodio" />
+							render=":formBien:acp:txtNombreCustodio, :formBien:acp:tablaBienesTraslado" 
+							onComplete="#{transaccionMasivaBienController.limpiarListaBienesTramitar()}"/>
 					</h:panelGrid>
 				</td>
 			</tr>
