@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,6 +98,7 @@ public class EstudianteController extends BaseController{
 				listaestudiantes = this.servicioMatricula.buscarEstudiante(estudianteDataManager.getEstudianteBuscar());
 				
 				if (CollectionUtils.isEmpty(listaestudiantes) && listaestudiantes.size()==0) {
+					this.estudianteDataManager.setListaEstudianteListDTOs(listaestudiantes);
 					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 				} else {
 					this.estudianteDataManager.setListaEstudianteListDTOs(listaestudiantes);
@@ -126,6 +128,7 @@ public class EstudianteController extends BaseController{
 				this.estudianteDataManager.setEstudiantePersonaInsertar(estudianteEncontrado.getPersona());
 				this.estudianteDataManager.setEstudianteInstancia(estudianteEncontrado.getEstudiante());
 								
+				estudianteEncontrado.getPersona().getPerFotoVerificar();
 			} catch (SeguridadesException e) {
 				slf4jLogger.info("Error al cargar los datos del estudiante seleccionado {}", e.getMessage());
 				MensajesWebController.aniadirMensajeError("Error al cargar los datos del estudiante seleccionado");
@@ -133,7 +136,7 @@ public class EstudianteController extends BaseController{
 		}
 		
 		public void handleFileUpload(FileUploadEvent event) {
-			estudianteDataManager.getEstudiantePersonaInsertar().setPerFoto(JsfUtil.saveToDiskUpdload(event.getFile().getContents(), JsfUtil.getRandomName(event.getFile().getFileName().split("\\.")[1])));
+			estudianteDataManager.getEstudiantePersonaInsertar().setPerFoto(JsfUtil.saveToDiskUpdload(event.getFile().getContents(), event.getFile().getFileName()));
 			estudianteDataManager.getEstudiantePersonaInsertar().setPerFotoByte(event.getFile().getContents());
 	    }
 
@@ -142,6 +145,14 @@ public class EstudianteController extends BaseController{
 		public void refrescarFormulario() {
 			// TODO Auto-generated method stub
 			
+		}
+		
+		
+		public void cancel()
+		{
+			estudianteDataManager.setEstudianteInstancia(new EstudianteDTO());
+			estudianteDataManager.setEstudiantePersonaInsertar(new Persona());
+			RequestContext.getCurrentInstance().execute("dlgNuevoEstudiante.hide()");
 		}
 
 }

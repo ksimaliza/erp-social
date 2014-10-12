@@ -15,8 +15,12 @@ public class JsfUtil {
 	public static String saveToDiskUpdload(byte[] bytefile,String fileName)
 	{
 		String pathDir,pathFile = null;
+		String[] split;
 		File f;
 		try {
+			split= fileName.split("\\.");
+			fileName=JsfUtil.getRandomName(split[split.length-1]);
+			
 			pathDir=getRealPath()+"\\images\\tmp\\upload\\";
 			pathFile=pathDir+"\\"+fileName;
 			
