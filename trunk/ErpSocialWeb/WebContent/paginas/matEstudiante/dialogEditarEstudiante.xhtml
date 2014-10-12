@@ -12,18 +12,18 @@
 				<table class="formulario">
 					
 					<tr>
-						
+						<td width="100%" colspan="2"><p:graphicImage id="image" height="80" cache="false" value="#{estudianteDataManager.estudiantePersonaInsertar.perFoto}"/></td>
+					</tr>
+				
+					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtFoto" value="#{i18n['erp.matricula.estudiante.foto']}" />
+							<h:outputLabel value="#{i18n['erp.asistencia.empleado.foto']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtFoto" value="#{estudianteDataManager.estudiantePersonaInsertar.perFoto}" style="width: 100%"
-							required="true" label="#{i18n['erp.matricula.estudiante.foto']}">
-													
-						</p:inputText>
-						
+							    <p:fileUpload fileUploadListener="#{estudianteController.handleFileUpload}" mode="advanced" dragDropSupport="true"
+                     				 update="image" auto="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Seleccionar" process="@this"/>
 						</td>
-						</tr>
+					</tr>
 					
 					<tr>
 						
