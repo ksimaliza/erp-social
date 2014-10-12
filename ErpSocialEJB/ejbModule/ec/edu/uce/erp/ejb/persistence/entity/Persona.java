@@ -18,7 +18,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
+import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 
 
@@ -69,6 +71,10 @@ public class Persona implements Serializable {
 	@Column(name="per_telefono")
 	private String perTelefono;
 
+	@Transient
+	private Boolean perFotoVerificar;
+
+	
 	//bi-directional many-to-one association to Empleado
 	@OneToMany(mappedBy="personaTbl")
 	private List<Empleado> empleadoTbls;
@@ -238,6 +244,15 @@ public class Persona implements Serializable {
 
 	public void setPerTelefono(String perTelefono) {
 		this.perTelefono = perTelefono;
+	}
+
+	public Boolean getPerFotoVerificar() {
+		UtilAplication.saveToDisk(this.perFotoByte, this.perFoto);
+		return perFotoVerificar;
+	}
+
+	public void setPerFotoVerificar(Boolean perFotoVerificar) {
+		this.perFotoVerificar = perFotoVerificar;
 	}
 
 	public byte[] getPerFotoByte() {

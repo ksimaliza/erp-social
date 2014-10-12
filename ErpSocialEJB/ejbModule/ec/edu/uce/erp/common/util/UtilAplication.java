@@ -90,24 +90,28 @@ public final class UtilAplication {
 	}
 
 	
-	public static String saveToDisk(byte[] bytefile,String fileName)
+	public static String saveToDisk(byte[] bytefile,String relativePath)
 	{
 		String pathDir,pathFile = null;
 		File f;
 		try {
 			//date=String.valueOf(CalendarUtil.getYear())+"\\"+String.valueOf(CalendarUtil.getMonth())+"\\"+String.valueOf(CalendarUtil.getDay());
 			
-			pathDir="C:\\JavaEE\\jboss-as-7.1.1.Final\\standalone\\deploymeents\\ErpSocial.ear\\ErpSocialWeb.war\\images\\tmp\\upload\\";
-			pathFile="C:\\JavaEE\\jboss-as-7.1.1.Final\\standalone\\deployments\\ErpSocial.ear\\ErpSocialWeb.war\\"+fileName;
+			pathDir="C:\\JavaEE\\jboss-as-7.1.1.Final\\standalone\\deployments\\ErpSocial.ear\\ErpSocialWeb.war\\images\\tmp\\upload\\";
+			pathFile="C:\\JavaEE\\jboss-as-7.1.1.Final\\standalone\\deployments\\ErpSocial.ear\\ErpSocialWeb.war"+relativePath;
 			
 			f= new File(pathDir);
 			if(!f.exists())
 				f.mkdirs();
-			FileOutputStream fos=new FileOutputStream(pathFile);
-			fos.write(bytefile);
-			fos.close();
-				pathFile=fileName;
-			pathFile=pathFile.replace('\\', '/');
+			
+			f=new File(pathFile);
+			if(!f.exists())
+			{
+				FileOutputStream fos=new FileOutputStream(pathFile);
+				fos.write(bytefile);
+				fos.close();
+				pathFile=pathFile.replace('\\', '/');
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
