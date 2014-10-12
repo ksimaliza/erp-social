@@ -6,8 +6,9 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpNuevoEstudiante" header="#{i18n['erp.matricula.estudiante.registrar']}" resizable="false" draggable="false"
-		widgetVar="dlgNuevoEstudiante" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		widgetVar="dlgNuevoEstudiante" modal="true" width="500" minWidth="500" appendTo="@(body)" closeOnEscape="true">
 		<h:form id="formNuevoEstudiante" styleClass="formulario">
+		
 			<p:panel id="pnlNuevoEstudiante">
 				<table class="formulario">
 									
@@ -31,7 +32,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCi" value="#{estudianteDataManager.estudiantePersonaInsertar.perCi}" style="width: 100%"
-								required="true" label="#{i18n['erp.matricula.estudiante.cedula']}">
+								required="true" label="#{i18n['erp.matricula.estudiante.cedula']}" onkeypress="return isNumberKey(event);">
 								<f:validateLength maximum="10" minimum="10"/>
 								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							</p:inputText>			
@@ -115,7 +116,7 @@
 					actionListener="#{estudianteController.registrarEstudiante}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoEstudiante.hide()"
 					process="@this,pnlNuevoEstudiante" update="pnlNuevoEstudiante,:formEstudiante:tablaEstudiante,:formEstudiante:pnlMessages"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoEstudiante.hide()" type="button" />
+				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{estudianteController.cancel}" process="@this" immediate="true" update="pnlNuevoEstudiante"/>
 			</p:panel>
 		</h:form>
 	</p:dialog>
