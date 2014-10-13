@@ -32,7 +32,7 @@ public class EstudianteDTO implements Serializable {
 
 	
 	//bi-directional many-to-one association to EstudianteRepresentanteDTO
-	@OneToMany(mappedBy="matEstudiante")
+	@OneToMany(mappedBy="matEstudiante",fetch=FetchType.LAZY)
 	private List<EstudianteRepresentanteDTO> matEstudianteRepresentantes;
 
 	//bi-directional many-to-one association to MatriculaDTO

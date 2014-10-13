@@ -63,20 +63,19 @@ public class RepresentanteDAOImpl extends AbstractFacadeImpl<RepresentanteDTO> i
 			criteriaList.add(predicate);
 		}
 		//por apellidos
-				if (!StringUtils.isEmpty(representante.getPerApellidos())) {
-					Expression<String> apellidoRepresentante = 
-							cb.upper(cb.literal
-									(UtilAplication.concatenarPorcenteje(representante.getPerApellidos())));
-					predicate = cb.like(cb.upper(from.<String>get("perApellidos")), apellidoRepresentante);
-					criteriaList.add(predicate);
-				}
+		if (!StringUtils.isEmpty(representante.getPerApellidos())) {
+			Expression<String> apellidoRepresentante = 
+					cb.upper(cb.literal
+							(UtilAplication.concatenarPorcenteje(representante.getPerApellidos())));
+			predicate = cb.like(cb.upper(from.<String>get("perApellidos")), apellidoRepresentante);
+			criteriaList.add(predicate);
+		}
 		//por empresa
-				if (representante.getRepEmpresa()!=null) {
-					predicate = cb.equal(from.get("repEmpresa"), representante.getRepEmpresa());
-					criteriaList.add(predicate);
-				}		
-		
-				
+		if (representante.getRepEmpresa()!=null) {
+			predicate = cb.equal(from.get("repEmpresa"), representante.getRepEmpresa());
+			criteriaList.add(predicate);
+		}		
+						
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		
 		TypedQuery<RepresentanteListDTO> typedQuery = entityManager.createQuery(select);
