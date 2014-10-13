@@ -1461,13 +1461,12 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	}
 	
 	@Override
-	public Double  calcularValorTotal(ContratoDTO contrato) throws SeguridadesException
+	public BigDecimal  calcularValorTotal(ContratoDTO contrato) throws SeguridadesException
 	{
 		slf4jLogger.info("calcularValorTotal");
-		Double valorTotal;										
+		BigDecimal valorTotal;
 		try{
-			valorTotal=Double.parseDouble(contrato.getConValorMes().toString())*contrato.getConMesesArrendamiento();
-		 
+			valorTotal=contrato.getConValorMes().multiply(BigDecimal.valueOf(contrato.getConMesesArrendamiento()));
 		}catch (Exception e) {
 			slf4jLogger.info("error al calcularValorTotal {}", e.toString());
 			throw new SeguridadesException(e);
