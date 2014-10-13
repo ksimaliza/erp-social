@@ -8,19 +8,17 @@
 	<p:dialog id="popUpNuevoContrato" header="#{i18n['erp.despacho.contrato.registrar']}" resizable="false" draggable="false"
 		widgetVar="dlgNuevoContrato" modal="true" width="500" minWidth="500" appendTo="@(body)">
 		<h:form id="formNuevoContrato" styleClass="formulario">
-		
-			<p:panel id="pnlNuevoContrato">
-				<table class="formulario">
-												
+			<p:panel id="pnlNuevoContrato" disabled="#{contratoDataManager.desactivado}"  >
+				<table class="formulario"  >
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtCi" value="#{i18n['erp.despacho.contrato.cedula']}" />
+							<h:outputLabel for="txtCi" value="#{i18n['erp.despacho.contrato.cedula']}"  />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCi" style="width: 70%" 
-								  value="#{contratoDataManager.difuntoInsertar.perCi}" >
+								  value="#{contratoDataManager.difuntoInsertar.perCi}"  >
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-							<p:ajax event="blur" update="txtNombres,txtApellidos,nicho,txtSeccionNicho,txtTipoNicho,txtNivelNicho" listener="#{contratoController.buscarDifunto}" process="@this"/>
+							<p:ajax event="blur" update="pnlNuevoContrato,txtNombres,txtApellidos,nicho,txtSeccionNicho,txtTipoNicho,txtNivelNicho" listener="#{contratoController.buscarDifunto}" process="@this"/>
 						</p:inputText>
 						</td>	
 					</tr>
@@ -31,7 +29,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNombres" label="#{i18n['erp.despacho.contrato.nombres']}" style="width: 70%"
-							value="#{contratoDataManager.difuntoInsertar.perNombres}" readonly="true"/>
+							value="#{contratoDataManager.difuntoInsertar.perNombres}" readonly="true" />
 						</td>
 					</tr>
 					<tr>
@@ -40,7 +38,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApellidos" label="#{i18n['erp.despacho.contrato.apellidos']}" style="width: 70%" 
-							value="#{contratoDataManager.difuntoInsertar.perApellidos}" readonly="true"/>
+							value="#{contratoDataManager.difuntoInsertar.perApellidos}" readonly="true" />
 						</td>
 					</tr>
 					
@@ -64,7 +62,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNombresBen" label="#{i18n['erp.despacho.contrato.nombres']}" style="width: 70%"
-							value="#{contratoDataManager.beneficiariInsertar.perNombres}" readonly="true"/>
+							value="#{contratoDataManager.beneficiariInsertar.perNombres}" />
 						</td>
 					</tr>
 					<tr>
@@ -73,17 +71,17 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApellidosBen" label="#{i18n['erp.despacho.contrato.apellidos']}" style="width: 70%" 
-							value="#{contratoDataManager.beneficiariInsertar.perApellidos}" readonly="true"/>
+							value="#{contratoDataManager.beneficiariInsertar.perApellidos}"  />
 						</td>
 					</tr>
 									
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtFechaInicio" value="#{i18n['erp.despacho.contrato.fecha.inicio']}" />
+							<h:outputLabel for="txtFechaInicio" value="#{i18n['erp.despacho.contrato.fecha.inicio']}"  />
 						</td>
 						<td width="70%">
 							<p:calendar id="txtFechaInicio" style="width: 70%" navigator="true"   showOn="button" required="true"
-							value="#{contratoDataManager.fechaInicio}"/>
+							value="#{contratoDataManager.fechaInicio}"  />
 						</td>
 					</tr>
 					<tr>
@@ -92,7 +90,7 @@
 						</td>
 						<td width="70%">
 							<p:calendar id="txtFechaFinalizacion" style="width: 70%" navigator="true"   showOn="button" required="true"
-							value="#{contratoDataManager.fechaFin}"/>
+							value="#{contratoDataManager.fechaFin}"  />
 						</td>
 					</tr>
 					
@@ -102,7 +100,7 @@
 						</td>
 						<td width="70%">
 							<h:inputText id="nicho"  style="width: 70%" 
-							value="#{contratoDataManager.sepulturaListDTO.nicDescripcion}" readonly="true"/>
+							value="#{contratoDataManager.sepulturaListDTO.nicDescripcion}" readonly="true" disabled="#{contratoDataManager.desactivado}"  />
 						</td>
 					</tr>
 					
@@ -113,7 +111,7 @@
 						</td>
 						<td width="70%">
 							<h:inputText id="txtSeccionNicho"  style="width: 70%" 
-							value="#{contratoDataManager.sepulturaListDTO.seccion}" readonly="true"/>
+							value="#{contratoDataManager.sepulturaListDTO.seccion}" readonly="true" />
 						</td>
 					</tr>
 					
@@ -165,13 +163,13 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtValorTotal" style="width: 70%" 
-								 label="#{i18n['erp.despacho.contrato.valor.total']}" value="#{contratoDataManager.contratoDTO.conValorTotal}" readonly="true">
+								 label="#{i18n['erp.despacho.contrato.valor.total']}" value="#{contratoDataManager.contratoDTO.conValorTotal}" readonly="true" onkeypress="return NumCheck(event,this)">
 							</p:inputText>
 						</td>	
 					</tr>
 					
 					<tr >
-						<td width="30%">
+						<td>
 						
 							<h:outputLabel value="#{i18n['erp.despacho.contrato.forma.pago']}"  /> 
 						
@@ -204,7 +202,7 @@
 					actionListener="#{contratoController.registrarContrato}"
 					process="@this,pnlNuevoContrato" update="pnlNuevoContrato,:formContrato:pnlMessages,:formContrato:tablaContrato,pnlBotones"/>
 					
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoContrato.hide()" type="button" />
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoContrato.hide()" type="button" actionListener="#{contratoController.cancelar}" update="pnlNuevoContrato" />
 				<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{contratoController.exportar}" icon="exportPdf" ajax="false"
 				disabled="#{contratoDataManager.exportDesactivado}"/>
 				
