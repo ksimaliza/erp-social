@@ -109,7 +109,29 @@
 						</p:inputText>
 						</td>	
 					</tr>
-					
+
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="somRepresentante" value="Representante:" />
+						</td>
+						<td width="70%">
+							<p:selectOneMenu id="somRepresentante">
+							
+							</p:selectOneMenu>
+						</td>	
+					</tr>
+
+					<tr>
+						<td width="30%">
+							<h:outputLabel value="Representante:" />
+						</td>
+						<td width="70%">
+							<p:selectOneMenu style="width:70%;" required="true">
+								<f:selectItem itemLabel="--Seleccione--"/>
+								<f:selectItems value="#{estudianteDataManager.representanteList}" var="rep" itemValue="#{rep.repCodigo}" itemLabel="#{rep.perApellidos} #{rep.perNombres}"/>
+							</p:selectOneMenu>
+						</td>	
+					</tr>					
 					
 				</table>
 			</p:panel>
@@ -118,7 +140,7 @@
 					actionListener="#{estudianteController.registrarEstudiante}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarEstudiante.hide()"
 					process="@this,pnlEditarEstudiante" update="pnlEditarEstudiante,:formEstudiante:pnlMessages,:formEstudiante:tablaEstudiante"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarEstudiante.hide()" type="button" />
+				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{estudianteController.cancel}" process="@this" immediate="true" update="pnlEditarEstudiante"/>
 			</p:panel>
 		</h:form>
 	</p:dialog>

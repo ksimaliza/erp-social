@@ -107,6 +107,17 @@
 							</p:inputText>
 						</td>	
 					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="somRepresentante" value="Representante:" />
+						</td>
+						<td width="70%">
+							<p:selectOneMenu id="somRepresentante" style="width:70%;" value="#{estudianteDataManager.representanteCode}">
+								<f:selectItem itemLabel="--Seleccione--"/>
+								<f:selectItems value="#{estudianteController.estudianteDataManager.representanteList}" var="rep" itemValue="#{rep.repCodigo}" itemLabel="#{rep.perApellidos} #{rep.perNombres}"/>
+							</p:selectOneMenu>
+						</td>	
+					</tr>
 					
 										
 				</table>
