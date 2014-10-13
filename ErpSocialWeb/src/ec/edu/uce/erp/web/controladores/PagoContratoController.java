@@ -213,7 +213,8 @@ public class PagoContratoController extends BaseController {
 		slf4jLogger.info("calcularValorPagar");
 		BigDecimal valorPagar;
 		try {
-		valorPagar=servicioEucaristia.calcularValorPagar(pagoContratoDataManager.getPagoDTO(),pagoContratoDataManager.getContratoListDTO());		
+		valorPagar=new BigDecimal(servicioEucaristia.calcularValorPagar(pagoContratoDataManager.getPagoDTO(),pagoContratoDataManager.getContratoListDTO()).doubleValue());		
+		valorPagar = valorPagar.setScale(2, BigDecimal.ROUND_UP);
 		pagoContratoDataManager.getPagoDTO().setPagValorPagado(valorPagar);
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al calcularValorPagar {}", e.getMessage());
@@ -231,8 +232,6 @@ public class PagoContratoController extends BaseController {
 		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
-	
-	
 		mapParametros.put("beneficiario", pagoContratoDataManager.getPagoContratoListDTOEditar().getBennombres()+" "+pagoContratoDataManager.getPagoContratoListDTOEditar().getBenapellidos());
 		mapParametros.put("beneficiarioCedula", pagoContratoDataManager.getPagoContratoListDTOEditar().getBenci());
 		mapParametros.put("difunto", pagoContratoDataManager.getPagoContratoListDTOEditar().getPerNombres()+" "+pagoContratoDataManager.getPagoContratoListDTOEditar().getPerApellidos());

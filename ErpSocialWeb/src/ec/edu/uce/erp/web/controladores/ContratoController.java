@@ -70,21 +70,14 @@ public ContratoController() {
 	@PostConstruct
 	public void inicializarObjetos () {
 		buscarFormaPago();
-		
-	
 	}
 	
 	
 	public void registrarContrato () {
-		
 		slf4jLogger.info("registrarContrato");
-		
 		ContratoVO contratoVO;
-		
 		CatalogoEucaristiaDTO formaPago;
-
 		try {
-			
 			contratoVO=new ContratoVO();
 			formaPago=new CatalogoEucaristiaDTO();
 			contratoVO.setContratoDTO(contratoDataManager.getContratoDTO());
@@ -151,7 +144,9 @@ public ContratoController() {
 				list=this.servicioEucaristia.readSepultura(difunto);
 				
 				if ((CollectionUtils.isEmpty(listaDifunto) && listaDifunto.size()==0)||CollectionUtils.isEmpty(list) && list.size()==0) {
-					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+					contratoDataManager.setDesactivado(true);
+					MensajesWebController.aniadirMensajeAdvertencia("Difunto no Encontrado. Ingresar información en Defunción");
+					
 				} else {
 					contratoDataManager.setDifuntoInsertar(listaDifunto.get(0));
 					contratoDataManager.setSepulturaListDTO(list.get(0));
@@ -176,14 +171,14 @@ public ContratoController() {
 			listaCatalogo=this.servicioEucaristia.buscarCatalogo(cat);
 			
 			if (CollectionUtils.isEmpty(listaCatalogo) && listaCatalogo.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				
 			} else {
 				this.contratoDataManager.setFormaPagoListDTOs(listaCatalogo);
 			}
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarFormaPago {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
+			//MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 		
 	}
@@ -208,25 +203,24 @@ public ContratoController() {
 	
 	public void buscarBeneficiario () {
 		slf4jLogger.info("buscarBeneficiario");
-		
 		List<Persona> listaBautizado=null;
-		
 		try {
-			contratoDataManager.getBeneficiariInsertar().setPerNombres(null);
-			contratoDataManager.getBeneficiariInsertar().setPerApellidos(null);
-
-			listaBautizado=this.servicioAdministracion.buscarPersona(contratoDataManager.getBeneficiariInsertar());
-							
-			if (CollectionUtils.isEmpty(listaBautizado) && listaBautizado.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.contratoDataManager.setBeneficiariInsertar(listaBautizado.get(0));
-							
+			if(contratoDataManager.getBeneficiariInsertar().getPerCi()!=null && contratoDataManager.getBeneficiariInsertar().getPerCi()!="" )
+			{
+				contratoDataManager.getBeneficiariInsertar().setPerNombres(null);
+				contratoDataManager.getBeneficiariInsertar().setPerApellidos(null);
+	
+				listaBautizado=this.servicioAdministracion.buscarPersona(contratoDataManager.getBeneficiariInsertar());
+								
+				if (CollectionUtils.isEmpty(listaBautizado) && listaBautizado.size()==0) {
+					//MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.contratoDataManager.setBeneficiariInsertar(listaBautizado.get(0));
+				}
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarBeneficiario {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
+			//MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 		
 	}
@@ -234,10 +228,11 @@ public ContratoController() {
 	public void calcularValorTotal()
 	{
 		slf4jLogger.info("calcularValorTotal");
-		Double valorTotal;
+		BigDecimal valor;
 		try {
-		valorTotal=servicioEucaristia.calcularValorTotal(contratoDataManager.getContratoDTO());		
-		contratoDataManager.getContratoDTO().setConValorTotal(BigDecimal.valueOf(valorTotal));
+		valor=new BigDecimal(servicioEucaristia.calcularValorTotal(contratoDataManager.getContratoDTO()).doubleValue());
+		valor = valor.setScale(2, BigDecimal.ROUND_UP);
+		contratoDataManager.getContratoDTO().setConValorTotal(valor);
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al calcularValorTotal {}", e.getMessage());
 			MensajesWebController.aniadirMensajeError("Error al calcularValorTotal seleccionado");
@@ -302,4 +297,14 @@ public ContratoController() {
 		
 	}
 	
+	public void cancelar()
+	{
+		contratoDataManager.setContratoDTO(new ContratoDTO());
+		contratoDataManager.setNichoCodigo(0);
+		contratoDataManager.setFormaPagoCodigo(0);
+		contratoDataManager.setFechaFin(new Date());
+		contratoDataManager.setFechaInicio(new Date());
+		contratoDataManager.setBeneficiariInsertar(new Persona());
+	
+	}
 }
