@@ -225,13 +225,14 @@ public interface ServicioEucaristia {
 	ContratoDTO createOrUpdateContrato(ContratoVO contratoVO)
 			throws SeguridadesException;
 
-	Double calcularValorTotal(ContratoDTO contrato) throws SeguridadesException;
-
 	BigDecimal calcularSaldo(PagoDTO pago) throws SeguridadesException;
 
 	Integer calcularMeses(PagoDTO pago) throws SeguridadesException;
 
 	BigDecimal calcularValorPagar(PagoDTO pago, ContratoListDTO contrato)
+			throws SeguridadesException;
+
+	BigDecimal calcularValorTotal(ContratoDTO contrato)
 			throws SeguridadesException;
 
 	
