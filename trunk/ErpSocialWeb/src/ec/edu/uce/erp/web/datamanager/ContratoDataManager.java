@@ -45,6 +45,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 	private Boolean exportDesactivado;
 	private CatalogoEucaristiaDTO formaPagoList;
 	private List<SepulturaListDTO> sepulturaListDTOs;
+	private Boolean desactivado;
 	
 	
 	@PostConstruct
@@ -65,6 +66,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 		this.nichoDTOEditar=new NichoDTO();
 		exportDesactivado=true;
 		this.formaPagoList=new CatalogoEucaristiaDTO();
+		desactivado=false;
 	}
 
 	public Persona getDifuntoInsertar() {
@@ -230,6 +232,14 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 
 	public List<SepulturaListDTO> getSepulturaListDTOs() {
 		return sepulturaListDTOs;
+	}
+
+	public Boolean getDesactivado() {
+		return desactivado;
+	}
+
+	public void setDesactivado(Boolean desactivado) {
+		this.desactivado = desactivado;
 	}
 
 	public void setSepulturaListDTOs(List<SepulturaListDTO> sepulturaListDTOs) {

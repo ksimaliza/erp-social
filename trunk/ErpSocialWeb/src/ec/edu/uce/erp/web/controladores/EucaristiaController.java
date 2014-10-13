@@ -102,12 +102,11 @@ public void buscar() {
 	slf4jLogger.info("buscarEucaristia");
 	List<EucaristiaListDTO> listResultado=new ArrayList<EucaristiaListDTO>();
 	FiltroFechaDTO filtro;
-	;
+	
 	try {
 		filtro=new FiltroFechaDTO();
 		if(this.eucaristiaDataManager.getFecha()!=null)
 		{	
-		
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(this.eucaristiaDataManager.getFecha());
 		
