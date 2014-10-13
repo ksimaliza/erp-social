@@ -62,7 +62,7 @@ public class RepresentanteController extends BaseController{
 				representanteDataManager.setPersonaInstancia(new Persona());
 				MensajesWebController.aniadirMensajeInformacion("erp.matricula.representante.registrar.exito");
 			}
-			
+			buscarRepresentantes();
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
 			MensajesWebController.aniadirMensajeError(e.getMessage());
