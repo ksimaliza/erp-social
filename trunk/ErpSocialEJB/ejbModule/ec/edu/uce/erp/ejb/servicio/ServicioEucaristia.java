@@ -16,6 +16,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.Defuncion1ListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO;
@@ -234,7 +235,6 @@ public interface ServicioEucaristia {
 
 	BigDecimal calcularValorTotal(ContratoDTO contrato)
 			throws SeguridadesException;
-
 	
 		
 

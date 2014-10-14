@@ -25,15 +25,6 @@ public class DefuncionListDTO implements Serializable {
 	@Column(name="cat_provincia")
 	private String catProvincia;
 
-	@Column(name="con_apellidos")
-	private String conApellidos;
-
-	@Column(name="con_ci")
-	private String conCi;
-
-	@Column(name="con_nombres")
-	private String conNombres;
-
 	@Column(name="def_acta")
 	private String defActa;
 
@@ -193,30 +184,6 @@ public class DefuncionListDTO implements Serializable {
 
 	public void setCatProvincia(String catProvincia) {
 		this.catProvincia = catProvincia;
-	}
-
-	public String getConApellidos() {
-		return this.conApellidos;
-	}
-
-	public void setConApellidos(String conApellidos) {
-		this.conApellidos = conApellidos;
-	}
-
-	public String getConCi() {
-		return this.conCi;
-	}
-
-	public void setConCi(String conCi) {
-		this.conCi = conCi;
-	}
-
-	public String getConNombres() {
-		return this.conNombres;
-	}
-
-	public void setConNombres(String conNombres) {
-		this.conNombres = conNombres;
 	}
 
 	public String getDefActa() {
