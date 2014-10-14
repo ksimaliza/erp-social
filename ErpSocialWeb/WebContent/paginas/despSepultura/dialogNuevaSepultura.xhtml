@@ -111,7 +111,7 @@
 					actionListener="#{sepulturaController.registrarSepultura}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaSepultura.hide()"
 					process="@this,pnlNuevaSepultura" update="pnlNuevaSepultura,:formSepultura:pnlMessages,:formSepultura:tablaSepultura" disabled="#{sepulturaDataManager.desactivado}"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{sepulturaController.cancel}" process="@this" immediate="true" update="pnlNuevaSepultura"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{sepulturaController.cancel}" process="@this" immediate="true" update="pnlNuevaSepultura,pnlBotones"/>
 			</p:panel>
 		</h:form>
 	</p:dialog>

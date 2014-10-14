@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="partidaMatrimonio" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ffbea6fa-01cf-4c50-a0f6-0e07021ca6b0">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="441"/>
+	<property name="ireport.y" value="384"/>
 	<parameter name="canton" class="java.lang.String"/>
 	<parameter name="parroquia" class="java.lang.String"/>
 	<parameter name="tomo" class="java.lang.String"/>
@@ -122,7 +122,7 @@
 				<text><![CDATA[CON LA SEÑORITA:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="213" y="784" width="165" height="18" uuid="089e3fc5-6458-47f0-b130-4a8da26fc710"/>
+				<reportElement x="206" y="772" width="165" height="18" uuid="089e3fc5-6458-47f0-b130-4a8da26fc710"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
