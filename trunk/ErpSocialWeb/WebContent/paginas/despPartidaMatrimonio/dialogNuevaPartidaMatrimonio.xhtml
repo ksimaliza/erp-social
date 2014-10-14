@@ -555,7 +555,7 @@
 					actionListener="#{partidaMatrimonioController.registrarMatrimonio}"
 					
 					process="@this,pnlNuevaPartidaMatrimonio,pnlDatos,pnlDatosPadrinoNovio,pnlDatosMadrinaNovio,pnlDatosNovia,pnlDatosMadrinaNovia,pnlDatosPadrinoNovia,pnlDatos,pnlDatosMatrimonio" update="pnlNuevaPartidaMatrimonio,pnlDatos,pnlDatosPadrinoNovio,pnlDatosMadrinaNovio,pnlDatosNovia,pnlDatosMadrinaNovia,pnlDatosPadrinoNovia,pnlDatos,pnlDatosMatrimonio,:formPartidaMatrimonio:pnlMessages,:formPartidaMatrimonio:tablaPartidaMatrimonio,pnlBotones"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaPartidaMatrimonio.hide()" type="button" />
+				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{partidaMatrimonioController.cancel}" process="@this" immediate="true" update="pnlNuevaPartidaMatrimonio,pnlDatos,pnlDatosMatrimonio,pnlDatosMadrinaNovia,pnlDatosPadrinoNovia,pnlDatosNovia,pnlDatosMadrinaNovio,pnlDatosPadrinoNovio"/>
 				<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{partidaMatrimonioController.exportar}" icon="exportPdf" ajax="false"
 				disabled="#{partidaMatrimonioDataManager.exportDesactivado}" />
 			</p:panel>

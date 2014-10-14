@@ -121,6 +121,18 @@
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
 					</h:panelGroup>
+					<h:panelGroup>
+						<h:outputText value="&#160;|&#160;" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.exportar.pdf']}"
+							actionListener= "#{partidaConfirmacionController.exportarPdf(confirmacion)}"
+							process="@this" ajax="false">
+							<h:graphicImage value="/resources/img/pdf.png" alt="exportPdf"/>
+						</p:commandLink>
+					</h:panelGroup>	
+					
 					</p:column>
 			</p:dataTable>			
 	

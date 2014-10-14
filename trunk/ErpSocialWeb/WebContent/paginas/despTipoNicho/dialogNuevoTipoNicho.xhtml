@@ -30,7 +30,7 @@
 					actionListener="#{tipoNichoController.registrarTipoNicho}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoTipoNicho.hide()"
 					process="@this,pnlNuevoTipoNicho" update="pnlNuevoTipoNicho,:formTipoNicho:pnlMessages,:formTipoNicho:tablaTipoNicho"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoTipoNicho.hide()" type="button" />
+				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{tipoController.cancel}" process="@this" immediate="true" update="pnlNuevoTipoNicho"/>
 			</p:panel>
 		</h:form>
 	</p:dialog>

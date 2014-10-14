@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comprobanteContrato" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b259b1fb-2886-42ac-9875-22ee5fce1ec1">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="188"/>
+	<property name="ireport.y" value="0"/>
 	<property name="ireport.callouts" value="##Sat Sep 13 12:06:56 COT 2014"/>
 	<parameter name="parroquia" class="java.lang.String">
 		<parameterDescription><![CDATA[]]></parameterDescription>
@@ -21,282 +21,282 @@
 	<parameter name="parroquiaEncabezado" class="java.lang.String"/>
 	<parameter name="fechaInicio" class="java.lang.String"/>
 	<title>
-		<band height="612" splitType="Stretch">
+		<band height="778" splitType="Stretch">
 			<staticText>
-				<reportElement x="109" y="46" width="362" height="24" uuid="b127bd03-e80b-45ef-b325-16d2686fafb0"/>
+				<reportElement x="112" y="135" width="362" height="24" uuid="b127bd03-e80b-45ef-b325-16d2686fafb0"/>
 				<textElement>
 					<font size="18" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CONTRATO DE OCUPACIÓN DE NICHO]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="25" y="91" width="57" height="20" uuid="7f872c40-3edc-46ab-918f-fcb64d38c032"/>
+				<reportElement x="28" y="180" width="57" height="20" uuid="7f872c40-3edc-46ab-918f-fcb64d38c032"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="288" y="91" width="108" height="20" uuid="96c90390-f952-489d-9d46-ea45b47259b3"/>
+				<reportElement x="291" y="180" width="108" height="20" uuid="96c90390-f952-489d-9d46-ea45b47259b3"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[, se hace presente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="83" y="91" width="103" height="20" uuid="cfa6714a-a44c-4222-9d99-e91409edb997"/>
+				<reportElement x="86" y="180" width="103" height="20" uuid="cfa6714a-a44c-4222-9d99-e91409edb997"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[en la Parroquia de]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="10" y="91" width="17" height="20" uuid="a9f156c7-9f67-42a2-813c-8462028e53a9"/>
+				<reportElement x="13" y="180" width="17" height="20" uuid="a9f156c7-9f67-42a2-813c-8462028e53a9"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Al ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="8" y="112" width="236" height="20" uuid="3cf8ef18-e1f6-430e-bb9e-077ff43df241"/>
+				<reportElement x="11" y="201" width="236" height="20" uuid="3cf8ef18-e1f6-430e-bb9e-077ff43df241"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[ portador(a) de la cédula de identidad No. ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="221" y="177" width="185" height="20" uuid="42db24d6-422e-4f1f-af3a-abb9900bc848"/>
+				<reportElement x="224" y="266" width="185" height="20" uuid="42db24d6-422e-4f1f-af3a-abb9900bc848"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{numeroNicho}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="93" y="217" width="64" height="20" uuid="13817679-18b3-4579-aa03-9bfa49ca5d6e"/>
+				<reportElement x="96" y="306" width="64" height="20" uuid="13817679-18b3-4579-aa03-9bfa49ca5d6e"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nivel:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="8" y="322" width="499" height="21" uuid="5246151f-e0a1-423f-a44d-912061ef76da"/>
+				<reportElement x="11" y="411" width="499" height="21" uuid="5246151f-e0a1-423f-a44d-912061ef76da"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[La forma de pago es                                de acuerdo a la firma del presente convenio.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="361" y="277" width="92" height="20" uuid="34664ffb-9643-4573-8356-1d7c7d48c4ca"/>
+				<reportElement x="364" y="366" width="92" height="20" uuid="34664ffb-9643-4573-8356-1d7c7d48c4ca"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[dólares por mes]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="93" y="177" width="64" height="20" uuid="888d4d11-fc52-4dfd-a205-7f54aaaf2140"/>
+				<reportElement x="96" y="266" width="64" height="20" uuid="888d4d11-fc52-4dfd-a205-7f54aaaf2140"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Número:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="93" y="157" width="43" height="20" uuid="48278225-5b75-4f7d-b39b-6c5ffd087788"/>
+				<reportElement x="96" y="246" width="43" height="20" uuid="48278225-5b75-4f7d-b39b-6c5ffd087788"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tipo:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="93" y="237" width="64" height="20" uuid="2096289a-6eba-45d1-a91a-ffbb5f458a3f"/>
+				<reportElement x="96" y="326" width="64" height="20" uuid="2096289a-6eba-45d1-a91a-ffbb5f458a3f"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Para:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="93" y="197" width="64" height="20" uuid="ce142116-c2cf-45d3-b98c-90d5a9e7eacc"/>
+				<reportElement x="96" y="286" width="64" height="20" uuid="ce142116-c2cf-45d3-b98c-90d5a9e7eacc"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Sección:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="221" y="157" width="185" height="20" uuid="d9b9a266-6b64-40f2-b081-a9cc84abb4a4"/>
+				<reportElement x="224" y="246" width="185" height="20" uuid="d9b9a266-6b64-40f2-b081-a9cc84abb4a4"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{tipoNicho}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="147" y="297" width="183" height="20" uuid="44cb403f-0821-44b8-ba56-abed1fe0c914"/>
+				<reportElement x="150" y="386" width="183" height="20" uuid="44cb403f-0821-44b8-ba56-abed1fe0c914"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[meses, el pago será a partir del:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="321" y="277" width="46" height="20" uuid="fcde8c5b-84ee-4005-ab13-5a890fe07297"/>
+				<reportElement x="324" y="366" width="46" height="20" uuid="fcde8c5b-84ee-4005-ab13-5a890fe07297"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{valorPagar}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="221" y="217" width="185" height="20" uuid="18febabb-ca6b-49c3-8f28-a0de419400ae"/>
+				<reportElement x="224" y="306" width="185" height="20" uuid="18febabb-ca6b-49c3-8f28-a0de419400ae"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{nivelNicho}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="221" y="197" width="185" height="20" uuid="6a2cfc3f-3a5a-4d54-b72c-0a64d52958cb"/>
+				<reportElement x="224" y="286" width="185" height="20" uuid="6a2cfc3f-3a5a-4d54-b72c-0a64d52958cb"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{seccionNicho}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="8" y="277" width="308" height="20" uuid="2a7b1a91-c8f4-4e36-9739-d790342e4ec5"/>
+				<reportElement x="11" y="366" width="308" height="20" uuid="2a7b1a91-c8f4-4e36-9739-d790342e4ec5"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[El costo de ocupación del Nicho por arriendo es de:    $]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="8" y="297" width="109" height="20" uuid="54ff0f64-ca45-4a36-9c37-a3dba24ee2d9"/>
+				<reportElement x="11" y="386" width="109" height="20" uuid="54ff0f64-ca45-4a36-9c37-a3dba24ee2d9"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[para un tiempo de :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="353" width="539" height="18" uuid="e024af5b-3345-4829-8dab-e30ba6e20a57"/>
+				<reportElement x="12" y="442" width="539" height="18" uuid="e024af5b-3345-4829-8dab-e30ba6e20a57"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Se compromete asistir a las mingas, reuniones y actividades varias para el arreglo digno y propio ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="9" y="370" width="549" height="18" uuid="bc9b3705-1473-4763-ad94-79e06960ca53"/>
+				<reportElement x="12" y="459" width="549" height="18" uuid="bc9b3705-1473-4763-ad94-79e06960ca53"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[del cementario. Además se compromete acatar las políticas y el reglamento interno del cementerio.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="385" y="544" width="76" height="18" uuid="f4194911-ca8c-48d5-b4dd-347f252b2296"/>
+				<reportElement x="388" y="633" width="76" height="18" uuid="f4194911-ca8c-48d5-b4dd-347f252b2296"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Arrendatario]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="52" y="562" width="145" height="18" uuid="a4247bb9-b8be-4d8f-95b2-b89888dcf94d"/>
+				<reportElement x="55" y="651" width="145" height="18" uuid="a4247bb9-b8be-4d8f-95b2-b89888dcf94d"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Firma y Sello Encargado]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="8" y="399" width="544" height="18" uuid="a309b495-e0e4-451d-99af-4258d460bac1"/>
+				<reportElement x="11" y="488" width="544" height="18" uuid="a309b495-e0e4-451d-99af-4258d460bac1"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[De no cumplir con sus obligaciones de acuerdo a las políticas o reglamento el mencionado nicho ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="7" y="450" width="179" height="18" uuid="67bec4b1-6804-4200-943a-ea23ca684bc1"/>
+				<reportElement x="10" y="539" width="179" height="18" uuid="67bec4b1-6804-4200-943a-ea23ca684bc1"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Así lo acordamos y firmamos:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="8" y="414" width="524" height="18" uuid="f5ed22f7-d47a-4f21-9c27-6dcfa035752f"/>
+				<reportElement x="11" y="503" width="524" height="18" uuid="f5ed22f7-d47a-4f21-9c27-6dcfa035752f"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[podría volver a disposición.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="335" y="112" width="178" height="20" uuid="dd2a19dc-a63c-4428-8162-0bfb3af383af"/>
+				<reportElement x="338" y="201" width="178" height="20" uuid="dd2a19dc-a63c-4428-8162-0bfb3af383af"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[para la contratación del Nicho:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="118" y="297" width="30" height="20" uuid="1b73a14e-9c62-4272-be8b-bc28c312d147"/>
+				<reportElement x="121" y="386" width="30" height="20" uuid="1b73a14e-9c62-4272-be8b-bc28c312d147"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{mesesArrendamiento}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="157" y="12" width="129" height="24" uuid="21be2390-34c8-447e-b8b5-87e7861bc0df"/>
+				<reportElement x="171" y="101" width="129" height="24" uuid="21be2390-34c8-447e-b8b5-87e7861bc0df"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PARROQUIA  DE ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="127" y="323" width="100" height="20" uuid="62faa78b-663c-4f84-84a3-ad3ede32b39b"/>
+				<reportElement x="130" y="412" width="100" height="20" uuid="62faa78b-663c-4f84-84a3-ad3ede32b39b"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{formaPago}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="221" y="237" width="245" height="20" uuid="44bf9ce5-533a-429c-a170-c8a8952e3eec"/>
+				<reportElement x="224" y="326" width="245" height="20" uuid="44bf9ce5-533a-429c-a170-c8a8952e3eec"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{difunto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="296" y="12" width="165" height="24" uuid="28327413-2850-4875-889e-f1d8e8329ec6"/>
+				<reportElement x="303" y="101" width="165" height="24" uuid="28327413-2850-4875-889e-f1d8e8329ec6"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{parroquiaEncabezado}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="189" y="91" width="100" height="20" uuid="3b36322b-c635-4e64-9f99-5872721078b0"/>
+				<reportElement x="192" y="180" width="100" height="20" uuid="3b36322b-c635-4e64-9f99-5872721078b0"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{parroquia}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="395" y="91" width="153" height="20" uuid="978942da-2675-40a1-bbcb-c6809605dd84"/>
+				<reportElement x="398" y="180" width="153" height="20" uuid="978942da-2675-40a1-bbcb-c6809605dd84"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{beneficiario}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="238" y="112" width="97" height="20" uuid="ffd63f47-ef5a-4cdd-8da3-96d1626a3a14"/>
+				<reportElement x="241" y="201" width="97" height="20" uuid="ffd63f47-ef5a-4cdd-8da3-96d1626a3a14"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{beneficiarioCedula}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="353" y="560" width="162" height="20" uuid="91e6b471-d7c7-4eb2-844e-3ee44c5cccb1"/>
+				<reportElement x="356" y="649" width="162" height="20" uuid="91e6b471-d7c7-4eb2-844e-3ee44c5cccb1"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{beneficiario}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="375" y="580" width="100" height="20" uuid="7e097e7e-ecb8-47fd-ba42-1c7087f9d818"/>
+				<reportElement x="378" y="669" width="100" height="20" uuid="7e097e7e-ecb8-47fd-ba42-1c7087f9d818"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{beneficiarioCedula}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="329" y="297" width="132" height="20" uuid="972be05d-34f9-4f2d-afdb-a89016a0f5a3"/>
+				<reportElement x="332" y="386" width="132" height="20" uuid="972be05d-34f9-4f2d-afdb-a89016a0f5a3"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>

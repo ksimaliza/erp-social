@@ -30,7 +30,7 @@
 					actionListener="#{nivelNichoController.registrarNivelNicho}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoNivelNicho.hide()"
 					process="@this,pnlNuevoNivelNicho" update="pnlNuevoNivelNicho,:formNivelNicho:pnlMessages,:formNivelNicho:tablaNivelNicho"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoNivelNicho.hide()" type="button" />
+				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{nivelController.cancel}" process="@this" immediate="true" update="pnlNuevoNivelNicho"/>
 			</p:panel>
 		</h:form>
 	</p:dialog>

@@ -59,7 +59,7 @@
 					actionListener="#{eucaristiaController.registrarEucaristia}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaEucaristia.hide()"
 					process="@this,pnlNuevaEucaristia" update="pnlNuevaEucaristia,:formEucaristia:pnlMessages,:formEucaristia:tablaEucaristia"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaEucaristia.hide()" type="button" />
+				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{eucaristiaController.cancel}" process="@this" immediate="true" update="pnlNuevaEucaristia"/>
 			</p:panel>
 		</h:form>
 	</p:dialog>

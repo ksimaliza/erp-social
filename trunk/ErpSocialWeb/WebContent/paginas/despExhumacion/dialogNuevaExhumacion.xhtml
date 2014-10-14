@@ -18,9 +18,9 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCi" style="width: 70%" 
-								 required="true" value="#{exhumacionDataManager.difuntoInsertar.perCi}" >
+								 required="true" value="#{exhumacionDataManager.difuntoInsertar.perCi}" disabled="#{exhumacionDataManager.desactivado}">
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-							<p:ajax event="blur" update="txtNombres,txtApellidos,txtFechaSepelio" listener="#{exhumacionController.buscarDifunto}" process="@this"/>
+							<p:ajax event="blur" update="txtNombres,txtApellidos,txtFechaSepelio,txtPagina,txtFechaSepelio,autoriza,txtCausa,txtFechaExhumacion,txtTomo,txtActa,txtPagina" listener="#{exhumacionController.buscarDifunto}" process="@this"/>
 						</p:inputText>
 						</td>	
 					</tr>
@@ -31,7 +31,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNombres" label="#{i18n['erp.despacho.exhumacion.nombres']}" style="width: 70%" 
-							value="#{exhumacionDataManager.difuntoInsertar.perNombres}" readonly="true"/>
+							value="#{exhumacionDataManager.difuntoInsertar.perNombres}" disabled="#{exhumacionDataManager.desactivado}" readonly="true"/>
 						</td>
 					</tr>
 					<tr>
@@ -41,7 +41,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApellidos" label="#{i18n['erp.despacho.exhumacion.apellidos']}" style="width: 70%"
-							value="#{exhumacionDataManager.difuntoInsertar.perApellidos}"  readonly="true"/>
+							value="#{exhumacionDataManager.difuntoInsertar.perApellidos}"  disabled="#{exhumacionDataManager.desactivado}" readonly="true"/>
 						</td>
 					</tr>
 					
@@ -51,7 +51,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtFechaSepelio" label="#{i18n['erp.despacho.exhumacion.apellidos']}" style="width: 70%"
-							value="#{fn:substring(exhumacionDataManager.defuncionListDTO.defFecha,0,10)}" readonly="true" />
+							value="#{fn:substring(exhumacionDataManager.defuncionListDTO.defFecha,0,10)}" readonly="true" disabled="#{exhumacionDataManager.desactivado}" />
 						</td>
 					</tr>
 					
@@ -63,7 +63,7 @@
 						
 						</td>
 					<td width="70%">
-					<p:selectOneMenu id="autoriza" value="#{exhumacionDataManager.autorizaCodigo}" filter="true" required="true" >
+					<p:selectOneMenu id="autoriza" value="#{exhumacionDataManager.autorizaCodigo}" filter="true" disabled="#{exhumacionDataManager.desactivado}" required="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{exhumacionController.exhumacionDataManager.autorizaExhumacionListDTOs}" var="aut" itemLabel="#{aut.perNombres} #{aut.perApellidos}" itemValue="#{aut.autCodigo}"/>
 							</p:selectOneMenu>
@@ -73,7 +73,7 @@
 					
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtCausa" value="#{i18n['erp.despacho.exhumacion.causa']}" />
+							<h:outputLabel for="txtCausa" value="#{i18n['erp.despacho.exhumacion.causa']}" disabled="#{exhumacionDataManager.desactivado}" />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCausa" style="width: 70%" 
@@ -87,7 +87,7 @@
 							<h:outputLabel for="txtFechaExhumacion" value="#{i18n['erp.despacho.exhumacion.fecha.exhumacion']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFechaExhumacion" style="width: 70%" navigator="true"   showOn="button" required="true" value="#{exhumacionDataManager.fechaExhumacion}"/>
+							<p:calendar id="txtFechaExhumacion" style="width: 70%" navigator="true"   showOn="button" required="true" value="#{exhumacionDataManager.fechaExhumacion}" disabled="#{exhumacionDataManager.desactivado}"/>
 						</td>
 					</tr>
 						
@@ -97,7 +97,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtTomo" style="width: 70%" 
-								 label="#{i18n['erp.despacho.exhumacion.tomo']}" value="#{exhumacionDataManager.exumacionDTO.exuTomo}">
+								 label="#{i18n['erp.despacho.exhumacion.tomo']}" value="#{exhumacionDataManager.exumacionDTO.exuTomo}" disabled="#{exhumacionDataManager.desactivado}">
 						</p:inputText>
 						</td>	
 					</tr>
@@ -108,7 +108,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtActa" style="width: 70%" 
-								 label="#{i18n['erp.despacho.exhumacion.acta']}" value="#{exhumacionDataManager.exumacionDTO.exuActa}">
+								 label="#{i18n['erp.despacho.exhumacion.acta']}" value="#{exhumacionDataManager.exumacionDTO.exuActa}" disabled="#{exhumacionDataManager.desactivado}">
 						</p:inputText>
 						</td>	
 					</tr>
@@ -119,7 +119,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtPagina" style="width: 70%" 
-								onkeypress="return isNumberKey(event)" label="#{i18n['erp.despacho.exhumacion.pagina']}" value="#{exhumacionDataManager.exumacionDTO.exuPagina}" >
+								onkeypress="return isNumberKey(event)" label="#{i18n['erp.despacho.exhumacion.pagina']}" value="#{exhumacionDataManager.exumacionDTO.exuPagina}" disabled="#{exhumacionDataManager.desactivado}" >
 						</p:inputText>
 						</td>	
 					</tr>
