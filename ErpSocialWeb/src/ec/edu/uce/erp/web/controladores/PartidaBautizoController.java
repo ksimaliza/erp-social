@@ -457,6 +457,7 @@ public class PartidaBautizoController extends BaseController{
 		mapParametros.put("provincia", partidaBautizoDataManager.getProvinciasEucaristiaDTOs().get(0).getCatDescripcion().toUpperCase());
 		mapParametros.put("madre", partidaBautizoDataManager.getMadreInsertar().getPerApellidos().toUpperCase() + " "+ partidaBautizoDataManager.getMadreInsertar().getPerNombres().toUpperCase());
 		mapParametros.put("padre", partidaBautizoDataManager.getPadreInsertar().getPerApellidos().toUpperCase() +  " "+partidaBautizoDataManager.getPadreInsertar().getPerNombres().toUpperCase());
+		mapParametros.put("daFe", getUsuario().getNpNombresCompletos());
 		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), "certificadoBautismo", mapParametros);

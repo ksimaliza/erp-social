@@ -138,6 +138,7 @@ public class ExhumacionController extends BaseController{
 				list=this.servicioEucaristia.buscarDefuncion(difunto);
 				
 				if ((CollectionUtils.isEmpty(listaDifunto) && listaDifunto.size()==0)||CollectionUtils.isEmpty(list) && list.size()==0) {
+					exhumacionDataManager.setDesactivado(true);
 					MensajesWebController.aniadirMensajeAdvertencia("Difunto no encontrado. Ingrese información en Defunción");
 				} else {
 					exhumacionDataManager.setDifuntoInsertar(listaDifunto.get(0));
@@ -162,7 +163,6 @@ public class ExhumacionController extends BaseController{
 			listaAutoriza=this.servicioEucaristia.buscarAutorizacion(new AutorizaExhumacionListDTO());
 			
 			if (CollectionUtils.isEmpty(listaAutoriza) && listaAutoriza.size()==0) {
-				exhumacionDataManager.setDesactivado(true);
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.exhumacionDataManager.setAutorizaExhumacionListDTOs(listaAutoriza);

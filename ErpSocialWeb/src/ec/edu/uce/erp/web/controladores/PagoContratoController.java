@@ -114,6 +114,7 @@ public class PagoContratoController extends BaseController {
 				MensajesWebController.aniadirMensajeError("Meses a Pagar superior a los Meses de arrendamiento del Contrato");
 				return;
 			}
+			/*if(DoublepagoContratoDataManager.getContratoListDTO().getConValorSaldo())*/
 			
 			PagoDTO pagoNuevo=this.servicioEucaristia.createOrUpdatePagoContrato(pago);
 			pagoContratoDataManager.setExportDesactivado(false);
@@ -187,6 +188,7 @@ public class PagoContratoController extends BaseController {
 			{
 				listaContrato=this.servicioEucaristia.buscarContrato(this.pagoContratoDataManager.getContratoListDTO());
 				if (CollectionUtils.isEmpty(listaContrato) && listaContrato.size()==0) {
+					pagoContratoDataManager.setDesactivado(true);
 					MensajesWebController.aniadirMensajeAdvertencia("Busqueda vacía. Ingrese información en Contrato");
 				} else {
 					this.pagoContratoDataManager.setContratoListDTO(listaContrato.get(0));
@@ -203,7 +205,8 @@ public class PagoContratoController extends BaseController {
 	public void cargarDatosPagoContrato(PagoContratoListDTO pagoContratoListDTO) {
 		try {
 			this.pagoContratoDataManager.setPagoContratoListDTOEditar(pagoContratoListDTO);
-													
+			buscarContrato();										
+			
 		} catch (Exception e) {
 			slf4jLogger.info("Error al cargarDatosSepultura {}", e.getMessage());
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosSepultura seleccionado");
@@ -225,7 +228,6 @@ public class PagoContratoController extends BaseController {
 	}
 	
 	
-	
 	public void exportar()
 	{
 		Date fechaActual = new Date();
@@ -234,15 +236,14 @@ public class PagoContratoController extends BaseController {
 		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
-		mapParametros.put("beneficiario", pagoContratoDataManager.getPagoContratoListDTOEditar().getBennombres()+" "+pagoContratoDataManager.getPagoContratoListDTOEditar().getBenapellidos());
+		mapParametros.put("beneficiario", pagoContratoDataManager.getPagoContratoListDTOEditar().getBennombres().toUpperCase()+" "+pagoContratoDataManager.getPagoContratoListDTOEditar().getBenapellidos().toUpperCase());
 		mapParametros.put("beneficiarioCedula", pagoContratoDataManager.getPagoContratoListDTOEditar().getBenci());
-		mapParametros.put("difunto", pagoContratoDataManager.getPagoContratoListDTOEditar().getPerNombres()+" "+pagoContratoDataManager.getPagoContratoListDTOEditar().getPerApellidos());
+		mapParametros.put("difunto", pagoContratoDataManager.getPagoContratoListDTOEditar().getPerNombres().toUpperCase()+" "+pagoContratoDataManager.getPagoContratoListDTOEditar().getPerApellidos().toUpperCase());
 		mapParametros.put("nicho", pagoContratoDataManager.getPagoContratoListDTOEditar().getNicDescripcion());
-		mapParametros.put("mesesPago", pagoContratoDataManager.getPagoContratoListDTOEditar().getPagMesesPagados()+"/"+pagoContratoDataManager.getPagoContratoListDTOEditar().getConMesesPorPagar());
-		mapParametros.put("fechaPago", pagoContratoDataManager.getPagoContratoListDTOEditar().getPagFecha());
+		mapParametros.put("mesesPago", pagoContratoDataManager.getPagoContratoListDTOEditar().getPagMesesPagados().toString()+"/"+pagoContratoDataManager.getPagoContratoListDTOEditar().getConMesesPorPagar().toString());
+		//mapParametros.put("fechaPago", pagoContratoDataManager.getPagoContratoListDTOEditar().getPagFecha().toString().substring(2, 10));
 		mapParametros.put("parroquiaFechaActual", pagoContratoDataManager.getContratoListDTO().getParroquia()+", "+full.format(fechaActual) );
-		mapParametros.put("fechaPago", pequeña.format(pagoContratoDataManager.getPagoContratoListDTOEditar().getPagFecha()));
-	//	mapParametros.put("valorPagar", pagoContratoDataManager.getPagoContratoListDTOEditar().getPagValorPagado());
+		mapParametros.put("valorPagar", pagoContratoDataManager.getPagoContratoListDTOEditar().getPagValorPagado().toString());
 		//mapParametros.put("parroquiaCabecera", "\"" + pagoContratoDataManager.getContratoListDTO().getParroquia().toUpperCase() +"\"");
 	
 		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
@@ -264,6 +265,7 @@ public class PagoContratoController extends BaseController {
 		pagoContratoDataManager.setPagoDTO(new PagoDTO());
 		pagoContratoDataManager.setContratoListDTO(new ContratoListDTO());
 		pagoContratoDataManager.setFechaPago(new Date());
+		pagoContratoDataManager.setDesactivado(false);
 		RequestContext.getCurrentInstance().execute("dlgNuevoPagoContrato.hide()");
 	}
 	
