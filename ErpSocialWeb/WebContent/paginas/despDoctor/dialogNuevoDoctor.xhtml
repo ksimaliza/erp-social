@@ -10,16 +10,17 @@
 		<h:form id="formNuevoDoctor" styleClass="formulario">
 			<p:panel id="pnlNuevoDoctor">
 				<table class="formulario">
+					
 					<tr>
 						<td width="100%" colspan="2"><p:graphicImage id="image" height="80" cache="false" value="#{doctorDataManager.doctorPersonaInsertar.perFoto}"/></td>
 					</tr>
 				
 					<tr>
 						<td width="30%">
-							<h:outputLabel value="#{i18n['erp.despacho.doctor.foto']}" />
+							<h:outputLabel value="#{i18n['erp.despacho.sacerdote.foto']}" />
 						</td>
 						<td width="70%">
-							    <p:fileUpload fileUploadListener="#{docenteController.handleFileUpload}" mode="advanced" dragDropSupport="true"
+							    <p:fileUpload fileUploadListener="#{doctorController.handleFileUpload}" mode="advanced" dragDropSupport="true"
                      				 update="image" auto="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Seleccionar" process="@this"/>
 						</td>
 					</tr>				
@@ -115,7 +116,7 @@
 					actionListener="#{doctorController.registrarDoctor}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoDoctor.hide()"
 					process="@this,pnlNuevoDoctor" update="pnlNuevoDoctor,:formDoctor:pnlMessages,:formDoctor:tablaDoctor"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoDoctor.hide()" type="button" />
+				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{doctorController.cancel}" process="@this" immediate="true" update="pnlNuevoDoctor"/>
 			</p:panel>
 		</h:form>
 	</p:dialog>

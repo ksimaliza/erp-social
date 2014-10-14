@@ -231,7 +231,7 @@
 					actionListener="#{pagoContratoController.registrarPagoContrato}"
 					
 					process="@this,pnlNuevoPagoContrato" update="pnlNuevoPagoContrato,:formPagoContrato:pnlMessages,:formPagoContrato:tablaPagoContrato,:formNuevoPagoContrato:pnlBotones"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoPagoContrato.hide()" type="button" />
+				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{pagoContratoController.cancel}" process="@this" immediate="true" update="pnlNuevoContrato"/>
 				<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{pagoContratoController.exportar}" icon="exportPdf" ajax="false"
 				disabled="#{pagoContratoDataManager.exportDesactivado}" />
 			</p:panel>

@@ -56,7 +56,7 @@
 					actionListener="#{nichoController.registrarNicho}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoNicho.hide()"
 					process="@this,pnlNuevoNicho" update="pnlNuevoNicho,:formNicho:pnlMessages,:formNicho:tablaNicho"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoNicho.hide()" type="button" />
+				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{nichoController.cancel}" process="@this" immediate="true" update="pnlNuevoNicho"/>
 			</p:panel>
 		</h:form>
 	</p:dialog>

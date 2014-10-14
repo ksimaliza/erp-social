@@ -117,7 +117,7 @@
 					actionListener="#{sacerdoteController.registrarSacerdote}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoSacerdote.hide()"
 					process="@this,pnlNuevoSacerdote" update="pnlNuevoSacerdote,:formSacerdote:pnlMessages,:formSacerdote:tablaSacerdote"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoSacerdote.hide()" type="button" />
+				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{sacerdoteController.cancel}" process="@this" immediate="true" update="pnlNuevoSacerdote"/>
 			</p:panel>
 		</h:form>
 	</p:dialog>

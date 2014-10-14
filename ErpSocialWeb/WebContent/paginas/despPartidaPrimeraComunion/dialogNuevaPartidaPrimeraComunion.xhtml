@@ -32,7 +32,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomCom" style="width: 100%"
-								value="#{partidaPrimeraComunionDataManager.asignadoInsertar.perNombres}" readonly="true"/>
+								value="#{partidaPrimeraComunionDataManager.asignadoInsertar.perNombres}" />
 						</td>	
 					</tr>
 					
@@ -42,7 +42,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApeCom" style="width: 100%"
-								value="#{partidaPrimeraComunionDataManager.asignadoInsertar.perApellidos}" readonly="true" />
+								value="#{partidaPrimeraComunionDataManager.asignadoInsertar.perApellidos}" />
 						</td>	
 					</tr>
 						
@@ -274,7 +274,7 @@
 					actionListener="#{partidaComunionController.registrarPrimeraComunion}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaPartidaPrimeraComunion.hide()"
 					process="@this,pnlNuevaPartidaPrimeraComunion,pnlDatos,pnlDatosPadrino" update="pnlNuevaPartidaPrimeraComunion,pnlDatos,pnlDatosPadrino,:formPartidaPrimeraComunion:pnlMessages,:formPartidaPrimeraComunion:tablaPartidaPrimeraComunion"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaPartidaPrimeraComunion.hide()" type="button" />
+				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{partidaComunionController.cancel}" process="@this" immediate="true" update="pnlNuevaPartidaPrimeraComunion,pnlDatosPadrino,pnlDatos,pnlBautizo"/>
 			</p:panel>
 	</h:form>
 	</p:scrollPanel>

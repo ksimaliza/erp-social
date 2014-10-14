@@ -7,8 +7,8 @@
 	
 	<p:dialog id="popUpNuevoContrato" header="#{i18n['erp.despacho.contrato.registrar']}" resizable="false" draggable="false"
 		widgetVar="dlgNuevoContrato" modal="true" width="500" minWidth="500" appendTo="@(body)">
-		<h:form id="formNuevoContrato" styleClass="formulario">
-			<p:panel id="pnlNuevoContrato" disabled="#{contratoDataManager.desactivado}"  >
+		<h:form id="formNuevoContrato" styleClass="formulario" >
+			<p:panel id="pnlNuevoContrato" >
 				<table class="formulario"  >
 					<tr>
 						<td width="30%">
@@ -18,7 +18,7 @@
 							<p:inputText id="txtCi" style="width: 70%" 
 								  value="#{contratoDataManager.difuntoInsertar.perCi}"  >
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-							<p:ajax event="blur" update="pnlNuevoContrato,txtNombres,txtApellidos,nicho,txtSeccionNicho,txtTipoNicho,txtNivelNicho" listener="#{contratoController.buscarDifunto}" process="@this"/>
+							<p:ajax event="blur" update="txtNombres,txtApellidos,nicho,txtSeccionNicho,txtTipoNicho,txtNivelNicho" listener="#{contratoController.buscarDifunto}" process="@this"/>
 						</p:inputText>
 						</td>	
 					</tr>
@@ -49,7 +49,6 @@
 						<td width="70%">
 							<p:inputText id="txtCiBen" style="width: 70%" 
 								 value="#{contratoDataManager.beneficiariInsertar.perCi}" >
-							
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur" update="txtNombresBen,txtApellidosBen" listener="#{contratoController.buscarBeneficiario}" process="@this"/>
 						</p:inputText>
@@ -100,7 +99,7 @@
 						</td>
 						<td width="70%">
 							<h:inputText id="nicho"  style="width: 70%" 
-							value="#{contratoDataManager.sepulturaListDTO.nicDescripcion}" readonly="true" disabled="#{contratoDataManager.desactivado}"  />
+							value="#{contratoDataManager.sepulturaListDTO.nicDescripcion}" readonly="true" />
 						</td>
 					</tr>
 					
@@ -192,8 +191,6 @@
 						</p:inputTextarea>
 						</td>	
 					</tr>
-					
-									
 				</table>
 			</p:panel>
 			
@@ -202,7 +199,7 @@
 					actionListener="#{contratoController.registrarContrato}"
 					process="@this,pnlNuevoContrato" update="pnlNuevoContrato,:formContrato:pnlMessages,:formContrato:tablaContrato,pnlBotones"/>
 					
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoContrato.hide()" type="button" actionListener="#{contratoController.cancelar}" update="pnlNuevoContrato" />
+				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{contratoController.cancel}" process="@this" immediate="true" update="pnlNuevoContrato"/>
 				<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{contratoController.exportar}" icon="exportPdf" ajax="false"
 				disabled="#{contratoDataManager.exportDesactivado}"/>
 				

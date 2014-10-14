@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comprobantePago" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be81c4a4-db54-48b2-8555-d8c6b7b41f8b">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="215"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -38,74 +38,23 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="62" splitType="Stretch"/>
-	</title>
-	<pageHeader>
-		<band height="50"/>
-	</pageHeader>
-	<columnHeader>
-		<band height="17" splitType="Stretch"/>
-	</columnHeader>
-	<detail>
-		<band height="499" splitType="Stretch">
+		<band height="591" splitType="Stretch">
 			<staticText>
-				<reportElement x="22" y="214" width="102" height="20" uuid="967cbbd7-a167-4f42-9b20-142371dde557"/>
+				<reportElement x="95" y="96" width="245" height="21" uuid="003363c3-e48a-4402-af1e-ebbb301d5db5"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Monto de Pago:]]></text>
+				<text><![CDATA[CEMENTERIO PARROQUIA DE]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="22" y="277" width="133" height="20" uuid="70c394f7-b3c6-41f8-85fc-7b2f77b9558b"/>
+			<textField>
+				<reportElement x="343" y="97" width="116" height="20" uuid="ed9ecd7e-37b8-47a3-9735-33bf2f013f7e"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="16"/>
 				</textElement>
-				<text><![CDATA[Cedúla Beneficiario:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="23" y="152" width="102" height="20" uuid="33746aa4-4255-428d-aef4-e1cab67d68db"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Fecha de Pago:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="22" y="178" width="144" height="20" uuid="3e61a51b-06f1-4019-9661-4a33d36d1913"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Número de meses pago:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="22" y="246" width="102" height="20" uuid="f5ae21bf-e3ae-4e13-9768-d0f833e4b7b9"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Beneficiario:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="22" y="306" width="133" height="20" uuid="09dc4261-82c8-4bbe-932a-dd770591f646"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Nicho:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="22" y="339" width="133" height="20" uuid="64e8a8e3-e6f2-4484-8613-7ca63276780d"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Difunto:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="180" y="449" width="167" height="20" uuid="19be9489-5953-4503-9c15-8f612c94adab"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Firma y sello de Encargado]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$P{parroquiaCabecera}]]></textFieldExpression>
+			</textField>
 			<frame>
-				<reportElement style="table" x="18" y="175" width="508" height="31" uuid="9e27961a-a9f9-40ad-892a-5f6dc00576fb"/>
+				<reportElement style="table" x="15" y="258" width="508" height="31" uuid="9e27961a-a9f9-40ad-892a-5f6dc00576fb"/>
 				<textField>
 					<reportElement x="185" y="6" width="141" height="20" uuid="f4a48ce9-bb1d-4583-b1e1-06884a030129"/>
 					<textElement>
@@ -113,9 +62,16 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$P{mesPago}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement x="4" y="4" width="144" height="20" uuid="3e61a51b-06f1-4019-9661-4a33d36d1913"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Número de meses pago:]]></text>
+				</staticText>
 			</frame>
 			<frame>
-				<reportElement style="table" x="18" y="206" width="508" height="31" uuid="daf7dcd0-d835-42c9-947f-2a6992f0fd49"/>
+				<reportElement style="table" x="15" y="289" width="508" height="31" uuid="daf7dcd0-d835-42c9-947f-2a6992f0fd49"/>
 				<textField>
 					<reportElement x="185" y="6" width="141" height="20" uuid="242989f0-03a5-4b3e-893a-4154e2d196ba"/>
 					<textElement>
@@ -130,9 +86,16 @@
 					</textElement>
 					<text><![CDATA[dólares]]></text>
 				</staticText>
+				<staticText>
+					<reportElement x="4" y="9" width="102" height="20" uuid="967cbbd7-a167-4f42-9b20-142371dde557"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Monto de Pago:]]></text>
+				</staticText>
 			</frame>
 			<frame>
-				<reportElement style="table" x="18" y="237" width="508" height="31" uuid="1ff8476a-b3b3-4e17-8870-f2b42b6c7b5a"/>
+				<reportElement style="table" x="15" y="320" width="508" height="31" uuid="1ff8476a-b3b3-4e17-8870-f2b42b6c7b5a"/>
 				<textField>
 					<reportElement x="185" y="6" width="292" height="20" uuid="d60d5973-0413-4ece-bcab-cc3782106b25"/>
 					<textElement>
@@ -140,9 +103,16 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$P{beneficiario}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement x="4" y="10" width="102" height="20" uuid="f5ae21bf-e3ae-4e13-9768-d0f833e4b7b9"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Beneficiario:]]></text>
+				</staticText>
 			</frame>
 			<frame>
-				<reportElement style="table" x="18" y="268" width="508" height="31" uuid="af642dde-cd23-4af1-9b8d-cf01e3264215"/>
+				<reportElement style="table" x="15" y="351" width="508" height="31" uuid="af642dde-cd23-4af1-9b8d-cf01e3264215"/>
 				<textField>
 					<reportElement x="184" y="7" width="256" height="20" uuid="f7c827f7-ac8b-421f-a812-79e5a3e2f9ea"/>
 					<textElement>
@@ -150,9 +120,16 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$P{beneficiarioCedula}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement x="4" y="10" width="133" height="20" uuid="70c394f7-b3c6-41f8-85fc-7b2f77b9558b"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cedúla Beneficiario:]]></text>
+				</staticText>
 			</frame>
 			<frame>
-				<reportElement style="table" x="18" y="299" width="508" height="31" uuid="1018f3d0-028b-4a89-9d10-c40c6160eaa2"/>
+				<reportElement style="table" x="15" y="382" width="508" height="31" uuid="1018f3d0-028b-4a89-9d10-c40c6160eaa2"/>
 				<textField>
 					<reportElement x="185" y="7" width="307" height="20" uuid="d0fe23b2-aeb6-4cee-928e-63419ab275e3"/>
 					<textElement>
@@ -160,9 +137,16 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$P{nicho}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement x="4" y="8" width="133" height="20" uuid="09dc4261-82c8-4bbe-932a-dd770591f646"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nicho:]]></text>
+				</staticText>
 			</frame>
 			<frame>
-				<reportElement style="table" x="18" y="144" width="508" height="31" uuid="fa56a995-e7e3-4a2b-83d9-2a7f5f6e136d"/>
+				<reportElement style="table" x="15" y="227" width="508" height="31" uuid="fa56a995-e7e3-4a2b-83d9-2a7f5f6e136d"/>
 				<textField>
 					<reportElement x="184" y="7" width="256" height="20" uuid="d4516be8-53ed-4750-86a7-0518ff5fa6cc"/>
 					<textElement>
@@ -170,9 +154,26 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$P{fechaPago}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement x="5" y="9" width="102" height="20" uuid="33746aa4-4255-428d-aef4-e1cab67d68db"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha de Pago:]]></text>
+				</staticText>
+				<line>
+					<reportElement x="163" y="1" width="1" height="215" uuid="0140a08a-a005-4ecc-8a17-fdc249d51bbd"/>
+				</line>
 			</frame>
+			<staticText>
+				<reportElement x="173" y="186" width="191" height="20" uuid="f66405f1-41f0-4a70-abf3-5842b0ea0700"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMPROBANTE DE PAGO]]></text>
+			</staticText>
 			<frame>
-				<reportElement style="table" x="18" y="330" width="508" height="31" uuid="41864422-dec2-4006-9b54-6773870c3a43"/>
+				<reportElement style="table" x="15" y="413" width="508" height="31" uuid="41864422-dec2-4006-9b54-6773870c3a43"/>
 				<textField>
 					<reportElement x="184" y="6" width="308" height="20" uuid="9ec3feee-dacc-4410-afdc-57e04f18933c"/>
 					<textElement>
@@ -180,38 +181,31 @@
 					</textElement>
 					<textFieldExpression><![CDATA[$P{difunto}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement x="4" y="10" width="133" height="20" uuid="64e8a8e3-e6f2-4484-8613-7ca63276780d"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Difunto:]]></text>
+				</staticText>
 			</frame>
-			<line>
-				<reportElement x="177" y="148" width="1" height="211" uuid="0140a08a-a005-4ecc-8a17-fdc249d51bbd"/>
-			</line>
-			<staticText>
-				<reportElement x="176" y="103" width="191" height="20" uuid="f66405f1-41f0-4a70-abf3-5842b0ea0700"/>
-				<textElement>
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[COMPROBANTE DE PAGO]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="246" y="42" width="280" height="31" uuid="048849f6-6eb4-4155-abac-26924ff518f1"/>
+				<reportElement x="279" y="151" width="280" height="20" uuid="048849f6-6eb4-4155-abac-26924ff518f1"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{parroquiaFechaActual}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="99" y="12" width="245" height="21" uuid="003363c3-e48a-4402-af1e-ebbb301d5db5"/>
+				<reportElement x="200" y="540" width="167" height="20" uuid="19be9489-5953-4503-9c15-8f612c94adab"/>
 				<textElement>
-					<font size="16" isBold="true"/>
+					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[CEMENTERIO PARROQUIA DE]]></text>
+				<text><![CDATA[Firma y sello de Encargado]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="347" y="13" width="116" height="20" uuid="ed9ecd7e-37b8-47a3-9735-33bf2f013f7e"/>
-				<textElement>
-					<font size="16"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{parroquiaCabecera}]]></textFieldExpression>
-			</textField>
 		</band>
-	</detail>
+	</title>
+	<pageHeader>
+		<band height="50"/>
+	</pageHeader>
 </jasperReport>
