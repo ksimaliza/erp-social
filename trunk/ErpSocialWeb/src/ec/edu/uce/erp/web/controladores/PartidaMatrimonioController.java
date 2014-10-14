@@ -16,11 +16,14 @@ import javax.faces.bean.ViewScoped;
 import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioListDTO;
@@ -150,24 +153,6 @@ public void registrarMatrimonio () {
 			cargarDatosMatrimonio(matrimonio);
 			
 			if (matrimonioNuevo != null) {
-				
-				/*partidaMatrimonioDataManager.setNovioInsertar(new Persona());
-				partidaMatrimonioDataManager.setNoviaInsertar(new Persona());
-				partidaMatrimonioDataManager.setMad_noviaInsertar(new Persona());
-				partidaMatrimonioDataManager.setPad_noviaInsertar(new Persona());
-				partidaMatrimonioDataManager.setMad_novioInsertar(new Persona());
-				partidaMatrimonioDataManager.setPad_novioInsertar(new Persona());
-				partidaMatrimonioDataManager.setMadre_novioInsertar(new Persona());
-				partidaMatrimonioDataManager.setMadre_noviaInsertar(new Persona());
-				partidaMatrimonioDataManager.setPadre_novioInsertar(new Persona());
-				partidaMatrimonioDataManager.setPadre_noviaInsertar(new Persona());
-				partidaMatrimonioDataManager.setMatrimonioDTO(new MatrimonioDTO());
-				partidaMatrimonioDataManager.setSacerdoteCodigo(0);
-				partidaMatrimonioDataManager.setFechaApCurInsertar(new Date());
-				partidaMatrimonioDataManager.setFechaMatrInsertar(new Date());
-				partidaMatrimonioDataManager.setProvincia((0));
-				partidaMatrimonioDataManager.setCanton((0));
-				partidaMatrimonioDataManager.setParroquia((0));*/
 				
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.partida.matrimonio.registrar.exito");
 			}
@@ -633,6 +618,35 @@ public void registrarMatrimonio () {
 		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), "partidaMatrimonio", mapParametros);
 		ReporteUtil.generarReporte(jasperPrint, this.partidaMatrimonioDataManager.getFormatoPdf(), "partidaMatrimonio");
 	
+	}
+	
+	
+	public void exportarPdf(MatrimonioListDTO matrimonio)
+	{
+		cargarDatosMatrimonio(matrimonio);
+		exportar();
+	}
+	
+	public void cancel()
+	{
+		partidaMatrimonioDataManager.setNovioInsertar(new Persona());
+		partidaMatrimonioDataManager.setNoviaInsertar(new Persona());
+		partidaMatrimonioDataManager.setMad_noviaInsertar(new Persona());
+		partidaMatrimonioDataManager.setPad_noviaInsertar(new Persona());
+		partidaMatrimonioDataManager.setMad_novioInsertar(new Persona());
+		partidaMatrimonioDataManager.setPad_novioInsertar(new Persona());
+		partidaMatrimonioDataManager.setMadre_novioInsertar(new Persona());
+		partidaMatrimonioDataManager.setMadre_noviaInsertar(new Persona());
+		partidaMatrimonioDataManager.setPadre_novioInsertar(new Persona());
+		partidaMatrimonioDataManager.setPadre_noviaInsertar(new Persona());
+		partidaMatrimonioDataManager.setMatrimonioDTO(new MatrimonioDTO());
+		partidaMatrimonioDataManager.setSacerdoteCodigo(0);
+		partidaMatrimonioDataManager.setFechaApCurInsertar(new Date());
+		partidaMatrimonioDataManager.setFechaMatrInsertar(new Date());
+		partidaMatrimonioDataManager.setProvincia((0));
+		partidaMatrimonioDataManager.setCanton((0));
+		partidaMatrimonioDataManager.setParroquia((0));
+		RequestContext.getCurrentInstance().execute("dlgNuevaPartidaMatrimonio.hide()");
 	}
 	
 

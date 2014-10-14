@@ -17,11 +17,14 @@ import javax.faces.bean.ViewScoped;
 import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoListDTO;
@@ -145,7 +148,7 @@ public ContratoController() {
 				
 				if ((CollectionUtils.isEmpty(listaDifunto) && listaDifunto.size()==0)||CollectionUtils.isEmpty(list) && list.size()==0) {
 					contratoDataManager.setDesactivado(true);
-					MensajesWebController.aniadirMensajeAdvertencia("Difunto no Encontrado. Ingresar información en Defunción");
+					MensajesWebController.aniadirMensajeAdvertencia("Difunto no Encontrado. Ingresar información en Sepultura");
 					
 				} else {
 					contratoDataManager.setDifuntoInsertar(listaDifunto.get(0));
@@ -288,7 +291,7 @@ public ContratoController() {
 		mapParametros.put("fecha", pequeña.format(fechaActual));
 		mapParametros.put("valorPagar", contratoDataManager.getContratoDTO().getConValorMes().toString());
 		mapParametros.put("formaPago", contratoDataManager.getFormaPagoList().getCatDescripcion());
-		mapParametros.put("parroquiaCabecera", "\"" + contratoDataManager.getContratoListDTO().getParroquia().toUpperCase() +"\"");
+		//mapParametros.put("parroquiaCabecera", "\"" + contratoDataManager.getContratoListDTO().getParroquia().toUpperCase() +"\"");
 		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 		
@@ -297,7 +300,14 @@ public ContratoController() {
 		
 	}
 	
-	public void cancelar()
+	public void exportarPdf(ContratoListDTO contrato)
+	{
+		cargarDatosContrato(contrato);
+		exportar();
+	}
+	
+	
+	public void cancel()
 	{
 		contratoDataManager.setContratoDTO(new ContratoDTO());
 		contratoDataManager.setNichoCodigo(0);
@@ -305,6 +315,6 @@ public ContratoController() {
 		contratoDataManager.setFechaFin(new Date());
 		contratoDataManager.setFechaInicio(new Date());
 		contratoDataManager.setBeneficiariInsertar(new Persona());
-	
+		RequestContext.getCurrentInstance().execute("dlgNuevoContrato.hide()");
 	}
 }

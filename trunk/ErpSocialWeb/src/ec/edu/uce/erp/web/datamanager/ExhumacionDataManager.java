@@ -36,7 +36,7 @@ public class ExhumacionDataManager extends BaseDataManager {
 	private ExumacionListDTO exumacionListDTO;
 	private List<AutorizaExhumacionListDTO> autorizaExhumacionListDTOs;
 	private DefuncionListDTO defuncionListDTO;
-	
+	private Boolean desactivado;
 	
 	
 	
@@ -53,18 +53,14 @@ public class ExhumacionDataManager extends BaseDataManager {
 		fechaSepelio=new Date();
 		this.exumacionListDTOs= new ArrayList<ExumacionListDTO>();	
 		this.defuncionListDTO=new DefuncionListDTO();
+		this.desactivado=false;
 			
 	}
-
-
-
 
 
 	public Persona getDifuntoInsertar() {
 		return difuntoInsertar;
 	}
-
-
 
 
 
@@ -197,6 +193,22 @@ public class ExhumacionDataManager extends BaseDataManager {
 
 	public void setDefuncionListDTO(DefuncionListDTO defuncionListDTO) {
 		this.defuncionListDTO = defuncionListDTO;
+	}
+
+
+
+
+
+	public Boolean getDesactivado() {
+		return desactivado;
+	}
+
+
+
+
+
+	public void setDesactivado(Boolean desactivado) {
+		this.desactivado = desactivado;
 	}
 	
 

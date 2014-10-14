@@ -246,10 +246,4 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 		this.sepulturaListDTOs = sepulturaListDTOs;
 	}
 
-
-	
-	
-	
-
-
 }

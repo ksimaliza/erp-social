@@ -1,6 +1,7 @@
 package ec.edu.uce.erp.web.controladores;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,11 +11,14 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NivelNichoDTO;
@@ -205,6 +209,16 @@ public void cargarDatosNicho (NichoListDTO nicho) {
 		slf4jLogger.info("Error al cargarDatosNicho {}", e.getMessage());
 		MensajesWebController.aniadirMensajeError("Error al cargarDatosNicho seleccionado");
 	}
+}
+
+
+public void cancel()
+{
+	nichoDataManager.setCodigoNivelNicho(0);
+	nichoDataManager.setNichoInsertar(new NichoDTO());
+	nichoDataManager.setCodigoSeccion(0);
+	nichoDataManager.setCodigoTipoNicho(0);
+	RequestContext.getCurrentInstance().execute("dlgNuevoContrato.hide()");
 }
 
 @Override

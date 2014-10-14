@@ -1,5 +1,6 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,10 +10,13 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
@@ -115,6 +119,13 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(NivelControlle
 		return nivelDataManager;
 	}
 
+	
+	
+	public void cancel()
+	{
+		nivelDataManager.setNivelInstancia(new NivelDTO());
+		RequestContext.getCurrentInstance().execute("dlgNuevoNivelNicho.hide()");
+	}
 
 	@Override
 	public void refrescarFormulario() {

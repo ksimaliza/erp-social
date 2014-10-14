@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
@@ -53,6 +53,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(DefuncionDataM
 	
 	private List<SacerdoteListDTO> sacerdoteListDTO;
 	private DefuncionListDTO defuncionListDTO;
+	
 
 	private Boolean exportDesactivado;
 	

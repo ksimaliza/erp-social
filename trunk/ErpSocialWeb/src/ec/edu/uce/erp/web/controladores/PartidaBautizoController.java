@@ -16,6 +16,7 @@ import javax.faces.bean.ViewScoped;
 import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +25,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.BautizoVO;
@@ -460,6 +462,23 @@ public class PartidaBautizoController extends BaseController{
 		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), "certificadoBautismo", mapParametros);
 		ReporteUtil.generarReporte(jasperPrint, this.partidaBautizoDataManager.getFormatoPdf(), "certificadoBautismo");
 	
+		
+	}
+
+	@Override
+	public void refrescarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void exportarPdf(BautizoListDTO bautizo)
+	{
+		cargarDatosBautizo(bautizo);
+		exportar();
+	}
+	
+	public void cancel()
+	{
 		partidaBautizoDataManager.setBautizadoInsertar(new Persona());
 		partidaBautizoDataManager.setMadrinaInsertar(new Persona());
 		partidaBautizoDataManager.setPadrinoInsertar(new Persona());
@@ -470,17 +489,8 @@ public class PartidaBautizoController extends BaseController{
 		partidaBautizoDataManager.setFechaApCInsertar(new Date());
 		partidaBautizoDataManager.setFechaBautizoInsertar(new Date());
 		partidaBautizoDataManager.setEstadoCodigo(0);
+		RequestContext.getCurrentInstance().execute("dlgNuevaPartidaBautizo.hide()");
 	}
 
-	@Override
-	public void refrescarFormulario() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
-
-	
-	
 
 }

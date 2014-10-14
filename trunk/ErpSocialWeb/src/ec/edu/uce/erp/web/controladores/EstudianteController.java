@@ -110,12 +110,10 @@ public class EstudianteController extends BaseController{
 			} else {
 				this.estudianteDataManager.setListaEstudianteListDTOs(listaestudiantes);
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscar el estudiante {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
-		
 	}
 	
 	public List<Object> getEstudiantesSeleccionados() {

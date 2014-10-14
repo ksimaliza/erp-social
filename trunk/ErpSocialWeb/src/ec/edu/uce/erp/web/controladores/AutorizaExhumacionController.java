@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.AutorizacionExhumacionVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -138,6 +140,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(AutorizaExhuma
 			AutorizacionExhumacionVO autorizaEncontrado= servicioEucaristia.obtenerAutorizacionPorId(autorizaExhumacionListDTO.getAutPersona(), autorizaExhumacionListDTO.getAutCodigo());
 			this.autorizaExhumacionDataManager.setAutorizaExhumacionDTO(autorizaEncontrado.getAutorizaExhumacionDTO());
 			this.autorizaExhumacionDataManager.setAutorizaExhuPerInsertar(autorizaEncontrado.getPersona());
+			autorizaEncontrado.getPersona().getPerFotoVerificar();
 			
 							
 		} catch (SeguridadesException e) {
@@ -147,9 +150,18 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(AutorizaExhuma
 	}
 	
 	public void handleFileUpload(FileUploadEvent event) {
-		autorizaExhumacionDataManager.getAutorizaExhuPerInsertar().setPerFoto(JsfUtil.saveToDiskUpdload(event.getFile().getContents(), JsfUtil.getRandomName(event.getFile().getFileName().split("\\.")[1])));
+		autorizaExhumacionDataManager.getAutorizaExhuPerInsertar().setPerFoto(JsfUtil.saveToDiskUpdload(event.getFile().getContents(), event.getFile().getFileName()));
 		autorizaExhumacionDataManager.getAutorizaExhuPerInsertar().setPerFotoByte(event.getFile().getContents());
     }
+
+	public void cancel()
+	{
+		autorizaExhumacionDataManager.setAutorizaExhumacionDTO(new AutorizaExhumacionDTO());
+		autorizaExhumacionDataManager.setAutorizaExhuPerInsertar(new Persona());
+		RequestContext.getCurrentInstance().execute("dlgNuevaAutorizaExhumacion.hide()");
+	}
+	
+	
 
 	@Override
 	public void refrescarFormulario() {
