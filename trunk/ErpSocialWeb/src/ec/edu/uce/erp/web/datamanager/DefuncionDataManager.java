@@ -56,6 +56,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(DefuncionDataM
 	
 
 	private Boolean exportDesactivado;
+	private Boolean desactivado;
 	
 
 
@@ -82,6 +83,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(DefuncionDataM
 		this.defuncionListDTO=new DefuncionListDTO();
 		this.estadoCivils=new ArrayList<CatalogoEucaristiaDTO>();
 		exportDesactivado=true;
+		desactivado=false;
 			
 	}
 
@@ -342,6 +344,16 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(DefuncionDataM
 
 	public void setExportDesactivado(Boolean exportDesactivado) {
 		this.exportDesactivado = exportDesactivado;
+	}
+
+
+	public Boolean getDesactivado() {
+		return desactivado;
+	}
+
+
+	public void setDesactivado(Boolean desactivado) {
+		this.desactivado = desactivado;
 	}
 
 

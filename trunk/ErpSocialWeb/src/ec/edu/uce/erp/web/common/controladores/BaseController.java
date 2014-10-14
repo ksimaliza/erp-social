@@ -32,6 +32,7 @@ import com.lowagie.text.PageSize;
 
 import ec.edu.uce.erp.common.util.ConstantesReporte;
 import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
+import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 import ec.edu.uce.erp.ejb.persistence.vo.LoginVO;
 import ec.edu.uce.erp.web.common.util.CustomPDFExporter;
 /**
@@ -217,7 +218,9 @@ public abstract class BaseController implements Serializable{
 			return 0;
 	}
 	
-	
+	protected Usuario getUsuario(){
+		return ((LoginVO)getSessionParameter("loginVO")).getUsuario();
+	}
 
 
 }

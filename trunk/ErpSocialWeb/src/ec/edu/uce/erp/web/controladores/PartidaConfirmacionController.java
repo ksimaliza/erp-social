@@ -477,6 +477,7 @@ public void registrarConfirmacion () {
 		mapParametros.put("provincia", partidaConfirmacionDataManager.getProvinciaEucaristiaDTOs().get(0).getCatDescripcion().toUpperCase());
 		mapParametros.put("madre", partidaConfirmacionDataManager.getMadreInsertar().getPerApellidos().toUpperCase() + " "+ partidaConfirmacionDataManager.getMadreInsertar().getPerNombres().toUpperCase());
 		mapParametros.put("padre", partidaConfirmacionDataManager.getPadreInsertar().getPerApellidos().toUpperCase() +  " "+ partidaConfirmacionDataManager.getPadreInsertar().getPerApellidos().toUpperCase());
+		mapParametros.put("daFe", getUsuario().getNpNombresCompletos());
 		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), "certificadoConfirmacion", mapParametros);

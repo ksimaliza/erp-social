@@ -37,7 +37,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PagoContratoDa
 	private List<ContratoListDTO> contratoListDTOs;
 	private PagoContratoListDTO pagoContratoListDTOEditar;
 	private Boolean exportDesactivado;
-	
+	private Boolean desactivado;
 	
 	@PostConstruct
 	public void inicializarObjetos () {
@@ -52,6 +52,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PagoContratoDa
 		this.contratoListDTOs=new ArrayList<ContratoListDTO>();
 		this.pagoContratoListDTOEditar=new PagoContratoListDTO();
 		this.exportDesactivado=true;
+		this.desactivado=false;
 	}
 
 
@@ -64,10 +65,6 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PagoContratoDa
 	public void setPagoDTO(PagoDTO pagoDTO) {
 		this.pagoDTO = pagoDTO;
 	}
-
-
-
-	
 
 
 	public ContratoListDTO getContratoListDTO() {
@@ -154,6 +151,16 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PagoContratoDa
 
 	public void setExportDesactivado(Boolean exportDesactivado) {
 		this.exportDesactivado = exportDesactivado;
+	}
+
+
+	public Boolean getDesactivado() {
+		return desactivado;
+	}
+
+
+	public void setDesactivado(Boolean desactivado) {
+		this.desactivado = desactivado;
 	}
 
 

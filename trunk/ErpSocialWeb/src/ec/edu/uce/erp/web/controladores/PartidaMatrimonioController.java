@@ -22,8 +22,6 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioListDTO;
@@ -605,7 +603,7 @@ public void registrarMatrimonio () {
 		mapParametros.put("fechaMatrimonio", pequeña.format(partidaMatrimonioDataManager.getFechaMatrInsertar()));
 		mapParametros.put("novio", partidaMatrimonioDataManager.getNovioInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getNovioInsertar().getPerNombres().toUpperCase());
 		mapParametros.put("novia", partidaMatrimonioDataManager.getNoviaInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getNoviaInsertar().getPerNombres().toUpperCase());
-		//mapParametros.put("certica",partidaMatrimonioDataManager.getMatrimonioDTO().getMatCertificadoPor() );
+		mapParametros.put("certifica", getUsuario().getNpNombresCompletos());
 		mapParametros.put("padrinosNovio", partidaMatrimonioDataManager.getMad_novioInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getMad_novioInsertar().getPerNombres().toUpperCase() + " y " + partidaMatrimonioDataManager.getPad_novioInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getPad_novioInsertar().getPerNombres().toUpperCase());
 		mapParametros.put("parroquiafechaActual", partidaMatrimonioDataManager.getParroquiaEucaristiaDTOs().get(0).getCatDescripcion()+ ", "+full.format(fechaActual));
 		mapParametros.put("padrinosNovia", partidaMatrimonioDataManager.getMad_noviaInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getMad_noviaInsertar().getPerNombres().toUpperCase() + " y " + partidaMatrimonioDataManager.getPad_noviaInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getPad_noviaInsertar().getPerNombres().toUpperCase());

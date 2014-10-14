@@ -252,9 +252,10 @@ public ContratoController() {
 			contratoDataManager.setDifuntoInsertar(contratoEncontrado.getDifunto());
 			buscarDifunto();
 			contratoDataManager.setFormaPagoCodigo(contratoEncontrado.getContratoDTO().getConFormaPago());
+			buscarFormaPago();
 			contratoDataManager.setFechaFin(contratoEncontrado.getContratoDTO().getConFechaFin());
 			contratoDataManager.setFechaInicio(contratoEncontrado.getContratoDTO().getConFechaInicio());
-			
+			buscarContrato();
 							
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosContrato {}", e.getMessage());
@@ -278,7 +279,7 @@ public ContratoController() {
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
 		
-		mapParametros.put("beneficiario", contratoDataManager.getBeneficiariInsertar().getPerNombres()+" "+contratoDataManager.getBeneficiariInsertar().getPerApellidos());
+		mapParametros.put("beneficiario", contratoDataManager.getBeneficiariInsertar().getPerNombres().toUpperCase()+" "+contratoDataManager.getBeneficiariInsertar().getPerApellidos().toUpperCase());
 		mapParametros.put("beneficiarioCedula", contratoDataManager.getBeneficiariInsertar().getPerCi());
 		mapParametros.put("difunto", contratoDataManager.getDifuntoInsertar().getPerNombres()+" "+ contratoDataManager.getDifuntoInsertar().getPerApellidos());
 		mapParametros.put("tipoNicho", contratoDataManager.getSepulturaListDTO().getTniDescripcion());
@@ -286,12 +287,12 @@ public ContratoController() {
 		mapParametros.put("seccionNicho", contratoDataManager.getSepulturaListDTO().getSeccion());
 		mapParametros.put("nivelNicho", contratoDataManager.getSepulturaListDTO().getNniDescripcion());
 		mapParametros.put("mesesArrendamiento", contratoDataManager.getContratoDTO().getConMesesArrendamiento());
-		mapParametros.put("fechaInicio", contratoDataManager.getContratoDTO().getConFechaInicio());
-		mapParametros.put("parroquia", contratoDataManager.getContratoListDTO().getParroquia());
-		mapParametros.put("fecha", pequeña.format(fechaActual));
+		mapParametros.put("fechaInicio", contratoDataManager.getContratoDTO().getConFechaInicio().toString().substring(2, 10));
+		mapParametros.put("parroquia", contratoDataManager.getContratoListDTOs().get(0).getParroquia());
+		mapParametros.put("fecha", pequeña.format(fechaActual).toString());
 		mapParametros.put("valorPagar", contratoDataManager.getContratoDTO().getConValorMes().toString());
-		mapParametros.put("formaPago", contratoDataManager.getFormaPagoList().getCatDescripcion());
-		//mapParametros.put("parroquiaCabecera", "\"" + contratoDataManager.getContratoListDTO().getParroquia().toUpperCase() +"\"");
+		mapParametros.put("formaPago", contratoDataManager.getFormaPagoListDTOs().get(0).getCatDescripcion());
+		mapParametros.put("parroquiaEncabezado", "\"" + contratoDataManager.getContratoListDTOs().get(0).getParroquia().toUpperCase() + "\"");
 		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 		
@@ -309,12 +310,15 @@ public ContratoController() {
 	
 	public void cancel()
 	{
+		contratoDataManager.setDifuntoInsertar(new Persona());
 		contratoDataManager.setContratoDTO(new ContratoDTO());
 		contratoDataManager.setNichoCodigo(0);
 		contratoDataManager.setFormaPagoCodigo(0);
 		contratoDataManager.setFechaFin(new Date());
 		contratoDataManager.setFechaInicio(new Date());
 		contratoDataManager.setBeneficiariInsertar(new Persona());
+		contratoDataManager.setSepulturaListDTO(new SepulturaListDTO());
+		contratoDataManager.setDesactivado(false);
 		RequestContext.getCurrentInstance().execute("dlgNuevoContrato.hide()");
 	}
 }

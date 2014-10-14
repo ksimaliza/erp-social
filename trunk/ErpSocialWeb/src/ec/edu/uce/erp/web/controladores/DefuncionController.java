@@ -321,7 +321,6 @@ public void registrarDefuncion () {
 			slf4jLogger.info("Error al buscarDefuncion {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
-		
 	}
 	
 
@@ -451,6 +450,8 @@ public void registrarDefuncion () {
 				
 		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
 		
+		defuncionDataManager.setDesactivado(true);
+		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
 		
 		mapParametros.put("canton", defuncionDataManager.getCantonEucaristiaDTOs().get(0).getCatDescripcion().toUpperCase());
@@ -460,14 +461,21 @@ public void registrarDefuncion () {
 		mapParametros.put("pagina", defuncionDataManager.getDefuncionInsertar().getDefPagina());
 		mapParametros.put("acta", defuncionDataManager.getDefuncionInsertar().getDefActa());
 		mapParametros.put("fechaMuerte", pequeña.format(defuncionDataManager.getFechaMuerteInsertar()));
+		mapParametros.put("fechaSepultura", pequeña.format(defuncionDataManager.getFechaSepelioInsertar()));
+		mapParametros.put("causa", defuncionDataManager.getDefuncionInsertar().getDefCausaMuerte());
 		mapParametros.put("difunto", defuncionDataManager.getDifuntoInsertar().getPerApellidos().toUpperCase() + " "+   defuncionDataManager.getDifuntoInsertar().getPerNombres().toUpperCase());
 		mapParametros.put("doctor", defuncionDataManager.getDoctorListDTO().get(0).getPerApellidos().toUpperCase() + " "+  defuncionDataManager.getDoctorListDTO().get(0).getPerNombres().toUpperCase());
 		mapParametros.put("parroquiafechaActual", defuncionDataManager.getParroquiaEucaristiaDTOs().get(0).getCatDescripcion()+ ", "+full.format(fechaActual));
 		mapParametros.put("notaMarginal", defuncionDataManager.getDefuncionInsertar().getDefNotaMarginal());
 		mapParametros.put("provincia", defuncionDataManager.getProvinciasEucaristiaDTOs().get(0).getCatDescripcion().toUpperCase());
 		mapParametros.put("padres", defuncionDataManager.getMadreInsertar().getPerApellidos().toUpperCase() + " "+ defuncionDataManager.getMadreInsertar().getPerNombres().toUpperCase() + " y " +defuncionDataManager.getPadreInsertar().getPerApellidos().toUpperCase() +  " "+defuncionDataManager.getPadreInsertar().getPerNombres().toUpperCase());
-		//mapParametros.put("conyuge", defuncionDataManager.getConyugeInsertar().getPerApellidos().toUpperCase() + " "+  defuncionDataManager.getConyugeInsertar().getPerNombres().toUpperCase());
+		if(defuncionDataManager.getConyugeInsertar()!=null)
+			mapParametros.put("conyuge", defuncionDataManager.getConyugeInsertar().getPerApellidos().toUpperCase() + " "+  defuncionDataManager.getConyugeInsertar().getPerNombres().toUpperCase());
+		else
+			mapParametros.put("conyuge", "No esta casado" );
+		mapParametros.put("certifica", getUsuario().getNpNombresCompletos());
 		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
+		
 		
 		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), "partidaDefuncion", mapParametros);
 		ReporteUtil.generarReporte(jasperPrint, this.defuncionDataManager.getFormatoPdf(), "partidaDefuncion");
