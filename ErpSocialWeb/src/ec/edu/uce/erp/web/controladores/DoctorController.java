@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.DoctorVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -139,6 +141,7 @@ public void registrarDoctor () {
 			DoctorVO doctorEncontrado=servicioEucaristia.obtenerDoctorPorId(doctor.getDocPersona(), doctor.getDocCodigo());
 			this.doctorDataManager.setDoctorInsertar(doctorEncontrado.getDoctorDTO());
 			this.doctorDataManager.setDoctorPersonaInsertar(doctorEncontrado.getPersona());
+			doctorEncontrado.getPersona().getPerFotoVerificar();
 							
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosDoctor seleccionado {}", e.getMessage());
@@ -147,10 +150,16 @@ public void registrarDoctor () {
 	}
 	
 	public void handleFileUpload(FileUploadEvent event) {
-		doctorDataManager.getDoctorPersonaInsertar().setPerFoto(JsfUtil.saveToDiskUpdload(event.getFile().getContents(), JsfUtil.getRandomName(event.getFile().getFileName().split("\\.")[1])));
+		doctorDataManager.getDoctorPersonaInsertar().setPerFoto(JsfUtil.saveToDiskUpdload(event.getFile().getContents(), event.getFile().getFileName()));
 		doctorDataManager.getDoctorPersonaInsertar().setPerFotoByte(event.getFile().getContents());
     }
-	
+
+	public void cancel()
+	{
+		doctorDataManager.setDoctorInsertar(new DoctorDTO());
+		doctorDataManager.setDoctorPersonaInsertar(new Persona());
+		RequestContext.getCurrentInstance().execute("dlgNuevoDoctor.hide()");
+	}
 
 	@Override
 	public void refrescarFormulario() {

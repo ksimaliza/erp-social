@@ -34,7 +34,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(SepulturaDataM
 	private DefuncionListDTO defuncionlistDTO; 
 	private NichoListDTO nichoListDTO;
 	private Persona defuncionInsertar;
-	
+	private Boolean desactivado;
 	
 	
 	@PostConstruct
@@ -50,6 +50,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(SepulturaDataM
 		this.defuncionlistDTO=new DefuncionListDTO();
 		this.nichoListDTO=new NichoListDTO();
 		this.defuncionInsertar=new Persona();
+		this.desactivado=false;
 	}
 
 
@@ -60,6 +61,16 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(SepulturaDataM
 
 	public int getCodigoNicho() {
 		return codigoNicho;
+	}
+
+
+	public Boolean getDesactivado() {
+		return desactivado;
+	}
+
+
+	public void setDesactivado(Boolean desactivado) {
+		this.desactivado = desactivado;
 	}
 
 

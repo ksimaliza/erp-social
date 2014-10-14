@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -102,6 +103,12 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(TipoController
 			}
 		}
 
+		public void cancel()
+		{
+			tipoDataManager.setTipoInsertar(new TipoDTO());
+			RequestContext.getCurrentInstance().execute("dlgNuevoTipoNicho.hide()");
+		}
+		
 		@Override
 		public void refrescarFormulario() {
 			// TODO Auto-generated method stub

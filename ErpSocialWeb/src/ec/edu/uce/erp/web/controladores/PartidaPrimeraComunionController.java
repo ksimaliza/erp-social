@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +23,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ComunionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PrimeraComunionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.ComunionVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -183,11 +185,12 @@ public void registrarPrimeraComunion () {
 				bautizo.setPerCi(partidaPrimeraComunionDataManager.getAsignadoInsertar().getPerCi());
 				list=this.servicioEucaristia.buscarPartidaBautizo(bautizo);
 				
-				if ((CollectionUtils.isEmpty(listaBautizado) && listaBautizado.size()==0) || (CollectionUtils.isEmpty(list) && list.size()==0)) {
-					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				if ((CollectionUtils.isEmpty(listaBautizado) && listaBautizado.size()==0)) {
+					//MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 				} else {
 					this.partidaPrimeraComunionDataManager.setAsignadoInsertar(listaBautizado.get(0));
-					this.partidaPrimeraComunionDataManager.setBautizoListDTO(list.get(0));			
+					if(!CollectionUtils.isEmpty(list) && list.size()!=0)
+						this.partidaPrimeraComunionDataManager.setBautizoListDTO(list.get(0));			
 				}
 			}
 		} catch (SeguridadesException e) {
@@ -391,6 +394,21 @@ public void registrarPrimeraComunion () {
 		}
 		
 	}
+	
+	public void cancel()
+	{
+		partidaPrimeraComunionDataManager.setBautizoListDTO(new BautizoListDTO());
+		partidaPrimeraComunionDataManager.setMad_padInsertar(new Persona());
+		partidaPrimeraComunionDataManager.setPrimeraComunionInsertar(new PrimeraComunionDTO());
+		partidaPrimeraComunionDataManager.setSacerdoteCodigo(0);
+		partidaPrimeraComunionDataManager.setFechaApComInsertar(new Date());
+		partidaPrimeraComunionDataManager.setFechaComunionInsertar(new Date());
+		partidaPrimeraComunionDataManager.setEstadoCodigo(0);
+		partidaPrimeraComunionDataManager.setTipoCodigo(0);
+		partidaPrimeraComunionDataManager.setAsignadoInsertar(new Persona());
+		RequestContext.getCurrentInstance().execute("dlgNuevaPartidaPrimeraComunion.hide()");
+	}
+	
 
 	@Override
 	public void refrescarFormulario() {

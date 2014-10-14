@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +22,8 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionListDT
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ExumacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ExumacionListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.ExhumacionVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -116,8 +119,6 @@ public class ExhumacionController extends BaseController{
 		}
 		
 	}
-	
-
 
 	
 	public void buscarDifunto () {
@@ -137,7 +138,7 @@ public class ExhumacionController extends BaseController{
 				list=this.servicioEucaristia.buscarDefuncion(difunto);
 				
 				if ((CollectionUtils.isEmpty(listaDifunto) && listaDifunto.size()==0)||CollectionUtils.isEmpty(list) && list.size()==0) {
-					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+					MensajesWebController.aniadirMensajeAdvertencia("Difunto no encontrado. Ingrese información en Defunción");
 				} else {
 					exhumacionDataManager.setDifuntoInsertar(listaDifunto.get(0));
 					exhumacionDataManager.setDefuncionListDTO(list.get(0));
@@ -161,6 +162,7 @@ public class ExhumacionController extends BaseController{
 			listaAutoriza=this.servicioEucaristia.buscarAutorizacion(new AutorizaExhumacionListDTO());
 			
 			if (CollectionUtils.isEmpty(listaAutoriza) && listaAutoriza.size()==0) {
+				exhumacionDataManager.setDesactivado(true);
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.exhumacionDataManager.setAutorizaExhumacionListDTOs(listaAutoriza);
@@ -213,8 +215,16 @@ public class ExhumacionController extends BaseController{
 		}
 	}
 	
-	
-		
+	public void cancel()
+	{
+		exhumacionDataManager.setExumacionDTO(new ExumacionDTO());
+		exhumacionDataManager.setDifuntoInsertar(new Persona());
+		exhumacionDataManager.setAutorizaCodigo(0);
+		exhumacionDataManager.setFechaExhumacion(new Date());
+		exhumacionDataManager.setFechaSepelio(new Date());
+		exhumacionDataManager.setDesactivado(false);
+		RequestContext.getCurrentInstance().execute("dlgNuevaExhumacion.hide()");
+	}
 	
 	@Override
 	public void refrescarFormulario() {

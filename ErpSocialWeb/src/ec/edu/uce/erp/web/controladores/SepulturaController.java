@@ -10,6 +10,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +21,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.SepulturaVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -183,13 +185,12 @@ public class SepulturaController extends BaseController {
 				difunto.setPerCi(sepulturaDataManager.getDefuncionInsertar().getPerCi());
 				list=this.servicioEucaristia.buscarDefuncion(difunto);
 				
-				if ((CollectionUtils.isEmpty(listaDifunto) && listaDifunto.size()==0)) {
-					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				if ((CollectionUtils.isEmpty(listaDifunto) && listaDifunto.size()==0)||CollectionUtils.isEmpty(list) && list.size()==0) {
+					sepulturaDataManager.setDesactivado(true);
+					MensajesWebController.aniadirMensajeAdvertencia("Difunto no encontrado. Ingresar información en Defunción");
 				} else {
 					sepulturaDataManager.setDefuncionInsertar(listaDifunto.get(0));
-					if(!CollectionUtils.isEmpty(list) && list.size()!=0)
-						sepulturaDataManager.setDefuncionlistDTO(list.get(0));
-								
+					sepulturaDataManager.setDefuncionlistDTO(list.get(0));
 				}
 			}
 		} catch (SeguridadesException e) {
@@ -209,16 +210,21 @@ public class SepulturaController extends BaseController {
 			this.sepulturaDataManager.setCodigoNicho(sepulturaEncontrado.getSepultura().getSepNicho());
 			buscarNicho2();
 			//buscarDefuncion();
-			
-			
-			
-													
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosSepultura {}", e.getMessage());
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosSepultura seleccionado");
 		}
 	}
 
+	public void cancel()
+	{
+		sepulturaDataManager.setCodigoNicho(0);
+		sepulturaDataManager.setSepulturaDTO(new SepulturaDTO());
+		sepulturaDataManager.setDefuncionInsertar(new Persona());
+		sepulturaDataManager.setNichoListDTO(new NichoListDTO());
+		sepulturaDataManager.setDesactivado(false);
+		RequestContext.getCurrentInstance().execute("dlgNuevoEstudiante.hide()");
+	}
 
 	@Override
 	public void refrescarFormulario() {

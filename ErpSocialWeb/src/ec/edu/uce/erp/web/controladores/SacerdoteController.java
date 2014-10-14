@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.SacerdoteVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -95,7 +97,6 @@ public void registrarSacerdote () {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.sacerdoteDataManager.setSacerdoteListDTOs(listaSacerdote);
-				
 			}
 			
 		} catch (SeguridadesException e) {
@@ -116,7 +117,6 @@ public void registrarSacerdote () {
 			{
 				sacerdoteDataManager.getSacerdotePersonaInsertar().setPerApellidos(null);
 				sacerdoteDataManager.getSacerdotePersonaInsertar().setPerNombres(null);
-	
 				listaSacerdote=this.servicioAdministracion.buscarPersona(sacerdoteDataManager.getSacerdotePersonaInsertar());
 								
 				if (CollectionUtils.isEmpty(listaSacerdote) && listaSacerdote.size()==0) {
@@ -140,6 +140,7 @@ public void registrarSacerdote () {
 			SacerdoteVO sacerdoteEncontrado=servicioEucaristia.obtenerSacerdotePorId(sacerdote.getSacPersona(), sacerdote.getSacCodigo());
 			this.sacerdoteDataManager.setSacerdoteInsertar(sacerdoteEncontrado.getSacerdoteDTO());
 			this.sacerdoteDataManager.setSacerdotePersonaInsertar(sacerdoteEncontrado.getPersona());
+			sacerdoteEncontrado.getPersona().getPerFotoVerificar();
 							
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosSacerdote seleccionado {}", e.getMessage());
@@ -148,10 +149,17 @@ public void registrarSacerdote () {
 	}
 	
 	public void handleFileUpload(FileUploadEvent event) {
-		sacerdoteDataManager.getSacerdotePersonaInsertar().setPerFoto(JsfUtil.saveToDiskUpdload(event.getFile().getContents(), JsfUtil.getRandomName(event.getFile().getFileName().split("\\.")[1])));
+		sacerdoteDataManager.getSacerdotePersonaInsertar().setPerFoto(JsfUtil.saveToDiskUpdload(event.getFile().getContents(), event.getFile().getFileName()));
 		sacerdoteDataManager.getSacerdotePersonaInsertar().setPerFotoByte(event.getFile().getContents());
     }
 
+	public void cancel()
+	{
+		sacerdoteDataManager.setSacerdoteInsertar(new SacerdoteDTO());
+		sacerdoteDataManager.setSacerdotePersonaInsertar(new Persona());
+		RequestContext.getCurrentInstance().execute("dlgNuevoSacerdote.hide()");
+	}
+	
 	@Override
 	public void refrescarFormulario() {
 		// TODO Auto-generated method stub

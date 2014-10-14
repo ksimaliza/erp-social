@@ -17,10 +17,12 @@ import javax.faces.bean.ViewScoped;
 import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoContratoListDTO;
@@ -185,7 +187,7 @@ public class PagoContratoController extends BaseController {
 			{
 				listaContrato=this.servicioEucaristia.buscarContrato(this.pagoContratoDataManager.getContratoListDTO());
 				if (CollectionUtils.isEmpty(listaContrato) && listaContrato.size()==0) {
-					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+					MensajesWebController.aniadirMensajeAdvertencia("Busqueda vacía. Ingrese información en Contrato");
 				} else {
 					this.pagoContratoDataManager.setContratoListDTO(listaContrato.get(0));
 				}
@@ -251,7 +253,21 @@ public class PagoContratoController extends BaseController {
 		
 	}
 	
-
+	public void exportarPdf(PagoContratoListDTO pagoContratoListDTO)
+	{
+		cargarDatosPagoContrato(pagoContratoListDTO);
+		exportar();
+	}
+	
+	public void cancel()
+	{
+		pagoContratoDataManager.setPagoDTO(new PagoDTO());
+		pagoContratoDataManager.setContratoListDTO(new ContratoListDTO());
+		pagoContratoDataManager.setFechaPago(new Date());
+		RequestContext.getCurrentInstance().execute("dlgNuevoPagoContrato.hide()");
+	}
+	
+	
 	@Override
 	public void refrescarFormulario() {
 		// TODO Auto-generated method stub

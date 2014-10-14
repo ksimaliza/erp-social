@@ -14,10 +14,13 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
@@ -169,6 +172,14 @@ public void cargarDatosEucaristia (EucaristiaListDTO eucaristiaListDTO) {
 		slf4jLogger.info("Error al cargarDatosEucaristia {}", e.getMessage());
 		MensajesWebController.aniadirMensajeError("Error al cargarDatosEucaristia seleccionado");
 	}
+}
+
+public void cancel()
+{
+	eucaristiaDataManager.setEucaristiaInsertar(new EucaristiaDTO());
+	eucaristiaDataManager.setCodigoSacerdote(0);
+	eucaristiaDataManager.setFecha(new Date());
+	RequestContext.getCurrentInstance().execute("dlgNuevaEucaristia.hide()");
 }
 
 @Override

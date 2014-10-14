@@ -16,11 +16,14 @@ import javax.faces.bean.ViewScoped;
 import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
@@ -133,28 +136,19 @@ public void registrarDefuncion () {
 			defuncionDataManager.setExportDesactivado(false);
 			DefuncionListDTO defuncion=new DefuncionListDTO();
 			defuncion.setDefPersona(defuncionNueva.getDefPersona());
-			defuncion.setDefConyugue(defuncionNueva.getDefConyugue());
+			
 			defuncion.setDefMadre(defuncionNueva.getDefMadre());
 			defuncion.setDefPadre(defuncionNueva.getDefPadre());
 			defuncion.setDefCodigo(defuncionNueva.getDefCodigo());
 			defuncion.setDefSacerdote(defuncionNueva.getEucSacerdote().getSacCodigo());
 			defuncion.setDefDoctorCertifica(defuncionNueva.getDefDoctorCertifica());
 			
+			if(defuncionDataManager.getConyugeInsertar()!=null)
+				defuncion.setDefConyugue(defuncionNueva.getDefConyugue());
+			
 			cargarDatosDefuncion(defuncion);
 			
 			if (defuncionNueva != null) {
-				/*defuncionDataManager.setDifuntoInsertar(new Persona());
-				defuncionDataManager.setConyugeInsertar(new Persona());
-				defuncionDataManager.setDefuncionInsertar(new DefuncionDTO());
-				defuncionDataManager.setSacerdoteCodigo(0);
-				defuncionDataManager.setDoctorCodigo(0);
-				defuncionDataManager.setEstadoCivilCodigo(0);
-				defuncionDataManager.setProvinciaCodigo(0);
-				defuncionDataManager.setCantonCodigo(0);
-				defuncionDataManager.setParroquiaCodigo(0);
-				
-				defuncionDataManager.setFechaMuerteInsertar(new Date());
-				defuncionDataManager.setFechaSepelioInsertar(new Date());*/
 							
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.defuncion.registrar.exito");
 			}
@@ -169,19 +163,14 @@ public void registrarDefuncion () {
 	
 	public void buscarSacerdote () {
 		slf4jLogger.info("buscarSacerdote");
-		
 		List<SacerdoteListDTO> listaSacerdote=null;
-		
 		try {
-							
 			listaSacerdote=this.servicioEucaristia.buscarSacerdote(new SacerdoteListDTO());
-			
 			if (CollectionUtils.isEmpty(listaSacerdote) && listaSacerdote.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.defuncionDataManager.setSacerdoteListDTO(listaSacerdote);			
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarSacerdote {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -220,18 +209,19 @@ public void registrarDefuncion () {
 		List<Persona> listaDifunto=null;
 		
 		try {
-			
-			defuncionDataManager.getDifuntoInsertar().setPerNombres(null);
-			defuncionDataManager.getDifuntoInsertar().setPerApellidos(null);
-			listaDifunto=this.servicioAdministracion.buscarPersona(defuncionDataManager.getDifuntoInsertar());
-										
-			if (CollectionUtils.isEmpty(listaDifunto) && listaDifunto.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.defuncionDataManager.setDifuntoInsertar(listaDifunto.get(0));
-							
+			if(defuncionDataManager.getDifuntoInsertar().getPerCi()!=null && defuncionDataManager.getDifuntoInsertar().getPerCi()!="" )
+			{
+				defuncionDataManager.getDifuntoInsertar().setPerNombres(null);
+				defuncionDataManager.getDifuntoInsertar().setPerApellidos(null);
+				listaDifunto=this.servicioAdministracion.buscarPersona(defuncionDataManager.getDifuntoInsertar());
+											
+				if (CollectionUtils.isEmpty(listaDifunto) && listaDifunto.size()==0) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.defuncionDataManager.setDifuntoInsertar(listaDifunto.get(0));
+								
+				}
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarDifunto {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -247,17 +237,19 @@ public void registrarDefuncion () {
 		
 		try {
 			
-			defuncionDataManager.getConyugeInsertar().setPerNombres(null);
-			defuncionDataManager.getConyugeInsertar().setPerApellidos(null);
-			listaConyuge=this.servicioAdministracion.buscarPersona(defuncionDataManager.getConyugeInsertar());
-										
-			if (CollectionUtils.isEmpty(listaConyuge) && listaConyuge.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.defuncionDataManager.setConyugeInsertar(listaConyuge.get(0));
-							
+			if(defuncionDataManager.getConyugeInsertar().getPerCi()!=null && defuncionDataManager.getConyugeInsertar().getPerCi()!="" )
+			{
+				defuncionDataManager.getConyugeInsertar().setPerNombres(null);
+				defuncionDataManager.getConyugeInsertar().setPerApellidos(null);
+				listaConyuge=this.servicioAdministracion.buscarPersona(defuncionDataManager.getConyugeInsertar());
+											
+				if (CollectionUtils.isEmpty(listaConyuge) && listaConyuge.size()==0) {
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.defuncionDataManager.setConyugeInsertar(listaConyuge.get(0));
+								
+				}
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarConyuge {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -313,22 +305,18 @@ public void registrarDefuncion () {
 		}
 	}
 	
-	
 	public void buscarDefuncion () {
 		slf4jLogger.info("buscarDefuncion");
 		
 		List<DefuncionListDTO> listaDefuncion=null;
 		
 		try {
-			
 			listaDefuncion=this.servicioEucaristia.buscarDefuncion(defuncionDataManager.getDefuncionListDTO());
-					
 			if (CollectionUtils.isEmpty(listaDefuncion) && listaDefuncion.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.defuncionDataManager.setDefuncionDTOs(listaDefuncion);
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarDefuncion {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -478,7 +466,7 @@ public void registrarDefuncion () {
 		mapParametros.put("notaMarginal", defuncionDataManager.getDefuncionInsertar().getDefNotaMarginal());
 		mapParametros.put("provincia", defuncionDataManager.getProvinciasEucaristiaDTOs().get(0).getCatDescripcion().toUpperCase());
 		mapParametros.put("padres", defuncionDataManager.getMadreInsertar().getPerApellidos().toUpperCase() + " "+ defuncionDataManager.getMadreInsertar().getPerNombres().toUpperCase() + " y " +defuncionDataManager.getPadreInsertar().getPerApellidos().toUpperCase() +  " "+defuncionDataManager.getPadreInsertar().getPerNombres().toUpperCase());
-		mapParametros.put("conyuge", defuncionDataManager.getConyugeInsertar().getPerApellidos().toUpperCase() + " "+  defuncionDataManager.getConyugeInsertar().getPerNombres().toUpperCase());
+		//mapParametros.put("conyuge", defuncionDataManager.getConyugeInsertar().getPerApellidos().toUpperCase() + " "+  defuncionDataManager.getConyugeInsertar().getPerNombres().toUpperCase());
 		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), "partidaDefuncion", mapParametros);
@@ -486,7 +474,30 @@ public void registrarDefuncion () {
 	
 		}
 	
+	public void exportarPdf(DefuncionListDTO defuncion)
+	{
+		cargarDatosDefuncion(defuncion);
+		exportar();
+	}
+	
+	public void cancel()
+	{
+		defuncionDataManager.setDifuntoInsertar(new Persona());
+		defuncionDataManager.setConyugeInsertar(new Persona());
+		defuncionDataManager.setDefuncionInsertar(new DefuncionDTO());
+		defuncionDataManager.setSacerdoteCodigo(0);
+		defuncionDataManager.setDoctorCodigo(0);
+		defuncionDataManager.setEstadoCivilCodigo(0);
+		defuncionDataManager.setProvinciaCodigo(0);
+		defuncionDataManager.setCantonCodigo(0);
+		defuncionDataManager.setParroquiaCodigo(0);
+		
+		defuncionDataManager.setFechaMuerteInsertar(new Date());
+		defuncionDataManager.setFechaSepelioInsertar(new Date());
+		RequestContext.getCurrentInstance().execute("dlgNuevaDefuncion.hide()");
+	}
 
+	
 	@Override
 	public void refrescarFormulario() {
 		// TODO Auto-generated method stub
