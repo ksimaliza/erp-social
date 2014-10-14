@@ -16,55 +16,6 @@ import java.util.Date;
 public class ComunionListDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="bau_acta")
-	private String bauActa;
-
-	@Column(name="bau_bautizado")
-	private Integer bauBautizado;
-
-	@Column(name="bau_canton")
-	private Integer bauCanton;
-
-	@Column(name="bau_certificado_por")
-	private Integer bauCertificadoPor;
-
-	@Id
-	@Column(name="bau_codigo")
-	private Integer bauCodigo;
-
-	@Column(name="bau_estado")
-	private Integer bauEstado;
-
-	@Column(name="bau_fecha_aprobacion_cruso")
-	private Timestamp bauFechaAprobacionCruso;
-
-	@Column(name="bau_fecha_bautizo")
-	private Timestamp bauFechaBautizo;
-
-	@Column(name="bau_madrina")
-	private Integer bauMadrina;
-
-	@Column(name="bau_nota_marginal")
-	private String bauNotaMarginal;
-
-	@Column(name="bau_padrino")
-	private Integer bauPadrino;
-
-	@Column(name="bau_pagina")
-	private String bauPagina;
-
-	@Column(name="bau_parroquia")
-	private Integer bauParroquia;
-
-	@Column(name="bau_provincia")
-	private Integer bauProvincia;
-
-	@Column(name="bau_sacerdote")
-	private Integer bauSacerdote;
-
-	@Column(name="bau_toma")
-	private String bauToma;
-
 	@Column(name="cat_canton")
 	private String catCanton;
 
@@ -144,6 +95,7 @@ public class ComunionListDTO implements Serializable {
 	@Column(name="per_nombres")
 	private String perNombres;
 
+	@Id
 	@Column(name="per_pk")
 	private Integer perPk;
 
@@ -163,134 +115,6 @@ public class ComunionListDTO implements Serializable {
 	private Integer sacPersona;
 
 	public ComunionListDTO() {
-	}
-
-	public String getBauActa() {
-		return this.bauActa;
-	}
-
-	public void setBauActa(String bauActa) {
-		this.bauActa = bauActa;
-	}
-
-	public Integer getBauBautizado() {
-		return this.bauBautizado;
-	}
-
-	public void setBauBautizado(Integer bauBautizado) {
-		this.bauBautizado = bauBautizado;
-	}
-
-	public Integer getBauCanton() {
-		return this.bauCanton;
-	}
-
-	public void setBauCanton(Integer bauCanton) {
-		this.bauCanton = bauCanton;
-	}
-
-	public Integer getBauCertificadoPor() {
-		return this.bauCertificadoPor;
-	}
-
-	public void setBauCertificadoPor(Integer bauCertificadoPor) {
-		this.bauCertificadoPor = bauCertificadoPor;
-	}
-
-	public Integer getBauCodigo() {
-		return this.bauCodigo;
-	}
-
-	public void setBauCodigo(Integer bauCodigo) {
-		this.bauCodigo = bauCodigo;
-	}
-
-	public Integer getBauEstado() {
-		return this.bauEstado;
-	}
-
-	public void setBauEstado(Integer bauEstado) {
-		this.bauEstado = bauEstado;
-	}
-
-	public Timestamp getBauFechaAprobacionCruso() {
-		return this.bauFechaAprobacionCruso;
-	}
-
-	public void setBauFechaAprobacionCruso(Timestamp bauFechaAprobacionCruso) {
-		this.bauFechaAprobacionCruso = bauFechaAprobacionCruso;
-	}
-
-	public Timestamp getBauFechaBautizo() {
-		return this.bauFechaBautizo;
-	}
-
-	public void setBauFechaBautizo(Timestamp bauFechaBautizo) {
-		this.bauFechaBautizo = bauFechaBautizo;
-	}
-
-	public Integer getBauMadrina() {
-		return this.bauMadrina;
-	}
-
-	public void setBauMadrina(Integer bauMadrina) {
-		this.bauMadrina = bauMadrina;
-	}
-
-	public String getBauNotaMarginal() {
-		return this.bauNotaMarginal;
-	}
-
-	public void setBauNotaMarginal(String bauNotaMarginal) {
-		this.bauNotaMarginal = bauNotaMarginal;
-	}
-
-	public Integer getBauPadrino() {
-		return this.bauPadrino;
-	}
-
-	public void setBauPadrino(Integer bauPadrino) {
-		this.bauPadrino = bauPadrino;
-	}
-
-	public String getBauPagina() {
-		return this.bauPagina;
-	}
-
-	public void setBauPagina(String bauPagina) {
-		this.bauPagina = bauPagina;
-	}
-
-	public Integer getBauParroquia() {
-		return this.bauParroquia;
-	}
-
-	public void setBauParroquia(Integer bauParroquia) {
-		this.bauParroquia = bauParroquia;
-	}
-
-	public Integer getBauProvincia() {
-		return this.bauProvincia;
-	}
-
-	public void setBauProvincia(Integer bauProvincia) {
-		this.bauProvincia = bauProvincia;
-	}
-
-	public Integer getBauSacerdote() {
-		return this.bauSacerdote;
-	}
-
-	public void setBauSacerdote(Integer bauSacerdote) {
-		this.bauSacerdote = bauSacerdote;
-	}
-
-	public String getBauToma() {
-		return this.bauToma;
-	}
-
-	public void setBauToma(String bauToma) {
-		this.bauToma = bauToma;
 	}
 
 	public String getCatCanton() {
