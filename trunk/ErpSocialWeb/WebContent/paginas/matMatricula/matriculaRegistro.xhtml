@@ -53,7 +53,7 @@
 							<h:outputLabel for="txtFecha" value="#{i18n['erp.matricula.registro.fecha']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFecha" style="width: 100%" navigator="true" value="#{matriculaDataManager.fechaInsertar}"  showOn="button" required="true"/>
+							<p:inputText id="txtFecha" value="#{matriculaDataManager.fechaInsertar.toLocaleString().substring(0,10)}" required="true" readonly="true"/>
 						</td>	
 					</tr>
 					<tr>
@@ -121,7 +121,7 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{matriculaController.registrarMatricula}"/>
-				<p:commandButton value="#{i18n['label.cancelar']}"  type="button" />
+				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{matriculaController.cancel}" process="@this" immediate="true" update="pnlAnadirMatricula,tablaAsinacion"/>
 			</p:panel>
 						
 		</h:form>			
