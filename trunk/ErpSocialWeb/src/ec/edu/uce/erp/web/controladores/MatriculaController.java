@@ -31,7 +31,6 @@ import ec.edu.uce.erp.web.datamanager.MatriculaDataManager;
 
 @ViewScoped
 @ManagedBean (name = "matriculaController")
-
 public class MatriculaController extends BaseController {
 
 	private static final long serialVersionUID = 1L;
@@ -83,6 +82,13 @@ public class MatriculaController extends BaseController {
 					MensajesWebController.aniadirMensajeError("No existen datos del curso o paralelo");
 					return;
 				}
+
+				if(matriculaDataManager.getMatriculaInsertar().getRegFotoByte()==null)
+				{
+					MensajesWebController.aniadirMensajeError("Seleccione Foto");
+					return;
+				}
+
 				
 				estudianteDTO.setEstCodigo(matriculaDataManager.getEstudianteCodigo());
 				matriculaDataManager.getMatriculaInsertar().setMatEstudiante(estudianteDTO);
@@ -102,10 +108,11 @@ public class MatriculaController extends BaseController {
 				{
 					servicioMatricula.createOrUpdateMatricula(matriculaVO);	
 					MensajesWebController.aniadirMensajeInformacion("erp.matricula.registrar.exito");
+					cancel();
 				}
-				} catch (SeguridadesException e) {
-					slf4jLogger.info(e.toString());
-					MensajesWebController.aniadirMensajeError(e.getMessage());
+			} catch (SeguridadesException e) {
+				slf4jLogger.info(e.toString());
+				MensajesWebController.aniadirMensajeError(e.getMessage());
 			}
 			
 		}
@@ -135,7 +142,6 @@ public class MatriculaController extends BaseController {
 				slf4jLogger.info("Error al buscar el estudiante {} ", e);
 				MensajesWebController.aniadirMensajeError(e.getMessage());
 			}
-			
 		}
 	
 		public void buscarNivel () {
@@ -221,7 +227,7 @@ public class MatriculaController extends BaseController {
 		
 		
 		public void handleFileUpload(FileUploadEvent event) {
-			matriculaDataManager.getMatriculaInsertar().setRegFoto(JsfUtil.saveToDiskUpdload(event.getFile().getContents(), JsfUtil.getRandomName(event.getFile().getFileName().split("\\.")[1])));
+			matriculaDataManager.getMatriculaInsertar().setRegFoto(JsfUtil.saveToDiskUpdload(event.getFile().getContents(), event.getFile().getFileName()));
 			matriculaDataManager.getMatriculaInsertar().setRegFotoByte(event.getFile().getContents());
 	    }
 
@@ -229,6 +235,12 @@ public class MatriculaController extends BaseController {
 		public void refrescarFormulario() {
 			// TODO Auto-generated method stub
 			
+		}
+		
+		public void cancel()
+		{
+			matriculaDataManager.setMatriculaInsertar(new MatriculaDTO());
+			matriculaDataManager.setAsinacionList(new ArrayList<AsinacionListDTO>());
 		}
 
 }
