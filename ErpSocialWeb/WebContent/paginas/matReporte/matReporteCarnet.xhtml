@@ -69,34 +69,37 @@
 			paginator="true" rows="5" paginatorPosition="bottom"
 		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 		rowsPerPageTemplate="5,10,15">
+			
 			<p:column headerText="#" styleClass="centered" width="5%">
-			#{rowIndex+1}
-		</p:column>
-		<p:column headerText="Nro. Matricula">
+				#{rowIndex+1}
+			</p:column>
+			<p:column headerText="Nro. Matricula">
 					<h:outputText value="2014-GM-#{rep.regCodigo}" />
 				</p:column>
-		<p:column headerText="Foto">
-					<p:graphicImage value="#{rep.regFoto}" height="45" />
-				</p:column>
+			<p:column headerText="Foto">
+				<p:graphicImage value="#{rep.regFoto}" height="45" />
+			</p:column>
 			<p:column headerText="Cédula">
-					<h:outputText value="#{rep.perCi}" />
-				</p:column>
+				<h:outputText value="#{rep.perCi}" />
+			</p:column>
 				
+			<p:column headerText="Apellidos y Nombres">
+				<h:outputText value="#{rep.perApellidos} #{rep.perNombres}" />				
+			</p:column>
+			<p:column headerText="Nivel">
+				<h:outputText value="#{rep.nivDescaripcion}" />
+			</p:column>
+			<p:column headerText="Paralelo">
+				<h:outputText value="#{rep.parDescripcion}" />
+			</p:column>
+
+			<p:column headerText="Paralelo" style="display: none">
+				<h:outputText value="#{rep.regVerificarFoto}" />
+			</p:column>
 				
-							
-				<p:column headerText="Apellidos y Nombres">
-					<h:outputText value="#{rep.perApellidos} #{rep.perNombres}" />				
-				</p:column>
-				<p:column headerText="Nivel">
-					<h:outputText value="#{rep.nivDescaripcion}" />
-				</p:column>
-				<p:column headerText="Paralelo">
-					<h:outputText value="#{rep.parDescripcion}" />
-				</p:column>
-				
-				<p:column headerText="Carné">
-					<p:commandButton title="Generar Carné" actionListener="#{reporteCarnetController.carnet(rep)}" icon="exportPdf" ajax="false"/>
-				</p:column>
+			<p:column headerText="Carné">
+				<p:commandButton title="Generar Carné" actionListener="#{reporteCarnetController.carnet(rep)}" icon="exportPdf" ajax="false"/>
+			</p:column>
 			
 			</p:dataTable>
 			
