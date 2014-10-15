@@ -199,7 +199,10 @@ public class MatriculaVieDTO implements Serializable {
 			String nivDescaripcion, 
 			String parDescripcion, 
 			Date regFecha,
-			String emrNombre) {
+			String emrNombre,
+			String regFoto,
+			byte[] regFotoByte
+			) {
 		super();
 		this.regCodigo=regCodigo;
 		this.perCi = perCi;
@@ -209,6 +212,8 @@ public class MatriculaVieDTO implements Serializable {
 		this.parDescripcion = parDescripcion;
 		this.regFecha=regFecha;
 		this.emrNombre = emrNombre;
+		this.regFoto=regFoto;
+		this.regFotoByte = regFotoByte;
 	}
 	
 	
@@ -566,8 +571,6 @@ public class MatriculaVieDTO implements Serializable {
 	}
 
 	public String getRegFoto() {
-		if(this.regFotoByte!=null)
-			this.regFoto=UtilAplication.saveToDisk(regFotoByte, regFoto);
 		return this.regFoto;
 	}
 
