@@ -10,6 +10,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import ec.edu.uce.erp.common.util.UtilAplication;
 
@@ -164,6 +165,10 @@ public class MatriculaVieDTO implements Serializable {
 
 	@Column(name="reg_foto_byte")
 	private byte[] regFotoByte;
+	
+	@Transient
+	private Boolean regVerificarFoto;
+
 
 	public MatriculaVieDTO() {
 	}
@@ -576,6 +581,15 @@ public class MatriculaVieDTO implements Serializable {
 
 	public void setRegFotoByte(byte[] regFotoByte) {
 		this.regFotoByte = regFotoByte;
+	}
+
+	public Boolean getRegVerificarFoto() {
+		UtilAplication.saveToDisk(this.regFotoByte, this.regFoto);
+		return regVerificarFoto;
+	}
+
+	public void setRegVerificarFoto(Boolean regVerificarFoto) {
+		this.regVerificarFoto = regVerificarFoto;
 	}
 
 }
