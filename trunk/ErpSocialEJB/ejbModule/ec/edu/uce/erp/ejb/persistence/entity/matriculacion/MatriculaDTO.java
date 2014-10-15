@@ -3,6 +3,9 @@ package ec.edu.uce.erp.ejb.persistence.entity.matriculacion;
 import java.io.Serializable;
 
 import javax.persistence.*;
+import javax.swing.text.StyledEditorKit.BoldAction;
+
+import ec.edu.uce.erp.common.util.UtilAplication;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -35,6 +38,9 @@ public class MatriculaDTO implements Serializable {
 	
 	@Column(name="reg_empresa")
 	private Integer regEmpresa;
+	
+	@Transient
+	private Boolean regVerificarFoto;
 
 	//bi-directional many-to-one association to EstudianteDTO
 	@ManyToOne
@@ -118,6 +124,15 @@ public class MatriculaDTO implements Serializable {
 
 	public void setRegEmpresa(Integer regEmpresa) {
 		this.regEmpresa = regEmpresa;
+	}
+
+	public Boolean getRegVerificarFoto() {
+		UtilAplication.saveToDisk(this.regFotoByte, this.regFoto);
+		return regVerificarFoto;
+	}
+
+	public void setRegVerificarFoto(Boolean regVerificarFoto) {
+		this.regVerificarFoto = regVerificarFoto;
 	}
 
 }
