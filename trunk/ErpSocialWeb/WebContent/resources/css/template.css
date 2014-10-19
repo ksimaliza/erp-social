@@ -1,8 +1,8 @@
 @CHARSET "UTF-8";
 
-input[type=text] {
+/*input[type=text] {
 	text-transform: uppercase !important;
-}
+}*/
 
 textarea {
 	text-transform: uppercase !important;
@@ -230,7 +230,6 @@ TD.ToolBar {
 
 
 .label {
-    
     text-align: right;
     vertical-align: central;
     horizontal-align:middle;
@@ -239,6 +238,7 @@ TD.ToolBar {
     white-space: nowrap;
     padding-right: 5px;
     height: 20px;
+    
 }
 
 
@@ -383,4 +383,7 @@ body {
 .ui-top, .ui-top .ui-layout, .ui-top .ui-layout-bd, .ui-top .ui-layout-unit {
     background-image: none;
     background-color: #e6ecf0; 
-      border: none;}
+      border: none;
+      }
+      
+    
