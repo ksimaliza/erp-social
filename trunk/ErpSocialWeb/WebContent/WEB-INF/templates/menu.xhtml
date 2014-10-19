@@ -6,8 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	<h:form id="frmMenu">
 		<h:panelGroup id="pgMenuUsuario" layout="block">
-			<h:outputText value="#{menuUsuarioController.fecha}" style="FONT-WEIGHT: bold; color:#990099;"/>
-			<p:panelMenu model="#{menuUsuarioController.model}"/>
+			<p:menu model="#{menuUsuarioController.model}" style="width:190px"/>
 		</h:panelGroup>
 	</h:form>
 </ui:composition>
