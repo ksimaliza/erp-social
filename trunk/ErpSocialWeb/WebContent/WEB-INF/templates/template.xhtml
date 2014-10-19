@@ -135,7 +135,7 @@
 
 			</h:form >
 		</p:layoutUnit>
-		<p:layoutUnit id="menu" position="west">
+		<p:layoutUnit header="Sistema Erp Social" resizable="false"  collapsible="true" id="menu" position="west" size="225">
 			<ui:include src="/WEB-INF/templates/menu.xhtml" />
 		</p:layoutUnit>
 		<p:layoutUnit position="center" resizable="true">
@@ -149,8 +149,16 @@
 				<p:graphicImage value="/resources/img/ajaxloadingbar.gif" />
 			</p:dialog>
 		</p:layoutUnit>
-		<p:layoutUnit styleClass="myLayoutStyleClass"  position="south" resizable="true">
+		<p:layoutUnit styleClass="myLayoutStyleClass"  position="south" resizable="false">
+					<table style="width:100%;">
+					<tr>
+					<td>
+					© Universidad Central del Ecuador 
+					</td>
+					</tr>
 					
+					
+					</table>
 				</p:layoutUnit>
 	</p:layout>
 	<p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>
