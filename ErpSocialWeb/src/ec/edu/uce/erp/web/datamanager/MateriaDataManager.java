@@ -16,7 +16,7 @@ import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 @ManagedBean (name = "materiaDataManager")
 public class MateriaDataManager extends BaseDataManager{
 	
-	private static final Logger slf4jLogger = LoggerFactory.getLogger(PerfilDataManager.class);
+	private static final Logger slf4jLogger = LoggerFactory.getLogger(MateriaDataManager.class);
 	private static final long serialVersionUID = 1L;
 	
 	private MateriaDTO materiaInstancia;
