@@ -28,9 +28,9 @@
 
                                 <tr>
                                 <td align="right"><h:outputLabel value="Nro. Matricula:" /></td>
-                                        <td ><h:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.matCodigo}"/></td>
+                                        <td ><p:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.matCodigo}"/></td>
                                         <td align="right"><h:outputLabel value="Cédula:" /></td>
-                                        <td ><h:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perCi}" style=" width : 161px;"/></td>
+                                        <td ><p:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perCi}" style=" width : 161px;"/></td>
                                         <td>
                                         <p:commandButton id="btnBuscar"
                                         actionListener="#{reporteCarnetController.buscar}"
@@ -46,12 +46,12 @@
 
                                 <tr>
                                         <td align="right" ><h:outputLabel value="Nombres:" /></td>
-                                        <td colspan="3"><h:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perNombres}" style=" width : 386px;"/></td>
+                                        <td colspan="3"><p:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perNombres}" style=" width : 386px;"/></td>
                                 </tr>
 
                                 <tr>
                                         <td align="right"><h:outputLabel value="Apellidos:" /></td>
-                                        <td colspan="3" ><h:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perApellidos}" style=" width : 386px;"/></td>
+                                        <td colspan="3" ><p:inputText value="#{reporteCarnetDataManager.matriculaVieDTO.perApellidos}" style=" width : 386px;"/></td>
                                 </tr>
 
                                 <tr>
