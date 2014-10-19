@@ -24,13 +24,22 @@
 						</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:panel id="pnlBuscarMateria" header="#{i18n['erp.matricula.materia.buscar']}">
+			<p:panel id="pnlBuscarMateria" header="#{i18n['erp.matricula.materia.buscar']}"  style="width: 700px;" toggleable="true">
 				<table class="formulario">
 					<tr >
-						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.materia.nombre']}" /> </td>
-					<td width="70%">
-							<p:inputText id="txtNombreBuscar"
+						<td  align="right"><h:outputLabel value="#{i18n['erp.matricula.materia.nombre']}:" /> </td>
+					<td class="value">
+							<p:inputText id="txtNombreBuscar"  style="width: 450px;" title="Filtra por el Nombre de Materia "
 								value="#{materiaDataManager.materiaBuscar.mtrNombe}" />
+						</td>
+						<td>
+						<p:commandButton id="btnBuscar"
+					actionListener="#{materiaController.buscarMateria}"
+					value="#{i18n['label.buscar']}" 
+					 icon="ui-icon-search"
+                     title="Buscar"
+					process="@this,pnlBuscarMateria"
+					update=":formMateria:pnlMessages,tablaMateria,pnlBuscarMateria" />
 						</td>
 					
 					</tr>
@@ -38,11 +47,7 @@
 			</p:panel>
 
 <p:panel id="botonesBuscar">
-				<p:commandButton id="btnBuscar"
-					actionListener="#{materiaController.buscarMateria}"
-					value="#{i18n['label.buscar']}" 
-					process="@this,pnlBuscarMateria"
-					update=":formMateria:pnlMessages,tablaMateria,pnlBuscarMateria" />
+				
 			</p:panel>
 
 <p:dataTable id="tablaMateria"
