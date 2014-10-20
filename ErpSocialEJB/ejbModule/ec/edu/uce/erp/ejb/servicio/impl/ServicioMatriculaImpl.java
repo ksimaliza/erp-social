@@ -4,6 +4,10 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +22,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteAsignadoVieDTO
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteRepresentanteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MateriaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDetalleDTO;
@@ -88,10 +93,12 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	
 	
 	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public EstudianteDTO createOrUpdateEstudiante(EstudianteVO estudiantevo) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateEstudiante");
-		Persona personanueva;
+		EstudianteDTO estudiante;
+		Persona personanueva,personaRepresentante;
 		try {
 			if(estudiantevo.getEstudiante().getEstCodigo()!=null){
 				slf4jLogger.info("Update");
@@ -109,10 +116,41 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 				if(factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(estudiantevo.getPersona()).isEmpty())
 					personanueva= factoryDAO.getPersonaDAOImpl().create(estudiantevo.getPersona());
 				else
-					personanueva=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(estudiantevo.getPersona()).get(0);
+					personanueva=factoryDAO.getPersonaDAOImpl().update(estudiantevo.getPersona());
 				
 				estudiantevo.getEstudiante().setEstPersona(personanueva.getPerPk());
-				return matriculaFactoryDAO.getEstudianteDAOImpl().create(estudiantevo.getEstudiante());
+				
+				estudiante=matriculaFactoryDAO.getEstudianteDAOImpl().create(estudiantevo.getEstudiante());
+				
+				if(factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(estudiantevo.getPersonaRepresentante()).isEmpty())
+					personaRepresentante= factoryDAO.getPersonaDAOImpl().create(estudiantevo.getPersonaRepresentante());
+				else
+					personaRepresentante= factoryDAO.getPersonaDAOImpl().update(estudiantevo.getPersonaRepresentante());
+				
+				RepresentanteListDTO repre=new RepresentanteListDTO();
+				repre.setPerCi(personaRepresentante.getPerCi());
+				RepresentanteDTO rep=new RepresentanteDTO();
+				List<RepresentanteListDTO> repList=matriculaFactoryDAO.getRepresentanteDAOImpl().getByAnd(repre);
+				if(repList.isEmpty())
+				{
+					rep.setRepEmpresa(estudiantevo.getEstudiante().getEstEmpresa());
+					rep.setRepPersona(personaRepresentante.getPerPk());
+					rep=matriculaFactoryDAO.getRepresentanteDAOImpl().create(rep);
+				}
+				else
+				{
+					repre=repList.get(0);
+					rep=matriculaFactoryDAO.getRepresentanteDAOImpl().find(repre.getRepCodigo());
+				}					
+
+				EstudianteRepresentanteDTO estRep=new EstudianteRepresentanteDTO();
+				estRep.setEsrEmpresa(estudiantevo.getEstudiante().getEstEmpresa());
+				estRep.setMatEstudiante(estudiante);
+				estRep.setMatRepresentante(rep);
+				
+				matriculaFactoryDAO.getEstudianteRepresentanteDAOImpl().create(estRep);
+				
+				return estudiante;
 				
 			}
 		} catch (Exception e) {
