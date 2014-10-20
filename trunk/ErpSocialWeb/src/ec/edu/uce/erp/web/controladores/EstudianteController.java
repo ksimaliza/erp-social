@@ -19,13 +19,14 @@ import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EstudianteVO;
+import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.common.util.JsfUtil;
 import ec.edu.uce.erp.web.datamanager.EstudianteDataManager;
+import ec.edu.uce.erp.web.datamanager.RepresentanteDataManager;
 
 
 @ViewScoped
@@ -42,17 +43,15 @@ public class EstudianteController extends BaseController{
 	
 	@EJB
 	private ServicioMatricula servicioMatricula;
+
+	@EJB
+	private ServicioAdministracion servicioAdministracion;
 	
 	@ManagedProperty(value="#{estudianteDataManager}")
 	private EstudianteDataManager estudianteDataManager;
-
-	public EstudianteDataManager getEstudianteDataManager() {
-		return estudianteDataManager;
-	}
-
-	public void setEstudianteDataManager(EstudianteDataManager estudianteDataManager) {
-		this.estudianteDataManager = estudianteDataManager;
-	}
+	
+	@ManagedProperty(value="#{representanteDataManager}")
+	private RepresentanteDataManager representanteDataManager;
 	
 	private List<Object> estudiantesSeleccionados;
 
@@ -60,7 +59,22 @@ public class EstudianteController extends BaseController{
 	
 	@PostConstruct
 	public void inicializarObjetos () {
-		buscarRepresentante();
+		
+	}
+	
+	/*
+	 * Getters Setters
+	 */
+	public void setRepresentanteDataManager(RepresentanteDataManager representanteDataManager) {
+		this.representanteDataManager = representanteDataManager;
+	}
+
+	public EstudianteDataManager getEstudianteDataManager() {
+		return estudianteDataManager;
+	}
+
+	public void setEstudianteDataManager(EstudianteDataManager estudianteDataManager) {
+		this.estudianteDataManager = estudianteDataManager;
 	}
 	
 	/*
@@ -71,14 +85,13 @@ public class EstudianteController extends BaseController{
 		
 		slf4jLogger.info("registrarEstudiante");
 		EstudianteVO estudianteVO;
-		RepresentanteDTO representante;
+		
 		try {
-			representante=new RepresentanteDTO();
 			estudianteVO=new EstudianteVO();
 			estudianteDataManager.getEstudianteInstancia().setEstEmpresa(getEmpresaCode());
 			estudianteVO.setEstudiante(estudianteDataManager.getEstudianteInstancia());
 			estudianteVO.setPersona(estudianteDataManager.getEstudiantePersonaInsertar());
-			representante.setRepCodigo(estudianteDataManager.getRepresentanteCode());
+			estudianteVO.setPersonaRepresentante(representanteDataManager.getPersonaInstancia());
 
 			EstudianteDTO estudianteNuevo = this.servicioMatricula.createOrUpdateEstudiante(estudianteVO);
 			if (estudianteNuevo != null) {
@@ -110,10 +123,12 @@ public class EstudianteController extends BaseController{
 			} else {
 				this.estudianteDataManager.setListaEstudianteListDTOs(listaestudiantes);
 			}
+			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscar el estudiante {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
+		
 	}
 	
 	public List<Object> getEstudiantesSeleccionados() {
@@ -145,33 +160,46 @@ public class EstudianteController extends BaseController{
 		estudianteDataManager.getEstudiantePersonaInsertar().setPerFotoByte(event.getFile().getContents());
     }
 
-
-	@Override
-	public void refrescarFormulario() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
 	public void cancel()
 	{
 		estudianteDataManager.setEstudianteInstancia(new EstudianteDTO());
 		estudianteDataManager.setEstudiantePersonaInsertar(new Persona());
+		representanteDataManager.setPersonaInstancia(new Persona());
 		RequestContext.getCurrentInstance().execute("dlgNuevoEstudiante.hide()");
 	}
-	
-	private void buscarRepresentante()
+			
+	public void buscarPersonaEstudiante()
 	{
+		List<Persona> personaList;
 		try {
-			estudianteDataManager.setRepresentanteList(this.servicioMatricula.buscarRepresentante(new RepresentanteListDTO()));
+			personaList=this.servicioAdministracion.buscarPersona(estudianteDataManager.getEstudiantePersonaInsertar());
+			if(personaList.size()>0)
+				estudianteDataManager.setEstudiantePersonaInsertar(personaList.get(0));
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("buscarRepresentante {}", e.getMessage());
 			MensajesWebController.aniadirMensajeError(e.toString());
 		}
 	}
-		
+	
 
+	public void buscarPersonaRepresentante()
+	{
+		List<Persona> personaList;
+		try {
+			personaList=this.servicioAdministracion.buscarPersona(representanteDataManager.getPersonaInstancia());
+			if(personaList.size()>0)
+				representanteDataManager.setPersonaInstancia(personaList.get(0));
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("buscarRepresentante {}", e.getMessage());
+			MensajesWebController.aniadirMensajeError(e.toString());
+		}
+	}
+
+	
+	@Override
+	public void refrescarFormulario() {
+		// TODO Auto-generated method stub
+	}
 }
 		
 		
-
