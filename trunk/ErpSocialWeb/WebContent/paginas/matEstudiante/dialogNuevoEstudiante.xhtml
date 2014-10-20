@@ -9,7 +9,10 @@
 		widgetVar="dlgNuevoEstudiante" modal="true" width="500" minWidth="500" appendTo="@(body)" closeOnEscape="true">
 		<h:form id="formNuevoEstudiante" styleClass="formulario">
 		
-			<p:panel id="pnlNuevoEstudiante">
+		<p:scrollPanel mode="native" style="height:500px">
+		
+			<p:panel id="pnlNuevoEstudiante" header="Estudiante">
+			
 				<table class="formulario">
 									
 					<tr>
@@ -35,6 +38,7 @@
 								required="true" label="#{i18n['erp.matricula.estudiante.cedula']}" onkeypress="return isNumberKey(event);">
 								<f:validateLength maximum="10" minimum="10"/>
 								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+								<p:ajax event="blur" listener="#{estudianteController.buscarPersonaEstudiante}" process="@this" update="pnlNuevoEstudiante"></p:ajax>								
 							</p:inputText>			
 						</td>
 					</tr>
@@ -55,9 +59,7 @@
 						<td width="70%">
 							<p:inputText id="txtApe" style="width: 100%" 
 								value="#{estudianteDataManager.estudiantePersonaInsertar.perApellidos}" label="#{i18n['erp.matricula.estudiante.apellidos']}"/>
-							
 						</td>
-						
 					</tr>
 					
 					<tr>
@@ -107,21 +109,96 @@
 							</p:inputText>
 						</td>	
 					</tr>
+				</table>
+				</p:panel>
+
+				<p:panel id="pnlNuevoRepresentante" header="Representante">
+
+				<table class="formulario">
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="somRepresentante" value="Representante:" />
+							<h:outputLabel for="txtCiRepresentante" value="#{i18n['erp.matricula.representante.cedula']}" />
 						</td>
 						<td width="70%">
-							<p:selectOneMenu id="somRepresentante" style="width:70%;" value="#{estudianteDataManager.representanteCode}">
-								<f:selectItem itemLabel="--Seleccione--"/>
-								<f:selectItems value="#{estudianteController.estudianteDataManager.representanteList}" var="rep" itemValue="#{rep.repCodigo}" itemLabel="#{rep.perApellidos} #{rep.perNombres}"/>
-							</p:selectOneMenu>
+							<p:inputText id="txtCiRepresentante" value="#{representanteDataManager.personaInstancia.perCi}" style="width: 100%"
+								required="true" label="#{i18n['erp.matricula.representante.cedula']}" onkeypress="return isNumberKey(event);">
+								<f:validateLength maximum="10" minimum="10"/>
+								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+								<p:ajax event="blur" listener="#{estudianteController.buscarPersonaRepresentante}" process="@this" update="pnlNuevoRepresentante"></p:ajax>
+							</p:inputText>
+						</td>
+					</tr>
+						
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNombresRepresentante" value="#{i18n['erp.matricula.representante.nombres']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNombresRepresentante" value="#{representanteDataManager.personaInstancia.perNombres}"
+								style="width: 100%" required="true" label="#{i18n['erp.matricula.representante.nombres']}" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApellidosRepresentante" value="#{i18n['erp.matricula.representante.apellidos']}"  />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApellidosRepresentante" style="width: 100%" 
+								value="#{representanteDataManager.personaInstancia.perApellidos}" label="#{i18n['erp.matricula.representante.apellidos']}"/>
 						</td>	
 					</tr>
 					
-										
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtFecNacRepresentante" value="#{i18n['erp.matricula.representante.fechanac']}" />
+						</td>
+						<td width="70%">
+							<p:calendar id="txtFecNacRepresentante" style="width: 100%" navigator="true" value="#{representanteDataManager.personaInstancia.perFechaNac}"  showOn="button" required="true"/>
+						</td>	
+					</tr>
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtDirRepresentante" value="#{i18n['erp.matricula.representante.direccion']}" />
+						</td>
+						<td width="70%">
+							<p:inputTextarea id="txtDirRepresentante" style="width: 100%" autoResize="false" 
+								value="#{representanteDataManager.personaInstancia.perDireccion}" label="#{i18n['erp.matricula.representante.direccion']}" required="true" />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtTelefonoRepresentante" value="#{i18n['erp.matricula.representante.telefono']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtTelefonoRepresentante" style="width: 100%"
+								value="#{representanteDataManager.personaInstancia.perTelefono}" label="#{i18n['erp.matricula.representante.telefono']}" onkeypress="return isNumberKey(event)" />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtCelularRepresentante" value="#{i18n['erp.matricula.representante.celular']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtCelularRepresentante" style="width: 100%"
+								value="#{representanteDataManager.personaInstancia.perCelular}" label="#{i18n['erp.matricula.representante.celular']}" onkeypress="return isNumberKey(event)" />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtEmailRepresentante" value="#{i18n['erp.matricula.representante.email']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtEmailRepresentante" style="width: 100%"
+								 value="#{representanteDataManager.personaInstancia.perEmail}" label="#{i18n['erp.matricula.representante.email']}">
+						<f:validator validatorId="ec.edu.uce.erp.web.validador.EmailValidator" />
+						</p:inputText>
+						</td>	
+					</tr>
 				</table>
 			</p:panel>
+			
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{estudianteController.registrarEstudiante}"
@@ -129,6 +206,8 @@
 					process="@this,pnlNuevoEstudiante" update="pnlNuevoEstudiante,:formEstudiante:tablaEstudiante,:formEstudiante:pnlMessages"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{estudianteController.cancel}" process="@this" immediate="true" update="pnlNuevoEstudiante"/>
 			</p:panel>
+			
+			</p:scrollPanel>
 		</h:form>
 	</p:dialog>
 </ui:composition>
