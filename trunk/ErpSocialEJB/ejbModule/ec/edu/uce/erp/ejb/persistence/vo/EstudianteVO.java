@@ -18,6 +18,7 @@ public class EstudianteVO implements Serializable{
 	private Persona persona;
 	private Empresa empresa;
 	private RepresentanteDTO representante;
+	private Persona personaRepresentante;
 	
 	public EstudianteVO() {
 		estudiante=new EstudianteDTO();
@@ -56,6 +57,14 @@ public class EstudianteVO implements Serializable{
 
 	public void setRepresentante(RepresentanteDTO representante) {
 		this.representante = representante;
+	}
+
+	public Persona getPersonaRepresentante() {
+		return personaRepresentante;
+	}
+
+	public void setPersonaRepresentante(Persona personaRepresentante) {
+		this.personaRepresentante = personaRepresentante;
 	}
 	
 }

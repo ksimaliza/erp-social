@@ -11,4 +11,7 @@ public interface RepresentanteDAO extends AbstractFacade<RepresentanteDTO> {
 	List<RepresentanteListDTO> obtenerRepresentante(
 			RepresentanteListDTO representante) throws SeguridadesException;
 
+	List<RepresentanteListDTO> getByAnd(RepresentanteListDTO representante)
+			throws SeguridadesException;
+
 }

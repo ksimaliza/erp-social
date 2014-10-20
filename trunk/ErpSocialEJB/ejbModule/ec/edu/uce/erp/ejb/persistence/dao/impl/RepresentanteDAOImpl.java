@@ -1,5 +1,7 @@
 package ec.edu.uce.erp.ejb.persistence.dao.impl;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +36,65 @@ public class RepresentanteDAOImpl extends AbstractFacadeImpl<RepresentanteDTO> i
 		super(entityManager);
 		
 	}
+	
+	
+	@Override
+	public List<RepresentanteListDTO> getByAnd(RepresentanteListDTO objectDTO) throws SeguridadesException {
+		
+		CriteriaBuilder cb;
+		CriteriaQuery<RepresentanteListDTO> cq;
+		Root<RepresentanteListDTO> from;
+		List<RepresentanteListDTO> list;
+		Predicate predicate;
+		List<Predicate> predicateList = null;
+		String fieldName;
+		Method getter;
+		Object value;
+		Field[] fields;
+		try{
+			cb=entityManager.getCriteriaBuilder();
+			cq=cb.createQuery(RepresentanteListDTO.class);
+			
+			from= cq.from(RepresentanteListDTO.class);
+			
+			predicateList=new ArrayList<Predicate>();
+			
+			fields = objectDTO.getClass().getDeclaredFields();
+
+	        for(Field f : fields){
+	            fieldName = f.getName();
+				if(!fieldName.equals("serialVersionUID"))
+				{
+				    getter = objectDTO.getClass().getMethod("get" + String.valueOf(fieldName.charAt(0)).toUpperCase() +
+				            fieldName.substring(1));
+				    
+				    value = getter.invoke(objectDTO, new Object[0]);
+				
+				    if(value!=null)
+				    {
+				    	predicate=cb.equal(from.get(fieldName), value);
+				    	predicateList.add(predicate);                	
+				    }
+				}
+	        }
+	
+	        if(!predicateList.isEmpty())
+	        	cq.where(cb.and(predicateList.toArray(new Predicate[0])));		
+			
+			TypedQuery<RepresentanteListDTO> tq=entityManager.createQuery(cq);
+			list=tq.getResultList();
+			
+			return list;
+			
+		}catch(Exception e){
+			slf4jLogger.info(e.toString());
+			throw new SeguridadesException(e);
+		}finally{
+			predicate=null;
+			predicateList=null;
+		}		
+	}
+	
 	
 	@Override
 	public List<RepresentanteListDTO> obtenerRepresentante(RepresentanteListDTO representante) throws SeguridadesException {
