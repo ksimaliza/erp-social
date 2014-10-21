@@ -408,6 +408,11 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 				{
 					registroAsistencia.getRegistroDTO().setRasEntidad(empleado.getAemEmpresa());
 					if(registro.getRasHoraSalida()!=null){
+						if(CalendarUtil.getDay(registro.getRasHoraInicio())<CalendarUtil.getDay(new Timestamp(new Date().getTime()))){
+							registro.setRasHoraSalida(Timestamp.valueOf(CalendarUtil.getYear(registro.getRasHoraInicio()).toString()+"-"+CalendarUtil.getMonth(registro.getRasHoraInicio()).toString()+"-"+CalendarUtil.getDay(registro.getRasHoraInicio()).toString()+" 23:59:00.000"));
+							registro= asistenciaFactoryDAO.getRegistroDAOImpl().update(registro);
+							registro.setRasHoraSalida(null);
+						}
 						registro= asistenciaFactoryDAO.getRegistroDAOImpl().create(verificarEntrada(registroAsistencia,empleado).getRegistroDTO());					
 					}
 					else{

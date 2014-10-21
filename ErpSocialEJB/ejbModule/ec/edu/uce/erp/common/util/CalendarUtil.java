@@ -107,30 +107,42 @@ public class CalendarUtil {
 		return d;
 	}
 	
+	public static Date convertStringtoDate(String date,String format)
+	{
+		SimpleDateFormat df=new SimpleDateFormat(format);
+		java.util.Date d = null;
+		try {
+			d = df.parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return d;
+	}
+	
 	public static int getYear() {
 		Calendar cal = Calendar.getInstance();
 		int year = cal.get(Calendar.YEAR);
 		return year;
 	}
 
-	public static int getYear(Timestamp da) {
+	public static Integer getYear(Timestamp da) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(da);
-		int year = cal.get(Calendar.YEAR);
+		Integer year = cal.get(Calendar.YEAR);
 		return year;
 	}
 
-	public static int getMonth(Timestamp da) {
+	public static Integer getMonth(Timestamp da) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(da);
-		int month = cal.get(Calendar.MONTH);
+		Integer month = cal.get(Calendar.MONTH);
 		return month + 1;
 	}
 
-	public static int getDay(Timestamp da) {
+	public static Integer getDay(Timestamp da) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(da);
-		int day = cal.get(Calendar.DAY_OF_MONTH);
+		Integer day = cal.get(Calendar.DAY_OF_MONTH);
 		return day;
 	}
 
