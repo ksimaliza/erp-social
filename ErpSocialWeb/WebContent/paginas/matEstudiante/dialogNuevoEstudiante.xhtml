@@ -203,8 +203,8 @@
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{estudianteController.registrarEstudiante}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoEstudiante.hide()"
-					process="@this,pnlNuevoEstudiante" update="pnlNuevoEstudiante,:formEstudiante:tablaEstudiante,:formEstudiante:pnlMessages"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{estudianteController.cancel}" process="@this" immediate="true" update="pnlNuevoEstudiante"/>
+					process="@this,pnlNuevoEstudiante,pnlNuevoRepresentante" update="pnlNuevoEstudiante,pnlNuevoRepresentante,:formEstudiante:tablaEstudiante"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{estudianteController.cancel}" process="@this" immediate="true" update="pnlNuevoEstudiante,pnlNuevoRepresentante"/>
 			</p:panel>
 			
 			</p:scrollPanel>
