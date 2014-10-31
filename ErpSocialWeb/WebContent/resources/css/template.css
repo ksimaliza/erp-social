@@ -255,7 +255,6 @@ TD.ToolBar {
 
 #Login {
     border: 5px #80bce1 solid;
-    border-radius: 15px;
     min-width: 500px;
     font-family: Helvetica, Arial;
     background:  #FFFFFF  ;
@@ -385,5 +384,7 @@ body {
     background-color: #e6ecf0; 
       border: none;
       }
+      
+  
       
     
