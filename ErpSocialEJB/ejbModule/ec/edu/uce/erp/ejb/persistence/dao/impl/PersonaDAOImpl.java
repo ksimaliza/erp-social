@@ -56,6 +56,12 @@ public class PersonaDAOImpl extends AbstractFacadeImpl<Persona> implements Perso
 			
 			criteriaList = new ArrayList<Predicate>();
 			
+			//pk persona
+			if (persona.getPerPk()!=null) {
+				predicate = criteriaBuilder.equal(fromPerfil.get("perPk"), persona.getPerPk());
+				criteriaList.add(predicate);
+			}
+			
 			//ci persona
 			if (StringUtils.isNotBlank(persona.getPerCi())) {
 				predicate = criteriaBuilder.equal(fromPerfil.get("perCi"), persona.getPerCi());
