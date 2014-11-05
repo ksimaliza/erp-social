@@ -16,7 +16,7 @@
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.matricula.materia.nombre']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNombre" style="width: 100%"
+							<p:inputText id="txtNombre" style="width: 100%" requiredMessage="El campo #{i18n['erp.matricula.materia.nombre']} es Obligatorio "
 							required="true" label="#{i18n['erp.matricula.materia.nombre']}" value="#{materiaDataManager.materiaInstancia.mtrNombe}"
 								 />
 						</td>
@@ -27,10 +27,13 @@
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+				    icon="ui-icon-disk"
 					actionListener="#{materiaController.registrarMateria}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaMateria.hide()"
 					process="@this,pnlNuevaMateria" update="pnlNuevaMateria,:formMateria:pnlMessages,:formMateria:tablaMateria"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaMateria.hide();" type="button" />
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaMateria.hide();" type="button"
+				icon="ui-icon ui-icon-circle-close"
+				 />
 			</p:panel>
 		</h:form>
 	</p:dialog>
