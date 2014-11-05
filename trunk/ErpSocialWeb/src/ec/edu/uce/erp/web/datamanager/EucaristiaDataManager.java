@@ -30,6 +30,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(EucaristiaData
 	private int codigoSacerdote;
 	private List<SacerdoteListDTO> sacerdoteDTOs;
 	private Date Fecha;
+	private Date FechaBuscar;
 	private SacerdoteListDTO sacerdoteListDTO;
 	
 	
@@ -113,6 +114,16 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(EucaristiaData
 
 	public void setSacerdoteListDTO(SacerdoteListDTO sacerdoteListDTO) {
 		this.sacerdoteListDTO = sacerdoteListDTO;
+	}
+
+
+	public Date getFechaBuscar() {
+		return FechaBuscar;
+	}
+
+
+	public void setFechaBuscar(Date fechaBuscar) {
+		FechaBuscar = fechaBuscar;
 	}
 	
 	
