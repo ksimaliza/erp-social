@@ -156,6 +156,7 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ComunionListDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaListDTO</class>
 		
 		<properties>
 			<property name="hibernate.connection.username" value="postgres" />

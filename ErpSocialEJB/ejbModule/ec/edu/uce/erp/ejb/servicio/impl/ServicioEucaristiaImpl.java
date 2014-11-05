@@ -1119,8 +1119,8 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		return listResultado;
 	}
 	
-		
 	
+		
 	@Override
 	public EucaristiaVO obtenerEucaristiaPorId(EucaristiaListDTO eucaristiaListDTO) throws SeguridadesException {
 		slf4jLogger.info("obtenerEucaristiaPorId");
