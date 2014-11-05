@@ -14,4 +14,5 @@ public interface EucaristiaDAO extends AbstractFacade<EucaristiaDTO> {
 			EucaristiaListDTO eucaristiaListDTO, FiltroFechaDTO filtro)
 			throws SeguridadesException;
 
+
 }

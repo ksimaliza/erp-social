@@ -235,7 +235,7 @@ public interface ServicioEucaristia {
 
 	BigDecimal calcularValorTotal(ContratoDTO contrato)
 			throws SeguridadesException;
-	
+
 		
 
 

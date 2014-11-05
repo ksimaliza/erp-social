@@ -1,16 +1,10 @@
 package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
+import javax.persistence.*;
+import java.sql.Timestamp;
 import java.math.BigDecimal;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 /**
@@ -23,12 +17,12 @@ import javax.persistence.TemporalType;
 public class EucaristiaListDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id
 	@Column(name="euc_codigo")
 	private Integer eucCodigo;
 
-	@Temporal(TemporalType.DATE)
 	@Column(name="euc_fecha_hora")
-	private Date eucFechaHora;
+	private Timestamp eucFechaHora;
 
 	@Column(name="euc_intencion")
 	private String eucIntencion;
@@ -67,7 +61,6 @@ public class EucaristiaListDTO implements Serializable {
 	@Column(name="per_telefono")
 	private String perTelefono;
 
-	@Id
 	@Column(name="sac_codigo")
 	private Integer sacCodigo;
 
@@ -85,11 +78,11 @@ public class EucaristiaListDTO implements Serializable {
 		this.eucCodigo = eucCodigo;
 	}
 
-	public Date getEucFechaHora() {
+	public Timestamp getEucFechaHora() {
 		return this.eucFechaHora;
 	}
 
-	public void setEucFechaHora(Date eucFechaHora) {
+	public void setEucFechaHora(Timestamp eucFechaHora) {
 		this.eucFechaHora = eucFechaHora;
 	}
 
