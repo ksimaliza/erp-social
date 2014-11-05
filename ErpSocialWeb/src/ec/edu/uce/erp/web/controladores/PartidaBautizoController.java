@@ -25,7 +25,6 @@ import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.BautizoVO;
@@ -72,6 +71,7 @@ public class PartidaBautizoController extends BaseController{
 	
 	@PostConstruct
 	public void inicializarObjetos () {
+		buscarPartidaBautizo();
 		buscarSacerdote();
 		buscarProvincia();
 		buscarEstado();
@@ -98,6 +98,25 @@ public class PartidaBautizoController extends BaseController{
 			
 			partidaBautizoDataManager.getBautizoDTO().setBauCertificadoPor(getPersonaCode());
 		
+			if(partidaBautizoDataManager.getBautizadoInsertar().getPerCi()==partidaBautizoDataManager.getPadrinoInsertar().getPerCi()||partidaBautizoDataManager.getBautizadoInsertar().getPerCi()==partidaBautizoDataManager.getMadrinaInsertar().getPerCi()||partidaBautizoDataManager.getBautizadoInsertar().getPerCi()==partidaBautizoDataManager.getMadreInsertar().getPerCi()||partidaBautizoDataManager.getBautizadoInsertar().getPerCi()==partidaBautizoDataManager.getPadreInsertar().getPerCi())
+			{
+				MensajesWebController.aniadirMensajeError("La Madre no puede ser padrino");
+				return;
+			}
+			
+			
+			if(partidaBautizoDataManager.getMadreInsertar().getPerCi()==partidaBautizoDataManager.getPadrinoInsertar().getPerCi())
+			{
+				MensajesWebController.aniadirMensajeError("La Madre no puede ser padrino");
+				return;
+			}
+			
+			if(partidaBautizoDataManager.getPadreInsertar().getPerCi()==partidaBautizoDataManager.getMadrinaInsertar().getPerCi())
+			{
+				MensajesWebController.aniadirMensajeError("El Padre no puede ser madrina");
+				return;
+			}
+			
 			bautizoVO.setBautizado(partidaBautizoDataManager.getBautizadoInsertar());
 			bautizoVO.setMadrina(partidaBautizoDataManager.getMadrinaInsertar());
 			bautizoVO.setPadrino(partidaBautizoDataManager.getPadrinoInsertar());
@@ -153,9 +172,10 @@ public class PartidaBautizoController extends BaseController{
 				partidaBautizoDataManager.setFechaBautizoInsertar(new Date());
 				partidaBautizoDataManager.setEstadoCodigo(0);*/
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.partida.bautizo.registrar.exito");
-			
 			}
+			partidaBautizoDataManager.setGuardar(true);
 			buscarPartidaBautizo();
+			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -329,6 +349,7 @@ public class PartidaBautizoController extends BaseController{
 			this.partidaBautizoDataManager.setPadrinoInsertar(bautizoEncontrado.getPadrino());
 			this.partidaBautizoDataManager.setSacerdoteCodigo(bautizoEncontrado.getBautizo().getEucSacerdote().getSacCodigo());
 			this.partidaBautizoDataManager.setEstadoCodigo(bautizoEncontrado.getBautizo().getBauEstado());
+			buscarProvincia();
 			this.partidaBautizoDataManager.setProvinciaCodigo(bautizoEncontrado.getBautizo().getBauProvincia());
 			buscarCanton();
 			this.partidaBautizoDataManager.setCantonCodigo(bautizoEncontrado.getBautizo().getBauCanton());
@@ -463,7 +484,6 @@ public class PartidaBautizoController extends BaseController{
 		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), "certificadoBautismo", mapParametros);
 		ReporteUtil.generarReporte(jasperPrint, this.partidaBautizoDataManager.getFormatoPdf(), "certificadoBautismo");
 	
-		
 	}
 
 	@Override
@@ -490,6 +510,12 @@ public class PartidaBautizoController extends BaseController{
 		partidaBautizoDataManager.setFechaApCInsertar(new Date());
 		partidaBautizoDataManager.setFechaBautizoInsertar(new Date());
 		partidaBautizoDataManager.setEstadoCodigo(0);
+		partidaBautizoDataManager.setProvinciaCodigo(0);
+		partidaBautizoDataManager.setParroquiaCodigo(0);
+		partidaBautizoDataManager.setCantonCodigo(0);
+		partidaBautizoDataManager.setExportDesactivado(true);
+		partidaBautizoDataManager.setGuardar(false);
+		
 		RequestContext.getCurrentInstance().execute("dlgNuevaPartidaBautizo.hide()");
 	}
 

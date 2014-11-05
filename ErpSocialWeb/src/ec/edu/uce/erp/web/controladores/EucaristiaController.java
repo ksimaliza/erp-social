@@ -19,8 +19,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
-import ec.edu.uce.erp.ejb.persistence.entity.Persona;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
@@ -61,7 +59,7 @@ public class EucaristiaController extends BaseController {
 
 @PostConstruct
 private void init(){
-	
+	buscar();
 	buscarSacerdote();
 }
 
@@ -108,10 +106,10 @@ public void buscar() {
 	
 	try {
 		filtro=new FiltroFechaDTO();
-		if(this.eucaristiaDataManager.getFecha()!=null)
+		if(this.eucaristiaDataManager.getFechaBuscar()!=null)
 		{	
 		Calendar cal = Calendar.getInstance();
-		cal.setTime(this.eucaristiaDataManager.getFecha());
+		cal.setTime(this.eucaristiaDataManager.getFechaBuscar());
 		
 		int year = cal.get(Calendar.YEAR);
 	    int month = cal.get(Calendar.MONTH);
@@ -136,6 +134,9 @@ public void buscar() {
 		MensajesWebController.aniadirMensajeError(e.getMessage());
 	}
 }
+
+
+
 
 
 public void buscarSacerdote () {
@@ -184,6 +185,7 @@ public void cancel()
 
 @Override
 public void refrescarFormulario() {
+	buscar();
 	// TODO Auto-generated method stub
 	
 }

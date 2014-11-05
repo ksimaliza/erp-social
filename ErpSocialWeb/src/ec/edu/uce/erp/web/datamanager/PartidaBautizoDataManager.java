@@ -42,8 +42,8 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 	private int cantonCodigo;
 	private int parroquiaCodigo;
 	private List<CatalogoEucaristiaDTO> catalogoEucaristiaDTOs;
+	private Boolean guardar;
 
-		
 	private List<Persona> bautizadoListDTO;
 	
 	private BautizoDTO bautizoDTO;
@@ -58,6 +58,7 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 	private List<CatalogoEucaristiaDTO> parroquiaEucaristiaDTOs;
 	private List<CatalogoEucaristiaDTO> estadoEucaristiaDTOs;
 	private Boolean exportDesactivado;
+	
 	
 	
 	
@@ -79,6 +80,7 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 		this.madreInsertar=new Persona();
 		this.padreInsertar=new Persona();
 		exportDesactivado=true;
+		guardar=false;
 			
 	}
 	
@@ -311,6 +313,14 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 
 	public void setExportDesactivado(Boolean exportDesactivado) {
 		this.exportDesactivado = exportDesactivado;
+	}
+
+	public Boolean getGuardar() {
+		return guardar;
+	}
+
+	public void setGuardar(Boolean guardar) {
+		this.guardar = guardar;
 	}
 
 	
