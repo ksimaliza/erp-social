@@ -28,10 +28,14 @@
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+				    icon="ui-icon-disk"
 					actionListener="#{paraleloController.registrarParalelo()}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarParalelo.hide()"
 					process="@this,pnlEditarParalelo" update="pnlEditarParalelo,:formParalelo:pnlMessages,:formParalelo:tablaParalelo"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarParalelo.hide();" type="button" />
+				<p:commandButton 
+				icon="ui-icon ui-icon-circle-plus"
+				value="#{i18n['label.cancelar']}" 
+				onclick="dlgEditarParalelo.hide();" type="button" />
 			</p:panel>
 		</h:form>
 	</p:dialog>
