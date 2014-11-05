@@ -28,9 +28,12 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{nivelController.registrarNivel}"
+					icon="ui-icon-disk"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarNivel.hide()"
 					process="@this,pnlEditarNivel" update="pnlEditarNivel,:formNivel:pnlMessages,:formNivel:tablaNivel"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarNivel.hide();" type="button" />
+				<p:commandButton 
+				icon="ui-icon ui-icon-circle-close"
+				value="#{i18n['label.cancelar']}" onclick="dlgEditarNivel.hide();" type="button" />
 			</p:panel>
 		</h:form>
 	</p:dialog>
