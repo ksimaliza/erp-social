@@ -5,6 +5,9 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/template.xhtml">
+<head>
+<h:outputStylesheet name="css/template.css" />
+</head>	
 	
 <ui:define name="title">
 		<h3><h:outputLabel	value="#{i18n['erp.matricula.materia.pagina.titulo']}" /></h3>
@@ -20,7 +23,7 @@
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
 					</p:commandButton>
-					<p:commandButton id="btnNuevaMateria" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevaMateria.show()">
+					<p:commandButton type="sumit" id="btnNuevaMateria" title="Nueva Materia" value="Insertar" icon="ui-icon ui-icon-circle-plus" oncomplete="dlgNuevaMateria.show()">
 						</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
@@ -73,6 +76,13 @@
 							actionListener="#{materiaController.cargarDatosMateria(materias)}"
 							process="@this" update=":formEditarMateria:pnlEditarMateria">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+						</p:commandLink>
+						<p:commandLink styleClass="no-decor"
+							title="Eliminar"
+							oncomplete="dlgEditarMateria.show()"
+							actionListener="#{materiaController.cargarDatosMateria(materias)}"
+							process="@this" update=":formEditarMateria:pnlEditarMateria">
+							<h:graphicImage value="/resources/img/delete.png" alt="Eliminar"/>
 						</p:commandLink>
 					</h:panelGroup>
 					</p:column>
