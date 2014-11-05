@@ -118,10 +118,14 @@
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+				    icon="ui-icon-disk"
 					actionListener="#{docenteController.registrarDocente()}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoDocente.hide()"
 					process="@this,pnlNuevoDocente" update="pnlNuevoDocente,:formDocente:pnlMessages,:formDocente:tablaDocente"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoDocente.hide();" type="button" />
+				<p:commandButton 
+				    icon="ui-icon ui-icon-circle-close"
+				    value="#{i18n['label.cancelar']}"
+				    onclick="dlgNuevoDocente.hide();" type="button" />
 			</p:panel>
 		</h:form>
 	</p:dialog>
