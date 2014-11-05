@@ -36,10 +36,14 @@
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+				    icon="ui-icon-disk"
 					actionListener="#{nivelParaleloController.registrarNivelParalelo}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoNivelParalelo.hide()"
 					process="@this,pnlNuevoNivelParalelo" update="pnlNuevoNivelParalelo,:formNivelParalelo:pnlMessages,:formNivelParalelo:tablaNivelParalelo"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoNivelParalelo.hide()" type="button" />
+				<p:commandButton 
+				icon="ui-icon ui-icon-circle-close"
+				value="#{i18n['label.cancelar']}" 
+				onclick="dlgNuevoNivelParalelo.hide()" type="button" />
 			</p:panel>
 		</h:form>
 	</p:dialog>
