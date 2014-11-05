@@ -27,10 +27,13 @@
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+				    icon="ui-icon-disk"
 					actionListener="#{periodoController.registrarPeriodo()}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoPeriodo.hide()"
 					process="@this,pnlNuevoPeriodo" update="pnlNuevoPeriodo,:formPeriodo:pnlMessages,:formPeriodo:tablaPeriodo"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoPeriodo.hide();" type="button" />
+				<p:commandButton 
+				icon="ui-icon ui-icon-circle-close"
+				value="#{i18n['label.cancelar']}" onclick="dlgNuevoPeriodo.hide();" type="button" />
 			</p:panel>
 		</h:form>
 	</p:dialog>
