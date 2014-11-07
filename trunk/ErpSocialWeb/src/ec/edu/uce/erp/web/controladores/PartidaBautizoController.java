@@ -98,20 +98,21 @@ public class PartidaBautizoController extends BaseController{
 			
 			partidaBautizoDataManager.getBautizoDTO().setBauCertificadoPor(getPersonaCode());
 		
-			if(partidaBautizoDataManager.getBautizadoInsertar().getPerCi()==partidaBautizoDataManager.getPadrinoInsertar().getPerCi()||partidaBautizoDataManager.getBautizadoInsertar().getPerCi()==partidaBautizoDataManager.getMadrinaInsertar().getPerCi()||partidaBautizoDataManager.getBautizadoInsertar().getPerCi()==partidaBautizoDataManager.getMadreInsertar().getPerCi()||partidaBautizoDataManager.getBautizadoInsertar().getPerCi()==partidaBautizoDataManager.getPadreInsertar().getPerCi())
+					
+			if(partidaBautizoDataManager.getBautizadoInsertar().getPerCi().toString().equals(partidaBautizoDataManager.getPadrinoInsertar().getPerCi().toString()))/*||partidaBautizoDataManager.getBautizadoInsertar().getPerCi().toString().equals(partidaBautizoDataManager.getMadrinaInsertar().getPerCi().toString())||partidaBautizoDataManager.getBautizadoInsertar().getPerCi().toString().equals(partidaBautizoDataManager.getMadreInsertar().getPerCi().toString())||partidaBautizoDataManager.getBautizadoInsertar().getPerCi().toString().equals(partidaBautizoDataManager.getPadreInsertar().getPerCi().toString()))*/
+			{
+				MensajesWebController.aniadirMensajeError("El Bautizado no puede ser  ");
+				return;
+			}
+			
+			
+			if(partidaBautizoDataManager.getMadreInsertar().getPerCi().toString().equals(partidaBautizoDataManager.getPadrinoInsertar().getPerCi().toString()))
 			{
 				MensajesWebController.aniadirMensajeError("La Madre no puede ser padrino");
 				return;
 			}
 			
-			
-			if(partidaBautizoDataManager.getMadreInsertar().getPerCi()==partidaBautizoDataManager.getPadrinoInsertar().getPerCi())
-			{
-				MensajesWebController.aniadirMensajeError("La Madre no puede ser padrino");
-				return;
-			}
-			
-			if(partidaBautizoDataManager.getPadreInsertar().getPerCi()==partidaBautizoDataManager.getMadrinaInsertar().getPerCi())
+			if(partidaBautizoDataManager.getPadreInsertar().getPerCi().toString().equals(partidaBautizoDataManager.getMadrinaInsertar().getPerCi().toString()))
 			{
 				MensajesWebController.aniadirMensajeError("El Padre no puede ser madrina");
 				return;
