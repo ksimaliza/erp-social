@@ -20,7 +20,7 @@
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
 					</p:commandButton>
-					<p:commandButton id="btnNuevaPartidaBautizo" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevaPartidaBautizo.show()">
+					<p:commandButton id="btnNuevaPartidaBautizo" value="Insertar" icon="ui-icon-disk" actionListener="#{partidaBautizoController.limpiarFormulario}" update=":formNuevaPartidaBautizo:pnlNuevaPartidaBautizo,:formNuevaPartidaBautizo:pnlDatos,:formNuevaPartidaBautizo:pnlDatosMadrina,:formNuevaPartidaBautizo:pnlDatosPadrino" oncomplete="dlgNuevaPartidaBautizo.show()">
 						</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
@@ -120,7 +120,7 @@
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarPartidaBautizo.show()"
 							actionListener="#{partidaBautizoController.cargarDatosBautizo(bautizo)}"
-							process="@this" update=":formEditarPartidaBautizo:pnlEditarPartidaBautizo,:formEditarPartidaBautizo:pnlDatosPadrino,:formEditarPartidaBautizo:pnlDatosMadrina,:formEditarPartidaBautizo:pnlDatos,:formEditarPartidaBautizo:pnlDatos">
+							process="@this" update=":formEditarPartidaBautizo:pnlEditarPartidaBautizo,:formEditarPartidaBautizo:pnlDatosPadrino,:formEditarPartidaBautizo:pnlDatosMadrina,:formEditarPartidaBautizo:pnlDatos,:formEditarPartidaBautizo:pnlDatos,:formEditarPartidaBautizo:pnlBotones">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
 					</h:panelGroup>

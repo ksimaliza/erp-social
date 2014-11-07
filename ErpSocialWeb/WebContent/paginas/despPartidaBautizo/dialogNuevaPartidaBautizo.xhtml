@@ -19,8 +19,10 @@
 							<h:outputText for="txtCiBau" value="#{i18n['erp.despacho.partida.bautizo.cedula.bautizado']}" />
 						</td>
 						<td width="70%" >
-						<p:inputText id="txtCiBau"  style="width: 100%"
+						<p:inputText id="txtCiBau"  style="width: 100%" required="true"
+
 							  value="#{partidaBautizoDataManager.bautizadoInsertar.perCi}" disabled="#{partidaBautizoDataManager.guardar}">
+
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur" update="txtApeBau,txtNomBau" listener="#{partidaBautizoController.buscarBautizado}" process="@this" disabled="#{partidaBautizoDataManager.guardar}"/> 
 							</p:inputText>
@@ -33,7 +35,9 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApeBau" style="width: 100%"
-								 value="#{partidaBautizoDataManager.bautizadoInsertar.perApellidos}"  disabled="#{partidaBautizoDataManager.guardar}"/>
+
+								 value="#{partidaBautizoDataManager.bautizadoInsertar.perApellidos}" required="true"  disabled="#{partidaBautizoDataManager.guardar}"/>
+
 						</td>	
 					</tr>
 		
@@ -43,7 +47,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomBau" style="width: 100%"
-								 value="#{partidaBautizoDataManager.bautizadoInsertar.perNombres}" disabled="#{partidaBautizoDataManager.guardar}" />
+								 value="#{partidaBautizoDataManager.bautizadoInsertar.perNombres}" required="true" disabled="#{partidaBautizoDataManager.guardar}" />
 						</td>	
 					</tr>
 					
@@ -133,10 +137,11 @@
 					
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['label.estado']}"  /> </td>
-						<td width="70%"><p:selectOneMenu id="estado" value="#{partidaBautizoDataManager.estadoCodigo}" filter="true"  disabled="#{partidaBautizoDataManager.guardar}">
+						<td width="70%"><p:selectOneMenu id="estado" value="#{partidaBautizoDataManager.estadoCodigo}" filter="true" required="true"  disabled="#{partidaBautizoDataManager.guardar}">
+
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{partidaBautizoController.partidaBautizoDataManager.estadoEucaristiaDTOs}" var="estado" itemLabel="#{estado.catDescripcion}" itemValue="#{estado.catCodigo}"/>
-								<f:ajax render="pnlDatos" />
+								<f:ajax render="pnlDatos" listener="#{partidaBautizoController.estadoPorBautizar}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
@@ -158,7 +163,9 @@
 									
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.provincia']}"  /> </td>
-						<td width="70%" ><p:selectOneMenu id="provincia" value="#{partidaBautizoDataManager.provinciaCodigo}" filter="true" disabled="#{partidaBautizoDataManager.guardar}" >
+
+						<td width="70%" ><p:selectOneMenu id="provincia" value="#{partidaBautizoDataManager.provinciaCodigo}" filter="true" required="true" disabled="#{partidaBautizoDataManager.guardar}" >
+
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{partidaBautizoController.partidaBautizoDataManager.provinciasEucaristiaDTOs}" var="provincia" itemLabel="#{provincia.catDescripcion} " itemValue="#{provincia.catCodigo}"/>
 								<p:ajax listener="#{partidaBautizoController.buscarCanton}" process="@this" update="canton"/>
@@ -168,7 +175,9 @@
 					
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.canton']}"  /> </td>
-						<td width="70%"><p:selectOneMenu id="canton" value="#{partidaBautizoDataManager.cantonCodigo}" filter="true"  disabled="#{partidaBautizoDataManager.guardar}">
+
+						<td width="70%"><p:selectOneMenu id="canton" value="#{partidaBautizoDataManager.cantonCodigo}" filter="true" required="true"  disabled="#{partidaBautizoDataManager.guardar}">
+>>>>>>> .r599
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{partidaBautizoDataManager.cantonEucaristiaDTOs}" var="canton" itemLabel="#{canton.catDescripcion}" itemValue="#{canton.catCodigo}"/>
 								<p:ajax listener="#{partidaBautizoController.buscarParroquia}" process="@this" update="parroquia"/>
@@ -177,7 +186,8 @@
 					</tr>		
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.parroquia']}"  /> </td>
-						<td width="70%" ><p:selectOneMenu id="parroquia" value="#{partidaBautizoDataManager.parroquiaCodigo}" filter="true" disabled="#{partidaBautizoDataManager.guardar}">
+						<td width="70%" ><p:selectOneMenu id="parroquia" value="#{partidaBautizoDataManager.parroquiaCodigo}" filter="true" required="true" disabled="#{partidaBautizoDataManager.guardar}">
+
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{partidaBautizoDataManager.parroquiaEucaristiaDTOs}" var="parroquia" itemLabel="#{parroquia.catDescripcion}" itemValue="#{parroquia.catCodigo}"/>
 							</p:selectOneMenu>
@@ -212,18 +222,23 @@
 						<td width="70%">
 							<p:inputText id="txtApePad" style="width: 100%"
 								  value="#{partidaBautizoDataManager.padrinoInsertar.perApellidos}" disabled="#{partidaBautizoDataManager.guardar}"/>
+
 						</td>	
 					</tr>
+					
 						
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtNomPad" value="#{i18n['erp.despacho.partida.bautizo.nombres.padrino']}" />
 						</td>
 						<td width="70%">
+
 							<p:inputText id="txtNomPad" style="width: 100%"
 								 value="#{partidaBautizoDataManager.padrinoInsertar.perNombres}" disabled="#{partidaBautizoDataManager.guardar}"/>
+
 						</td>	
 					</tr>
+					
 				</table>
 			</p:panel>
 			
@@ -245,12 +260,13 @@
 						
 						</td>
 					</tr>
-
-					<tr>
+	<tr>
 						<td width="30%">
 							<h:outputLabel for="txtApeMad" value="#{i18n['erp.despacho.partida.bautizo.apellidos.madrina']}" />
 						</td>
 						<td width="70%">
+							
+
 							<p:inputText id="txtApeMad" style="width: 100%"  
 								  value="#{partidaBautizoDataManager.madrinaInsertar.perApellidos}" disabled="#{partidaBautizoDataManager.guardar}" />
 						</td>	
@@ -261,10 +277,14 @@
 							<h:outputLabel for="txtNomMad" value="#{i18n['erp.despacho.partida.bautizo.nombres.madrina']}" />
 						</td>
 						<td width="70%">
+
 							<p:inputText id="txtNomMad" style="width: 100%"  
 								  value="#{partidaBautizoDataManager.madrinaInsertar.perNombres}" disabled="#{partidaBautizoDataManager.guardar}"/>
+
 						</td>	
 					</tr>
+					
+					
 					
 				</table>
 			</p:panel>
@@ -278,7 +298,9 @@
 							<h:outputLabel for="txtNotaM" value="#{i18n['erp.despacho.partida.bautizo.nota.marginal']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNotaM" style="width: 100%"   value="#{partidaBautizoDataManager.bautizoDTO.bauNotaMarginal}" required="#{partidaBautizoDataManager.estadoCodigo.toString()=='20'}" disabled="#{partidaBautizoDataManager.guardar}"/>
+
+							<p:inputText id="txtNotaM" style="width: 100%"   value="#{partidaBautizoDataManager.bautizoDTO.bauNotaMarginal}" maxlength="255" disabled="#{partidaBautizoDataManager.guardar}"/>
+
 						</td>	
 					</tr>
 					
@@ -288,7 +310,11 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtTomo" style="width: 100%"  
-								 value="#{partidaBautizoDataManager.bautizoDTO.bauToma}" required="#{partidaBautizoDataManager.estadoCodigo.toString()=='20'}" disabled="#{partidaBautizoDataManager.guardar}" />
+
+								 value="#{partidaBautizoDataManager.bautizoDTO.bauToma}" required="#{partidaBautizoDataManager.estadoCodigo.toString()=='20'}" onkeypress="return isNumberKey(event)" maxlength="10"
+
+								 disabled="#{partidaBautizoDataManager.guardar}" />
+
 						</td>	
 					</tr>
 					<tr>
@@ -297,7 +323,11 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtActa"  style="width: 100%"
-							 label="#{i18n['erp.despacho.partida.bautizo.acta']}" value="#{partidaBautizoDataManager.bautizoDTO.bauActa}" required="#{partidaBautizoDataManager.estadoCodigo.toString()=='20'}" disabled="#{partidaBautizoDataManager.guardar}">
+
+							 label="#{i18n['erp.despacho.partida.bautizo.acta']}" value="#{partidaBautizoDataManager.bautizoDTO.bauActa}" required="#{partidaBautizoDataManager.estadoCodigo.toString()=='20'}" onkeypress="return isNumberKey(event)" maxlength="10"
+
+							  disabled="#{partidaBautizoDataManager.guardar}">
+
 							
 						</p:inputText>
 						
@@ -310,7 +340,11 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtPagina" style="width: 100%"  
-								 value="#{partidaBautizoDataManager.bautizoDTO.bauPagina}" required="#{partidaBautizoDataManager.estadoCodigo.toString()=='20'}"  disabled="#{partidaBautizoDataManager.guardar}"/>
+
+								 value="#{partidaBautizoDataManager.bautizoDTO.bauPagina}" required="#{partidaBautizoDataManager.estadoCodigo.toString()=='20'}" onkeypress="return isNumberKey(event)" maxlength="10"
+
+								    disabled="#{partidaBautizoDataManager.guardar}"/>
+
 						</td>	
 					</tr>
 					
@@ -322,7 +356,7 @@
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{partidaBautizoController.registrarBautizo}"
 					process="@this,pnlNuevaPartidaBautizo,pnlDatosPadrino,pnlDatosMadrina,pnlDatos" update="pnlNuevaPartidaBautizo,pnlNuevaPartidaBautizo,pnlDatos,pnlDatosMadrina,pnlDatosPadrino,:formPartidaBautizo:pnlMessages,:formPartidaBautizo:tablaPartidaBautizo,pnlBotones" disabled="#{partidaBautizoDataManager.guardar}"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{partidaBautizoController.cancel}" process="@this" immediate="true" update="pnlNuevaPartidaBautizo,pnlDatos,pnlDatosMadrina,pnlDatosPadrino"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{partidaBautizoController.limpiarFormulario}" process="@this" immediate="true" update="pnlNuevaPartidaBautizo,pnlDatos,pnlDatosMadrina,pnlDatosPadrino" oncomplete="dlgNuevaPartidaBautizo.hide()"/>
 				<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{partidaBautizoController.exportar}" icon="exportPdf" ajax="false"
 				disabled="#{partidaBautizoDataManager.exportDesactivado}" oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaPartidaBautizo.hide()"/>
 			</p:panel>
