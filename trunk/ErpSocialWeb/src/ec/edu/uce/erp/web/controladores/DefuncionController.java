@@ -343,6 +343,7 @@ public void registrarDefuncion () {
 			this.defuncionDataManager.setParroquiaCodigo(defuncionEncontrada.getDefuncion().getDefParroquia());
 			this.defuncionDataManager.setFechaMuerteInsertar(defuncionEncontrada.getDefuncion().getDefFechaDifunto());
 			this.defuncionDataManager.setFechaSepelioInsertar(defuncionEncontrada.getDefuncion().getDefFecha());
+			this.defuncionDataManager.setExportDesactivado(false);
 							
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosDefuncion {}", e.getMessage());
@@ -453,10 +454,22 @@ public void registrarDefuncion () {
 		defuncionDataManager.setDesactivado(true);
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
-		
-		mapParametros.put("canton", defuncionDataManager.getCantonEucaristiaDTOs().get(0).getCatDescripcion().toUpperCase());
-		mapParametros.put("parroquiaCabecera", "\"" + defuncionDataManager.getParroquiaEucaristiaDTOs().get(0).getCatDescripcion().toUpperCase() +"\"");
-		mapParametros.put("parroquia", defuncionDataManager.getParroquiaEucaristiaDTOs().get(0).getCatDescripcion().toUpperCase());
+		if (defuncionDataManager.getCantonEucaristiaDTOs() != null)
+			for (int i = 0; i < defuncionDataManager
+					.getCantonEucaristiaDTOs().size(); i++)
+				if (defuncionDataManager.getCantonEucaristiaDTOs().get(i)
+						.getCatCodigo() == (Integer) defuncionDataManager
+						.getCantonCodigo())
+		mapParametros.put("canton", defuncionDataManager.getCantonEucaristiaDTOs().get(i).getCatDescripcion().toUpperCase());
+		if (defuncionDataManager.getParroquiaEucaristiaDTOs() != null)
+			for (int i = 0; i < defuncionDataManager
+					.getParroquiaEucaristiaDTOs().size(); i++)
+				if (defuncionDataManager.getParroquiaEucaristiaDTOs()
+						.get(i).getCatCodigo() == (Integer) defuncionDataManager
+						.getParroquiaCodigo()) {
+		mapParametros.put("parroquiaCabecera", "\"" + defuncionDataManager.getParroquiaEucaristiaDTOs().get(i).getCatDescripcion().toUpperCase() +"\"");
+		mapParametros.put("parroquia", defuncionDataManager.getParroquiaEucaristiaDTOs().get(i).getCatDescripcion().toUpperCase());
+				}
 		mapParametros.put("tomo", defuncionDataManager.getDefuncionInsertar().getDefTomo());
 		mapParametros.put("pagina", defuncionDataManager.getDefuncionInsertar().getDefPagina());
 		mapParametros.put("acta", defuncionDataManager.getDefuncionInsertar().getDefActa());
@@ -467,12 +480,19 @@ public void registrarDefuncion () {
 		mapParametros.put("doctor", defuncionDataManager.getDoctorListDTO().get(0).getPerApellidos().toUpperCase() + " "+  defuncionDataManager.getDoctorListDTO().get(0).getPerNombres().toUpperCase());
 		mapParametros.put("parroquiafechaActual", defuncionDataManager.getParroquiaEucaristiaDTOs().get(0).getCatDescripcion()+ ", "+full.format(fechaActual));
 		mapParametros.put("notaMarginal", defuncionDataManager.getDefuncionInsertar().getDefNotaMarginal());
-		mapParametros.put("provincia", defuncionDataManager.getProvinciasEucaristiaDTOs().get(0).getCatDescripcion().toUpperCase());
-		mapParametros.put("padres", defuncionDataManager.getMadreInsertar().getPerApellidos().toUpperCase() + " "+ defuncionDataManager.getMadreInsertar().getPerNombres().toUpperCase() + " y " +defuncionDataManager.getPadreInsertar().getPerApellidos().toUpperCase() +  " "+defuncionDataManager.getPadreInsertar().getPerNombres().toUpperCase());
+		if (defuncionDataManager.getParroquiaEucaristiaDTOs() != null)
+			for (int i = 0; i < defuncionDataManager
+					.getProvinciasEucaristiaDTOs().size(); i++)
+				if (defuncionDataManager.getProvinciasEucaristiaDTOs()
+						.get(i).getCatCodigo() == (Integer) defuncionDataManager
+						.getProvinciaCodigo())
+		mapParametros.put("provincia", defuncionDataManager.getProvinciasEucaristiaDTOs().get(i).getCatDescripcion().toUpperCase());
+		mapParametros.put("padre", defuncionDataManager.getPadreInsertar().getPerApellidos().toUpperCase() +  " "+defuncionDataManager.getPadreInsertar().getPerNombres().toUpperCase());
+		mapParametros.put("madre", defuncionDataManager.getMadreInsertar().getPerApellidos().toUpperCase() + " "+ defuncionDataManager.getMadreInsertar().getPerNombres().toUpperCase());
 		if(defuncionDataManager.getConyugeInsertar()!=null)
 			mapParametros.put("conyuge", defuncionDataManager.getConyugeInsertar().getPerApellidos().toUpperCase() + " "+  defuncionDataManager.getConyugeInsertar().getPerNombres().toUpperCase());
 		else
-			mapParametros.put("conyuge", "No esta casado" );
+			mapParametros.put("conyuge", "No tiene conyuge" );
 		mapParametros.put("certifica", getUsuario().getNpNombresCompletos());
 		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
@@ -488,9 +508,11 @@ public void registrarDefuncion () {
 		exportar();
 	}
 	
-	public void cancel()
+	public void limpiarFormulario()
 	{
 		defuncionDataManager.setDifuntoInsertar(new Persona());
+		defuncionDataManager.setPadreInsertar(new Persona());
+		defuncionDataManager.setMadreInsertar(new Persona());
 		defuncionDataManager.setConyugeInsertar(new Persona());
 		defuncionDataManager.setDefuncionInsertar(new DefuncionDTO());
 		defuncionDataManager.setSacerdoteCodigo(0);
@@ -502,7 +524,7 @@ public void registrarDefuncion () {
 		
 		defuncionDataManager.setFechaMuerteInsertar(new Date());
 		defuncionDataManager.setFechaSepelioInsertar(new Date());
-		RequestContext.getCurrentInstance().execute("dlgNuevaDefuncion.hide()");
+		defuncionDataManager.setExportDesactivado(true);
 	}
 
 	
@@ -512,7 +534,10 @@ public void registrarDefuncion () {
 		
 	}
 	
-	
+	public void limpiarConyuge() {
+		
+			defuncionDataManager.setConyugeInsertar(new Persona());
+	}
 
 
 }

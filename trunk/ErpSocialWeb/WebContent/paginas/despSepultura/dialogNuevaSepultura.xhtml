@@ -16,7 +16,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCi" style="width: 70%" 
-								 required="true" value="#{sepulturaDataManager.defuncionInsertar.perCi}" disabled="#{sepulturaDataManager.desactivado}" >
+								 required="true" label="#{i18n['erp.despacho.defuncion.cedula']}" value="#{sepulturaDataManager.defuncionInsertar.perCi}" disabled="#{sepulturaDataManager.desactivado}" >
 							<f:validateLength maximum="10" minimum="10"/>
 							<p:ajax event="blur"  listener="#{sepulturaController.buscarDifunto}" process="@this" update="txtNombres,txtApellidos,txtCi,txtObservacion,txtSeccionNicho,txtTipoNicho,txtNivelNicho,nicho"/>
 						</p:inputText>
@@ -98,7 +98,7 @@
 						</td>
 						<td width="70%">
 							<p:inputTextarea id="txtObservacion" style="width: 100%"
-							required="true" label="#{i18n['erp.despacho.sepultura.observacion']}" 
+							 label="#{i18n['erp.despacho.sepultura.observacion']}" 
 								value="#{sepulturaDataManager.sepulturaDTO.sepObservacion}" disabled="#{sepulturaDataManager.desactivado}" />
 						</td>
 					</tr>
@@ -111,7 +111,7 @@
 					actionListener="#{sepulturaController.registrarSepultura}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaSepultura.hide()"
 					process="@this,pnlNuevaSepultura" update="pnlNuevaSepultura,:formSepultura:pnlMessages,:formSepultura:tablaSepultura" disabled="#{sepulturaDataManager.desactivado}"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{sepulturaController.cancel}" process="@this" immediate="true" update="pnlNuevaSepultura,pnlBotones"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{sepulturaController.limpiarFormulario}" oncomplete="dlgNuevaSepultura.hide()" process="@this" immediate="true" update="pnlNuevaSepultura,pnlBotones"/>
 			</p:panel>
 		</h:form>
 	</p:dialog>

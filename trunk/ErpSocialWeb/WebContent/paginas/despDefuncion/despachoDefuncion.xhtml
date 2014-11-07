@@ -19,7 +19,7 @@
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
 					</p:commandButton>
-					<p:commandButton id="btnNuevaDefuncion" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevaDefuncion.show()">
+					<p:commandButton id="btnNuevaDefuncion" value="Insertar" icon="ui-icon-disk" actionListener="#{defuncionController.limpiarFormulario}" update=":formNuevaDefuncion:pnlNuevaDefuncion,:formDefuncion:pnlMessages,:formDefuncion:tablaDefuncion,:formNuevaDefuncion:pnlDatos,:formNuevaDefuncion:pnlBotones" oncomplete="dlgNuevaDefuncion.show()">
 						</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
@@ -104,7 +104,7 @@
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarDefuncion.show()"
 							actionListener="#{defuncionController.cargarDatosDefuncion(defuncion)}"	
-							process="@this" update=":formEditarDefuncion:pnlEditarDefuncion,:formEditarDefuncion:pnlConyuge,:formEditarDefuncion:pnlDatos">
+							process="@this" update=":formEditarDefuncion:pnlEditarDefuncion,:formEditarDefuncion:pnlConyuge,:formEditarDefuncion:pnlDatos,:formEditarDefuncion:pnlBotones">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
 					</h:panelGroup>

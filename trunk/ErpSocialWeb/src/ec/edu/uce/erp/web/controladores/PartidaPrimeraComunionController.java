@@ -395,18 +395,20 @@ public void registrarPrimeraComunion () {
 		
 	}
 	
-	public void cancel()
+	public void limpiarFormulario()
 	{
 		partidaPrimeraComunionDataManager.setBautizoListDTO(new BautizoListDTO());
 		partidaPrimeraComunionDataManager.setMad_padInsertar(new Persona());
 		partidaPrimeraComunionDataManager.setPrimeraComunionInsertar(new PrimeraComunionDTO());
 		partidaPrimeraComunionDataManager.setSacerdoteCodigo(0);
+		partidaPrimeraComunionDataManager.setProvinciaCodigo(0);
+		partidaPrimeraComunionDataManager.setCantonCodigo(0);
+		partidaPrimeraComunionDataManager.setParroquiaCodigo(0);
 		partidaPrimeraComunionDataManager.setFechaApComInsertar(new Date());
 		partidaPrimeraComunionDataManager.setFechaComunionInsertar(new Date());
 		partidaPrimeraComunionDataManager.setEstadoCodigo(0);
 		partidaPrimeraComunionDataManager.setTipoCodigo(0);
 		partidaPrimeraComunionDataManager.setAsignadoInsertar(new Persona());
-		RequestContext.getCurrentInstance().execute("dlgNuevaPartidaPrimeraComunion.hide()");
 	}
 	
 
@@ -416,6 +418,14 @@ public void registrarPrimeraComunion () {
 		
 	}
 	
-	
+	public void estadoMatriculadoPorRPComunion() {
+		if (partidaPrimeraComunionDataManager.getEstadoCodigo() == 26 ||
+			partidaPrimeraComunionDataManager.getEstadoCodigo() == 27) {
+			partidaPrimeraComunionDataManager.getPrimeraComunionInsertar().setPcoNotaMarginal("");
+			partidaPrimeraComunionDataManager.getPrimeraComunionInsertar().setPcoActa("");
+			partidaPrimeraComunionDataManager.getPrimeraComunionInsertar().setPcoPagina("");
+			partidaPrimeraComunionDataManager.getPrimeraComunionInsertar().setPcoTomo("");
+		}
+	}
 	
 }

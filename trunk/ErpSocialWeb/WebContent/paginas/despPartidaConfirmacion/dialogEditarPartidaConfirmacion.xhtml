@@ -21,7 +21,7 @@
 							<p:inputText id="txtCiConf"  style="width: 100%"
 								  value="#{partidaConfirmacionDataManager.confirmadoInsertar.perCi}">
 									<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-									<p:ajax event="blur" update="txtApeConf,txtNomConf,txtProv,txtCiudad,txtCanton,txtFechaBautizo" listener="#{partidaConfirmacionController.buscarConfirmado}" process="@this"/>
+									<p:ajax event="blur" update="txtApeConf,txtNomConf,txtCiMadre,txtApeMadre,txtNomMadre,txtCiPadre,txtApePadre,txtNomPadre,txtProv,txtCiudad,txtCanton,txtFechaBautizo" listener="#{partidaConfirmacionController.buscarConfirmado}" process="@this"/>
 							</p:inputText>
 					</td>
 					</tr>
@@ -144,7 +144,7 @@
 					
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.confirmacion.provincia']}"  /> </td>
-						<td width="70%" ><p:selectOneMenu id="provincia" value="#{partidaConfirmacionDataManager.provincia}" filter="true" >
+						<td width="70%" ><p:selectOneMenu id="provincia" value="#{partidaConfirmacionDataManager.provincia}" filter="true" required="true">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{partidaConfirmacionDataManager.provinciaEucaristiaDTOs}" var="provincia" itemLabel="#{provincia.catDescripcion} " itemValue="#{provincia.catCodigo}"/>
 								<p:ajax listener="#{partidaConfirmacionController.buscarCanton}" process="@this" update="canton"/>
@@ -154,7 +154,7 @@
 					
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.confirmacion.canton']}"  /> </td>
-						<td width="70%"><p:selectOneMenu id="canton" value="#{partidaConfirmacionDataManager.canton}" filter="true" >
+						<td width="70%"><p:selectOneMenu id="canton" value="#{partidaConfirmacionDataManager.canton}" filter="true" required="true">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{partidaConfirmacionDataManager.cantonEucaristiaDTOs}" var="canton" itemLabel="#{canton.catDescripcion}" itemValue="#{canton.catCodigo}"/>
 								<p:ajax listener="#{partidaConfirmacionController.buscarParroquia}" process="@this" update="parroquia"/>
@@ -163,7 +163,7 @@
 					</tr>		
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.confirmacion.parroquia']}"  /> </td>
-						<td width="70%" ><p:selectOneMenu id="parroquia" value="#{partidaConfirmacionDataManager.parroquia}" filter="true" >
+						<td width="70%" ><p:selectOneMenu id="parroquia" value="#{partidaConfirmacionDataManager.parroquia}" filter="true" required="true">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{partidaConfirmacionDataManager.parroquiaEucaristiaDTOs}" var="parroquia" itemLabel="#{parroquia.catDescripcion}" itemValue="#{parroquia.catCodigo}"/>
 							</p:selectOneMenu>
@@ -176,7 +176,7 @@
 						<td width="70%"><p:selectOneMenu id="estado" value="#{partidaConfirmacionDataManager.estadoCodigo}" filter="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{partidaConfirmacionController.partidaConfirmacionDataManager.estadoEucaristiaDTOs}" var="estado" itemLabel="#{estado.catDescripcion}" itemValue="#{estado.catCodigo}"/>
-								<f:ajax render="pnlDatos" />
+								<f:ajax render="pnlDatos" listener="#{partidaConfirmacionController.estadoMatriculadoPorConfirmar}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
@@ -247,7 +247,7 @@
 							<h:outputLabel for="txtNotaM" value="#{i18n['erp.despacho.partida.confirmacion.nota.marginal']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNotaM" style="width: 100%"   value="#{partidaConfirmacionDataManager.confirmacionDTO.conNotaMarginal}"/>
+							<p:inputText id="txtNotaM" style="width: 100%"   value="#{partidaConfirmacionDataManager.confirmacionDTO.conNotaMarginal}" maxlength="255" />
 						</td>	
 					</tr>
 					
@@ -257,7 +257,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtTomo" style="width: 100%"  
-								  value="#{partidaConfirmacionDataManager.confirmacionDTO.conToma}" />
+								  value="#{partidaConfirmacionDataManager.confirmacionDTO.conToma}" required="#{partidaBautizoDataManager.estadoCodigo.toString()=='24'}" onkeypress="return isNumberKey(event)" maxlength="10"/>
 						</td>	
 					</tr>
 					<tr>
@@ -266,7 +266,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtActa"  style="width: 100%"
-							 	label="#{i18n['erp.despacho.partida.confirmacion.acta']}" value="#{partidaConfirmacionDataManager.confirmacionDTO.conActa}">
+							 	label="#{i18n['erp.despacho.partida.confirmacion.acta']}" value="#{partidaConfirmacionDataManager.confirmacionDTO.conActa}" required="#{partidaBautizoDataManager.estadoCodigo.toString()=='24'}" onkeypress="return isNumberKey(event)" maxlength="10">
 							
 						</p:inputText>
 						
@@ -279,7 +279,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtPagina" style="width: 100%"  
-								value="#{partidaConfirmacionDataManager.confirmacionDTO.conPagina}" />
+								value="#{partidaConfirmacionDataManager.confirmacionDTO.conPagina}" required="#{partidaBautizoDataManager.estadoCodigo.toString()=='24'}" onkeypress="return isNumberKey(event)" maxlength="10" />
 						</td>	
 					</tr>
 				</table>
