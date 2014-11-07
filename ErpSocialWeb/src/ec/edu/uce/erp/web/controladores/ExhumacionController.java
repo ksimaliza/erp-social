@@ -215,7 +215,7 @@ public class ExhumacionController extends BaseController{
 		}
 	}
 	
-	public void cancel()
+	public void limpiarFormulario()
 	{
 		exhumacionDataManager.setExumacionDTO(new ExumacionDTO());
 		exhumacionDataManager.setDifuntoInsertar(new Persona());
@@ -223,7 +223,7 @@ public class ExhumacionController extends BaseController{
 		exhumacionDataManager.setFechaExhumacion(new Date());
 		exhumacionDataManager.setFechaSepelio(new Date());
 		exhumacionDataManager.setDesactivado(false);
-		RequestContext.getCurrentInstance().execute("dlgNuevaExhumacion.hide()");
+		
 	}
 	
 	@Override

@@ -18,9 +18,9 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCi" style="width: 70%" 
-								 required="true" value="#{exhumacionDataManager.difuntoInsertar.perCi}" disabled="#{exhumacionDataManager.desactivado}">
+								 required="true" label="#{i18n['erp.despacho.exhumacion.cedula']}" value="#{exhumacionDataManager.difuntoInsertar.perCi}" disabled="#{exhumacionDataManager.desactivado}">
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-							<p:ajax event="blur" update="txtNombres,txtApellidos,txtFechaSepelio,txtPagina,txtFechaSepelio,autoriza,txtCausa,txtFechaExhumacion,txtTomo,txtActa,txtPagina,txtCi" listener="#{exhumacionController.buscarDifunto}" process="@this"/>
+							<p:ajax event="blur" update="txtNombres,txtApellidos,txtFechaSepelio,txtPagina,txtFechaSepelio,autoriza,txtCausa,txtFechaExhumacion,txtTomo,txtActa,txtPagina,txtCi,btnGuardar" listener="#{exhumacionController.buscarDifunto}" process="@this"/>
 						</p:inputText>
 						</td>	
 					</tr>
@@ -63,7 +63,7 @@
 						
 						</td>
 					<td width="70%">
-					<p:selectOneMenu id="autoriza" value="#{exhumacionDataManager.autorizaCodigo}" filter="true" disabled="#{exhumacionDataManager.desactivado}" required="true" >
+					<p:selectOneMenu id="autoriza" label="#{i18n['erp.despacho.exhumacion.autorizacion']}" value="#{exhumacionDataManager.autorizaCodigo}" filter="true" disabled="#{exhumacionDataManager.desactivado}" required="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{exhumacionController.exhumacionDataManager.autorizaExhumacionListDTOs}" var="aut" itemLabel="#{aut.perNombres} #{aut.perApellidos}" itemValue="#{aut.autCodigo}"/>
 							</p:selectOneMenu>
@@ -97,7 +97,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtTomo" style="width: 70%" 
-								 label="#{i18n['erp.despacho.exhumacion.tomo']}" value="#{exhumacionDataManager.exumacionDTO.exuTomo}" disabled="#{exhumacionDataManager.desactivado}">
+								 label="#{i18n['erp.despacho.exhumacion.tomo']}" value="#{exhumacionDataManager.exumacionDTO.exuTomo}" disabled="#{exhumacionDataManager.desactivado}" required="true" onkeypress="return isNumberKey(event)" maxlength="10">
 						</p:inputText>
 						</td>	
 					</tr>
@@ -108,7 +108,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtActa" style="width: 70%" 
-								 label="#{i18n['erp.despacho.exhumacion.acta']}" value="#{exhumacionDataManager.exumacionDTO.exuActa}" disabled="#{exhumacionDataManager.desactivado}">
+								 label="#{i18n['erp.despacho.exhumacion.acta']}" value="#{exhumacionDataManager.exumacionDTO.exuActa}" disabled="#{exhumacionDataManager.desactivado}" required="true" onkeypress="return isNumberKey(event)" maxlength="10">
 						</p:inputText>
 						</td>	
 					</tr>
@@ -119,7 +119,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtPagina" style="width: 70%" 
-								onkeypress="return isNumberKey(event)" label="#{i18n['erp.despacho.exhumacion.pagina']}" value="#{exhumacionDataManager.exumacionDTO.exuPagina}" disabled="#{exhumacionDataManager.desactivado}" >
+								 label="#{i18n['erp.despacho.exhumacion.pagina']}" value="#{exhumacionDataManager.exumacionDTO.exuPagina}" disabled="#{exhumacionDataManager.desactivado}" required="true" onkeypress="return isNumberKey(event)" maxlength="10">
 						</p:inputText>
 						</td>	
 					</tr>
@@ -131,7 +131,7 @@
 					actionListener="#{exhumacionController.registrarExhumacion}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaExhumacion.hide()"
 					process="@this,pnlNuevaExhumacion" update="pnlNuevaExhumacion,:formExhumacion:pnlMessages,:formExhumacion:tablaExhumacion" disabled="#{exhumacionDataManager.desactivado}"  />
-				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{exhumacionController.cancel}" process="@this" immediate="true" update="pnlNuevaExhumacion,pnlBotones"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{exhumacionController.limpiarFormulario}" process="@this" immediate="true" update="pnlNuevaExhumacion,pnlBotones" oncomplete="dlgNuevaExhumacion.hide()"/>
 			</p:panel>
 		</h:form>
 	</p:dialog>
