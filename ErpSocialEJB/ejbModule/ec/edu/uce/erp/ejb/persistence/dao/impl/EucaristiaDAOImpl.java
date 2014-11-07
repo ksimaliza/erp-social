@@ -1,7 +1,5 @@
 package ec.edu.uce.erp.ejb.persistence.dao.impl;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
