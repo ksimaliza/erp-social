@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="certificadoBautismo" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6a8786bc-e1fe-4330-9d5b-ad62d0dae03c">
 	<property name="ireport.zoom" value="0.8264462809917354"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="144"/>
 	<style name="Heading 1" fontSize="16" isBold="true"/>
 	<style name="Heading 2" fontSize="14" isBold="true" isItalic="true"/>
 	<style name="Heading 4" fontSize="12" isBold="true" isItalic="true"/>
@@ -261,13 +261,6 @@
 				<text><![CDATA[PADRE:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="295" y="420" width="237" height="20" uuid="ce193ca5-0cf1-4ce3-b281-b841664af575"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{madre}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="295" y="439" width="237" height="20" uuid="e77c46d0-252a-495a-9a32-2a4afaff3d64"/>
 				<textElement>
 					<font size="12"/>
@@ -315,6 +308,13 @@
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{daFe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="295" y="420" width="236" height="20" uuid="bd9e4b4a-9b31-4853-9c0e-2f1be8fcf191"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{padre}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
