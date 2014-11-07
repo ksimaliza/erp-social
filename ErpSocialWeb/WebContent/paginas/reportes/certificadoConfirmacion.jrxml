@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 5.6.2.final using JasperReports Library version 5.6.1  -->
+<!-- 2014-11-03T16:07:58 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="certificadoConfirmación" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d7194322-d6d9-4509-8b84-4f36b45a963f">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
@@ -29,7 +31,7 @@
 				<text><![CDATA[ARQUIDIOCESIS DE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="45" y="604" width="103" height="20" uuid="3b88b246-9d2f-4a76-b14a-22fd753eb635"/>
+				<reportElement x="4" y="604" width="103" height="20" uuid="3b88b246-9d2f-4a76-b14a-22fd753eb635"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -43,14 +45,14 @@
 				<text><![CDATA[NOMBRE DEL PADRE:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="262" y="605" width="73" height="20" uuid="1fae32cc-e978-412f-809d-213c547dca34"/>
+				<reportElement x="242" y="605" width="126" height="20" uuid="1fae32cc-e978-412f-809d-213c547dca34"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{canton}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="181" y="113" width="191" height="24" uuid="bdd03999-4ec9-43de-aa53-606a88355da3"/>
+				<reportElement x="177" y="113" width="191" height="24" uuid="bdd03999-4ec9-43de-aa53-606a88355da3"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
@@ -71,7 +73,7 @@
 				<text><![CDATA[Firma y Sello Encargado]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="215" y="604" width="49" height="20" uuid="6f4f019b-5f08-43e2-9cbb-ccda2167b5d8"/>
+				<reportElement x="195" y="604" width="49" height="20" uuid="6f4f019b-5f08-43e2-9cbb-ccda2167b5d8"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -85,7 +87,7 @@
 				<text><![CDATA[PADRINO/MADRINA:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="292" y="155" width="157" height="24" uuid="80976809-dc51-407a-b445-a57f63b7dea7"/>
+				<reportElement x="291" y="139" width="168" height="24" uuid="80976809-dc51-407a-b445-a57f63b7dea7"/>
 				<textElement>
 					<font size="16"/>
 				</textElement>
@@ -110,10 +112,10 @@
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{madre}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{padre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="140" y="605" width="60" height="20" uuid="757cea13-00f8-4963-83b6-4e5601e19013"/>
+				<reportElement x="99" y="605" width="95" height="20" uuid="757cea13-00f8-4963-83b6-4e5601e19013"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -127,21 +129,21 @@
 				<textFieldExpression><![CDATA[$P{notaMarginal}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="103" y="278" width="24" height="20" uuid="9eb1fb0e-d618-40e3-bfee-8a6612fd622e"/>
+				<reportElement x="103" y="278" width="83" height="20" uuid="9eb1fb0e-d618-40e3-bfee-8a6612fd622e"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{tomo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="327" y="90" width="124" height="24" uuid="7dc38828-2a0b-4d5b-92a2-fde537c6bf9a"/>
+				<reportElement x="327" y="90" width="174" height="24" uuid="7dc38828-2a0b-4d5b-92a2-fde537c6bf9a"/>
 				<textElement>
 					<font size="16"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{canton}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="128" y="278" width="59" height="20" uuid="3ccf75f4-361a-4b00-808e-dba018b352f3"/>
+				<reportElement x="194" y="278" width="49" height="20" uuid="3ccf75f4-361a-4b00-808e-dba018b352f3"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -162,7 +164,7 @@
 				<text><![CDATA[NOTA MARGINAL:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="340" y="604" width="68" height="20" uuid="d1d489cc-6338-4c1e-a64d-09f7543728cf"/>
+				<reportElement x="372" y="604" width="68" height="20" uuid="d1d489cc-6338-4c1e-a64d-09f7543728cf"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -176,21 +178,21 @@
 				<text><![CDATA[FECHA DE CONFIRMACIÓN:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="182" y="278" width="31" height="20" uuid="e7bffa0c-c89d-41d9-9248-66bac6c5000d"/>
+				<reportElement x="243" y="278" width="99" height="20" uuid="e7bffa0c-c89d-41d9-9248-66bac6c5000d"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{pagina}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="409" y="605" width="100" height="20" uuid="0c997b7a-5075-4b40-92e4-a16ba7889ce9"/>
+				<reportElement x="435" y="605" width="114" height="20" uuid="0c997b7a-5075-4b40-92e4-a16ba7889ce9"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{parroquia}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="258" y="278" width="31" height="20" uuid="821f04e8-597b-4746-bc5d-3d7cb1607359"/>
+				<reportElement x="390" y="278" width="111" height="20" uuid="821f04e8-597b-4746-bc5d-3d7cb1607359"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -204,14 +206,14 @@
 				<text><![CDATA[PARTIDA DE CONFIRMACIÓN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="218" y="278" width="39" height="20" uuid="1114276f-9777-4136-8047-0acd37f5bb6b"/>
+				<reportElement x="349" y="278" width="39" height="20" uuid="1114276f-9777-4136-8047-0acd37f5bb6b"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[ACTA: ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="286" y="204" width="274" height="20" uuid="01b9e605-61a4-46ab-819d-b268bac35874"/>
+				<reportElement x="264" y="204" width="296" height="20" uuid="01b9e605-61a4-46ab-819d-b268bac35874"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -236,10 +238,10 @@
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{madre}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{sacerdote}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="286" y="278" width="248" height="20" uuid="cfd40fc4-0fae-4d59-b9e6-28acbc939d7f"/>
+				<reportElement x="29" y="298" width="248" height="20" uuid="cfd40fc4-0fae-4d59-b9e6-28acbc939d7f"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -250,10 +252,10 @@
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{sacerdote}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{madre}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="156" y="155" width="134" height="24" uuid="317db0d1-5d17-4482-8782-bd7abf7d167b"/>
+				<reportElement x="155" y="139" width="134" height="24" uuid="317db0d1-5d17-4482-8782-bd7abf7d167b"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>

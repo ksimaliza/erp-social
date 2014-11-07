@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoListDTO;
@@ -157,9 +158,22 @@ public class SepulturaController extends BaseController {
 	
 	public void buscarSepultura()
 	{
+		slf4jLogger.info("buscarSepultura");
+
+		List<SepulturaListDTO> listaSepultura = null;
+
 		try {
-			sepulturaDataManager.setSepulturaListDTOs(this.servicioEucaristia.readSepultura(this.sepulturaDataManager.getSepulturaListDTO()));
-			this.sepulturaDataManager.setSepulturaListDTO(new SepulturaListDTO());
+			listaSepultura = this.servicioEucaristia.readSepultura(this.sepulturaDataManager.getSepulturaListDTO());
+			if (CollectionUtils.isEmpty(listaSepultura)
+					&& listaSepultura.size() == 0) {
+				MensajesWebController
+						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.sepulturaDataManager.setSepulturaListDTOs(listaSepultura);
+			}
+		//try {
+			//sepulturaDataManager.setSepulturaListDTOs(this.servicioEucaristia.readSepultura(this.sepulturaDataManager.getSepulturaListDTO()));
+			//this.sepulturaDataManager.setSepulturaListDTO(new SepulturaListDTO());
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarSepultura {} ", e);
@@ -209,6 +223,7 @@ public class SepulturaController extends BaseController {
 			this.sepulturaDataManager.setSepulturaDTO(sepulturaEncontrado.getSepultura());
 			this.sepulturaDataManager.setCodigoNicho(sepulturaEncontrado.getSepultura().getSepNicho());
 			buscarNicho2();
+			this.sepulturaDataManager.setDesactivado(false);
 			//buscarDefuncion();
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosSepultura {}", e.getMessage());
@@ -216,14 +231,13 @@ public class SepulturaController extends BaseController {
 		}
 	}
 
-	public void cancel()
+	public void limpiarFormulario()
 	{
 		sepulturaDataManager.setCodigoNicho(0);
 		sepulturaDataManager.setSepulturaDTO(new SepulturaDTO());
 		sepulturaDataManager.setDefuncionInsertar(new Persona());
 		sepulturaDataManager.setNichoListDTO(new NichoListDTO());
 		sepulturaDataManager.setDesactivado(false);
-		RequestContext.getCurrentInstance().execute("dlgNuevoEstudiante.hide()");
 	}
 
 	@Override

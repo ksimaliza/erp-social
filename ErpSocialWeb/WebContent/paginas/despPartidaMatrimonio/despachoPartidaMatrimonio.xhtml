@@ -20,7 +20,7 @@
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
 					</p:commandButton>
-					<p:commandButton id="btnNuevaPartidaMatrimonio" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevaPartidaMatrimonio.show()">
+					<p:commandButton id="btnNuevaPartidaMatrimonio" value="Insertar" icon="ui-icon-disk" actionListener="#{partidaMatrimonioController.limpiarFormulario}" update=":formNuevaPartidaMatrimonio:pnlNuevaPartidaMatrimonio,:formNuevaPartidaMatrimonio:pnlDatos,:formNuevaPartidaMatrimonio:pnlDatosPadrinoNovio,:formNuevaPartidaMatrimonio:pnlDatosMadrinaNovio,:formNuevaPartidaMatrimonio:pnlDatosNovia,:formNuevaPartidaMatrimonio:pnlDatosMadrinaNovia,:formNuevaPartidaMatrimonio:pnlDatosPadrinoNovia,:formNuevaPartidaMatrimonio:pnlDatos,:formNuevaPartidaMatrimonio:pnlDatosMatrimonio,:formPartidaMatrimonio:pnlMessages,:formPartidaMatrimonio:tablaPartidaMatrimonio,:formNuevaPartidaMatrimonio:pnlBotones" oncomplete="dlgNuevaPartidaMatrimonio.show()">
 						</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
@@ -91,19 +91,19 @@
 	</p:column>
 	
 				<p:column headerText="#{i18n['erp.despacho.partida.matrimonio.apellidosnovio']}" width="40%">
-					<h:outputText value="#{matrimonio.madNovioApellidos}" />
+					<h:outputText value="#{matrimonio.novioApellidos}" />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.matrimonio.nombresnovio']}" width="40%">
-					<h:outputText value="#{matrimonio.madNovioNombres}"  />
+					<h:outputText value="#{matrimonio.novioNombres}"  />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.matrimonio.apellidosnovia']}" width="40%">
-					<h:outputText value="#{matrimonio.madNoviaApellidos}"  />
+					<h:outputText value="#{matrimonio.perApellidos}"  />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.matrimonio.nombresnovia']}" width="40%">
-					<h:outputText value="#{matrimonio.madNoviaNombres}" />
+					<h:outputText value="#{matrimonio.perNombres}" />
 				</p:column>
 				
 				<p:column headerText="#{i18n['erp.despacho.partida.matrimonio.fecha']}" width="40%">
@@ -133,7 +133,7 @@
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarPartidaMatrimonio.show()"
 							actionListener="#{partidaMatrimonioController.cargarDatosMatrimonio(matrimonio)}"	
-							process="@this" update=":formEditarPartidaMatrimonio:pnlEditarPartidaMatrimonio,:formEditarPartidaMatrimonio:pnlDatosPadrinoNovio,:formEditarPartidaMatrimonio:pnlDatosMadrinaNovio,:formEditarPartidaMatrimonio:pnlDatosNovia,:formEditarPartidaMatrimonio:pnlDatosPadrinoNovia,:formEditarPartidaMatrimonio:pnlDatosMadrinaNovia,:formEditarPartidaMatrimonio:pnlDatosMatrimonio,:formEditarPartidaMatrimonio:pnlDatos">
+							process="@this" update=":formEditarPartidaMatrimonio:pnlEditarPartidaMatrimonio,:formEditarPartidaMatrimonio:pnlDatosPadrinoNovio,:formEditarPartidaMatrimonio:pnlDatosMadrinaNovio,:formEditarPartidaMatrimonio:pnlDatosNovia,:formEditarPartidaMatrimonio:pnlDatosPadrinoNovia,:formEditarPartidaMatrimonio:pnlDatosMadrinaNovia,:formEditarPartidaMatrimonio:pnlDatosMatrimonio,:formEditarPartidaMatrimonio:pnlDatos,:formEditarPartidaMatrimonio:pnlBotones">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
 					</h:panelGroup>

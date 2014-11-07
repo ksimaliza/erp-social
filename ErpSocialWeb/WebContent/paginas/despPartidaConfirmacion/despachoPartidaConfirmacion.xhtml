@@ -20,7 +20,7 @@
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
 					</p:commandButton>
-					<p:commandButton id="btnNuevaPartidaConfirmacion" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevaPartidaConfirmacion.show()">
+					<p:commandButton id="btnNuevaPartidaConfirmacion" actionListener="#{partidaConfirmacionController.limpiarFormulario}" value="Insertar" icon="ui-icon-disk" update=":formNuevaPartidaConfirmacion:pnlNuevaPartidaConfirmacion,:formNuevaPartidaConfirmacion:pnlBautizo,:formNuevaPartidaConfirmacion:pnlDatos,:formNuevaPartidaConfirmacion:pnlDatosPadrino" oncomplete="dlgNuevaPartidaConfirmacion.show()">
 						</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
@@ -117,7 +117,7 @@
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarPartidaConfirmacion.show()"
 							actionListener="#{partidaConfirmacionController.cargarDatosConfirmacion(confirmacion)}"					
-							process="@this" update=":formEditarPartidaConfirmacion:pnlEditarPartidaConfirmacion,:formEditarPartidaConfirmacion:pnlDatosPadrino,:formEditarPartidaConfirmacion:pnlDatos,:formEditarPartidaConfirmacion:pnlBautizo,">
+							process="@this" update=":formEditarPartidaConfirmacion:pnlEditarPartidaConfirmacion,:formEditarPartidaConfirmacion:pnlDatosPadrino,:formEditarPartidaConfirmacion:pnlDatos,:formEditarPartidaConfirmacion:pnlBautizo,:formEditarPartidaConfirmacion:pnlBotones">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
 					</h:panelGroup>

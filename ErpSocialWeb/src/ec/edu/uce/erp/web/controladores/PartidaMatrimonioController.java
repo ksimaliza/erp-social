@@ -504,6 +504,7 @@ public void registrarMatrimonio () {
 			this.partidaMatrimonioDataManager.setParroquia(matrimonioEncontrado.getMatrimonio().getMatParroquia());
 			this.partidaMatrimonioDataManager.setFechaApCurInsertar(matrimonioEncontrado.getMatrimonio().getMatFechaAprobacionCurso());
 			this.partidaMatrimonioDataManager.setFechaMatrInsertar(matrimonioEncontrado.getMatrimonio().getMatFecha());
+			this.partidaMatrimonioDataManager.setExportDesactivado(false);
 			//partidaMatrimonioDataManager.getMatrimonioDTO().setMatCertificadoPor(PersonaCertificado);
 			
 		} catch (SeguridadesException e) {
@@ -593,9 +594,22 @@ public void registrarMatrimonio () {
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
 		
-		mapParametros.put("canton", partidaMatrimonioDataManager.getCantonEucaristiaDTOs().get(0).getCatDescripcion().toUpperCase());
-		mapParametros.put("parroquiaCabecera", "\"" + partidaMatrimonioDataManager.getParroquiaEucaristiaDTOs().get(0).getCatDescripcion().toUpperCase() +"\"");
-		mapParametros.put("parroquia", partidaMatrimonioDataManager.getParroquiaEucaristiaDTOs().get(0).getCatDescripcion().toUpperCase());
+		if (partidaMatrimonioDataManager.getCantonEucaristiaDTOs() != null)
+			for (int i = 0; i < partidaMatrimonioDataManager
+					.getCantonEucaristiaDTOs().size(); i++)
+				if (partidaMatrimonioDataManager.getCantonEucaristiaDTOs().get(i)
+						.getCatCodigo() == (Integer) partidaMatrimonioDataManager
+						.getCanton())
+		mapParametros.put("canton", partidaMatrimonioDataManager.getCantonEucaristiaDTOs().get(i).getCatDescripcion().toUpperCase());
+		if (partidaMatrimonioDataManager.getParroquiaEucaristiaDTOs() != null)
+			for (int i = 0; i < partidaMatrimonioDataManager
+					.getParroquiaEucaristiaDTOs().size(); i++)
+				if (partidaMatrimonioDataManager.getParroquiaEucaristiaDTOs()
+						.get(i).getCatCodigo() == (Integer) partidaMatrimonioDataManager
+						.getParroquia()) {
+					mapParametros.put("parroquiaCabecera", "\"" + partidaMatrimonioDataManager.getParroquiaEucaristiaDTOs().get(i).getCatDescripcion().toUpperCase() +"\"");
+					mapParametros.put("parroquia", partidaMatrimonioDataManager.getParroquiaEucaristiaDTOs().get(i).getCatDescripcion().toUpperCase());
+						}
 		mapParametros.put("parroquiaMinusculas", partidaMatrimonioDataManager.getParroquiaEucaristiaDTOs().get(0).getCatDescripcion());
 		mapParametros.put("tomo", partidaMatrimonioDataManager.getMatrimonioDTO().getMatTomo());
 		mapParametros.put("pagina", partidaMatrimonioDataManager.getMatrimonioDTO().getMatPagina());
@@ -604,13 +618,23 @@ public void registrarMatrimonio () {
 		mapParametros.put("novio", partidaMatrimonioDataManager.getNovioInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getNovioInsertar().getPerNombres().toUpperCase());
 		mapParametros.put("novia", partidaMatrimonioDataManager.getNoviaInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getNoviaInsertar().getPerNombres().toUpperCase());
 		mapParametros.put("certifica", getUsuario().getNpNombresCompletos());
-		mapParametros.put("padrinosNovio", partidaMatrimonioDataManager.getMad_novioInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getMad_novioInsertar().getPerNombres().toUpperCase() + " y " + partidaMatrimonioDataManager.getPad_novioInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getPad_novioInsertar().getPerNombres().toUpperCase());
+		mapParametros.put("padrinoNovio", partidaMatrimonioDataManager.getPad_novioInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getPad_novioInsertar().getPerNombres().toUpperCase());
+		mapParametros.put("madrinaNovio", partidaMatrimonioDataManager.getMad_novioInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getMad_novioInsertar().getPerNombres().toUpperCase());
 		mapParametros.put("parroquiafechaActual", partidaMatrimonioDataManager.getParroquiaEucaristiaDTOs().get(0).getCatDescripcion()+ ", "+full.format(fechaActual));
-		mapParametros.put("padrinosNovia", partidaMatrimonioDataManager.getMad_noviaInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getMad_noviaInsertar().getPerNombres().toUpperCase() + " y " + partidaMatrimonioDataManager.getPad_noviaInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getPad_noviaInsertar().getPerNombres().toUpperCase());
+		mapParametros.put("padrinoNovia", partidaMatrimonioDataManager.getPad_noviaInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getPad_noviaInsertar().getPerNombres().toUpperCase());
+		mapParametros.put("madrinaNovia", partidaMatrimonioDataManager.getMad_noviaInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getMad_noviaInsertar().getPerNombres().toUpperCase());
 		mapParametros.put("notaMarginal", partidaMatrimonioDataManager.getMatrimonioDTO().getMatNotaMarginal());
-		mapParametros.put("provincia", partidaMatrimonioDataManager.getProvinciaEucaristiaDTOs().get(0).getCatDescripcion().toUpperCase());
-		mapParametros.put("padresNovio", partidaMatrimonioDataManager.getMadre_novioInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getMadre_novioInsertar().getPerNombres().toUpperCase() + " y " + partidaMatrimonioDataManager.getPadre_novioInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getPadre_novioInsertar().getPerNombres().toUpperCase());
-		mapParametros.put("padresNovia", partidaMatrimonioDataManager.getMadre_noviaInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getMadre_noviaInsertar().getPerNombres().toUpperCase() + " y " + partidaMatrimonioDataManager.getPadre_noviaInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getPadre_noviaInsertar().getPerNombres().toUpperCase());
+		if (partidaMatrimonioDataManager.getParroquiaEucaristiaDTOs() != null)
+			for (int i = 0; i < partidaMatrimonioDataManager
+					.getProvinciaEucaristiaDTOs().size(); i++)
+				if (partidaMatrimonioDataManager.getProvinciaEucaristiaDTOs()
+						.get(i).getCatCodigo() == (Integer) partidaMatrimonioDataManager
+						.getProvincia())
+		mapParametros.put("provincia", partidaMatrimonioDataManager.getProvinciaEucaristiaDTOs().get(i).getCatDescripcion().toUpperCase());
+		mapParametros.put("padreNovio", partidaMatrimonioDataManager.getPadre_novioInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getPadre_novioInsertar().getPerNombres().toUpperCase());
+		mapParametros.put("madreNovio", partidaMatrimonioDataManager.getMadre_novioInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getMadre_novioInsertar().getPerNombres().toUpperCase());
+		mapParametros.put("padreNovia", partidaMatrimonioDataManager.getPadre_noviaInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getPadre_noviaInsertar().getPerNombres().toUpperCase());
+		mapParametros.put("madreNovia", partidaMatrimonioDataManager.getMadre_noviaInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getMadre_noviaInsertar().getPerNombres().toUpperCase());
 		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), "partidaMatrimonio", mapParametros);
@@ -625,7 +649,7 @@ public void registrarMatrimonio () {
 		exportar();
 	}
 	
-	public void cancel()
+	public void limpiarFormulario()
 	{
 		partidaMatrimonioDataManager.setNovioInsertar(new Persona());
 		partidaMatrimonioDataManager.setNoviaInsertar(new Persona());
@@ -644,7 +668,7 @@ public void registrarMatrimonio () {
 		partidaMatrimonioDataManager.setProvincia((0));
 		partidaMatrimonioDataManager.setCanton((0));
 		partidaMatrimonioDataManager.setParroquia((0));
-		RequestContext.getCurrentInstance().execute("dlgNuevaPartidaMatrimonio.hide()");
+		partidaMatrimonioDataManager.setExportDesactivado(true);
 	}
 	
 

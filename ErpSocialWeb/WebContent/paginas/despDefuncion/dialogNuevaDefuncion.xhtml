@@ -19,7 +19,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCi" style="width: 70%" 
-								 value="#{defuncionDataManager.difuntoInsertar.perCi}" disabled="#{defuncionDataManager.desactivado}">
+								label="#{i18n['erp.despacho.defuncion.cedula']}" value="#{defuncionDataManager.difuntoInsertar.perCi}" required="true">
 							<p:ajax event="blur" update="txtNombres,txtApellidos" listener="#{defuncionController.buscarDifunto}" process="@this"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 						</p:inputText>
@@ -31,7 +31,7 @@
 							<h:outputLabel for="txtNombres" value="#{i18n['erp.despacho.defuncion.nombres']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNombres" label="#{i18n['erp.despacho.defuncion.nombres']}" style="width: 70%" value="#{defuncionDataManager.difuntoInsertar.perNombres}" disabled="#{defuncionDataManager.desactivado}"/>
+							<p:inputText id="txtNombres" label="#{i18n['erp.despacho.defuncion.nombres']}" style="width: 70%" value="#{defuncionDataManager.difuntoInsertar.perNombres}" required="true"/>
 						</td>
 					</tr>
 					<tr>
@@ -39,7 +39,7 @@
 							<h:outputLabel for="txtApellidos" value="#{i18n['erp.despacho.defuncion.apellidos']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtApellidos" label="#{i18n['erp.despacho.defuncion.apellidos']}" style="width: 70%" value="#{defuncionDataManager.difuntoInsertar.perApellidos}" disabled="#{defuncionDataManager.desactivado}"/>
+							<p:inputText id="txtApellidos" label="#{i18n['erp.despacho.defuncion.apellidos']}" style="width: 70%" value="#{defuncionDataManager.difuntoInsertar.perApellidos}" required="true"/>
 						</td>
 					</tr>
 					
@@ -51,7 +51,7 @@
 						<p:inputText id="txtCiMadre"  style="width: 70%"
 							  value="#{defuncionDataManager.madreInsertar.perCi}">
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-							<p:ajax event="blur" update="txtApeMadre,txtNomMadre" listener="#{defuncionController.buscarMadre}" process="@this" disabled="#{defuncionDataManager.desactivado}"/> 
+							<p:ajax event="blur" update="txtApeMadre,txtNomMadre" listener="#{defuncionController.buscarMadre}" process="@this"/> 
 							</p:inputText>
 						</td>
 					</tr>
@@ -62,7 +62,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApeMadre" style="width: 70%"
-								 value="#{defuncionDataManager.madreInsertar.perApellidos}"  disabled="#{defuncionDataManager.desactivado}"/>
+								 value="#{defuncionDataManager.madreInsertar.perApellidos}" />
 						</td>	
 					</tr>
 		
@@ -72,13 +72,13 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomMadre" style="width: 70%"
-								 value="#{defuncionDataManager.madreInsertar.perNombres}" disabled="#{defuncionDataManager.desactivado}"/>
+								 value="#{defuncionDataManager.madreInsertar.perNombres}"/>
 						</td>	
 					</tr>
 					
 					<tr>
 						<td width="30%">
-							<h:outputText for="txtCiPadre" value="#{i18n['erp.despacho.defuncion.cedula.padre']}" disabled="#{defuncionDataManager.desactivado}" />
+							<h:outputText for="txtCiPadre" value="#{i18n['erp.despacho.defuncion.cedula.padre']}" />
 						</td>
 						<td width="70%" >
 						<p:inputText id="txtCiPadre"  style="width: 70%"
@@ -95,7 +95,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApePadre" style="width: 70%"
-								 value="#{defuncionDataManager.padreInsertar.perApellidos}" disabled="#{defuncionDataManager.desactivado}"/>
+								 value="#{defuncionDataManager.padreInsertar.perApellidos}"/>
 						</td>	
 					</tr>
 		
@@ -105,7 +105,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomPadre" style="width: 70%"
-								 value="#{defuncionDataManager.padreInsertar.perNombres}" disabled="#{defuncionDataManager.desactivado}" />
+								 value="#{defuncionDataManager.padreInsertar.perNombres}" />
 						</td>	
 					</tr>
 									
@@ -115,16 +115,16 @@
 							<h:outputLabel value="#{i18n['erp.despacho.defuncion.estado.civil']}"  /> 	
 						</td>
 					<td width="70%">
-					<p:selectOneMenu id="estadocivil" value="#{defuncionDataManager.estadoCivilCodigo}" filter="true" disabled="#{defuncionDataManager.desactivado}" required="true" >
+					<p:selectOneMenu id="estadocivil" value="#{defuncionDataManager.estadoCivilCodigo}" filter="true" required="true" label="#{i18n['erp.despacho.defuncion.estado.civil']}" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{defuncionController.defuncionDataManager.estadoCivils}" var="est" itemLabel="#{est.catDescripcion}" itemValue="#{est.catCodigo}"/>
-								<f:ajax render="pnlConyuge" />
+								<f:ajax render="pnlConyuge" listener="#{defuncionController.limpiarConyuge}"/>
 					</p:selectOneMenu>
 					</td>
 					</tr> 
 				</table>
 			</p:panel>			
-			<p:panel id="pnlConyuge" visible="#{defuncionDataManager.estadoCivilCodigo.toString()=='16'}">
+			<p:panel id="pnlConyuge" visible="#{defuncionDataManager.estadoCivilCodigo.toString()=='16' or defuncionDataManager.estadoCivilCodigo.toString()=='17'}">
 				<table class="formulario">
 		
 					<tr>
@@ -133,7 +133,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiConyuge" style="width: 70%" 
-								value="#{defuncionDataManager.conyugeInsertar.perCi}" disabled="#{defuncionDataManager.desactivado}">
+								value="#{defuncionDataManager.conyugeInsertar.perCi}" required="#{defuncionDataManager.estadoCivilCodigo.toString()=='16' or defuncionDataManager.estadoCivilCodigo.toString()=='17'}">
 							<p:ajax event="blur" update="txtNomConyuge,txtApeConyuge" listener="#{defuncionController.buscarConyuge}" process="@this"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 						</p:inputText>
@@ -146,7 +146,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApeConyuge" style="width: 70%"  
-								 label="#{i18n['erp.despacho.defuncion.apellidos.conyuge']}" value="#{defuncionDataManager.conyugeInsertar.perApellidos}" disabled="#{defuncionDataManager.desactivado}">
+								 label="#{i18n['erp.despacho.defuncion.apellidos.conyuge']}" value="#{defuncionDataManager.conyugeInsertar.perApellidos}" required="#{defuncionDataManager.estadoCivilCodigo.toString()=='16' or defuncionDataManager.estadoCivilCodigo.toString()=='17'}">
 						</p:inputText>
 						</td>	
 					</tr>
@@ -157,7 +157,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomConyuge" style="width: 70%" 
-								 label="#{i18n['erp.despacho.defuncion.nombres.conyuge']}" value="#{defuncionDataManager.conyugeInsertar.perNombres}" disabled="#{defuncionDataManager.desactivado}">
+								 label="#{i18n['erp.despacho.defuncion.nombres.conyuge']}" value="#{defuncionDataManager.conyugeInsertar.perNombres}" required="#{defuncionDataManager.estadoCivilCodigo.toString()=='16' or defuncionDataManager.estadoCivilCodigo.toString()=='17'}">
 						</p:inputText>
 						</td>	
 					</tr>
@@ -170,7 +170,7 @@
 							<h:outputLabel value="#{i18n['erp.despacho.defuncion.sacerdote']}"  /> 
 						</td>
 					<td width="70%">
-					<p:selectOneMenu id="sacerdote" value="#{defuncionDataManager.sacerdoteCodigo}" filter="true" disabled="#{defuncionDataManager.desactivado}" required="true" >
+					<p:selectOneMenu id="sacerdote" value="#{defuncionDataManager.sacerdoteCodigo}" filter="true" required="true" label="#{i18n['erp.despacho.defuncion.sacerdote']}" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{defuncionController.defuncionDataManager.sacerdoteListDTO}" var="sac" itemLabel="#{sac.perNombres} #{sac.perApellidos}" itemValue="#{sac.sacCodigo}"/>
 							</p:selectOneMenu>
@@ -183,7 +183,7 @@
 						
 						</td>
 					<td width="70%">
-					<p:selectOneMenu id="doctor" value="#{defuncionDataManager.doctorCodigo}" filter="true"  disabled="#{defuncionDataManager.desactivado}" required="true" >
+					<p:selectOneMenu id="doctor" value="#{defuncionDataManager.doctorCodigo}" filter="true" required="true" label="#{i18n['erp.despacho.defuncion.doctor']}" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{defuncionController.defuncionDataManager.doctorListDTO}" var="doc" itemLabel="#{doc.perNombres} #{doc.perApellidos}" itemValue="#{doc.docCodigo}"/>
 							</p:selectOneMenu>
@@ -195,7 +195,7 @@
 							<h:outputLabel for="txtCausaMuerte" value="#{i18n['erp.despacho.defuncion.causa.muerte']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtCausaMuerte" style="width: 70%"  label="#{i18n['erp.despacho.defuncion.causa.muerte']}" value="#{defuncionDataManager.defuncionInsertar.defCausaMuerte}" disabled="#{defuncionDataManager.desactivado}">
+							<p:inputText id="txtCausaMuerte" style="width: 70%"  label="#{i18n['erp.despacho.defuncion.causa.muerte']}" value="#{defuncionDataManager.defuncionInsertar.defCausaMuerte}">
 						</p:inputText>
 						</td>	
 					</tr>
@@ -205,7 +205,7 @@
 							<h:outputLabel for="txtFechaFallecimiento" value="#{i18n['erp.despacho.defuncion.fecha.muerte']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFechaFallecimiento" style="width: 70%" navigator="true"   showOn="button" required="true" value="#{defuncionDataManager.fechaMuerteInsertar}" disabled="#{defuncionDataManager.desactivado}"/>
+							<p:calendar id="txtFechaFallecimiento" style="width: 70%" navigator="true"   showOn="button" required="true" value="#{defuncionDataManager.fechaMuerteInsertar}"/>
 						</td>
 					</tr>
 					
@@ -214,7 +214,7 @@
 							<h:outputLabel for="txtFechaSepelio" value="#{i18n['erp.despacho.defuncion.fecha.sepelio']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFechaSepelio" style="width: 70%" navigator="true"   showOn="button" required="true" value="#{defuncionDataManager.fechaSepelioInsertar}" disabled="#{defuncionDataManager.desactivado}"/>
+							<p:calendar id="txtFechaSepelio" style="width: 70%" navigator="true"   showOn="button" required="true" value="#{defuncionDataManager.fechaSepelioInsertar}" />
 						</td>
 					</tr>
 					
@@ -222,7 +222,7 @@
 					
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.defuncion.provincia.muerte']}"  /> </td>
-						<td width="70%" ><p:selectOneMenu id="provincia" value="#{defuncionDataManager.provinciaCodigo}" filter="true"  disabled="#{defuncionDataManager.desactivado}">
+						<td width="70%" ><p:selectOneMenu id="provincia" value="#{defuncionDataManager.provinciaCodigo}" filter="true">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{defuncionController.defuncionDataManager.provinciasEucaristiaDTOs}" var="provincia" itemLabel="#{provincia.catDescripcion} " itemValue="#{provincia.catCodigo}" />
 								<p:ajax listener="#{defuncionController.buscarCanton}" process="@this" update="canton"/>
@@ -232,7 +232,7 @@
 					
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.defuncion.canton.muerte']}"  /> </td>
-						<td width="70%"><p:selectOneMenu id="canton" value="#{defuncionDataManager.cantonCodigo}" filter="true" disabled="#{defuncionDataManager.desactivado}" >
+						<td width="70%"><p:selectOneMenu id="canton" value="#{defuncionDataManager.cantonCodigo}" filter="true"  >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{defuncionDataManager.cantonEucaristiaDTOs}" var="canton" itemLabel="#{canton.catDescripcion}" itemValue="#{canton.catCodigo}" />
 								<p:ajax listener="#{defuncionController.buscarParroquia}" process="@this" update="parroquia"/>
@@ -242,7 +242,7 @@
 					
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.defuncion.parroquia.muerte']}"  /> </td>
-						<td width="70%" ><p:selectOneMenu id="parroquia" value="#{defuncionDataManager.parroquiaCodigo}" filter="true" disabled="#{defuncionDataManager.desactivado}" >
+						<td width="70%" ><p:selectOneMenu id="parroquia" value="#{defuncionDataManager.parroquiaCodigo}" filter="true"  >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{defuncionDataManager.parroquiaEucaristiaDTOs}" var="parroquia" itemLabel="#{parroquia.catDescripcion}" itemValue="#{parroquia.catCodigo}"/>
 							</p:selectOneMenu>
@@ -257,7 +257,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtTomo" style="width: 70%" 
-								 label="#{i18n['erp.despacho.defuncion.tomo']}" value="#{defuncionDataManager.defuncionInsertar.defTomo}" disabled="#{defuncionDataManager.desactivado}">
+								 label="#{i18n['erp.despacho.defuncion.tomo']}" value="#{defuncionDataManager.defuncionInsertar.defTomo}"  required="true" onkeypress="return isNumberKey(event)" maxlength="10">
 						</p:inputText>
 						</td>	
 					</tr>
@@ -268,7 +268,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtActa" style="width: 70%" 
-								 label="#{i18n['erp.despacho.defuncion.acta']}"  value="#{defuncionDataManager.defuncionInsertar.defActa}" disabled="#{defuncionDataManager.desactivado}">
+								 label="#{i18n['erp.despacho.defuncion.acta']}"  value="#{defuncionDataManager.defuncionInsertar.defActa}"  required="true" onkeypress="return isNumberKey(event)" maxlength="10">
 						</p:inputText>
 						</td>	
 					</tr>
@@ -279,7 +279,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtPagina" style="width: 70%" 
-								onkeypress="return isNumberKey(event)" label="#{i18n['erp.despacho.defuncion.pagina']}" value="#{defuncionDataManager.defuncionInsertar.defPagina}" disabled="#{defuncionDataManager.desactivado}">
+							 label="#{i18n['erp.despacho.defuncion.pagina']}" value="#{defuncionDataManager.defuncionInsertar.defPagina}"  required="true" onkeypress="return isNumberKey(event)" maxlength="10">
 						</p:inputText>
 						</td>	
 					</tr>
@@ -290,7 +290,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNotaMarginal" style="width: 70%" 
-								onkeypress="return isNumberKey(event)" label="#{i18n['erp.despacho.defuncion.nota.marginal']}" value="#{defuncionDataManager.defuncionInsertar.defNotaMarginal}" disabled="#{defuncionDataManager.desactivado}">
+							 label="#{i18n['erp.despacho.defuncion.nota.marginal']}" value="#{defuncionDataManager.defuncionInsertar.defNotaMarginal}" maxlength="255">
 						</p:inputText>
 						</td>	
 					</tr>
@@ -304,7 +304,7 @@
 					actionListener="#{defuncionController.registrarDefuncion}"
 					
 					process="@this,pnlNuevaDefuncion,pnlConyuge,pnlDatos" update="pnlNuevaDefuncion,:formDefuncion:pnlMessages,:formDefuncion:tablaDefuncion,pnlBotones"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{defuncionController.cancel}" process="@this" immediate="true" update="pnlNuevaDefuncion,pnlConyuge,pnlDatos"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{defuncionController.limpiarFormulario}" process="@this" immediate="true" update="pnlNuevaDefuncion,pnlConyuge,pnlDatos" oncomplete="dlgNuevaDefuncion.hide()"/>
 				<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{defuncionController.exportar}" icon="exportPdf" ajax="false"
 				disabled="#{defuncionDataManager.exportDesactivado}" update="pnlNuevaDefuncion,pnlConyuge,pnlDatos,txtNotaMarginal" />
 			</p:panel>
