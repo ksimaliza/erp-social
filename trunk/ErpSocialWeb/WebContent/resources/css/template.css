@@ -171,7 +171,7 @@ input[class=email] {
 	float: right;
 }
 
-.label {
+.label1 {
 	float: left;
 	font: bold;
 }
@@ -237,7 +237,8 @@ TD.ToolBar {
     width: 100px;
     white-space: nowrap;
     padding-right: 5px;
-    height: 20px;
+    height: 25px;
+    font: bold;
     
 }
 
@@ -386,5 +387,9 @@ body {
       }
       
   
+  
+.ui-icon-delete{
+    background-image: url("../img/eliminar.png") !important;
+}
       
     
