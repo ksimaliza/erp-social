@@ -53,6 +53,15 @@ public class EstudianteDAOImpl extends AbstractFacadeImpl<EstudianteDTO> impleme
 		
 		CriteriaQuery<EstudianteListDTO> select = cq.select(from);
 		
+		//Por Ci
+		if (!StringUtils.isEmpty(estudiante.getPerCi())) {
+			Expression<String> ciEstudiante = 
+					cb.upper(cb.literal
+							(UtilAplication.concatenarPorcenteje(estudiante.getPerCi())));
+			predicate = cb.like(cb.upper(from.<String>get("perCi")), ciEstudiante);
+			criteriaList.add(predicate);
+		}
+		
 		//por nombre
 		if (!StringUtils.isEmpty(estudiante.getPerNombres())) {
 			Expression<String> nombreEstudiante = 
