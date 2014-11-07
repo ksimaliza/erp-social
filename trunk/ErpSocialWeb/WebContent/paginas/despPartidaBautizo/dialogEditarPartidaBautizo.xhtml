@@ -136,7 +136,7 @@
 						<td width="70%"><p:selectOneMenu id="estado" value="#{partidaBautizoDataManager.estadoCodigo}" filter="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{partidaBautizoController.partidaBautizoDataManager.estadoEucaristiaDTOs}" var="estado" itemLabel="#{estado.catDescripcion}" itemValue="#{estado.catCodigo}"/>
-								<f:ajax render="pnlDatos" />
+								<f:ajax render="pnlDatos" listener="#{partidaBautizoController.estadoPorBautizar}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
@@ -158,7 +158,7 @@
 									
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.provincia']}"  /> </td>
-						<td width="70%" ><p:selectOneMenu id="provincia" value="#{partidaBautizoDataManager.provinciaCodigo}" filter="true" >
+						<td width="70%" ><p:selectOneMenu id="provincia" value="#{partidaBautizoDataManager.provinciaCodigo}" filter="true" required="true">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{partidaBautizoController.partidaBautizoDataManager.provinciasEucaristiaDTOs}" var="provincia" itemLabel="#{provincia.catDescripcion} " itemValue="#{provincia.catCodigo}"/>
 								<p:ajax listener="#{partidaBautizoController.buscarCanton}" process="@this" update="canton"/>
@@ -168,7 +168,7 @@
 					
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.canton']}"  /> </td>
-						<td width="70%"><p:selectOneMenu id="canton" value="#{partidaBautizoDataManager.cantonCodigo}" filter="true" >
+						<td width="70%"><p:selectOneMenu id="canton" value="#{partidaBautizoDataManager.cantonCodigo}" filter="true" required="true">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{partidaBautizoDataManager.cantonEucaristiaDTOs}" var="canton" itemLabel="#{canton.catDescripcion}" itemValue="#{canton.catCodigo}"/>
 								<p:ajax listener="#{partidaBautizoController.buscarParroquia}" process="@this" update="parroquia"/>
@@ -177,7 +177,7 @@
 					</tr>		
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.parroquia']}"  /> </td>
-						<td width="70%" ><p:selectOneMenu id="parroquia" value="#{partidaBautizoDataManager.parroquiaCodigo}" filter="true" >
+						<td width="70%" ><p:selectOneMenu id="parroquia" value="#{partidaBautizoDataManager.parroquiaCodigo}" filter="true" required="true">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{partidaBautizoDataManager.parroquiaEucaristiaDTOs}" var="parroquia" itemLabel="#{parroquia.catDescripcion}" itemValue="#{parroquia.catCodigo}"/>
 							</p:selectOneMenu>
@@ -204,7 +204,16 @@
 											
 						</td>
 					</tr>
-						
+					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtApePad" value="#{i18n['erp.despacho.partida.bautizo.apellidos.padrino']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApePad" style="width: 100%"
+								  value="#{partidaBautizoDataManager.padrinoInsertar.perApellidos}"/>
+						</td>	
+					</tr>	
 						
 					<tr>
 						<td width="30%">
@@ -216,15 +225,6 @@
 						</td>	
 					</tr>
 						
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtApePad" value="#{i18n['erp.despacho.partida.bautizo.apellidos.padrino']}" />
-						</td>
-						<td width="70%">
-							<p:inputText id="txtApePad" style="width: 100%"
-								  value="#{partidaBautizoDataManager.padrinoInsertar.perApellidos}"/>
-						</td>	
-					</tr>
 					
 					
 					
@@ -251,6 +251,15 @@
 					</tr>
 					<tr>
 						<td width="30%">
+							<h:outputLabel for="txtApeMad" value="#{i18n['erp.despacho.partida.bautizo.apellidos.madrina']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtApeMad" style="width: 100%"  
+								  value="#{partidaBautizoDataManager.madrinaInsertar.perApellidos}" />
+						</td>	
+					</tr>
+					<tr>
+						<td width="30%">
 							<h:outputLabel for="txtNomMad" value="#{i18n['erp.despacho.partida.bautizo.nombres.madrina']}" />
 						</td>
 						<td width="70%">
@@ -259,15 +268,6 @@
 						</td>	
 					</tr>
 					
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtApeMad" value="#{i18n['erp.despacho.partida.bautizo.apellidos.madrina']}" />
-						</td>
-						<td width="70%">
-							<p:inputText id="txtApeMad" style="width: 100%"  
-								  value="#{partidaBautizoDataManager.madrinaInsertar.perApellidos}" />
-						</td>	
-					</tr>
 					
 				</table>
 			</p:panel>
@@ -281,17 +281,17 @@
 							<h:outputLabel for="txtNotaM" value="#{i18n['erp.despacho.partida.bautizo.nota.marginal']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNotaM" style="width: 100%"   value="#{partidaBautizoDataManager.bautizoDTO.bauNotaMarginal}"/>
+							<p:inputText id="txtNotaM" style="width: 100%"   value="#{partidaBautizoDataManager.bautizoDTO.bauNotaMarginal}" maxlength="255"/>
 						</td>	
 					</tr>
 					
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtTomo" value="#{i18n['erp.despacho.partida.bautizo.tomo']}" />
+							<h:outputLabel for="txtTomo" value="#{i18n['erp.despacho.partida.bautizo.tomo']}"  />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtTomo" style="width: 100%"  
-								 value="#{partidaBautizoDataManager.bautizoDTO.bauToma}" />
+								 value="#{partidaBautizoDataManager.bautizoDTO.bauToma}" required="#{partidaBautizoDataManager.estadoCodigo.toString()=='20'}" onkeypress="return isNumberKey(event)" maxlength="10"/>
 						</td>	
 					</tr>
 					<tr>
@@ -300,7 +300,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtActa"  style="width: 100%"
-							 label="#{i18n['erp.despacho.partida.bautizo.acta']}" value="#{partidaBautizoDataManager.bautizoDTO.bauActa}">
+							 label="#{i18n['erp.despacho.partida.bautizo.acta']}" value="#{partidaBautizoDataManager.bautizoDTO.bauActa}" required="#{partidaBautizoDataManager.estadoCodigo.toString()=='20'}" onkeypress="return isNumberKey(event)" maxlength="10">
 							
 						</p:inputText>
 						
@@ -313,7 +313,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtPagina" style="width: 100%"  
-								 value="#{partidaBautizoDataManager.bautizoDTO.bauPagina}"/>
+								 value="#{partidaBautizoDataManager.bautizoDTO.bauPagina}" required="#{partidaBautizoDataManager.estadoCodigo.toString()=='20'}" onkeypress="return isNumberKey(event)" maxlength="10"/>
 						</td>	
 					</tr>
 					
