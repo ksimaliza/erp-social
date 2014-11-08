@@ -129,8 +129,7 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{exhumacionController.registrarExhumacion}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaExhumacion.hide()"
-					process="@this,pnlNuevaExhumacion" update="pnlNuevaExhumacion,:formExhumacion:pnlMessages,:formExhumacion:tablaExhumacion" disabled="#{exhumacionDataManager.desactivado}"  />
+					process="@this,pnlNuevaExhumacion" update="pnlNuevaExhumacion,:formExhumacion:pnlMessages,:formExhumacion:tablaExhumacion,pnlBotones" disabled="#{exhumacionDataManager.desactivado}"  />
 				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{exhumacionController.limpiarFormulario}" process="@this" immediate="true" update="pnlNuevaExhumacion,pnlBotones" oncomplete="dlgNuevaExhumacion.hide()"/>
 			</p:panel>
 		</h:form>

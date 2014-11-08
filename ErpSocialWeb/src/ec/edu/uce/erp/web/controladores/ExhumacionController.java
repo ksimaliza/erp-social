@@ -92,7 +92,7 @@ public class ExhumacionController extends BaseController{
 			
 			exhumacionVO.setAutorizaExhumacionDTO(autorizaExhumacionDTO);
 			
-			if(exhumacionDataManager.getFechaSepelio().getTime()>exhumacionDataManager.getFechaExhumacion().getTime())
+			if(exhumacionDataManager.getDefuncionListDTO().getDefFecha().getTime()>exhumacionDataManager.getFechaExhumacion().getTime())
 			{
 				MensajesWebController.aniadirMensajeError("Ingrese fecha de Exhumación Correcta");
 				return;
@@ -100,7 +100,7 @@ public class ExhumacionController extends BaseController{
 			
 			
 			exhumacionVO.getExumacionDTO().setExuFechaExhumacion(new Timestamp(exhumacionDataManager.getFechaExhumacion().getTime()));
-			exhumacionVO.getExumacionDTO().setExuFechaCepelio(new Timestamp(exhumacionDataManager.getFechaSepelio().getTime()));
+			exhumacionVO.getExumacionDTO().setExuFechaCepelio(new Timestamp(exhumacionDataManager.getDefuncionListDTO().getDefFecha().getTime()));
 			ExumacionDTO exhumacionNuevo=this.servicioEucaristia.createOrUpdateExhumacion(exhumacionVO);
 						
 			if (exhumacionNuevo != null) {
@@ -113,6 +113,8 @@ public class ExhumacionController extends BaseController{
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.exhumacion.registrar.exito");
 			}
 			buscarExhumacion();
+			RequestContext.getCurrentInstance().execute(
+			"dlgNuevaExhumacion.hide(), dlgEditarExhumacion.hide()");
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -208,7 +210,8 @@ public class ExhumacionController extends BaseController{
 			this.exhumacionDataManager.setDifuntoInsertar(exhumacionEncontrado.getDifunto());
 			this.exhumacionDataManager.setAutorizaCodigo(exhumacionEncontrado.getExumacionDTO().getExuAutoriza());
 			this.exhumacionDataManager.setExumacionDTO(exhumacionEncontrado.getExumacionDTO());
-							
+			this.exhumacionDataManager.setFechaExhumacion(exhumacionEncontrado.getExumacionDTO().getExuFechaExhumacion());
+			this.exhumacionDataManager.getDefuncionListDTO().setDefFecha(exhumacionEncontrado.getExumacionDTO().getExuFechaCepelio());
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosExhumacion {}", e.getMessage());
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosExhumacion seleccionado");
@@ -221,7 +224,7 @@ public class ExhumacionController extends BaseController{
 		exhumacionDataManager.setDifuntoInsertar(new Persona());
 		exhumacionDataManager.setAutorizaCodigo(0);
 		exhumacionDataManager.setFechaExhumacion(new Date());
-		exhumacionDataManager.setFechaSepelio(new Date());
+		exhumacionDataManager.getDefuncionListDTO().setDefFecha(null);
 		exhumacionDataManager.setDesactivado(false);
 		
 	}
