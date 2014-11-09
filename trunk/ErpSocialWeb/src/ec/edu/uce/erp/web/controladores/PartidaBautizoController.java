@@ -107,19 +107,15 @@ public class PartidaBautizoController extends BaseController {
 			bautizoVO
 					.setPadrino(partidaBautizoDataManager.getPadrinoInsertar());
 			
-			bautizoVO=new BautizoVO();
-			sacerdoteDTO=new SacerdoteDTO();
-			provincia=new CatalogoEucaristiaDTO();
-			canton=new CatalogoEucaristiaDTO();
-			parroquia=new CatalogoEucaristiaDTO();
-			estado=new CatalogoEucaristiaDTO();
-			
 			partidaBautizoDataManager.getBautizoDTO().setBauCertificadoPor(getPersonaCode());
 		
 					
-			if(partidaBautizoDataManager.getBautizadoInsertar().getPerCi().toString().equals(partidaBautizoDataManager.getPadrinoInsertar().getPerCi().toString()))/*||partidaBautizoDataManager.getBautizadoInsertar().getPerCi().toString().equals(partidaBautizoDataManager.getMadrinaInsertar().getPerCi().toString())||partidaBautizoDataManager.getBautizadoInsertar().getPerCi().toString().equals(partidaBautizoDataManager.getMadreInsertar().getPerCi().toString())||partidaBautizoDataManager.getBautizadoInsertar().getPerCi().toString().equals(partidaBautizoDataManager.getPadreInsertar().getPerCi().toString()))*/
+			if(partidaBautizoDataManager.getBautizadoInsertar().getPerCi().toString().equals(partidaBautizoDataManager.getPadrinoInsertar().getPerCi().toString()) || 
+			   partidaBautizoDataManager.getBautizadoInsertar().getPerCi().toString().equals(partidaBautizoDataManager.getMadrinaInsertar().getPerCi().toString()) ||
+			   partidaBautizoDataManager.getBautizadoInsertar().getPerCi().toString().equals(partidaBautizoDataManager.getMadreInsertar().getPerCi().toString())   ||
+			   partidaBautizoDataManager.getBautizadoInsertar().getPerCi().toString().equals(partidaBautizoDataManager.getPadreInsertar().getPerCi().toString()))
 			{
-				MensajesWebController.aniadirMensajeError("El Bautizado no puede ser  ");
+				MensajesWebController.aniadirMensajeError("Cédula de bautizado repetida en otro campo");
 				return;
 			}
 			
@@ -188,7 +184,7 @@ public class PartidaBautizoController extends BaseController {
 			bautizo.setBauMadre(bautizoNuevo.getBauMadre());
 			bautizo.setBauPadre(bautizoNuevo.getBauPadre());
 			bautizo.setBauMadrina(bautizoNuevo.getBauMadrina());
-			bautizo.setBauPadrino(bautizoNuevo.getBauMadrina());
+			bautizo.setBauPadrino(bautizoNuevo.getBauPadrino());
 			bautizo.setBauSacerdote(bautizoNuevo.getEucSacerdote()
 					.getSacCodigo());
 
@@ -208,9 +204,11 @@ public class PartidaBautizoController extends BaseController {
 				partidaBautizoDataManager.setEstadoCodigo(0);*/
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.partida.bautizo.registrar.exito");
 			}
-			partidaBautizoDataManager.setGuardar(true);
 			buscarPartidaBautizo();
-			
+			//si todavia no esta bautizado
+			if(partidaBautizoDataManager.getEstadoCodigo()!=20)
+			RequestContext.getCurrentInstance().execute(
+					"dlgNuevaPartidaBautizo.hide(), dlgEditarPartidaBautizo.hide()");
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -681,13 +679,8 @@ public class PartidaBautizoController extends BaseController {
 		partidaBautizoDataManager.setProvinciaCodigo(0);
 		partidaBautizoDataManager.setCantonCodigo(0);
 		partidaBautizoDataManager.setParroquiaCodigo(0);
-	
+	    partidaBautizoDataManager.setExportDesactivado(true);
 		
-		
-		//partidaBautizoDataManager.setExportDesactivado(true);
-		partidaBautizoDataManager.setGuardar(false);
-		//RequestContext.getCurrentInstance().execute(
-		//"dlgNuevaPartidaBautizo.hide()");
 		
 	}
 
