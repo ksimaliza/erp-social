@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        template="/WEB-INF/templates/template.xhtml">
+
+        <ui:define name="title">
+        <h4>
+                        <h:outputLabel value="Reporte Eucaristías" />
+                </h4>
+        </ui:define>
+
+
+        <ui:define name="content">
+                <h:form id="form">
+                <p:growl id="pnlMessages" autoUpdate="true" closable="true" />
+                <p:toolbar style="ToolBar">
+                                <p:toolbarGroup align="left">
+                                        <p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
+                                        </p:commandButton>
+                                </p:toolbarGroup>
+                        </p:toolbar>
+                        <p:panel id="pnlBuscar" header="Buscar Eucaristías" style="width: 650px;" toggleable="true">
+
+                        <table id="tblData" cellspacing="5">
+
+                            <tr>
+								<td width="30%"><h:outputLabel value="Provincia:"  /> </td>
+		
+								<td width="70%" ><p:selectOneMenu id="provincia" value="#{partidaBautizoDataManager.provinciaCodigo}" filter="true" required="true"  >
+		
+										<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+										<f:selectItems value="#{partidaBautizoController.partidaBautizoDataManager.provinciasEucaristiaDTOs}" var="provincia" itemLabel="#{provincia.catDescripcion} " itemValue="#{provincia.catCodigo}"/>
+										<p:ajax listener="#{partidaBautizoController.buscarCanton}" process="@this" update="canton"/>
+									</p:selectOneMenu>
+								</td>
+							</tr>
+							
+							<tr>
+								<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.canton']}"  /> </td>
+		
+								<td width="70%"><p:selectOneMenu id="canton" value="#{partidaBautizoDataManager.cantonCodigo}" filter="true" required="true"  >
+										<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+										<f:selectItems value="#{partidaBautizoDataManager.cantonEucaristiaDTOs}" var="canton" itemLabel="#{canton.catDescripcion}" itemValue="#{canton.catCodigo}"/>
+										<p:ajax listener="#{partidaBautizoController.buscarParroquia}" process="@this" update="parroquia"/>
+									</p:selectOneMenu>
+								</td>
+							</tr>		
+							<tr>
+								<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.parroquia']}"  /> </td>
+								<td width="70%" ><p:selectOneMenu id="parroquia" value="#{partidaBautizoDataManager.parroquiaCodigo}" filter="true" required="true" >
+		
+										<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+										<f:selectItems value="#{partidaBautizoDataManager.parroquiaEucaristiaDTOs}" var="parroquia" itemLabel="#{parroquia.catDescripcion}" itemValue="#{parroquia.catCodigo}"/>
+									</p:selectOneMenu>
+								</td>
+							</tr>	                                
+                                
+                                <tr>
+                                <td align="right"><h:outputLabel value="Desde:" /></td>
+                                        <td ><p:calendar id="txtDesde" style="width: 100%" navigator="true" value="#{estudianteDataManager.estudiantePersonaInsertar.perFechaNac}"  showOn="button" required="true"/></td>
+                                 </tr>       
+                                 <tr>
+                                 <td align="right"><h:outputLabel value="Hasta:" /></td>
+                                        <td>
+                                        	<p:calendar id="txtHasta" style="width: 100%" navigator="true" value="#{estudianteDataManager.estudiantePersonaInsertar.perFechaNac}"  showOn="button" required="true"/>
+                                        </td>	
+                                        <td>
+                                        <p:commandButton id="btnBuscar"
+                                        actionListener="#{reporteCarnetController.buscar}"
+                                        value="#{i18n['label.buscar']}" 
+                                        process="@this,pnlBuscar"
+                                        update="pnlBuscar,tblReporte" 
+                                        icon="ui-icon-search"
+                                        title="Buscar"/>
+                                        </td>
+                                </tr>
+
+                        </table>
+                        
+                        </p:panel>
+                        
+                        <p:dataTable id="tblReporte" value="#{reporteCarnetDataManager.matriculaVieDTOList}" 
+                                rowIndexVar="rowIndex" var="rep"
+                                paginator="true" rows="5" paginatorPosition="bottom"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                rowsPerPageTemplate="5,10,15">
+                        		<f:facet name="header">
+										Eucaristías
+								</f:facet>
+                        
+                                <p:column headerText="#" styleClass="centered" width="5%">
+                                        #{rowIndex+1}
+                                </p:column>
+                                <p:column headerText="Nro. Matricula">
+                                        <h:outputText value="2014-GM-#{rep.regCodigo}" />
+                                </p:column>
+                                <p:column headerText="Foto">
+                                        <p:graphicImage value="#{rep.regFoto}" height="45" />
+                                </p:column>
+                                <p:column headerText="Cédula">
+                                        <h:outputText value="#{rep.perCi}" />
+                                </p:column>
+                                <p:column headerText="Apellidos y Nombres">
+                                        <h:outputText value="#{rep.perApellidos} #{rep.perNombres}" />                          
+                                </p:column>
+                                <p:column headerText="Nivel">
+                                        <h:outputText value="#{rep.nivDescaripcion}" />
+                                </p:column>
+                                <p:column headerText="Paralelo">
+                                        <h:outputText value="#{rep.parDescripcion}" />
+                                </p:column>
+                                <p:column headerText="Paralelo" style="display: none">
+                                        <h:outputText value="#{rep.regVerificarFoto}" />
+                                </p:column>
+                                        
+                                <p:column headerText="Carné">
+                                        <p:commandButton title="Generar Carné" actionListener="#{reporteCarnetController.carnet(rep)}" icon="exportPdf" ajax="false"/>
+                                </p:column>
+                        
+                        </p:dataTable>
+                        
+                        
+                </h:form>
+        </ui:define>
+</ui:composition>
