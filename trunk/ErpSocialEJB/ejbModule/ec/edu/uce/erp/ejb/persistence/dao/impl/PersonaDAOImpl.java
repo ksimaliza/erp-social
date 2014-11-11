@@ -52,15 +52,9 @@ public class PersonaDAOImpl extends AbstractFacadeImpl<Persona> implements Perso
 			CriteriaQuery<Persona> criteriaQuery = criteriaBuilder.createQuery(Persona.class);
 			
 			Root<Persona> fromPerfil = criteriaQuery.from(Persona.class);
-			criteriaQuery.select(fromPerfil);
+			CriteriaQuery<Persona> select=criteriaQuery.select(fromPerfil);
 			
 			criteriaList = new ArrayList<Predicate>();
-			
-			//pk persona
-			if (persona.getPerPk()!=null) {
-				predicate = criteriaBuilder.equal(fromPerfil.get("perPk"), persona.getPerPk());
-				criteriaList.add(predicate);
-			}
 			
 			//ci persona
 			if (StringUtils.isNotBlank(persona.getPerCi())) {
@@ -71,7 +65,7 @@ public class PersonaDAOImpl extends AbstractFacadeImpl<Persona> implements Perso
 			criteriaQuery.where(criteriaBuilder.and(criteriaList.toArray(new Predicate[0])));
 //			criteriaQuery.orderBy(criteriaBuilder.asc(fromPerfil.get("fechaRegistro")));
 			
-			TypedQuery<Persona> typedQuery = entityManager.createQuery(criteriaQuery);
+			TypedQuery<Persona> typedQuery = entityManager.createQuery(select);
 			
 			personaCol = typedQuery.getResultList();
 			
