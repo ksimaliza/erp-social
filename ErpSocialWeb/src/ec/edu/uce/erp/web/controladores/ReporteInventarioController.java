@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.controladores.componentes.BuscarUsuarioComponent;
-import ec.edu.uce.erp.web.datamanager.VistaHistoricoTransaccionDataManager;
+import ec.edu.uce.erp.web.datamanager.ReporteInventarioDataManager;
 
 /**
  * @author
@@ -34,19 +34,18 @@ public class ReporteInventarioController extends BaseController {
 	/**
 	 * Exportar datos del reporte
 	 */
-	private String tipoReporte = null;
+	private String tipoReporte;
 	
 	private BuscarUsuarioComponent buscarUsuarioComponent;
 	
-	@ManagedProperty(value="#{vistaHistoricoTransaccionDataManager}")
-	private VistaHistoricoTransaccionDataManager vistaHistoricoTransaccionDataManager;
+	@ManagedProperty(value="#{reporteInventarioDataManager}")
+	private ReporteInventarioDataManager reporteInventarioDataManager;
 	
 	/**
-	 * @param vistaHistoricoTransaccionDataManager the vistaHistoricoTransaccionDataManager to set
+	 * @param reporteInventarioDataManager the reporteInventarioDataManager to set
 	 */
-	public void setVistaHistoricoTransaccionDataManager(
-			VistaHistoricoTransaccionDataManager vistaHistoricoTransaccionDataManager) {
-		this.vistaHistoricoTransaccionDataManager = vistaHistoricoTransaccionDataManager;
+	public void setReporteInventarioDataManager(ReporteInventarioDataManager reporteInventarioDataManager) {
+		this.reporteInventarioDataManager = reporteInventarioDataManager;
 	}
 	
 	public ReporteInventarioController () {}
@@ -54,7 +53,7 @@ public class ReporteInventarioController extends BaseController {
 	@PostConstruct
 	public void inicializarObjetos() {
 		this.buscarUsuarioComponent = new BuscarUsuarioComponent(servicioInventario, 
-				this.vistaHistoricoTransaccionDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
+				this.reporteInventarioDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
 	}
 	
 	public void generarReporte (String formatoReporte) {
@@ -95,5 +94,5 @@ public class ReporteInventarioController extends BaseController {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 }

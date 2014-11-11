@@ -8,15 +8,16 @@
 	xmlns:c="http://java.sun.com/jsf/composite/components">
 	
 	<ui:define name="title">
-		<h3><h:outputLabel	value="#{i18n['erp.bien.pagina.titulo']}" /></h3>
+		<h3><h:outputLabel	value="#{i18n['erp.bien.pagina.reportes.titulo']}" /></h3>
 	</ui:define>
 	
 	<ui:define name="content">
+	
 		<h:outputScript library="primefaces" name="jquery/jquery.js" target="head"/>
 		<h:form id="formBien">
 		
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
-			<p:toolbar id="toolbar">
+			<!-- <p:toolbar id="toolbar">
 				<p:toolbarGroup align="left">
 					
 					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
@@ -29,7 +30,8 @@
 					</p:commandButton>
 					
 				</p:toolbarGroup>
-			</p:toolbar>
+			</p:toolbar> -->
+			
 			<p:panel id="pnlBuscarBien" header="#{i18n['erp.bien.buscar']}">
 				<table class="formulario">
 					<tr>
@@ -41,7 +43,7 @@
 							</h:panelGrid>
 						</td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td>
 							<h:outputLabel for="txtCodigoBien" value="#{i18n['label.codigo']}" /></td>
 						<td>
@@ -49,7 +51,7 @@
 								style="width: 50%"
 								value="#{reporteInventarioDataManager.vistaBienBuscar.bieCodigo}" />
 						</td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td >
 							<h:outputLabel for="selectTipoIngresoBien" value="#{i18n['erp.bien.tipo.transaccion']}" />
@@ -90,84 +92,48 @@
 							</p:selectOneMenu>
 						</td>
 					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtFechaDesde" value="#{i18n['label.fecha.desde']}" /></td>
+						<td>
+							<p:calendar id="txtFechaDesde" style="width: 50%" readonlyInput="true" pattern="yyyy-MM-dd"
+								value="#{reporteInventarioDataManager.vistaBienBuscar.npFechaDesde}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtFechaHasta" value="#{i18n['label.fecha.hasta']}" /></td>
+						<td>
+							<p:calendar id="txtFechaHasta" style="width: 50%" readonlyInput="true" pattern="yyyy-MM-dd"
+								value="#{reporteInventarioDataManager.vistaBienBuscar.npFechaHasta}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h:outputLabel for="txtTipoReporte" value="#{i18n['label.tipo.reporte']}" /></td>
+						<td>
+							<p:selectOneMenu id="txtTipoReporte"
+								style="width: 50%" label="#{i18n['label.tipo.reporte']}"
+								value="#{reporteInventarioController.tipoReporte}">
+								<f:selectItem itemLabel="#{i18n['label.reporte.pdf']}" itemValue="#{reporteInventarioDataManager.formatoPdf}"/>
+								<f:selectItem itemLabel="#{i18n['label.reporte.excel']}" itemValue="#{reporteInventarioDataManager.formatoExcel}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
 				</table>
 			</p:panel>
+			
 			<p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
-					actionListener="#{bienController.buscarBienes}"
-					value="#{i18n['label.buscar']}" 
+					value="#{i18n['label.generar.reporte']}" 
 					process="@this,pnlBuscarBien"
-					update="pnlMessages,tablaBienes,pnlBuscarBien,toolbar" />
+					update="pnlMessages,pnlBuscarBien" />
 				<p:commandButton id="btnLimpiar"
-					actionListener="#{bienController.limpiarFiltrosBusqueda}"
 					value="#{i18n['label.limpiar']}" 
 					process="@this,pnlBuscarBien" 
-					update="pnlMessages,tablaBienes,pnlBuscarBien,toolbar" />
+					update="pnlMessages,pnlBuscarBien" />
 			</p:panel>
-			<p:dataTable id="tablaBienes"
-				value="#{bienDataManager.listVistaBien}"
-				var="vistaBien" rowIndexVar="rowIndex"
-				paginator="true" rows="5" paginatorPosition="bottom"
-				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="5,10,15">
-				<f:facet name="header">
-					<h:outputText value="#{i18n['erp.bien.lista']}" />
-				</f:facet>
-				<p:column styleClass="centered" width="5%">
-					<f:facet name="header">
-						<h:outputText value="#" />
-					</f:facet>
-					<h:outputText value="#{rowIndex+1}"/>
-				</p:column>
-				<p:column width="10%">
-					<f:facet name="header">
-						<h:outputText value="#{i18n['erp.bien.categoria']}" />
-					</f:facet>
-					<h:outputText value="#{vistaBien.catBienNombre}" />
-				</p:column>
-				<p:column width="10%">
-					<f:facet name="header">
-						<h:outputText value="#{i18n['erp.bien.linea']}" />
-					</f:facet>
-					<h:outputText value="#{vistaBien.linBienNombre}" />
-				</p:column>
-				<p:column width="10%">
-					<f:facet name="header">
-						<h:outputText value="#{i18n['erp.bien.marca.material']}" />
-					</f:facet>
-					<h:outputText value="#{vistaBien.marBienNombre}" />
-				</p:column>
-				<p:column width="10%">
-					<f:facet name="header">
-						<h:outputText value="#{i18n['erp.bien.modelo']}" />
-					</f:facet>
-					<h:outputText value="#{vistaBien.bieModelo}" />
-				</p:column>
-				<p:column width="10%">
-					<f:facet name="header">
-						<h:outputText value="#{i18n['erp.bien.color']}" />
-					</f:facet>
-					<h:outputText value="#{vistaBien.bieColor}" />
-				</p:column>
-				<p:column width="10%" styleClass="centered">
-					<f:facet name="header">
-						<h:outputText value="#{i18n['label.estado']}" />
-					</f:facet>
-					<h:outputText value="#{vistaBien.bieEstado eq bienDataManager.estadoActivo ? i18n['label.estado.activo']:i18n['label.estado.inactivo']}" />
-				</p:column>
-				<p:column width="10%" styleClass="centered">
-					<f:facet name="header">
-						<h:outputText value="#{i18n['label.en.uso']}" />
-					</f:facet>
-					<h:outputText value="#{vistaBien.bieEstadoUso eq bienDataManager.estadoActivo ? i18n['label.si']:i18n['label.no']}" />
-				</p:column>
-				<p:column width="15%">
-					<f:facet name="header">
-						<h:outputText value="#{i18n['erp.bien.nombre']}" />
-					</f:facet>
-					<h:outputText value="#{vistaBien.bieNombre}" />
-				</p:column>
-			</p:dataTable>
+			
 		</h:form>
 		
 	</ui:define>
