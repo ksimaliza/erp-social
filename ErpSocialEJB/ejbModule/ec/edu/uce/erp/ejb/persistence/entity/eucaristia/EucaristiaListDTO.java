@@ -67,6 +67,12 @@ public class EucaristiaListDTO implements Serializable {
 	@Column(name="sac_persona")
 	private Integer sacPersona;
 
+	@Transient
+	private Date fechaDesde;
+	
+	@Transient
+	private Date fechaHasta;
+	
 	public EucaristiaListDTO() {
 	}
 
@@ -196,6 +202,22 @@ public class EucaristiaListDTO implements Serializable {
 
 	public void setSacPersona(Integer sacPersona) {
 		this.sacPersona = sacPersona;
+	}
+
+	public Date getFechaDesde() {
+		return fechaDesde;
+	}
+
+	public void setFechaDesde(Date fechaDesde) {
+		this.fechaDesde = fechaDesde;
+	}
+
+	public Date getFechaHasta() {
+		return fechaHasta;
+	}
+
+	public void setFechaHasta(Date fechaHasta) {
+		this.fechaHasta = fechaHasta;
 	}
 
 }

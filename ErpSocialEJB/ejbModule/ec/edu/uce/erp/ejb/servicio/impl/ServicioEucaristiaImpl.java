@@ -1514,4 +1514,18 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		}
 		return mesesFaltantes;
 	}
+	
+	@Override
+	public List<EucaristiaListDTO> readEucaristiaReport(EucaristiaListDTO eucaristia) throws SeguridadesException {
+		slf4jLogger.info("readEucaristiaReport");
+		List<EucaristiaListDTO> listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getEucaristiaDAOImpl().getDistinctReporteEcaristiaByAnd(eucaristia);
+		} catch (Exception e) {
+			slf4jLogger.info("Error readEucaristiaReport {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener eucaristía de la base de datos");
+		}
+		return listResultado;
+	}
+	
 }
