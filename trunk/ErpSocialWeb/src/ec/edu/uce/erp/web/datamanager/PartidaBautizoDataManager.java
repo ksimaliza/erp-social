@@ -116,10 +116,6 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 		this.cantonEucaristiaDTOs = cantonEucaristiaDTOs;
 	}
 
-
-
-		
-
 	public int getProvinciaCodigo() {
 		return provinciaCodigo;
 	}
