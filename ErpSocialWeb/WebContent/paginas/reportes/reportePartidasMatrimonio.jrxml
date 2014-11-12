@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportePartidasMatrimonio" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b144c22e-0179-4b71-9b64-3b039cdb18cc">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="provincia" class="java.lang.String"/>
+	<parameter name="parroquia" class="java.lang.String"/>
+	<parameter name="empresa" class="java.lang.String"/>
+	<parameter name="fechaActual" class="java.lang.String"/>
+	<parameter name="cedulaNovio" class="java.lang.String"/>
+	<parameter name="nombreNovio" class="java.lang.String"/>
+	<parameter name="sacerdote" class="java.lang.String"/>
+	<parameter name="fechaMatrimonio" class="java.lang.String"/>
+	<parameter name="desde" class="java.lang.String"/>
+	<parameter name="hasta" class="java.lang.String"/>
+	<parameter name="cedulaNovia" class="java.lang.String"/>
+	<parameter name="nombreNovia" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="410" y="20" width="128" height="23" uuid="92b39041-61ee-47fc-b761-7b9e85bca34a"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{provincia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="249" y="20" width="162" height="24" uuid="c48c70e5-275c-4aa0-80a5-fbbd51284b42"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ARQUIDIOCESIS DE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="399" y="44" width="136" height="24" uuid="f3df0772-08dd-418e-a1ec-cda4847ac11f"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parroquia}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="267" y="44" width="139" height="24" uuid="9d37bfec-8965-4e8f-b40f-523dbb199a2d"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARROQUÍA DE]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="143" splitType="Stretch">
+			<textField>
+				<reportElement x="249" y="67" width="85" height="21" uuid="a1e3b991-4a1d-46a5-b377-115702ffb094"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[Reporte del: ]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="331" y="67" width="63" height="20" uuid="2f15b200-98ed-43a3-8d96-830f8217f61e"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{desde}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="394" y="66" width="19" height="21" uuid="6325eaf7-e642-42c7-9946-c29254eb38bb"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[al ]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="18" y="5" width="121" height="20" uuid="8bbec907-f58a-45e2-9e18-0ccee28ddfe9"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{empresa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="262" y="107" width="242" height="24" uuid="715e4476-0879-4525-bdf0-1e85169ad094"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARTIDAS DE CONFIRMACIÓN]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="412" y="67" width="100" height="20" uuid="75fefc92-bf93-427a-92d4-f1c670e20ebe"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{hasta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="602" y="5" width="175" height="20" uuid="a839b35a-7f49-4dc8-a5a9-4aa7de84ac83"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaActual}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement x="670" y="9" width="132" height="20" uuid="4d8838f9-4739-4a91-a828-b57d91da66b9"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA MATRIMONIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="9" width="93" height="20" uuid="5f8d4fba-2c14-419b-b1d6-1330bf0a01cd"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CÉDULA NOVIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="106" y="9" width="127" height="20" uuid="dfea2c43-7bf2-4104-9fd1-d97fc6a1ab6d"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE NOVIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="512" y="9" width="158" height="20" uuid="52069298-3b40-4f56-8129-5089fe3ea088"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SACERDOTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="352" y="9" width="160" height="20" uuid="e2162126-67ee-4d0f-a3bd-c308443e27c8"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE NOVIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="246" y="9" width="98" height="20" uuid="e7b823c9-a23d-4727-ac58-23ee24f6f206"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CÉDULA NOVIA]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="3" width="93" height="20" uuid="61d9e116-23da-4fb4-be9f-ce75c6f07f5a"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cedulaNovio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="105" y="3" width="128" height="20" uuid="9af54e79-5c92-4376-9069-fe39eabfaf76"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombreNovio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="246" y="3" width="100" height="20" uuid="cc9060ea-683f-43a3-9db7-894d8f697054"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cedulaNovia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="351" y="4" width="161" height="20" uuid="c4b534aa-69c7-4a9c-ba8c-cf69bf1d44df"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombreNovia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="512" y="4" width="158" height="20" uuid="2c520a0f-6f80-45b7-bcc7-3e3a24c15e7c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{sacerdote}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="669" y="4" width="133" height="20" uuid="9371ab4f-5671-412d-9eef-12181a5be19b"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaMatrimonio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
