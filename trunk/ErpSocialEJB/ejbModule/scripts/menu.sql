@@ -230,7 +230,29 @@ INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
     
 --Menu(48)
     INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
-    VALUES ('Despacho Autoriza Exhumación', 'Despacho Autoriza Exhumacion', '/paginas/despAutorizaExhumacion/despachoAutorizaExhumacion.xhtml', '2014-06-06');  
+    VALUES ('Despacho Autoriza Exhumación', 'Despacho Autoriza Exhumacion', '/paginas/despAutorizaExhumacion/despachoAutorizaExhumacion.xhtml', '2014-06-06');
+    
+    INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
+    VALUES ('Reporte Eucaristía', 'Reporte Eucaristía', '/paginas/despReportes/despReporteEucaristia.xhtml', '2014-06-06');
+    
+    INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
+    VALUES ('Reporte Partidas Bautizos', 'Reporte Partidas Bautizos', '/paginas/despReportes/despReportePartidasBautizos.xhtml', '2014-06-06');
+    
+    INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
+    VALUES ('Reporte Primera Comunión', 'Reporte Primera Comunión', '/paginas/despReportes/despReporteComunion.xhtml', '2014-06-06');
+    
+    INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
+    VALUES ('Reporte Confirmación', 'Reporte Confirmación', '/paginas/despReportes/despReporteConfirmacion.xhtml', '2014-06-06');
+    
+    INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
+    VALUES ('Reporte Partidas Matrimonio', 'Reporte Partidas Matrimonio', '/paginas/despReportes/despReporteMatrimonio.xhtml', '2014-06-06');
+    
+    INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
+    VALUES ('Reporte Sepultura', 'Reporte Sepultura', '/paginas/despReportes/despReporteSepulturas.xhtml', '2014-06-06');
+    
+    INSERT INTO segt_menu(nombre_menu, desc_menu, url_menu, fecha_registro)
+    VALUES ('Reporte Exhumación', 'Reporte Exhumación', '/paginas/despReportes/despReporteExhumacion.xhtml', '2014-06-06');
+    
    
 -- Inventario  
     
@@ -299,6 +321,13 @@ INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,37);
 INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,46);   
 INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,47);   
 INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,503);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,509);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,510);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,511);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,512);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,513);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,514);
+INSERT INTO segt_modulo_menu (id_modulo,id_menu) VALUES (6,515);
 
 ------Inventario
 INSERT INTO segt_modulo_menu(id_modulo, id_menu) VALUES (1, 1);
