@@ -32,6 +32,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(EucaristiaData
 	private Date Fecha;
 	private Date FechaBuscar;
 	private SacerdoteListDTO sacerdoteListDTO;
+
 	
 	
 	@PostConstruct

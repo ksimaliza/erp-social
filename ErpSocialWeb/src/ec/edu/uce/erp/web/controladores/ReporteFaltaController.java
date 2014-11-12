@@ -36,12 +36,9 @@ public class ReporteFaltaController extends BaseController {
 	@ManagedProperty(value="#{reporteFaltasDataManager}")
 	private ReporteFaltasDataManager reporteFaltasDataManager;
 
-
 	public ReporteFaltaController() {
 	
 	}
-
-
 
 	@PostConstruct
 	private void init(){
@@ -65,20 +62,17 @@ public class ReporteFaltaController extends BaseController {
 		try {
 			reporteFaltasDataManager.getFaltaListDTO();
 			listResultado = this.servicioAsistencia.readFaltaReport(this.reporteFaltasDataManager.getFaltaListDTO());
-			
 			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.reporteFaltasDataManager.setFaltasList(listResultado);
 			}
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscar el empleado {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 	}
 	
-
 	public void faltas(FaltaListDTO faltaListDTO)
 	{
 		FaltaListDTO faltaListDTO2;
@@ -86,7 +80,6 @@ public class ReporteFaltaController extends BaseController {
 			faltaListDTO2=new FaltaListDTO();
 			faltaListDTO2.setAemEmpleado(faltaListDTO.getAemEmpleado());
 			reporteFaltasDataManager.setFaltasList2(this.servicioAsistencia.readFalta2(faltaListDTO2));
-			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscar el empleado {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
