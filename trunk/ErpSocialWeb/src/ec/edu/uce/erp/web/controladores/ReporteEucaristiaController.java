@@ -1,7 +1,11 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -9,17 +13,19 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import net.sf.jasperreports.engine.JasperPrint;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaListDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
+import ec.edu.uce.erp.web.common.util.ReporteUtil;
 import ec.edu.uce.erp.web.datamanager.ReporteEucaristiaDataManager;
 
 @ViewScoped
@@ -135,11 +141,11 @@ public class ReporteEucaristiaController extends BaseController {
 		slf4jLogger.info("buscarEucaristia");
 		List<EucaristiaListDTO> listResultado=new ArrayList<EucaristiaListDTO>();
 		try {
-			
 			listResultado = this.servicioEucaristia.readEucaristiaReport(reporteEucaristiaDataManager.getEucaristiaListDTO());
 			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
+				reporteEucaristiaDataManager.setExportDesactivado(false);
 				this.reporteEucaristiaDataManager.setEucaristiaListDTOs(listResultado);
 			}
 		} catch (SeguridadesException e) {
@@ -147,6 +153,23 @@ public class ReporteEucaristiaController extends BaseController {
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 	}
+	
+	public void exportar() {
+		Date fechaActual = new Date();
+		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
+
+		Map<String, Object> mapParametros = new HashMap<String, Object>();
+			mapParametros.put("fechaActual", full.format(fechaActual));
+				
+			mapParametros.put("desde", reporteEucaristiaDataManager.getEucaristiaListDTO().getFechaDesde().toString());
+			mapParametros.put("hasta", reporteEucaristiaDataManager.getEucaristiaListDTO().getFechaHasta().toString());
+			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
+		
+			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(),reporteEucaristiaDataManager.getEucaristiaListDTOs(), "reporteEucaristia", mapParametros);
+			ReporteUtil.generarReporte(jasperPrint, this.reporteEucaristiaDataManager.getFormatoPdf(), "reporteEucaristia");
+	}
+	
+	
 	
 	
 	@Override

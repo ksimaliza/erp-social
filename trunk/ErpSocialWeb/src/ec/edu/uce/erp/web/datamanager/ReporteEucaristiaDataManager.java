@@ -33,6 +33,7 @@ private List<CatalogoEucaristiaDTO> listParroquia;
 private List<CatalogoEucaristiaDTO> listProvincia;
 private List<EucaristiaListDTO> eucaristiaListDTOs;
 private EucaristiaListDTO eucaristiaListDTO;
+private Boolean exportDesactivado; 
 
 @PostConstruct
 public void inicializarObjetos () {
@@ -43,6 +44,15 @@ public void inicializarObjetos () {
 	listProvincia=new ArrayList<CatalogoEucaristiaDTO>();
 	eucaristiaListDTOs=new ArrayList<EucaristiaListDTO>();
 	eucaristiaListDTO=new EucaristiaListDTO();
+	exportDesactivado=true;
+}
+
+	public Boolean getExportDesactivado() {
+	return exportDesactivado;
+}
+
+public void setExportDesactivado(Boolean exportDesactivado) {
+	this.exportDesactivado = exportDesactivado;
 }
 
 	public int getCodigoProvincia() {
