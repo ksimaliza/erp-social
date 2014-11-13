@@ -29,12 +29,12 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NotaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParcialDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepNivelEstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.TipoNotaDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EstudianteVO;
 import ec.edu.uce.erp.ejb.persistence.vo.MatriculaVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ProfesorVO;
@@ -542,14 +542,14 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	}
 	
 	@Override
-	public ParcialDTO createOrUpdateParcial(ParcialDTO parcialDTO) throws SeguridadesException
+	public  TipoNotaDTO createOrUpdateParcial(TipoNotaDTO tipoNotaDTO) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateParcial");
 		try {
-		if(parcialDTO.getParCodigo()!=null)
-			return matriculaFactoryDAO.getParcialDAOImpl().update(parcialDTO);
+		if(tipoNotaDTO.getParCodigo()!=null)
+			return matriculaFactoryDAO.getParcialDAOImpl().update(tipoNotaDTO);
 		else
-			return matriculaFactoryDAO.getParcialDAOImpl().create(parcialDTO);
+			return matriculaFactoryDAO.getParcialDAOImpl().create(tipoNotaDTO);
 		} catch (Exception e) {
 			slf4jLogger.info("error al createOrUpdateParcial {}", e.toString());
 			throw new SeguridadesException(e);
@@ -559,12 +559,12 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	
 	
 	@Override
-	public void deleteParcial(ParcialDTO parcialDTO) throws SeguridadesException
+	public void deleteParcial(TipoNotaDTO tipoNotaDTO) throws SeguridadesException
 	{
 		slf4jLogger.info("deleteParcial");
 		try {
-		if(parcialDTO.getParCodigo()!=null)
-			matriculaFactoryDAO.getParcialDAOImpl().remove(parcialDTO);		
+		if(tipoNotaDTO.getParCodigo()!=null)
+			matriculaFactoryDAO.getParcialDAOImpl().remove(tipoNotaDTO);		
 		else 
 			throw new SeguridadesException("no existe una coincidencia");
 		} catch (Exception e) {
