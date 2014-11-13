@@ -26,6 +26,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
 import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Menu;
 import ec.edu.uce.erp.ejb.persistence.entity.security.MenuUsuario;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
@@ -425,6 +426,10 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 				Empleado empleado = this.asignarDatosEmpleado(persona, usuario.getEmpresaTbl());
 				factoryDAO.getEmpleadoeDAOImpl().create(empleado);
 				
+				if(usuario.getSegtPerfil().getIdPerfil().equals(3)){
+					ProfesorDTO profesorDTO = this.asignarDatosProfesor(persona, usuario.getEmpresaTbl());
+					factoryDAO.getProfesorDAOImpl().create(profesorDTO);
+					}
 				for (MenuUsuario menuUsuario : usuario.getSegtMenuUsuarios()) {
 					menuUsuario.setIdUsuario(usuarioNuevo.getIdUsuario());
 					factoryDAO.getMenuUsuarioDAOImpl().create(menuUsuario);
@@ -481,6 +486,16 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		empleado.setEmpEstado(ConstantesApplication.ESTADO_ACTIVO);
 		return empleado;
 	}
+	
+	
+	
+	 private ProfesorDTO asignarDatosProfesor (Persona persona, Empresa empresa) {
+			
+		  ProfesorDTO profesorDTO = new ProfesorDTO();
+		  profesorDTO.setProEmpresa(empresa.getEmrPk());
+		  profesorDTO.setProPersona(persona.getPerPk());
+			return profesorDTO;
+		}
 	
 	/**
 	 * Validar si una persona ya se encuentra registrada en la bd mediate la CI
