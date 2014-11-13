@@ -17,7 +17,7 @@
 				
 					<tr>
 						<td width="30%">
-							<h:outputLabel value="#{i18n['erp.asistencia.empleado.foto']}" />
+							<h:outputLabel value="#{i18n['erp.matricula.estudiante.foto']}" />
 						</td>
 						<td width="70%">
 							    <p:fileUpload fileUploadListener="#{estudianteController.handleFileUpload}" mode="advanced" dragDropSupport="true"
@@ -40,6 +40,14 @@
 						
 						</td>
 						</tr>
+						<tr>
+						<td width="30%">
+							<h:outputLabel for="txtEdad" value="Edad" />
+						</td>
+						<td width="70%">
+							<p:outputLabel  value="#{estudianteDataManager.estudiantePersonaInsertar.edad}"  />
+						</td>	
+					</tr>
 						<tr>
 						
 						<td width="30%">
