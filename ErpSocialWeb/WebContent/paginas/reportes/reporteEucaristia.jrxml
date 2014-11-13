@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteEucaristia" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="37" bottomMargin="20" uuid="0cb7138f-b2e5-458f-b34c-5a1bf9f52599">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteEucaristia" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="37" bottomMargin="20" uuid="0cb7138f-b2e5-458f-b34c-5a1bf9f52599">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="95"/>
 	<style name="Heading 1" fontSize="16" isBold="true"/>
 	<style name="Text Body"/>
 	<parameter name="provincia" class="java.lang.String"/>
@@ -10,11 +10,12 @@
 	<parameter name="empresa" class="java.lang.String"/>
 	<parameter name="desde" class="java.lang.String"/>
 	<parameter name="hasta" class="java.lang.String"/>
-	<parameter name="sacerdote" class="java.lang.String"/>
-	<parameter name="intension" class="java.lang.String"/>
-	<parameter name="fecha_hora" class="java.lang.String"/>
-	<parameter name="valor" class="java.lang.String"/>
 	<parameter name="fechaActual" class="java.lang.String"/>
+	<field name="perNombres" class="java.lang.String"/>
+	<field name="eucIntencion" class="java.lang.String"/>
+	<field name="eucFechaHora" class="java.lang.String"/>
+	<field name="eucValor" class="java.lang.String"/>
+	<field name="perApellidos" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -27,13 +28,6 @@
 				</textElement>
 				<text><![CDATA[ARQUIDIOCESIS DE]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="277" y="10" width="131" height="24" uuid="edab13ef-44af-4fa7-9fea-1c3f21569620"/>
-				<textElement>
-					<font size="16" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{provincia}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="138" y="34" width="139" height="24" uuid="6491d3ea-a21d-4700-a34b-0e2de4424e14"/>
 				<textElement>
@@ -41,44 +35,30 @@
 				</textElement>
 				<text><![CDATA[PARROQUÍA DE]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="270" y="33" width="135" height="26" uuid="17f4b7f9-c542-4314-b5ea-12f300a57fd7"/>
-				<textElement>
-					<font size="16"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{parroquia}]]></textFieldExpression>
-			</textField>
 		</band>
 	</title>
 	<pageHeader>
 		<band height="153" splitType="Stretch">
 			<textField>
-				<reportElement x="11" y="0" width="117" height="23" uuid="daac6df8-6607-4803-a233-cd842bfc22b5"/>
+				<reportElement x="114" y="68" width="85" height="21" uuid="225d922a-121e-477f-92a9-70ad10724d9f"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{empresa}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[Reporte del:]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="95" y="68" width="85" height="21" uuid="225d922a-121e-477f-92a9-70ad10724d9f"/>
-				<textElement>
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[Reporte del: ]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="180" y="69" width="100" height="20" uuid="a1804c13-345a-48c1-bab8-bbcfd228a94c"/>
+				<reportElement x="199" y="69" width="100" height="20" uuid="a1804c13-345a-48c1-bab8-bbcfd228a94c"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{desde}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="280" y="69" width="19" height="21" uuid="dbbccb85-8400-4766-9920-023684ed6c22"/>
+				<reportElement x="279" y="69" width="19" height="21" uuid="dbbccb85-8400-4766-9920-023684ed6c22"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[al ]]></textFieldExpression>
+				<textFieldExpression><![CDATA[al]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="299" y="70" width="104" height="20" uuid="bd1f8d7a-b576-4853-9dff-e79feb6add90"/>
@@ -113,7 +93,7 @@
 				<text><![CDATA[SACERDOTE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="186" y="8" width="100" height="20" uuid="76d80d86-f55c-4ddd-b91b-c7c02375a5cb"/>
+				<reportElement x="170" y="8" width="163" height="20" uuid="76d80d86-f55c-4ddd-b91b-c7c02375a5cb"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -138,32 +118,24 @@
 	<detail>
 		<band height="133" splitType="Stretch">
 			<textField>
-				<reportElement x="15" y="0" width="137" height="20" uuid="2bf6543e-a377-4aab-ab15-4ef6b07e7576"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{sacerdote}]]></textFieldExpression>
+				<reportElement x="5" y="5" width="100" height="20" uuid="1778ac40-8084-4912-af1e-98f0a2fd1500"/>
+				<textFieldExpression><![CDATA[$F{perApellidos}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="186" y="1" width="134" height="20" uuid="8464a4db-1112-4b63-82e8-8286d3fc4373"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{intension}]]></textFieldExpression>
+				<reportElement x="78" y="5" width="79" height="20" uuid="a22c12ad-c34d-464d-a26e-10c4cc7b249c"/>
+				<textFieldExpression><![CDATA[$F{perNombres}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="341" y="1" width="100" height="20" uuid="e4a44df7-0f1a-45e7-948a-304a4003c01f"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{fecha_hora}]]></textFieldExpression>
+				<reportElement x="169" y="6" width="164" height="20" uuid="cecbcdcd-6955-4d3f-a4cb-5c79cacecf97"/>
+				<textFieldExpression><![CDATA[$F{eucIntencion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="478" y="2" width="58" height="20" uuid="a2503e2f-09b0-4fa6-a7c3-24dee5583b2a"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{valor}]]></textFieldExpression>
+				<reportElement x="341" y="5" width="100" height="20" uuid="69324610-40ef-4649-bee8-d427639acca6"/>
+				<textFieldExpression><![CDATA[$F{eucFechaHora}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="478" y="8" width="57" height="20" uuid="a922a388-8adc-4af8-8d79-dff5eb936d73"/>
+				<textFieldExpression><![CDATA[$F{eucValor}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
