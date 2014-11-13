@@ -1,6 +1,7 @@
 package ec.edu.uce.erp.ejb.persistence.entity;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -469,6 +470,29 @@ public class Persona implements Serializable {
 	public void setPerGenero(String perGenero) {
 		this.perGenero = perGenero;
 	}
+	
+	//Metodo para calcular la Edad de la Persona
+	
+	 public Short getEdad() {
+	    	
+	    	if (this.getPerFechaNac() == null) return 0;
+	    	
+			Calendar fechaActual = Calendar.getInstance();
+			Calendar fechaNacPersona = Calendar.getInstance();
+			fechaNacPersona.setTime(this.getPerFechaNac());
+			
+			int edadPersona = fechaActual.get(Calendar.YEAR) - fechaNacPersona.get(Calendar.YEAR);
+			if(fechaActual.get(Calendar.MONTH) < fechaNacPersona.get(Calendar.MONTH)){
+		    	edadPersona = edadPersona-1; 
+		    }else{
+		    	if(fechaActual.get(Calendar.MONTH) == fechaNacPersona.get(Calendar.MONTH)){
+		    		if(fechaActual.get(Calendar.DAY_OF_MONTH) < fechaNacPersona.get(Calendar.DAY_OF_MONTH))
+		    			edadPersona = edadPersona-1; 
+		    	}
+		    }
+			
+			return new Short(String.valueOf(edadPersona));
+	    }    
 	
 	
 
