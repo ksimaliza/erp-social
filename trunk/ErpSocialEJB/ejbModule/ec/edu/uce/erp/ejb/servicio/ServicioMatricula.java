@@ -18,12 +18,12 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NotaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParcialDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepNivelEstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.TipoNotaDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EstudianteVO;
 import ec.edu.uce.erp.ejb.persistence.vo.MatriculaVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ProfesorVO;
@@ -66,11 +66,11 @@ public interface ServicioMatricula {
 
 	void deleteParalelo(ParaleloDTO paraleloDTO) throws SeguridadesException;
 
-	ParcialDTO createOrUpdateParcial(ParcialDTO parcialDTO)
+	TipoNotaDTO createOrUpdateParcial(TipoNotaDTO tipoNotaDTO)
 			throws SeguridadesException;
 
-	void deleteParcial(ParcialDTO parcialDTO) throws SeguridadesException;
-
+	void deleteParcial(TipoNotaDTO tipoNotaDTO) throws SeguridadesException;
+	
 	PeriodoDTO createOrUpdatePeriodo(PeriodoDTO periodoDTO)
 			throws SeguridadesException;
 
