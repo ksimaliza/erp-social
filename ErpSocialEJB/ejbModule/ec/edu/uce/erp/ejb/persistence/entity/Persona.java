@@ -70,6 +70,9 @@ public class Persona implements Serializable {
 
 	@Column(name="per_telefono")
 	private String perTelefono;
+	
+	@Column(name="per_genero")
+	private String perGenero;
 
 	@Transient
 	private Boolean perFotoVerificar;
@@ -458,5 +461,15 @@ public class Persona implements Serializable {
 
 		return profesorTbl;
 	}
+
+	public String getPerGenero() {
+		return perGenero;
+	}
+
+	public void setPerGenero(String perGenero) {
+		this.perGenero = perGenero;
+	}
+	
+	
 
 }
