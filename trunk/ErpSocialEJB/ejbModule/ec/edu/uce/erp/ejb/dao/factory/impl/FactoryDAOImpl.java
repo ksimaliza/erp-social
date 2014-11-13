@@ -21,6 +21,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.ModuloDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ParametroDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PerfilDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PersonaDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.ProfesorDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.UsuarioDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.VistaHistoricoTransaccionDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.VistaModuloMenuDAO;
@@ -38,6 +39,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.impl.ModuloDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.ParametroDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.PerfilDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.PersonaDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.ProfesorDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.UsuarioDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.VistaHistoricoTransaccionDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.VistaModuloMenuDAOImpl;
@@ -63,7 +65,7 @@ public class FactoryDAOImpl implements FactoryDAO {
 	
 	private HistoricoTransaccioneDAO historicoTransaccioneDAO;
 	private HistorialClaveDAO historialClaveDAO;
-	
+	private ProfesorDAO profesorDAO;
 	private ParametroDAO parametroDAO;
 	
 	private PersonaDAO personaDAO;
@@ -93,6 +95,14 @@ public class FactoryDAOImpl implements FactoryDAO {
 		return empleadoeDAO;
 	}
 	
+	
+	@Override
+	public ProfesorDAO getProfesorDAOImpl() {
+		if (profesorDAO == null) {
+			profesorDAO = new ProfesorDAOImpl(entityManager);
+		}
+		return profesorDAO;
+	}
 	@Override
 	public EmpresaDAO getEmpresaDAOImpl() {
 		if (empresaDAO == null) {
