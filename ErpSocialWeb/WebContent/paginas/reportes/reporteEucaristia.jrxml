@@ -22,14 +22,14 @@
 	<title>
 		<band height="68" splitType="Stretch">
 			<staticText>
-				<reportElement x="117" y="10" width="162" height="24" uuid="7e6c5433-406c-49e3-86ae-eebd43dc08df"/>
+				<reportElement x="192" y="8" width="162" height="24" uuid="7e6c5433-406c-49e3-86ae-eebd43dc08df"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ARQUIDIOCESIS DE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="138" y="34" width="139" height="24" uuid="6491d3ea-a21d-4700-a34b-0e2de4424e14"/>
+				<reportElement x="213" y="32" width="139" height="24" uuid="6491d3ea-a21d-4700-a34b-0e2de4424e14"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
@@ -38,44 +38,44 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="153" splitType="Stretch">
+		<band height="158" splitType="Stretch">
 			<textField>
-				<reportElement x="199" y="69" width="100" height="20" uuid="a1804c13-345a-48c1-bab8-bbcfd228a94c"/>
+				<reportElement x="222" y="55" width="100" height="20" uuid="a1804c13-345a-48c1-bab8-bbcfd228a94c"/>
 				<textElement>
-					<font size="14"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{desde}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="299" y="70" width="104" height="20" uuid="bd1f8d7a-b576-4853-9dff-e79feb6add90"/>
+				<reportElement x="322" y="55" width="104" height="20" uuid="bd1f8d7a-b576-4853-9dff-e79feb6add90"/>
 				<textElement>
-					<font size="14"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{hasta}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="201" y="101" width="139" height="24" uuid="d328c2ed-56bb-4eba-b9e7-964d42607660"/>
+				<reportElement x="213" y="108" width="139" height="24" uuid="d328c2ed-56bb-4eba-b9e7-964d42607660"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[EUCARISTÍAS]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="341" y="23" width="194" height="20" uuid="e453918e-0218-41b7-be89-fb66aff3ea5b"/>
+				<reportElement x="332" y="10" width="194" height="20" uuid="e453918e-0218-41b7-be89-fb66aff3ea5b"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fechaActual}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="37" y="70" width="162" height="24" uuid="1350d140-288a-44af-a6b5-b47402d8dc38"/>
+				<reportElement x="118" y="54" width="162" height="24" uuid="1350d140-288a-44af-a6b5-b47402d8dc38"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Reporte del]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="277" y="65" width="21" height="24" uuid="e2a26153-5c84-40c2-8dab-922b9b0bf9d6"/>
+				<reportElement x="297" y="54" width="21" height="24" uuid="e2a26153-5c84-40c2-8dab-922b9b0bf9d6"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
@@ -86,52 +86,55 @@
 	<columnHeader>
 		<band height="33" splitType="Stretch">
 			<staticText>
-				<reportElement x="14" y="8" width="100" height="20" uuid="e4098662-a89b-4c08-bf4b-29b0c07b70b1"/>
+				<reportElement x="25" y="8" width="100" height="20" uuid="e4098662-a89b-4c08-bf4b-29b0c07b70b1"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SACERDOTE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="170" y="8" width="163" height="20" uuid="76d80d86-f55c-4ddd-b91b-c7c02375a5cb"/>
+				<reportElement x="181" y="8" width="163" height="20" uuid="76d80d86-f55c-4ddd-b91b-c7c02375a5cb"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[INTENSIÓN]]></text>
+				<text><![CDATA[INTENCIÓN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="341" y="8" width="100" height="20" uuid="b0623289-d620-49bf-922f-851134b74d9f"/>
+				<reportElement x="333" y="8" width="100" height="20" uuid="b0623289-d620-49bf-922f-851134b74d9f"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[FECHA/HORA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="455" y="8" width="100" height="20" uuid="491100fb-06d4-4f4b-8b11-e4c6a17c44a0"/>
-				<text><![CDATA[eucValor]]></text>
+				<reportElement x="461" y="8" width="100" height="20" uuid="491100fb-06d4-4f4b-8b11-e4c6a17c44a0"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VALOR]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="133" splitType="Stretch">
+		<band height="33" splitType="Stretch">
 			<textField>
-				<reportElement x="5" y="5" width="100" height="20" uuid="1778ac40-8084-4912-af1e-98f0a2fd1500"/>
+				<reportElement x="28" y="3" width="56" height="20" uuid="1778ac40-8084-4912-af1e-98f0a2fd1500"/>
 				<textFieldExpression><![CDATA[$F{perApellidos}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="78" y="5" width="79" height="20" uuid="a22c12ad-c34d-464d-a26e-10c4cc7b249c"/>
+				<reportElement x="78" y="3" width="55" height="20" uuid="a22c12ad-c34d-464d-a26e-10c4cc7b249c"/>
 				<textFieldExpression><![CDATA[$F{perNombres}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="169" y="6" width="164" height="20" uuid="cecbcdcd-6955-4d3f-a4cb-5c79cacecf97"/>
+				<reportElement x="184" y="5" width="139" height="20" uuid="cecbcdcd-6955-4d3f-a4cb-5c79cacecf97"/>
 				<textFieldExpression><![CDATA[$F{eucIntencion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="341" y="5" width="100" height="20" uuid="69324610-40ef-4649-bee8-d427639acca6"/>
+				<reportElement x="337" y="5" width="86" height="20" uuid="69324610-40ef-4649-bee8-d427639acca6"/>
 				<textFieldExpression><![CDATA[$F{eucFechaHora}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="455" y="0" width="100" height="20" uuid="769c2294-5cf9-46ca-a29c-f676b50ad1ec"/>
+				<reportElement x="469" y="5" width="75" height="20" uuid="769c2294-5cf9-46ca-a29c-f676b50ad1ec"/>
 				<textFieldExpression><![CDATA[$F{eucValor}]]></textFieldExpression>
 			</textField>
 		</band>

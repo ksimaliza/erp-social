@@ -1,47 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportePartidasBautizos" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f584007c-a5fa-48a8-8b51-a68261401949">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportePartidasBautizos" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="68" bottomMargin="20" uuid="f584007c-a5fa-48a8-8b51-a68261401949">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="10"/>
+	<property name="ireport.y" value="56"/>
 	<parameter name="provincia" class="java.lang.String"/>
 	<parameter name="parroquia" class="java.lang.String"/>
 	<parameter name="empresa" class="java.lang.String"/>
 	<parameter name="fechaActual" class="java.lang.String"/>
-	<parameter name="cedulaBautizado" class="java.lang.String"/>
-	<parameter name="bautizado" class="java.lang.String"/>
-	<parameter name="sacerdote" class="java.lang.String"/>
-	<parameter name="fechaBautizo" class="java.lang.String"/>
-	<parameter name="fechaAprobacion" class="java.lang.String"/>
 	<parameter name="desde" class="java.lang.String"/>
 	<parameter name="hasta" class="java.lang.String"/>
+	<field name="perCi" class="java.lang.String"/>
+	<field name="perApellidos" class="java.lang.String"/>
+	<field name="perNombres" class="java.lang.String"/>
+	<field name="sacNombres" class="java.lang.String"/>
+	<field name="sacApellidos" class="java.lang.String"/>
+	<field name="bauFechaBautizo" class="java.lang.String"/>
+	<field name="bauFechaAprobacionCruso" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement x="267" y="40" width="139" height="24" uuid="0bc186f6-192a-4bec-8047-5381c2579cff"/>
+				<reportElement x="275" y="40" width="139" height="24" uuid="0bc186f6-192a-4bec-8047-5381c2579cff"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PARROQUÍA DE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="246" y="16" width="162" height="24" uuid="8a46a27d-d77d-467f-bfbd-dc831d393c6f"/>
+				<reportElement x="254" y="16" width="162" height="24" uuid="8a46a27d-d77d-467f-bfbd-dc831d393c6f"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ARQUIDIOCESIS DE]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="406" y="17" width="123" height="23" uuid="4216ab8b-f5a3-45ba-a212-471e5d3a3231"/>
+				<reportElement x="414" y="17" width="123" height="23" uuid="4216ab8b-f5a3-45ba-a212-471e5d3a3231"/>
 				<textElement>
 					<font size="16"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{provincia}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="399" y="40" width="130" height="24" uuid="1b0b4135-0f9c-476c-95ac-f9e3aaa7fb6e"/>
+				<reportElement x="407" y="40" width="130" height="24" uuid="1b0b4135-0f9c-476c-95ac-f9e3aaa7fb6e"/>
 				<textElement>
 					<font size="16"/>
 				</textElement>
@@ -50,28 +52,14 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="152" splitType="Stretch">
-			<textField>
-				<reportElement x="240" y="75" width="85" height="21" uuid="46a208df-30c5-479a-87e4-f9c45128407f"/>
-				<textElement>
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[Reporte del: ]]></textFieldExpression>
-			</textField>
+		<band height="129" splitType="Stretch">
 			<staticText>
-				<reportElement x="286" y="114" width="223" height="24" uuid="ef72a2fa-125c-41ab-970f-2007f732c003"/>
+				<reportElement x="267" y="88" width="223" height="24" uuid="ef72a2fa-125c-41ab-970f-2007f732c003"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PARTIDAS DE BAUTIZOS]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="406" y="75" width="19" height="21" uuid="470bc134-47dc-42b7-9af7-c7fb1e1968a0"/>
-				<textElement>
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[al ]]></textFieldExpression>
-			</textField>
 			<textField>
 				<reportElement x="14" y="10" width="100" height="20" uuid="a5828dc2-041a-49ce-bdae-44da4e82367b"/>
 				<textElement>
@@ -80,26 +68,40 @@
 				<textFieldExpression><![CDATA[$P{empresa}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="570" y="30" width="210" height="20" uuid="33920b99-fb45-4cd5-bc81-aacc735f013c"/>
+				<reportElement x="529" y="10" width="235" height="20" uuid="33920b99-fb45-4cd5-bc81-aacc735f013c"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fechaActual}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="328" y="75" width="80" height="20" uuid="27032a5b-635c-43ae-92ea-66873165007a"/>
+				<reportElement x="418" y="48" width="100" height="23" uuid="42ef4a54-11dc-437b-9b51-50d992ad142d"/>
 				<textElement>
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{desde}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="426" y="75" width="100" height="20" uuid="2975636a-d969-4a35-9c59-d3a81fe3c283"/>
-				<textElement>
-					<font size="14"/>
+					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{hasta}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="324" y="48" width="76" height="23" uuid="27fa3560-485c-496d-972d-e6359777f497"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{desde}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="225" y="47" width="102" height="24" uuid="28ffc1a9-1ceb-4353-975e-169864b029b6"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporte del:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="399" y="48" width="21" height="24" uuid="7742e301-38e5-4ead-9b66-2eadeea224d6"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[al]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -119,21 +121,21 @@
 				<text><![CDATA[BAUTIZADO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="309" y="9" width="151" height="20" uuid="428c955a-5172-48cf-9a45-d7d67ead3393"/>
+				<reportElement x="321" y="9" width="114" height="20" uuid="428c955a-5172-48cf-9a45-d7d67ead3393"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SACERDOTE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="472" y="9" width="109" height="20" uuid="b10f6349-913a-4440-8e0f-9ef438c048cc"/>
+				<reportElement x="486" y="9" width="109" height="20" uuid="b10f6349-913a-4440-8e0f-9ef438c048cc"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[FECHA BAUTIZO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="594" y="9" width="208" height="20" uuid="e55b7787-39d2-48cf-b8d5-a634aa4dca3a"/>
+				<reportElement x="606" y="9" width="204" height="20" uuid="e55b7787-39d2-48cf-b8d5-a634aa4dca3a"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -142,41 +144,34 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="36" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<textField>
-				<reportElement x="6" y="5" width="132" height="20" uuid="f4803920-ef3c-40a1-8f59-ce03f7004d3f"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{cedulaBautizado}]]></textFieldExpression>
+				<reportElement x="20" y="2" width="110" height="22" uuid="2858c406-0498-451c-9334-49a0b62d60fe"/>
+				<textFieldExpression><![CDATA[$F{perCi}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="156" y="5" width="130" height="20" uuid="7f619671-badc-4d9a-be70-ad6dce83f1ec"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{bautizado}]]></textFieldExpression>
+				<reportElement x="155" y="3" width="70" height="20" uuid="96e6fcb5-5f7e-4abf-bda3-c312a68c7203"/>
+				<textFieldExpression><![CDATA[$F{perApellidos}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="310" y="5" width="150" height="20" uuid="6142ce57-aa4f-43e2-a04d-3c3b89082943"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{sacerdote}]]></textFieldExpression>
+				<reportElement x="209" y="3" width="77" height="20" uuid="9f1cd6b4-f7f9-433b-8b31-8d549fd7e434"/>
+				<textFieldExpression><![CDATA[$F{perNombres}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="473" y="6" width="108" height="20" uuid="119b6570-5b44-41e3-a3e1-93d6683dcdc7"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{fechaBautizo}]]></textFieldExpression>
+				<reportElement x="324" y="3" width="90" height="20" uuid="5b52ee1c-7281-45da-87e6-c3a5395625ae"/>
+				<textFieldExpression><![CDATA[$F{sacApellidos}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="598" y="7" width="182" height="20" uuid="548f97a1-9061-4828-8fc0-efa51b889602"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{fechaAprobacion}]]></textFieldExpression>
+				<reportElement x="394" y="2" width="74" height="20" uuid="28e5de4e-cc7b-4307-823d-9fe2d3f001dd"/>
+				<textFieldExpression><![CDATA[$F{sacNombres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="4" width="104" height="20" uuid="ef759ac1-5820-41bd-98e4-1343ab18948e"/>
+				<textFieldExpression><![CDATA[$F{bauFechaBautizo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="644" y="3" width="100" height="20" uuid="69267733-ddfd-4698-bfa7-89862b625608"/>
+				<textFieldExpression><![CDATA[$F{bauFechaAprobacionCruso}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
