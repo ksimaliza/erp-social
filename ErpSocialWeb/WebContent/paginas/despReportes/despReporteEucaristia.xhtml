@@ -59,22 +59,26 @@
 -->                                
                                 <tr>
                                 <td align="right"><h:outputLabel value="Desde:" /></td>
-                                        <td ><p:calendar id="txtDesde" style="width: 100%" navigator="true" value="#{reporteEucaristiaDataManager.desde}"  showOn="button" required="true"/></td>
+                                        <td ><p:calendar id="txtDesde" style="width: 100%" navigator="true" value="#{reporteEucaristiaDataManager.eucaristiaListDTO.fechaDesde}"  showOn="button" /></td>
                                  </tr>       
                                  <tr>
                                  <td align="right"><h:outputLabel value="Hasta:" /></td>
                                         <td>
-                                        	<p:calendar id="txtHasta" style="width: 100%" navigator="true" value="#{reporteEucaristiaDataManager.hasta}"  showOn="button" required="true"/>
+                                        	<p:calendar id="txtHasta" style="width: 100%" navigator="true" value="#{reporteEucaristiaDataManager.eucaristiaListDTO.fechaHasta}"  showOn="button" />
                                         </td>	
                                         <td>
-                                        <p:commandButton id="btnBuscar"
-                                        actionListener="#{reporteEucaristiaController.buscar}"
-                                        value="#{i18n['label.buscar']}" 
-                                        process="@this,pnlBuscar"
-                                        update="pnlBuscar,tblReporte" 
-                                        icon="ui-icon-search"
-                                        title="Buscar"/>
+	                                        <p:commandButton id="btnBuscar"
+	                                        actionListener="#{reporteEucaristiaController.buscar}"
+	                                        value="#{i18n['label.buscar']}" 
+	                                        process="@this,pnlBuscar"
+	                                        update="pnlBuscar,tblReporte" 
+	                                        icon="ui-icon-search"
+	                                        title="Buscar"/>
                                         </td>
+                                	<td>
+                                		<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{reporteEucaristiaController.exportar}" icon="exportPdf" ajax="false"
+										disabled="#{reporteEucaristiaDataManager.exportDesactivado}"  />
+                                	</td>
                                 </tr>
 
                         </table>
@@ -97,7 +101,7 @@
                                         <h:outputText value="#{eucaristia.perNombres}  #{eucaristia.perApellidos} " />
                                 </p:column>
                                 <p:column headerText="Intención">
-                                        <p:graphicImage value="#{eucaristia.eucIntencion}" height="45" />
+                                        <h:outputText value="#{eucaristia.eucIntencion}" height="45" />
                                 </p:column>
                                 <p:column headerText="Fecha/Hora">
                                         <h:outputText value="#{eucaristia.eucFechaHora}" />
