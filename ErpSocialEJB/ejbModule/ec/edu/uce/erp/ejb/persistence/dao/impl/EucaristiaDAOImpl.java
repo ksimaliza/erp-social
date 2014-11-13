@@ -2,6 +2,7 @@ package ec.edu.uce.erp.ejb.persistence.dao.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -138,7 +139,8 @@ public class EucaristiaDAOImpl extends AbstractFacadeImpl<EucaristiaDTO> impleme
 			from= cq.from(EucaristiaListDTO.class);
 			
 			cq.multiselect(
-					from.get("eucSacerdote"),
+					from.get("perApellidos"),
+					from.get("perNombres"),
 					from.get("eucIntencion"),
 					from.get("eucValor")
 					).distinct(true);
@@ -149,7 +151,7 @@ public class EucaristiaDAOImpl extends AbstractFacadeImpl<EucaristiaDTO> impleme
 
 	        for(Field f : fields){
 	            fieldName = f.getName();
-				if(!fieldName.equals("serialVersionUID"))
+				if(!fieldName.equals("serialVersionUID")&&!fieldName.equals("fechaDesde")&&!fieldName.equals("fechaHasta"))
 				{
 				    getter = objetoDTO.getClass().getMethod("get" + String.valueOf(fieldName.charAt(0)).toUpperCase() +
 				            fieldName.substring(1));
@@ -165,7 +167,7 @@ public class EucaristiaDAOImpl extends AbstractFacadeImpl<EucaristiaDTO> impleme
 	        }
 	        
 	        if(objetoDTO.getFechaDesde()!=null && objetoDTO.getFechaHasta()!=null)
-	        	predicateList.add(cb.between(from.get("eucFechaHora").as(Date.class), objetoDTO.getFechaDesde(), objetoDTO.getFechaHasta()));	        
+	        	predicateList.add(cb.between(from.get("eucFechaHora").as(Timestamp.class), objetoDTO.getFechaDesde(), objetoDTO.getFechaHasta()));	        
 	
 	        if(!predicateList.isEmpty())
 	        	cq.where(cb.and(predicateList.toArray(new Predicate[0])));		

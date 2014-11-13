@@ -1,7 +1,9 @@
 package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.sql.Timestamp;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -75,7 +77,20 @@ public class EucaristiaListDTO implements Serializable {
 	
 	public EucaristiaListDTO() {
 	}
-
+	
+	
+	public EucaristiaListDTO(String perApellidos,
+			String perNombres,
+			String eucIntencion,
+			BigDecimal eucValor) {
+			super();
+			this.perApellidos = perApellidos;
+			this.perNombres = perNombres;
+			this.eucIntencion = eucIntencion;
+			this.eucValor = eucValor;
+	}
+	
+		
 	public Integer getEucCodigo() {
 		return this.eucCodigo;
 	}
