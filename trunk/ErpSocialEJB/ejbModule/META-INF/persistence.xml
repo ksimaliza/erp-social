@@ -87,7 +87,7 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NotaDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParcialDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.matriculacion.TipoNotaDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.view.VistaHistoricoTransaccion</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.CategoriaBien</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien</class>
