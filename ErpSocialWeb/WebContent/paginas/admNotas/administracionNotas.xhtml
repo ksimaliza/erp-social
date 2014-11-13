@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="title">
+		<h3>
+			<h:outputLabel value="#{i18n['erp.notas.pagina.ingreso.titulo']}" />
+		</h3>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="#{notasController.form}">
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true" />
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<h4>
+						<h:outputLabel
+							value="#{i18n['erp.notas.pagina.anio.lectivo']} #{notasDataManager.anioLectivoVigente.perDescripcion}" />
+					</h4>
+					<h4>
+						<h:panelGrid columns="2">
+							<h:outputLabel value="#{i18n['erp.notas.pagina.curso']}"
+								for="cbmCursos" />
+							<p:selectOneMenu id="cbmCursos"
+								value="#{notasDataManager.nivelDTOSeleccionado.nivCodigo}">
+								<f:selectItem itemLabel="--Todos--" itemValue="" />
+								<f:selectItems var="nivel" itemLabel="#{nivel.nivDescaripcion}"
+									value="#{notasDataManager.listaNiveles}"
+									itemValue="#{nivel.nivCodigo}" />
+								<p:ajax update="tablaMenu, cbmParalelos"
+									listener="#{notasController.filtarMateriasPorNivel()}" />
+							</p:selectOneMenu>
+
+							<h:outputLabel value="#{i18n['erp.notas.pagina.paralelo']}"
+								for="cbmParalelos" />
+							<p:selectOneMenu id="cbmParalelos"
+								value="#{notasDataManager.paraleloDTOSeleccionado.parCodigo}">
+								<f:selectItem itemLabel="--Todos--" itemValue="" />
+								<f:selectItems var="paralelo"
+									itemLabel="#{paralelo.parDescripcion}"
+									value="#{notasDataManager.listaParalelo}"
+									itemValue="#{paralelo.parCodigo}" />
+								<p:ajax update="tablaMenu"
+									listener="#{notasController.filtarMateriasPorNivelParalelo()}" />
+							</p:selectOneMenu>
+
+						</h:panelGrid>
+					</h4>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:dataTable id="tablaMenu"
+				value="#{notasDataManager.listaMateriaEstadoPacialesDTOs}"
+				var="materiaEstadoParciales" rowIndexVar="rowIndex" paginator="true"
+				rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+				<p:columnGroup type="header">
+					<p:row>
+						<p:column rowspan="2"
+							headerText="#{i18n['erp.notas.pagina.materias']}" />
+						<p:column colspan="4"
+							headerText="#{i18n['erp.notas.pagina.primer.quimestre']}" />
+						<p:column colspan="4"
+							headerText="#{i18n['erp.notas.pagina.segundo.quimestre']}" />
+					</p:row>
+					<p:row>
+						<p:column headerText="#{i18n['erp.notas.pagina.primer.parcial']}" />
+						<p:column headerText="#{i18n['erp.notas.pagina.segundo.parcial']}" />
+						<p:column headerText="#{i18n['erp.notas.pagina.tercer.parcial']}" />
+						<p:column headerText="#{i18n['erp.notas.pagina.examen']}" />
+						<p:column headerText="#{i18n['erp.notas.pagina.primer.parcial']}" />
+						<p:column headerText="#{i18n['erp.notas.pagina.segundo.parcial']}" />
+						<p:column headerText="#{i18n['erp.notas.pagina.tercer.parcial']}" />
+						<p:column headerText="#{i18n['erp.notas.pagina.examen']}" />
+					</p:row>
+				</p:columnGroup>
+
+				<p:column>
+               			#{materiaEstadoParciales.asinacionDTO.matMateria.mtrNombe}  
+            	</p:column>
+
+				<p:column>
+					<center>
+						<h:commandButton
+							action="#{notasController.ingredarNotasMateria(materiaEstadoParciales)}"
+							value="Ingresar"
+							disabled="#{materiaEstadoParciales.tipoNotaDTO.parCodigo != 1}" />
+					</center>
+				</p:column>
+
+				<p:column>
+					<center>
+						<h:commandButton
+							action="#{notasController.ingredarNotasMateria(materiaEstadoParciales)}"
+							value="Ingresar"
+							disabled="#{materiaEstadoParciales.tipoNotaDTO.parCodigo != 2}" />
+					</center>
+				</p:column>
+
+				<p:column>
+					<center>
+						<h:commandButton
+							action="#{notasController.ingredarNotasMateria(materiaEstadoParciales)}"
+							value="Ingresar"
+							disabled="#{materiaEstadoParciales.tipoNotaDTO.parCodigo != 3}" />
+					</center>
+				</p:column>
+
+				<p:column>
+					<center>
+						<h:commandButton
+							action="#{notasController.ingredarNotasMateria(materiaEstadoParciales)}"
+							value="Ingresar"
+							disabled="#{materiaEstadoParciales.tipoNotaDTO.parCodigo != 4}" />
+					</center>
+				</p:column>
+
+				<p:column>
+					<center>
+						<h:commandButton
+							action="#{notasController.ingredarNotasMateria(materiaEstadoParciales)}"
+							value="Ingresar"
+							disabled="#{materiaEstadoParciales.tipoNotaDTO.parCodigo != 6}" />
+					</center>
+				</p:column>
+
+				<p:column>
+					<center>
+						<h:commandButton
+							action="#{notasController.ingredarNotasMateria(materiaEstadoParciales)}"
+							value="Ingresar"
+							disabled="#{materiaEstadoParciales.tipoNotaDTO.parCodigo != 7}" />
+					</center>
+				</p:column>
+
+				<p:column>
+					<center>
+						<h:commandButton
+							action="#{notasController.ingredarNotasMateria(materiaEstadoParciales)}"
+							value="Ingresar"
+							disabled="#{materiaEstadoParciales.tipoNotaDTO.parCodigo != 8}" />
+					</center>
+				</p:column>
+
+				<p:column>
+					<center>
+						<h:commandButton
+							action="#{notasController.ingredarNotasMateria(materiaEstadoParciales)}"
+							value="Ingresar"
+							disabled="#{materiaEstadoParciales.tipoNotaDTO.parCodigo != 9}" />
+					</center>
+				</p:column>
+				<!-- </p:subTable> -->
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

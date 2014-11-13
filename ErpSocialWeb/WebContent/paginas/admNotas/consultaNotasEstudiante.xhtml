@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="title">
+		<h3>
+			<h:outputLabel value="#{i18n['erp.notas.pagina.consulta.titulo']}" />
+		</h3>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="#{notasController.form}">
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true" />
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<h4>
+						<h:panelGrid columns="3" id="pgPeriodos">
+							<h:outputLabel
+								value="#{i18n['erp.notas.pagina.cedula.estudiante']}"
+								for="txtCedulaEstudiante" />
+							<p:inputText id="txtCedulaEstudiante"
+								value="#{notasDataManager.cedulaEstudiante}">
+							</p:inputText>
+
+							<p:commandButton id="btnBuscar" value="Buscar"
+								actionListener="#{notasController.buscarNotasEstudiante}"
+								update="pgPeriodos, pgTablaNotas">
+							</p:commandButton>
+
+							<h:outputLabel
+								value="#{i18n['erp.notas.pagina.periodo.lectivo']}"
+								for="cbmPeriodo"
+								rendered="#{notasDataManager.datosEstudianteDTO.periodoDTOsMatriculados ne null}" />
+							<p:selectOneMenu id="cbmPeriodo"
+								rendered="#{notasDataManager.datosEstudianteDTO.periodoDTOsMatriculados ne null}"
+								value="#{notasDataManager.anioLectivoVigente.perCodigo}">
+								<f:selectItem itemLabel="--Todos--" itemValue="" />
+								<f:selectItems var="periodo"
+									itemLabel="#{periodo.perDescripcion}"
+									value="#{notasDataManager.datosEstudianteDTO.periodoDTOsMatriculados}"
+									itemValue="#{periodo.perCodigo}" />
+								<p:ajax update="tablaNotas"
+									listener="#{notasController.filtrarMatriculasPorPerido()}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel value="" />
+
+							<h:outputLabel value="#{i18n['erp.notas.pagina.estudiante']}"
+								for="oplEstudiante"
+								rendered="#{notasDataManager.datosEstudianteDTO.periodoDTOsMatriculados ne null}" />
+
+							<h:outputText id="oplEstudiante"
+								rendered="#{notasDataManager.datosEstudianteDTO.periodoDTOsMatriculados ne null}"
+								value="#{notasDataManager.datosEstudianteDTO.estudianteListDTO.perNombres} #{notasDataManager.datosEstudianteDTO.estudianteListDTO.perApellidos}">
+
+							</h:outputText>
+
+
+
+
+
+						</h:panelGrid>
+
+					</h4>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<h:panelGroup id="pgTablaNotas">
+				<p:dataTable id="tablaNotas"
+					rendered="#{notasDataManager.datosEstudianteDTO.listaMatriculaDetalleDTOs != null}"
+					value="#{notasDataManager.datosEstudianteDTO.listaMatriculaDetalleDTOs}"
+					var="detalleMatricula" rowIndexVar="rowIndex">
+
+
+					<p:columnGroup type="header">
+						<p:row>
+							<p:column rowspan="2"
+								headerText="#{i18n['erp.notas.pagina.materias']}" />
+							<p:column colspan="5"
+								headerText="#{i18n['erp.notas.pagina.primer.quimestre']}" />
+							<p:column colspan="5"
+								headerText="#{i18n['erp.notas.pagina.segundo.quimestre']}" />
+						</p:row>
+						<p:row>
+							<p:column headerText="#{i18n['erp.notas.pagina.primer.parcial']}" />
+							<p:column
+								headerText="#{i18n['erp.notas.pagina.segundo.parcial']}" />
+							<p:column headerText="#{i18n['erp.notas.pagina.tercer.parcial']}" />
+							<p:column headerText="#{i18n['erp.notas.pagina.examen']}" />
+							<p:column
+								headerText="#{i18n['erp.notas.pagina.primer.quimestre']}" />
+							<p:column headerText="#{i18n['erp.notas.pagina.primer.parcial']}" />
+							<p:column
+								headerText="#{i18n['erp.notas.pagina.segundo.parcial']}" />
+							<p:column headerText="#{i18n['erp.notas.pagina.tercer.parcial']}" />
+							<p:column headerText="#{i18n['erp.notas.pagina.examen']}" />
+							<p:column
+								headerText="#{i18n['erp.notas.pagina.segundo.quimestre']}" />
+						</p:row>
+					</p:columnGroup>
+
+					<p:column>
+               			#{detalleMatricula.matAsinacion.matMateria.mtrNombe}  
+            	</p:column>
+
+					<p:column>
+						<center>
+							<h:outputText
+								value="#{detalleMatricula.notNotas.size() > 0 ? detalleMatricula.notNotas.get(0).notValor : ''}" />
+						</center>
+					</p:column>
+
+					<p:column>
+						<center>
+							<h:outputText
+								value="#{detalleMatricula.notNotas.size() > 1 ? detalleMatricula.notNotas.get(1).notValor : ''}" />
+						</center>
+					</p:column>
+
+					<p:column>
+						<center>
+							<h:outputText
+								value="#{detalleMatricula.notNotas.size() > 2 ? detalleMatricula.notNotas.get(2).notValor : ''}" />
+						</center>
+					</p:column>
+
+					<p:column>
+						<center>
+							<h:outputText
+								value="#{detalleMatricula.notNotas.size() > 3 ? detalleMatricula.notNotas.get(3).notValor : ''}" />
+						</center>
+					</p:column>
+
+					<p:column>
+						<center>
+							<h:outputText
+								value="#{detalleMatricula.notNotas.size() > 4 ? detalleMatricula.notNotas.get(4).notValor : ''}" />
+						</center>
+					</p:column>
+
+					<p:column>
+						<center>
+							<h:outputText
+								value="#{detalleMatricula.notNotas.size() > 5 ? detalleMatricula.notNotas.get(5).notValor : ''}" />
+						</center>
+					</p:column>
+
+					<p:column>
+						<center>
+							<h:outputText
+								value="#{detalleMatricula.notNotas.size() > 6 ? detalleMatricula.notNotas.get(6).notValor : ''}" />
+						</center>
+					</p:column>
+
+					<p:column>
+						<h:outputText
+							value="#{detalleMatricula.notNotas.size() > 7 ? detalleMatricula.notNotas.get(7).notValor : ''}" />
+					</p:column>
+
+					<p:column>
+						<center>
+							<h:outputText
+								value="#{detalleMatricula.notNotas.size() > 8 ? detalleMatricula.notNotas.get(8).notValor : ''}" />
+						</center>
+					</p:column>
+
+					<p:column>
+						<h:outputText
+							value="#{detalleMatricula.notNotas.size() > 9 ? detalleMatricula.notNotas.get(9).notValor : ''}" />
+					</p:column>
+
+
+				</p:dataTable>
+
+			</h:panelGroup>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
