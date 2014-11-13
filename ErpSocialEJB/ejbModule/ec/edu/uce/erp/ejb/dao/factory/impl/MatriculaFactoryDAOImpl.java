@@ -18,11 +18,11 @@ import ec.edu.uce.erp.ejb.persistence.dao.NivelDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.NivelParaleloDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.NotaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ParaleloDAO;
-import ec.edu.uce.erp.ejb.persistence.dao.ParcialDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PeriodoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ProfesorDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.RepNivelEstudianteDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.RepresentanteDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.TipoNotaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.AsinacionDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.DocenteAsignadoVieDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.EstudianteDAOImpl;
@@ -36,11 +36,11 @@ import ec.edu.uce.erp.ejb.persistence.dao.impl.NivelDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.NivelParaleloDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.NotaDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.ParaleloDAOImpl;
-import ec.edu.uce.erp.ejb.persistence.dao.impl.ParcialDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.PeriodoDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.ProfesorDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.RepNivelEstudianteDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.RepresentanteDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.TipoNotaDAOImpl;
 
 @Stateless
 public class MatriculaFactoryDAOImpl implements MatriculaFactoryDAO{
@@ -58,7 +58,7 @@ public class MatriculaFactoryDAOImpl implements MatriculaFactoryDAO{
 	private NivelParaleloDAO nivelParaleloDAO;
 	private NotaDAO notaDAO;
 	private ParaleloDAO paraleloDAO;
-	private ParcialDAO parcialDAO;
+	private TipoNotaDAO tipoNotaDAO;
 	private PeriodoDAO periodoDAO;
 	private ProfesorDAO profesorDAO;
 	private RepresentanteDAO representanteDAO;
@@ -160,12 +160,12 @@ public class MatriculaFactoryDAOImpl implements MatriculaFactoryDAO{
 	}
 	
 	@Override
-	public ParcialDAO getParcialDAOImpl()
+	public TipoNotaDAO getParcialDAOImpl()
 	{
-		if (parcialDAO == null) {
-			parcialDAO = new ParcialDAOImpl(entityManager);
+		if (tipoNotaDAO == null) {
+			tipoNotaDAO = new TipoNotaDAOImpl(entityManager);
 		}
-		return parcialDAO;
+		return tipoNotaDAO;
 	}
 	
 	@Override
