@@ -1,9 +1,17 @@
 package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 
 /**
@@ -161,10 +169,53 @@ public class BautizoListDTO implements Serializable {
 
 	@Column(name="sac_persona")
 	private Integer sacPersona;
+	
+	@Transient
+	private Date fechaDesde;
+	
+	@Transient
+	private Date fechaHasta;
 
 	public BautizoListDTO() {
 	}
 
+	public BautizoListDTO(Integer bauParroquia,
+			Integer bauProvincia,
+			Integer bauCanton,
+			String perCi,
+			String perApellidos,
+			String perNombres,
+			String sacNombres,
+			String sacApellidos
+			/*Timestamp bauFechaAprobacionCruso*/) {
+			super();
+			this.bauParroquia=bauParroquia;
+			this.bauProvincia=bauProvincia;
+			this.bauCanton=bauCanton;
+			this.perCi = perCi;
+			this.perApellidos = perApellidos;
+			this.perNombres = perNombres;
+			this.sacNombres = sacNombres;
+			this.sacApellidos = sacApellidos;
+			/*this.bauFechaAprobacionCruso=bauFechaAprobacionCruso*/;
+	}
+	
+	public Date getFechaDesde() {
+		return fechaDesde;
+	}
+
+	public void setFechaDesde(Date fechaDesde) {
+		this.fechaDesde = fechaDesde;
+	}
+
+	public Date getFechaHasta() {
+		return fechaHasta;
+	}
+
+	public void setFechaHasta(Date fechaHasta) {
+		this.fechaHasta = fechaHasta;
+	}	
+	
 	public String getBauActa() {
 		return this.bauActa;
 	}
