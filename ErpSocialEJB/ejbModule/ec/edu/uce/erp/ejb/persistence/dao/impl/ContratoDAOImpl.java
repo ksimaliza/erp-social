@@ -106,7 +106,7 @@ public class ContratoDAOImpl extends AbstractFacadeImpl<ContratoDTO> implements 
 				
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		
-		TypedQuery<ContratoListDTO> typedQuery = entityManager.createQuery(select);
+		TypedQuery<ContratoListDTO> typedQuery = entityManager.createQuery(select.distinct(true));
 		contratoEncontrado = typedQuery.getResultList();
 		
 	} catch (Exception e) {
