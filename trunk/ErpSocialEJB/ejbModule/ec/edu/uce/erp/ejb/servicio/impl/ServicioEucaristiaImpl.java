@@ -1555,4 +1555,17 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		return listResultado;
 	}
 	
+	@Override
+	public List<BautizoListDTO> readBautizoReport(BautizoListDTO bautizo) throws SeguridadesException {
+		slf4jLogger.info("readBautizoReport");
+		List<BautizoListDTO> listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getBautizoDAOImpl().getDistinctReporteEcaristiaByAnd(bautizo);
+		} catch (Exception e) {
+			slf4jLogger.info("Error readBautizoReport {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener bautizo de la base de datos");
+		}
+		return listResultado;
+	}
+	
 }
