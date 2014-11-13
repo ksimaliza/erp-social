@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="title">
+		<h3>
+			<h:outputLabel
+				value="#{i18n['erp.notas.pagina.reporte.paralelo.titulo']}" />
+		</h3>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="#{notasController.form}">
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true" />
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<h4>
+						<h:panelGrid columns="2" id="pnlFiltros">
+
+							<!-- PERIODOS -->
+							<h:outputLabel
+								value="#{i18n['erp.notas.pagina.periodo.lectivo']}" />
+							<p:selectOneMenu id="cbmPeriodos"
+								value="#{notasDataManager.codPeriodoSeleccionado}">
+								<f:selectItem itemLabel="--Seleccione Uno--" itemValue="" />
+								<f:selectItems var="periodo"
+									itemLabel="#{periodo.perDescripcion}"
+									value="#{notasDataManager.listaPeriodoDTOs}"
+									itemValue="#{periodo.perCodigo}" />
+								<p:ajax update="pnlFiltros"
+									listener="#{notasController.buscarAsignacionesPorPeriodo}" />
+							</p:selectOneMenu>
+
+							<!-- NIVELES -->
+							<h:outputLabel value="#{i18n['erp.notas.pagina.curso']}:"
+								for="cbmCursos" />
+							<p:selectOneMenu id="cbmCursos"
+								value="#{notasDataManager.nivelDTOSeleccionado.nivCodigo}">
+								<f:selectItem itemLabel="--Seleccione Uno--" itemValue="" />
+								<f:selectItems var="nivel" itemLabel="#{nivel.nivDescaripcion}"
+									value="#{notasDataManager.listaNiveles}"
+									itemValue="#{nivel.nivCodigo}" />
+								<p:ajax update="pnlFiltros"
+									listener="#{notasController.llenarParalelosPorNivel()}" />
+							</p:selectOneMenu>
+
+							<!-- PARELELO -->
+							<h:outputLabel value="#{i18n['erp.notas.pagina.paralelo']}:"
+								for="cbmParalelos" />
+							<p:selectOneMenu id="cbmParalelos"
+								value="#{notasDataManager.paraleloDTOSeleccionado.parCodigo}">
+								<f:selectItem itemLabel="--Seleccione Uno--" itemValue="" />
+								<f:selectItems var="paralelo"
+									itemLabel="#{paralelo.parDescripcion}"
+									value="#{notasDataManager.listaParalelo}"
+									itemValue="#{paralelo.parCodigo}" />
+								<p:ajax update="pnlFiltros"
+									listener="#{notasController.filtarMateriasPorNivelParaleloReporte()}" />
+							</p:selectOneMenu>
+
+							<!-- MATERIA -->
+							<h:outputLabel value="#{i18n['erp.notas.pagina.materias']}:"
+								for="cbmMaterias" />
+							<p:selectOneMenu id="cbmMaterias"
+								value="#{notasDataManager.codMateriaSeleccionada}">
+								<f:selectItem itemLabel="--Seleccione Uno--" itemValue="" />
+								<f:selectItems var="materia" itemLabel="#{materia.mtrNombe}"
+									value="#{notasDataManager.listaMaterias}"
+									itemValue="#{materia.mtrCodigo}" />
+							</p:selectOneMenu>
+
+							<!-- DOCENTE -->
+							<h:outputLabel value="Profesor:" />
+							<h:outputText value="#{notasDataManager.reporteDTO.parametro5}"
+								rendered="#{notasDataManager.reporteDTO != null}" />
+
+							<!-- BUSCAR -->
+							<p:outputLabel value="" />
+							<p:commandButton id="btnBuscar" value="Buscar"
+								actionListener="#{notasController.generarReporteGeneralPorParalelo()}"
+								update="pnlFiltros, tablaReporteGeneral">
+							</p:commandButton>
+
+						</h:panelGrid>
+					</h4>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<h:commandButton id="btnImprimir" value="Imprimir"
+				actionListener="#{notasController.imprimirReporteGeneralPorParaleloPDF}">
+			</h:commandButton>
+
+			<p:dataTable id="tablaReporteGeneral"
+				value="#{notasDataManager.reporteDTO.listaReporteDTOs}"
+				var="datoReporte" rowIndexVar="rowIndex" paginator="true" rows="5"
+				paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+				<p:columnGroup type="header">
+					<p:row>
+						<p:column rowspan="2"
+							headerText="#{i18n['erp.notas.pagina.nombre.estudiante']}" />
+						<p:column colspan="6"
+							headerText="#{i18n['erp.notas.pagina.primer.quimestre']}" />
+						<p:column colspan="6"
+							headerText="#{i18n['erp.notas.pagina.segundo.quimestre']}" />
+						<p:column rowspan="2"
+							headerText="#{i18n['erp.notas.pagina.promedio']}" />
+						<p:column rowspan="2"
+							headerText="#{i18n['erp.notas.pagina.cualitativo']}" />
+					</p:row>
+					<p:row>
+						<p:column headerText="#{i18n['erp.notas.pagina.primer.parcial']}" />
+						<p:column headerText="#{i18n['erp.notas.pagina.segundo.parcial']}" />
+						<p:column headerText="#{i18n['erp.notas.pagina.tercer.parcial']}" />
+						<p:column headerText="#{i18n['erp.notas.pagina.examen']}" />
+						<p:column headerText="#{i18n['erp.notas.pagina.promedio']}" />
+						<p:column headerText="#{i18n['erp.notas.pagina.cualitativo']}" />
+						<p:column headerText="#{i18n['erp.notas.pagina.primer.parcial']}" />
+						<p:column headerText="#{i18n['erp.notas.pagina.segundo.parcial']}" />
+						<p:column headerText="#{i18n['erp.notas.pagina.tercer.parcial']}" />
+						<p:column headerText="#{i18n['erp.notas.pagina.examen']}" />
+						<p:column headerText="#{i18n['erp.notas.pagina.promedio']}" />
+						<p:column headerText="#{i18n['erp.notas.pagina.cualitativo']}" />
+					</p:row>
+				</p:columnGroup>
+
+				<p:column>
+               			#{datoReporte.nombre}  
+            	</p:column>
+
+				<p:column>
+					<center>
+						<h:outputText value="#{datoReporte.calificacion1}" />
+					</center>
+				</p:column>
+
+				<p:column>
+					<center>
+						<h:outputText value="#{datoReporte.calificacion2}" />
+					</center>
+				</p:column>
+
+				<p:column>
+					<center>
+						<h:outputText value="#{datoReporte.calificacion3}" />
+					</center>
+				</p:column>
+
+				<p:column>
+					<center>
+						<h:outputText value="#{datoReporte.calificacion4}" />
+					</center>
+				</p:column>
+
+				<p:column>
+					<center>
+						<h:outputText value="#{datoReporte.calificacion5}" />
+					</center>
+				</p:column>
+
+				<p:column>
+					<center>
+						<h:outputText value="#{datoReporte.observacion}" />
+					</center>
+				</p:column>
+
+				<p:column>
+					<center>
+						<h:outputText value="#{datoReporte.calificacion6}" />
+					</center>
+				</p:column>
+
+				<p:column>
+					<center>
+						<h:outputText value="#{datoReporte.calificacion7}" />
+					</center>
+				</p:column>
+
+				<p:column>
+					<center>
+						<h:outputText value="#{datoReporte.calificacion8}" />
+					</center>
+				</p:column>
+
+				<p:column>
+					<center>
+						<h:outputText value="#{datoReporte.calificacion9}" />
+					</center>
+				</p:column>
+
+				<p:column>
+					<center>
+						<h:outputText value="#{datoReporte.calificacion10}" />
+					</center>
+				</p:column>
+
+				<p:column>
+					<center>
+						<h:outputText value="#{datoReporte.observacion1}" />
+					</center>
+				</p:column>
+
+				<p:column>
+					<center>
+						<h:outputText value="#{datoReporte.calificacion11}" />
+					</center>
+				</p:column>
+
+				<p:column>
+					<center>
+						<h:outputText value="#{datoReporte.observacion2}" />
+					</center>
+				</p:column>
+				<!-- </p:subTable> -->
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="title">
+		<h3>
+			<h:outputLabel value="Reporte Quimestral" />
+		</h3>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="#{notasController.form}">
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true" />
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<h4>
+						<h:panelGrid columns="2" id="pgPeriodos">
+							<!-- CEDULA -->
+							<h:outputLabel
+								value="#{i18n['erp.notas.pagina.cedula.estudiante']}"
+								for="txtCedulaEstudiante" />
+							<p:inputText id="txtCedulaEstudiante"
+								value="#{notasDataManager.cedulaEstudiante}">
+								<p:ajax listener="#{notasController.buscarNotasEstudiante}"
+									update="pgPeriodos"></p:ajax>
+							</p:inputText>
+
+							<!-- ESTUDIANTE -->
+							<h:outputLabel value="#{i18n['erp.notas.pagina.estudiante']}"
+								for="oplEstudiante"
+								rendered="#{notasDataManager.datosEstudianteDTO.periodoDTOsMatriculados ne null}" />
+							<h:outputText id="oplEstudiante"
+								rendered="#{notasDataManager.datosEstudianteDTO.periodoDTOsMatriculados ne null}"
+								value="#{notasDataManager.datosEstudianteDTO.estudianteListDTO.perNombres} #{notasDataManager.datosEstudianteDTO.estudianteListDTO.perApellidos}">
+							</h:outputText>
+
+							<!-- PERIODOS -->
+							<h:outputLabel
+								value="#{i18n['erp.notas.pagina.periodo.lectivo']}"
+								for="cbmPeriodo"
+								rendered="#{notasDataManager.datosEstudianteDTO.periodoDTOsMatriculados ne null}" />
+							<p:selectOneMenu id="cbmPeriodo"
+								rendered="#{notasDataManager.datosEstudianteDTO.periodoDTOsMatriculados ne null}"
+								value="#{notasDataManager.anioLectivoVigente.perCodigo}">
+								<f:selectItem itemLabel="--Todos--" itemValue="" />
+								<f:selectItems var="periodo"
+									itemLabel="#{periodo.perDescripcion}"
+									value="#{notasDataManager.datosEstudianteDTO.periodoDTOsMatriculados}"
+									itemValue="#{periodo.perCodigo}" />
+								<p:ajax update="tablaNotas"
+									listener="#{notasController.filtrarMatriculasPorPerido()}" />
+							</p:selectOneMenu>
+
+							<!-- CURSO -->
+							<h:outputLabel value="#{i18n['erp.notas.pagina.curso']}:"
+								for="oplCurso"
+								rendered="#{notasDataManager.datosEstudianteDTO.periodoDTOsMatriculados ne null}" />
+							<h:outputText id="oplCurso"
+								rendered="#{notasDataManager.datosEstudianteDTO.periodoDTOsMatriculados ne null}"
+								value="#{notasDataManager.datosEstudianteDTO.nivelDTO.nivDescaripcion}">
+							</h:outputText>
+
+							<!-- PARALELO -->
+							<h:outputLabel value="#{i18n['erp.notas.pagina.paralelo']}:"
+								for="oplParalelo"
+								rendered="#{notasDataManager.datosEstudianteDTO.periodoDTOsMatriculados ne null}" />
+							<h:outputText id="oplParalelo"
+								rendered="#{notasDataManager.datosEstudianteDTO.periodoDTOsMatriculados ne null}"
+								value="#{notasDataManager.datosEstudianteDTO.paraleloDTO.parDescripcion}">
+							</h:outputText>
+
+							<!-- QUIMESTRES -->
+							<h:outputLabel value="#{i18n['erp.notas.pagina.quimestre']}:"
+								for="cbmQuimestres" />
+							<p:selectOneMenu id="cbmQuimestres"
+								value="#{notasDataManager.codQuimestreSeleccionada}">
+								<f:selectItem itemLabel="--Seleccione--" itemValue="0" />
+								<f:selectItem itemLabel="Primero" itemValue="1" />
+								<f:selectItem itemLabel="Segundo" itemValue="2" />
+							</p:selectOneMenu>
+
+							<!-- BUSCAR -->
+							<p:outputLabel value="" />
+							<p:commandButton id="btnBuscar" value="Buscar"
+								actionListener="#{notasController.generarReporteQuimestralEstudiante}"
+								update="pgPeriodos, pgTablaNotas">
+							</p:commandButton>
+
+
+
+						</h:panelGrid>
+
+					</h4>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<h:commandButton id="btnImprimir" value="Imprimir"
+				actionListener="#{notasController.imprimirReporteQuimestralEstudiantePDF}">
+			</h:commandButton>
+
+			<h:panelGroup id="pgTablaNotas">
+				<p:dataTable id="tablaNotas"
+					rendered="#{notasDataManager.reporteDTO != null}"
+					value="#{notasDataManager.reporteDTO.listaReporteDTOs}"
+					var="registroReporte" rowIndexVar="rowIndex">
+
+
+					<p:columnGroup type="header">
+						<p:row>
+							<p:column headerText="#{i18n['erp.notas.pagina.materias']}" />
+							<p:column headerText="#{i18n['erp.notas.pagina.primer.parcial']}" />
+							<p:column
+								headerText="#{i18n['erp.notas.pagina.segundo.parcial']}" />
+							<p:column headerText="#{i18n['erp.notas.pagina.tercer.parcial']}" />
+							<p:column headerText="Promedio Parcial" />
+							<p:column headerText="80% de Promedio" />
+							<p:column headerText="#{i18n['erp.notas.pagina.examen']}" />
+							<p:column headerText="20% de Examen" />
+							<p:column headerText="Promedio Cuantitativo" />
+							<p:column headerText="Promedio Cualitativo" />
+						</p:row>
+					</p:columnGroup>
+
+					<p:column footerText="PROMEDIO GENERAL">
+               			#{registroReporte.nombre}
+            		</p:column>
+
+					<p:column>
+						<center>
+							<h:outputText value="#{registroReporte.calificacion1}" />
+						</center>
+					</p:column>
+
+					<p:column>
+						<center>
+							<h:outputText value="#{registroReporte.calificacion2}" />
+						</center>
+					</p:column>
+
+					<p:column>
+						<center>
+							<h:outputText value="#{registroReporte.calificacion3}" />
+						</center>
+					</p:column>
+
+					<p:column>
+						<center>
+							<h:outputText value="#{registroReporte.calificacion4}" />
+						</center>
+					</p:column>
+
+					<p:column>
+						<center>
+							<h:outputText value="#{registroReporte.calificacion5}" />
+						</center>
+					</p:column>
+
+					<p:column>
+						<center>
+							<h:outputText value="#{registroReporte.calificacion6}" />
+						</center>
+					</p:column>
+
+					<p:column>
+						<center>
+							<h:outputText value="#{registroReporte.calificacion7}" />
+						</center>
+					</p:column>
+
+					<p:column
+						footerText="#{notasDataManager.reporteDTO.promeditoTotal}">
+						<center>
+							<h:outputText value="#{registroReporte.calificacion8}" />
+						</center>
+					</p:column>
+					<p:column
+						footerText="#{notasDataManager.reporteDTO.observacionFinal}">
+						<center>
+							<h:outputText value="#{registroReporte.observacion}" />
+						</center>
+					</p:column>
+
+
+				</p:dataTable>
+
+			</h:panelGroup>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="title">
+		<h3>
+			<h:outputLabel value="#{i18n['erp.notas.pagina.ingreso.titulo']}" />
+		</h3>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="formIngresoNotas">
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true" />
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<h4>
+						<h:panelGrid columns="2">
+							<h:outputLabel
+								value="#{i18n['erp.notas.pagina.periodo.lectivo']}:"
+								for="anioLectivo" />
+							<h:outputText id="anioLectivo"
+								value="#{notasDataManager.anioLectivoVigente.perDescripcion}" />
+
+							<h:outputLabel value="#{i18n['erp.notas.pagina.quimestre']}:"
+								for="quimestre" />
+							<h:outputText id="quimestre"
+								value="#{notasDataManager.materiaEstadoSeleccionado.tipoNotaDTO.parCodigo lt 4 ? i18n['erp.notas.pagina.primer.quimestre'] : i18n['erp.notas.pagina.segundo.quimestre']}" />
+
+							<h:outputLabel value="#{i18n['erp.notas.pagina.parcial']}:"
+								for="parcial" />
+							<h:outputText id="parcial"
+								value="#{notasDataManager.materiaEstadoSeleccionado.tipoNotaDTO.parNombre == null ? i18n['erp.notas.pagina.primer.parcial'] : notasDataManager.materiaEstadoSeleccionado.tipoNotaDTO.parNombre}" />
+
+							<h:outputLabel
+								value="#{i18n['erp.notas.pagina.nombre.materia']}:"
+								for="materia" />
+							<h:outputText id="materia"
+								value="#{notasDataManager.materiaEstadoSeleccionado.asinacionDTO.matMateria.mtrNombe}" />
+
+							<h:outputLabel value="#{i18n['erp.notas.pagina.curso']}:"
+								for="nivel" />
+							<h:outputText id="nivel"
+								value="#{notasDataManager.materiaEstadoSeleccionado.asinacionDTO.matNivelParalelo.matNivel.nivDescaripcion}" />
+
+							<h:outputLabel value="#{i18n['erp.notas.pagina.paralelo']}:"
+								for="materia" />
+							<h:outputText id="parelelo"
+								value="#{notasDataManager.materiaEstadoSeleccionado.asinacionDTO.matNivelParalelo.matParalelo.parDescripcion}" />
+						</h:panelGrid>
+					</h4>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:growl id="messages" showDetail="true" />
+
+			<p:contextMenu for="tablaEstudiantes" widgetVar="cMenu">
+				<p:menuitem value="Edit Cell" icon="ui-icon-search"
+					onclick="PF('carsTable').showCellEditor();return false;" />
+				<p:menuitem value="Hide Menu" icon="ui-icon-close"
+					onclick="PF('cMenu').hide()" />
+			</p:contextMenu>
+
+			<p:dataTable id="tablaEstudiantes" 
+				rendered="#{!notasController.isExamen(notasDataManager.codTipoNota)}"
+				value="#{notasDataManager.listaEstudianteNotasParcials}"
+				var="estudianteNota" rowIndexVar="rowIndex" editable="true"
+				editMode="cell" widgetVar="carsTable">
+
+				<p:ajax event="cellEdit" listener="#{notasController.onCellEdit}"
+					update=":formIngresoNotas:messages, tablaEstudiantes" />
+
+				<p:columnGroup type="header">
+					<p:row>
+						<p:column headerText="Nombres" />
+
+						<p:column headerText="Tareas" />
+
+						<p:column headerText="Act. Grupales" />
+
+						<p:column headerText="Act. Individuales" />
+
+						<p:column headerText="Lecciones Orales" />
+
+						<p:column headerText="Lección Escrita" />
+
+						<p:column headerText="Nota Parcial" />
+					</p:row>
+				</p:columnGroup>
+
+				<p:column>
+               			#{estudianteNota.persona.perNombres} #{estudianteNota.persona.perApellidos} 
+            	</p:column>
+
+
+				<p:column>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{estudianteNota.notaDTOTareas.notValor}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{estudianteNota.notaDTOTareas.notValor}">
+								<p:ajax update="tablaEstudiantes"
+									listener="#{notasController.calcularNotaParcial(estudianteNota)}" />
+							</p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText
+								value="#{estudianteNota.notaDTOGrupales.notValor}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText
+								value="#{estudianteNota.notaDTOGrupales.notValor}">
+								<p:ajax update="tablaEstudiantes"
+									listener="#{notasController.calcularNotaParcial(estudianteNota)}" />
+							</p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{estudianteNota.notaDTOIndividuales.notValor}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{estudianteNota.notaDTOIndividuales.notValor}">
+								<p:ajax update="tablaEstudiantes"
+									listener="#{notasController.calcularNotaParcial(estudianteNota)}" />
+							</p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{estudianteNota.notaDTOOrales.notValor}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{estudianteNota.notaDTOOrales.notValor}">
+								<p:ajax update="tablaEstudiantes"
+									listener="#{notasController.calcularNotaParcial(estudianteNota)}" />
+							</p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{estudianteNota.notaDTOEscrita.notValor}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{estudianteNota.notaDTOEscrita.notValor}">
+								<p:ajax update="tablaEstudiantes"
+									listener="#{notasController.calcularNotaParcial(estudianteNota)}" />
+							</p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column>
+					<h:outputText value="#{estudianteNota.notaParcialDTO.notValor}" />
+				</p:column>
+
+			</p:dataTable>
+
+			<p:dataTable id="tablaEstudiantesExamen"
+				rendered="#{notasController.isExamen(notasDataManager.codTipoNota)}"
+				value="#{notasDataManager.listaEstudianteNotasParcials}"
+				var="estudianteNota" rowIndexVar="rowIndex" editable="true"
+				editMode="cell" widgetVar="carsTable">
+
+				<p:ajax event="cellEdit" listener="#{notasController.onCellEdit}"
+					update=":formIngresoNotas:messages, tablaEstudiantesExamen" />
+
+				<p:columnGroup type="header">
+					<p:row>
+						<p:column headerText="Nombres" />
+
+						<p:column headerText="Nota Exámen Quimestral" />
+					</p:row>
+				</p:columnGroup>
+
+				<p:column>
+               			#{estudianteNota.persona.perNombres} #{estudianteNota.persona.perApellidos} 
+            	</p:column>
+
+				<p:column>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{estudianteNota.notaParcialDTO.notValor}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{estudianteNota.notaParcialDTO.notValor}"></p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+			</p:dataTable>
+			<h:commandButton action="#{notasController.editarNotas()}"
+				value="GUARDAR" />
+		</h:form>
+	</ui:define>
+</ui:composition>
