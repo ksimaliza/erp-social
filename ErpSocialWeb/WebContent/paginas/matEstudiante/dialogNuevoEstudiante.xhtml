@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpNuevoEstudiante" header="#{i18n['erp.matricula.estudiante.registrar']}" resizable="false" draggable="false"
-		widgetVar="dlgNuevoEstudiante" modal="true" width="500" minWidth="500" appendTo="@(body)" closeOnEscape="true">
+		widgetVar="dlgNuevoEstudiante" modal="true" width="600" minWidth="600" appendTo="@(body)" closeOnEscape="true">
 		<h:form id="formNuevoEstudiante" styleClass="formulario">
 		
 		<p:scrollPanel mode="native" style="height:500px">
@@ -16,7 +16,7 @@
 				<table class="formulario">
 									
 					<tr>
-						<td width="100%" colspan="2"><p:graphicImage id="image" height="80" cache="false" value="#{estudianteDataManager.estudiantePersonaInsertar.perFoto}"/></td>
+						<td width="50%" colspan="2"><p:graphicImage id="image" height="80" cache="false" value="#{estudianteDataManager.estudiantePersonaInsertar.perFoto}"/></td>
 					</tr>
 				
 					<tr>
@@ -41,6 +41,19 @@
 								<p:ajax event="blur" listener="#{estudianteController.buscarPersonaEstudiante}" process="@this" update="pnlNuevoEstudiante"></p:ajax>								
 							</p:inputText>			
 						</td>
+						
+					</tr>
+					<tr>
+					<td width="30%">
+							<h:outputLabel  value="Género" />
+						</td>
+					<td width="70%"><p:selectOneRadio 
+															required="true"
+															requiredMessage="El campo GÉNERO es Obligatorio."
+															value="#{estudianteDataManager.estudiantePersonaInsertar.perGenero}">
+															<f:selectItem itemLabel="Femenino" itemValue="F" />
+															<f:selectItem itemLabel="Masculino" itemValue="M" />
+														</p:selectOneRadio></td>
 					</tr>
 						
 					<tr>
@@ -202,6 +215,7 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{estudianteController.registrarEstudiante}"
+					icon="ui-icon-disk"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoEstudiante.hide()"
 					process="@this,pnlNuevoEstudiante,pnlNuevoRepresentante" update="pnlNuevoEstudiante,pnlNuevoRepresentante,:formEstudiante:tablaEstudiante"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{estudianteController.cancel}" process="@this" immediate="true" update="pnlNuevoEstudiante,pnlNuevoRepresentante"/>
