@@ -20,7 +20,7 @@
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
 					</p:commandButton>
-					<p:commandButton id="btnNuevoContrato" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevoContrato.show()">
+					<p:commandButton id="btnNuevoContrato" value="Insertar" icon="ui-icon-disk" actionListener="#{contratoController.limpiarFormulario}" update=":formNuevoContrato:pnlNuevoContrato,:formNuevoContrato:pnlBotones" oncomplete="dlgNuevoContrato.show()">
 						</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
@@ -33,7 +33,6 @@
 						<td >
 							<p:inputText id="txtCi" 
 								  value="#{contratoDataManager.contratoListDTO.perCi}" >
-								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 						</p:inputText>
 						</td>	
 					</tr>
@@ -44,7 +43,7 @@
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.despacho.contrato.nombres']}" />
 						</td>
 						<td>
-							<p:inputText for="txtNombre" label="#{i18n['erp.despacho.contrato.nombres']}" 
+							<p:inputText id="txtNombre" label="#{i18n['erp.despacho.contrato.nombres']}" 
 							value="#{contratoDataManager.contratoListDTO.perNombres}" />
 						</td>
 					</tr>
@@ -53,7 +52,7 @@
 							<h:outputLabel for="txtApe" value="#{i18n['erp.despacho.contrato.apellidos']}" />
 						</td>
 						<td>
-							<p:inputText for="txtApe" label="#{i18n['erp.despacho.contrato.apellidos']}" 
+							<p:inputText id="txtApe" label="#{i18n['erp.despacho.contrato.apellidos']}" 
 							value="#{contratoDataManager.contratoListDTO.perApellidos}"/>
 						</td>
 					</tr>
@@ -64,8 +63,7 @@
 						</td>
 						<td >
 							<p:inputText id="txtCiBen" 
-								  value="#{contratoDataManager.contratoListDTO.perCi}" >
-								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+								  value="#{contratoDataManager.contratoListDTO.benCi}" >
 						</p:inputText>
 						</td>	
 					</tr>
@@ -76,8 +74,8 @@
 							<h:outputLabel for="txtNombreBen" value="#{i18n['erp.despacho.contrato.nombres.beneficiario']}" />
 						</td>
 						<td>
-							<p:inputText for="txtNombreBen" label="#{i18n['erp.despacho.contrato.nombres.beneficiario']}" 
-							value="#{contratoDataManager.contratoListDTO.perNombres}" />
+							<p:inputText id="txtNombreBen" label="#{i18n['erp.despacho.contrato.nombres.beneficiario']}" 
+							value="#{contratoDataManager.contratoListDTO.benNombres}" />
 						</td>
 					</tr>
 					<tr>
@@ -85,8 +83,8 @@
 							<h:outputLabel for="txtApeBen" value="#{i18n['erp.despacho.contrato.apellidos.beneficiario']}" />
 						</td>
 						<td>
-							<p:inputText for="txtApeBen" label="#{i18n['erp.despacho.contrato.apellidos.beneficiario']}" 
-							value="#{contratoDataManager.contratoListDTO.perApellidos}"/>
+							<p:inputText id="txtApeBen" label="#{i18n['erp.despacho.contrato.apellidos.beneficiario']}" 
+							value="#{contratoDataManager.contratoListDTO.benApellidos}"/>
 						</td>
 					</tr>
 					
@@ -139,8 +137,8 @@
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarContrato.show()"
-							actionListener="#{contratoController.cargarDatosContrato(contrato)}"
-							process="@this" update=":formEditarContrato:pnlEditarContrato">
+							actionListener="#{contratoController.cargarDatosContratoEditar(contrato)}"
+							process="@this" update=":formEditarContrato:pnlEditarContrato,:formEditarContrato:pnlBotones ">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
 					</h:panelGroup>
@@ -151,7 +149,7 @@
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.exportar.pdf']}"
-							actionListener= "#{contratoController.exportarPdf(contrato)}"
+							actionListener= "#{contratoController.exportarPdfDeLista(contrato)}"
 							process="@this" ajax="false">
 							<h:graphicImage value="/resources/img/pdf.png" alt="exportPdf"/>
 						</p:commandLink>

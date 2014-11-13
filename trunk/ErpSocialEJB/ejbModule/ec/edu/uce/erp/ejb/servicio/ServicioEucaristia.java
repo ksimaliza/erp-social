@@ -203,6 +203,9 @@ public interface ServicioEucaristia {
 
 	SepulturaVO obtenerSepulturaPorId(SepulturaListDTO sepulturaListDTO)
 			throws SeguridadesException;
+	
+	List<SepulturaVO> obtenerTodasSepulturas()
+			throws SeguridadesException;
 
 	List<NichoListDTO> readNicho(NichoListDTO nichoListDTO)
 			throws SeguridadesException;

@@ -1,6 +1,7 @@
 package ec.edu.uce.erp.ejb.servicio.impl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -1304,7 +1305,9 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		List<ContratoListDTO> listContrato = null;
 		try {
 			listContrato=eucaristiaFactoryDAO.getContratoDAOImpl().obtenerContrato(contratoListDTO);
-			
+			for (ContratoListDTO contratoListDTO2 : listContrato) {
+				System.out.println("Codigo del contrato :"+contratoListDTO2.getConCodigo());
+			}
 		} catch (Exception e) {
 			slf4jLogger.info("Error al buscarContrato {}", e.getMessage());
 			throw new SeguridadesException("No se pudo obtener buscarContrato de la base de datos");
@@ -1386,7 +1389,31 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		sepultura.setDefuncionPersona(factoryDAO.getPersonaDAOImpl().find(sepulturaListDTO.getSepDifunto()));;
 		return sepultura;
 	}
-
+ 
+	@Override
+	public	List<SepulturaVO> obtenerTodasSepulturas() throws SeguridadesException{
+		slf4jLogger.info("obtenerTodasSepulturas");
+	List<SepulturaVO> sepulturasVO = null;
+	try { 
+	List<SepulturaDTO> sepulturasDTO=eucaristiaFactoryDAO.getSepulturaDAOImpl().buscarTodos();
+	sepulturasVO= new ArrayList<SepulturaVO>();
+	for (SepulturaDTO sepulturaDTO : sepulturasDTO) {
+		SepulturaVO sepultura=new SepulturaVO();
+		sepultura.setSepultura(sepulturaDTO);
+		sepultura.setDefuncionPersona(factoryDAO.getPersonaDAOImpl().find(sepulturaDTO.getSepDifunto()));
+		sepulturasVO.add(sepultura);
+		
+	}
+	
+	
+		
+	} catch (Exception e) {
+		slf4jLogger.info("Error al obtenerTodasSepulturas {}", e.getMessage());
+		throw new SeguridadesException("No se pudo obtenerTodasSepulturas de la base de datos");
+	}
+		return sepulturasVO;
+	}
+	
 	@Override
 	public PagoDTO createOrUpdatePagoContrato(PagoVO pagoVO) throws SeguridadesException
 	{

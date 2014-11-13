@@ -3,6 +3,8 @@ package ec.edu.uce.erp.web.controladores;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -21,15 +23,17 @@ import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
+
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.ContratoVO;
+import ec.edu.uce.erp.ejb.persistence.vo.SepulturaVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
@@ -73,6 +77,7 @@ public ContratoController() {
 	@PostConstruct
 	public void inicializarObjetos () {
 		buscarFormaPago();
+		buscarSepulturas();
 	}
 	
 	
@@ -81,6 +86,11 @@ public ContratoController() {
 		ContratoVO contratoVO;
 		CatalogoEucaristiaDTO formaPago;
 		try {
+			if(contratoDataManager.getDifuntoInsertar().getPerCi().toString().equals(contratoDataManager.getBeneficiariInsertar().getPerCi().toString()))
+			{
+				MensajesWebController.aniadirMensajeError("El difunto no puede ser beneficiario");
+				return;
+			}
 			contratoVO=new ContratoVO();
 			formaPago=new CatalogoEucaristiaDTO();
 			contratoVO.setContratoDTO(contratoDataManager.getContratoDTO());
@@ -138,10 +148,16 @@ public ContratoController() {
 		List<SepulturaListDTO> list=null;
 		
 		try {
+			buscarSepulturas();
+			for (int i = 0; i < contratoDataManager.getSepulturasVO().size(); i++) {
+				if(contratoDataManager.getSepulturasVO().get(i).getSepultura().getSepCodigo()==contratoDataManager.getSepulturaCodigo())
+				contratoDataManager.getDifuntoInsertar().setPerCi(contratoDataManager.getSepulturasVO().get(i).getDefuncionPersona().getPerCi());
+			}
 			if(contratoDataManager.getDifuntoInsertar().getPerCi()!=null && contratoDataManager.getDifuntoInsertar().getPerCi()!="" )
 			{
 				contratoDataManager.getDifuntoInsertar().setPerNombres(null);
 				contratoDataManager.getDifuntoInsertar().setPerApellidos(null);
+				contratoDataManager.getDifuntoInsertar().setPerPk(null);
 				listaDifunto=this.servicioAdministracion.buscarPersona(contratoDataManager.getDifuntoInsertar());					
 				difunto.setPerCi(contratoDataManager.getDifuntoInsertar().getPerCi());
 				list=this.servicioEucaristia.readSepultura(difunto);
@@ -151,8 +167,19 @@ public ContratoController() {
 					MensajesWebController.aniadirMensajeAdvertencia("Difunto no Encontrado. Ingresar información en Sepultura");
 					
 				} else {
-					contratoDataManager.setDifuntoInsertar(listaDifunto.get(0));
-					contratoDataManager.setSepulturaListDTO(list.get(0));
+					
+					for (SepulturaListDTO sepulturaListDTO : list) {
+						if(sepulturaListDTO.getSepCodigo()==contratoDataManager.getSepulturaCodigo() || contratoDataManager.getSepulturaCodigo()==-1 )
+						{
+							//pues el sistema no permite ingresar personas con diferente cédula
+							//por tanto es muy seguro que la cédula es de una única persona
+							contratoDataManager.setDifuntoInsertar(listaDifunto.get(0));
+							contratoDataManager.setSepulturaListDTO(sepulturaListDTO);
+							//para el caso de que se este editando un contrato
+							contratoDataManager.setSepulturaCodigo(sepulturaListDTO.getSepCodigo());
+						}
+					}
+					
 				}
 			}
 		} catch (SeguridadesException e) {
@@ -186,6 +213,28 @@ public ContratoController() {
 		
 	}
 	
+	public void buscarSepulturas () {
+		slf4jLogger.info("buscarSepulturas");
+		
+		List<SepulturaVO> listaSepulturas=null;
+		
+		try {
+			
+			listaSepulturas=this.servicioEucaristia.obtenerTodasSepulturas();
+		
+			if (CollectionUtils.isEmpty(listaSepulturas) && listaSepulturas.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia"+"debe haber registrado sepulturas primero");	
+			} else {
+				this.contratoDataManager.setSepulturasVO(listaSepulturas);
+			}
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarFormaPago {} ", e);
+			//MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
 	public void buscarContrato () {
 		slf4jLogger.info("buscarContrato");
 		
@@ -193,6 +242,7 @@ public ContratoController() {
 		try {
 			listaContrato=this.servicioEucaristia.buscarContrato(contratoDataManager.getContratoListDTO());
 			if (CollectionUtils.isEmpty(listaContrato) && listaContrato.size()==0) {
+				this.contratoDataManager.setContratoListDTOs(new ArrayList<ContratoListDTO>());
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.contratoDataManager.setContratoListDTOs(listaContrato);
@@ -212,11 +262,11 @@ public ContratoController() {
 			{
 				contratoDataManager.getBeneficiariInsertar().setPerNombres(null);
 				contratoDataManager.getBeneficiariInsertar().setPerApellidos(null);
-	
+				//contratoDataManager.getBeneficiariInsertar().setPerPk(null);
 				listaBautizado=this.servicioAdministracion.buscarPersona(contratoDataManager.getBeneficiariInsertar());
 								
 				if (CollectionUtils.isEmpty(listaBautizado) && listaBautizado.size()==0) {
-					//MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 				} else {
 					this.contratoDataManager.setBeneficiariInsertar(listaBautizado.get(0));
 				}
@@ -256,6 +306,7 @@ public ContratoController() {
 			contratoDataManager.setFechaFin(contratoEncontrado.getContratoDTO().getConFechaFin());
 			contratoDataManager.setFechaInicio(contratoEncontrado.getContratoDTO().getConFechaInicio());
 			buscarContrato();
+			this.contratoDataManager.setExportDesactivado(false);
 							
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosContrato {}", e.getMessage());
@@ -279,7 +330,19 @@ public ContratoController() {
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
 		
-		mapParametros.put("beneficiario", contratoDataManager.getBeneficiariInsertar().getPerNombres().toUpperCase()+" "+contratoDataManager.getBeneficiariInsertar().getPerApellidos().toUpperCase());
+		DefuncionListDTO defuncionAux=new DefuncionListDTO();
+		defuncionAux.setPerCi(contratoDataManager.getDifuntoInsertar().getPerCi());
+		List<DefuncionListDTO> listaDefunciones=null;
+		 try {
+			listaDefunciones= servicioEucaristia.buscarDefuncion(defuncionAux);
+		
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al exportar defuncion no encontrados {}", e.getMessage());
+			MensajesWebController.aniadirMensajeError("Error al exportar defunciones no encontrados");
+		
+		}
+		
+		mapParametros.put("beneficiario", contratoDataManager.getBeneficiariInsertar().getPerApellidos().toUpperCase()+" "+contratoDataManager.getBeneficiariInsertar().getPerNombres().toUpperCase());
 		mapParametros.put("beneficiarioCedula", contratoDataManager.getBeneficiariInsertar().getPerCi());
 		mapParametros.put("difunto", contratoDataManager.getDifuntoInsertar().getPerNombres()+" "+ contratoDataManager.getDifuntoInsertar().getPerApellidos());
 		mapParametros.put("tipoNicho", contratoDataManager.getSepulturaListDTO().getTniDescripcion());
@@ -287,12 +350,18 @@ public ContratoController() {
 		mapParametros.put("seccionNicho", contratoDataManager.getSepulturaListDTO().getSeccion());
 		mapParametros.put("nivelNicho", contratoDataManager.getSepulturaListDTO().getNniDescripcion());
 		mapParametros.put("mesesArrendamiento", contratoDataManager.getContratoDTO().getConMesesArrendamiento());
-		mapParametros.put("fechaInicio", contratoDataManager.getContratoDTO().getConFechaInicio().toString().substring(2, 10));
-		mapParametros.put("parroquia", contratoDataManager.getContratoListDTOs().get(0).getParroquia());
+		mapParametros.put("fechaInicio", pequeña.format(StringToDate(contratoDataManager.getContratoDTO().getConFechaInicio().toString().substring(2, 10))));
+		if (listaDefunciones != null)
+			for (int i = 0; i < contratoDataManager.getContratoListDTOs().size(); i++)
+				if (contratoDataManager.getContratoListDTOs().get(i).getParroquia().equals(listaDefunciones.get(0).getCatParroquia())) {
+					mapParametros.put("parroquia", contratoDataManager.getContratoListDTOs().get(i).getParroquia());
+					mapParametros.put("parroquiaEncabezado", "\"" + contratoDataManager.getContratoListDTOs().get(i).getParroquia().toUpperCase() + "\"");
+				}
+		
 		mapParametros.put("fecha", pequeña.format(fechaActual).toString());
 		mapParametros.put("valorPagar", contratoDataManager.getContratoDTO().getConValorMes().toString());
 		mapParametros.put("formaPago", contratoDataManager.getFormaPagoListDTOs().get(0).getCatDescripcion());
-		mapParametros.put("parroquiaEncabezado", "\"" + contratoDataManager.getContratoListDTOs().get(0).getParroquia().toUpperCase() + "\"");
+		
 		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 		
@@ -307,9 +376,15 @@ public ContratoController() {
 		exportar();
 	}
 	
-	
-	public void cancel()
+	public void exportarPdfDeLista(ContratoListDTO contrato)
 	{
+		cargarDatosContratoEditar(contrato);
+		exportar();
+	}
+	
+	public void limpiarFormulario()
+	{
+		contratoDataManager.setSepulturaCodigo(0);
 		contratoDataManager.setDifuntoInsertar(new Persona());
 		contratoDataManager.setContratoDTO(new ContratoDTO());
 		contratoDataManager.setNichoCodigo(0);
@@ -318,7 +393,28 @@ public ContratoController() {
 		contratoDataManager.setFechaInicio(new Date());
 		contratoDataManager.setBeneficiariInsertar(new Persona());
 		contratoDataManager.setSepulturaListDTO(new SepulturaListDTO());
-		contratoDataManager.setDesactivado(false);
-		RequestContext.getCurrentInstance().execute("dlgNuevoContrato.hide()");
+		contratoDataManager.setExportDesactivado(true);
 	}
+	
+	public void cargarDatosContratoEditar(ContratoListDTO contrato)
+	{
+		
+		contratoDataManager.setSepulturaCodigo(-1);
+		cargarDatosContrato(contrato);
+	}
+	
+	public Date StringToDate(String strFecha){
+		 SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yy-MM-dd");
+		 Date fecha = null;
+
+		     try {
+				fecha = formatoDelTexto.parse(strFecha);
+			
+
+		     } catch (java.text.ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		     return fecha;
+		 }
 }

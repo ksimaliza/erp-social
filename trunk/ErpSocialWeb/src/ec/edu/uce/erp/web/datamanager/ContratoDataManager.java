@@ -18,6 +18,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaListDTO;
+import ec.edu.uce.erp.ejb.persistence.vo.SepulturaVO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 @SessionScoped
@@ -46,7 +47,8 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 	private CatalogoEucaristiaDTO formaPagoList;
 	private List<SepulturaListDTO> sepulturaListDTOs;
 	private Boolean desactivado;
-	
+	private List<SepulturaVO> sepulturasVO;
+	private int sepulturaCodigo;
 	
 	@PostConstruct
 	public void inicializarObjetos () {
@@ -66,6 +68,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 		this.nichoDTOEditar=new NichoDTO();
 		exportDesactivado=true;
 		this.formaPagoList=new CatalogoEucaristiaDTO();
+		this.sepulturasVO= new ArrayList<SepulturaVO>();
 		desactivado=false;
 	}
 
@@ -246,4 +249,21 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(ContratoDataMa
 		this.sepulturaListDTOs = sepulturaListDTOs;
 	}
 
+	public List<SepulturaVO> getSepulturasVO() {
+		return sepulturasVO;
+	}
+
+	public void setSepulturasVO(List<SepulturaVO> sepulturasVO) {
+		this.sepulturasVO = sepulturasVO;
+	}
+
+	public int getSepulturaCodigo() {
+		return sepulturaCodigo;
+	}
+
+	public void setSepulturaCodigo(int sepulturaCodigo) {
+		this.sepulturaCodigo = sepulturaCodigo;
+	}
+    
+	
 }
