@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -76,5 +77,48 @@ public class AsinacionDAOImpl extends AbstractFacadeImpl<AsinacionDTO> implement
 			throw new SeguridadesException(e);
 		}
 			return resultado;		
+	}
+	public List<AsinacionDTO> asignacionesPorPeriodoProfesor(Integer codPeriodo, Integer codProfesor) {
+
+		Query query;
+		String sql = "SELECT p from AsinacionDTO p" + " WHERE p.matPeriodo.perCodigo = :codPeriodo AND " + " p.matProfesor.proPersona = :codProfesor";
+
+		query = entityManager.createQuery(sql);
+
+		query.setParameter("codPeriodo", codPeriodo);
+		query.setParameter("codProfesor", codProfesor);
+
+		return query.getResultList();
+	}
+	
+	public List<AsinacionDTO> asignacionesPorPeriodo(Integer codPeriodo) {
+
+		Query query;
+		String sql = "SELECT p from AsinacionDTO p" + " WHERE p.matPeriodo.perCodigo = :codPeriodo";
+
+		query = entityManager.createQuery(sql);
+
+		query.setParameter("codPeriodo", codPeriodo);
+
+		return query.getResultList();
+	}
+
+	public List<AsinacionDTO> asignacionesPorPeriodoNivelParaleloMateria(Integer codPeriodo, Integer codNivel, Integer codParelelo, Integer codMateria) {
+
+		Query query;
+		String sql = "SELECT p from AsinacionDTO p" + 
+		" WHERE p.matPeriodo.perCodigo = :codPeriodo AND " 
+				+ " p.matNivelParalelo.matNivel.nivCodigo = :codNivel AND "
+				+ " p.matNivelParalelo.matParalelo.parCodigo = :codParelelo AND" 
+				+ " p.matMateria.mtrCodigo = :codMateria";
+
+		query = entityManager.createQuery(sql);
+
+		query.setParameter("codPeriodo", codPeriodo);
+		query.setParameter("codNivel", codNivel);
+		query.setParameter("codParelelo", codParelelo);
+		query.setParameter("codMateria", codMateria);
+
+		return query.getResultList();
 	}
 }
