@@ -15,11 +15,11 @@ import ec.edu.uce.erp.ejb.persistence.dao.NivelDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.NivelParaleloDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.NotaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ParaleloDAO;
-import ec.edu.uce.erp.ejb.persistence.dao.ParcialDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PeriodoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ProfesorDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.RepNivelEstudianteDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.RepresentanteDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.TipoNotaDAO;
 
 @Local
 public interface MatriculaFactoryDAO {
@@ -36,7 +36,7 @@ public interface MatriculaFactoryDAO {
 
 	PeriodoDAO getPeriodoDAOImpl();
 
-	ParcialDAO getParcialDAOImpl();
+	TipoNotaDAO getParcialDAOImpl();
 
 	ParaleloDAO getParaleloDAOImpl();
 
