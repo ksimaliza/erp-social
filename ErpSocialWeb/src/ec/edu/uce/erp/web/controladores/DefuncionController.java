@@ -88,8 +88,15 @@ public void registrarDefuncion () {
 		CatalogoEucaristiaDTO canton;
 		CatalogoEucaristiaDTO parroquia;
 		CatalogoEucaristiaDTO estadoCivil;
-		
+		DefuncionListDTO defuncionAux=new DefuncionListDTO();
 		try {
+			 defuncionAux.setPerCi(defuncionDataManager.getDifuntoInsertar().getPerCi());
+			 List<DefuncionListDTO> ListaDefunciones= servicioEucaristia.buscarDefuncion(defuncionAux);
+		   if (ListaDefunciones.size()!=0)
+		   {
+			   MensajesWebController.aniadirMensajeAdvertencia("Yá se registró difunto con la misma cédula");
+			   return;
+		   }
 			defuncionVO=new DefuncionVO();
 			sacerdoteDTO=new SacerdoteDTO();
 			doctorDTO=new DoctorDTO();

@@ -14,15 +14,15 @@
 												
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtCi" value="#{i18n['erp.despacho.contrato.cedula']}" />
+							<h:outputLabel for="ciDif" value="#{i18n['erp.despacho.contrato.cedula']}"  />
 						</td>
-						<td width="70%">
-							<p:inputText id="txtCi" style="width: 70%" 
-								  value="#{contratoDataManager.difuntoInsertar.perCi}" >
-							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-							<p:ajax event="blur" update="txtNombres,txtApellidos,nicho,txtSeccionNicho,txtTipoNicho,txtNivelNicho" listener="#{contratoController.buscarDifunto}" process="@this"/>
-						</p:inputText>
-						</td>	
+						<td width="70%" ><p:selectOneMenu id="ciDif" label="#{i18n['erp.despacho.contrato.cedula']}" value="#{contratoDataManager.sepulturaCodigo}"  disabled="#{contratoDataManager.desactivado}" filter="true" required="true"  >
+
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{contratoController.contratoDataManager.sepulturasVO}" var="sepultura" itemLabel="#{sepultura.defuncionPersona.perCi} " itemValue="#{sepultura.sepultura.sepCodigo}"/>
+								<p:ajax update="ciDif,txtNombres,txtApellidos,txtCiBen,txtNombresBen,txtApellidosBen, txtFechaInicio,txtFechaFinalizacion,nicho,txtSeccionNicho,txtTipoNicho,txtNivelNicho,txtMesesArrend,formaPago,txtObs,txtValorMes,txtValorTotal" listener="#{contratoController.buscarDifunto}" process="@this"/>
+							</p:selectOneMenu>
+						</td>
 					</tr>
 											
 						<tr>
@@ -49,7 +49,7 @@
 							<h:outputLabel for="txtCiBen" value="#{i18n['erp.despacho.contrato.cedula.beneficiario']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtCiBen" style="width: 70%" 
+							<p:inputText id="txtCiBen" label="#{i18n['erp.despacho.contrato.cedula.beneficiario']}" style="width: 70%" 
 								 value="#{contratoDataManager.beneficiariInsertar.perCi}" >
 							
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
