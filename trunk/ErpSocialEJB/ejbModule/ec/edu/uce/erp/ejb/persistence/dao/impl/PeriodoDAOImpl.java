@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -82,6 +83,15 @@ public class PeriodoDAOImpl extends AbstractFacadeImpl<PeriodoDTO> implements Pe
 	
 	return periodosEncontrados;
 }
+	
+	public Integer obtenerIdUltimoPeriodo() {
+		Query query;
+		String sql = "SELECT MAX(p.perCodigo) from PeriodoDTO p";
+
+		query = entityManager.createQuery(sql);
+
+		return Integer.valueOf(query.getResultList().get(0).toString());
+	}
 	
 	
 }
