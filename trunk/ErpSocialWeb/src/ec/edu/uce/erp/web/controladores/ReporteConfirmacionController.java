@@ -20,22 +20,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionListDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.common.util.ReporteUtil;
-import ec.edu.uce.erp.web.datamanager.ReportePartidaBautizoDataManager;
+import ec.edu.uce.erp.web.datamanager.ReporteConfirmacionDataManager;
+
 
 @ViewScoped
-@ManagedBean(name = "reportePartidaBautizoController")
-public class ReportePartidaBautizoController extends BaseController {
+@ManagedBean(name = "reporteConfirmacionController")
+public class ReporteConfirmacionController extends BaseController {
+
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger slf4jLogger = LoggerFactory
-			.getLogger(ReportePartidaBautizoController.class);
+			.getLogger(ReporteConfirmacionController.class);
 
 	@EJB
 	private ServicioEucaristia servicioEucaristia;
@@ -43,19 +45,20 @@ public class ReportePartidaBautizoController extends BaseController {
 	@EJB
 	private ServicioAdministracion servicioAdministracion;
 
-	@ManagedProperty(value = "#{reportePartidaBautizoDataManager}")
-	private ReportePartidaBautizoDataManager reportePartidaBautizoDataManager;
+	@ManagedProperty(value = "#{reporteConfirmacionDataManager}")
+	private ReporteConfirmacionDataManager reporteConfirmacionDataManager;
 	
-	public ReportePartidaBautizoDataManager getReportePartidaBautizoDataManager() {
-		return reportePartidaBautizoDataManager;
+
+	public ReporteConfirmacionDataManager getReporteConfirmacionDataManager() {
+		return reporteConfirmacionDataManager;
 	}
 
-	public void setReportePartidaBautizoDataManager(
-			ReportePartidaBautizoDataManager reportePartidaBautizoDataManager) {
-		this.reportePartidaBautizoDataManager = reportePartidaBautizoDataManager;
+	public void setReporteConfirmacionDataManager(
+			ReporteConfirmacionDataManager reporteConfirmacionDataManager) {
+		this.reporteConfirmacionDataManager = reporteConfirmacionDataManager;
 	}
 
-	public ReportePartidaBautizoController() {
+	public ReporteConfirmacionController() {
 
 	}
 	
@@ -80,7 +83,7 @@ public class ReportePartidaBautizoController extends BaseController {
 				MensajesWebController
 						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
-				this.reportePartidaBautizoDataManager
+				this.reporteConfirmacionDataManager
 						.setListProvincia(listaCatalogo);
 			}
 
@@ -96,14 +99,14 @@ public class ReportePartidaBautizoController extends BaseController {
 		List<CatalogoEucaristiaDTO> listaCatalogo = null;
 		try {
 			CatalogoEucaristiaDTO cat = new CatalogoEucaristiaDTO();
-			cat.setCatCodigo(reportePartidaBautizoDataManager.getCodigoProvincia());
+			cat.setCatCodigo(reporteConfirmacionDataManager.getCodigoProvincia());
 			listaCatalogo = this.servicioEucaristia.buscarCatalogo(cat);
 			if (CollectionUtils.isEmpty(listaCatalogo)
 					&& listaCatalogo.size() == 0) {
 				MensajesWebController
 						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
-				this.reportePartidaBautizoDataManager
+				this.reporteConfirmacionDataManager
 						.setListCanton(listaCatalogo);
 			}
 		} catch (SeguridadesException e) {
@@ -119,7 +122,7 @@ public class ReportePartidaBautizoController extends BaseController {
 
 		try {
 			CatalogoEucaristiaDTO cat = new CatalogoEucaristiaDTO();
-			cat.setCatCodigo(reportePartidaBautizoDataManager.getCodigoCanton());
+			cat.setCatCodigo(reporteConfirmacionDataManager.getCodigoCanton());
 			listaCatalogo = this.servicioEucaristia.buscarCatalogo(cat);
 
 			if (CollectionUtils.isEmpty(listaCatalogo)
@@ -127,7 +130,7 @@ public class ReportePartidaBautizoController extends BaseController {
 				MensajesWebController
 						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
-				this.reportePartidaBautizoDataManager
+				this.reporteConfirmacionDataManager
 						.setListParroquia(listaCatalogo);
 			}
 
@@ -139,21 +142,21 @@ public class ReportePartidaBautizoController extends BaseController {
 	}
 	
 	public void buscar() {
-		slf4jLogger.info("buscarBautizo");
-		List<BautizoListDTO> listResultado=new ArrayList<BautizoListDTO>();
+		slf4jLogger.info("buscarConfirmacion");
+		List<ConfirmacionListDTO> listResultado=new ArrayList<ConfirmacionListDTO>();
 		try {
-			reportePartidaBautizoDataManager.getBautizoListDTO().setBauParroquia(reportePartidaBautizoDataManager.getCodigoParroquia());
-			reportePartidaBautizoDataManager.getBautizoListDTO().setBauProvincia(reportePartidaBautizoDataManager.getCodigoProvincia());
-			reportePartidaBautizoDataManager.getBautizoListDTO().setBauCanton(reportePartidaBautizoDataManager.getCodigoCanton());
-			listResultado = this.servicioEucaristia.readBautizoReport(reportePartidaBautizoDataManager.getBautizoListDTO());
+			reporteConfirmacionDataManager.getConfirmacionListDTO().setConParroquia(reporteConfirmacionDataManager.getCodigoParroquia());
+			reporteConfirmacionDataManager.getConfirmacionListDTO().setConProvincia(reporteConfirmacionDataManager.getCodigoProvincia());
+			reporteConfirmacionDataManager.getConfirmacionListDTO().setConCanton(reporteConfirmacionDataManager.getCodigoCanton());
+			listResultado = this.servicioEucaristia.readConfirmacionReport(reporteConfirmacionDataManager.getConfirmacionListDTO());
 			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
-				reportePartidaBautizoDataManager.setExportDesactivado(false);
-				this.reportePartidaBautizoDataManager.setBautizoListDTOs(listResultado);
+				reporteConfirmacionDataManager.setExportDesactivado(false);
+				this.reporteConfirmacionDataManager.setConfirmacionListDTOs(listResultado);
 			}
 		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarBautizo {} ", e);
+			slf4jLogger.info("Error al buscarConfirmacion {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 	}
@@ -164,25 +167,27 @@ public class ReportePartidaBautizoController extends BaseController {
 		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
-		for (int i=0 ;i>=reportePartidaBautizoDataManager.getListParroquia().size();i++)
+		for (int i=0 ;i>=reporteConfirmacionDataManager.getListParroquia().size();i++)
 		{
-			if (reportePartidaBautizoDataManager.getListParroquia().get(i).getCatCodigo() == (Integer) reportePartidaBautizoDataManager.getCodigoParroquia())
+			if (reporteConfirmacionDataManager.getListParroquia().get(i).getCatCodigo() == (Integer) reporteConfirmacionDataManager.getCodigoParroquia())
 			{
-				mapParametros.put("fechaActual", reportePartidaBautizoDataManager.getListParroquia().get(i).getCatDescripcion() + ",  " + full.format(fechaActual));
-				mapParametros.put("parroquia", reportePartidaBautizoDataManager.getListParroquia().get(i).getCatDescripcion());
+				mapParametros.put("fechaActual", reporteConfirmacionDataManager.getListParroquia().get(i).getCatDescripcion() + ",  " + full.format(fechaActual));
+				mapParametros.put("parroquia", reporteConfirmacionDataManager.getListParroquia().get(i).getCatDescripcion());
 			}
 		}	
-		for (int j=0 ;j>=reportePartidaBautizoDataManager.getListProvincia().size();j++)
-			if (reportePartidaBautizoDataManager.getListProvincia().get(j).getCatCodigo() == (Integer) reportePartidaBautizoDataManager.getCodigoProvincia())
-				mapParametros.put("provincia", reportePartidaBautizoDataManager.getListProvincia().get(j).getCatDescripcion());
+		for (int j=0 ;j>=reporteConfirmacionDataManager.getListProvincia().size();j++)
+			if (reporteConfirmacionDataManager.getListProvincia().get(j).getCatCodigo() == (Integer) reporteConfirmacionDataManager.getCodigoProvincia())
+				mapParametros.put("provincia", reporteConfirmacionDataManager.getListProvincia().get(j).getCatDescripcion());
 			
-			mapParametros.put("desde", pequeña.format(reportePartidaBautizoDataManager.getBautizoListDTO().getFechaDesde()));
-			mapParametros.put("hasta", pequeña.format(reportePartidaBautizoDataManager.getBautizoListDTO().getFechaHasta()));
+			mapParametros.put("desde", pequeña.format(reporteConfirmacionDataManager.getConfirmacionListDTO().getFechaDesde()));
+			mapParametros.put("hasta", pequeña.format(reporteConfirmacionDataManager.getConfirmacionListDTO().getFechaHasta()));
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
-			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(),reportePartidaBautizoDataManager.getBautizoListDTOs(), "reportePartidasBautizos", mapParametros);
-			ReporteUtil.generarReporte(jasperPrint, this.reportePartidaBautizoDataManager.getFormatoPdf(), "reportePartidasBautizos");
+			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(),reporteConfirmacionDataManager.getConfirmacionListDTOs(), "reporteConfirmacion", mapParametros);
+			ReporteUtil.generarReporte(jasperPrint, this.reporteConfirmacionDataManager.getFormatoPdf(), "reporteConfirmacion");
 	}
+
+
 
 	@Override
 	public void refrescarFormulario() {
