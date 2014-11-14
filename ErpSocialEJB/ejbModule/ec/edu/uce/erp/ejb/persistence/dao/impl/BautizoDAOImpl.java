@@ -98,7 +98,7 @@ public class BautizoDAOImpl extends AbstractFacadeImpl<BautizoDTO>implements Bau
 }
 
 	@Override
-	public List<BautizoListDTO> getDistinctReporteEcaristiaByAnd(BautizoListDTO objetoDTO) throws SeguridadesException
+	public List<BautizoListDTO> getDistinctReporteBautizoByAnd(BautizoListDTO objetoDTO) throws SeguridadesException
 	{
 		CriteriaBuilder cb;
 		CriteriaQuery<BautizoListDTO> cq;

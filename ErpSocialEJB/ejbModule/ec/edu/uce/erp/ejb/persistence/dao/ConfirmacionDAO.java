@@ -11,4 +11,7 @@ public interface ConfirmacionDAO extends AbstractFacade<ConfirmacionDTO> {
 	List<ConfirmacionListDTO> obtenerConfirmacion(
 			ConfirmacionListDTO confirmacion) throws SeguridadesException;
 
+	List<ConfirmacionListDTO> getDistinctReporteConfirmacionByAnd(
+			ConfirmacionListDTO objetoDTO) throws SeguridadesException;
+
 }

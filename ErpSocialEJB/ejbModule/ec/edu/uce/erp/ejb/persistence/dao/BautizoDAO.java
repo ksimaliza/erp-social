@@ -11,7 +11,8 @@ public interface BautizoDAO extends AbstractFacade<BautizoDTO> {
 	List<BautizoListDTO> obtenerBautizo(BautizoListDTO bautizo)
 			throws SeguridadesException;
 
-	List<BautizoListDTO> getDistinctReporteEcaristiaByAnd(
-			BautizoListDTO objetoDTO) throws SeguridadesException;
+
+	List<BautizoListDTO> getDistinctReporteBautizoByAnd(BautizoListDTO objetoDTO)
+			throws SeguridadesException;
 
 }

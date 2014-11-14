@@ -245,7 +245,16 @@ public interface ServicioEucaristia {
 	List<BautizoListDTO> readBautizoReport(BautizoListDTO bautizo)
 			throws SeguridadesException;
 
-		
+	List<ComunionListDTO> readComunionReport(ComunionListDTO comunion)
+			throws SeguridadesException;
+
+	List<ConfirmacionListDTO> readConfirmacionReport(
+			ConfirmacionListDTO confirmacion) throws SeguridadesException;
+
+	List<MatrimonioListDTO> readMatrimonioReport(MatrimonioListDTO matrimonio)
+			throws SeguridadesException;
+
+	
 
 
 }
