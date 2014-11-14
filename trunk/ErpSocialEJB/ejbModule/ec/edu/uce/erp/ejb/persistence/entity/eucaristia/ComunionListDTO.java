@@ -1,7 +1,9 @@
 package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -113,8 +115,37 @@ public class ComunionListDTO implements Serializable {
 
 	@Column(name="sac_persona")
 	private Integer sacPersona;
+	
+	@Transient
+	private Date fechaDesde;
+	
+	@Transient
+	private Date fechaHasta;
+	
 
 	public ComunionListDTO() {
+	}
+	
+	
+	public ComunionListDTO(String catParroquia,
+			String catProvincia,
+			String catCanton,
+			String perCi,
+			String perApellidos,
+			String perNombres,
+			String sacNombres,
+			String sacApellidos
+			/*Timestamp pcoFechaHora*/) {
+			super();
+			this.catParroquia=catParroquia;
+			this.catProvincia=catProvincia;
+			this.catCanton=catCanton;
+			this.perCi = perCi;
+			this.perApellidos = perApellidos;
+			this.perNombres = perNombres;
+			this.sacNombres = sacNombres;
+			this.sacApellidos = sacApellidos;
+			/*this.pcoFechaHora=pcoFechaHora;*/
 	}
 
 	public String getCatCanton() {
@@ -368,6 +399,26 @@ public class ComunionListDTO implements Serializable {
 	public Integer getSacPersona() {
 		return this.sacPersona;
 	}
+
+	public Date getFechaDesde() {
+		return fechaDesde;
+	}
+
+
+	public void setFechaDesde(Date fechaDesde) {
+		this.fechaDesde = fechaDesde;
+	}
+
+
+	public Date getFechaHasta() {
+		return fechaHasta;
+	}
+
+
+	public void setFechaHasta(Date fechaHasta) {
+		this.fechaHasta = fechaHasta;
+	}
+
 
 	public void setSacPersona(Integer sacPersona) {
 		this.sacPersona = sacPersona;

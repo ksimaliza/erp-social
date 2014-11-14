@@ -1560,12 +1560,52 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		slf4jLogger.info("readBautizoReport");
 		List<BautizoListDTO> listResultado = null;
 		try {
-			listResultado = eucaristiaFactoryDAO.getBautizoDAOImpl().getDistinctReporteEcaristiaByAnd(bautizo);
+			listResultado = eucaristiaFactoryDAO.getBautizoDAOImpl().getDistinctReporteBautizoByAnd(bautizo);
 		} catch (Exception e) {
 			slf4jLogger.info("Error readBautizoReport {}", e.getMessage());
 			throw new SeguridadesException("No se pudo obtener bautizo de la base de datos");
 		}
 		return listResultado;
 	}
+	
+	@Override
+	public List<ComunionListDTO> readComunionReport(ComunionListDTO comunion) throws SeguridadesException {
+		slf4jLogger.info("readComunionReport");
+		List<ComunionListDTO> listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getPrimeraComunionDAOImpl().getDistinctReporteComunionByAnd(comunion);
+		} catch (Exception e) {
+			slf4jLogger.info("Error readComunionReport {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener comunion de la base de datos");
+		}
+		return listResultado;
+	}
+	
+	@Override
+	public List<ConfirmacionListDTO> readConfirmacionReport(ConfirmacionListDTO confirmacion) throws SeguridadesException {
+		slf4jLogger.info("readConfirmacionReport");
+		List<ConfirmacionListDTO> listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getConfirmacionDAOImpl().getDistinctReporteConfirmacionByAnd(confirmacion);
+		} catch (Exception e) {
+			slf4jLogger.info("Error readConfirmacionReport {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener confirmacion de la base de datos");
+		}
+		return listResultado;
+	}
+	
+	@Override
+	public List<MatrimonioListDTO> readMatrimonioReport(MatrimonioListDTO matrimonio) throws SeguridadesException {
+		slf4jLogger.info("readMatrimonioReport");
+		List<MatrimonioListDTO> listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getMatrimonioDAOImpl().getDistinctReporteBautizoByAnd(matrimonio);
+		} catch (Exception e) {
+			slf4jLogger.info("Error readConfirmacionReport {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener confirmacion de la base de datos");
+		}
+		return listResultado;
+	}
+	
 	
 }

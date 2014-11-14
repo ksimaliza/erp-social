@@ -1,7 +1,9 @@
 package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 import java.sql.Timestamp;
 
@@ -152,10 +154,38 @@ public class ConfirmacionListDTO implements Serializable {
 
 	@Column(name="sac_persona")
 	private Integer sacPersona;
+	
+	@Transient
+	private Date fechaDesde;
+	
+	@Transient
+	private Date fechaHasta;
+	
 
 	public ConfirmacionListDTO() {
 	}
 
+	public ConfirmacionListDTO(Integer conParroquia,
+			Integer conProvincia,
+			Integer conCanton,
+			String perCi,
+			String perApellidos,
+			String perNombres,
+			String sacNombres,
+			String sacApellidos
+			/*Timestamp bauFechaAprobacionCruso*/) {
+			super();
+			this.conParroquia=conParroquia;
+			this.conProvincia=conProvincia;
+			this.conCanton=conCanton;
+			this.perCi = perCi;
+			this.perApellidos = perApellidos;
+			this.perNombres = perNombres;
+			this.sacNombres = sacNombres;
+			this.sacApellidos = sacApellidos;
+			/*this.bauFechaAprobacionCruso=bauFechaAprobacionCruso*/;
+	}
+	
 	public String getCatCanton() {
 		return this.catCanton;
 	}
@@ -514,6 +544,22 @@ public class ConfirmacionListDTO implements Serializable {
 
 	public void setSacPersona(Integer sacPersona) {
 		this.sacPersona = sacPersona;
+	}
+
+	public Date getFechaDesde() {
+		return fechaDesde;
+	}
+
+	public void setFechaDesde(Date fechaDesde) {
+		this.fechaDesde = fechaDesde;
+	}
+
+	public Date getFechaHasta() {
+		return fechaHasta;
+	}
+
+	public void setFechaHasta(Date fechaHasta) {
+		this.fechaHasta = fechaHasta;
 	}
 
 }

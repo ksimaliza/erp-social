@@ -11,4 +11,7 @@ public interface MatrimonioDAO extends AbstractFacade<MatrimonioDTO>{
 	List<MatrimonioListDTO> obtenerMatrimonio(
 			MatrimonioListDTO matrimonioListDTO) throws SeguridadesException;
 
+	List<MatrimonioListDTO> getDistinctReporteBautizoByAnd(
+			MatrimonioListDTO objetoDTO) throws SeguridadesException;
+
 }

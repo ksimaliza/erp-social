@@ -11,4 +11,7 @@ public interface PrimeraComunionDAO extends AbstractFacade<PrimeraComunionDTO>{
 	List<ComunionListDTO> obtenerComunion(ComunionListDTO comunion)
 			throws SeguridadesException;
 
+	List<ComunionListDTO> getDistinctReporteComunionByAnd(
+			ComunionListDTO objetoDTO) throws SeguridadesException;
+
 }
