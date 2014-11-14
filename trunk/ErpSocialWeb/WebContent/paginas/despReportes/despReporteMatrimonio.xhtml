@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        template="/WEB-INF/templates/template.xhtml">
+
+        <ui:define name="title">
+        <h4>
+                        <h:outputLabel value="Reporte Partidas de Matrimonio" />
+                </h4>
+        </ui:define>
+
+        <ui:define name="content">
+                <h:form id="form">
+                <p:growl id="pnlMessages" autoUpdate="true" closable="true" />
+                <p:toolbar style="ToolBar">
+                                <p:toolbarGroup align="left">
+                                        <p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
+                                        </p:commandButton>
+                                </p:toolbarGroup>
+                        </p:toolbar>
+                        <p:panel id="pnlBuscar" header="Buscar Partidas de Matrimonio" style="width: 650px;" toggleable="true">
+
+                        <table id="tblData" cellspacing="5">
+
+                              <tr>
+								<td width="30%"><h:outputLabel value="Provincia:"  /> </td>
+		
+								<td width="70%" ><p:selectOneMenu id="provincia" value="#{reporteMatrimonioDataManager.codigoProvincia}" filter="true" required="true"  >
+		
+										<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+										<f:selectItems value="#{reporteMatrimonioController.reporteMatrimonioDataManager.listProvincia}" var="provincia" itemLabel="#{provincia.catDescripcion} " itemValue="#{provincia.catCodigo}"/>
+										<p:ajax listener="#{reporteMatrimonioController.buscarCanton}" process="@this" update="canton"/>
+									</p:selectOneMenu>
+								</td>
+							</tr>
+							
+							<tr>
+								<td width="30%"><h:outputLabel value="Cantón"  /> </td>
+		
+								<td width="70%"><p:selectOneMenu id="canton" value="#{reporteMatrimonioDataManager.codigoCanton}" filter="true" required="true"  >
+										<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+										<f:selectItems value="#{reporteMatrimonioDataManager.listCanton}" var="canton" itemLabel="#{canton.catDescripcion}" itemValue="#{canton.catCodigo}"/>
+										<p:ajax listener="#{reporteMatrimonioController.buscarParroquia}" process="@this" update="parroquia"/>
+									</p:selectOneMenu>
+								</td>
+							</tr>		
+							<tr>
+								<td width="30%"><h:outputLabel value="Parroquia"  /> </td>
+								<td width="70%" ><p:selectOneMenu id="parroquia" value="#{reporteMatrimonioDataManager.codigoParroquia}" filter="true" required="true" >
+										<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+										<f:selectItems value="#{reporteMatrimonioDataManager.listParroquia}" var="parroquia" itemLabel="#{parroquia.catDescripcion}" itemValue="#{parroquia.catCodigo}"/>
+									</p:selectOneMenu>
+								</td>
+							</tr>	                                                               
+                                <tr >
+                                <td ><h:outputLabel value="Desde:" /></td>
+                                        <td ><p:calendar id="txtDesde" style="width: 100%" navigator="true" value="#{reporteMatrimonioDataManager.matrimonioListDTO.fechaDesde}"  showOn="button" /></td>
+                                 </tr>       
+                                 <tr>
+                                 <td ><h:outputLabel value="Hasta:" /></td>
+                                        <td >
+                                        	<p:calendar id="txtHasta"  navigator="true" value="#{reporteMatrimonioDataManager.matrimonioListDTO.fechaHasta}"  showOn="button" />
+                                        </td>		
+                                        <td >
+	                                        <p:commandButton id="btnBuscar"
+	                                        actionListener="#{reporteMatrimonioController.buscar}"
+	                                        value="#{i18n['label.buscar']}" 
+	                                        process="@this,pnlBuscar"
+	                                        update="pnlBuscar,tblReporte" 
+	                                        icon="ui-icon-search"
+	                                        title="Buscar"/>
+                                        </td>
+                                	<td >
+                                		<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{reporteMatrimonioController.exportar}" icon="exportPdf" ajax="false"
+										disabled="#{reporteMatrimonioDataManager.exportDesactivado}"  />
+                                	</td>
+                                </tr>
+
+                        </table>
+                        
+                        </p:panel>
+                        
+                        <p:dataTable id="tblReporte" value="#{reporteMatrimonioDataManager.matrimonioListDTOs}" 
+                                rowIndexVar="rowIndex" var="matrimonio"
+                                paginator="true" rows="5" paginatorPosition="bottom"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                rowsPerPageTemplate="5,10,15">
+                        		<f:facet name="header">
+										Partidas de Confirmación
+								</f:facet>
+                                <p:column headerText="#" styleClass="centered" width="5%">
+                                        #{rowIndex+1}
+                                </p:column>
+                                <p:column headerText="Cédula Novio">
+                                        <h:outputText value="#{matrimonio.novioCedula} " />
+                                </p:column>
+                                <p:column headerText="Nombre Novio">
+                                        <h:outputText value="#{matrimonio.novioApellidos} #{matrimonio.novioNombres}"  height="45" />
+                                </p:column>
+                                <p:column headerText="Cédula Novia">
+                                        <h:outputText value="#{matrimonio.perCi} " />
+                                </p:column>
+                                <p:column headerText="Nombre Novia">
+                                        <h:outputText value="#{matrimonio.perApellidos} #{matrimonio.perNombres}"  height="45" />
+                                </p:column>
+                                <p:column headerText="Sacerdote">
+                                        <h:outputText value="#{matrimonio.sacApellidos}  #{matrimonio.sacNombres} " />
+                                </p:column>
+                                <p:column headerText="Fecha Matrimonio">
+                                        <h:outputText value="#{matrimonio.matFecha}" />                          
+                                </p:column>
+                                                        
+                        </p:dataTable>
+                        
+                        
+                </h:form>
+        </ui:define>
+</ui:composition>
