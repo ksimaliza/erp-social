@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoContratoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.PagoVO;
@@ -174,6 +175,9 @@ public class PagoContratoController extends BaseController {
 	{
 		try {
 			pagoContratoDataManager.setPagoContratoListDTOs(this.servicioEucaristia.readPago(this.pagoContratoDataManager.getPagoContratoListDTO()));
+			for ( PagoContratoListDTO pagoContratoListDTO: pagoContratoDataManager.getPagoContratoListDTOs()) {
+				System.out.println("Código de contrato: "+pagoContratoListDTO.getPagCodigo());
+			}
 			this.pagoContratoDataManager.setPagoContratoListDTO(new PagoContratoListDTO());
 		
 		} catch (SeguridadesException e) {
@@ -209,13 +213,17 @@ public class PagoContratoController extends BaseController {
 	public void buscarContrato2 () {
 		slf4jLogger.info("buscarContrato");
 		List<ContratoListDTO> listaContrato=null;
-		try {
-				listaContrato=this.servicioEucaristia.buscarContrato(this.pagoContratoDataManager.getContratoListDTO());
+		try {	
+			  listaContrato=this.servicioEucaristia.buscarContrato(this.pagoContratoDataManager.getContratoListDTO());
 				if (CollectionUtils.isEmpty(listaContrato) && listaContrato.size()==0) {
 					pagoContratoDataManager.setDesactivado(true);
 					MensajesWebController.aniadirMensajeAdvertencia("Busqueda vacía. Ingrese información en Contrato");
 				} else {
-					this.pagoContratoDataManager.setContratoListDTO(listaContrato.get(0));
+					for (ContratoListDTO contratoListDTO : listaContrato) {
+						if(contratoListDTO.getConCodigo()==this.pagoContratoDataManager.getContratoListDTO().getConCodigo())
+						this.pagoContratoDataManager.setContratoListDTO(contratoListDTO);
+					}
+					
 				}
 			
 		} catch (SeguridadesException e) {
@@ -228,6 +236,7 @@ public class PagoContratoController extends BaseController {
 	public void cargarDatosPagoContrato(PagoContratoListDTO pagoContratoListDTO) {
 		try {
 			this.pagoContratoDataManager.setPagoContratoListDTOEditar(pagoContratoListDTO);
+			this.pagoContratoDataManager.getContratoListDTO().setConCodigo(this.pagoContratoDataManager.getPagoContratoListDTOEditar().getConCodigo());
 			buscarContrato2();										
 			
 		} catch (Exception e) {
@@ -258,6 +267,18 @@ public class PagoContratoController extends BaseController {
 				
 		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
 		
+		DefuncionListDTO defuncionAux=new DefuncionListDTO();
+		defuncionAux.setPerCi(pagoContratoDataManager.getPagoContratoListDTOEditar().getPerCi());
+		List<DefuncionListDTO> listaDefunciones=null;
+		 try {
+			listaDefunciones= servicioEucaristia.buscarDefuncion(defuncionAux);
+		
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al exportar defuncion no encontrados {}", e.getMessage());
+			MensajesWebController.aniadirMensajeError("Error al exportar defunciones no encontrados");
+		
+		}
+		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
 		mapParametros.put("beneficiario", pagoContratoDataManager.getPagoContratoListDTOEditar().getBennombres().toUpperCase()+" "+pagoContratoDataManager.getPagoContratoListDTOEditar().getBenapellidos().toUpperCase());
 		mapParametros.put("beneficiarioCedula", pagoContratoDataManager.getPagoContratoListDTOEditar().getBenci());
@@ -265,11 +286,21 @@ public class PagoContratoController extends BaseController {
 		mapParametros.put("nicho", pagoContratoDataManager.getPagoContratoListDTOEditar().getNicDescripcion()+" - "+ pagoContratoDataManager.getPagoContratoListDTOEditar().getNniDescripcion()+" - "+pagoContratoDataManager.getPagoContratoListDTOEditar().getSeccion()+" - "+pagoContratoDataManager.getPagoContratoListDTOEditar().getTniDescripcion());
 		mapParametros.put("mesPago", pagoContratoDataManager.getPagoContratoListDTOEditar().getPagMesesFaltantes().toString()+"/"+pagoContratoDataManager.getContratoListDTO().getConMesesArrendamiento().toString());
 		mapParametros.put("fechaPago", pagoContratoDataManager.getPagoContratoListDTOEditar().getPagFecha().toString().substring(2, 10));
-		mapParametros.put("parroquiaFechaActual", pagoContratoDataManager.getContratoListDTO().getParroquia()+", "+full.format(fechaActual) );
-		mapParametros.put("valorPagar", pagoContratoDataManager.getPagoContratoListDTOEditar().getPagValorPagado().toString());
-		mapParametros.put("parroquiaCabecera", "\"" + pagoContratoDataManager.getContratoListDTO().getParroquia().toUpperCase() +"\"");
-	
-		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
+		
+		if (!CollectionUtils.isEmpty(listaDefunciones) && listaDefunciones != null)
+			for (int i = 0; i < listaDefunciones.size(); i++)
+			{
+				System.out.println(pagoContratoDataManager.getPagoContratoListDTOEditar().getConDifunto());
+		        System.out.println(listaDefunciones.get(i).getDefPersona());
+				if (pagoContratoDataManager.getPagoContratoListDTOEditar().getConDifunto().equals(listaDefunciones.get(i).getDefPersona())) {
+					  System.out.println(listaDefunciones.get(i).getDefPersona());
+					mapParametros.put("parroquiaCabecera", "\"" + listaDefunciones.get(i).getCatParroquia().toUpperCase() +"\"");
+					mapParametros.put("parroquiaFechaActual", listaDefunciones.get(i).getCatParroquia()+", "+full.format(fechaActual) );
+				}
+			}
+	    mapParametros.put("valorPagar", pagoContratoDataManager.getPagoContratoListDTOEditar().getPagValorPagado().toString());
+		
+        mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 		
 		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), "comprobantePago", mapParametros);
@@ -283,13 +314,13 @@ public class PagoContratoController extends BaseController {
 		exportar();
 	}
 	
-	public void cancel()
+	public void limpiarFormulario()
 	{
 		pagoContratoDataManager.setPagoDTO(new PagoDTO());
 		pagoContratoDataManager.setContratoListDTO(new ContratoListDTO());
 		pagoContratoDataManager.setFechaPago(new Date());
 		pagoContratoDataManager.setDesactivado(false);
-		RequestContext.getCurrentInstance().execute("dlgNuevoPagoContrato.hide()");
+		pagoContratoDataManager.setExportDesactivado(true);
 	}
 	
 	
