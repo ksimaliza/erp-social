@@ -21,21 +21,21 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.common.util.ReporteUtil;
-import ec.edu.uce.erp.web.datamanager.ReporteMatrimonioDataManager;
+import ec.edu.uce.erp.web.datamanager.ReporteDefuncionDataManager;
 
 @ViewScoped
-@ManagedBean(name = "reporteMatrimonioController")
-public class ReporteMatrimonioController extends BaseController {
+@ManagedBean(name = "reporteDefuncionController")
+public class ReporteDefuncionController extends BaseController {
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger slf4jLogger = LoggerFactory
-			.getLogger(ReporteMatrimonioController.class);
+			.getLogger(ReporteDefuncionController.class);
 
 	@EJB
 	private ServicioEucaristia servicioEucaristia;
@@ -43,18 +43,19 @@ public class ReporteMatrimonioController extends BaseController {
 	@EJB
 	private ServicioAdministracion servicioAdministracion;
 
-	@ManagedProperty(value = "#{reporteMatrimonioDataManager}")
-	private ReporteMatrimonioDataManager reporteMatrimonioDataManager;
+	@ManagedProperty(value = "#{reporteDefuncionDataManager}")
+	private ReporteDefuncionDataManager reporteDefuncionDataManager;
 
-	public ReporteMatrimonioDataManager getReporteMatrimonioDataManager() {
-		return reporteMatrimonioDataManager;
+	public ReporteDefuncionDataManager getReporteDefuncionDataManager() {
+		return reporteDefuncionDataManager;
 	}
 
-	public void setReporteMatrimonioDataManager(
-			ReporteMatrimonioDataManager reporteMatrimonioDataManager) {
-		this.reporteMatrimonioDataManager = reporteMatrimonioDataManager;
+	public void setReporteDefuncionDataManager(
+			ReporteDefuncionDataManager reporteDefuncionDataManager) {
+		this.reporteDefuncionDataManager = reporteDefuncionDataManager;
 	}
-	public ReporteMatrimonioController() {
+	
+	public ReporteDefuncionController() {
 
 	}
 	
@@ -79,7 +80,7 @@ public class ReporteMatrimonioController extends BaseController {
 				MensajesWebController
 						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
-				this.reporteMatrimonioDataManager
+				this.reporteDefuncionDataManager
 						.setListProvincia(listaCatalogo);
 			}
 
@@ -95,14 +96,14 @@ public class ReporteMatrimonioController extends BaseController {
 		List<CatalogoEucaristiaDTO> listaCatalogo = null;
 		try {
 			CatalogoEucaristiaDTO cat = new CatalogoEucaristiaDTO();
-			cat.setCatCodigo(reporteMatrimonioDataManager.getCodigoProvincia());
+			cat.setCatCodigo(reporteDefuncionDataManager.getCodigoProvincia());
 			listaCatalogo = this.servicioEucaristia.buscarCatalogo(cat);
 			if (CollectionUtils.isEmpty(listaCatalogo)
 					&& listaCatalogo.size() == 0) {
 				MensajesWebController
 						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
-				this.reporteMatrimonioDataManager
+				this.reporteDefuncionDataManager
 						.setListCanton(listaCatalogo);
 			}
 		} catch (SeguridadesException e) {
@@ -118,7 +119,7 @@ public class ReporteMatrimonioController extends BaseController {
 
 		try {
 			CatalogoEucaristiaDTO cat = new CatalogoEucaristiaDTO();
-			cat.setCatCodigo(reporteMatrimonioDataManager.getCodigoCanton());
+			cat.setCatCodigo(reporteDefuncionDataManager.getCodigoCanton());
 			listaCatalogo = this.servicioEucaristia.buscarCatalogo(cat);
 
 			if (CollectionUtils.isEmpty(listaCatalogo)
@@ -126,7 +127,7 @@ public class ReporteMatrimonioController extends BaseController {
 				MensajesWebController
 						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
-				this.reporteMatrimonioDataManager
+				this.reporteDefuncionDataManager
 						.setListParroquia(listaCatalogo);
 			}
 
@@ -138,21 +139,21 @@ public class ReporteMatrimonioController extends BaseController {
 	}
 	
 	public void buscar() {
-		slf4jLogger.info("buscarBautizo");
-		List<MatrimonioListDTO> listResultado=new ArrayList<MatrimonioListDTO>();
+		slf4jLogger.info("buscarDefuncion");
+		List<DefuncionListDTO> listResultado=new ArrayList<DefuncionListDTO>();
 		try {
-			reporteMatrimonioDataManager.getMatrimonioListDTO().setMatParroquia(reporteMatrimonioDataManager.getCodigoParroquia());
-			reporteMatrimonioDataManager.getMatrimonioListDTO().setMatProvincia(reporteMatrimonioDataManager.getCodigoProvincia());
-			reporteMatrimonioDataManager.getMatrimonioListDTO().setMatCanton(reporteMatrimonioDataManager.getCodigoCanton());
-			listResultado = this.servicioEucaristia.readMatrimonioReport(reporteMatrimonioDataManager.getMatrimonioListDTO());
+			reporteDefuncionDataManager.getDefuncionListDTO().setDefParroquia(reporteDefuncionDataManager.getCodigoParroquia());
+			reporteDefuncionDataManager.getDefuncionListDTO().setDefProvincia(reporteDefuncionDataManager.getCodigoProvincia());
+			reporteDefuncionDataManager.getDefuncionListDTO().setDefCanton(reporteDefuncionDataManager.getCodigoCanton());
+			listResultado = this.servicioEucaristia.readDefuncionReport(reporteDefuncionDataManager.getDefuncionListDTO());
 			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
-				reporteMatrimonioDataManager.setExportDesactivado(false);
-				this.reporteMatrimonioDataManager.setMatrimonioListDTOs(listResultado);
+				reporteDefuncionDataManager.setExportDesactivado(false);
+				this.reporteDefuncionDataManager.setDefuncionListDTOs(listResultado);
 			}
 		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarBautizo {} ", e);
+			slf4jLogger.info("Error al buscarDefuncion {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 	}
@@ -163,16 +164,16 @@ public class ReporteMatrimonioController extends BaseController {
 		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
-			mapParametros.put("fechaActual", find(reporteMatrimonioDataManager.getCodigoParroquia(), reporteMatrimonioDataManager.getListParroquia()).getCatDescripcion() + ",  " + full.format(fechaActual));
-			mapParametros.put("parroquia",find(reporteMatrimonioDataManager.getCodigoParroquia(), reporteMatrimonioDataManager.getListParroquia()).getCatDescripcion());
-			mapParametros.put("provincia", find(reporteMatrimonioDataManager.getCodigoProvincia(), reporteMatrimonioDataManager.getListProvincia()).getCatDescripcion());
-			mapParametros.put("desde", pequeña.format(reporteMatrimonioDataManager.getMatrimonioListDTO().getFechaDesde()));
-			mapParametros.put("hasta", pequeña.format(reporteMatrimonioDataManager.getMatrimonioListDTO().getFechaHasta()));
+			mapParametros.put("fechaActual", find(reporteDefuncionDataManager.getCodigoParroquia(), reporteDefuncionDataManager.getListParroquia()).getCatDescripcion() + ",  " + full.format(fechaActual));
+			mapParametros.put("parroquia",find(reporteDefuncionDataManager.getCodigoParroquia(), reporteDefuncionDataManager.getListParroquia()).getCatDescripcion());
+			mapParametros.put("provincia", find(reporteDefuncionDataManager.getCodigoProvincia(), reporteDefuncionDataManager.getListProvincia()).getCatDescripcion());
+			mapParametros.put("desde", pequeña.format(reporteDefuncionDataManager.getDefuncionListDTO().getFechaDesde()));
+			mapParametros.put("hasta", pequeña.format(reporteDefuncionDataManager.getDefuncionListDTO().getFechaHasta()));
 			mapParametros.put("empresa", getEmpresaTbl().getEmrNombre());
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
-			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(),reporteMatrimonioDataManager.getMatrimonioListDTOs(), "reportePartidasMatrimonio", mapParametros);
-			ReporteUtil.generarReporte(jasperPrint, this.reporteMatrimonioDataManager.getFormatoPdf(), "reportePartidasMatrimonio");
+			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(),reporteDefuncionDataManager.getDefuncionListDTOs(), "reporteDefuncion", mapParametros);
+			ReporteUtil.generarReporte(jasperPrint, this.reporteDefuncionDataManager.getFormatoPdf(), "reporteDefuncion");
 	}
 
 	@Override
@@ -180,7 +181,7 @@ public class ReporteMatrimonioController extends BaseController {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	private CatalogoEucaristiaDTO find(Integer code,List<CatalogoEucaristiaDTO> list)
 	{
 		CatalogoEucaristiaDTO obj=null;
@@ -192,5 +193,6 @@ public class ReporteMatrimonioController extends BaseController {
 		return obj;
 		
 	}
+
 
 }
