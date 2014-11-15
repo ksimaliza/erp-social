@@ -7,20 +7,15 @@
 	<parameter name="parroquia" class="java.lang.String"/>
 	<parameter name="empresa" class="java.lang.String"/>
 	<parameter name="fechaActual" class="java.lang.String"/>
-	<parameter name="cedulaDifunto" class="java.lang.String"/>
-	<parameter name="nombreDifunto" class="java.lang.String"/>
-	<parameter name="nombreAutoriza" class="java.lang.String"/>
-	<parameter name="fechaSepelio" class="java.lang.String"/>
 	<parameter name="desde" class="java.lang.String"/>
 	<parameter name="hasta" class="java.lang.String"/>
-	<parameter name="fechaExhumacion" class="java.lang.String"/>
 	<field name="perCi" class="java.lang.String"/>
 	<field name="perApellidos" class="java.lang.String"/>
 	<field name="perNombres" class="java.lang.String"/>
 	<field name="nombresautoriza" class="java.lang.String"/>
 	<field name="apellidosautoriza" class="java.lang.String"/>
-	<field name="exuFechaCepelio" class="java.lang.String"/>
-	<field name="exuFechaExhumacion" class="java.lang.String"/>
+	<field name="exuFechaCepelio" class="java.util.Date"/>
+	<field name="exuFechaExhumacion" class="java.util.Date"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -45,14 +40,14 @@
 				<textElement>
 					<font size="18" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{parroquia}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{parroquia}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="411" y="9" width="128" height="23" uuid="c7953c1d-236e-4cf9-b17d-4ba33423b9d9"/>
 				<textElement>
 					<font size="18" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{provincia}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{provincia}.toUpperCase()]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -149,26 +144,18 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="33" splitType="Stretch">
+		<band height="29" splitType="Stretch">
 			<textField>
 				<reportElement x="15" y="1" width="110" height="20" uuid="705ab248-bc1a-4ae9-bf56-7dd1d6c17cff"/>
 				<textFieldExpression><![CDATA[$F{perCi}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="142" y="0" width="100" height="20" uuid="bd467f3f-ce65-43f1-bf5e-df7102dc7437"/>
-				<textFieldExpression><![CDATA[$F{perApellidos}]]></textFieldExpression>
+				<reportElement x="144" y="0" width="125" height="20" uuid="bd467f3f-ce65-43f1-bf5e-df7102dc7437"/>
+				<textFieldExpression><![CDATA[$F{perApellidos}+ " "+$F{perNombres}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="227" y="1" width="100" height="20" uuid="ddc295d7-d701-4ac8-a2c7-6912652378ba"/>
-				<textFieldExpression><![CDATA[$F{perNombres}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="352" y="1" width="100" height="20" uuid="e42563a2-05db-44f6-b0ec-b7159c60a802"/>
-				<textFieldExpression><![CDATA[$F{apellidosautoriza}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="416" y="1" width="100" height="20" uuid="22961f11-4fcd-49d3-848d-8e90d88a0bb3"/>
-				<textFieldExpression><![CDATA[$F{nombresautoriza}]]></textFieldExpression>
+				<reportElement x="353" y="0" width="127" height="20" uuid="e42563a2-05db-44f6-b0ec-b7159c60a802"/>
+				<textFieldExpression><![CDATA[$F{apellidosautoriza}+ " " + $F{nombresautoriza}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="558" y="1" width="100" height="20" uuid="1bd791cf-b62a-4904-b023-b3c1eeec278f"/>

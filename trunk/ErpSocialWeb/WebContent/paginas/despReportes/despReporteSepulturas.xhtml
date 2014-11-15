@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        template="/WEB-INF/templates/template.xhtml">
+
+        <ui:define name="title">
+        <h4>
+                        <h:outputLabel value="Reporte Sepultura" />
+                </h4>
+        </ui:define>
+
+        <ui:define name="content">
+                <h:form id="form">
+                <p:growl id="pnlMessages" autoUpdate="true" closable="true" />
+                <p:toolbar style="ToolBar">
+                                <p:toolbarGroup align="left">
+                                        <p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
+                                        </p:commandButton>
+                                </p:toolbarGroup>
+                        </p:toolbar>
+                        <p:panel id="pnlBuscar" header="Buscar Sepultura" style="width: 650px;" toggleable="true">
+
+                        <table id="tblData" cellspacing="5">
+
+                                <tr >
+                                <td ><h:outputLabel value="Desde:" /></td>
+                                        <td ><p:calendar id="txtDesde" style="width: 100%" navigator="true" value="#{reporteSepulturaDataManager.sepulturaListDTO.fechaDesde}"  showOn="button" /></td>
+                                </tr>       
+                                <tr>
+                                 <td ><h:outputLabel value="Hasta:" /></td>
+                                        <td >
+                                        	<p:calendar id="txtHasta"  navigator="true" value="#{reporteSepulturaDataManager.sepulturaListDTO.fechaHasta}"  showOn="button" />
+                                        </td>		
+                                        <td >
+	                                        <p:commandButton id="btnBuscar"
+	                                        actionListener="#{reporteDefuncionController.buscar}"
+	                                        value="#{i18n['label.buscar']}" 
+	                                        process="@this,pnlBuscar"
+	                                        update="pnlBuscar,tblReporte" 
+	                                        icon="ui-icon-search"
+	                                        title="Buscar"/>
+                                        </td>
+                                	<td >
+                                		<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{reporteDefuncionController.exportar}" icon="exportPdf" ajax="false"
+										disabled="#{reporteSepulturaDataManager.exportDesactivado}"  />
+                                	</td>
+                                </tr>
+
+                        </table>
+                        
+                        </p:panel>
+                        
+                        <p:dataTable id="tblReporte" value="#{reporteSepulturaDataManager.sepulturaListDTOs}" 
+                                rowIndexVar="rowIndex" var="sepultura"
+                                paginator="true" rows="5" paginatorPosition="bottom"
+                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                rowsPerPageTemplate="5,10,15">
+                        		<f:facet name="header">
+										Sepultura
+								</f:facet>
+                                <p:column headerText="#" styleClass="centered" width="5%">
+                                        #{rowIndex+1}
+                                </p:column>
+                                <p:column headerText="Cédula Difunto">
+                                        <h:outputText value="#{sepultura.perCi} " />
+                                </p:column>
+                                <p:column headerText="Nombre Difunto">
+                                        <h:outputText value="#{sepultura.perApellidos} #{sepultura.perNombres}"  height="45" />
+                                </p:column>
+                                <p:column headerText="Sección Nicho">
+                                        <h:outputText value="#{sepultura.seccion}" height="45" />
+                                </p:column>
+                                <p:column headerText="Nivel Nicho">
+                                        <h:outputText value="#{sepultura.nniDescripcion}" />                          
+                                </p:column>
+                                <p:column headerText="Tipo Nicho">
+                                        <h:outputText value="#{sepultura.tniDescripcion}" />                          
+                                </p:column>
+                                <p:column headerText="Número">
+                                        <h:outputText value="#{sepultura.nicDescripcion}" />                          
+                                </p:column>
+                        </p:dataTable>
+                </h:form>
+        </ui:define>
+</ui:composition>

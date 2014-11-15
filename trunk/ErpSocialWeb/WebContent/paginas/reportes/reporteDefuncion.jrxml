@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteDefuncion" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="105" bottomMargin="20" uuid="ba73f98d-1750-4bef-9797-3d1192f59bf3">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="52"/>
 	<property name="ireport.y" value="99"/>
 	<parameter name="provincia" class="java.lang.String"/>
 	<parameter name="parroquia" class="java.lang.String"/>
@@ -14,7 +14,7 @@
 	<field name="perApellidos" class="java.lang.String"/>
 	<field name="sacNombres" class="java.lang.String"/>
 	<field name="sacApellidos" class="java.lang.String"/>
-	<field name="defFecha" class="java.lang.String"/>
+	<field name="defFecha" class="java.util.Date"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -25,14 +25,14 @@
 				<textElement>
 					<font size="18" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{parroquia}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{parroquia}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="421" y="15" width="128" height="23" uuid="6f8b8808-0534-4118-89dd-bc893bc5001f"/>
 				<textElement>
 					<font size="18" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{provincia}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{provincia}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="244" y="15" width="178" height="24" uuid="927bb614-d2f6-4aca-8a78-01c01ec32838"/>
@@ -138,24 +138,16 @@
 	<detail>
 		<band height="24" splitType="Stretch">
 			<textField>
-				<reportElement x="39" y="2" width="100" height="20" uuid="d93f1ff0-bbf9-400d-ae1d-6a51af99797e"/>
+				<reportElement x="37" y="0" width="100" height="20" uuid="d93f1ff0-bbf9-400d-ae1d-6a51af99797e"/>
 				<textFieldExpression><![CDATA[$F{perCi}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="267" y="1" width="81" height="20" uuid="b4dcbd52-18ba-497a-bc6a-2145c3d365fe"/>
-				<textFieldExpression><![CDATA[$F{perNombres}]]></textFieldExpression>
+				<reportElement x="202" y="0" width="139" height="20" uuid="1a59f2f8-eecc-44c7-a821-7a89c7df8e05"/>
+				<textFieldExpression><![CDATA[$F{perApellidos}+ " " +$F{perApellidos}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="191" y="1" width="81" height="20" uuid="1a59f2f8-eecc-44c7-a821-7a89c7df8e05"/>
-				<textFieldExpression><![CDATA[$F{perApellidos}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="411" y="1" width="88" height="20" uuid="bbd199f0-2894-4a9e-88eb-686fd68e968f"/>
-				<textFieldExpression><![CDATA[$F{sacApellidos}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="485" y="1" width="76" height="20" uuid="dfb18f43-1569-4877-9af3-a245593bbae0"/>
-				<textFieldExpression><![CDATA[$F{sacNombres}]]></textFieldExpression>
+				<reportElement x="411" y="1" width="135" height="20" uuid="bbd199f0-2894-4a9e-88eb-686fd68e968f"/>
+				<textFieldExpression><![CDATA[$F{sacApellidos}+ " " +$F{sacNombres}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="654" y="1" width="100" height="20" uuid="a8382b24-0879-4341-b7ab-007c4ce16ca3"/>
