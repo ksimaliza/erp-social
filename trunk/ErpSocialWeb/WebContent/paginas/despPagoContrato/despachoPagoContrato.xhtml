@@ -20,7 +20,7 @@
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
 					</p:commandButton>
-					<p:commandButton id="btnNuevoPagoContrato" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevoPagoContrato.show()">
+					<p:commandButton id="btnNuevoPagoContrato" value="Insertar" icon="ui-icon-disk" actionListener="#{pagoContratoController.limpiarFormulario}" update=":formNuevoPagoContrato:pnlNuevoPagoContrato,:formNuevoPagoContrato:pnlBotones" oncomplete="dlgNuevoPagoContrato.show()">
 						</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>

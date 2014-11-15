@@ -351,7 +351,7 @@ public ContratoController() {
 		mapParametros.put("nivelNicho", contratoDataManager.getSepulturaListDTO().getNniDescripcion());
 		mapParametros.put("mesesArrendamiento", contratoDataManager.getContratoDTO().getConMesesArrendamiento());
 		mapParametros.put("fechaInicio", pequeña.format(StringToDate(contratoDataManager.getContratoDTO().getConFechaInicio().toString().substring(2, 10))));
-		if (listaDefunciones != null)
+		if (!CollectionUtils.isEmpty(listaDefunciones) && listaDefunciones != null)
 			for (int i = 0; i < contratoDataManager.getContratoListDTOs().size(); i++)
 				if (contratoDataManager.getContratoListDTOs().get(i).getParroquia().equals(listaDefunciones.get(0).getCatParroquia())) {
 					mapParametros.put("parroquia", contratoDataManager.getContratoListDTOs().get(i).getParroquia());
