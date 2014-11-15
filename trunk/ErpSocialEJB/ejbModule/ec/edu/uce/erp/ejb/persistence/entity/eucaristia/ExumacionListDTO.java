@@ -1,9 +1,16 @@
 package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 
 /**
@@ -57,10 +64,12 @@ public class ExumacionListDTO implements Serializable {
 	private Integer exuDifunto;
 
 	@Column(name="exu_fecha_cepelio")
-	private Timestamp exuFechaCepelio;
+	@Temporal(TemporalType.DATE)
+	private Date exuFechaCepelio;
 
 	@Column(name="exu_fecha_exhumacion")
-	private Timestamp exuFechaExhumacion;
+	@Temporal(TemporalType.DATE)
+	private Date exuFechaExhumacion;
 
 	@Column(name="exu_pagina")
 	private String exuPagina;
@@ -114,26 +123,29 @@ public class ExumacionListDTO implements Serializable {
 	}
 
 	public ExumacionListDTO(Integer codigoparroquia,
-			String codigoprovincia,
-			String codigocanton,
+			Integer codigoprovincia,
+			Integer codigocanton,
 			String perCi,
 			String perApellidos,
 			String perNombres,
 			String cedulaautoriza,
 			String nombresautoriza,
-			String apellidosautoriza) {
+			String apellidosautoriza,
+			Date exuFechaExhumacion,
+			Date exuFechaCepelio ) {
 			super();
-			/*this.codigoparroquia=codigoparroquia;
+			this.codigoparroquia=codigoparroquia;
 			this.codigoprovincia=codigoprovincia;
-			this.codigocanton=codigocanton;*/
+			this.codigocanton=codigocanton;
 			this.perCi = perCi;
 			this.perApellidos = perApellidos;
 			this.perNombres = perNombres;
 			this.cedulaautoriza = cedulaautoriza;
 			this.nombresautoriza = nombresautoriza;
 			this.apellidosautoriza = apellidosautoriza;
+			this.exuFechaExhumacion = exuFechaExhumacion;
+			this.exuFechaCepelio = exuFechaCepelio;
 	}
-
 	
 	public String getApellidosautoriza() {
 		return this.apellidosautoriza;
@@ -263,19 +275,19 @@ public class ExumacionListDTO implements Serializable {
 		this.exuDifunto = exuDifunto;
 	}
 
-	public Timestamp getExuFechaCepelio() {
+	public Date getExuFechaCepelio() {
 		return this.exuFechaCepelio;
 	}
 
-	public void setExuFechaCepelio(Timestamp exuFechaCepelio) {
+	public void setExuFechaCepelio(Date exuFechaCepelio) {
 		this.exuFechaCepelio = exuFechaCepelio;
 	}
 
-	public Timestamp getExuFechaExhumacion() {
+	public Date getExuFechaExhumacion() {
 		return this.exuFechaExhumacion;
 	}
 
-	public void setExuFechaExhumacion(Timestamp exuFechaExhumacion) {
+	public void setExuFechaExhumacion(Date exuFechaExhumacion) {
 		this.exuFechaExhumacion = exuFechaExhumacion;
 	}
 
@@ -397,6 +409,22 @@ public class ExumacionListDTO implements Serializable {
 
 	public void setTelefonoautoriza(String telefonoautoriza) {
 		this.telefonoautoriza = telefonoautoriza;
+	}
+
+	public Date getFechaDesde() {
+		return fechaDesde;
+	}
+
+	public void setFechaDesde(Date fechaDesde) {
+		this.fechaDesde = fechaDesde;
+	}
+
+	public Date getFechaHasta() {
+		return fechaHasta;
+	}
+
+	public void setFechaHasta(Date fechaHasta) {
+		this.fechaHasta = fechaHasta;
 	}
 
 }

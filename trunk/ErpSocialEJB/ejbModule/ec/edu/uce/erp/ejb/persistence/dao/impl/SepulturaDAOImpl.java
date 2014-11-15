@@ -142,8 +142,6 @@ public class SepulturaDAOImpl extends AbstractFacadeImpl<SepulturaDTO> implement
 				}
 	        }
 	        
-	        if(objetoDTO.getFechaDesde()!=null && objetoDTO.getFechaHasta()!=null)
-	        	predicateList.add(cb.between(from.get("matFecha").as(Timestamp.class), objetoDTO.getFechaDesde(), objetoDTO.getFechaHasta()));	        
 	
 	        if(!predicateList.isEmpty())
 	        	cq.where(cb.and(predicateList.toArray(new Predicate[0])));		
