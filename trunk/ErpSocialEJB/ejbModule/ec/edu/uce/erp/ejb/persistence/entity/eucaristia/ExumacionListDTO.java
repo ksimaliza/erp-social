@@ -2,8 +2,8 @@ package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.Date;
 import java.sql.Timestamp;
+import java.util.Date;
 
 
 /**
@@ -24,9 +24,17 @@ public class ExumacionListDTO implements Serializable {
 	@Column(name="aut_persona")
 	private Integer autPersona;
 
+	private String canton;
+
 	private String cedulaautoriza;
 
 	private String celularautoriza;
+
+	private Integer codigocanton;
+
+	private Integer codigoparroquia;
+
+	private Integer codigoprovincia;
 
 	private String direccionautoriza;
 
@@ -65,6 +73,8 @@ public class ExumacionListDTO implements Serializable {
 
 	private String nombresautoriza;
 
+	private String parroquia;
+
 	@Column(name="per_apellidos")
 	private String perApellidos;
 
@@ -90,11 +100,41 @@ public class ExumacionListDTO implements Serializable {
 	@Column(name="per_telefono")
 	private String perTelefono;
 
+	private String provincia;
+
 	private String telefonoautoriza;
 
+	@Transient
+	private Date fechaDesde;
+	
+	@Transient
+	private Date fechaHasta;
+	
 	public ExumacionListDTO() {
 	}
 
+	public ExumacionListDTO(Integer codigoparroquia,
+			String codigoprovincia,
+			String codigocanton,
+			String perCi,
+			String perApellidos,
+			String perNombres,
+			String cedulaautoriza,
+			String nombresautoriza,
+			String apellidosautoriza) {
+			super();
+			/*this.codigoparroquia=codigoparroquia;
+			this.codigoprovincia=codigoprovincia;
+			this.codigocanton=codigocanton;*/
+			this.perCi = perCi;
+			this.perApellidos = perApellidos;
+			this.perNombres = perNombres;
+			this.cedulaautoriza = cedulaautoriza;
+			this.nombresautoriza = nombresautoriza;
+			this.apellidosautoriza = apellidosautoriza;
+	}
+
+	
 	public String getApellidosautoriza() {
 		return this.apellidosautoriza;
 	}
@@ -119,6 +159,14 @@ public class ExumacionListDTO implements Serializable {
 		this.autPersona = autPersona;
 	}
 
+	public String getCanton() {
+		return this.canton;
+	}
+
+	public void setCanton(String canton) {
+		this.canton = canton;
+	}
+
 	public String getCedulaautoriza() {
 		return this.cedulaautoriza;
 	}
@@ -133,6 +181,30 @@ public class ExumacionListDTO implements Serializable {
 
 	public void setCelularautoriza(String celularautoriza) {
 		this.celularautoriza = celularautoriza;
+	}
+
+	public Integer getCodigocanton() {
+		return this.codigocanton;
+	}
+
+	public void setCodigocanton(Integer codigocanton) {
+		this.codigocanton = codigocanton;
+	}
+
+	public Integer getCodigoparroquia() {
+		return this.codigoparroquia;
+	}
+
+	public void setCodigoparroquia(Integer codigoparroquia) {
+		this.codigoparroquia = codigoparroquia;
+	}
+
+	public Integer getCodigoprovincia() {
+		return this.codigoprovincia;
+	}
+
+	public void setCodigoprovincia(Integer codigoprovincia) {
+		this.codigoprovincia = codigoprovincia;
 	}
 
 	public String getDireccionautoriza() {
@@ -239,6 +311,14 @@ public class ExumacionListDTO implements Serializable {
 		this.nombresautoriza = nombresautoriza;
 	}
 
+	public String getParroquia() {
+		return this.parroquia;
+	}
+
+	public void setParroquia(String parroquia) {
+		this.parroquia = parroquia;
+	}
+
 	public String getPerApellidos() {
 		return this.perApellidos;
 	}
@@ -301,6 +381,14 @@ public class ExumacionListDTO implements Serializable {
 
 	public void setPerTelefono(String perTelefono) {
 		this.perTelefono = perTelefono;
+	}
+
+	public String getProvincia() {
+		return this.provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
 	}
 
 	public String getTelefonoautoriza() {

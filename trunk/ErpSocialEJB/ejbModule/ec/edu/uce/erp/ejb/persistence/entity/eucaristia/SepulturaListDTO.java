@@ -1,7 +1,9 @@
 package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 
 
@@ -64,9 +66,36 @@ public class SepulturaListDTO implements Serializable {
 	@Column(name="tni_descripcion")
 	private String tniDescripcion;
 
+	@Transient
+	private Date fechaDesde;
+	
+	@Transient
+	private Date fechaHasta;
+	
 	public SepulturaListDTO() {
 	}
-
+	
+	public SepulturaListDTO(
+			String perCi,
+			String perApellidos,
+			String perNombres,
+			String seccion,
+			String nniDescripcion,
+			String tniDescripcion,
+			String nicDescripcion
+			) {
+			super();
+			this.perCi=perCi;
+			this.perApellidos=perApellidos;
+			this.perNombres=perNombres;
+			this.seccion = seccion;
+			this.tniDescripcion = tniDescripcion;
+			this.nniDescripcion = nniDescripcion;
+			this.nicDescripcion = nicDescripcion;;
+		}
+	
+	
+	
 	public Integer getNicCodigo() {
 		return this.nicCodigo;
 	}
@@ -193,6 +222,22 @@ public class SepulturaListDTO implements Serializable {
 
 	public void setTniDescripcion(String tniDescripcion) {
 		this.tniDescripcion = tniDescripcion;
+	}
+
+	public Date getFechaDesde() {
+		return fechaDesde;
+	}
+
+	public void setFechaDesde(Date fechaDesde) {
+		this.fechaDesde = fechaDesde;
+	}
+
+	public Date getFechaHasta() {
+		return fechaHasta;
+	}
+
+	public void setFechaHasta(Date fechaHasta) {
+		this.fechaHasta = fechaHasta;
 	}
 
 }

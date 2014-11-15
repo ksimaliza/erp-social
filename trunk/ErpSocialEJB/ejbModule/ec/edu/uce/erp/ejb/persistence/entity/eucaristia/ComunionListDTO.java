@@ -1,11 +1,16 @@
 package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
-
-import javax.persistence.*;
-
-import java.sql.Timestamp;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 
 /**
@@ -55,10 +60,12 @@ public class ComunionListDTO implements Serializable {
 	private Integer pcoEstado;
 
 	@Column(name="pco_fecha_aprobacion_curso")
-	private Timestamp pcoFechaAprobacionCurso;
+	@Temporal(TemporalType.DATE)
+	private Date pcoFechaAprobacionCurso;
 
 	@Column(name="pco_fecha_hora")
-	private Timestamp pcoFechaHora;
+	@Temporal(TemporalType.DATE)
+	private Date pcoFechaHora;
 
 	@Column(name="pco_nota_marginal")
 	private String pcoNotaMarginal;
@@ -134,8 +141,9 @@ public class ComunionListDTO implements Serializable {
 			String perApellidos,
 			String perNombres,
 			String sacNombres,
-			String sacApellidos
-			/*Timestamp pcoFechaHora*/) {
+			String sacApellidos,
+			Date pcoFechaAprobacionCurso,
+			Date pcoFechaHora) {
 			super();
 			this.catParroquia=catParroquia;
 			this.catProvincia=catProvincia;
@@ -145,7 +153,8 @@ public class ComunionListDTO implements Serializable {
 			this.perNombres = perNombres;
 			this.sacNombres = sacNombres;
 			this.sacApellidos = sacApellidos;
-			/*this.pcoFechaHora=pcoFechaHora;*/
+			this.pcoFechaAprobacionCurso=pcoFechaAprobacionCurso;
+			this.pcoFechaHora=pcoFechaHora;
 	}
 
 	public String getCatCanton() {
@@ -244,19 +253,19 @@ public class ComunionListDTO implements Serializable {
 		this.pcoEstado = pcoEstado;
 	}
 
-	public Timestamp getPcoFechaAprobacionCurso() {
+	public Date getPcoFechaAprobacionCurso() {
 		return this.pcoFechaAprobacionCurso;
 	}
 
-	public void setPcoFechaAprobacionCurso(Timestamp pcoFechaAprobacionCurso) {
+	public void setPcoFechaAprobacionCurso(Date pcoFechaAprobacionCurso) {
 		this.pcoFechaAprobacionCurso = pcoFechaAprobacionCurso;
 	}
 
-	public Timestamp getPcoFechaHora() {
+	public Date getPcoFechaHora() {
 		return this.pcoFechaHora;
 	}
 
-	public void setPcoFechaHora(Timestamp pcoFechaHora) {
+	public void setPcoFechaHora(Date pcoFechaHora) {
 		this.pcoFechaHora = pcoFechaHora;
 	}
 

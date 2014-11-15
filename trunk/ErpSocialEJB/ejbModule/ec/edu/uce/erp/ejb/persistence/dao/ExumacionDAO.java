@@ -11,4 +11,7 @@ public interface ExumacionDAO extends AbstractFacade<ExumacionDTO>{
 	List<ExumacionListDTO> obtenerExhumacion(ExumacionListDTO exumacionListDTO)
 			throws SeguridadesException;
 
+	List<ExumacionListDTO> getDistinctReporteExhumacionByAnd(
+			ExumacionListDTO objetoDTO) throws SeguridadesException;
+
 }

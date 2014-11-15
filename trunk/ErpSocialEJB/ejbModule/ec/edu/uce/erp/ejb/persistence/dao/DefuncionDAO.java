@@ -11,5 +11,8 @@ public interface DefuncionDAO extends AbstractFacade<DefuncionDTO> {
 	List<DefuncionListDTO> obtenerDefuncion(DefuncionListDTO defuncion)
 			throws SeguridadesException;
 
+	List<DefuncionListDTO> getDistinctReporteDefuncionByAnd(
+			DefuncionListDTO objetoDTO) throws SeguridadesException;
+
 	
 }

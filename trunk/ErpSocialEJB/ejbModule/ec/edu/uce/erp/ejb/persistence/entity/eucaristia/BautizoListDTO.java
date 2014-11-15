@@ -1,7 +1,6 @@
 package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -44,10 +43,12 @@ public class BautizoListDTO implements Serializable {
 	private Integer bauEstado;
 
 	@Column(name="bau_fecha_aprobacion_cruso")
-	private Timestamp bauFechaAprobacionCruso;
-
+	@Temporal(TemporalType.DATE)
+	private Date bauFechaAprobacionCruso;
+	
 	@Column(name="bau_fecha_bautizo")
-	private Timestamp bauFechaBautizo;
+	@Temporal(TemporalType.DATE)
+	private Date bauFechaBautizo;
 
 	@Column(name="bau_madre")
 	private Integer bauMadre;
@@ -186,8 +187,9 @@ public class BautizoListDTO implements Serializable {
 			String perApellidos,
 			String perNombres,
 			String sacNombres,
-			String sacApellidos
-			/*Timestamp bauFechaAprobacionCruso*/) {
+			String sacApellidos,
+			Date bauFechaAprobacionCruso,
+			Date bauFechaBautizo) {
 			super();
 			this.bauParroquia=bauParroquia;
 			this.bauProvincia=bauProvincia;
@@ -197,7 +199,8 @@ public class BautizoListDTO implements Serializable {
 			this.perNombres = perNombres;
 			this.sacNombres = sacNombres;
 			this.sacApellidos = sacApellidos;
-			/*this.bauFechaAprobacionCruso=bauFechaAprobacionCruso*/;
+			this.bauFechaAprobacionCruso=bauFechaAprobacionCruso;
+			this.bauFechaBautizo=bauFechaBautizo;
 	}
 	
 	public Date getFechaDesde() {
@@ -264,19 +267,19 @@ public class BautizoListDTO implements Serializable {
 		this.bauEstado = bauEstado;
 	}
 
-	public Timestamp getBauFechaAprobacionCruso() {
+	public Date getBauFechaAprobacionCruso() {
 		return this.bauFechaAprobacionCruso;
 	}
 
-	public void setBauFechaAprobacionCruso(Timestamp bauFechaAprobacionCruso) {
+	public void setBauFechaAprobacionCruso(Date bauFechaAprobacionCruso) {
 		this.bauFechaAprobacionCruso = bauFechaAprobacionCruso;
 	}
 
-	public Timestamp getBauFechaBautizo() {
+	public Date getBauFechaBautizo() {
 		return this.bauFechaBautizo;
 	}
 
-	public void setBauFechaBautizo(Timestamp bauFechaBautizo) {
+	public void setBauFechaBautizo(Date bauFechaBautizo) {
 		this.bauFechaBautizo = bauFechaBautizo;
 	}
 

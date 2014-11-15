@@ -142,7 +142,8 @@ public class EucaristiaDAOImpl extends AbstractFacadeImpl<EucaristiaDTO> impleme
 					from.get("perApellidos"),
 					from.get("perNombres"),
 					from.get("eucIntencion"),
-					from.get("eucValor")
+					from.get("eucValor"),
+					from.get("eucFechaHora")
 					).distinct(true);
 			
 			predicateList=new ArrayList<Predicate>();

@@ -123,8 +123,9 @@ public class PrimeraComunionDAOImpl extends AbstractFacadeImpl<PrimeraComunionDT
 					from.get("perApellidos"),
 					from.get("perNombres"),
 					from.get("sacNombres"),
-					from.get("sacApellidos")
-					/*from.get("pcoFechaHora")*/
+					from.get("sacApellidos"),
+					from.get("pcoFechaHora"),
+					from.get("pcoFechaAprobacionCurso")
 					).distinct(true);
 			
 			predicateList=new ArrayList<Predicate>();

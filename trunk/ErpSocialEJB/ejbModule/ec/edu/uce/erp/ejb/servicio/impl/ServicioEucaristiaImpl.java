@@ -1601,8 +1601,49 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		try {
 			listResultado = eucaristiaFactoryDAO.getMatrimonioDAOImpl().getDistinctReporteBautizoByAnd(matrimonio);
 		} catch (Exception e) {
-			slf4jLogger.info("Error readConfirmacionReport {}", e.getMessage());
-			throw new SeguridadesException("No se pudo obtener confirmacion de la base de datos");
+			slf4jLogger.info("Error readMatrimonioReport {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener matrimonio de la base de datos");
+		}
+		return listResultado;
+	}
+	
+	
+	@Override
+	public List<DefuncionListDTO> readDefuncionReport(DefuncionListDTO defuncion) throws SeguridadesException {
+		slf4jLogger.info("readDefuncionReport");
+		List<DefuncionListDTO> listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getDefuncionDAOImpl().getDistinctReporteDefuncionByAnd(defuncion);
+		} catch (Exception e) {
+			slf4jLogger.info("Error readDefuncionReport {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener defuncion de la base de datos");
+		}
+		return listResultado;
+	}
+	
+	
+	@Override
+	public List<SepulturaListDTO> readSepulturaReport(SepulturaListDTO sepultura) throws SeguridadesException {
+		slf4jLogger.info("readSepulturaReport");
+		List<SepulturaListDTO> listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getSepulturaDAOImpl().getDistinctReporteSepulturaByAnd(sepultura);
+		} catch (Exception e) {
+			slf4jLogger.info("Error readSepulturaReport {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener sepultura de la base de datos");
+		}
+		return listResultado;
+	}
+	
+	@Override
+	public List<ExumacionListDTO> readExhumacionReport(ExumacionListDTO exumacion) throws SeguridadesException {
+		slf4jLogger.info("readExhumacionReport");
+		List<ExumacionListDTO> listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getExumacionDAOImpl().getDistinctReporteExhumacionByAnd(exumacion);
+		} catch (Exception e) {
+			slf4jLogger.info("Error readExhumacionReport {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener exhumación de la base de datos");
 		}
 		return listResultado;
 	}
