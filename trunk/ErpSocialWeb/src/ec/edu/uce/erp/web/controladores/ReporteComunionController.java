@@ -167,32 +167,34 @@ public class ReporteComunionController extends BaseController {
 		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
-		for (int i=0 ;i>=reporteComunionDataManager.getListParroquia().size();i++)
-		{
-			if (reporteComunionDataManager.getListParroquia().get(i).getCatCodigo() == (Integer) reporteComunionDataManager.getCodigoParroquia())
-			{
-				mapParametros.put("fechaActual", reporteComunionDataManager.getListParroquia().get(i).getCatDescripcion() + ",  " + full.format(fechaActual));
-				mapParametros.put("parroquia", reporteComunionDataManager.getListParroquia().get(i).getCatDescripcion());
-			}
-		}	
-		for (int j=0 ;j>=reporteComunionDataManager.getListProvincia().size();j++)
-			if (reporteComunionDataManager.getListProvincia().get(j).getCatCodigo() == (Integer) reporteComunionDataManager.getCodigoProvincia())
-				mapParametros.put("provincia", reporteComunionDataManager.getListProvincia().get(j).getCatDescripcion());
-			
-			mapParametros.put("desde", pequeña.format(reporteComunionDataManager.getComunionListDTO().getFechaDesde()));
-			mapParametros.put("hasta", pequeña.format(reporteComunionDataManager.getComunionListDTO().getFechaHasta()));
-			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
+				mapParametros.put("fechaActual", find(reporteComunionDataManager.getCodigoParroquia(), reporteComunionDataManager.getListParroquia()).getCatDescripcion() + ",  " + full.format(fechaActual));
+				mapParametros.put("parroquia",find(reporteComunionDataManager.getCodigoParroquia(), reporteComunionDataManager.getListParroquia()).getCatDescripcion());
+				mapParametros.put("provincia", find(reporteComunionDataManager.getCodigoProvincia(), reporteComunionDataManager.getListProvincia()).getCatDescripcion());
+				mapParametros.put("empresa", getEmpresaTbl().getEmrNombre());
+				mapParametros.put("desde", pequeña.format(reporteComunionDataManager.getComunionListDTO().getFechaDesde()));
+				mapParametros.put("hasta", pequeña.format(reporteComunionDataManager.getComunionListDTO().getFechaHasta()));
+				mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(),reporteComunionDataManager.getComunionListDTOs(), "reportePrimeraComunion", mapParametros);
 			ReporteUtil.generarReporte(jasperPrint, this.reporteComunionDataManager.getFormatoPdf(), "reportePrimeraComunion");
 	}
 	
-	
-
 
 	@Override
 	public void refrescarFormulario() {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	private CatalogoEucaristiaDTO find(Integer code,List<CatalogoEucaristiaDTO> list)
+	{
+		CatalogoEucaristiaDTO obj=null;
+		for(CatalogoEucaristiaDTO cat:list)
+		{
+			if(cat.getCatCodigo()==code)
+				obj=cat;
+		}
+		return obj;
 		
 	}
 
