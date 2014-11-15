@@ -123,9 +123,11 @@ public class ExumacionDAOImpl extends AbstractFacadeImpl<ExumacionDTO> implement
 					from.get("perNombres"),
 					from.get("cedulaautoriza"),
 					from.get("nombresautoriza"),
-					from.get("apellidosautoriza")
+					from.get("apellidosautoriza"),
+					from.get("exuFechaExhumacion"),
+					from.get("exuFechaCepelio")
 					).distinct(true);
-
+			
 			predicateList=new ArrayList<Predicate>();
 			
 			fields = objetoDTO.getClass().getDeclaredFields();
@@ -147,12 +149,12 @@ public class ExumacionDAOImpl extends AbstractFacadeImpl<ExumacionDTO> implement
 				}
 	        }
 	        
-	        /*if(objetoDTO.getFechaDesde()!=null && objetoDTO.getFechaHasta()!=null)
+	        if(objetoDTO.getFechaDesde()!=null && objetoDTO.getFechaHasta()!=null)
 	        	predicateList.add(cb.between(from.get("exuFechaExhumacion").as(Timestamp.class), objetoDTO.getFechaDesde(), objetoDTO.getFechaHasta()));	        
 	
 	        if(!predicateList.isEmpty())
 	        	cq.where(cb.and(predicateList.toArray(new Predicate[0])));		
-			*/
+			
 			TypedQuery<ExumacionListDTO> tq=entityManager.createQuery(cq);
 			list=tq.getResultList();
 			

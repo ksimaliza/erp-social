@@ -122,8 +122,8 @@ public class DefuncionDAOImpl extends AbstractFacadeImpl<DefuncionDTO> implement
 					from.get("perApellidos"),
 					from.get("perNombres"),
 					from.get("sacNombres"),
-					from.get("sacApellidos")
-					/*from.get("bauFechaAprobacionCruso")*/
+					from.get("sacApellidos"),
+					from.get("defFecha")
 					).distinct(true);
 			
 			predicateList=new ArrayList<Predicate>();

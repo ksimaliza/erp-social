@@ -50,7 +50,8 @@ public class DefuncionListDTO implements Serializable {
 	private Integer defEstadoCivil;
 
 	@Column(name="def_fecha")
-	private Timestamp defFecha;
+	@Temporal(TemporalType.DATE)
+	private Date defFecha;
 
 	@Column(name="def_fecha_difunto")
 	private Timestamp defFechaDifunto;
@@ -178,8 +179,8 @@ public class DefuncionListDTO implements Serializable {
 			String perApellidos,
 			String perNombres,
 			String sacNombres,
-			String sacApellidos
-			/*Timestamp bauFechaAprobacionCruso*/) {
+			String sacApellidos,
+			Date defFecha) {
 			super();
 			this.defParroquia=defParroquia;
 			this.defProvincia=defProvincia;
@@ -189,7 +190,7 @@ public class DefuncionListDTO implements Serializable {
 			this.perNombres = perNombres;
 			this.sacNombres = sacNombres;
 			this.sacApellidos = sacApellidos;
-			/*this.bauFechaAprobacionCruso=bauFechaAprobacionCruso*/;
+			this.defFecha=defFecha;
 	}
 	
 
@@ -273,11 +274,11 @@ public class DefuncionListDTO implements Serializable {
 		this.defEstadoCivil = defEstadoCivil;
 	}
 
-	public Timestamp getDefFecha() {
+	public Date getDefFecha() {
 		return this.defFecha;
 	}
 
-	public void setDefFecha(Timestamp defFecha) {
+	public void setDefFecha(Date defFecha) {
 		this.defFecha = defFecha;
 	}
 
