@@ -164,20 +164,12 @@ public class ReportePartidaBautizoController extends BaseController {
 		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
-		for (int i=0 ;i>=reportePartidaBautizoDataManager.getListParroquia().size();i++)
-		{
-			if (reportePartidaBautizoDataManager.getListParroquia().get(i).getCatCodigo() == (Integer) reportePartidaBautizoDataManager.getCodigoParroquia())
-			{
-				mapParametros.put("fechaActual", reportePartidaBautizoDataManager.getListParroquia().get(i).getCatDescripcion() + ",  " + full.format(fechaActual));
-				mapParametros.put("parroquia", reportePartidaBautizoDataManager.getListParroquia().get(i).getCatDescripcion());
-			}
-		}	
-		for (int j=0 ;j>=reportePartidaBautizoDataManager.getListProvincia().size();j++)
-			if (reportePartidaBautizoDataManager.getListProvincia().get(j).getCatCodigo() == (Integer) reportePartidaBautizoDataManager.getCodigoProvincia())
-				mapParametros.put("provincia", reportePartidaBautizoDataManager.getListProvincia().get(j).getCatDescripcion());
-			
+			mapParametros.put("fechaActual", find(reportePartidaBautizoDataManager.getCodigoParroquia(), reportePartidaBautizoDataManager.getListParroquia()).getCatDescripcion() + ",  " + full.format(fechaActual));
+			mapParametros.put("parroquia",find(reportePartidaBautizoDataManager.getCodigoParroquia(), reportePartidaBautizoDataManager.getListParroquia()).getCatDescripcion());
+			mapParametros.put("provincia", find(reportePartidaBautizoDataManager.getCodigoProvincia(), reportePartidaBautizoDataManager.getListProvincia()).getCatDescripcion());
 			mapParametros.put("desde", pequeña.format(reportePartidaBautizoDataManager.getBautizoListDTO().getFechaDesde()));
 			mapParametros.put("hasta", pequeña.format(reportePartidaBautizoDataManager.getBautizoListDTO().getFechaHasta()));
+			mapParametros.put("empresa", getEmpresaTbl().getEmrNombre());
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(),reportePartidaBautizoDataManager.getBautizoListDTOs(), "reportePartidasBautizos", mapParametros);
@@ -190,5 +182,16 @@ public class ReportePartidaBautizoController extends BaseController {
 		
 	}
 	
+	private CatalogoEucaristiaDTO find(Integer code,List<CatalogoEucaristiaDTO> list)
+	{
+		CatalogoEucaristiaDTO obj=null;
+		for(CatalogoEucaristiaDTO cat:list)
+		{
+			if(cat.getCatCodigo()==code)
+				obj=cat;
+		}
+		return obj;
+		
+	}
 
 }

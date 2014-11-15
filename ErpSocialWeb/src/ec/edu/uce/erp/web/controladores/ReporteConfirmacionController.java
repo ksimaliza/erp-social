@@ -167,18 +167,9 @@ public class ReporteConfirmacionController extends BaseController {
 		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
-		for (int i=0 ;i>=reporteConfirmacionDataManager.getListParroquia().size();i++)
-		{
-			if (reporteConfirmacionDataManager.getListParroquia().get(i).getCatCodigo() == (Integer) reporteConfirmacionDataManager.getCodigoParroquia())
-			{
-				mapParametros.put("fechaActual", reporteConfirmacionDataManager.getListParroquia().get(i).getCatDescripcion() + ",  " + full.format(fechaActual));
-				mapParametros.put("parroquia", reporteConfirmacionDataManager.getListParroquia().get(i).getCatDescripcion());
-			}
-		}	
-		for (int j=0 ;j>=reporteConfirmacionDataManager.getListProvincia().size();j++)
-			if (reporteConfirmacionDataManager.getListProvincia().get(j).getCatCodigo() == (Integer) reporteConfirmacionDataManager.getCodigoProvincia())
-				mapParametros.put("provincia", reporteConfirmacionDataManager.getListProvincia().get(j).getCatDescripcion());
-			
+		mapParametros.put("fechaActual", find(reporteConfirmacionDataManager.getCodigoParroquia(), reporteConfirmacionDataManager.getListParroquia()).getCatDescripcion() + ",  " + full.format(fechaActual));
+		mapParametros.put("parroquia",find(reporteConfirmacionDataManager.getCodigoParroquia(), reporteConfirmacionDataManager.getListParroquia()).getCatDescripcion());
+		mapParametros.put("provincia", find(reporteConfirmacionDataManager.getCodigoProvincia(), reporteConfirmacionDataManager.getListProvincia()).getCatDescripcion());
 			mapParametros.put("desde", pequeña.format(reporteConfirmacionDataManager.getConfirmacionListDTO().getFechaDesde()));
 			mapParametros.put("hasta", pequeña.format(reporteConfirmacionDataManager.getConfirmacionListDTO().getFechaHasta()));
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
@@ -187,7 +178,17 @@ public class ReporteConfirmacionController extends BaseController {
 			ReporteUtil.generarReporte(jasperPrint, this.reporteConfirmacionDataManager.getFormatoPdf(), "reporteConfirmacion");
 	}
 
-
+	private CatalogoEucaristiaDTO find(Integer code,List<CatalogoEucaristiaDTO> list)
+	{
+		CatalogoEucaristiaDTO obj=null;
+		for(CatalogoEucaristiaDTO cat:list)
+		{
+			if(cat.getCatCodigo()==code)
+				obj=cat;
+		}
+		return obj;
+		
+	}
 
 	@Override
 	public void refrescarFormulario() {

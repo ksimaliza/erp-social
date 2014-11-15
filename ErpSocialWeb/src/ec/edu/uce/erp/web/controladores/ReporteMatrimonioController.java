@@ -163,24 +163,15 @@ public class ReporteMatrimonioController extends BaseController {
 		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
-		for (int i=0 ;i>=reporteMatrimonioDataManager.getListParroquia().size();i++)
-		{
-			if (reporteMatrimonioDataManager.getListParroquia().get(i).getCatCodigo() == (Integer) reporteMatrimonioDataManager.getCodigoParroquia())
-			{
-				mapParametros.put("fechaActual", reporteMatrimonioDataManager.getListParroquia().get(i).getCatDescripcion() + ",  " + full.format(fechaActual));
-				mapParametros.put("parroquia", reporteMatrimonioDataManager.getListParroquia().get(i).getCatDescripcion());
-			}
-		}	
-		for (int j=0 ;j>=reporteMatrimonioDataManager.getListProvincia().size();j++)
-			if (reporteMatrimonioDataManager.getListProvincia().get(j).getCatCodigo() == (Integer) reporteMatrimonioDataManager.getCodigoProvincia())
-				mapParametros.put("provincia", reporteMatrimonioDataManager.getListProvincia().get(j).getCatDescripcion());
-			
+			mapParametros.put("fechaActual", find(reporteMatrimonioDataManager.getCodigoParroquia(), reporteMatrimonioDataManager.getListParroquia()).getCatDescripcion() + ",  " + full.format(fechaActual));
+			mapParametros.put("parroquia",find(reporteMatrimonioDataManager.getCodigoParroquia(), reporteMatrimonioDataManager.getListParroquia()).getCatDescripcion());
+			mapParametros.put("provincia", find(reporteMatrimonioDataManager.getCodigoProvincia(), reporteMatrimonioDataManager.getListProvincia()).getCatDescripcion());
 			mapParametros.put("desde", pequeña.format(reporteMatrimonioDataManager.getMatrimonioListDTO().getFechaDesde()));
 			mapParametros.put("hasta", pequeña.format(reporteMatrimonioDataManager.getMatrimonioListDTO().getFechaHasta()));
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
-			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(),reporteMatrimonioDataManager.getMatrimonioListDTOs(), "reportePartidasBautizos", mapParametros);
-			ReporteUtil.generarReporte(jasperPrint, this.reporteMatrimonioDataManager.getFormatoPdf(), "reportePartidasBautizos");
+			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(),reporteMatrimonioDataManager.getMatrimonioListDTOs(), "reportePartidasMatrimonio", mapParametros);
+			ReporteUtil.generarReporte(jasperPrint, this.reporteMatrimonioDataManager.getFormatoPdf(), "reportePartidasMatrimonio");
 	}
 
 	@Override
@@ -189,5 +180,16 @@ public class ReporteMatrimonioController extends BaseController {
 		
 	}
 
+	private CatalogoEucaristiaDTO find(Integer code,List<CatalogoEucaristiaDTO> list)
+	{
+		CatalogoEucaristiaDTO obj=null;
+		for(CatalogoEucaristiaDTO cat:list)
+		{
+			if(cat.getCatCodigo()==code)
+				obj=cat;
+		}
+		return obj;
+		
+	}
 
 }
