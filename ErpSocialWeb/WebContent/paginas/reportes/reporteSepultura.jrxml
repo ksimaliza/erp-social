@@ -10,40 +10,18 @@
 	<parameter name="seccion" class="java.lang.String"/>
 	<parameter name="desde" class="java.lang.String"/>
 	<parameter name="hasta" class="java.lang.String"/>
+	<field name="perCi" class="java.lang.String"/>
+	<field name="perNombres" class="java.lang.String"/>
+	<field name="perApellidos" class="java.lang.String"/>
+	<field name="seccion" class="java.lang.String"/>
+	<field name="nniDescripcion" class="java.lang.String"/>
+	<field name="tniDescripcion" class="java.lang.String"/>
+	<field name="nicDescripcion" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
-			<textField>
-				<reportElement x="398" y="41" width="136" height="24" uuid="a8d5de2f-59d9-4987-b379-5b437a679a5f"/>
-				<textElement>
-					<font size="16" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{parroquia}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="266" y="41" width="139" height="24" uuid="fa2733ed-e27e-4b52-9d55-caf0ff3b6674"/>
-				<textElement>
-					<font size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[PARROQUÍA DE]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="409" y="17" width="128" height="23" uuid="42897aec-545d-4c62-82d1-00108895b318"/>
-				<textElement>
-					<font size="16" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{provincia}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="264" y="17" width="145" height="24" uuid="13e377e7-e861-4f81-a2d2-57818d5a3bf9"/>
-				<textElement>
-					<font size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[CEMENTERIO DE]]></text>
-			</staticText>
-		</band>
+		<band height="15" splitType="Stretch"/>
 	</title>
 	<pageHeader>
 		<band height="158" splitType="Stretch">
@@ -101,25 +79,18 @@
 	<columnHeader>
 		<band height="34" splitType="Stretch">
 			<staticText>
-				<reportElement x="307" y="8" width="98" height="20" uuid="086de21c-7863-4d8d-984a-7d9d4a8caaa6"/>
+				<reportElement x="342" y="8" width="98" height="20" uuid="086de21c-7863-4d8d-984a-7d9d4a8caaa6"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SECCIÓN NICHO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="133" y="8" width="173" height="20" uuid="293e1db6-6f78-477d-ae5d-5e3362e9c194"/>
+				<reportElement x="138" y="8" width="173" height="20" uuid="293e1db6-6f78-477d-ae5d-5e3362e9c194"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[NOMBRE DIFUNTO]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="696" y="8" width="106" height="20" uuid="df51738c-e2c6-4374-bc89-0a8a1225945f"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[FECHA SEPELIO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="6" y="8" width="127" height="20" uuid="0bc05688-f67c-4f7a-b40f-8b60e3273928"/>
@@ -129,21 +100,21 @@
 				<text><![CDATA[CÉDULA DIFUNTO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="409" y="8" width="98" height="20" uuid="569a9b82-965c-4c30-9ad5-b75243b5b5ba"/>
+				<reportElement x="464" y="8" width="98" height="20" uuid="569a9b82-965c-4c30-9ad5-b75243b5b5ba"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[NIVEL NICHO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="511" y="8" width="90" height="20" uuid="eeddd66f-eed6-47e2-9617-716a7dd3d950"/>
+				<reportElement x="589" y="8" width="90" height="20" uuid="eeddd66f-eed6-47e2-9617-716a7dd3d950"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[TIPO NICHO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="601" y="8" width="90" height="20" uuid="dbe4fc10-7789-4201-b343-cf5d05de40b7"/>
+				<reportElement x="712" y="8" width="64" height="20" uuid="dbe4fc10-7789-4201-b343-cf5d05de40b7"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -152,7 +123,32 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement x="14" y="1" width="100" height="20" uuid="0328f57e-658a-4576-bb5e-63db0db29b0c"/>
+				<textFieldExpression><![CDATA[$F{perCi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="141" y="0" width="137" height="20" uuid="d4459002-94c8-4bb0-9e56-bae91eb4c3c5"/>
+				<textFieldExpression><![CDATA[$F{perApellidos}+ " " +$F{perNombres}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="345" y="1" width="100" height="20" uuid="8db2fc62-8c55-4618-9081-071a46d1c895"/>
+				<textFieldExpression><![CDATA[$F{seccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="467" y="1" width="100" height="20" uuid="a499a4ff-616d-4227-bee3-de82ea51e928"/>
+				<textFieldExpression><![CDATA[$F{nniDescripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="592" y="1" width="100" height="20" uuid="db9c0cf3-8da0-404c-9570-64800c7a07b2"/>
+				<textFieldExpression><![CDATA[$F{tniDescripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="714" y="1" width="75" height="20" uuid="030bfd0d-08b4-4575-ad84-62ab9489364c"/>
+				<textFieldExpression><![CDATA[$F{nicDescripcion}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<columnFooter>
 		<band height="45" splitType="Stretch"/>
