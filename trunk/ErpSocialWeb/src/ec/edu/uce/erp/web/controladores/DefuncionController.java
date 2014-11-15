@@ -16,14 +16,11 @@ import javax.faces.bean.ViewScoped;
 import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
@@ -92,7 +89,8 @@ public void registrarDefuncion () {
 		try {
 			 defuncionAux.setPerCi(defuncionDataManager.getDifuntoInsertar().getPerCi());
 			 List<DefuncionListDTO> ListaDefunciones= servicioEucaristia.buscarDefuncion(defuncionAux);
-		   if (ListaDefunciones.size()!=0)
+		   if (!CollectionUtils.isEmpty(ListaDefunciones) && ListaDefunciones.size()!=0 && ListaDefunciones.size()!=0 && defuncionDataManager.getDefuncionInsertar().getDefCodigo()==null)
+			      
 		   {
 			   MensajesWebController.aniadirMensajeAdvertencia("Yá se registró difunto con la misma cédula");
 			   return;
