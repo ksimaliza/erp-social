@@ -63,7 +63,7 @@
 							<h:outputLabel for="txtFecNac" value="#{i18n['erp.despacho.sacerdote.fechanac']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFecNac" style="width: 100%" navigator="true" value="#{sacerdoteDataManager.sacerdotePersonaInsertar.perFechaNac}"  showOn="button" required="true"/>
+							<p:calendar id="txtFecNac" label="#{i18n['erp.despacho.sacerdote.fechanac']}" style="width: 100%" navigator="true" value="#{sacerdoteDataManager.sacerdotePersonaInsertar.perFechaNac}"  showOn="button" required="true"/>
 						</td>	
 					</tr>
 					
@@ -115,9 +115,8 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{sacerdoteController.registrarSacerdote}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoSacerdote.hide()"
 					process="@this,pnlNuevoSacerdote" update="pnlNuevoSacerdote,:formSacerdote:pnlMessages,:formSacerdote:tablaSacerdote"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{sacerdoteController.cancel}" process="@this" immediate="true" update="pnlNuevoSacerdote"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{sacerdoteController.limpiarFormulario}" process="@this" immediate="true" update="pnlNuevoSacerdote" oncomplete="dlgNuevoSacerdote.hide()"/>
 			</p:panel>
 		</h:form>
 	</p:dialog>
