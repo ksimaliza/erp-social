@@ -124,8 +124,9 @@ public class BautizoDAOImpl extends AbstractFacadeImpl<BautizoDTO>implements Bau
 					from.get("perApellidos"),
 					from.get("perNombres"),
 					from.get("sacNombres"),
-					from.get("sacApellidos")
-					/*from.get("bauFechaAprobacionCruso")*/
+					from.get("sacApellidos"),
+					from.get("bauFechaAprobacionCruso"),
+					from.get("bauFechaBautizo")
 					).distinct(true);
 			
 			predicateList=new ArrayList<Predicate>();

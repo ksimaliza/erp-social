@@ -135,8 +135,9 @@ public class MatrimonioDAOImpl extends AbstractFacadeImpl<MatrimonioDTO> impleme
 					from.get("perApellidos"),
 					from.get("perNombres"),
 					from.get("sacNombres"),
-					from.get("sacApellidos")
-					/*from.get("bauFechaAprobacionCruso")*/
+					from.get("sacApellidos"),
+					from.get("matFecha"),
+					from.get("matFechaAprobacionCurso")
 					).distinct(true);
 			
 			predicateList=new ArrayList<Predicate>();

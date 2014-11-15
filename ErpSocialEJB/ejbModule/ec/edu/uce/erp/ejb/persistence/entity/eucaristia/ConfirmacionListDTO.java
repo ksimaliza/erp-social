@@ -1,11 +1,16 @@
 package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
-
-import javax.persistence.*;
-
 import java.util.Date;
-import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 
 /**
@@ -47,10 +52,12 @@ public class ConfirmacionListDTO implements Serializable {
 	private Integer conEstado;
 
 	@Column(name="con_fecha")
-	private Timestamp conFecha;
+	@Temporal(TemporalType.DATE)
+	private Date conFecha;
 
 	@Column(name="con_fecha_aprobacion_curso")
-	private Timestamp conFechaAprobacionCurso;
+	@Temporal(TemporalType.DATE)
+	private Date conFechaAprobacionCurso;
 
 	@Column(name="con_madre")
 	private Integer conMadre;
@@ -172,8 +179,10 @@ public class ConfirmacionListDTO implements Serializable {
 			String perApellidos,
 			String perNombres,
 			String sacNombres,
-			String sacApellidos
-			/*Timestamp bauFechaAprobacionCruso*/) {
+			String sacApellidos,
+			Date conFecha,
+			Date conFechaAprobacionCurso
+			) {
 			super();
 			this.conParroquia=conParroquia;
 			this.conProvincia=conProvincia;
@@ -183,7 +192,8 @@ public class ConfirmacionListDTO implements Serializable {
 			this.perNombres = perNombres;
 			this.sacNombres = sacNombres;
 			this.sacApellidos = sacApellidos;
-			/*this.bauFechaAprobacionCruso=bauFechaAprobacionCruso*/;
+			this.conFecha=conFecha;
+			this.conFechaAprobacionCurso=conFechaAprobacionCurso;
 	}
 	
 	public String getCatCanton() {
@@ -258,19 +268,19 @@ public class ConfirmacionListDTO implements Serializable {
 		this.conEstado = conEstado;
 	}
 
-	public Timestamp getConFecha() {
+	public Date getConFecha() {
 		return this.conFecha;
 	}
 
-	public void setConFecha(Timestamp conFecha) {
+	public void setConFecha(Date conFecha) {
 		this.conFecha = conFecha;
 	}
 
-	public Timestamp getConFechaAprobacionCurso() {
+	public Date getConFechaAprobacionCurso() {
 		return this.conFechaAprobacionCurso;
 	}
 
-	public void setConFechaAprobacionCurso(Timestamp conFechaAprobacionCurso) {
+	public void setConFechaAprobacionCurso(Date conFechaAprobacionCurso) {
 		this.conFechaAprobacionCurso = conFechaAprobacionCurso;
 	}
 

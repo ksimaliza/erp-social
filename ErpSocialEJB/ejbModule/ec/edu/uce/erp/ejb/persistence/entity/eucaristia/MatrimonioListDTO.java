@@ -1,11 +1,16 @@
 package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
-
-import javax.persistence.*;
-
-import java.sql.Timestamp;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 
 /**
@@ -83,10 +88,12 @@ public class MatrimonioListDTO implements Serializable {
 	private Integer matCodigo;
 
 	@Column(name="mat_fecha")
-	private Timestamp matFecha;
+	@Temporal(TemporalType.DATE)
+	private Date matFecha;
 
 	@Column(name="mat_fecha_aprobacion_curso")
-	private Timestamp matFechaAprobacionCurso;
+	@Temporal(TemporalType.DATE)
+	private Date matFechaAprobacionCurso;
 
 	@Column(name="mat_madre_novia")
 	private Integer matMadreNovia;
@@ -274,8 +281,9 @@ public class MatrimonioListDTO implements Serializable {
 			String perApellidos,
 			String perNombres,
 			String sacNombres,
-			String sacApellidos
-			/*Timestamp bauFechaAprobacionCruso*/) {
+			String sacApellidos,
+			Date matFecha,
+			Date matFechaAprobacionCurso) {
 			super();
 			this.matParroquia=matParroquia;
 			this.matProvincia=matProvincia;
@@ -288,7 +296,8 @@ public class MatrimonioListDTO implements Serializable {
 			this.perNombres = perNombres;
 			this.sacNombres = sacNombres;
 			this.sacApellidos = sacApellidos;
-			/*this.bauFechaAprobacionCruso=bauFechaAprobacionCruso*/;
+			this.matFecha=matFecha;
+			this.matFechaAprobacionCurso=matFechaAprobacionCurso;
 	}
 
 	public String getCatCanton() {
@@ -459,19 +468,19 @@ public class MatrimonioListDTO implements Serializable {
 		this.matCodigo = matCodigo;
 	}
 
-	public Timestamp getMatFecha() {
+	public Date getMatFecha() {
 		return this.matFecha;
 	}
 
-	public void setMatFecha(Timestamp matFecha) {
+	public void setMatFecha(Date matFecha) {
 		this.matFecha = matFecha;
 	}
 
-	public Timestamp getMatFechaAprobacionCurso() {
+	public Date getMatFechaAprobacionCurso() {
 		return this.matFechaAprobacionCurso;
 	}
 
-	public void setMatFechaAprobacionCurso(Timestamp matFechaAprobacionCurso) {
+	public void setMatFechaAprobacionCurso(Date matFechaAprobacionCurso) {
 		this.matFechaAprobacionCurso = matFechaAprobacionCurso;
 	}
 

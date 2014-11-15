@@ -10,6 +10,9 @@ public interface SepulturaDAO extends AbstractFacade<SepulturaDTO>{
 
 	List<SepulturaListDTO> getByAnd(SepulturaListDTO objetoDTO)
 			throws SeguridadesException;
+
+	List<SepulturaListDTO> getDistinctReporteSepulturaByAnd(
+			SepulturaListDTO objetoDTO) throws SeguridadesException;
 	
 
 }

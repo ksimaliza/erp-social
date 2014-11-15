@@ -254,6 +254,15 @@ public interface ServicioEucaristia {
 	List<MatrimonioListDTO> readMatrimonioReport(MatrimonioListDTO matrimonio)
 			throws SeguridadesException;
 
+	List<DefuncionListDTO> readDefuncionReport(DefuncionListDTO defuncion)
+			throws SeguridadesException;
+
+	List<SepulturaListDTO> readSepulturaReport(SepulturaListDTO sepultura)
+			throws SeguridadesException;
+
+	List<ExumacionListDTO> readExhumacionReport(ExumacionListDTO exumacion)
+			throws SeguridadesException;
+
 	
 
 
