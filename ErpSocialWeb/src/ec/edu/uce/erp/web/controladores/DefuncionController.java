@@ -89,7 +89,12 @@ public void registrarDefuncion () {
 		try {
 			 defuncionAux.setPerCi(defuncionDataManager.getDifuntoInsertar().getPerCi());
 			 List<DefuncionListDTO> ListaDefunciones= servicioEucaristia.buscarDefuncion(defuncionAux);
-		   if (!CollectionUtils.isEmpty(ListaDefunciones) && ListaDefunciones.size()!=0 && ListaDefunciones.size()!=0 && defuncionDataManager.getDefuncionInsertar().getDefCodigo()==null)
+			 Boolean esDifunto=false;
+			 for (DefuncionListDTO defuncionListDTO : ListaDefunciones) {
+					if (defuncionListDTO.getPerCi().equals(defuncionDataManager.getDifuntoInsertar().getPerCi()))
+						esDifunto=true;
+					}
+		   if (!CollectionUtils.isEmpty(ListaDefunciones) && ListaDefunciones.size()!=0 && ListaDefunciones.size()!=0 && defuncionDataManager.getDefuncionInsertar().getDefCodigo()==null && esDifunto)
 			      
 		   {
 			   MensajesWebController.aniadirMensajeAdvertencia("Yá se registró difunto con la misma cédula");
