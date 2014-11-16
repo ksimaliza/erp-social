@@ -257,11 +257,13 @@ TD.ToolBar {
 #Login {
     border: 5px #80bce1 solid;
     min-width: 500px;
+    max-width: 1004 px;
     font-family: Helvetica, Arial;
-    background:  #FFFFFF  ;
+    background: #FFFFFF;
 	color: White;
 	font-style: normal;
-	font-size: x-small
+	font-size: small;
+	width: 1004px;
 }
 
 #logoCabecera {
