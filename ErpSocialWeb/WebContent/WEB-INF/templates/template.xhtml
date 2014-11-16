@@ -97,23 +97,27 @@
 							<td id="HeaderIcon31" style="width: 28px;"></td>
 						</tr>
 						<tr id="Header01">
-							<td style="width: 7px; background-color: #e6ecf0;"></td>
-							<td style="background-color: #e6ecf0;">&#160;</td>
-							<td  style="background-color: #e6ecf0;width: 120px; height: 16px;">&#160;
+						    
+							<td style="FONT-SIZE: medium; COLOR: #949599; FONT-WEIGHT: bold;background-color: #e6ecf0;font-family:Arial;">
+							<h:outputLabel value="#{menuUsuarioController.fecha}" style="font-size:x-small;font-family:Arial;"/>
 							</td>
+							<td style="background-color: #e6ecf0;">&#160;</td>
+							
 							<td style="background-color: #e6ecf0; width: 50%; height: 16px;">&#160;
 							</td>
 							<td colspan="8" style="FONT-SIZE: medium; COLOR: #949599; FONT-WEIGHT: bold;background-color: #e6ecf0;font-family:Arial;" align="right" >
 								<table id="opcion"
-									style="table-layout: fixed; font-size: 6pt;" cellspacing="0"
+									style="table-layout: fixed; font-size: 7pt;" cellspacing="0"
 									cellpadding="0" border="0px">
 									<tr>
+									
+									
 									<td>
 									
 									<h:outputText value="#{i18n['label.empresa']}: " />
 									&nbsp;
 									</td>
-									<td>
+									<td colspan="4">
 								     <h:outputText value="#{menuUsuarioController.usuarioSession.empresaTbl.emrNombre}"/>&nbsp; &nbsp; 
 								     </td>
 								     <td>|&nbsp;</td>
@@ -147,7 +151,7 @@
 					<table style="width:100%;">
 					<tr>
 					<td>
-					© Universidad Central del Ecuador 
+						 © 2014 Universidad Central del Ecuador. Todos los derechos Reservados. 
 					</td>
 					</tr>
 					
