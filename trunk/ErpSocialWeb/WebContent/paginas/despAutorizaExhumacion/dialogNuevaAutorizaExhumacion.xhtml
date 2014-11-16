@@ -54,7 +54,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApe" style="width: 100%" 
-								value="#{autorizaExhumacionDataManager.autorizaExhuPerInsertar.perApellidos}" label="#{i18n['erp.despacho.autorizacion.apellidos']}"/>
+								value="#{autorizaExhumacionDataManager.autorizaExhuPerInsertar.perApellidos}" label="#{i18n['erp.despacho.autorizacion.apellidos']}" required="true"/>
 							
 						</td>
 						
@@ -65,7 +65,7 @@
 							<h:outputLabel for="txtFecNac" value="#{i18n['erp.despacho.autorizacion.fechanac']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFecNac" style="width: 100%" navigator="true" value="#{autorizaExhumacionDataManager.autorizaExhuPerInsertar.perFechaNac}"  showOn="button" required="true"/>
+							<p:calendar id="txtFecNac" label="#{i18n['erp.despacho.autorizacion.fechanac']}" style="width: 100%" navigator="true" value="#{autorizaExhumacionDataManager.autorizaExhuPerInsertar.perFechaNac}"  showOn="button" required="true"/>
 						</td>	
 					</tr>
 					
@@ -114,9 +114,8 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{autorizaExhumacionController.registrarAutorizacionExhumacion}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaAutorizaExhumacion.hide()"
 					process="@this,pnlNuevaAutorizaExhumacion" update="pnlNuevaAutorizaExhumacion,:formAutorizaExhumacion:pnlMessages,:formAutorizaExhumacion:tablaAutorizaExhumacion"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{autorizaExhumacionController.cancel}" process="@this" immediate="true" update="pnlNuevaAutorizaExhumacion"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{autorizaExhumacionController.limpiarFormulario}" process="@this" immediate="true" update="pnlNuevaAutorizaExhumacion" oncomplete="dlgNuevaAutorizaExhumacion.hide()"/>
 			</p:panel>
 		</h:form>
 	</p:dialog>
