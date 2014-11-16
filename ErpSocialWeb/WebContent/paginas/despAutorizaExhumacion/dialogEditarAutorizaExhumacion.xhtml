@@ -114,7 +114,6 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{autorizaExhumacionController.registrarAutorizacionExhumacion}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarAutorizaExhumacion.hide()"
 					process="@this,pnlEditarAutorizaExhumacion" update="pnlEditarAutorizaExhumacion,:formAutorizaExhumacion:pnlMessages,:formAutorizaExhumacion:tablaAutorizaExhumacion"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarAutorizaExhumacion.hide();" type="button" />
 			</p:panel>

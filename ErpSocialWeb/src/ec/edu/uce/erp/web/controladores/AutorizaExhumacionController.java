@@ -1,5 +1,6 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -17,7 +18,6 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionListDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.AutorizacionExhumacionVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -67,7 +67,22 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(AutorizaExhuma
 		slf4jLogger.info("registrarAutorizacionExhumacion");
 		AutorizacionExhumacionVO autorizacionExhumacionVO;
 				
+		AutorizaExhumacionListDTO autorizaExhumacionAux=new AutorizaExhumacionListDTO();
 		try {
+			 autorizaExhumacionAux.setPerCi(autorizaExhumacionDataManager.getAutorizaExhuPerInsertar().getPerCi());
+			 List<AutorizaExhumacionListDTO> listaAutorizaExhumacions= servicioEucaristia.buscarAutorizacion(autorizaExhumacionAux);
+			 Boolean esAutorizaExhumacion=false;
+			 for (AutorizaExhumacionListDTO autorizaExhumacionListDTO : listaAutorizaExhumacions) {
+				if (autorizaExhumacionListDTO.getPerCi().equals(autorizaExhumacionDataManager.getAutorizaExhuPerInsertar().getPerCi()))
+					esAutorizaExhumacion=true;
+				}
+			 
+		   if (!CollectionUtils.isEmpty(listaAutorizaExhumacions) && listaAutorizaExhumacions.size()!=0 && autorizaExhumacionDataManager.getAutorizaExhumacionDTO().getAutCodigo()==null && esAutorizaExhumacion)
+		   {
+			   
+			   MensajesWebController.aniadirMensajeAdvertencia("Yá se registró uno que autoriza exhumación con la misma cédula");
+			   return;
+		   }
 			
 			autorizacionExhumacionVO=new AutorizacionExhumacionVO();
 			autorizacionExhumacionVO.setPersona(autorizaExhumacionDataManager.getAutorizaExhuPerInsertar());
@@ -81,7 +96,8 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(AutorizaExhuma
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.autorizacion.registrar.exito");
 			}
 			buscarAutorizacion();
-			
+			RequestContext.getCurrentInstance().execute(
+					"dlgNuevaAutorizaExhumacion.hide(), dlgEditarAutorizaExhumacion.hide()");	
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -99,6 +115,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(AutorizaExhuma
 			listaAutoriza=this.servicioEucaristia.buscarAutorizacion(autorizaExhumacionDataManager.getAutorizaExhuBuscar());
 			
 			if (CollectionUtils.isEmpty(listaAutoriza) && listaAutoriza.size()==0) {
+				this.autorizaExhumacionDataManager.setAutorizaExhumacionListDTOs(new ArrayList<AutorizaExhumacionListDTO>());
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.autorizaExhumacionDataManager.setAutorizaExhumacionListDTOs(listaAutoriza);
@@ -154,11 +171,10 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(AutorizaExhuma
 		autorizaExhumacionDataManager.getAutorizaExhuPerInsertar().setPerFotoByte(event.getFile().getContents());
     }
 
-	public void cancel()
+	public void limpiarFormulario()
 	{
 		autorizaExhumacionDataManager.setAutorizaExhumacionDTO(new AutorizaExhumacionDTO());
 		autorizaExhumacionDataManager.setAutorizaExhuPerInsertar(new Persona());
-		RequestContext.getCurrentInstance().execute("dlgNuevaAutorizaExhumacion.hide()");
 	}
 	
 	
