@@ -114,7 +114,6 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{doctorController.registrarDoctor}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarDoctor.hide()"
 					process="@this,pnlEditarDoctor" update="pnlEditarDoctor,:formDoctor:pnlMessages,:formDoctor:tablaDoctor"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarDoctor.hide();" type="button" />
 			</p:panel>

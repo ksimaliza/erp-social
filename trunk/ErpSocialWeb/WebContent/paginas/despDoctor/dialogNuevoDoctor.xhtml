@@ -114,9 +114,8 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{doctorController.registrarDoctor}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoDoctor.hide()"
 					process="@this,pnlNuevoDoctor" update="pnlNuevoDoctor,:formDoctor:pnlMessages,:formDoctor:tablaDoctor"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{doctorController.cancel}" process="@this" immediate="true" update="pnlNuevoDoctor"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{doctorController.limpiarFormulario}" process="@this" immediate="true" update="pnlNuevoDoctor" oncomplete="dlgNuevoDoctor.hide()"/>
 			</p:panel>
 		</h:form>
 	</p:dialog>

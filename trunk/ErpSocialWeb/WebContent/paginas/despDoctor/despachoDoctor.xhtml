@@ -20,7 +20,7 @@
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
 					</p:commandButton>
-					<p:commandButton id="btnNuevoDoctor" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevoDoctor.show()">
+					<p:commandButton id="btnNuevoDoctor" value="Insertar" icon="ui-icon-disk" actionListener="#{doctorController.limpiarFormulario}" update=":formNuevoDoctor:pnlNuevoDoctor"  oncomplete="dlgNuevoDoctor.show()">
 						</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>

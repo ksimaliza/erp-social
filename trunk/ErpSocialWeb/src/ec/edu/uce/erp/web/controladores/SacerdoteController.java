@@ -16,11 +16,8 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoListDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.SacerdoteVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -69,8 +66,15 @@ public void registrarSacerdote () {
 		try {
 			 sacerdoteAux.setPerCi(sacerdoteDataManager.getSacerdotePersonaInsertar().getPerCi());
 			 List<SacerdoteListDTO> listaSacerdotes= servicioEucaristia.buscarSacerdote(sacerdoteAux);
-		   if (!CollectionUtils.isEmpty(listaSacerdotes) && listaSacerdotes.size()!=0 && sacerdoteDataManager.getSacerdoteInsertar().getSacCodigo()==null)
+			 Boolean esSacerdote=false;
+			 for (SacerdoteListDTO sacerdoteListDTO : listaSacerdotes) {
+				if (sacerdoteListDTO.getPerCi().equals(sacerdoteDataManager.getSacerdotePersonaInsertar().getPerCi()))
+					esSacerdote=true;
+				}
+			 
+		   if (!CollectionUtils.isEmpty(listaSacerdotes) && listaSacerdotes.size()!=0 && sacerdoteDataManager.getSacerdoteInsertar().getSacCodigo()==null && esSacerdote)
 		   {
+			   
 			   MensajesWebController.aniadirMensajeAdvertencia("Yá se registró sacerdote con la misma cédula");
 			   return;
 		   }

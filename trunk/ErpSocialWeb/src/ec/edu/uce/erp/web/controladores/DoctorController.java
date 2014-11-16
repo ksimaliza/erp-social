@@ -1,5 +1,6 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -17,7 +18,6 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DoctorListDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.DoctorVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -63,7 +63,20 @@ public void registrarDoctor () {
 		slf4jLogger.info("registrarDoctor");
 		DoctorVO DoctorVO;
 		
+		DoctorListDTO doctorAux=new DoctorListDTO();
 		try {
+			 doctorAux.setPerCi(doctorDataManager.getDoctorPersonaInsertar().getPerCi());
+			 List<DoctorListDTO> listaDoctores= servicioEucaristia.buscarDoctor(doctorAux);
+			 Boolean esDoctor=false;
+			 for (DoctorListDTO doctorListDTO : listaDoctores) {
+				if (doctorListDTO.getPerCi().equals(doctorDataManager.getDoctorPersonaInsertar().getPerCi()))
+					esDoctor=true;
+				}
+		   if (!CollectionUtils.isEmpty(listaDoctores) && listaDoctores.size()!=0 && doctorDataManager.getDoctorInsertar().getDocCodigo()==null && esDoctor)
+		   {
+			   MensajesWebController.aniadirMensajeAdvertencia("Yá se registró doctor con la misma cédula");
+			   return;
+		   }
 			DoctorVO=new DoctorVO();
 			DoctorVO.setDoctorDTO(doctorDataManager.getDoctorInsertar());
 			DoctorVO.setPersona(doctorDataManager.getDoctorPersonaInsertar());
@@ -76,7 +89,8 @@ public void registrarDoctor () {
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.doctor.registrar.exito");
 			}
 			buscarDoctor();
-			
+			RequestContext.getCurrentInstance().execute(
+					"dlgNuevoDoctor.hide(), dlgEditarDoctor.hide()");	
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -94,6 +108,7 @@ public void registrarDoctor () {
 			listaDoctor=this.servicioEucaristia.buscarDoctor(doctorDataManager.getDoctorBuscar());
 			
 			if (CollectionUtils.isEmpty(listaDoctor) && listaDoctor.size()==0) {
+				this.doctorDataManager.setDoctorListDTOs(new ArrayList<DoctorListDTO>());
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.doctorDataManager.setDoctorListDTOs(listaDoctor);
@@ -154,11 +169,10 @@ public void registrarDoctor () {
 		doctorDataManager.getDoctorPersonaInsertar().setPerFotoByte(event.getFile().getContents());
     }
 
-	public void cancel()
+	public void limpiarFormulario()
 	{
 		doctorDataManager.setDoctorInsertar(new DoctorDTO());
 		doctorDataManager.setDoctorPersonaInsertar(new Persona());
-		RequestContext.getCurrentInstance().execute("dlgNuevoDoctor.hide()");
 	}
 
 	@Override
