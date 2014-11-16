@@ -29,29 +29,23 @@
 			
 			</td>
 			</tr>
-			<tr valign="top">
+			<tr>
 				<td width="100%" align="center">
 					<table id="Login" cellspacing="0" cellpadding="0" border="0px"
 						style="table-layout: fixed; border: solid 0px #80bce1;">
-						<tr>
-						<td style="height:2px;background-color:#80bce1;" >
 						
-						</td>
-						<td style="height:2px;background-color:#80bce1;" >
-						
-						</td>
-						</tr>
-						<tr style="height: 398px;" >
-							<td ></td>
-
-						</tr>
-						<tr style="height: 110px;">
-
-							 <td style="width: 502px; ">&nbsp;</td>
-							<td
-								style="width: 502px; vertical-align: top;">
+						 <tr style=" height : 590px;">
+                                    <td 
+								style="width: 502px;background-repeat:no-repeat;background-image:url(./../resources/img/loginL.jpg);">
+								
+								</td>
+                                 <td 
+								style="width: 502px;background-repeat:no-repeat;background-image:url(./../resources/img/loginR.jpg);">
 								<table cellspacing="0" cellpadding="0" border="0px"
 									style="table-layout: fixed; padding: 5px 0px 0px 100px;">
+									<tr style=" height : 150px;">
+									
+									</tr>
 									<tr>
 										<td 
 											style="color: #990099; font: normal normal normal 12pt Arial; text-align: right; padding: 0px 5px 10px 0px;">
@@ -60,7 +54,7 @@
 												value="#{i18n['label.signo.requerido']}"
 												styleClass="item-required" />
 										</td>
-										<td style="padding: 0px 5px 10px 0px;"><p:inputText
+										<td style="padding: 0px 5px 10px 0px;"><p:inputText requiredMessage="Ingrese el Usuario."
 												id="txtUser"
 												value="#{loginDataManager.credencialesDTO.usuario}"
 												required="true" label="#{i18n['login.usuario']}" /></td>
@@ -72,7 +66,7 @@
 												id="lblPass" value="#{i18n['login.clave']}" for="lblPass" />
 											<h:outputLabel value="#{i18n['label.signo.requerido']}"
 												styleClass="item-required" /></td>
-										<td><p:password id="txtPass"
+										<td><p:password id="txtPass" requiredMessage="Ingrese su Clave."
 												value="#{loginDataManager.credencialesDTO.password}"
 												required="true" label="#{i18n['login.clave']}" /></td>
 										<td><h:commandButton value="#{i18n['label.ingresar']}" 
@@ -82,9 +76,9 @@
 										<td colspan="4">
 										<table>
 										<tr>
-										<td style="color: #990099; font: normal normal normal 7pt Arial; text-align: justify; padding: 0px 5px 10px 0px; width : 344px;">
+										<td style="color: #949599; font: normal normal normal 7pt Arial; text-align: justify; padding: 0px 5px 10px 0px; width : 344px;">
 										<h:graphicImage value="./../resources/img/headerIcon06.png" />
-										<h:outputText value="La utilización y el cuidado de la clave de acceso, es responsabilidad solo suya. La clave es personal e intransferible "/>
+										<h:outputText  style="COLOR: #808080;" value="La utilización y el cuidado de la clave de acceso, es responsabilidad solo suya. La clave es personal e intransferible "/>
 										</td>
 										</tr>
 										</table>
@@ -92,22 +86,16 @@
 										<td></td>
 									</tr>
 								</table>
-							</td>
-						</tr>
-						<tr style="height: 77px;">
-							
-							<td
-								style="width: 502px;background-position:right;background-repeat:no-repeat;background-image:url(./../resources/img/headerIcon08.png);">&nbsp;</td>
-						<td id="pieLogin" 
-								style="width: 502px;background-position:left;">&nbsp;</td>
-						</tr>
-						<tr>
-						<td colspan="2" style="color: #990099; font: normal normal normal 7pt Arial; text-align: center; padding: 0px 5px 10px 0px;">
-						 © 2014 Universidad Central del Ecuador. Todos los derechos Reservados. 
-						</td>
-						</tr>
+								
+								</td>
+                                </tr>
 					</table>
 				</td>
+			</tr>
+			<tr>
+			<td colspan="2" style="color: #990099; font: normal normal normal 7pt Arial; text-align: center; padding: 0px 5px 10px 0px;">
+						 © 2014 Universidad Central del Ecuador. Todos los derechos Reservados. 
+						</td>
 			</tr>
 		</table>
 	</h:form>
