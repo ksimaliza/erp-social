@@ -20,12 +20,14 @@
 			<p:growl id="pnlMessagesG"/>
 		</div>
 		<p:panel id="pnlDatos">
-			<table class="center">
+			<table class="center" width="98%">
 				<tr>
 					<td width="100%" colspan="2">
 						<p:messages id="messages" autoUpdate="true" closable="true" />
 					</td>
 				</tr>
+
+						
 				
 				<tr>
 					<td width="30%">
@@ -58,6 +60,7 @@
 					<td colspan="2">
 						<p:commandButton value="#{i18n['label.guardar']}" actionListener="#{registroAsistenciaController.registrar}" update="pnlMessagesG,pnlDatos" process="pnlDatos"/>
 						<p:commandButton value="#{i18n['label.imprimir']}" disabled="#{registroAsistenciaDataManager.desactivarImprimir}" actionListener="#{registroAsistenciaController.imprimir}"/>
+						<p:clock pattern="dd-MM-yyyy HH:mm:ss " mode="server" />
 					</td>									
 				</tr>
 	

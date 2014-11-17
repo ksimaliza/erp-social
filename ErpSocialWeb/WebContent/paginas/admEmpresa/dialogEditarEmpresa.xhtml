@@ -9,6 +9,21 @@
 		<h:form id="formEditarEmpresa">	
 			<p:panel id="pnlEditarEmpresa">
 				<table class="formulario">
+
+					<tr>
+						<td width="60%" colspan="4"><p:graphicImage id="image" height="80" cache="false" value="#{empresaDataManager.empresaEditar.emrFotoNombre}"/></td>
+					</tr>
+				
+					<tr>
+						<td>
+							<h:outputLabel value="#{i18n['label.imagen']}"/>
+						</td>
+						<td colspan="3">
+							    <p:fileUpload fileUploadListener="#{empresaController.handleFileUploadEditar}" mode="advanced" dragDropSupport="true"
+                     				 update="image" auto="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Seleccionar" process="@this"/>
+						</td>
+					</tr>
+				
 					<tr>
 						<td width="35%">
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.empresa.nombre']}" />
