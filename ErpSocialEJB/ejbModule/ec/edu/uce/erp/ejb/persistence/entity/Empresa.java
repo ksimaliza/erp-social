@@ -52,8 +52,11 @@ public class Empresa extends AuditoriaUtil implements Serializable {
 	private String emrEstado;
 
 	@Column(name="emr_foto")
-	private String emrFoto;
+	private byte[] emrFoto;
 
+	@Column(name="emr_foto_nombre")
+	private String emrFotoNombre;
+	
 	@Column(name="emr_nombre")
 	private String emrNombre;
 
@@ -158,12 +161,20 @@ public class Empresa extends AuditoriaUtil implements Serializable {
 		this.emrEstado = emrEstado;
 	}
 
-	public String getEmrFoto() {
-		return this.emrFoto;
+	public byte[] getEmrFoto() {
+		return emrFoto;
 	}
 
-	public void setEmrFoto(String emrFoto) {
+	public void setEmrFoto(byte[] emrFoto) {
 		this.emrFoto = emrFoto;
+	}
+
+	public String getEmrFotoNombre() {
+		return emrFotoNombre;
+	}
+
+	public void setEmrFotoNombre(String emrFotoNombre) {
+		this.emrFotoNombre = emrFotoNombre;
 	}
 
 	public String getEmrNombre() {
