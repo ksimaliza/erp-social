@@ -89,13 +89,13 @@ public class ReporteSepulturaController extends BaseController {
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
 			mapParametros.put("fechaActual", full.format(fechaActual));
-			mapParametros.put("desde", pequeña.format(reporteSepulturaDataManager.getSepulturaListDTO().getFechaDesde()));
-			mapParametros.put("hasta", pequeña.format(reporteSepulturaDataManager.getSepulturaListDTO().getFechaHasta()));
+			mapParametros.put("desde", pequeña.format(reporteSepulturaDataManager.getDesde()));
+			mapParametros.put("hasta", pequeña.format(reporteSepulturaDataManager.getHasta()));
 			mapParametros.put("empresa", getEmpresaTbl().getEmrNombre());
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
-			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(),reporteSepulturaDataManager.getSepulturaListDTOs(), "reportePartidasBautizos", mapParametros);
-			ReporteUtil.generarReporte(jasperPrint, this.reporteSepulturaDataManager.getFormatoPdf(), "reportePartidasBautizos");
+			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(),reporteSepulturaDataManager.getSepulturaListDTOs(), "reporteSepultura", mapParametros);
+			ReporteUtil.generarReporte(jasperPrint, this.reporteSepulturaDataManager.getFormatoPdf(), "reporteSepultura");
 	}
 
 	@Override
