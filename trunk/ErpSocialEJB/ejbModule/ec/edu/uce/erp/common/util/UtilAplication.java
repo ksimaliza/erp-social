@@ -102,6 +102,9 @@ public final class UtilAplication {
 				pathDir="C:\\JavaEE\\jboss-as-7.1.1.Final\\standalone\\deployments\\ErpSocial.ear\\ErpSocialWeb.war\\images\\tmp\\upload\\";
 				pathFile="C:\\JavaEE\\jboss-as-7.1.1.Final\\standalone\\deployments\\ErpSocial.ear\\ErpSocialWeb.war"+relativePath;
 				
+				MessagesApplicacion.getString("erp.path.file");
+				MessagesApplicacion.getString("erp.path.dir");
+				
 				f= new File(pathDir);
 				if(!f.exists())
 					f.mkdirs();
