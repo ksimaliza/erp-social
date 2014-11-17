@@ -13,6 +13,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.event.FileUploadEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,6 +24,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
+import ec.edu.uce.erp.web.common.util.JsfUtil;
 import ec.edu.uce.erp.web.datamanager.EmpresaDataManager;
 
 /**
@@ -213,5 +215,16 @@ public class EmpresaController extends BaseController {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void handleFileUpload(FileUploadEvent event) {
+		empresaDataManager.getEmpresaInstancia().setEmrFotoNombre(JsfUtil.saveToDiskUpdload(event.getFile().getContents(), event.getFile().getFileName()));
+		empresaDataManager.getEmpresaInstancia().setEmrFoto(event.getFile().getContents());
+    }
+
+	public void handleFileUploadEditar(FileUploadEvent event) {
+		empresaDataManager.getEmpresaEditar().setEmrFotoNombre(JsfUtil.saveToDiskUpdload(event.getFile().getContents(), event.getFile().getFileName()));
+		empresaDataManager.getEmpresaEditar().setEmrFoto(event.getFile().getContents());
+    }
+
 	
 }
