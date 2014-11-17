@@ -2,7 +2,6 @@ package ec.edu.uce.erp.ejb.persistence.dao.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -127,7 +126,7 @@ public class SepulturaDAOImpl extends AbstractFacadeImpl<SepulturaDTO> implement
 
 	        for(Field f : fields){
 	            fieldName = f.getName();
-				if(!fieldName.equals("serialVersionUID")&&!fieldName.equals("fechaDesde")&&!fieldName.equals("fechaHasta"))
+				if(!fieldName.equals("serialVersionUID"))
 				{
 				    getter = objetoDTO.getClass().getMethod("get" + String.valueOf(fieldName.charAt(0)).toUpperCase() +
 				            fieldName.substring(1));
