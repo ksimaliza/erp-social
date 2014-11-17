@@ -27,16 +27,16 @@
 
                                 <tr >
                                 <td ><h:outputLabel value="Desde:" /></td>
-                                        <td ><p:calendar id="txtDesde" style="width: 100%" navigator="true" value="#{reporteSepulturaDataManager.sepulturaListDTO.fechaDesde}"  showOn="button" /></td>
+                                        <td ><p:calendar id="txtDesde" style="width: 100%" navigator="true"  value="#{reporteSepulturaDataManager.desde}" showOn="button" /></td>
                                 </tr>       
                                 <tr>
                                  <td ><h:outputLabel value="Hasta:" /></td>
                                         <td >
-                                        	<p:calendar id="txtHasta"  navigator="true" value="#{reporteSepulturaDataManager.sepulturaListDTO.fechaHasta}"  showOn="button" />
+                                        	<p:calendar id="txtHasta"  navigator="true"   showOn="button" value="#{reporteSepulturaDataManager.hasta}" />
                                         </td>		
                                         <td >
 	                                        <p:commandButton id="btnBuscar"
-	                                        actionListener="#{reporteDefuncionController.buscar}"
+	                                        actionListener="#{reporteSepulturaController.buscar}"
 	                                        value="#{i18n['label.buscar']}" 
 	                                        process="@this,pnlBuscar"
 	                                        update="pnlBuscar,tblReporte" 
@@ -44,7 +44,7 @@
 	                                        title="Buscar"/>
                                         </td>
                                 	<td >
-                                		<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{reporteDefuncionController.exportar}" icon="exportPdf" ajax="false"
+                                		<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{reporteSepulturaController.exportar}" icon="exportPdf" ajax="false"
 										disabled="#{reporteSepulturaDataManager.exportDesactivado}"  />
                                 	</td>
                                 </tr>

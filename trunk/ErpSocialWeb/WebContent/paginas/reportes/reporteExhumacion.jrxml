@@ -30,7 +30,7 @@
 			</staticText>
 			<staticText>
 				<reportElement x="257" y="9" width="154" height="24" uuid="e966d61d-ccba-4855-8411-2aaa55835925"/>
-				<textElement>
+				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font size="18" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CEMENTERIO DE]]></text>
@@ -82,7 +82,7 @@
 				<text><![CDATA[EXHUMACIONES]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="618" y="7" width="175" height="20" uuid="db6a97d4-1e1f-4a6f-8b2d-81cd7714c9e9"/>
+				<reportElement x="488" y="7" width="294" height="20" uuid="db6a97d4-1e1f-4a6f-8b2d-81cd7714c9e9"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
