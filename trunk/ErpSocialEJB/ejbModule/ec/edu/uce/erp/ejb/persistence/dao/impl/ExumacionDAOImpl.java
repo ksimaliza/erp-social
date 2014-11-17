@@ -115,9 +115,9 @@ public class ExumacionDAOImpl extends AbstractFacadeImpl<ExumacionDTO> implement
 			from= cq.from(ExumacionListDTO.class);
 			
 			cq.multiselect(
-					from.get("parroquia"),
-					from.get("provincia"),
-					from.get("canton"),
+					from.get("codigoparroquia"),
+					from.get("codigoprovincia"),
+					from.get("codigocanton"),
 					from.get("perCi"),
 					from.get("perApellidos"),
 					from.get("perNombres"),
