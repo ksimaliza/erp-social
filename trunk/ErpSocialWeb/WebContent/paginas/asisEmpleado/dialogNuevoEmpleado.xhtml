@@ -6,9 +6,12 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpNuevoEmpleado" header="#{i18n['erp.asistencia.empleado.registrar']}" resizable="false" draggable="false"
-		widgetVar="dlgNuevoEmpleado" modal="true" width="500" minWidth="500" appendTo="@(body)" height="500">
-		<p:scrollPanel>
+		widgetVar="dlgNuevoEmpleado" modal="true" width="500" minWidth="500" appendTo="@(body)" closeOnEscape="true">
+		
 		<h:form id="formNuevoEmpleado" styleClass="formulario">
+		
+		<p:scrollPanel mode="native" style="height:500px">
+		
 		
 			<p:panel id="pnlNuevoEmpleado">
 				
@@ -35,7 +38,8 @@
 						<td width="70%">
 							<p:inputText id="txtCi" style="width: 100%" required="true" label="#{i18n['erp.asistencia.empleado.cedula']}" value="#{empleadoDataManager.personaInsertar.perCi}">
 								<f:validateLength maximum="10" minimum="10"/>
-								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />								
+								<p:ajax event="blur" listener="#{empleadoController.buscarPersonaEmpleado}" process="@this" update="pnlNuevoEmpleado"></p:ajax>								
 							</p:inputText>
 						</td>
 					</tr>
@@ -62,7 +66,7 @@
 							<h:outputLabel for="txtFecNac" value="#{i18n['erp.asistencia.empleado.fechanac']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFecNac" style="width: 100%" navigator="true" value="#{empleadoDataManager.personaInsertar.perFechaNac}"  showOn="button" required="true"/>
+							<p:calendar id="txtFecNac" style="width: 100%" navigator="true" value="#{empleadoDataManager.personaInsertar.perFechaNac}"  showOn="button" required="true" pattern=""/>
 						</td>	
 					</tr>
 					
@@ -176,8 +180,11 @@
  					process="@this,pnlNuevoEmpleado" update="pnlNuevoEmpleado,:formEmpleado:pnlMessages,:formEmpleado:tablaEmpleado"/>
  				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoEmpleado.hide();" type="button" />
 			</p:panel>
-		</h:form>
+		
 		</p:scrollPanel>
+		
+		</h:form>
+		
 	</p:dialog>
 	
 </ui:composition>

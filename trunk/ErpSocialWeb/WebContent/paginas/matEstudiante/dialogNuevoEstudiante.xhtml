@@ -7,6 +7,7 @@
 	
 	<p:dialog id="popUpNuevoEstudiante" header="#{i18n['erp.matricula.estudiante.registrar']}" resizable="false" draggable="false"
 		widgetVar="dlgNuevoEstudiante" modal="true" width="750" minWidth="750" appendTo="@(body)" closeOnEscape="true">
+		
 		<h:form id="formNuevoEstudiante" styleClass="formulario">
 		
 		<p:scrollPanel mode="native" style="height:500px">
@@ -49,12 +50,12 @@
 								styleClass="item-required" />
 						</td>
 					<td  class="value"><p:selectOneRadio 
-															required="true"
-															requiredMessage="El campo Género Estudiante es Obligatorio."
-															value="#{estudianteDataManager.estudiantePersonaInsertar.perGenero}">
-															<f:selectItem itemLabel="Femenino" itemValue="F" />
-															<f:selectItem itemLabel="Masculino" itemValue="M" />
-														</p:selectOneRadio></td>
+										required="true"
+										requiredMessage="El campo Género Estudiante es Obligatorio."
+										value="#{estudianteDataManager.estudiantePersonaInsertar.perGenero}">
+										<f:selectItem itemLabel="Femenino" itemValue="F" />
+										<f:selectItem itemLabel="Masculino" itemValue="M" />
+									</p:selectOneRadio></td>
 						
 					</tr>
 						
