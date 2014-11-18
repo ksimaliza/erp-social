@@ -72,6 +72,7 @@ public class BajasBienDataManager extends BaseDataManager{
 		this.vistaEmpleadoBuscar = new VistaEmpleado();
 		this.dcLineaBien = new ArrayList<SelectItem>();
 		this.listVistaEmpleado = new ArrayList<VistaEmpleado>();
+		this.dcEmpleadosEmpresa = new ArrayList<SelectItem>();
 	}
 	
 	public void limpiarCatalogos () {
@@ -235,6 +236,19 @@ public class BajasBienDataManager extends BaseDataManager{
 		}
 		
 		return dcEmpleadosEmpresa;
+	}
+	
+	public void cargarCatalogos () {
+		try {
+			this.dcTipoBien = UtilSelectItems.getInstancia().cargarSelectItemsDetBien(ID_CAB_CATALOGO_TIPO_BIEN, servicioInventario);
+			this.dcCategoriaBien = UtilSelectItems.getInstancia().cargarSelectItemCategoriaBien(servicioInventario);
+			this.dcBajaBien = UtilSelectItems.getInstancia().cargarSelectItemsDetBien(ID_CAB_CAT_BAJA_BIEN, servicioInventario);
+			this.dcLineaBien.clear();
+			this.dcEmpleadosEmpresa.clear();
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("error al cargarCatalogos {}", e.toString());
+			e.printStackTrace();
+		}
 	}
 
 	/**
