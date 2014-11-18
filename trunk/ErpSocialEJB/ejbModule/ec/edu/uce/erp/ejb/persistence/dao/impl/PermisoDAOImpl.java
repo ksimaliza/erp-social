@@ -49,6 +49,13 @@ public class PermisoDAOImpl extends AbstractFacadeImpl<PermisoDTO> implements Pe
 		Root<PermisoListDTO> from = cq.from(PermisoListDTO.class);
 		
 		CriteriaQuery<PermisoListDTO> select = cq.select(from);
+
+		//por ci
+		if (!StringUtils.isEmpty(permiso.getPerCi())) {
+			Expression<String> ci = cb.upper(cb.literal(UtilAplication.concatenarPorcenteje(permiso.getPerCi())));
+			predicate = cb.like(cb.upper(from.<String>get("perCi")), ci);
+			criteriaList.add(predicate);
+		}
 		
 		//por nombre
 		if (!StringUtils.isEmpty(permiso.getPerNombres())) {
