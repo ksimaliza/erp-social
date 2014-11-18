@@ -17,10 +17,10 @@
 						</td>
 						<td>
 							<p:selectOneMenu id="txtBaja" style="width: 100%" required="true"
-								value="#{vistaBienDataManager.idDcBajaBienSelec}">
+								value="#{bajasBienDataManager.idDcBajaBienSelec}">
 								<f:selectItem itemValue=""
 									itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true" />
-								<f:selectItems value="#{vistaBienDataManager.dcBajaBien}" />
+								<f:selectItems value="#{bajasBienDataManager.dcBajaBien}" />
 							</p:selectOneMenu>
 						</td>
 					</tr>
@@ -29,7 +29,7 @@
 							<h:outputLabel for="txtNombre" value="#{i18n['label.descripcion']}" />
 						</td>
 						<td width="75%">
-							<h:outputText id="txtNombre" value="#{vistaBienDataManager.vistaBienEditar.bieNombre}" />
+							<h:outputText id="txtNombre" value="#{bajasBienDataManager.vistaBienEditar.bieNombre}" />
 						</td>
 					</tr> 
 					<tr>
@@ -38,7 +38,7 @@
 						</td>
 						<td>
 							<h:outputText id="txtCodigo"
-								value="#{vistaBienDataManager.vistaBienEditar.bieCodigo == null ? 'N/D':vistaBienDataManager.vistaBienEditar.bieCodigo}" />
+								value="#{bajasBienDataManager.vistaBienEditar.bieCodigo == null ? 'N/D':bajasBienDataManager.vistaBienEditar.bieCodigo}" />
 						</td>
 					</tr>
 					<tr>
@@ -47,7 +47,7 @@
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td>
-							<h:inputTextarea id="txtMotivo" style="width: 100%;" value="#{vistaBienDataManager.vistaBienEditar.traDescripcion}" rows="3"/>
+							<h:inputTextarea id="txtMotivo" style="width: 100%;" value="#{bajasBienDataManager.vistaBienEditar.traDescripcion}" rows="3"/>
 						</td>
 					</tr>
 				</table>

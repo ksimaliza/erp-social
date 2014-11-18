@@ -155,6 +155,7 @@ public class TransaccionBienController extends BaseController{
 			
 			if (colVistaBien != null) {
 				MensajesWebController.aniadirMensajeInformacion("Bien reasignado correctamente");
+				this.vistaBienDataManager.setIdCustudioReasignado(null);
 			}
 			
 		} catch (SeguridadesException e) {

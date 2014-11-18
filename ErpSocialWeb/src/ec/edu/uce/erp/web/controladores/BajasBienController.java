@@ -59,6 +59,7 @@ public class BajasBienController extends BaseController{
 	public void inicializarObjetos() {
 		this.buscarUsuarioComponent = new BuscarUsuarioComponent(servicioInventario, 
 				this.bajasBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
+		this.bajasBienDataManager.cargarCatalogos();
 	}
 	
 
