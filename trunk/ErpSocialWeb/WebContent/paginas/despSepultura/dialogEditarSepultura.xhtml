@@ -14,12 +14,13 @@
 						<td width="30%">
 							<h:outputLabel for="txtCi" value="#{i18n['erp.despacho.defuncion.cedula']}" />
 						</td>
-						<td width="70%">
-							<p:inputText id="txtCi" style="width: 70%" 
-								 required="true" label="#{i18n['erp.despacho.defuncion.cedula']}" value="#{sepulturaDataManager.defuncionInsertar.perCi}" disabled="#{sepulturaDataManager.desactivado}">
-							<f:validateLength maximum="10" minimum="10"/>
-							<p:ajax event="blur"  listener="#{sepulturaController.buscarDifunto}" process="@this" update="txtNombres,txtApellidos,txtCi,txtObservacion,txtSeccionNicho,txtTipoNicho,txtNivelNicho,nicho"/>
-						</p:inputText>
+						
+						<td width="70%" ><p:selectOneMenu id="txtCi" label="#{i18n['erp.despacho.defuncion.cedula']}" value="#{sepulturaDataManager.defuncionlistDTO.perCi}"  filter="true" required="true"  >
+
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{sepulturaController.sepulturaDataManager.defuncionListDTOs}" var="defuncion" itemLabel="#{defuncion.perCi} " itemValue="#{defuncion.perCi}"/>
+								<p:ajax update="txtNombres,txtApellidos,txtCi,txtObservacion,txtSeccionNicho,txtTipoNicho,txtNivelNicho,nicho" listener="#{sepulturaController.buscarDifunto}" process="@this"/>
+							</p:selectOneMenu>
 						</td>	
 					</tr>
 											
@@ -100,7 +101,7 @@
 						<td width="70%">
 							<p:inputTextarea id="txtObservacion" style="width: 100%"
 							required="true" label="#{i18n['erp.despacho.sepultura.observacion']}" 
-								value="#{sepulturaDataManager.sepulturaDTO.sepObservacion}" disabled="#{sepulturaDataManager.desactivado}"/>
+								value="#{sepulturaDataManager.sepulturaDTO.sepObservacion}" disabled="#{sepulturaDataManager.desactivado}" maxlength="255"/>
 						</td>
 					</tr>
 					
