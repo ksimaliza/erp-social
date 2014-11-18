@@ -18,6 +18,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EmpleadoVO;
+import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioAsistencia;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
@@ -37,6 +38,9 @@ public class EmpleadoController extends BaseController{
 	
 	@EJB
 	private ServicioAsistencia servicioAsistencia;
+	
+	@EJB
+	private ServicioAdministracion servicioAdministracion;
 	
 	@ManagedProperty(value="#{empleadoDataManager}")
 	private EmpleadoDataManager empleadoDataManager;
@@ -115,6 +119,20 @@ public class EmpleadoController extends BaseController{
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosEmpleado seleccionado");
 		}
 	}
+	
+	public void buscarPersonaEmpleado()
+	{
+		List<Persona> personaList;
+		try {
+			personaList=this.servicioAdministracion.buscarPersona(empleadoDataManager.getPersonaInsertar());
+			if(personaList.size()>0)
+				empleadoDataManager.setPersonaInsertar(personaList.get(0));
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("buscarPersonaEmpleado {}", e.getMessage());
+			MensajesWebController.aniadirMensajeError(e.toString());
+		}
+	}
+
 
 
 	@Override
