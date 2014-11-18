@@ -57,7 +57,6 @@ public class SepulturaController extends BaseController {
 	}
 
 	public SepulturaController() {
-		
 	}
 	
 	@PostConstruct
