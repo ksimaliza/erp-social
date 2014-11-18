@@ -96,6 +96,7 @@ public class EstudianteController extends BaseController{
 			if (estudianteNuevo != null) {
 				estudianteDataManager.setEstudianteInstancia(new EstudianteDTO());
 				estudianteDataManager.setEstudiantePersonaInsertar(new Persona());
+				representanteDataManager.setPersonaInstancia(new Persona());
 				MensajesWebController.aniadirMensajeInformacion("erp.matricula.estudiante.registrar.exito");
 			}
 			buscarEstudiantes();
