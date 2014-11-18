@@ -28,7 +28,16 @@
 			
 			<p:panel id="pnlBuscar" header="#{i18n['erp.asistencia.empleado.buscar']}">
 				<table class="formulario">
-					<tr >
+					<tr>
+						<td width="30%"><h:outputLabel value="#{i18n['erp.asistencia.empleado.cedula']}" /> </td>
+					<td width="70%">
+							<p:inputText id="txtNombreCedula"
+								value="#{permisoDataManager.permisoBuscar.perCi}" />
+						</td>
+					
+					</tr>				
+				
+					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.asistencia.empleado.nombres']}" /> </td>
 					<td width="70%">
 							<p:inputText id="txtNombreBuscar"
