@@ -163,8 +163,8 @@ public class SepulturaController extends BaseController {
 			listaSepultura = this.servicioEucaristia.readSepultura(this.sepulturaDataManager.getSepulturaListDTO());
 			if (CollectionUtils.isEmpty(listaSepultura)
 					&& listaSepultura.size() == 0) {
-				MensajesWebController
-						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				this.sepulturaDataManager.setSepulturaListDTOs(new ArrayList<SepulturaListDTO>());
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.sepulturaDataManager.setSepulturaListDTOs(listaSepultura);
 			}
@@ -188,6 +188,8 @@ public class SepulturaController extends BaseController {
 		List<DefuncionListDTO> list=null;
 		
 		try {
+			sepulturaDataManager.setDefuncionInsertar(new Persona());
+			sepulturaDataManager.getDefuncionInsertar().setPerCi(sepulturaDataManager.getDefuncionlistDTO().getPerCi());
 			if(sepulturaDataManager.getDefuncionInsertar().getPerCi()!=null && sepulturaDataManager.getDefuncionInsertar().getPerCi()!="" )
 			{
 				sepulturaDataManager.getDefuncionInsertar().setPerNombres(null);
@@ -215,7 +217,6 @@ public class SepulturaController extends BaseController {
 	public void cargarDatosSepultura (SepulturaListDTO sepultura) {
 		try {
 			SepulturaVO sepulturaEncontrado=servicioEucaristia.obtenerSepulturaPorId(sepultura);
-			
 			this.sepulturaDataManager.setDefuncionInsertar(sepulturaEncontrado.getDefuncionPersona());
 			this.sepulturaDataManager.setSepulturaDTO(sepulturaEncontrado.getSepultura());
 			this.sepulturaDataManager.setCodigoNicho(sepulturaEncontrado.getSepultura().getSepNicho());
@@ -227,14 +228,43 @@ public class SepulturaController extends BaseController {
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosSepultura seleccionado");
 		}
 	}
+	//permite cargar lista de difuntos que no estan todavía sepultadas
+	public void buscarDifuntos() {
+		try {
+			sepulturaDataManager.setDefuncionListDTOs(new ArrayList<DefuncionListDTO>());
+			List<DefuncionListDTO> difuntosEncontrados=servicioEucaristia.buscarDefuncion(new DefuncionListDTO());
+			List<SepulturaListDTO> sepultutasEncontrados=servicioEucaristia.readSepultura(new SepulturaListDTO());
+			
+			if (!CollectionUtils.isEmpty(difuntosEncontrados) && difuntosEncontrados.size()!=0 && !CollectionUtils.isEmpty(sepultutasEncontrados) && sepultutasEncontrados.size()!=0 ||
+			    !CollectionUtils.isEmpty(difuntosEncontrados) && difuntosEncontrados.size()!=0 && (CollectionUtils.isEmpty(sepultutasEncontrados) || sepultutasEncontrados.size()!=0)
+						)
+			   {
+				sepulturaDataManager.setDefuncionListDTOs(new ArrayList<DefuncionListDTO>());
+				for (DefuncionListDTO defuncionListDTO : difuntosEncontrados) {
+					Boolean estaSepultado=false;
+					for (SepulturaListDTO sepulturaListDTO : sepultutasEncontrados) {
+						if(defuncionListDTO.getPerCi().equals(sepulturaListDTO.getPerCi())){
+							estaSepultado=true;
+						}
+					}
+					if(!estaSepultado) sepulturaDataManager.getDefuncionListDTOs().add(defuncionListDTO);
+				}
+			   }
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al cargarDatosSepultura {}", e.getMessage());
+			MensajesWebController.aniadirMensajeError("Error al cargarDatosSepultura seleccionado");
+		}
+	}
 
 	public void limpiarFormulario()
 	{
 		sepulturaDataManager.setCodigoNicho(0);
+		sepulturaDataManager.getDefuncionlistDTO().setPerCi("");
 		sepulturaDataManager.setSepulturaDTO(new SepulturaDTO());
 		sepulturaDataManager.setDefuncionInsertar(new Persona());
 		sepulturaDataManager.setNichoListDTO(new NichoListDTO());
 		sepulturaDataManager.setDesactivado(false);
+		buscarDifuntos();
 	}
 
 	@Override
@@ -243,5 +273,34 @@ public class SepulturaController extends BaseController {
 		
 	}
 	
-
+	public void cargarDatosSepulturasEditar(SepulturaListDTO sepultura)
+	{
+		
+	    Boolean estaEnListaDifuntos=false;
+		cargarDatosSepultura(sepultura);
+		buscarDifuntos();
+		DefuncionListDTO defuncionListDTO= new DefuncionListDTO();
+		defuncionListDTO.setPerCi(sepultura.getPerCi());
+		try {
+			List<DefuncionListDTO> defuncionEncontrada=servicioEucaristia.buscarDefuncion(defuncionListDTO);
+			List<DefuncionListDTO> defuncionesSepultura=sepulturaDataManager.getDefuncionListDTOs();
+			if(!CollectionUtils.isEmpty(defuncionEncontrada) && defuncionEncontrada.size()!=0)
+			{
+				
+				for (DefuncionListDTO defuncionListDTO2 : defuncionesSepultura) {
+					if (defuncionListDTO2.equals(defuncionEncontrada.get(0)))
+						estaEnListaDifuntos=true;
+					}
+				if(!estaEnListaDifuntos)
+				{
+					sepulturaDataManager.getDefuncionListDTOs().add(defuncionEncontrada.get(0));
+					this.sepulturaDataManager.setDefuncionlistDTO(defuncionEncontrada.get(0));
+				}
+			}
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al cargarDatosSepulturasEditar {}", e.getMessage());
+			MensajesWebController.aniadirMensajeError("Error al cargarDatosSepultura seleccionado");
+		}
+		
+	}
 }

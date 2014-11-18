@@ -113,7 +113,7 @@
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarSepultura.show()"
-							actionListener="#{sepulturaController.cargarDatosSepultura(sepultura)}"
+							actionListener="#{sepulturaController.cargarDatosSepulturasEditar(sepultura)}"
 							process="@this" update=":formEditarSepultura:pnlEditarSepultura">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
