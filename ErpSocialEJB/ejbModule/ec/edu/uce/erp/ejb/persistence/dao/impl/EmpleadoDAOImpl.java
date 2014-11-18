@@ -67,7 +67,7 @@ public class EmpleadoDAOImpl extends AbstractFacadeImpl<EmpleadoDTO> implements 
 		}
 		
 //		//por ci
-		if (!StringUtils.isEmpty(empleado.getPerApellidos())) {
+		if (!StringUtils.isEmpty(empleado.getPerCi())) {
 			Expression<String> ci = cb.upper(cb.literal(UtilAplication.concatenarPorcenteje(empleado.getPerCi())));
 			predicate = cb.like(cb.upper(from.<String>get("perCi")), ci);
 			criteriaList.add(predicate);
