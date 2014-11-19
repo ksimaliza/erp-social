@@ -1,14 +1,25 @@
 package ec.edu.uce.erp.ejb.persistence.entity.matriculacion;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.Serializable;
-
-import javax.persistence.*;
-import javax.swing.text.StyledEditorKit.BoldAction;
-
-import ec.edu.uce.erp.common.util.UtilAplication;
-
 import java.sql.Timestamp;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import ec.edu.uce.erp.common.util.UtilAplication;
 
 
 /**
@@ -41,6 +52,9 @@ public class MatriculaDTO implements Serializable {
 	
 	@Transient
 	private Boolean regVerificarFoto;
+	
+	@Transient
+	private InputStream fotoStream;
 
 	//bi-directional many-to-one association to EstudianteDTO
 	@ManyToOne
@@ -133,6 +147,16 @@ public class MatriculaDTO implements Serializable {
 
 	public void setRegVerificarFoto(Boolean regVerificarFoto) {
 		this.regVerificarFoto = regVerificarFoto;
+	}
+
+	public InputStream getFotoStream() {
+		if(this.getRegFotoByte()!=null)
+			this.fotoStream=new ByteArrayInputStream(this.getRegFotoByte());
+		return fotoStream;
+	}
+
+	public void setFotoStream(InputStream fotoStream) {
+		this.fotoStream = fotoStream;
 	}
 
 }
