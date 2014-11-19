@@ -275,4 +275,6 @@ public interface ServicioAdministracion {
 	 */
 	List<VistaHistoricoTransaccion> obtenerVistaHistoricoTransaccion(VistaHistoricoTransaccion vistaHistoricoTransaccion) throws SeguridadesException;
 
+	Persona buscarPersona(Object id) throws SeguridadesException;
+
 }

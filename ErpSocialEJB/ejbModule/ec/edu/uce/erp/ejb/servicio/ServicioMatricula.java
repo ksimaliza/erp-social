@@ -11,6 +11,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteAsignadoVieDTO
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteRepresentanteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MateriaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaVieDTO;
@@ -178,6 +179,9 @@ public interface ServicioMatricula {
 
 	List<DocenteAsignadoVieDTO> readDocenteAsignado(
 			DocenteAsignadoVieDTO objectDTO) throws SeguridadesException;
+
+	List<EstudianteRepresentanteDTO> readRepresentante(EstudianteDTO objectDTO)
+			throws SeguridadesException;
 
 		
 
