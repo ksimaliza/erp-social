@@ -723,6 +723,20 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 	}
 
 	@Override
+	public Persona buscarPersona(Object id) throws SeguridadesException {
+		slf4jLogger.info("buscarPersona");
+		Persona listPersonas = null;
+		try {
+			listPersonas = factoryDAO.getPersonaDAOImpl().find(id);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarPersona {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener buscarPersona de la base de datos");
+		}
+		
+		return listPersonas;
+	}
+	
+	@Override
 	public List<Perfil> buscarPerfilModuloMenu(Perfil perfil) throws SeguridadesException {
 		
 		List<Perfil> listPerfil = buscarPerfiles(perfil);
