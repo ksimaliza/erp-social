@@ -106,7 +106,7 @@
 								title="#{i18n['label.editar']}"
 								oncomplete="dlgEditarEstudiante.show()"
 								actionListener="#{estudianteController.cargarDatosEstudiante(estudiante)}"
-								process="@this" update=":formEditarEstudiante:pnlEditarEstudiante">
+								process="@this" update=":formEditarEstudiante:pnlEditarEstudiante,:formEditarEstudiante:pnlNuevoRepresentante">
 								<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
 					</h:panelGroup>
