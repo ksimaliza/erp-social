@@ -18,6 +18,7 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteRepresentanteDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EstudianteVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
@@ -147,6 +148,14 @@ public class EstudianteController extends BaseController{
 			
 			this.estudianteDataManager.setEstudiantePersonaInsertar(estudianteEncontrado.getPersona());
 			this.estudianteDataManager.setEstudianteInstancia(estudianteEncontrado.getEstudiante());
+			List<EstudianteRepresentanteDTO> listEstRep= servicioMatricula.readRepresentante(estudianteEncontrado.getEstudiante());
+			
+			slf4jLogger.info("tananio",listEstRep.size());
+			
+			if(listEstRep.size()>0)
+			{
+				this.representanteDataManager.setPersonaInstancia(servicioAdministracion.buscarPersona(listEstRep.get(0).getMatEstudiante().getEstPersona()));
+			}
 							
 			estudianteEncontrado.getPersona().getPerFotoVerificar();
 		} catch (SeguridadesException e) {
