@@ -21,7 +21,6 @@
 					<tr>
 						<td>
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.bien.fecha.asignacion']}" />
-							<!-- <h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" /> -->
 						</td>
 						<td>
 							<h:outputText value="#{transaccionBienController.fechaTransaccion}" />
@@ -37,20 +36,6 @@
 								value="#{vistaBienDataManager.vistaBienEditar.bieUbicacion}" label="#{i18n['erp.bien.ubicacion']}" />
 						</td>
 					</tr>
-					<!-- <tr>
-						<td>
-							<h:outputLabel for="txtCodigo" value="#{i18n['erp.bien.codigo']}" />
-							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
-						</td>
-						<td>
-							<p:inputText id="txtCodigo" style="width: 100%" required="true" 
-								rendered="#{vistaBienDataManager.vistaBienEditar.detBienTipBieNivel1 eq 'INGRE'}"
-								value="#{vistaBienDataManager.vistaBienEditar.bieCodigo}" label="#{i18n['erp.bien.codigo']}" />
-							<h:outputText
-								rendered="#{vistaBienDataManager.vistaBienEditar.detBienTipBieNivel1 eq 'DEVUE'}"
-								value="#{vistaBienDataManager.vistaBienEditar.bieCodigo}" />
-						</td>
-					</tr> -->
 					<tr>
 						<td>
 							<h:outputLabel for="txtCustodio" value="#{i18n['erp.bien.custodio']}" />

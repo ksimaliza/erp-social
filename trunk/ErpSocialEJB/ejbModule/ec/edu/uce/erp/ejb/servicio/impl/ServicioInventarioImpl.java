@@ -627,6 +627,8 @@ public class ServicioInventarioImpl implements ServicioInventario {
 						
 						colTransaccionActaBien.add(transaccionActaBien);
 						
+						vistaBien.setBieCodigo(bienActual.getBieCodigo());
+						
 					}
 					
 				} else {

@@ -156,7 +156,7 @@ public class BajasBienDataManager extends BaseDataManager{
 		
 		if (CollectionUtils.isEmpty(dcTipoBien)) {
 			slf4jLogger.info("cargar catalogoTipoBien");
-			dcTipoBien = UtilSelectItems.getInstancia().cargarSelectItemsDetBien(ID_CAB_CATALOGO_TIPO_BIEN, servicioInventario);
+			dcTipoBien = UtilSelectItems.getInstancia().cargarSelectItemsProcesoBajas(ID_CAB_CATALOGO_TIPO_BIEN, servicioInventario);
 		}
 		
 		return dcTipoBien;
@@ -240,7 +240,7 @@ public class BajasBienDataManager extends BaseDataManager{
 	
 	public void cargarCatalogos () {
 		try {
-			this.dcTipoBien = UtilSelectItems.getInstancia().cargarSelectItemsDetBien(ID_CAB_CATALOGO_TIPO_BIEN, servicioInventario);
+			this.dcTipoBien = UtilSelectItems.getInstancia().cargarSelectItemsProcesoBajas(ID_CAB_CATALOGO_TIPO_BIEN, servicioInventario);
 			this.dcCategoriaBien = UtilSelectItems.getInstancia().cargarSelectItemCategoriaBien(servicioInventario);
 			this.dcBajaBien = UtilSelectItems.getInstancia().cargarSelectItemsDetBien(ID_CAB_CAT_BAJA_BIEN, servicioInventario);
 			this.dcLineaBien.clear();

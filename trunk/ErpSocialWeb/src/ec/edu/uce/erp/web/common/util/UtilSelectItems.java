@@ -16,6 +16,7 @@ import org.apache.commons.collections.Transformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.common.enums.EnumTipoBien;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.common.util.UtilReflection;
 import ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogo;
@@ -113,6 +114,23 @@ public final class UtilSelectItems {
 		detalleBien.setId(new DetalleBienPK());
 		detalleBien.getId().setCabBienFk(idCabCatalogo);
 		detalleBien.setDetBienEstado(ESTADO_ACTIVO);
+		List<DetalleBien> listDetalleBien = servicioInventario.buscarDetalleBienCriterios(detalleBien);
+		
+		return this.cargarSelectItemsGenerico(listDetalleBien, "id.detBienNivel1", "detBienDescripcion");
+		
+	}
+	
+	public List<SelectItem> cargarSelectItemsProcesoBajas (String idCabCatalogo, ServicioInventario servicioInventario) throws SeguridadesException {
+		
+		slf4jLogger.info("cargarSelectItemsDetBien");
+		
+		DetalleBien detalleBien = new DetalleBien();
+		detalleBien.setId(new DetalleBienPK());
+		detalleBien.getId().setCabBienFk(idCabCatalogo);
+		detalleBien.setDetBienEstado(ESTADO_ACTIVO);
+		detalleBien.setNpColDetBienNivel1(new ArrayList<String>());
+		detalleBien.getNpColDetBienNivel1().add(EnumTipoBien.BAJA.getId());
+		detalleBien.getNpColDetBienNivel1().add(EnumTipoBien.DEVUELTO.getId());
 		List<DetalleBien> listDetalleBien = servicioInventario.buscarDetalleBienCriterios(detalleBien);
 		
 		return this.cargarSelectItemsGenerico(listDetalleBien, "id.detBienNivel1", "detBienDescripcion");

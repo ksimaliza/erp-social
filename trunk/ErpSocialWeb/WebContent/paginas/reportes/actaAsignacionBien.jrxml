@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="actaBien" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="f1ae7e2a-9961-4132-a027-0e8e13a879d8">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="131"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="nombreEmpresa" class="java.lang.String"/>
 	<parameter name="total" class="java.lang.String"/>
@@ -34,9 +34,9 @@
 				</textElement>
 				<textFieldExpression><![CDATA["Fecha: " + new SimpleDateFormat("yyyy - MM - dd").format($P{fechaGeneracionActa})]]></textFieldExpression>
 			</textField>
-			<image onErrorType="Icon">
+			<image scaleImage="RetainShape" onErrorType="Blank">
 				<reportElement uuid="b070300a-1ff5-462c-bb3f-52fdfe9c4704" x="4" y="0" width="79" height="79"/>
-				<imageExpression><![CDATA[$P{imagesRealPath}+"/uce_logo.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{imagesRealPath}]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement uuid="6a0fc3e8-33e2-47d7-aaba-55b0d342d90c" x="263" y="-1" width="279" height="30"/>
@@ -80,7 +80,7 @@
 				</reportElement>
 			</line>
 			<staticText>
-				<reportElement uuid="f79407bf-4ee0-4e9c-adfb-3ef8b7ead636" x="57" y="0" width="234" height="20"/>
+				<reportElement uuid="f79407bf-4ee0-4e9c-adfb-3ef8b7ead636" x="83" y="0" width="208" height="20"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
@@ -115,7 +115,7 @@
 				<text><![CDATA[Ubicación]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="712f22ec-1196-4ad4-99d9-3fee73c958a8" x="0" y="0" width="57" height="20"/>
+				<reportElement uuid="712f22ec-1196-4ad4-99d9-3fee73c958a8" x="0" y="0" width="83" height="20"/>
 				<textElement>
 					<font size="11" isBold="true"/>
 				</textElement>
@@ -133,7 +133,7 @@
 	<detail>
 		<band height="28" splitType="Stretch">
 			<textField>
-				<reportElement uuid="4dcbc038-937e-4842-92de-b2381cac1b1d" x="0" y="0" width="57" height="20"/>
+				<reportElement uuid="4dcbc038-937e-4842-92de-b2381cac1b1d" x="0" y="0" width="83" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{bieCodigo}]]></textFieldExpression>
 			</textField>
@@ -158,7 +158,7 @@
 				<textFieldExpression><![CDATA[$F{bieUbicacion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="5e77c166-8f1a-4f02-a406-69861629e633" x="57" y="0" width="234" height="20"/>
+				<reportElement uuid="5e77c166-8f1a-4f02-a406-69861629e633" x="83" y="0" width="208" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{bieNombre}]]></textFieldExpression>
 			</textField>

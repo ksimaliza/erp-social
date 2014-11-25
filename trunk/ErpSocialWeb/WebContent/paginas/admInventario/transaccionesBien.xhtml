@@ -17,7 +17,6 @@
 					<p:commandButton id="btnRefrescar" value="#{i18n['label.refrescar']}" icon="ui-icon-arrowrefresh-1-w" 
 						actionListener="#{transaccionBienController.refrescarFormulario}" process="@this,pnlBuscarBien"
 						update="pnlMessages,tablaBienes,pnlBuscarBien,toolbar"/>
-					<!-- <p:commandButton id="btnNuevoBien" value="#{i18n['label.insertar']}" icon="ui-icon-disk" oncomplete="dlgNuevoBien.show()"/> -->
 					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
 						icon="exportExcel" disabled="#{empty vistaBienDataManager.listVistaBien}">
 						<p:dataExporter type="xls" target="tablaBienes" fileName="productos" postProcessor="#{transaccionBienController.postProcessXLS}"/>
@@ -31,7 +30,9 @@
 						<td width="85%">
 							<h:panelGrid columns="2" border="0">
 								<h:outputText id="txtNombreCustodio" value="#{transaccionBienController.buscarUsuarioComponent.vistaEmpleadoSeleccionado.nombresCompletos}" />
-								<c:buscarUsuarioComponent controller="#{transaccionBienController.buscarUsuarioComponent}" render=":formBien:txtNombreCustodio"/>
+								<c:buscarUsuarioComponent
+									controller="#{transaccionBienController.buscarUsuarioComponent}"
+									render=":formBien:txtNombreCustodio" onComplete="#{transaccionBienController.onCompleteBuscarUsuarioComponent()}"/>
 							</h:panelGrid>
 						</td>
 					</tr>

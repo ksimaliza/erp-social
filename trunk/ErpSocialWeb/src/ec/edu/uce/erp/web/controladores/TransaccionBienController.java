@@ -27,10 +27,12 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.persistence.view.VistaActaBien;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
+import ec.edu.uce.erp.ejb.persistence.view.VistaEmpleado;
 import ec.edu.uce.erp.ejb.persistence.view.VistaTransaccion;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
+import ec.edu.uce.erp.web.common.util.JsfUtil;
 import ec.edu.uce.erp.web.common.util.ReporteUtil;
 import ec.edu.uce.erp.web.controladores.componentes.BuscarUsuarioComponent;
 import ec.edu.uce.erp.web.datamanager.VistaBienDataManager;
@@ -70,7 +72,6 @@ public class TransaccionBienController extends BaseController{
 				this.vistaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
 	}
 	
-
 	/**
 	 * Buscar bienes a trav&eacute;s de una vista
 	 */
@@ -249,7 +250,18 @@ public class TransaccionBienController extends BaseController{
 				mapParametros.put("identificacionCustodio", listVistaActaBien.iterator().next().getPerCi());
 				mapParametros.put("fechaGeneracionActa", listVistaActaBien.iterator().next().getActBieFechaGen());
 				mapParametros.put("total", String.valueOf(listVistaActaBien.size()));
-				mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
+				
+				if (StringUtils.isNotBlank(vistaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrFotoNombre())) {
+					
+					String imgPath = JsfUtil.descargarArchivo(
+							vistaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrFotoNombre(),
+									vistaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrFoto());
+					
+					mapParametros.put("imagesRealPath", getServletContext().getRealPath(imgPath));
+					
+				} else {
+					mapParametros.put("imagesRealPath", null);
+				}
 				
 				if (this.vistaBienDataManager.getVistaBienEditar().getDetBienTipBieNivel1().equals(EnumTipoBien.ASIGNADO.getId())) {
 					mapParametros.put("tituloActa", "Acta asignaci\u00F3n bien");
@@ -273,31 +285,17 @@ public class TransaccionBienController extends BaseController{
 		
 	}
 	
-//	public void buscarEmpleado () {
-//		slf4jLogger.info("buscarEmpleado");
-//		
-//		try {
-//			this.vistaBienDataManager.getListVistaEmpleado().clear();
-//			this.vistaBienDataManager.getVistaEmpleadoBuscar().setEmrFk(this.vistaBienDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
-//			List<VistaEmpleado> listVistaEmpleado = servicioInventario.obtenerEmpleadoEmpresa(this.vistaBienDataManager.getVistaEmpleadoBuscar());
-//			if (CollectionUtils.isEmpty(listVistaEmpleado)) {
-//				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-//			} else {
-//				this.vistaBienDataManager.setListVistaEmpleado(listVistaEmpleado);
-//			}
-//			
-//		} catch (SeguridadesException e) {
-//			slf4jLogger.info("error al buscarEmpleado {}", e.getCause().getMessage());
-//			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
-//		}
-//	}
-	
 	public void limpiarFiltrosBusqueda () {
 		this.vistaBienDataManager.setVistaBienBuscar(new VistaBien());
 		this.vistaBienDataManager.setIdDcTipoBienSelec(null);
 		this.vistaBienDataManager.setIdCategoriaBienSeleccionado(null);
 		this.vistaBienDataManager.setIdLineaBienSeleccionado(null);
 		this.vistaBienDataManager.getDcLineaBien().clear();
+		this.buscarUsuarioComponent.setVistaEmpleadoSeleccionado(new VistaEmpleado());
+	}
+	
+	public void onCompleteBuscarUsuarioComponent () {
+		slf4jLogger.info("onCompleteBuscarUsuarioComponent");
 	}
 	
 	/**

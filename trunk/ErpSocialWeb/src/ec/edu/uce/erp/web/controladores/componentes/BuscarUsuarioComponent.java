@@ -60,7 +60,7 @@ public class BuscarUsuarioComponent extends UINamingContainer {
 			if (vistaEmpleado != null) {
 				
 				this.listVistaEmpleado.clear();
-				vistaEmpleado.setEmrFk(emrPk);
+				vistaEmpleado.setEmrPk(emrPk);
 				List<VistaEmpleado> listVistaEmpleado = servicioInventario.obtenerEmpleadoEmpresa(vistaEmpleado);
 				if (CollectionUtils.isEmpty(listVistaEmpleado)) {
 					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
