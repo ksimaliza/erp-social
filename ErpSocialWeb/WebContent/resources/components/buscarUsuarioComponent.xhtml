@@ -16,7 +16,7 @@
 	
 		<composite:attribute name="render" required="true" shortDescription="Seccion a actualizar de la pagina que incluye el componente" />
 		<composite:attribute name="controller" required="true" shortDescription="Clase que administra el componente" />
-		<composite:attribute name="onComplete" required="false" method-signature="void listener(javax.faces.event.AjaxBehaviorEvent)" />
+		<composite:attribute name="onComplete" required="true" method-signature="void listener(javax.faces.event.AjaxBehaviorEvent)" />
 		
 	</composite:interface>
 
@@ -98,6 +98,11 @@
 						<h:outputText value="#{vistaEmpleado.perCi}" />
 					</p:column>
 				</p:dataTable>
+				<center>
+					<p:panel id="pnlBotonesCerrar">
+						<p:commandButton id="btnCerrar" value="#{i18n['label.cerrar']}" type="button" onclick="dlgBuscarUsuario.hide();"/>
+					</p:panel>
+				</center>
 			</h:form>
 		</p:dialog>
 		

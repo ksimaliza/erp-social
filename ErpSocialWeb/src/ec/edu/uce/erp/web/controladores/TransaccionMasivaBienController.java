@@ -180,10 +180,11 @@ public class TransaccionMasivaBienController extends BaseController{
 		this.transaccionMasivaBienDataManager.setVistaBienBuscar(new VistaBien());
 		this.transaccionMasivaBienDataManager.getListVistaBien().clear();
 		this.transaccionMasivaBienDataManager.getListVistaBienTraslado().clear();
+		this.transaccionMasivaBienDataManager.getListVistaBienTramitar().clear();
 		this.idCategoriaBienSeleccionado = null;
 		this.idLineaBienSeleccionado = null;
 		this.idTransaccionSeleccionado = null;
-		this.buscarUsuarioComponent.setVistaEmpleadoSeleccionado(null);
+		this.buscarUsuarioComponent.setVistaEmpleadoSeleccionado(new VistaEmpleado());
 	}
 	
 	public void asignarElementoTramitar (VistaBien vistaBien) {

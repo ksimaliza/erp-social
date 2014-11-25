@@ -168,6 +168,10 @@ public class BajasBienController extends BaseController{
 		
 		return UtilAplication.fechaActualConFormato("yyyy-MM-dd hh:mm a");
 	}
+	
+	public void onCompleteBuscarUsuarioComponent () {
+		slf4jLogger.info("onCompleteBuscarUsuarioComponent");
+	}
 
 	/**
 	 * @return the buscarUsuarioComponent
