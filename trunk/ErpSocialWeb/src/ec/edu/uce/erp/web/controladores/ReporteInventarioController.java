@@ -3,17 +3,29 @@
  */
 package ec.edu.uce.erp.web.controladores;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import net.sf.jasperreports.engine.JasperPrint;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
+import ec.edu.uce.erp.ejb.persistence.view.VistaEmpleado;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
+import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
+import ec.edu.uce.erp.web.common.util.ReporteUtil;
 import ec.edu.uce.erp.web.controladores.componentes.BuscarUsuarioComponent;
 import ec.edu.uce.erp.web.datamanager.ReporteInventarioDataManager;
 
@@ -54,10 +66,54 @@ public class ReporteInventarioController extends BaseController {
 	public void inicializarObjetos() {
 		this.buscarUsuarioComponent = new BuscarUsuarioComponent(servicioInventario, 
 				this.reporteInventarioDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
+		this.reporteInventarioDataManager.cargarCatalogos();
 	}
 	
-	public void generarReporte (String formatoReporte) {
+	@Override
+	public void refrescarFormulario() {
+	}
+	
+	public void generarReporte () {
 		slf4jLogger.info("generarReporte...");
+		
+		try {
+			
+			reporteInventarioDataManager.getVistaBienBuscar().setDetBienTipBieNivel1(reporteInventarioDataManager.getIdDcTipoBienSelec());
+			reporteInventarioDataManager.getVistaBienBuscar().setCatBienPk(reporteInventarioDataManager.getIdCategoriaBienSeleccionado());
+			reporteInventarioDataManager.getVistaBienBuscar().setLinBienPk(reporteInventarioDataManager.getIdLineaBienSeleccionado());
+//			reporteInventarioDataManager.getVistaBienBuscar().setBieEstado(reporteInventarioDataManager.getEstadoActivo());
+			reporteInventarioDataManager.getVistaBienBuscar().setPerCi(this.buscarUsuarioComponent.getVistaEmpleadoSeleccionado().getPerCi());
+			reporteInventarioDataManager.getVistaBienBuscar().setEmrPk(this.reporteInventarioDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
+			reporteInventarioDataManager.getVistaBienBuscar().setTraEstado(reporteInventarioDataManager.getEstadoActivo());
+			
+			List<VistaBien> listVistaBien = servicioInventario.buscarVistaBienCriterios(reporteInventarioDataManager.getVistaBienBuscar());
+			
+			if (CollectionUtils.isEmpty(listVistaBien)) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.reporte.vacio");
+			} else {
+				Map<String, Object> mapParametros = new HashMap<String, Object>();
+				mapParametros.put("nombreEmpresa", this.reporteInventarioDataManager.getUsuarioSession().getEmpresaTbl().getEmrNombre());
+				mapParametros.put("fechaGeneracionActa", new Date());
+				mapParametros.put("total", String.valueOf(listVistaBien.size()));
+				
+				JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), listVistaBien, "reporteBienInventario", mapParametros);
+				ReporteUtil.generarReporte(jasperPrint, this.tipoReporte, "reporteBienInventario");
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+	
+	public void onCompleteBuscarUsuarioComponent () {
+		slf4jLogger.info("onCompleteBuscarUsuarioComponent");
+	}
+	
+	public void limpiarFiltrosBusqueda () {
+		this.reporteInventarioDataManager.limpiarFiltrosBusqueda();
+		this.buscarUsuarioComponent.setVistaEmpleadoSeleccionado(new VistaEmpleado());
 	}
 	
 	/**
@@ -87,12 +143,6 @@ public class ReporteInventarioController extends BaseController {
 	public void setBuscarUsuarioComponent(
 			BuscarUsuarioComponent buscarUsuarioComponent) {
 		this.buscarUsuarioComponent = buscarUsuarioComponent;
-	}
-
-	@Override
-	public void refrescarFormulario() {
-		// TODO Auto-generated method stub
-		
 	}
 	
 }

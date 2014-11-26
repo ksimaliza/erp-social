@@ -2,6 +2,7 @@ package ec.edu.uce.erp.web.datamanager;
 
 import static ec.edu.uce.erp.common.util.CatalogoCabeceraConstantes.ID_CAB_CATALOGO_TIPO_BIEN;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -18,6 +19,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.inventory.LineaBien;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
 import ec.edu.uce.erp.ejb.persistence.vo.ReporteInventarioVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
+import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 import ec.edu.uce.erp.web.common.util.UtilSelectItems;
 
@@ -46,7 +48,10 @@ public class ReporteInventarioDataManager extends BaseDataManager {
 	private List<SelectItem> dcCategoriaBien;
 	private List<SelectItem> dcLineaBien;
 	
-	public ReporteInventarioDataManager () {}
+	public ReporteInventarioDataManager () {
+		this.dcLineaBien = new ArrayList<SelectItem>();
+		this.vistaBienBuscar = new VistaBien();
+	}
 	
 	public void cargarDcLineaBien () {
 		
@@ -61,16 +66,37 @@ public class ReporteInventarioDataManager extends BaseDataManager {
 				lineaBien.setCatBienPk(idCategoriaBienSeleccionado);
 				lineaBien.setLinBienEstado(getEstadoActivo());
 				List<LineaBien> listLineaBien = servicioInventario.buscarLineaBienCriterios(lineaBien);
-				if (CollectionUtils.isEmpty(listLineaBien)){
-	//				MensajesWebController.aniadirMensajeInformacion("La linea seleccionada no tiene categorias asignadas");
-				} else {
+				if (!CollectionUtils.isEmpty(listLineaBien)){
 					this.dcLineaBien.addAll(UtilSelectItems.getInstancia().cargarSelectItemsGenerico(listLineaBien, "linBienPk", "linBienNombre"));
 				}
 			}
 		} catch (SeguridadesException e) {
-			slf4jLogger.info("error al cargarDcCategoriaBien {}", e.getCause().getMessage());
+			slf4jLogger.info("error al cargarDcCategoriaBien {}", e.toString());
 		}
+		
+	}
 	
+	public void cargarCatalogos () {
+		
+		slf4jLogger.info("cargarCatalogos");
+		
+		try {
+			this.dcCategoriaBien = UtilSelectItems.getInstancia().cargarSelectItemCategoriaBien(servicioInventario);
+			this.dcTipoBien = UtilSelectItems.getInstancia().cargarSelectItemsDetBien(ID_CAB_CATALOGO_TIPO_BIEN, servicioInventario);
+			this.dcLineaBien = new ArrayList<SelectItem>();
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("error al cargarCatalogos {}", e.toString());
+			MensajesWebController.aniadirMensajeError(e.toString());
+		}
+		
+	}
+	
+	public void limpiarFiltrosBusqueda () {
+		this.idCategoriaBienSeleccionado = null;
+		this.idLineaBienSeleccionado = null;
+		this.idDcTipoBienSelec = null;
+		this.dcLineaBien = new ArrayList<SelectItem>();
+		this.vistaBienBuscar = new VistaBien();
 	}
 	
 	/**
@@ -78,17 +104,6 @@ public class ReporteInventarioDataManager extends BaseDataManager {
 	 * @throws SeguridadesException 
 	 */
 	public List<SelectItem> getDcTipoBien() {
-		
-		try {
-			if (CollectionUtils.isEmpty(dcTipoBien)) {
-				slf4jLogger.info("cargar catalogoTipoBien");
-				dcTipoBien = UtilSelectItems.getInstancia().cargarSelectItemsDetBien(ID_CAB_CATALOGO_TIPO_BIEN, servicioInventario);
-			}
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("error al cargar dcTipoBien {}", e.getCause().getMessage());
-			e.printStackTrace();
-		}
-		
 		return dcTipoBien;
 	}
 	
@@ -96,20 +111,9 @@ public class ReporteInventarioDataManager extends BaseDataManager {
 	 * @return the dcCategoriaBien
 	 */
 	public List<SelectItem> getDcCategoriaBien() {
-		
-		try {
-			if (CollectionUtils.isEmpty(dcCategoriaBien)) {
-				slf4jLogger.info("cargar dcCategoriaBien");
-				dcCategoriaBien = UtilSelectItems.getInstancia().cargarSelectItemCategoriaBien(servicioInventario);
-			}
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("error al cargar dcCategoriaBien {}", e.getCause().getMessage());
-			e.printStackTrace();
-		}
-		
 		return dcCategoriaBien;
 	}
-
+	
 	/**
 	 * @return the reporteInventarioVO
 	 */
