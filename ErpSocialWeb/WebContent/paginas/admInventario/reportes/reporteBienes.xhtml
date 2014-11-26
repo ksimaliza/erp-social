@@ -17,20 +17,6 @@
 		<h:form id="formBien">
 		
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
-			<!-- <p:toolbar id="toolbar">
-				<p:toolbarGroup align="left">
-					
-					<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
-						actionListener="#{reporteInventarioController.generarReporte(reporteInventarioDataManager.formatoExcel)}"
-						icon="exportExcel" disabled="#{empty reporteInventarioDataManager.reporteInventarioVO.listVistaBien}">
-					</p:commandButton>
-					<p:commandButton id="btnPDF" value="#{i18n['label.exportar.pdf']}" ajax="false"
-						actionListener="#{reporteInventarioController.generarReporte(reporteInventarioDataManager.formatoPdf)}"
-						icon="pdf" disabled="#{empty reporteInventarioDataManager.reporteInventarioVO.listVistaBien}">
-					</p:commandButton>
-					
-				</p:toolbarGroup>
-			</p:toolbar> -->
 			
 			<p:panel id="pnlBuscarBien" header="#{i18n['erp.bien.buscar']}">
 				<table class="formulario">
@@ -39,19 +25,11 @@
 						<td width="85%">
 							<h:panelGrid columns="2" border="0">
 								<h:outputText id="txtNombreCustodio" value="#{reporteInventarioController.buscarUsuarioComponent.vistaEmpleadoSeleccionado.nombresCompletos}" />
-								<c:buscarUsuarioComponent controller="#{reporteInventarioController.buscarUsuarioComponent}" render=":formBien:txtNombreCustodio"/>
+								<c:buscarUsuarioComponent controller="#{reporteInventarioController.buscarUsuarioComponent}" 
+										render=":formBien:txtNombreCustodio" onComplete="#{reporteInventarioController.onCompleteBuscarUsuarioComponent}"/>
 							</h:panelGrid>
 						</td>
 					</tr>
-					<!-- <tr>
-						<td>
-							<h:outputLabel for="txtCodigoBien" value="#{i18n['label.codigo']}" /></td>
-						<td>
-							<p:inputText id="txtCodigoBien" 
-								style="width: 50%"
-								value="#{reporteInventarioDataManager.vistaBienBuscar.bieCodigo}" />
-						</td>
-					</tr> -->
 					<tr>
 						<td >
 							<h:outputLabel for="selectTipoIngresoBien" value="#{i18n['erp.bien.tipo.transaccion']}" />
@@ -123,15 +101,15 @@
 				</table>
 			</p:panel>
 			
-			<p:panel id="botonesBuscar">
-				<p:commandButton id="btnBuscar"
+			<p:panel id="pnlBotones">
+				<p:commandButton id="btnGenerar"
 					value="#{i18n['label.generar.reporte']}" 
 					process="@this,pnlBuscarBien"
-					update="pnlMessages,pnlBuscarBien" />
-				<p:commandButton id="btnLimpiar"
-					value="#{i18n['label.limpiar']}" 
-					process="@this,pnlBuscarBien" 
-					update="pnlMessages,pnlBuscarBien" />
+					update="pnlMessages,pnlBuscarBien" 
+					actionListener="#{reporteInventarioController.generarReporte()}"/>
+				<p:commandButton id="btnLimpiar" immediate="true"
+					actionListener="#{reporteInventarioController.limpiarFiltrosBusqueda}"
+					value="#{i18n['label.limpiar']}" process="@this" update="pnlMessages,pnlBuscarBien" />
 			</p:panel>
 			
 		</h:form>

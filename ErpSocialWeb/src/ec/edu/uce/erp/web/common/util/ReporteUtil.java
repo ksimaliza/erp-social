@@ -14,7 +14,6 @@ import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
@@ -23,6 +22,7 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -107,18 +107,25 @@ public class ReporteUtil {
 	public static JasperPrint jasperPrint (FacesContext facesContext,List listaObjeto,String nombreArchivo, Map<String, Object> mapParametros){
 		
 		JasperPrint jp = null;
-		JRBeanCollectionDataSource beanCollectionDataSource = null;
+		
 		try {
-			if(listaObjeto!=null)
-				beanCollectionDataSource = new JRBeanCollectionDataSource(listaObjeto);
+			
 			String reportePath = facesContext.getExternalContext().getRealPath("/paginas/reportes/"+nombreArchivo+".jrxml");
 			JasperReport jr = JasperCompileManager.compileReport(reportePath);
-			if(listaObjeto!=null)
-				jp = JasperFillManager.fillReport(jr, mapParametros, beanCollectionDataSource);
-			else
+			
+			if(CollectionUtils.isEmpty(listaObjeto)) {
+				
 				jp = JasperFillManager.fillReport(jr, mapParametros, new JREmptyDataSource());
-			String pdfPath = facesContext.getExternalContext().getRealPath("/paginas/reportes/"+nombreArchivo+".pdf");
-			JasperExportManager.exportReportToPdfFile(jp, pdfPath);
+				
+			} else {
+				
+				jp = JasperFillManager.fillReport(jr, mapParametros, new JRBeanCollectionDataSource(listaObjeto));
+				
+			}
+			
+//			String pdfPath = facesContext.getExternalContext().getRealPath("/paginas/reportes/"+nombreArchivo+".pdf");
+//			JasperExportManager.exportReportToPdfFile(jp, pdfPath);
+			
 		} catch (Exception e) {
 			slf4jLogger.info("Error al compilar el reporte: {}", e.toString());
 		}
