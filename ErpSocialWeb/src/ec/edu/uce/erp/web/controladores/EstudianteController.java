@@ -1,12 +1,16 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+
+import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.primefaces.context.RequestContext;
@@ -19,13 +23,16 @@ import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteRepresentanteDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaVieDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EstudianteVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.common.util.JsfUtil;
+import ec.edu.uce.erp.web.common.util.ReporteUtil;
 import ec.edu.uce.erp.web.datamanager.EstudianteDataManager;
+import ec.edu.uce.erp.web.datamanager.ReporteCarnetDataManager;
 import ec.edu.uce.erp.web.datamanager.RepresentanteDataManager;
 
 
@@ -56,6 +63,18 @@ public class EstudianteController extends BaseController{
 	private List<Object> estudiantesSeleccionados;
 
 	public EstudianteController () {}
+	@ManagedProperty(value="#{reporteCarnetDataManager}")
+	private ReporteCarnetDataManager reporteCarnetDataManager;
+
+	
+	public ReporteCarnetDataManager getReporteCarnetDataManager() {
+		return reporteCarnetDataManager;
+	}
+
+	public void setReporteCarnetDataManager(
+			ReporteCarnetDataManager reporteCarnetDataManager) {
+		this.reporteCarnetDataManager = reporteCarnetDataManager;
+	}
 	
 	@PostConstruct
 	public void inicializarObjetos () {
@@ -201,6 +220,29 @@ public class EstudianteController extends BaseController{
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("buscarRepresentante {}", e.getMessage());
 			MensajesWebController.aniadirMensajeError(e.toString());
+		}
+	}
+	
+	
+	public void carnet(EstudianteListDTO estudiante)
+	{
+		MatriculaVieDTO vie;
+		try {
+			
+			vie=new MatriculaVieDTO();
+			vie.setRegCodigo(estudiante.getRegCodigo());
+			List<MatriculaVieDTO> list= servicioMatricula.readCarnet(vie);
+						
+			Map<String, Object> mapParametros = new HashMap<String, Object>();
+			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
+						
+			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), list, "comprobanteMatriculaEstudiante", mapParametros);
+			ReporteUtil.generarReporte(jasperPrint, this.reporteCarnetDataManager.getFormatoPdf(), "matricula");
+			
+			
+			
+		} catch (SeguridadesException e) {
+			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 	}
 
