@@ -11,7 +11,8 @@
 	<field name="parDescripcion" class="java.lang.String"/>
 	<field name="perDescripcion" class="java.lang.String"/>
 	<field name="perFechaNac" class="java.lang.String"/>
-	<field name="regFoto" class="java.lang.String"/>
+	<field name="regFoto" class="java.io.InputStream"/>
+	<field name="fotoStream" class="java.io.InputStream"/>
 	<detail>
 		<band height="150" splitType="Stretch">
 			<textField>
@@ -72,16 +73,9 @@
 					<pen lineWidth="0.0"/>
 				</graphicElement>
 			</rectangle>
-			<textField>
-				<reportElement x="0" y="130" width="229" height="20" uuid="c96935a7-d7cd-481d-8384-a6d89dd19c7b"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font pdfFontName="Helvetica-Bold"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{perDescripcion}]]></textFieldExpression>
-			</textField>
 			<image>
-				<reportElement x="145" y="27" width="68" height="91" uuid="d4209ba4-c24f-4b8d-bd66-1b918cc4e149"/>
-				<imageExpression><![CDATA["http://localhost:8081/ErpSocialWeb/"+$F{regFoto}]]></imageExpression>
+				<reportElement x="148" y="37" width="70" height="67" uuid="89db81b9-9e3c-4794-8f07-a5cf6d903aa6"/>
+				<imageExpression><![CDATA[$F{fotoStream}]]></imageExpression>
 			</image>
 		</band>
 	</detail>
