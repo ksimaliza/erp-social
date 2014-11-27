@@ -1,5 +1,7 @@
 package ec.edu.uce.erp.ejb.persistence.entity.matriculacion;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -162,12 +164,29 @@ public class MatriculaVieDTO implements Serializable {
 
 	@Column(name="reg_foto")
 	private String regFoto;
+	
+
+	@Column(name="emr_direccion")
+	private String emrDireccion;
+	
+	
+	
 
 	@Column(name="reg_foto_byte")
 	private byte[] regFotoByte;
 	
+	@Column(name="emr_foto")
+	private byte[] emrFoto;
+	
+	
 	@Transient
 	private Boolean regVerificarFoto;
+	
+	@Transient
+	private InputStream fotoStream;
+	
+	@Transient
+	private InputStream fotoEmpStream;
 
 
 	public MatriculaVieDTO() {
@@ -180,8 +199,14 @@ public class MatriculaVieDTO implements Serializable {
 			String parDescripcion, 
 			String perDescripcion, 
 			Date perFechaNac,
-			String emrNombre) {
-		super();
+			String emrNombre,
+			String emrDireccion,
+			String estEstado,
+			byte[] regFotoByte,
+			byte[] emrFoto
+			
+			) {
+		super();//reporte carnet y certificado
 		this.emrNombre = emrNombre;
 		this.nivDescaripcion = nivDescaripcion;
 		this.parDescripcion = parDescripcion;
@@ -190,6 +215,10 @@ public class MatriculaVieDTO implements Serializable {
 		this.perDescripcion = perDescripcion;
 		this.perFechaNac = perFechaNac;
 		this.perNombres = perNombres;
+		this.emrDireccion=emrDireccion;
+		this.estEstado=estEstado;
+		this.regFotoByte = regFotoByte;
+		this.emrFoto=emrFoto;
 	}
 
 	public MatriculaVieDTO(Integer regCodigo,
@@ -202,6 +231,7 @@ public class MatriculaVieDTO implements Serializable {
 			String emrNombre,
 			String regFoto,
 			byte[] regFotoByte
+			
 			) {
 		super();
 		this.regCodigo=regCodigo;
@@ -214,6 +244,7 @@ public class MatriculaVieDTO implements Serializable {
 		this.emrNombre = emrNombre;
 		this.regFoto=regFoto;
 		this.regFotoByte = regFotoByte;
+		
 	}
 	
 	
@@ -594,5 +625,45 @@ public class MatriculaVieDTO implements Serializable {
 	public void setRegVerificarFoto(Boolean regVerificarFoto) {
 		this.regVerificarFoto = regVerificarFoto;
 	}
+
+	public InputStream getFotoStream() {
+		if(this.getRegFotoByte()!=null)
+			this.fotoStream=new ByteArrayInputStream(this.getRegFotoByte());
+		return fotoStream;
+	}
+
+	public void setFotoStream(InputStream fotoStream) {
+		this.fotoStream = fotoStream;
+	}
+
+	public String getEmrDireccion() {
+		return emrDireccion;
+	}
+
+	public void setEmrDireccion(String emrDireccion) {
+		this.emrDireccion = emrDireccion;
+	}
+
+	public byte[] getEmrFoto() {
+		return emrFoto;
+	}
+
+	public void setEmrFoto(byte[] emrFoto) {
+		this.emrFoto = emrFoto;
+	}
+
+	public InputStream getFotoEmpStream() {
+		if(this.getEmrFoto()!=null)
+			this.fotoEmpStream=new ByteArrayInputStream(this.getEmrFoto());
+		return fotoEmpStream;
+	}
+
+	public void setFotoEmpStream(InputStream fotoEmpStream) {
+		this.fotoEmpStream = fotoEmpStream;
+	}
+
+	
+	
+	
 
 }

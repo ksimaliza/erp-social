@@ -68,6 +68,10 @@ public class EstudianteListDTO implements Serializable {
 	private String perTelefono;
 	
 
+	@Column(name="reg_codigo")
+	private Integer regCodigo;
+	
+
 	public EstudianteListDTO() {
 	}
 
@@ -181,6 +185,14 @@ public class EstudianteListDTO implements Serializable {
 
 	public void setEstEmpresa(Integer estEmpresa) {
 		this.estEmpresa = estEmpresa;
+	}
+
+	public Integer getRegCodigo() {
+		return regCodigo;
+	}
+
+	public void setRegCodigo(Integer regCodigo) {
+		this.regCodigo = regCodigo;
 	}
 
 }
