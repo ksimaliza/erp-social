@@ -97,13 +97,25 @@
 				<p:column headerText="Estado" width="70%">
 					<h:outputText value="#{estudiante.estEstado}" />
 				</p:column>
-				
-				 <p:column headerText="Comprobante">
-                                        <p:commandButton title="Generar Certificado Matricula" actionListener="#{estudianteController.carnet(estudiante)}" icon="exportPdf" ajax="false"/>
-                                </p:column>
-						
-				
-					
+
+				<p:column headerText="Reportes" styleClass="centered">
+				<h:panelGroup rendered="#{estudiante.estEstado.equals('Matriculado')}">
+					<p:commandLink styleClass="no-decor" ajax="false"
+						title="Generar Certificado Matricula"
+						actionListener="#{estudianteController.certificado(estudiante)}">
+						<h:graphicImage value="/resources/img/icono01.png" />
+					</p:commandLink>
+					<h:outputLabel value="&#160;|&#160;" />
+					<p:commandLink styleClass="no-decor" ajax="false"
+						title="Generar Carné Estudiantil"
+						actionListener="#{estudianteController.carnet(estudiante)}">
+						<h:graphicImage value="/resources/img/icono02.png" />
+					</p:commandLink>
+					</h:panelGroup>
+				</p:column>
+
+
+
 				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
