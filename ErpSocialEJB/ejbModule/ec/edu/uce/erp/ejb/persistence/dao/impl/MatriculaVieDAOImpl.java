@@ -187,6 +187,8 @@ public class MatriculaVieDAOImpl extends AbstractFacadeImpl<MatriculaVieDTO> imp
 	@Override
 	public List<MatriculaVieDTO> getByAndDistinct(MatriculaVieDTO objectDTO) throws SeguridadesException
 	{
+		
+		//reporte carnet y certificado
 		CriteriaBuilder cb;
 		CriteriaQuery<MatriculaVieDTO> cq;
 		Root<MatriculaVieDTO> from;
@@ -211,7 +213,13 @@ public class MatriculaVieDAOImpl extends AbstractFacadeImpl<MatriculaVieDTO> imp
 					from.get("parDescripcion"),
 					from.get("perDescripcion"),
 					from.get("perFechaNac"),
-					from.get("emrNombre")).distinct(true);
+					from.get("emrNombre"),
+					from.get("emrDireccion"),
+					from.get("estEstado"),
+					from.get("regFotoByte"),
+					from.get("emrFoto")
+				
+					).distinct(true);
 			
 			predicateList=new ArrayList<Predicate>();
 			
