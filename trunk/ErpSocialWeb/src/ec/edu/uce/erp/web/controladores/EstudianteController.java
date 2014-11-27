@@ -224,7 +224,7 @@ public class EstudianteController extends BaseController{
 	}
 	
 	
-	public void carnet(EstudianteListDTO estudiante)
+	public void certificado(EstudianteListDTO estudiante)
 	{
 		MatriculaVieDTO vie;
 		try {
@@ -245,6 +245,29 @@ public class EstudianteController extends BaseController{
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 	}
+	
+	
+	public void carnet(EstudianteListDTO estudiante)
+	{
+		MatriculaVieDTO vie;
+		try {
+			
+			vie=new MatriculaVieDTO();
+			vie.setRegCodigo(estudiante.getRegCodigo());
+			List<MatriculaVieDTO> list= servicioMatricula.readCarnet(vie);
+						
+			Map<String, Object> mapParametros = new HashMap<String, Object>();
+			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
+						
+			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), list, "carnetEstudiante", mapParametros);
+			ReporteUtil.generarReporte(jasperPrint, this.reporteCarnetDataManager.getFormatoPdf(), "carnet");
+			
+			
+		} catch (SeguridadesException e) {
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+	}
+
 
 	
 	@Override
