@@ -97,6 +97,10 @@
 				<p:column headerText="Estado" width="70%">
 					<h:outputText value="#{estudiante.estEstado}" />
 				</p:column>
+				
+				 <p:column headerText="Comprobante">
+                                        <p:commandButton title="Generar Certificado Matricula" actionListener="#{estudianteController.carnet(estudiante)}" icon="exportPdf" ajax="false"/>
+                                </p:column>
 						
 				
 					
