@@ -199,6 +199,12 @@ textarea[disabled],input[type="text"][disabled],input[type="password"][disabled]
 	background: #ddd url(../img/pdf.gif) !important;
 }
 
+.exportPdfMatricula {
+	width: 16px;
+	height: 16px;
+	background: #ddd url(../img/icono01.png) !important;
+}
+
 /*****************************************************************
  * ESTILOS DE PRIMEFACES
  ****************************************************************/
