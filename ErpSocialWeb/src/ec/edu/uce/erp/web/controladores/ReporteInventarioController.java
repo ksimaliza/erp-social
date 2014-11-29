@@ -17,6 +17,7 @@ import javax.faces.bean.ViewScoped;
 import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +26,7 @@ import ec.edu.uce.erp.ejb.persistence.view.VistaEmpleado;
 import ec.edu.uce.erp.ejb.servicio.ServicioInventario;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
+import ec.edu.uce.erp.web.common.util.JsfUtil;
 import ec.edu.uce.erp.web.common.util.ReporteUtil;
 import ec.edu.uce.erp.web.controladores.componentes.BuscarUsuarioComponent;
 import ec.edu.uce.erp.web.datamanager.ReporteInventarioDataManager;
@@ -74,6 +76,7 @@ public class ReporteInventarioController extends BaseController {
 	}
 	
 	public void generarReporte () {
+		
 		slf4jLogger.info("generarReporte...");
 		
 		try {
@@ -91,10 +94,26 @@ public class ReporteInventarioController extends BaseController {
 			if (CollectionUtils.isEmpty(listVistaBien)) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.reporte.vacio");
 			} else {
+				
 				Map<String, Object> mapParametros = new HashMap<String, Object>();
 				mapParametros.put("nombreEmpresa", this.reporteInventarioDataManager.getUsuarioSession().getEmpresaTbl().getEmrNombre());
+				mapParametros.put("tituloActa", "Reporte bienes");
 				mapParametros.put("fechaGeneracionActa", new Date());
 				mapParametros.put("total", String.valueOf(listVistaBien.size()));
+				
+				if (StringUtils.isNotBlank(reporteInventarioDataManager.getUsuarioSession().getEmpresaTbl().getEmrFotoNombre())) {
+					
+					String imgPath = JsfUtil.descargarArchivo(
+							reporteInventarioDataManager.getUsuarioSession().getEmpresaTbl().getEmrFotoNombre(),
+							reporteInventarioDataManager.getUsuarioSession().getEmpresaTbl().getEmrFoto());
+					
+					slf4jLogger.info("imgPath... {}", imgPath);
+					
+					mapParametros.put("imagesRealPath", getServletContext().getRealPath(imgPath));
+					
+				} else {
+					mapParametros.put("imagesRealPath", null);
+				}
 				
 				JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), listVistaBien, "reporteBienInventario", mapParametros);
 				ReporteUtil.generarReporte(jasperPrint, this.tipoReporte, "reporteBienInventario");
