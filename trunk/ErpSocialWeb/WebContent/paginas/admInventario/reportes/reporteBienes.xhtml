@@ -72,15 +72,21 @@
 					</tr>
 					<tr>
 						<td>
-							<h:outputLabel for="txtFechaDesde" value="#{i18n['label.fecha.desde']}" /></td>
+							<h:outputLabel for="txtFechaDesde" value="#{i18n['label.fecha.desde']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
 						<td>
-							<p:calendar id="txtFechaDesde" style="width: 50%" readonlyInput="true" pattern="yyyy-MM-dd"
+							<p:calendar id="txtFechaDesde" 
+								required="true" label="#{i18n['label.fecha.desde']}"
+								style="width: 50%" readonlyInput="true" pattern="yyyy-MM-dd"
 								value="#{reporteInventarioDataManager.vistaBienBuscar.npFechaDesde}" />
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<h:outputLabel for="txtFechaHasta" value="#{i18n['label.fecha.hasta']}" /></td>
+							<h:outputLabel for="txtFechaHasta" value="#{i18n['label.fecha.hasta']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
 						<td>
 							<p:calendar id="txtFechaHasta" style="width: 50%" readonlyInput="true" pattern="yyyy-MM-dd"
 								value="#{reporteInventarioDataManager.vistaBienBuscar.npFechaHasta}"/>
@@ -102,11 +108,9 @@
 			</p:panel>
 			
 			<p:panel id="pnlBotones">
-				<p:commandButton id="btnGenerar"
+				<h:commandButton id="btnGenerar"
 					value="#{i18n['label.generar.reporte']}" 
-					process="@this,pnlBuscarBien"
-					update="pnlMessages,pnlBuscarBien" 
-					actionListener="#{reporteInventarioController.generarReporte()}"/>
+					action="#{reporteInventarioController.generarReporte}"/>
 				<p:commandButton id="btnLimpiar" immediate="true"
 					actionListener="#{reporteInventarioController.limpiarFiltrosBusqueda}"
 					value="#{i18n['label.limpiar']}" process="@this" update="pnlMessages,pnlBuscarBien" />
