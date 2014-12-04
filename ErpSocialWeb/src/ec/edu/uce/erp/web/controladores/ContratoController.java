@@ -19,11 +19,8 @@ import javax.faces.bean.ViewScoped;
 import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
@@ -324,7 +321,7 @@ public ContratoController() {
 	public void exportar()
 	{
 		Date fechaActual = new Date();
-		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
+		//DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
 				
 		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
 		

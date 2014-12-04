@@ -22,8 +22,6 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.AutorizaExhumacionListDT
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ExumacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ExumacionListDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoListDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SepulturaDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.ExhumacionVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;

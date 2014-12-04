@@ -11,7 +11,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +22,6 @@ import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ComunionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PrimeraComunionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteListDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.ComunionVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -38,7 +36,6 @@ public class PartidaPrimeraComunionController extends BaseController{
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger slf4jLogger = LoggerFactory.getLogger(PartidaPrimeraComunionController.class);
-	
 	
 	@EJB
 	private ServicioEucaristia servicioEucaristia;
