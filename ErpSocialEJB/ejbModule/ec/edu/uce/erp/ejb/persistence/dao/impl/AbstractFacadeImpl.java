@@ -6,9 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.dao.AbstractFacade;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaListDTO;
 
 public abstract class AbstractFacadeImpl<T> implements AbstractFacade<T> {
 	
