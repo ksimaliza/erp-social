@@ -17,7 +17,6 @@ import javax.faces.bean.ViewScoped;
 import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -265,7 +264,7 @@ public class PagoContratoController extends BaseController {
 		Date fechaActual = new Date();
 		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
 				
-		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
+		//DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
 		
 		DefuncionListDTO defuncionAux=new DefuncionListDTO();
 		defuncionAux.setPerCi(pagoContratoDataManager.getPagoContratoListDTOEditar().getPerCi());
