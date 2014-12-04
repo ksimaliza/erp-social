@@ -78,6 +78,7 @@ public class AsinacionDAOImpl extends AbstractFacadeImpl<AsinacionDTO> implement
 		}
 			return resultado;		
 	}
+	@SuppressWarnings("unchecked")
 	public List<AsinacionDTO> asignacionesPorPeriodoProfesor(Integer codPeriodo, Integer codProfesor) {
 
 		Query query;
@@ -91,6 +92,7 @@ public class AsinacionDAOImpl extends AbstractFacadeImpl<AsinacionDTO> implement
 		return query.getResultList();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<AsinacionDTO> asignacionesPorPeriodo(Integer codPeriodo) {
 
 		Query query;
@@ -103,6 +105,7 @@ public class AsinacionDAOImpl extends AbstractFacadeImpl<AsinacionDTO> implement
 		return query.getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<AsinacionDTO> asignacionesPorPeriodoNivelParaleloMateria(Integer codPeriodo, Integer codNivel, Integer codParelelo, Integer codMateria) {
 
 		Query query;
