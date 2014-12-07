@@ -68,6 +68,15 @@ public class MenuDAOImpl extends AbstractFacadeImpl<Menu> implements MenuDAO{
 				criteriaList.add(predicate);
 			}
 			
+			//por descripcion 
+			if (StringUtils.isNotBlank(menuDTO.getDescMenu())) {
+				
+				Expression<String> descMenu = 
+						criteriaBuilder.upper(criteriaBuilder.literal(UtilAplication.appendStringBuilder("%", menuDTO.getDescMenu(), "%").toString()));
+				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromMenu.<String>get("descMenu")), descMenu);
+				criteriaList.add(predicate);
+			}
+			
 			//por url
 			if (StringUtils.isNotBlank(menuDTO.getUrlMenu())) {
 				Expression<String> urlMenu = 

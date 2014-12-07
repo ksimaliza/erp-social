@@ -135,8 +135,8 @@ public class TransaccionBienController extends BaseController{
 			
 		} catch (SeguridadesException e) {
 			RequestContext.getCurrentInstance().addCallbackParam("validationFailed", e);
-			slf4jLogger.info("error al asignarBien {}", e.getCause().getMessage());
-			MensajesWebController.aniadirMensajeError(e.getCause().getMessage());
+			slf4jLogger.info("error al asignarBien {}", e.toString());
+			MensajesWebController.aniadirMensajeError(e.toString());
 		}
 		
 		return "administracionBien";

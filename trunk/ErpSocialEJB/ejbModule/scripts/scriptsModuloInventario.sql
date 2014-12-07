@@ -564,3 +564,103 @@ left JOIN persona_tbl per ON emp.per_fk = per.per_pk
 inner join transaccion_acta_bien tab on tab.tra_pk = t.tra_pk
 inner join acta_bien_tbl ab on ab.act_bie_pk = tab.act_bie_pk
 ;
+
+
+--SCRIPT 2014 / 12 / 02
+
+/*==============================================================*/
+/* Table: CATALOGO_TIPO_TBL                                     */
+/*==============================================================*/
+create table CATALOGO_TIPO_TBL (
+   CATALOGO_TIPO_ID     INT8                 not null,
+   CATALOGO_TIPO_NOMBRE VARCHAR(50)          not null,
+   CATALOGO_TIPO_DESC   VARCHAR(100)         null,
+   CATALOGO_TIPO_ESTADO VARCHAR(1)           null,
+   constraint PK_CATALOGO_TIPO_TBL primary key (CATALOGO_TIPO_ID)
+);
+
+/*==============================================================*/
+/* Table: CATALOGO_VALOR_TBL                                    */
+/*==============================================================*/
+create table CATALOGO_VALOR_TBL (
+   CATALOGO_VALOR_ID    VARCHAR(3)           not null,
+   CATALOGO_TIPO_ID     INT4                 not null,
+   CATALOGO_VALOR_NOMBRE VARCHAR(50)          not null,
+   CATALOGO_VALOR_ESTADO VARCHAR(1)           null,
+   constraint PK_CATALOGO_VALOR_TBL primary key (CATALOGO_VALOR_ID, CATALOGO_TIPO_ID)
+);
+
+alter table CATALOGO_VALOR_TBL
+   add constraint FK_CATALOGO_REFERENCE_CATALOGO foreign key (CATALOGO_TIPO_ID)
+      references CATALOGO_TIPO_TBL (CATALOGO_TIPO_ID)
+      on delete restrict on update restrict;
+
+/*==============================================================*/
+/* Table: PARAMETRO_EMPRESA_TBL                                 */
+/*==============================================================*/
+create table PARAMETRO_EMPRESA_TBL (
+   ID_PARAMETRO         SERIAL               not null,
+   EMR_PK               INT4                 null,
+   CATALOGO_VALOR_ID    VARCHAR(3)           null,
+   CATALOGO_TIPO_ID     INT4                 null,
+   NOMBRE_PARAMETRO     VARCHAR(50)          not null,
+   DESCRIPCION_PARAMETRO VARCHAR(200)         null,
+   VALOR_PARAMETRO      VARCHAR(50)          not null,
+   FECHA_REGISTRO       TIMESTAMP            not null,
+   FECHA_MODIFICACION   TIMESTAMP            null,
+   ESTADO               CHAR(1)              not null,
+   constraint PK_PARAMETRO_EMPRESA_TBL primary key (ID_PARAMETRO)
+);
+
+alter table PARAMETRO_EMPRESA_TBL
+   add constraint FK_PARAMETR_REFERENCE_EMPRESA_ foreign key (EMR_PK)
+      references EMPRESA_TBL (EMR_PK)
+      on delete restrict on update restrict;
+
+alter table PARAMETRO_EMPRESA_TBL
+   add constraint FK_PARAMETR_REFERENCE_CATALOGO foreign key (CATALOGO_VALOR_ID, CATALOGO_TIPO_ID)
+      references CATALOGO_VALOR_TBL (CATALOGO_VALOR_ID, CATALOGO_TIPO_ID)
+      on delete restrict on update restrict;
+      
+      
+INSERT INTO catalogo_tipo_tbl(
+            catalogo_tipo_id, catalogo_tipo_nombre, catalogo_tipo_desc, catalogo_tipo_estado)
+    VALUES (1, 'METODO GENERAR CODIGO BIEN', 'METODO PARA GENERAR EL CODIGO BIEN', '1');
+    
+INSERT INTO catalogo_valor_tbl(
+            catalogo_valor_id, catalogo_tipo_id, catalogo_valor_nombre, catalogo_valor_estado)
+    VALUES ('SCB', 1, 'GENERAR POR SECUENCIA', '1');
+
+-- HASTA AQUI
+
+
+-- --SCRIPTS PARA CREAR LA SECUENCIA E INSERT PARA LA TABLA DONDE SE CONSULTA
+
+CREATE SEQUENCE "CAMBIAR POR NOMBRE DE LA SECUENCIA" -- DEBE SER UNICO
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1
+  CACHE 1;
+ALTER TABLE "CAMBIAR POR NOMBRE DE LA SECUENCIA" OWNER TO postgres;
+
+INSERT INTO parametro_empresa_tbl(
+        id_parametro, emr_pk, catalogo_valor_id, catalogo_tipo_id, nombre_parametro, 
+        descripcion_parametro, valor_parametro, fecha_registro, estado)
+VALUES (nextval('parametro_empresa_tbl_id_parametro_seq'), "CAMBIAR POR EL ID DE LA EMPRESA", 'SCB', 1, 'Nombre secuencia generar codigo bien', 
+        'Nombre secuencia generar codigo bien', "CAMBIAR POR EL NOMBRE DE LA SECUENCIA DE LA EMPRESA", LOCALTIMESTAMP, '1');
+
+-- EJEMPLO  ejemplo de secuencias
+CREATE SEQUENCE bien_codigo_seq_empresa_dos
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1
+  CACHE 1;
+ALTER TABLE bien_codigo_seq OWNER TO postgres;
+        
+INSERT INTO parametro_empresa_tbl(
+            id_parametro, emr_pk, catalogo_valor_id, catalogo_tipo_id, nombre_parametro, 
+            descripcion_parametro, valor_parametro, fecha_registro, estado)
+    VALUES (nextval('parametro_empresa_tbl_id_parametro_seq'), 2, 'SCB', 1, 'Nombre secuencia generar codigo bien', 
+            'Nombre secuencia generar codigo bien', 'bien_codigo_seq_empresa_dos', LOCALTIMESTAMP, '1');

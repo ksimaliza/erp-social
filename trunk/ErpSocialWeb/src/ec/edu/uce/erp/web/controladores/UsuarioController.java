@@ -224,7 +224,7 @@ public class UsuarioController extends BaseController{
 			
 			this.usuarioDataManager.getUsuarioEditar().setUsuarioRegistro(this.usuarioDataManager.getUsuarioSession());
 			this.usuarioDataManager.getUsuarioEditar().setEstado(usuarioDataManager.getEstadoInactivo());
-			Usuario usuario = servicioAdministracion.actualizarUsuario(this.usuarioDataManager.getUsuarioEditar());
+			Usuario usuario = servicioAdministracion.activarDesactivarUsuario(this.usuarioDataManager.getUsuarioEditar());
 			
 			if (usuario != null) {
 				MensajesWebController.aniadirMensajeInformacion("erp.usuario.mensaje.actualizar");
@@ -244,7 +244,7 @@ public class UsuarioController extends BaseController{
 			
 			this.usuarioDataManager.getUsuarioEditar().setUsuarioRegistro(this.usuarioDataManager.getUsuarioSession());
 			this.usuarioDataManager.getUsuarioEditar().setEstado(usuarioDataManager.getEstadoActivo());
-			Usuario usuario = servicioAdministracion.actualizarUsuario(this.usuarioDataManager.getUsuarioEditar());
+			Usuario usuario = servicioAdministracion.activarDesactivarUsuario(this.usuarioDataManager.getUsuarioEditar());
 			
 			if (usuario != null) {
 				MensajesWebController.aniadirMensajeInformacion("erp.usuario.mensaje.actualizar");

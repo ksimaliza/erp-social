@@ -221,6 +221,14 @@ public interface ServicioAdministracion {
 	 */
 	List<EmpleadoListDTO> obtenerEmpleadoEmpresa (EmpleadoListDTO empleadoListDTO) throws SeguridadesException;
 	
+	/**
+	 * Actualizar <code>Usuario</code> en la base de datos
+	 * @param usuario
+	 * @return
+	 * @throws SeguridadesException
+	 */
+	Usuario activarDesactivarUsuario (Usuario usuario) throws SeguridadesException;
+	
 	/*
 	 * Servicio para administracion de catalogos
 	 */

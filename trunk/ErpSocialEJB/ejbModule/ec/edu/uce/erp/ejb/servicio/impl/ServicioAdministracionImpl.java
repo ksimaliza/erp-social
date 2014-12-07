@@ -651,6 +651,23 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		return empleadoCol;
 	}
 	
+	public Usuario activarDesactivarUsuario (Usuario usuario) throws SeguridadesException {
+		
+		Usuario usuarioUpdate = null;
+		
+		try {
+			
+			usuario.setFechaModificacion(UtilAplication.obtenerFechaActual());
+			usuarioUpdate = factoryDAO.getUsuarioDAOImpl().update(usuario);
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al activarDesactivarUsuario {}" , e.getMessage());
+			throw new SeguridadesException("Error al activarDesactivarUsuario");
+		}
+		
+		return usuarioUpdate;
+	}
+	
 	/*
 	 * Servicio para administracion de catalogos del modulo de inventarios
 	 */

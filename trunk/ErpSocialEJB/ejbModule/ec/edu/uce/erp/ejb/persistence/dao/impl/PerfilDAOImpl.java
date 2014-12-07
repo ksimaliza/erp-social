@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.ConstantesApplication;
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.persistence.dao.PerfilDAO;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Perfil;
 
@@ -58,15 +59,15 @@ public class PerfilDAOImpl extends AbstractFacadeImpl<Perfil> implements PerfilD
 			criteriaList = new ArrayList<Predicate>();
 			
 			//por nombre de compania
-			if (StringUtils.isNotEmpty(perfilDTO.getNombrePerfil())) {
+			if (StringUtils.isNotBlank(perfilDTO.getNombrePerfil())) {
 				Expression<String> nombrePerfil = 
-						criteriaBuilder.upper(criteriaBuilder.literal(perfilDTO.getNombrePerfil()));
-				predicate = criteriaBuilder.equal(criteriaBuilder.upper(fromPerfil.<String>get("nombrePerfil")), nombrePerfil);
+						criteriaBuilder.upper(criteriaBuilder.literal(UtilAplication.appendStringBuilder("%", perfilDTO.getNombrePerfil(), "%").toString()));
+				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromPerfil.<String>get("nombrePerfil")), nombrePerfil);
 				criteriaList.add(predicate);
 			}
 			
 			//estado activo
-			if (StringUtils.isNotEmpty(perfilDTO.getEstado())) {
+			if (StringUtils.isNotBlank(perfilDTO.getEstado())) {
 				predicate = criteriaBuilder.equal(fromPerfil.get("estado"), perfilDTO.getEstado());
 				criteriaList.add(predicate);
 			}

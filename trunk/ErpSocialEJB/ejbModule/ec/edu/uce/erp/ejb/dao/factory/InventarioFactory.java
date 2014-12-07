@@ -13,6 +13,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.DetalleBienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HistoricoTransaccioneDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.LineaBienDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.MarcaBienDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.ParametroEmpresaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ProveedorDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.TransaccionDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.VistaActaBienDAO;
@@ -54,5 +55,7 @@ public interface InventarioFactory {
 	VistaTransaccionDAO getVistaTransaccionDAOImpl();
 	
 	VistaActaBienDAO getVistaActaBienDAOImpl();
+	
+	ParametroEmpresaDAO getParametroEmpresaDAOImpl();
 	
 }
