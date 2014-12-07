@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.persistence.dao.ModuloDAO;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
@@ -87,8 +88,16 @@ public class ModuloDAOImpl extends AbstractFacadeImpl<Modulo> implements ModuloD
 			//por nombre de modulo
 			if (StringUtils.isNotBlank(modulo.getNombreModulo())) {
 				Expression<String> nombreModulo = 
-						criteriaBuilder.upper(criteriaBuilder.literal(modulo.getNombreModulo()));
-				predicate = criteriaBuilder.equal(criteriaBuilder.upper(fromModulo.<String>get("nombreModulo")), nombreModulo);
+						criteriaBuilder.upper(criteriaBuilder.literal(UtilAplication.appendStringBuilder("%", modulo.getNombreModulo(), "%").toString()));
+				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromModulo.<String>get("nombreModulo")), nombreModulo);
+				criteriaList.add(predicate);
+			}
+			
+			//por descripcion de modulo
+			if (StringUtils.isNotBlank(modulo.getDescModulo())) {
+				Expression<String> descModulo = 
+						criteriaBuilder.upper(criteriaBuilder.literal(UtilAplication.appendStringBuilder("%", modulo.getDescModulo(), "%").toString()));
+				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromModulo.<String>get("descModulo")), descModulo);
 				criteriaList.add(predicate);
 			}
 			

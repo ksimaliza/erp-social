@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.enums.EnumTipoBien;
 import ec.edu.uce.erp.common.enums.EnumTipoTransaccion;
 import ec.edu.uce.erp.common.util.ConstantesApplication;
+import ec.edu.uce.erp.common.util.MessagesApplicacion;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.dao.factory.InventarioFactory;
@@ -40,6 +41,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.inventory.MarcaBien;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.Transaccion;
 import ec.edu.uce.erp.ejb.persistence.entity.inventory.TransaccionActaBien;
+import ec.edu.uce.erp.ejb.persistence.entity.security.ParametroEmpresa;
 import ec.edu.uce.erp.ejb.persistence.util.dto.AuditoriaDTO;
 import ec.edu.uce.erp.ejb.persistence.view.VistaActaBien;
 import ec.edu.uce.erp.ejb.persistence.view.VistaBien;
@@ -575,6 +577,20 @@ public class ServicioInventarioImpl implements ServicioInventario {
 			ActaBien actaBien = new ActaBien();
 			List<TransaccionActaBien> colTransaccionActaBien = new ArrayList<TransaccionActaBien>();
 			
+			ParametroEmpresa parametroEmpresaBuscar = new ParametroEmpresa();
+			parametroEmpresaBuscar.setEmrPk(listVistaBien.iterator().next().getEmrPk());
+			parametroEmpresaBuscar.setEstado(ESTADO_ACTIVO);
+			parametroEmpresaBuscar.setCtTipoParametro(MessagesApplicacion.getInteger("erp.inventario.catalogo.tipo.id.metodo.generar.codigo.bien"));
+			parametroEmpresaBuscar.setCvTipoParametro(MessagesApplicacion.getString("erp.inventario.catalogo.valor.id.metodo.generar.codigo.bien.secuencia"));
+			
+			String nombreSecuencia = null;
+			
+			ParametroEmpresa parametroEmpresa = inventarioFactory.getParametroEmpresaDAOImpl().obtenerParametroEmpresaUnique(parametroEmpresaBuscar);
+			
+			if (parametroEmpresa != null) {
+				nombreSecuencia = parametroEmpresa.getValorParametro().trim();
+			}
+			
 			for (VistaBien vistaBien : listVistaBien) {
 				
 				//obtener el estado actual de la tabla transaccion
@@ -616,7 +632,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 						
 						Bien bienActual = inventarioFactory.getBienDAOImpl().buscarBienCriterios(bienBuscar).iterator().next();
 						
-						bienActual.setBieCodigo(this.generarCodidoBien(vistaBien));
+						bienActual.setBieCodigo(this.generarCodidoBien(vistaBien, nombreSecuencia));
 						bienActual.setBieFechaAsig(vistaBien.getTraFechaInicio());
 						bienActual.setBieEstadoUso(ESTADO_ACTIVO);
 //						bienActual.setTransaccionTbls(new ArrayList<Transaccion>());
@@ -917,7 +933,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 		return null;
 	}
 	
-	private String generarCodidoBien (VistaBien vistaBien) throws SeguridadesException {
+	private String generarCodidoBien (VistaBien vistaBien, String nombreSecuencia) throws SeguridadesException {
 		
 		String [] array = vistaBien.getNpNombreEmpresa().split(" ");
 		StringBuilder salida = new StringBuilder();
@@ -929,7 +945,7 @@ public class ServicioInventarioImpl implements ServicioInventario {
 		
 		salida.append(vistaBien.getCatBienIndice())
 				.append(".").append(vistaBien.getLinBienIndice())
-				.append(".").append(inventarioFactory.getBienDAOImpl().generarNextValSecuenciaCodigo());
+				.append(".").append(inventarioFactory.getBienDAOImpl().generarNextValSecuenciaCodigo(nombreSecuencia));
 		
 		return salida.toString();
 	}

@@ -109,3 +109,31 @@ CASE WHEN u.estado='1' THEN 'ACTIVO' ELSE 'INACTIVO' END as estado_string
 from segt_usuario u
 LEFT JOIN empresa_tbl e ON u.emr_pk = e.emr_pk;
 -- ejecutar vista segv_historico_transaccion
+
+
+--SCRIPT 2014 / 12 / 02
+
+DROP view IF EXISTS segv_historico_transaccion;
+CREATE VIEW segv_historico_transaccion AS 
+ SELECT ht.id_historico_transaccion,
+    ht.id_usuario,
+    concat(u.nombres_usuario, ' ', u.apellidos_usuario) AS usuario, u.ci_usuario, u.estado, 
+    CASE WHEN u.estado='1' THEN 'ACTIVO' ELSE 'INACTIVO' END as estado_string,
+    e.emr_pk, e.emr_nombre,
+    ht.det_catalogo_tipo_transaccion,
+    ht.nombre_transaccion,
+    dc.det_catalogo_descripcion,
+    ht.fecha_transaccion, ht.ip_transaccion
+   FROM segt_historico_transacciones ht
+   LEFT JOIN segt_usuario u ON u.id_usuario = ht.id_usuario
+   LEFT JOIN empresa_tbl e ON u.emr_pk = e.emr_pk
+   LEFT JOIN detalle_catalogo_tbl dc ON dc.cab_catalogo_fk::text = ht.cab_catalogo_tipo_transaccion::text AND dc.det_catalogo_nivel1::text = ht.det_catalogo_tipo_transaccion::text
+  ORDER BY ht.fecha_transaccion DESC;
+  
+DROP view IF EXISTS segv_usuario;
+CREATE VIEW segv_usuario AS 
+select u.id_usuario, u.ci_usuario, u.login_usuario, u.email_usuario, concat(u.nombres_usuario, ' ', u.apellidos_usuario) AS usuario,
+u.fecha_ultimo_ingreso, u.estado, e.emr_pk, e.emr_nombre,
+CASE WHEN u.estado='1' THEN 'ACTIVO' ELSE 'INACTIVO' END as estado_string
+from segt_usuario u
+LEFT JOIN empresa_tbl e ON u.emr_pk = e.emr_pk;

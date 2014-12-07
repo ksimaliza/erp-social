@@ -99,11 +99,23 @@ public class BienDAOImpl extends AbstractFacadeImpl<Bien> implements BienDAO{
 	}
 
 	@Override
-	public BigInteger generarNextValSecuenciaCodigo() throws SeguridadesException {
+	public BigInteger generarNextValSecuenciaCodigo(String nombreSecuencia) throws SeguridadesException {
 		
 		try {
-			Query query = entityManager.createNativeQuery("select nextval('bien_codigo_seq')");
-			return (BigInteger) query.getSingleResult();
+			
+			if (StringUtils.isBlank(nombreSecuencia)) {
+				//TODO GENERAR POR DEFAULT O LANZAR EXCEPCION
+				throw new SeguridadesException("Debe crear la secuencia que genera el c\u00F3digo del bien para su empresa");
+			} else {
+				
+				StringBuilder sql = new StringBuilder();
+				sql.append("select nextval('").append(nombreSecuencia).append("')");
+				
+				// "select nextval('bien_codigo_seq')"
+				Query query = entityManager.createNativeQuery(sql.toString());
+				return (BigInteger) query.getSingleResult();
+			}
+			
 		} catch (Exception e) {
 			slf4jLogger.info("Error el generar el valor para la secuencia bien_codigo_seq {}", e.toString());
 			throw new SeguridadesException("Error el generar el valor para la secuencia bien_codigo_seq", e);

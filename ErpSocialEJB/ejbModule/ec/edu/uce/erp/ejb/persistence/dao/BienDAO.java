@@ -31,6 +31,6 @@ public interface BienDAO extends AbstractFacade<Bien> {
 	 * @return
 	 * @throws SeguridadesException
 	 */
-	BigInteger generarNextValSecuenciaCodigo () throws SeguridadesException;
+	BigInteger generarNextValSecuenciaCodigo (String nombreSecuencia) throws SeguridadesException;
 
 }
