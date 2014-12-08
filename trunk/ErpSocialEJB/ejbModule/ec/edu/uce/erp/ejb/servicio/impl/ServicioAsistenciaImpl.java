@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,8 +20,10 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.dao.factory.AsistenciaFactoryDAO;
 import ec.edu.uce.erp.ejb.dao.factory.FactoryDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.CatalogoAsistenciaDAO;
 import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.CatalogoAsistenciaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaNoLaboralDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoAtrasoListDTO;
@@ -31,6 +34,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioEmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorasTrabajadasListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.ParametroCatalogoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.ParametroDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoListDTO;
@@ -132,7 +136,11 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 				}
 				else	
 				{
-					personanueva=factoryDAO.getPersonaDAOImpl().create(empleadoVO.getPersona());
+					if(empleadoVO.getPersona().getPerPk()!=null)
+						personanueva=factoryDAO.getPersonaDAOImpl().update(empleadoVO.getPersona());
+					else
+						personanueva=factoryDAO.getPersonaDAOImpl().create(empleadoVO.getPersona());
+						
 					empleadoVO.getEmpleado().setPersonaTbl(personanueva);
 					empleadoVO.getEmpleado().setPerFk(personanueva.getPerPk());
 					empleadonuevo=factoryDAO.getEmpleadoeDAOImpl().create(empleadoVO.getEmpleado());
@@ -660,7 +668,6 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 	@Override
 	public PermisoDTO createOrUpdateHorarioPermiso(PermisoDTO permisoDTO)
 			throws SeguridadesException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -669,18 +676,45 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 	public ParametroDTO createOrUpdateParametro(ParametroDTO parametroDTO) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateParametro");
+		ParametroDTO par,par2;
+		List<ParametroDTO> parametroList;
 		try {
-		if(parametroDTO.getPasCodigo()!=null)
-			return asistenciaFactoryDAO.getParametroDAOImpl().update(parametroDTO);
-		else
-			return asistenciaFactoryDAO.getParametroDAOImpl().create(parametroDTO);
+			if(parametroDTO.getPasCodigo()!=null)
+				par2= asistenciaFactoryDAO.getParametroDAOImpl().update(parametroDTO);
+			else
+			{
+				par=new ParametroDTO();
+				par2=new ParametroDTO();
+				par=(ParametroDTO) BeanUtils.cloneBean(parametroDTO);
+				par.setPasCodigo(null);
+				par.setPasDescripcion(null);
+				par.setPasValor(null);
+				
+				parametroList=asistenciaFactoryDAO.getParametroDAOImpl().getByAnd(par);
+				
+				if(parametroList.size()>0)
+				{
+					par=parametroList.get(0);
+					par.setPasValor(parametroDTO.getPasValor());
+					parametroDTO.setPasCodigo(par.getPasCodigo());
+					par2= asistenciaFactoryDAO.getParametroDAOImpl().update(par);
+				}
+				else
+					par2= asistenciaFactoryDAO.getParametroDAOImpl().create(parametroDTO);
+			}
+			return par2;	
 		} catch (Exception e) {
 			slf4jLogger.info("error al createOrUpdateParametro {}", e.toString());
 			throw new SeguridadesException(e);
 		}
+		finally{
+			parametroList=null;
+			par=null;
+			parametroDTO=null;
+		}
+		
 	}
-	
-	
+
 	
 	@Override
 	public List<ParametroDTO> buscarParametro(ParametroDTO parametro) throws SeguridadesException {
@@ -912,6 +946,50 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		return listHoras;
 	}
 	
+	//Catologo
+	@Override
+	public List<CatalogoAsistenciaDTO> readAll() throws SeguridadesException {
+		slf4jLogger.info("buscarHoras");
+		List<CatalogoAsistenciaDTO> listHoras = null;
+		try {
+			listHoras=asistenciaFactoryDAO.getCatalogoAsistenciaDAOImpl().getByAnd(new CatalogoAsistenciaDTO());
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarHoras {}", e.getMessage());
+			throw new SeguridadesException("No se pudo buscarHoras de la base de datos");
+		}
+		return listHoras;
+	}
+
+	
+	//Catalogo Asistencia
+	@Override
+	public List<ParametroCatalogoDTO> read(ParametroCatalogoDTO parametroCatalogoDTO) throws SeguridadesException {
+		slf4jLogger.info("buscarHoras");
+		List<ParametroCatalogoDTO> listHoras = null;
+		try {
+			listHoras=asistenciaFactoryDAO.getParametroCatalogoDAOImpl().getByAnd(parametroCatalogoDTO);
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarHoras {}", e.getMessage());
+			throw new SeguridadesException("No se pudo buscarHoras de la base de datos");
+		}
+		return listHoras;
+	}
+	
+	@Override
+	public ParametroCatalogoDTO getParametroCatalogById(int id) throws SeguridadesException {
+		slf4jLogger.info("buscarHoras");
+		ParametroCatalogoDTO listHoras = null;
+		try {
+			listHoras=asistenciaFactoryDAO.getParametroCatalogoDAOImpl().find(id);
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarHoras {}", e.getMessage());
+			throw new SeguridadesException("No se pudo buscarHoras de la base de datos");
+		}
+		return listHoras;
+	}
 	
 }
 	

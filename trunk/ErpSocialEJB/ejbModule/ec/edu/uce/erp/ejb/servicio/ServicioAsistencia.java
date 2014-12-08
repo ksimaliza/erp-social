@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.CatalogoAsistenciaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaNoLaboralDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoAtrasoListDTO;
@@ -15,6 +16,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioEmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorasTrabajadasListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.ParametroCatalogoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.ParametroDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoListDTO;
@@ -144,6 +146,14 @@ public interface ServicioAsistencia{
 			throws SeguridadesException;
 
 	List<EmpleadoAtrasoListDTO> readAtrasoReport(EmpleadoAtrasoListDTO atraso)
+			throws SeguridadesException;
+
+	List<CatalogoAsistenciaDTO> readAll() throws SeguridadesException;
+
+	List<ParametroCatalogoDTO> read(ParametroCatalogoDTO parametroCatalogoDTO)
+			throws SeguridadesException;
+
+	ParametroCatalogoDTO getParametroCatalogById(int id)
 			throws SeguridadesException;
 	
 

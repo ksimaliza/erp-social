@@ -13,6 +13,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.FaltaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HorarioDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HorarioEmpleadoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ParametroAsistenciaDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.ParametroCatalogoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PermisoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.RegistroDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.TipoDAO;
@@ -24,6 +25,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.impl.FaltaDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.HorarioDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.HorarioEmpleadoDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.ParametroAsistenciaDAOImpl;
+import ec.edu.uce.erp.ejb.persistence.dao.impl.ParametroCatalogoDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.PermisoDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.RegistroDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.TipoDAOImpl;
@@ -45,6 +47,7 @@ public class AsistenciaFactoryDAOImpl implements AsistenciaFactoryDAO {
 	private TipoDAO tipoDAO;
 	private DiaNoLaboralDAO diaNoLaboralDAO;
 	private CatalogoAsistenciaDAO catalogoAsistenciaDAO;
+	private ParametroCatalogoDAO parametroCatalogoDAO;
 	
 	@Override
 	public DiaDAO getDiaDAOImpl()
@@ -143,6 +146,13 @@ public class AsistenciaFactoryDAOImpl implements AsistenciaFactoryDAO {
 			catalogoAsistenciaDAO = new CatalogoAsistenciaDAOImpl(entityManager);
 		}
 		return catalogoAsistenciaDAO;
+	}
+
+	@Override
+	public ParametroCatalogoDAO getParametroCatalogoDAOImpl() {
+		if(parametroCatalogoDAO==null)
+			parametroCatalogoDAO=new ParametroCatalogoDAOImpl(entityManager);
+		return parametroCatalogoDAO;
 	}
 
 }
