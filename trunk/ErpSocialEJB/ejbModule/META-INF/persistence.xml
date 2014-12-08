@@ -158,6 +158,7 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ComunionListDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaListDTO</class>
+		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.ParametroCatalogoDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.security.CatalogoTipo</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.security.CatalogoValor</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.security.CatalogoValorPK</class>
