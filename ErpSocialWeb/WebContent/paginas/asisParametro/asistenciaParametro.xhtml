@@ -29,13 +29,16 @@
 			
 			<p:panel id="pnlBuscar" header="#{i18n['erp.asistencia.parametro.buscar']}">
 				<table class="formulario">
-					<tr >
-						<td width="30%"><h:outputLabel value="#{i18n['erp.asistencia.parametro.descripcion']}" /> </td>
-					<td width="70%">
-							<p:inputText id="txtDescripBuscar"
-								value="#{parametroAsistenciaDataManager.parametroBuscar.pasDescripcion}" />
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="sumEmpleado" value="Empleado:" />
 						</td>
-					
+						<td width="70%">
+							<p:selectOneMenu id="sumEmpleado" value="#{parametroAsistenciaDataManager.empleadoCodigoBuscar}" filter="true">
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{parametroAsistenciaController.parametroAsistenciaDataManager.empleadoList}" var="emp" itemLabel="#{emp.perApellidos} #{emp.perNombres}" itemValue="#{emp.aemCodigo}"/>
+							</p:selectOneMenu>
+						</td>
 					</tr>
 										
 				</table>
@@ -52,7 +55,7 @@
 
 			<p:dataTable id="tabla"  rowIndexVar="rowIndex" paginator="true" rows="5" paginatorPosition="bottom"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.asistencia.parametro.lista']}" value="#{parametroAsistenciaDataManager.listParametro}" var="par">
+				rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.asistencia.parametro.lista']}" value="#{parametroAsistenciaDataManager.parametroCatalogoList}" var="par">
 				
 				<f:facet name="header">
 					#{i18n['erp.asistencia.parametro.lista']}
@@ -62,7 +65,7 @@
 				</p:column>
 
 				<p:column headerText="#{i18n['erp.asistencia.parametro.descripcion']}" width="70%">
-					<h:outputText value="#{par.pasDescripcion}" />
+					<h:outputText value="#{par.catDescripcion}" />
 				</p:column>								
 
 				<p:column headerText="#{i18n['erp.asistencia.parametro.valor']}" width="30%">

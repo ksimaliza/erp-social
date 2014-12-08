@@ -4,6 +4,15 @@
 	text-transform: uppercase !important;
 }*/
 
+body{
+	font-size: 10pt;
+	font-weight:normal;
+    margin: 0px;
+    height: 100%;
+    width: 100%;
+    background-color:#e6ecf0;
+}
+
 textarea {
 	text-transform: uppercase !important;
 }
@@ -381,12 +390,6 @@ TD.ToolBar {
 	vertical-align:middle;
 }
 
-body {
-    margin: 0px;
-    height: 100%;
-    width: 100%;
-    background-color:#e6ecf0;
-}
 
 .ui-top, .ui-top .ui-layout, .ui-top .ui-layout-bd, .ui-top .ui-layout-unit {
     background-image: none;
