@@ -22,6 +22,10 @@
 					</p:commandButton>
 					<p:commandButton id="btnNuevoEstudiante" value="Insertar" icon="ui-icon ui-icon-circle-plus" oncomplete="dlgNuevoEstudiante.show()">
 						</p:commandButton>
+						<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
+						icon="exportExcel" disabled="#{empty estudianteDataManager.listaEstudianteListDTOs}">
+						<p:dataExporter type="xls" target="tablaEstudiante" fileName="listEstudiante" postProcessor="#{estudianteController.postProcessXLS}"/>
+					</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:panel id="pnlBuscarEstudiante" header="#{i18n['erp.matricula.estudiante.buscar']}" style="width: 630px;" toggleable="true">
@@ -75,8 +79,11 @@
 				<f:facet name="header">
 					#{i18n['erp.matricula.estudiante.lista']}
 				</f:facet>
-				<p:column headerText="#" styleClass="centered" width="5%">
-					#{rowIndex+1}
+				<p:column styleClass="centered" width="5%">
+					<f:facet name="header">
+						<h:outputText value="#" />
+					</f:facet>
+					<h:outputText value="#{rowIndex+1}"/>
 				</p:column>
 				<p:column headerText="#{i18n['erp.matricula.estudiante.cedula']}" width="10%">
 					<h:outputText value="#{estudiante.perCi}" />
@@ -97,9 +104,8 @@
 				<p:column headerText="Estado" width="70%">
 					<h:outputText value="#{estudiante.estEstado}" />
 				</p:column>
-
-				<p:column headerText="Reportes" styleClass="centered">
-				<h:panelGroup rendered="#{estudiante.estEstado.equals('Matriculado')}">
+				<p:column headerText="Reportes" styleClass="centered" exportable="false">
+				<h:panelGroup rendered="#{estudiante.estEstado.equals('Matrículado')}">
 					<p:commandLink styleClass="no-decor" ajax="false"
 						title="Generar Certificado Matricula"
 						actionListener="#{estudianteController.certificado(estudiante)}">
@@ -113,10 +119,7 @@
 					</p:commandLink>
 					</h:panelGroup>
 				</p:column>
-
-
-
-				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
+				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%" exportable="false">
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 								title="#{i18n['label.editar']}"
