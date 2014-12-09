@@ -79,13 +79,20 @@ public class MatriculaController extends BaseController {
 				
 				if(matriculaDataManager.getAsinacionList()!=null&&matriculaDataManager.getAsinacionList().size()<=0)
 				{
-					MensajesWebController.aniadirMensajeError("No existen datos del curso o paralelo");
+					MensajesWebController.aniadirMensajeError("No existen datos del curso o paralelo en este Período.");
 					return;
 				}
 
 				if(matriculaDataManager.getMatriculaInsertar().getRegFotoByte()==null)
 				{
-					MensajesWebController.aniadirMensajeError("Seleccione Foto");
+					MensajesWebController.aniadirMensajeError("Seleccione una Foto actualizada para este Período.");
+					return;
+				}
+				
+				//Agregado Ks
+				if(matriculaDataManager.getEstudianteCodigo()==0)
+				{
+					MensajesWebController.aniadirMensajeError("Seleccione un estudiante antes de Continuar con la matrícula.");
 					return;
 				}
 
@@ -102,7 +109,7 @@ public class MatriculaController extends BaseController {
 				
 				if (matriculado.size()>0)
 				{
-					MensajesWebController.aniadirMensajeInformacion("El estudiante ya esta matriculado");
+					MensajesWebController.aniadirMensajeInformacion("El estudiante ya se encuentra matriculado en el Período actual");
 				}
 				else
 				{
