@@ -3,6 +3,7 @@
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="imagesRealPath" class="java.lang.String"/>
 	<field name="emrNombre" class="java.lang.String"/>
 	<field name="perCi" class="java.lang.String"/>
 	<field name="perApellidos" class="java.lang.String"/>
@@ -11,72 +12,97 @@
 	<field name="parDescripcion" class="java.lang.String"/>
 	<field name="perDescripcion" class="java.lang.String"/>
 	<field name="perFechaNac" class="java.lang.String"/>
-	<field name="regFoto" class="java.io.InputStream"/>
+	<field name="regFoto" class="java.lang.String"/>
+	<field name="fotoEmpStream" class="java.io.InputStream"/>
 	<field name="fotoStream" class="java.io.InputStream"/>
 	<detail>
 		<band height="150" splitType="Stretch">
-			<textField>
-				<reportElement x="0" y="0" width="229" height="15" uuid="728cbb48-3672-4f98-a8e8-4f533239f9d8"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="48" y="0" width="181" height="15" uuid="728cbb48-3672-4f98-a8e8-4f533239f9d8"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="7" pdfFontName="Helvetica-Bold"/>
+					<font fontName="SansSerif" size="6" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{emrNombre}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="37" width="130" height="9" uuid="49dda2d4-6dff-4ce1-9f15-4d348d0b0f49"/>
+				<reportElement x="0" y="37" width="153" height="9" uuid="49dda2d4-6dff-4ce1-9f15-4d348d0b0f49"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="7"/>
 				</textElement>
 				<text><![CDATA[Cédula de Identidad]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="0" y="46" width="130" height="14" uuid="28bf7115-23cc-452f-abea-34e23d5d080b"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="46" width="153" height="14" uuid="28bf7115-23cc-452f-abea-34e23d5d080b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="7" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{perCi}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="60" width="130" height="9" uuid="84344310-5be5-4222-8234-2e92230eb035"/>
+				<reportElement x="0" y="60" width="153" height="9" uuid="84344310-5be5-4222-8234-2e92230eb035"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="7"/>
 				</textElement>
 				<text><![CDATA[Apellidos y Nombres]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="0" y="69" width="130" height="13" uuid="71a9a569-4208-4144-b639-67c591d00e50"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="69" width="153" height="13" uuid="71a9a569-4208-4144-b639-67c591d00e50"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="7" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{perApellidos}+ " " +$F{perNombres}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="82" width="130" height="9" uuid="e503f605-7aa6-4803-ac59-a40a2f44c004"/>
+				<reportElement x="0" y="82" width="153" height="9" uuid="e503f605-7aa6-4803-ac59-a40a2f44c004"/>
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" size="7"/>
 				</textElement>
 				<text><![CDATA[Nivel]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="0" y="91" width="130" height="13" uuid="6899aa67-fd07-4823-b9a9-3126e983dbce"/>
+				<reportElement x="0" y="91" width="153" height="13" uuid="6899aa67-fd07-4823-b9a9-3126e983dbce"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="7" pdfFontName="Helvetica-Bold"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{parDescripcion}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nivDescaripcion}+" "+$F{parDescripcion}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="130" width="229" height="20" backcolor="#CCCCCC" uuid="95ec41e9-5092-4fdd-b60e-786b2fc1323c"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="130" width="229" height="17" uuid="c96935a7-d7cd-481d-8384-a6d89dd19c7b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perDescripcion}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="26" y="16" width="203" height="1" forecolor="#FF9900" uuid="9db59239-ad97-4da8-8928-b8594270c264"/>
+				<reportElement x="48" y="14" width="181" height="1" forecolor="#FF9900" uuid="9db59239-ad97-4da8-8928-b8594270c264"/>
 			</line>
 			<rectangle>
-				<reportElement x="11" y="130" width="218" height="20" backcolor="#CCCCCC" uuid="95ec41e9-5092-4fdd-b60e-786b2fc1323c"/>
+				<reportElement x="224" y="15" width="5" height="135" backcolor="#CCCCCC" uuid="d20525c8-55c7-4872-a556-81668e4e0a5f"/>
 				<graphicElement>
 					<pen lineWidth="0.0"/>
 				</graphicElement>
 			</rectangle>
 			<image>
-				<reportElement x="148" y="37" width="70" height="67" uuid="89db81b9-9e3c-4794-8f07-a5cf6d903aa6"/>
+				<reportElement x="0" y="0" width="48" height="27" uuid="be3fbacc-3207-493f-88aa-d9c5bed37404"/>
+				<imageExpression><![CDATA[$F{fotoEmpStream}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="157" y="37" width="63" height="67" uuid="ef4d87ed-733d-4329-83d0-851ea0945efa"/>
 				<imageExpression><![CDATA[$F{fotoStream}]]></imageExpression>
 			</image>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement x="0" y="140" width="229" height="10" uuid="2bfe26c6-75e7-49e2-8361-8fd7f628cd9e"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Fecha Emisión:"+" "+new SimpleDateFormat("yyyy - MM - dd").format(new Date())]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>
