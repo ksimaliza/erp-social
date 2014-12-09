@@ -402,5 +402,21 @@ TD.ToolBar {
 .ui-icon-delete{
     background-image: url("../img/eliminar.png") !important;
 }
+
+#tableStyle {
+    border: 1px #949599 solid;
+    min-width: 500px;
+    max-width: 500 px;
+    font-family: Helvetica, Arial;
+    background: #FFFFFF;
+	
+	font-style: normal;
+	font-size: small;
+	width: 500px;
+}
+
+.ui-fieldset .ui-state-default {
+    background: #FFE8EF;
+}
       
     
