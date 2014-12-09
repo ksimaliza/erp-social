@@ -57,7 +57,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" size="7"/>
 				</textElement>
-				<text><![CDATA[Nivel]]></text>
+				<text><![CDATA[Año de Básica y Paralelo]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="0" y="91" width="153" height="13" uuid="6899aa67-fd07-4823-b9a9-3126e983dbce"/>
