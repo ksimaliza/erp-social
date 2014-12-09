@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="carnetEstudiante" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a4c235c9-086b-4146-bc9b-ae4b703c6504">
 	<property name="ireport.zoom" value="1.4641000000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="693"/>
+	<property name="ireport.y" value="369"/>
 	<parameter name="imagesRealPath" class="java.lang.String"/>
 	<field name="emrNombre" class="java.lang.String"/>
 	<field name="perCi" class="java.lang.String"/>
@@ -17,7 +17,7 @@
 	<field name="regCodigo" class="java.lang.String"/>
 	<field name="fotoEmpStream" class="java.io.InputStream"/>
 	<title>
-		<band height="104" splitType="Stretch">
+		<band height="149" splitType="Stretch">
 			<textField pattern="yyyy/MM/dd">
 				<reportElement x="215" y="-20" width="340" height="20" uuid="b8dc1a16-1c84-4a43-8620-7c109e66d657"/>
 				<textElement textAlignment="Right">
@@ -26,58 +26,37 @@
 				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy - MM - dd").format(new Date())]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="71" width="555" height="27" uuid="434107c1-0535-413e-8cf7-f86e0e685a76"/>
+				<reportElement x="0" y="111" width="555" height="27" uuid="434107c1-0535-413e-8cf7-f86e0e685a76"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="12" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{emrNombre}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="293" y="13" width="75" height="52" uuid="33d3198a-d30e-40ad-b6c3-936ec46a45f6"/>
+				<reportElement x="293" y="36" width="75" height="52" uuid="33d3198a-d30e-40ad-b6c3-936ec46a45f6"/>
 				<imageExpression><![CDATA[$F{fotoEmpStream}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="180" y="23" width="100" height="30" uuid="e5e8e706-02ed-49a2-915b-9292fd360387"/>
+				<reportElement x="180" y="46" width="100" height="30" uuid="e5e8e706-02ed-49a2-915b-9292fd360387"/>
 				<imageExpression><![CDATA[$P{imagesRealPath}+"/logoME.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>
 	<detail>
-		<band height="570" splitType="Stretch">
-			<textField>
-				<reportElement x="170" y="239" width="198" height="20" uuid="8a95f918-4cf5-4444-b581-5c7388d71c5f"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{perNombres}+" "+$F{perApellidos}]]></textFieldExpression>
+		<band height="516" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="64" y="196" width="459" height="163" uuid="8a95f918-4cf5-4444-b581-5c7388d71c5f"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Certifico que el niño(a)"+" "+$F{perNombres}+" "+$F{perApellidos}+" "+"actualmente se encuentra "+$F{estEstado}+" "+"en el "+$F{nivDescaripcion}+" "+$F{parDescripcion}+", "+" "+"en esta Institución consta con el número de matrícula "+$F{regCodigo}+", "+"correspondiente al período "+$F{perDescripcion}+"."
+]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="215" y="68" width="233" height="20" uuid="542b48a8-101d-4f96-a4da-7be556d6173b"/>
-				<textElement textAlignment="Justified" verticalAlignment="Bottom">
+			<textField isBlankWhenNull="true">
+				<reportElement x="64" y="21" width="459" height="58" uuid="542b48a8-101d-4f96-a4da-7be556d6173b"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
 					<font size="10" pdfFontName="Helvetica-Bold"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{emrNombre}+","]]></textFieldExpression>
+				<textFieldExpression><![CDATA["EL DIRECTOR DE LA ESCUELA "+$F{emrNombre}+", "+"ubicado en la "+$F{emrDireccion}+", "+"a petición verbal de la parte interesada."]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="308" y="279" width="185" height="20" uuid="00ec3a0c-f33c-4a31-ab2a-73e596e45654"/>
-				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{perDescripcion}+"."]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="54" y="88" width="197" height="20" uuid="ffd750f5-8f30-480c-a618-a02a4fdfba8d"/>
-				<textElement textAlignment="Justified" verticalAlignment="Bottom"/>
-				<textFieldExpression><![CDATA["en la  "+$F{emrDireccion}+","]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="54" y="68" width="161" height="20" uuid="28023540-663b-4d4f-8420-847c93bdac6b"/>
-				<textElement verticalAlignment="Bottom">
-					<font pdfFontName="Helvetica-Bold"/>
-				</textElement>
-				<text><![CDATA[EL DIRECTOR DE LA ESCUELA]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="251" y="88" width="242" height="20" uuid="ee00bdf7-7617-421d-befa-e974608bba43"/>
-				<textElement verticalAlignment="Bottom"/>
-				<text><![CDATA[a petición verbal de la parte interesada.]]></text>
-			</staticText>
 			<staticText>
 				<reportElement x="0" y="163" width="555" height="33" uuid="e4021bd9-0b2a-4c5b-a6e3-38f0e91816ba"/>
 				<textElement textAlignment="Center">
@@ -85,70 +64,28 @@
 				</textElement>
 				<text><![CDATA[CERTIFICACIÓN]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="54" y="239" width="116" height="20" uuid="f1a67dc3-1ea6-4434-af35-2fbd925027d0"/>
-				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
-				<text><![CDATA[Certifico que el niño(a)]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="368" y="239" width="125" height="20" uuid="a2f28f61-90cb-4f1a-a579-c3d24e164d0e"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
-				<text><![CDATA[actualmente se encuentra]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="134" y="259" width="171" height="20" uuid="7ad6cb4a-0a3c-4673-b25a-b1e1af4388f0"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{nivDescaripcion}+"  "+$F{parDescripcion}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="305" y="259" width="188" height="20" uuid="6adf6fba-fff8-4a14-83ea-202ad0cc65c4"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
-				<text><![CDATA[, en esta Institución consta con el número de]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="180" y="279" width="128" height="20" uuid="00525629-7127-465f-89bd-a2c62eb43a8e"/>
-				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
-				<text><![CDATA[, correspondiente al período]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="54" y="259" width="80" height="20" uuid="a7f0b10e-ffeb-4b5f-a690-b8d01e7c242f"/>
-				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{estEstado}+" en el "]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="111" y="279" width="69" height="20" uuid="cd6bc6ed-6722-4532-b1ad-fa091619c664"/>
-				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{regCodigo}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="54" y="279" width="57" height="20" uuid="1a544c7a-aa07-4f3d-a4f6-cca46f5324b6"/>
-				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[de matrícula]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="448" y="68" width="45" height="20" uuid="338a4ddd-7ad3-4f53-b310-6b44bf9fd464"/>
-				<textElement verticalAlignment="Bottom"/>
-				<text><![CDATA[ubicado ]]></text>
-			</staticText>
 			<rectangle>
-				<reportElement x="54" y="373" width="439" height="52" uuid="83a494c9-cab9-4588-b99b-a3e371d8bbda"/>
+				<reportElement x="64" y="373" width="439" height="52" uuid="83a494c9-cab9-4588-b99b-a3e371d8bbda"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="54" y="359" width="100" height="14" uuid="12418d12-0a59-4b82-be90-a3ab7430ac46"/>
+				<reportElement x="64" y="359" width="100" height="14" uuid="12418d12-0a59-4b82-be90-a3ab7430ac46"/>
 				<textElement verticalAlignment="Bottom"/>
 				<text><![CDATA[Observaciones:]]></text>
 			</staticText>
 			<line>
-				<reportElement x="219" y="518" width="100" height="1" uuid="f75ad623-bb52-4ff8-8a0c-945b16f7b520"/>
+				<reportElement x="218" y="490" width="100" height="1" uuid="f75ad623-bb52-4ff8-8a0c-945b16f7b520"/>
 			</line>
 			<staticText>
-				<reportElement x="216" y="522" width="104" height="14" uuid="5f426f33-7d28-41b1-bc18-6a2a2085c966"/>
+				<reportElement x="215" y="494" width="104" height="14" uuid="5f426f33-7d28-41b1-bc18-6a2a2085c966"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[Firma Director]]></text>
 			</staticText>
 		</band>
 	</detail>
+	<pageFooter>
+		<band height="50"/>
+	</pageFooter>
 </jasperReport>
