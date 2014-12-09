@@ -790,6 +790,7 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 				if (aux.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY|| aux.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
 										
 					diaNo=new DiaNoLaboralDTO();
+					diaNo.setDnlEntidad(entidad);
 					diaNo.setDnlAnio(year);
 					diaNo.setDnlMes(CalendarUtil.getMonth(new Timestamp(fechaInicial.getTime())));
 					diaNo.setDnlDia(CalendarUtil.getDay(new Timestamp(fechaInicial.getTime())));
