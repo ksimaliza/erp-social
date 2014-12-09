@@ -88,7 +88,7 @@ public class DiaLaboralController extends BaseController{
 	{
 		slf4jLogger.info("sabadoDomingo");
 		try {
-			servicioAsistencia.createDiaNoLaboralSabadoDomingo(Integer.valueOf(diaLaboralDataManager.getAnio().toString()));
+			servicioAsistencia.createDiaNoLaboralSabadoDomingo(Integer.valueOf(diaLaboralDataManager.getAnio().toString()),getEmpresaCode());
 			sabadoDomingoLoad();
 			MensajesWebController.aniadirMensajeInformacion("Generado Exitosamente");
 		} catch (SeguridadesException e) {
@@ -105,7 +105,7 @@ public class DiaLaboralController extends BaseController{
 		try {
 			
 			dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			listNoLaboral= servicioAsistencia.readDiaNoLaboral(CalendarUtil.getYear());
+			listNoLaboral= servicioAsistencia.readDiaNoLaboral(CalendarUtil.getYear(),getEmpresaCode());
 			eventModel=new  DefaultScheduleModel();
 			for(DiaNoLaboralDTO diaNo:listNoLaboral)
 			{
