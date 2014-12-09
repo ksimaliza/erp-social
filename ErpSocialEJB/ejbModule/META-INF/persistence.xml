@@ -36,7 +36,6 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Empleado</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Empresa</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.security.Parametro</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.security.ParametroEmpresa</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.EstadoDocumento</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.EstudianteMatriculaTbl</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Estudiante</class>
@@ -162,7 +161,7 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.security.CatalogoTipo</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.security.CatalogoValor</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.security.CatalogoValorPK</class>
-		
+
 		<properties>
 			<property name="hibernate.connection.username" value="postgres" />
 			<property name="hibernate.connection.password" value="root" />
