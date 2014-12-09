@@ -360,7 +360,14 @@ public class MatriculaVieDAOImpl extends AbstractFacadeImpl<MatriculaVieDTO> imp
 					from.get("regFecha"),
 					from.get("emrNombre"),
 					from.get("regFoto"),
-					from.get("regFotoByte")).distinct(true);
+					from.get("regFotoByte"),
+					from.get("perFechaNac"),
+					from.get("perEdad"),
+					from.get("perGenero"),
+					from.get("emrFoto"),
+					from.get("perDescripcion")
+					
+					).distinct(true);
 			
 			predicateList=new ArrayList<Predicate>();
 			
