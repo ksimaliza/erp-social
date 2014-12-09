@@ -20,7 +20,6 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.dao.factory.AsistenciaFactoryDAO;
 import ec.edu.uce.erp.ejb.dao.factory.FactoryDAO;
-import ec.edu.uce.erp.ejb.persistence.dao.CatalogoAsistenciaDAO;
 import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.CatalogoAsistenciaDTO;
@@ -453,6 +452,7 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 			parametro=new ParametroDTO();
 			
 			parametro.setPasEntidad(empleado.getAemEmpresa());
+			parametro.setPasEmpleado(empleado.getAemEmpleado());
 			parametroList= asistenciaFactoryDAO.getParametroDAOImpl().getByAnd(parametro);
 			
 			verificarFaltas(registroAsistencia);
@@ -770,14 +770,14 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 	}
 	
 	@Override
-	public void createDiaNoLaboralSabadoDomingo(int year) throws SeguridadesException
+	public void createDiaNoLaboralSabadoDomingo(int year,int entidad) throws SeguridadesException
 	{
 		Date fechaInicial= CalendarUtil.convertStringtoDate(String.valueOf(year)+"-01-01");
 		Date fechaFinal= CalendarUtil.convertStringtoDate(String.valueOf(year)+"-12-31");
 		DiaNoLaboralDTO diaNo;
 		try {
 			
-			if(!asistenciaFactoryDAO.getDiaNoLaboralDAOImpl().getAll(year).isEmpty())
+			if(!asistenciaFactoryDAO.getDiaNoLaboralDAOImpl().getAll(year,entidad).isEmpty())
 			{
 				throw new Exception("Ya se ha generado para este año");
 			}
@@ -806,10 +806,10 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 	}
 	
 	@Override
-	public List<DiaNoLaboralDTO> readDiaNoLaboral(int year) throws SeguridadesException
+	public List<DiaNoLaboralDTO> readDiaNoLaboral(int year,int entidad) throws SeguridadesException
 	{
 		try {
-			return asistenciaFactoryDAO.getDiaNoLaboralDAOImpl().getAll(year);
+			return asistenciaFactoryDAO.getDiaNoLaboralDAOImpl().getAll(year,entidad);
 		} catch (Exception e) {
 			slf4jLogger.info("Error al readDiaNoLaboral {}" , e.getMessage());
 			throw new SeguridadesException(e);
