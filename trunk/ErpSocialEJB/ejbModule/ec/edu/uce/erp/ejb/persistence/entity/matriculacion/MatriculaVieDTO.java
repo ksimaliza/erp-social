@@ -164,19 +164,20 @@ public class MatriculaVieDTO implements Serializable {
 
 	@Column(name="reg_foto")
 	private String regFoto;
-	
-
 	@Column(name="emr_direccion")
 	private String emrDireccion;
-	
-	
-	
 
 	@Column(name="reg_foto_byte")
 	private byte[] regFotoByte;
 	
 	@Column(name="emr_foto")
 	private byte[] emrFoto;
+	
+	@Column(name="per_edad")
+	private String perEdad;
+	
+	@Column(name="per_genero")
+	private String perGenero;
 	
 	
 	@Transient
@@ -230,7 +231,13 @@ public class MatriculaVieDTO implements Serializable {
 			Date regFecha,
 			String emrNombre,
 			String regFoto,
-			byte[] regFotoByte
+			byte[] regFotoByte,
+			Date perFechaNac,
+			 String perEdad, 
+			 String perGenero,
+			 byte[] emrFoto,
+			 String perDescripcion
+			
 			
 			) {
 		super();
@@ -244,6 +251,11 @@ public class MatriculaVieDTO implements Serializable {
 		this.emrNombre = emrNombre;
 		this.regFoto=regFoto;
 		this.regFotoByte = regFotoByte;
+		this.perFechaNac=perFechaNac;
+		this.perEdad=perEdad;
+		this.perGenero=perGenero;
+		this.emrFoto=emrFoto;
+		this.perDescripcion=perDescripcion;
 		
 	}
 	
@@ -660,6 +672,22 @@ public class MatriculaVieDTO implements Serializable {
 
 	public void setFotoEmpStream(InputStream fotoEmpStream) {
 		this.fotoEmpStream = fotoEmpStream;
+	}
+
+	public String getPerEdad() {
+		return perEdad;
+	}
+
+	public void setPerEdad(String perEdad) {
+		this.perEdad = perEdad;
+	}
+
+	public String getPerGenero() {
+		return perGenero;
+	}
+
+	public void setPerGenero(String perGenero) {
+		this.perGenero = perGenero;
 	}
 
 	
