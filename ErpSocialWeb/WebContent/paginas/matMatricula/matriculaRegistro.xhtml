@@ -16,76 +16,139 @@
 		
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
 			
-			<p:toolbar>
+			<p:toolbar rendered="false">
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
 					</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:panel id="pnlAnadirMatricula" header="#{i18n['erp.matricula.registro.registrar']}">
-				<table class="formulario">
+		
+			<p:panel id="pnlAnadirMatricula"   header="Matrícular Estudiante">
+				<table>
+				<tr>
+				<td>
+				
+				
+				
+				
+				<table class="formulario" width="400" id="tableStyle">
 
 					<tr>
-						<td width="100%" colspan="2"><p:graphicImage id="image" height="80" cache="false" value="#{matriculaDataManager.matriculaInsertar.regFoto}"/></td>
+						<td colspan="4"><p:graphicImage id="image" height="80" cache="false" value="#{matriculaDataManager.matriculaInsertar.regFoto}"/></td>
 					</tr>
 				
 					<tr>
-						<td width="30%">
-							<h:outputLabel value="Foto Estudiante:" />
-						</td>
-						<td width="70%">
-							    <p:fileUpload fileUploadListener="#{matriculaController.handleFileUpload}" mode="advanced" dragDropSupport="true"
-                     				 update="formRegistro:image" auto="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Seleccionar" process="@this"/>
-						</td>
-					</tr>
-					
-					<tr>
-						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.registro.estudiante']}"  /> </td>
-						<td><p:selectOneMenu id="estu" value="#{matriculaDataManager.estudianteCodigo}" filter="true" required="true">
-								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-								<f:selectItems value="#{matriculaController.matriculaDataManager.estudianteList}" var="estudiante" itemLabel="#{estudiante.perApellidos} #{estudiante.perNombres} " itemValue="#{estudiante.estCodigo}"/>
-							</p:selectOneMenu>
-						</td>
-					</tr>
-					
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtFecha" value="#{i18n['erp.matricula.registro.fecha']}" />
-						</td>
-						<td width="70%">
-							<p:inputText id="txtFecha" value="#{matriculaDataManager.fechaInsertar.toLocaleString().substring(0,10)}" required="true" readonly="true"/>
-						</td>	
-					</tr>
-					<tr>
-						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.registro.nivel']}"  /> </td>
-						<td><p:selectOneMenu id="nivel" value="#{matriculaDataManager.nivelCodigo}" filter="true" required="true">
+						<td class="label"><h:outputLabel value="#{i18n['erp.matricula.registro.nivel']}"  />
+						<h:outputLabel value="#{i18n['label.signo.requerido']}"/> </td>
+						<td class="value"><p:selectOneMenu id="nivel" value="#{matriculaDataManager.nivelCodigo}" filter="true" required="true" requiredMessage="Seleccione un #{i18n['erp.matricula.registro.nivel']} para la Matrícula." style="width:250px">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{matriculaController.matriculaDataManager.nivelList}" var="nivel" itemLabel="#{nivel.nivDescaripcion} " itemValue="#{nivel.nivCodigo}"/>
 								<p:ajax listener="#{matriculaController.buscarNivelParalelo}" process="@this" update="paralelo"/>
 							</p:selectOneMenu>
 						</td>
-					</tr>
+						<td>
+						<p:commandButton id="btnAnadir" title="Buscar"
+						         icon="ui-icon-search"
+								actionListener="#{matriculaController.buscarAsignacion}"
+								value="#{i18n['label.buscar']}"
+								process="@this,pnlAnadirMatricula"
+								update=":formRegistro:pnlMessages,tablaAsinacion,pnlAnadirMatricula" />
+						</td>
+											</tr>
 					
 					<tr>
-						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.registro.paralelo']}"  /> </td>
-						<td><p:selectOneMenu id="paralelo" value="#{matriculaDataManager.paraleloCodigo}" required="true">
+						<td class="label"><h:outputLabel value="#{i18n['erp.matricula.registro.paralelo']}"  
+						/> 
+						<h:outputLabel value="#{i18n['label.signo.requerido']}"/></td>
+						<td class="value"><p:selectOneMenu id="paralelo" value="#{matriculaDataManager.paraleloCodigo}" required="true" style="width:250px" requiredMessage="Seleccione un #{i18n['erp.matricula.registro.paralelo']} para la Matrícula."> 
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{matriculaDataManager.nivelParaleloList}" var="nivelParalelo" itemLabel="#{nivelParalelo.matParalelo.parDescripcion}" itemValue="#{nivelParalelo.matParalelo.parCodigo}"/>
 								<p:ajax listener="#{matriculaController.buscarAsignacion}" process="@this,pnlAnadirMatricula" update="tablaAsinacion"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
+					<tr>
+						<td class="label">
+							<h:outputLabel for="txtFecha" value="#{i18n['erp.matricula.registro.fecha']}" />
+						</td>
+						<td class="value">
+							<p:outputLabel id="txtFecha" value="#{matriculaDataManager.fechaInsertar.toLocaleString().substring(0,10)}" required="true" />
+						</td>	
+					</tr>
+					
+					<tr>
+						<td class="label"><h:outputLabel value="#{i18n['erp.matricula.registro.estudiante']}"  /> 
+						<h:outputLabel value="#{i18n['label.signo.requerido']}"/></td>
+						<td class="value" colspan="3"><p:selectOneMenu id="estu" value="#{matriculaDataManager.estudianteCodigo}" filter="true" style="width:250px">
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{matriculaController.matriculaDataManager.estudianteList}" var="estudiante" itemLabel="#{estudiante.perApellidos} #{estudiante.perNombres} " itemValue="#{estudiante.estCodigo}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td class="label">
+							<h:outputLabel value="Foto Estudiante" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}"/>
+						</td>
+						<td class="value">
+						<table width="50" title="Adjuntar Foto Estudiante">
+						<tr>
+						<td>
+						 <p:fileUpload fileUploadListener="#{matriculaController.handleFileUpload}" mode="advanced" dragDropSupport="true"
+                     				 update="formRegistro:image" auto="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Seleccionar" process="@this"/>
+						
+						</td>
+						</tr>
+						</table>
+					</td>
+					</tr>
 										
+				</table>
+				</td>
+				<td valign="top">
+				
+				<p:fieldset>
+				<table title="Notas Importantes">
+				<tr>
+				<td>
+				Importante:
+				</td>
+				</tr>
+				<tr>
+				<td>
+				<h:graphicImage value="/resources/img/advertencia.gif" />
+				<h:outputText value="Recuerde los campos marcados con (*) son Obligatorios." />
+				
+				</td>
+				</tr>
+				<tr>
+				<td>
+				<h:graphicImage value="/resources/img/informacion.gif" />
+				<h:outputText value="La foto del estudiante debe ser una actualizada, para cada Período Lectivo." />
+				
+				</td>
+				</tr>
+				
+				</table>
+				</p:fieldset>
+				
+				</td>
+				
+				</tr>
 				</table>
 			
 			</p:panel>
+	
 
-			<p:panel id="botonAñadir">
-				<p:commandButton id="btnAnadir"
-					actionListener="#{matriculaController.buscarAsignacion}"
-					value="#{i18n['label.buscar']}" 
-					process="@this,pnlAnadirMatricula"
-					update=":formRegistro:pnlMessages,tablaAsinacion,pnlAnadirMatricula" />
+			<p:panel id="pnlBotones" >
+				<p:commandButton id="btnGuardar" value="Matrícular" title="Matrícular"
+				icon="ui-icon-circle-check"
+					actionListener="#{matriculaController.registrarMatricula}"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" title="#{i18n['label.cancelar']}"
+				actionListener="#{matriculaController.cancel}" process="@this" 
+				immediate="true" update="pnlAnadirMatricula,tablaAsinacion"
+				icon="ui-icon ui-icon-circle-close"
+				/>
 			</p:panel>
 
 
@@ -117,13 +180,7 @@
 					<h:outputText value="#{asig.perDescripcion}" />
 				</p:column>									
 			</p:dataTable>
-			
-			<p:panel id="pnlBotones">
-				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
-					actionListener="#{matriculaController.registrarMatricula}"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{matriculaController.cancel}" process="@this" immediate="true" update="pnlAnadirMatricula,tablaAsinacion"/>
-			</p:panel>
-						
+					
 		</h:form>			
 		
 	</ui:define>		
