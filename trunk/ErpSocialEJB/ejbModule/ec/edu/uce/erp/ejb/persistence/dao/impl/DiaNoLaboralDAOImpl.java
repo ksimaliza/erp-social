@@ -31,7 +31,7 @@ public class DiaNoLaboralDAOImpl extends AbstractFacadeImpl<DiaNoLaboralDTO> imp
 	}
 
 	@Override
-	public List<DiaNoLaboralDTO> getAll(int year) throws SeguridadesException
+	public List<DiaNoLaboralDTO> getAll(int year,int entidad) throws SeguridadesException
 	{
 		slf4jLogger.info("getAll");
 		
@@ -55,6 +55,13 @@ public class DiaNoLaboralDAOImpl extends AbstractFacadeImpl<DiaNoLaboralDTO> imp
 				predicate = criteriaBuilder.equal(fromUsuario.get("dnlAnio"), year);
 				criteriaList.add(predicate);
 			}
+
+			//por entidad
+			if (year!=0) {
+				predicate = criteriaBuilder.equal(fromUsuario.get("dnlEntidad"), entidad);
+				criteriaList.add(predicate);
+			}
+
 			
 			criteriaQuery.where(criteriaBuilder.and(criteriaList.toArray(new Predicate[0])));
 			

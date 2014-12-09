@@ -84,11 +84,6 @@ public interface ServicioAsistencia{
 
 	List<AnioDTO> readAnioActual() throws SeguridadesException;
 
-	void createDiaNoLaboralSabadoDomingo(int year) throws SeguridadesException;
-
-	List<DiaNoLaboralDTO> readDiaNoLaboral(int year)
-			throws SeguridadesException;
-
 	void createDiaNoLaboral(DiaNoLaboralDTO diaNoLaboral)
 			throws SeguridadesException;
 
@@ -154,6 +149,12 @@ public interface ServicioAsistencia{
 			throws SeguridadesException;
 
 	ParametroCatalogoDTO getParametroCatalogById(int id)
+			throws SeguridadesException;
+
+	void createDiaNoLaboralSabadoDomingo(int year, int entidad)
+			throws SeguridadesException;
+
+	List<DiaNoLaboralDTO> readDiaNoLaboral(int year, int entidad)
 			throws SeguridadesException;
 	
 
