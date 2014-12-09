@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="carnetEstudiante" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a4c235c9-086b-4146-bc9b-ae4b703c6504">
 	<property name="ireport.zoom" value="1.4641000000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="369"/>
+	<property name="ireport.y" value="465"/>
 	<parameter name="imagesRealPath" class="java.lang.String"/>
 	<field name="emrNombre" class="java.lang.String"/>
 	<field name="perCi" class="java.lang.String"/>
@@ -47,8 +47,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement x="64" y="196" width="459" height="163" uuid="8a95f918-4cf5-4444-b581-5c7388d71c5f"/>
 				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA["Certifico que el niño(a)"+" "+$F{perNombres}+" "+$F{perApellidos}+" "+"actualmente se encuentra "+$F{estEstado}+" "+"en el "+$F{nivDescaripcion}+" "+$F{parDescripcion}+", "+" "+"en esta Institución consta con el número de matrícula "+$F{regCodigo}+", "+"correspondiente al período "+$F{perDescripcion}+"."
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Certifico que el niño(a)"+" "+$F{perNombres}.trim()+" "+$F{perApellidos}.trim()+" "+"actualmente se encuentra "+$F{estEstado}+" "+"en el "+$F{nivDescaripcion}.trim()+" "+"Año de Básica"+" paralelo "+ $F{parDescripcion}.trim()+", "+" "+"en esta Institución consta con el número de matrícula "+$F{regCodigo}+", "+"correspondiente al período "+$F{perDescripcion}+"."]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="64" y="21" width="459" height="58" uuid="542b48a8-101d-4f96-a4da-7be556d6173b"/>
@@ -65,7 +64,7 @@
 				<text><![CDATA[CERTIFICACIÓN]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="64" y="373" width="439" height="52" uuid="83a494c9-cab9-4588-b99b-a3e371d8bbda"/>
+				<reportElement x="64" y="373" width="459" height="52" uuid="83a494c9-cab9-4588-b99b-a3e371d8bbda"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
