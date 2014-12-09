@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteEstudiante" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a2d35ab5-f41b-45cc-b653-074a13fd9e27">
-	<property name="ireport.zoom" value="1.0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteEstudiante" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a2d35ab5-f41b-45cc-b653-074a13fd9e27">
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="imagesRealPath" class="java.lang.String"/>
 	<field name="emrNombre" class="java.lang.String"/>
 	<field name="regCodigo" class="java.lang.Integer"/>
 	<field name="perCi" class="java.lang.String"/>
@@ -11,92 +12,384 @@
 	<field name="nivDescaripcion" class="java.lang.String"/>
 	<field name="parDescripcion" class="java.lang.String"/>
 	<field name="regFecha" class="java.util.Date"/>
+	<field name="fotoEmpStream" class="java.io.InputStream"/>
+	<field name="perFechaNac" class="java.util.Date"/>
+	<field name="perEdad" class="java.lang.String"/>
+	<field name="perGenero" class="java.lang.String"/>
+	<field name="perDescripcion" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
-			<textField>
-				<reportElement x="45" y="28" width="135" height="23" uuid="29e169c0-c213-4576-8f44-4df3315eefc1"/>
-				<textElement>
-					<font size="16"/>
+		<band height="72" splitType="Stretch">
+			<textField pattern="yyyy/MM/dd">
+				<reportElement x="462" y="-20" width="340" height="20" uuid="f2a8b298-0f10-40fb-a077-62813684dd43"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{emrNombre}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy - MM - dd").format(new Date())]]></textFieldExpression>
 			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="100" y="28" width="621" height="17" uuid="0cc1ba86-3548-4133-891b-42d9301fe296"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{emrNombre}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="721" y="-2" width="79" height="74" uuid="64b7c1c8-baa9-456e-9337-ecfcbba5be8e"/>
+				<imageExpression><![CDATA[$F{fotoEmpStream}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="100" y="0" width="621" height="28" uuid="b17d821b-bbba-4d12-92b5-2c5d76ba1d99"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[CUADRO GENERAL DE MATRICULAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="45" width="621" height="14" uuid="18ed759c-76d8-49ee-9544-a6133732a23b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[PARROQUIA SAN PABLO DE ATENAS]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="17" width="100" height="30" uuid="2f760fb4-c14a-4ac4-81b3-341e3142cfa9"/>
+				<imageExpression><![CDATA[$P{imagesRealPath}+"/logoME.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="152" height="20" uuid="2382e9bd-2335-4aac-9c38-0656255a0764"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[AÑO DE EDUCACIÓN BÁSICA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="152" y="0" width="275" height="20" uuid="8829cbc2-a8ed-4f5f-93fc-85528198bb86"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nivDescaripcion}+" "+$F{parDescripcion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="532" y="0" width="98" height="20" uuid="2d643cd9-229a-4670-b6c5-9cf28a886590"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[PERÍODO LECTIVO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="630" y="0" width="170" height="20" uuid="19696b90-8c25-4064-b4cb-3b0e49c38f1e"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{perDescripcion}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="29" splitType="Stretch">
+		<band height="34" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="29" y="1" width="50" height="33" uuid="4f06ca21-7678-4ebc-8485-42554552c5b6"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="1" width="30" height="33" uuid="837ddfff-46c7-49d1-a045-2e4b99164b07"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
 			<staticText>
-				<reportElement x="0" y="0" width="77" height="20" uuid="54275a5c-9f6c-431e-8b5b-4359e925a712"/>
-				<text><![CDATA[Matricula]]></text>
+				<reportElement x="0" y="0" width="30" height="34" uuid="53991001-d249-46a5-b049-bbe2bbde9fad"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[#]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="77" y="0" width="100" height="20" uuid="196149ec-36a4-4bdc-9a1c-96d07ae4cc95"/>
-				<text><![CDATA[Cédula]]></text>
+				<reportElement mode="Transparent" x="30" y="0" width="49" height="34" uuid="ac8a3a63-7648-4e6f-9126-6335925b312a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[N ° Matrícula]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="79" y="1" width="63" height="33" uuid="141589ed-84a8-4ed8-bf46-de7768196acc"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="79" y="1" width="63" height="33" uuid="7a4e0b2a-8728-434a-8505-9df2a555f186"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Fecha Matrícula]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Opaque" x="142" y="1" width="56" height="33" uuid="c6985c4d-5680-4dab-bdd4-f22df0982767"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Transparent" x="142" y="0" width="56" height="34" uuid="353388ea-bcff-4545-b8c7-061b6b5281d7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Año de Básica]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="198" y="1" width="175" height="33" uuid="6b95272d-ec63-48c5-8b5c-72c85327bf70"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Transparent" x="198" y="0" width="175" height="34" uuid="714bc929-5e42-4673-be85-f2334cebf893"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Apellidos y Nombres]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="373" y="1" width="54" height="33" uuid="269dd39c-7543-4bf5-a09e-83456025ad6b"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Transparent" x="373" y="0" width="54" height="34" uuid="a26889b2-9947-4933-86f1-a23da83d074d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Género]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="427" y="1" width="54" height="33" uuid="aa63d501-7134-48b6-9368-feae75e59574"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Transparent" x="427" y="1" width="54" height="33" uuid="0e307656-e76f-4280-8601-d137de2da87c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Fecha Nacimiento]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="481" y="1" width="35" height="33" uuid="d632f304-2c8d-4d02-8db8-dcd84b693615"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Transparent" x="481" y="0" width="35" height="34" uuid="ad334258-f560-4b56-b634-fa85d19dee86"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Edad]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="516" y="1" width="190" height="15" uuid="5bb8d5d2-6a7c-49c9-b23b-950a9cd2b275"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="516" y="16" width="112" height="18" uuid="421d2fda-85a0-4977-b101-736305e4ae2a"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="706" y="1" width="96" height="33" uuid="f3716cbc-b3e2-4d6b-9663-2e61eacc93b3"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Transparent" x="516" y="1" width="190" height="15" uuid="ceea061f-dc35-4362-bb7e-8cfec9871cb4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Unidad Educativa  donde Procede]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="628" y="16" width="78" height="18" uuid="e3f0886b-f3b8-4cec-9c9e-4fd38efbf988"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Transparent" x="516" y="16" width="112" height="18" uuid="80c899a9-76c6-41dc-a84d-2c6ddd109707"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="177" y="0" width="100" height="20" uuid="09112fc1-f16b-413c-ac50-1dd1b6df0c71"/>
-				<text><![CDATA[Apellidos]]></text>
+				<reportElement mode="Transparent" x="628" y="16" width="78" height="18" uuid="bb2e2b42-a0fc-41bc-8bc3-e06f19f5a46e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Lugar]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="277" y="0" width="100" height="20" uuid="9bf87086-d709-4279-b7cc-c51a03735e1b"/>
-				<text><![CDATA[Nombres]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="377" y="0" width="45" height="20" uuid="91d3b91b-cbb2-49a8-8d4c-5dca7f539deb"/>
-				<text><![CDATA[Curso]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="422" y="0" width="43" height="20" uuid="60ca923b-36f2-4fd8-94b9-188af8993f4d"/>
-				<text><![CDATA[Paralelo]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="465" y="0" width="90" height="20" uuid="85961ec2-caeb-424d-a1f9-43f9ec743e99"/>
-				<text><![CDATA[Fecha ]]></text>
+				<reportElement mode="Transparent" x="706" y="1" width="94" height="33" uuid="6610f999-c6be-457a-a603-0a7367d2d9e7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Representante]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch">
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="30" height="20" uuid="f6ae948d-cbd6-444a-9798-623d4e07a85b"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
 			<textField>
-				<reportElement x="0" y="0" width="77" height="20" uuid="7c05d349-9e33-4b65-83c4-2e7adb5bfcf7"/>
-				<textFieldExpression><![CDATA[$F{regCodigo}]]></textFieldExpression>
+				<reportElement x="0" y="0" width="30" height="20" uuid="75fabe20-75b7-449e-b2a0-5f9b85876061"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="77" y="0" width="100" height="20" uuid="0af6326b-0bc6-4c20-8d26-0983a7af5180"/>
-				<textFieldExpression><![CDATA[$F{perCi}]]></textFieldExpression>
+			<rectangle>
+				<reportElement x="30" y="0" width="49" height="20" uuid="88f05661-d034-420f-ba59-c2b07e36a819"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="30" y="0" width="49" height="20" uuid="767761a5-e093-4c02-a0e3-2ee42d2d32b1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" "+$F{regCodigo}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="177" y="0" width="100" height="20" uuid="2555d3ad-a4b6-47a7-861a-6ac26edda89b"/>
-				<textFieldExpression><![CDATA[$F{perApellidos}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="277" y="0" width="100" height="20" uuid="7241654d-ca58-449e-b4b8-3a007e567428"/>
-				<textFieldExpression><![CDATA[$F{perNombres}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="377" y="0" width="45" height="20" uuid="5ac646d6-dc2c-4133-963a-e3deb05effc4"/>
-				<textFieldExpression><![CDATA[$F{nivDescaripcion}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="422" y="0" width="43" height="20" uuid="176c2724-53cc-438e-89f5-223458166090"/>
-				<textFieldExpression><![CDATA[$F{parDescripcion}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="465" y="0" width="90" height="20" uuid="8ec5e05e-a734-461e-9aff-9c678bbcb390"/>
+			<rectangle>
+				<reportElement x="79" y="0" width="63" height="20" uuid="79d954ef-53db-4efc-b719-43e356a093fe"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="79" y="0" width="63" height="20" uuid="bd842d6d-d32c-45e4-af61-0e36dc0e7727"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{regFecha}]]></textFieldExpression>
 			</textField>
+			<rectangle>
+				<reportElement mode="Opaque" x="142" y="0" width="56" height="20" uuid="3501c94a-4dac-489d-ae06-cd66fa72de24"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="142" y="0" width="56" height="20" uuid="c5035135-3856-488a-969e-5535b73e58af"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" "+$F{nivDescaripcion}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="198" y="0" width="175" height="20" uuid="96737770-7074-4f45-ad4b-4f6c296b0438"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="198" y="0" width="175" height="20" uuid="5d03ccd1-fa47-4b4c-b1c9-b3f4db998cf3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" "+$F{perApellidos}+" "+$F{perNombres}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="373" y="0" width="54" height="20" uuid="6dd17e9e-d4d5-4b0f-b7c8-f3e3b1f6b724"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="373" y="0" width="54" height="20" uuid="772e8132-dac6-4d8f-bced-127afb175538"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" "+($F{perGenero}.equals("F")?"FEMENINO":"MASCULINO")]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="427" y="0" width="54" height="20" uuid="f6374ede-02a4-4633-8e62-8a2e82baead0"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="427" y="0" width="54" height="20" uuid="cee673d7-6722-47c9-84bd-b3b72f87f14b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perFechaNac}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="481" y="0" width="35" height="20" uuid="1aff43b4-2bdf-4b91-8c59-bca019a6bc1d"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="481" y="0" width="35" height="20" uuid="2aa6405d-3ed6-4790-842f-bc8833bf8ad7"/>
+				<textElement textAlignment="Justified" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" "+$F{perEdad}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="516" y="0" width="112" height="20" uuid="ccda3eb5-a9ea-4033-b3c0-6ad99bf1dda2"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="628" y="0" width="78" height="20" uuid="078151b6-9d9e-4787-b45f-13aaf331f4cc"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="706" y="0" width="96" height="20" uuid="05ce0d79-c4af-461c-862f-3197f3add17b"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="18" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="690" y="5" width="70" height="20" uuid="387ee310-2347-4513-988c-1150aee18dce"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA["Pag. " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="760" y="5" width="42" height="20" uuid="ba0c2c14-a55b-492e-846a-7c7c713d2e07"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>
