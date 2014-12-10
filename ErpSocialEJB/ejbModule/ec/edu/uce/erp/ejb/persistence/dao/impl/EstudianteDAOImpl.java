@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -19,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.persistence.dao.EstudianteDAO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
 
@@ -98,6 +100,16 @@ public class EstudianteDAOImpl extends AbstractFacadeImpl<EstudianteDTO> impleme
 	
 	return estudiantesEncontrados;
 }
+	
+	 /*Fecha 01/12/2012
+	  * @param codEstudiante
+	  * @throws Exception
+	 */
+		public void updateEstadoEstudiante(Integer codEstudiante) throws SeguridadesException {
+			Query query=entityManager.createNativeQuery("Update mat_estudiante set est_estado='Matrículado' where est_codigo= :codEstudiante");
+			query.setParameter("codEstudiante", codEstudiante);
+			query.executeUpdate();
+		}
 		
 		
 	
