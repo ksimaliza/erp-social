@@ -13,6 +13,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.imageio.stream.FileImageOutputStream;
+import javax.persistence.PostLoad;
 import javax.servlet.ServletContext;
 
 import net.sf.jasperreports.engine.JasperPrint;
@@ -59,7 +60,6 @@ public class RegistroAsistenciaController extends BaseController {
 
 	@EJB
 	private ServicioAsistencia servicioAsistencia;
-	
 	
 	
 	public void registrar()
