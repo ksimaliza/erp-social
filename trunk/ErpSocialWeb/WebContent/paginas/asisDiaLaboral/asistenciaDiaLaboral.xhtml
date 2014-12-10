@@ -7,62 +7,100 @@
 	template="/WEB-INF/templates/template.xhtml">
 
 	<ui:define name="title">
-		<h3><h:outputLabel	value="#{i18n['erp.asistencia.dia.laboral.pagina.titulo']}" /></h3>
-	</ui:define>	
-
+		<h3>
+			<h:outputLabel
+				value="#{i18n['erp.asistencia.dia.laboral.pagina.titulo']}" />
+		</h3>
+	</ui:define>
 
 	<ui:define name="content">
 		<h:form id="formFalta">
-		
-			<p:growl id="pnlMessages" autoUpdate="true" closable="true" widgetVar="message"/>
+
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true"
+				widgetVar="message" />
 
 			<table>
 				<tr>
-					<td>
-						<h:outputText value="Dia no laboral:" />
-					</td>
-					<td>
-						<p:commandButton value="Sabados y Domingos" actionListener="#{diaLaboralController.sabadoDomingo}" update="schedule"/>
-					</td>
-					<td>
-						<h:outputLabel for="selectAnio" value="#{i18n['erp.asistencia.seleccione.anio']}" />
-					</td>
-					<td>
-						<p:selectOneMenu id="selectAnio"
+					<td><h:outputText value="Dia no laboral:" /></td>
+					<td><p:commandButton value="Sabados y Domingos"
+							actionListener="#{diaLaboralController.sabadoDomingo}"
+							update="schedule" /></td>
+					<td><h:outputLabel for="selectAnio"
+							value="#{i18n['erp.asistencia.seleccione.anio']}" /></td>
+					<td><p:selectOneMenu id="selectAnio"
 							value="#{diaLaboralDataManager.anio}"
 							label="#{i18n['erp.asistencia.seleccione.anio']}" required="true">
-							<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
-							<f:selectItems value="#{selectItemsController.catalogoListAnio}"/>
-						</p:selectOneMenu>
-					</td>
-					
+							<f:selectItem itemValue=""
+								itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true" />
+							<f:selectItems value="#{selectItemsController.catalogoListAnio}" />
+						</p:selectOneMenu></td>
 				</tr>
 			</table>
-					
-			<p:schedule id="schedule" value="#{diaLaboralController.eventModel}" widgetVar="myschedule">
-				<p:ajax event="dateSelect" update=":dialog:eventDetails" listener="#{diaLaboralController.onDateSelect}" oncomplete="PF('eventDialog').show()" />	
+
+			<p:schedule id="schedule" value="#{diaLaboralController.eventModel}"
+				widgetVar="myschedule" locale="es">
+				<p:ajax event="dateSelect" update=":dialog:eventDetails"
+					listener="#{diaLaboralController.onDateSelect}"
+					oncomplete="PF('eventDialog').show()" />
 			</p:schedule>
-			
+
+		</h:form>
+
+		<p:dialog widgetVar="eventDialog" header="Event Details"
+			showEffect="clip" hideEffect="clip" closeOnEscape="true" modal="true"
+			appendTo="@(body)">
+			<h:form id="dialog">
+				<h:panelGrid id="eventDetails" columns="2">
+
+					<h:outputLabel for="fecha" value="Fecha:" />
+					<p:calendar id="fecha" value="#{diaLaboralDataManager.fecha}"
+						pattern="yyyy-MM-dd" showOn="button" disabled="true" />
+
+					<h:outputLabel for="obs" value="Observacion:" />
+					<p:inputText id="obs"
+						value="#{diaLaboralDataManager.diaNoLaboral.dnlObservacion}" />
+
+					<p:commandButton id="addButton" value="Guardar"
+						actionListener="#{diaLaboralController.agregarDia}"
+						oncomplete="if (args &amp;&amp; !args.validationFailed) eventDialog.hide();PF('myschedule').update();"
+						update=":formFalta:pnlMessages" />
+					<p:commandButton type="reset" value="Cancelar" />
+
+				</h:panelGrid>
 			</h:form>
-			
-			 <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip" closeOnEscape="true" modal="true" appendTo="@(body)">
-				 <h:form id="dialog">
-	        		<h:panelGrid id="eventDetails" columns="2">
-	
-			            <h:outputLabel for="fecha" value="Fecha:" />
-			            <p:calendar id="fecha" value="#{diaLaboralDataManager.fecha}" pattern="yyyy-MM-dd" showOn="button" disabled="true"/>
-			 
-			            <h:outputLabel for="obs" value="Observacion:" />
-			            <p:inputText id="obs" value="#{diaLaboralDataManager.diaNoLaboral.dnlObservacion}"/>
-			            
-			            <p:commandButton id="addButton" value="Guardar" actionListener="#{diaLaboralController.agregarDia}" oncomplete="if (args &amp;&amp; !args.validationFailed) eventDialog.hide();PF('myschedule').update();" update=":formFalta:pnlMessages"/>
-			            <p:commandButton type="reset" value="Cancelar" />
-			            
-		        	</h:panelGrid>
-		        </h:form>
-    		</p:dialog>
-			
-		
-		</ui:define>
+		</p:dialog>
+
+
+		<script type="text/javascript">
+		PrimeFaces.locales['es'] = {
+			    closeText: 'Cerrar',
+			    prevText: 'Anterior',
+			    nextText: 'Siguiente',
+			    monthNames: ['Enero','Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+			    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+			    dayNames: ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+			    dayNamesShort: ['Dom','Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+			    dayNamesMin: ['D','L','M','X','J','V','S'],
+			    weekHeader: 'Semana',
+			    firstDay: 1,
+			    isRTL: false,
+			    showMonthAfterYear: false,
+			    yearSuffix: '',
+			    timeOnlyTitle: 'Sólo hora',
+			    timeText: 'Tiempo',
+			    hourText: 'Hora',
+			    minuteText: 'Minuto',
+			    secondText: 'Segundo',
+			    currentText: 'Fecha actual',
+			    ampm: false,
+			    month: 'Mes',
+			    week: 'Semana',
+			    day: 'Día',
+			    allDayText : 'Todo el día'
+			};
+		</script>
+
+
+	</ui:define>
 
 </ui:composition>
