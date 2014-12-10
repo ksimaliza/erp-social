@@ -113,7 +113,7 @@ public class MatriculaController extends BaseController {
 				}
 				else
 				{
-					servicioMatricula.updateEstadoEstudiante(matriculaDataManager.getEstudianteCodigo());
+					//servicioMatricula.updateEstadoEstudiante(matriculaDataManager.getEstudianteCodigo());
 					servicioMatricula.createOrUpdateMatricula(matriculaVO);	
 					MensajesWebController.aniadirMensajeInformacion("erp.matricula.registrar.exito");
 					cancel();
