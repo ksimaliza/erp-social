@@ -10,5 +10,8 @@ public interface EstudianteDAO extends AbstractFacade<EstudianteDTO> {
 
 	List<EstudianteListDTO> obtenerEstudiante(EstudianteListDTO estudiante)
 			throws SeguridadesException;
+	
+	public void updateEstadoEstudiante(Integer codEstudiante) throws SeguridadesException;
 
+	
 }

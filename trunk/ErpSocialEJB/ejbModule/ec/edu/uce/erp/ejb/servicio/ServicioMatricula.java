@@ -183,6 +183,9 @@ public interface ServicioMatricula {
 	List<EstudianteRepresentanteDTO> readRepresentante(EstudianteDTO objectDTO)
 			throws SeguridadesException;
 
+	void updateEstadoEstudiante(Integer codEstudiante)
+			throws SeguridadesException;
+
 		
 
 	

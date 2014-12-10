@@ -948,6 +948,21 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		
 		return lista;
 	}
+	
+	@Override
+	public void updateEstadoEstudiante(Integer codEstudiante) throws SeguridadesException
+	{
+		slf4jLogger.info("updateEstadoEstudiante");
+		
+		try {
+			matriculaFactoryDAO.getEstudianteDAOImpl().updateEstadoEstudiante(codEstudiante);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al updateEstadoEstudiante {}", e.getMessage());
+			throw new SeguridadesException("No se pudo actualizar la base de datos");
+		}
+		
+		
+	}
 
 	
 	
