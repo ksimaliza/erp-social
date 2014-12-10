@@ -1,16 +1,23 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.ejb.EJB;
+import javax.faces.FacesException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.imageio.stream.FileImageOutputStream;
+import javax.servlet.ServletContext;
 
 import net.sf.jasperreports.engine.JasperPrint;
 
+import org.primefaces.event.CaptureEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -96,10 +103,28 @@ public class RegistroAsistenciaController extends BaseController {
 		
 		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
-		
 		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), "imprimirAtraso", mapParametros);
 		ReporteUtil.generarReporte(jasperPrint, this.registroAsistenciaDataManager.getFormatoPdf(), "imprimirAtraso");
 	}
+	
+	public void oncapture(CaptureEvent captureEvent) {
+        
+        byte[] data = captureEvent.getData();
+         
+        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+        String newFileName = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "img" +
+                                     File.separator + "photocam" + File.separator + "aa" + ".png";
+         
+        FileImageOutputStream imageOutput;
+        try {
+            imageOutput = new FileImageOutputStream(new File(newFileName));
+            imageOutput.write(data, 0, data.length);
+            imageOutput.close();
+        }
+        catch(IOException e) {
+            throw new FacesException("Error in writing captured image.", e);
+        }
+    }
 	
 	
 	@Override

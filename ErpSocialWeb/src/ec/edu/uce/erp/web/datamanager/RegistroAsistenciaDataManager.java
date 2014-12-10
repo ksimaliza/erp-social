@@ -28,6 +28,7 @@ public class RegistroAsistenciaDataManager extends BaseDataManager{
 	
 	private Boolean desactivarImprimir=true;
 	
+	private Boolean tomarFoto=true;
 	
 	@PostConstruct
 	public void inicializarObjetos () {
@@ -58,6 +59,14 @@ public class RegistroAsistenciaDataManager extends BaseDataManager{
 
 	public void setDesactivarImprimir(Boolean desactivarImprimir) {
 		this.desactivarImprimir = desactivarImprimir;
+	}
+
+	public Boolean getTomarFoto() {
+		return tomarFoto;
+	}
+
+	public void setTomarFoto(Boolean tomarFoto) {
+		this.tomarFoto = tomarFoto;
 	}
 
 	
