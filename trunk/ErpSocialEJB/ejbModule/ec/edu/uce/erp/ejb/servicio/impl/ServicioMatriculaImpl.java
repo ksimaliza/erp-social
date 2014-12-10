@@ -812,15 +812,24 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	}
 	
 	@Override
+	//@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void createOrUpdateMatricula(MatriculaVO matriculaVO) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateMatricula");
 			
 		AsinacionDTO asinacion;
 		MatriculaDetalleDTO matriculaDetalle;
+		EstudianteDTO estudiante;
 		try {
 			
 			MatriculaDTO mat= matriculaFactoryDAO.getMatriculaDAOImpl().create(matriculaVO.getMatricula());
+			//Actulizo estado persona
+			estudiante=new EstudianteDTO();
+			estudiante= matriculaFactoryDAO.getEstudianteDAOImpl().find(matriculaVO.getMatricula().getMatEstudiante().getEstCodigo());
+			estudiante.setEstEstado("Matriculado");
+			
+			matriculaFactoryDAO.getEstudianteDAOImpl().update(estudiante);
+			
 			for(AsinacionListDTO asig:matriculaVO.getAsignacion())
 			{
 				matriculaDetalle= new MatriculaDetalleDTO();
@@ -833,6 +842,12 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		catch (Exception e) {
 			slf4jLogger.info("error al createOrUpdateMatricula {}", e.toString());
 			throw new SeguridadesException(e);
+		}
+		finally{
+			asinacion=null;
+			matriculaDetalle=null;
+			estudiante=null;
+			matriculaVO=null;
 		}
 		
 	}
