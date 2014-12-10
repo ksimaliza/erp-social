@@ -1,71 +1,112 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 
 
 <h:head>
 	<title>Erp Social</title>
 	<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-	<link rel="StyleSheet" href="#{request.contextPath}/resources/css/template.css" />	
-	<link rel="icon" type="image/png" href="#{request.contextPath}/resources/img/favicon.png" />
-	
+	<link rel="StyleSheet"
+		href="#{request.contextPath}/resources/css/template.css" />
+	<link rel="icon" type="image/png"
+		href="#{request.contextPath}/resources/img/favicon.png" />
+
 </h:head>
 
 <body>
-	<h:form id="formAsistencia">
-		<div class="center">
-			<p:growl id="pnlMessagesG"/>
-		</div>
-		<p:panel id="pnlDatos">
-			<table class="center" width="98%">
-				<tr>
-					<td width="100%" colspan="2">
-						<p:messages id="messages" autoUpdate="true" closable="true" />
-					</td>
-				</tr>
-				
-				<tr>
-					<td width="30%">
-						<h:outputLabel for="txtUsuario" value="#{i18n['erp.asistencia.empleado.usuario']}" />
-					</td>
-					<td width="70%">
-						<p:inputText id="txtUsuario" style="width: 100%" value="#{registroAsistenciaDataManager.empleado.aemUsuario}" required="true"/>
-					</td>						
-				</tr>
-				
-				<tr>
-					<td width="30%">
-						<h:outputLabel for="txtClave" value="#{i18n['erp.asistencia.empleado.clave']}" />
-					</td>
-					<td width="70%">
-						<p:inputText id="txtClave" style="width: 100%" value="#{registroAsistenciaDataManager.empleado.aemClave}" required="true"/>
-					</td>						
-				</tr>
-	
-				<tr>
-					<td width="30%">
-						<h:outputLabel for="txtCodigo" value="#{i18n['erp.asistencia.empleado.codigo.asistencia']}" />
-					</td>
-					<td width="70%">
-						<p:inputText id="txtCodigo" style="width: 100%" value="#{registroAsistenciaDataManager.empleado.aemCodigoRegistro}" required="true"/>
-					</td>						
-				</tr>
-				
-				<tr>
-					<td colspan="2">
-						<p:commandButton value="#{i18n['label.guardar']}" actionListener="#{registroAsistenciaController.registrar}" update="pnlMessagesG,pnlDatos" process="pnlDatos"/>
-						<p:commandButton value="#{i18n['label.imprimir']}" disabled="#{registroAsistenciaDataManager.desactivarImprimir}" actionListener="#{registroAsistenciaController.imprimir}"/>
-						<p:clock pattern="dd-MM-yyyy HH:mm:ss " mode="server" />
-					</td>									
-				</tr>
-	
-			</table>
-		</p:panel>
-		
-	</h:form>
+
+	<f:view transient="true">
+
+		<h:form id="formAsistencia">
+			<div class="center">
+				<p:growl id="pnlMessagesG" />
+			</div>
+			<p:panel id="pnlDatos">
+				<table class="center" width="98%">
+					<tr>
+						<td width="100%" colspan="2"><p:messages id="messages"
+								autoUpdate="true" closable="true" /></td>
+					</tr>
+
+					<tr>
+						<td width="20%"><h:outputLabel for="txtUsuario"
+								value="#{i18n['erp.asistencia.empleado.usuario']}" /></td>
+						<td width="70%"><p:inputText id="txtUsuario"
+								style="width: 100%"
+								value="#{registroAsistenciaDataManager.empleado.aemUsuario}"
+								required="true" /></td>
+					</tr>
+
+					<tr>
+						<td width="20%"><h:outputLabel for="txtClave"
+								value="#{i18n['erp.asistencia.empleado.clave']}" /></td>
+						<td width="70%"><p:inputText id="txtClave"
+								style="width: 100%"
+								value="#{registroAsistenciaDataManager.empleado.aemClave}"
+								required="true" /></td>
+					</tr>
+
+					<tr>
+						<td width="20%"><h:outputLabel for="txtCodigo"
+								value="#{i18n['erp.asistencia.empleado.codigo.asistencia']}" />
+						</td>
+						<td width="70%"><p:inputText id="txtCodigo"
+								style="width: 100%"
+								value="#{registroAsistenciaDataManager.empleado.aemCodigoRegistro}"
+								required="true" /></td>
+					</tr>
+					
+					<tr>
+						<td colspan="2">
+							<table>
+								<tr>
+									<td>
+										<p:commandButton
+											value="#{i18n['label.guardar']}"
+											actionListener="#{registroAsistenciaController.registrar}"
+											update="pnlMessagesG,pnlDatos" process="pnlDatos" />
+									</td>
+									<td>		 
+										<p:commandButton
+											value="#{i18n['label.imprimir']}"
+											disabled="#{registroAsistenciaDataManager.desactivarImprimir}"
+											actionListener="#{registroAsistenciaController.imprimir}" />
+									</td>
+									<td>		
+									 	<p:clock
+											pattern="dd-MM-yyyy HH:mm:ss " mode="server" />
+									</td>
+								
+									<td>		
+										<h:outputText value="Foto: " />
+									</td>
+									<td>	
+			       						<p:selectBooleanCheckbox value="#{registroAsistenciaDataManager.tomarFoto}" />	
+									</td>
+								</tr>
+							</table>
+						</td>		
+					</tr>
+
+				</table>
+
+				<table>
+					<tr>
+						<td><p:photoCam widgetVar="pc"
+								listener="#{photoCamView.oncapture}" update="photo" /></td>
+						<td><p:graphicImage id="photo"
+								name="demo/images/photocam/#{photoCamView.filename}.png" /></td>
+					</tr>
+				</table>
+
+			</p:panel>
+
+		</h:form>
+
+	</f:view>
 </body>
 
 </html>
