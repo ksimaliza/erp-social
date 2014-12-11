@@ -152,6 +152,15 @@ public interface ServicioEucaristia {
 
 	NivelNichoDTO obtenerNivelNichoPorId(Integer id)
 			throws SeguridadesException;
+	
+	CatalogoEucaristiaDTO createOrUpdateSeccionNicho(CatalogoEucaristiaDTO seccionNichoDTO)
+			throws SeguridadesException;
+
+	List<CatalogoEucaristiaDTO> buscarSeccionNicho(CatalogoEucaristiaDTO seccionNichoDTO)
+			throws SeguridadesException;
+
+	CatalogoEucaristiaDTO obtenerSeccionNichoPorId(Integer id)
+			throws SeguridadesException;
 
 	NichoDTO createOrUpdateNicho(NichoDTO nichoDTO) throws SeguridadesException;
 

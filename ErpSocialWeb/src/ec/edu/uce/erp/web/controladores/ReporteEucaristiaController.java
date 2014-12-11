@@ -23,14 +23,13 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaListDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
-import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.common.util.ReporteUtil;
 import ec.edu.uce.erp.web.datamanager.ReporteEucaristiaDataManager;
 
 @ViewScoped
 @ManagedBean(name = "reporteEucaristiaController")
-public class ReporteEucaristiaController extends BaseController {
+public class ReporteEucaristiaController extends LoginController {
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger slf4jLogger = LoggerFactory
@@ -44,6 +43,7 @@ public class ReporteEucaristiaController extends BaseController {
 
 	@ManagedProperty(value = "#{reporteEucaristiaDataManager}")
 	private ReporteEucaristiaDataManager reporteEucaristiaDataManager;
+
 	
 	public ReporteEucaristiaDataManager getReporteEucaristiaDataManager() {
 		return reporteEucaristiaDataManager;
@@ -69,7 +69,9 @@ public class ReporteEucaristiaController extends BaseController {
 		try {
 			listResultado = this.servicioEucaristia.readEucaristiaReport(reporteEucaristiaDataManager.getEucaristiaListDTO());
 			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
+				this.reporteEucaristiaDataManager.setEucaristiaListDTOs( new ArrayList<EucaristiaListDTO>());
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				reporteEucaristiaDataManager.setExportDesactivado(true);
 			} else {
 				reporteEucaristiaDataManager.setExportDesactivado(false);
 				this.reporteEucaristiaDataManager.setEucaristiaListDTOs(listResultado);
@@ -84,14 +86,26 @@ public class ReporteEucaristiaController extends BaseController {
 		Date fechaActual = new Date();
 		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
 		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
-
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
 			mapParametros.put("fechaActual", full.format(fechaActual));
-			mapParametros.put("empresa", getEmpresaTbl().getEmrNombre());	
-			mapParametros.put("desde", pequeña.format(reporteEucaristiaDataManager.getEucaristiaListDTO().getFechaDesde()));
-			mapParametros.put("hasta", pequeña.format(reporteEucaristiaDataManager.getEucaristiaListDTO().getFechaHasta()));
+			mapParametros.put("empresa", this.getUsuario().getEmpresaTbl().getEmrNombre().toUpperCase());
+			if(reporteEucaristiaDataManager.getEucaristiaListDTO().getFechaDesde()==null){
+				Date fechaDesde=reporteEucaristiaDataManager.getEucaristiaListDTOs().get(0).getEucFechaHora();
+				for (EucaristiaListDTO eucaristiaListDTO : reporteEucaristiaDataManager.getEucaristiaListDTOs()) {
+					if(eucaristiaListDTO.getEucFechaHora().before(fechaDesde)) fechaDesde= eucaristiaListDTO.getEucFechaHora();
+				}
+				mapParametros.put("desde", pequeña.format(fechaDesde));
+			}else mapParametros.put("desde", pequeña.format(reporteEucaristiaDataManager.getEucaristiaListDTO().getFechaDesde()));
+			if(reporteEucaristiaDataManager.getEucaristiaListDTO().getFechaHasta()==null){
+				Date fechaHasta=reporteEucaristiaDataManager.getEucaristiaListDTOs().get(0).getEucFechaHora();
+				for (EucaristiaListDTO eucaristiaListDTO : reporteEucaristiaDataManager.getEucaristiaListDTOs()) {
+					if(eucaristiaListDTO.getEucFechaHora().after(fechaHasta)) fechaHasta= eucaristiaListDTO.getEucFechaHora();
+				}
+					mapParametros.put("hasta", pequeña.format(fechaHasta));
+				}else mapParametros.put("hasta", pequeña.format(reporteEucaristiaDataManager.getEucaristiaListDTO().getFechaHasta()));
+			
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
-		
+			
 			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(),reporteEucaristiaDataManager.getEucaristiaListDTOs(), "reporteEucaristia", mapParametros);
 			ReporteUtil.generarReporte(jasperPrint, this.reporteEucaristiaDataManager.getFormatoPdf(), "reporteEucaristia");
 	}
