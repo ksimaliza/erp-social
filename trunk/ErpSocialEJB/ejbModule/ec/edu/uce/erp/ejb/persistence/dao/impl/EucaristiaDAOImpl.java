@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -137,15 +138,6 @@ public class EucaristiaDAOImpl extends AbstractFacadeImpl<EucaristiaDTO> impleme
 			cq=cb.createQuery(EucaristiaListDTO.class);
 			
 			from= cq.from(EucaristiaListDTO.class);
-			
-			cq.multiselect(
-					from.get("perApellidos"),
-					from.get("perNombres"),
-					from.get("eucIntencion"),
-					from.get("eucValor"),
-					from.get("eucFechaHora")
-					).distinct(true);
-			
 			predicateList=new ArrayList<Predicate>();
 			
 			fields = objetoDTO.getClass().getDeclaredFields();
@@ -168,10 +160,25 @@ public class EucaristiaDAOImpl extends AbstractFacadeImpl<EucaristiaDTO> impleme
 	        }
 	        
 	        if(objetoDTO.getFechaDesde()!=null && objetoDTO.getFechaHasta()!=null)
-	        	predicateList.add(cb.between(from.get("eucFechaHora").as(Timestamp.class), objetoDTO.getFechaDesde(), objetoDTO.getFechaHasta()));	        
-	
-	        if(!predicateList.isEmpty())
-	        	cq.where(cb.and(predicateList.toArray(new Predicate[0])));		
+	        {
+	        	Calendar calendario = Calendar.getInstance();
+		        calendario.setTimeInMillis(objetoDTO.getFechaHasta().getTime());
+		        calendario.add(Calendar.DATE, 1);
+		        Timestamp fechaHasta = new Timestamp(calendario.getTimeInMillis());
+	        	predicateList.add(cb.between(from.get("eucFechaHora").as(Timestamp.class), objetoDTO.getFechaDesde(), fechaHasta));	        
+	        }else if(objetoDTO.getFechaDesde()!=null)
+	        	predicateList.add(cb.greaterThanOrEqualTo(from.get("eucFechaHora").as(Timestamp.class), objetoDTO.getFechaDesde()));	        
+	        else if(objetoDTO.getFechaHasta()!=null)
+	        {
+	        	Calendar calendario = Calendar.getInstance();
+		        calendario.setTimeInMillis(objetoDTO.getFechaHasta().getTime());
+		        calendario.add(Calendar.DATE, 1);
+		        Timestamp fechaResultante = new Timestamp(calendario.getTimeInMillis());
+	        	predicateList.add(cb.lessThan(from.get("eucFechaHora").as(Timestamp.class),fechaResultante));	        
+	            
+	        }
+	        	if(!predicateList.isEmpty())
+	        	cq.where(cb.and(predicateList.toArray(new Predicate[0]))).distinct(true);		
 			
 			TypedQuery<EucaristiaListDTO> tq=entityManager.createQuery(cq);
 			list=tq.getResultList();

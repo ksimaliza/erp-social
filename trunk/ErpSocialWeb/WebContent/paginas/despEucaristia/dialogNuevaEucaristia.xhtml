@@ -16,7 +16,7 @@
 							<h:outputLabel for="txtFecha" value="#{i18n['erp.despacho.eucaristia.fecha']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFecha" showOn="button"  value="#{eucaristiaDataManager.fecha}" pattern="MM/dd/yyyy HH:mm:ss"/>
+							<p:calendar id="txtFecha" showOn="button"  value="#{eucaristiaDataManager.fecha}" pattern="dd/MM/yyyy HH:mm:ss"/>
 						</td>	
 					</tr>
 					
@@ -32,7 +32,7 @@
 										
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.eucaristia.sacerdote']}"  /> </td>
-						<td width="70%"><p:selectOneMenu id="listboxSacerdote" value="#{eucaristiaDataManager.codigoSacerdote}" filter="true" >
+						<td width="70%"><p:selectOneMenu id="listboxSacerdote" value="#{eucaristiaDataManager.codigoSacerdote}" filter="true" required="true">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{eucaristiaController.eucaristiaDataManager.sacerdoteDTOs}" var="sacerdote" itemLabel="#{sacerdote.perNombres} #{sacerdote.perApellidos} "  itemValue="#{sacerdote.sacCodigo}"/>
 							</p:selectOneMenu>

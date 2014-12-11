@@ -232,8 +232,6 @@
 					
 					process="@this,pnlNuevoPagoContrato" update="pnlNuevoPagoContrato,:formPagoContrato:pnlMessages,:formPagoContrato:tablaPagoContrato,:formNuevoPagoContrato:pnlBotones" disabled="#{pagoContratoDataManager.desactivado}"   />
 				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{pagoContratoController.limpiarFormulario}" process="@this" immediate="true" update="pnlNuevoPagoContrato,pnlBotones"/>
-				<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{pagoContratoController.exportar}" icon="exportPdf" ajax="false"
-				disabled="#{pagoContratoDataManager.exportDesactivado}" />
 			</p:panel>
 		</h:form>
 		</p:scrollPanel>

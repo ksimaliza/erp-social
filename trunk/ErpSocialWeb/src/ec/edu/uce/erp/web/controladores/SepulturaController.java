@@ -63,7 +63,7 @@ public class SepulturaController extends BaseController {
 	public void inicializarObjetos () {
 		buscarNicho();
 		
-		
+		buscarDifuntos();
 	
 	}
 	

@@ -997,6 +997,48 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	}
 	
 	@Override
+	public CatalogoEucaristiaDTO obtenerSeccionNichoPorId(Integer id) throws SeguridadesException {
+		slf4jLogger.info("obtenerNivelNichoPorId");
+		
+		CatalogoEucaristiaDTO seccionNicho=new CatalogoEucaristiaDTO();
+		
+		seccionNicho = eucaristiaFactoryDAO.getCatalogoDAOImpl().find(id);
+		
+		return seccionNicho;
+	}
+	
+	@Override
+	public CatalogoEucaristiaDTO createOrUpdateSeccionNicho(CatalogoEucaristiaDTO seccionNichoDTO) throws SeguridadesException
+	{
+		slf4jLogger.info("createOrUpdateSeccionNicho");
+		try {
+		if(seccionNichoDTO.getCatCodigo()!=null)
+			return eucaristiaFactoryDAO.getCatalogoDAOImpl().update(seccionNichoDTO);
+		else
+			return eucaristiaFactoryDAO.getCatalogoDAOImpl().create(seccionNichoDTO);
+		} catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdateNivelNicho {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+	}
+	
+		
+	@Override
+	public List<CatalogoEucaristiaDTO> buscarSeccionNicho(CatalogoEucaristiaDTO seccionNichoDTO) throws SeguridadesException {
+		slf4jLogger.info("buscarSeccionNicho");
+		List<CatalogoEucaristiaDTO> listNivelNicho = null;
+		try {
+			listNivelNicho =  eucaristiaFactoryDAO.getCatalogoDAOImpl().obtenerSeccionNicho(seccionNichoDTO);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarNivelNicho {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener buscarNivelNicho de la base de datos");
+		}
+		
+		return listNivelNicho;
+	}
+	
+	@Override
 	public NichoDTO createOrUpdateNicho(NichoDTO nichoDTO) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateNicho");

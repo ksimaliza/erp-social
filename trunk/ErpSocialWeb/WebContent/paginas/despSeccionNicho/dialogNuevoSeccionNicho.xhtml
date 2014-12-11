@@ -16,26 +16,19 @@
 							<h:outputLabel for="txtNomSeccion" value="#{i18n['erp.despacho.seccion.nicho.nombre']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNomSeccion" label="#{i18n['erp.despacho.seccion.nicho.nombre']}" style="width: 100%"  required="true"  />
+							<p:inputText id="txtNomSeccion" label="#{i18n['erp.despacho.seccion.nicho.nombre']}" style="width: 100%"  required="true" 
+							value="#{seccionNichoDataManager.seccionNichoInsertar.catDescripcion}" />
 						</td>	
 					</tr>
-					
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtDescrip" value="#{i18n['erp.despacho.seccion.nicho.descripcion']}" />
-						</td>
-						<td width="70%">
-							<p:inputTextarea id="txtDescrip" style="width: 100%"
-								required="true" label="#{i18n['erp.despacho.seccion.nicho.descripcion']}"/>
-						</td>	
-					</tr>
+
 										
 					
 				</table>
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgSeccionNicho.hide()"
+				    actionListener="#{seccionNichoController.registrarSeccionNicho}"
+					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoSeccionNicho.hide()"
 					process="@this,pnlNuevoSeccionNicho" update="pnlNuevoSeccionNicho,:formSeccionNicho:pnlMessages,:formSeccionNicho:tablaSeccionNicho"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoSeccionNicho.hide()" type="button" />
 			</p:panel>
