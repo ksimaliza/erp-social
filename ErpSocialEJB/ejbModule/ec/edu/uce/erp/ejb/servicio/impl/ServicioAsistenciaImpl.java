@@ -494,6 +494,7 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 			for(int i=7;i==0;i--)
 			{
 				 anterior=CalendarUtil.addDay(actual, -i);
+				 //asistenciaFactoryDAO.getFaltaDAOImpl().
 			}
 		}
 		catch(Exception e)
