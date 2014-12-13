@@ -73,6 +73,12 @@ public class EucaristiaDAOImpl extends AbstractFacadeImpl<EucaristiaDTO> impleme
 				criteriaList.add(predicate);
 			}
 		
+			//por empresa
+			if (eucaristiaListDTO.getEucEmpresa()!=null) {
+				predicate = cb.equal(from.get("eucEmpresa"), eucaristiaListDTO.getEucEmpresa());
+				criteriaList.add(predicate);
+			}
+			
 			//por nombre sacerdote
 			if (!StringUtils.isEmpty(eucaristiaListDTO.getPerNombres())) {
 				Expression<String> sacerdoteNombres = 
