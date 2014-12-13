@@ -1,7 +1,6 @@
 package ec.edu.uce.erp.web.controladores;
 
 import java.sql.Timestamp;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -63,7 +62,7 @@ private void init(){
 	buscarSacerdote();
 }
 
-public void registrarEucaristia () throws ParseException {
+public void registrarEucaristia () {
 	
 	slf4jLogger.info("registrarEucaristia");
 	EucaristiaVO eucaristiaVO;
@@ -77,7 +76,7 @@ public void registrarEucaristia () throws ParseException {
 		sacerdoteDTO.setSacCodigo(eucaristiaDataManager.getCodigoSacerdote());
 		
 		eucaristiaDataManager.getEucaristiaInsertar().setEucFechaHora(new Timestamp(eucaristiaDataManager.getFecha().getTime()));
-		
+		eucaristiaDataManager.getEucaristiaInsertar().setEucEmpresa(getEmpresaTbl().getEmrPk());
 		eucaristiaVO.setEucaristiaDTO(eucaristiaDataManager.getEucaristiaInsertar());
 		eucaristiaVO.setSacerdoteDTO(sacerdoteDTO);
 		
@@ -119,12 +118,14 @@ public void buscar() {
 	    filtro.setMes(month+1);
 	    filtro.setDia(day);
 		}
-		
+		eucaristiaDataManager.getEucaristiaListDTO().setEucEmpresa(getEmpresaTbl().getEmrPk());
 		listResultado = this.servicioEucaristia.buscarEucaristia(eucaristiaDataManager.getEucaristiaListDTO(), filtro);
 			
 		if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
+			this.eucaristiaDataManager.setEucaristiaListDTOs(new ArrayList<EucaristiaListDTO>());
 			MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 		} else {
+			
 			this.eucaristiaDataManager.setEucaristiaListDTOs(listResultado);
 			
 		}

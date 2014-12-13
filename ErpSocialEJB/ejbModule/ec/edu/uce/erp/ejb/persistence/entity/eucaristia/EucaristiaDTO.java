@@ -30,7 +30,9 @@ public class EucaristiaDTO implements Serializable {
 
 	@Column(name="euc_valor")
 	private BigDecimal eucValor;
-
+    
+	@Column(name="euc_empresa")
+	private Integer eucEmpresa;
 	//bi-directional many-to-one association to SacerdoteDTO
 	@ManyToOne
 	@JoinColumn(name="euc_sacerdote")
@@ -79,4 +81,13 @@ public class EucaristiaDTO implements Serializable {
 		this.eucSacerdoteBean = eucSacerdoteBean;
 	}
 
+	public Integer getEucEmpresa() {
+		return eucEmpresa;
+	}
+
+	public void setEucEmpresa(Integer eucEmpresa) {
+		this.eucEmpresa = eucEmpresa;
+	}
+    
+	
 }
