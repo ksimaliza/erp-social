@@ -79,6 +79,9 @@ public class BautizoListDTO implements Serializable {
 
 	@Column(name="bau_toma")
 	private String bauToma;
+	
+	@Column(name="bau_empresa")
+	private Integer bauEmpresa;
 
 	@Column(name="cat_canton")
 	private String catCanton;
@@ -361,6 +364,16 @@ public class BautizoListDTO implements Serializable {
 
 	public void setBauToma(String bauToma) {
 		this.bauToma = bauToma;
+	}
+    
+	
+	
+	public Integer getBauEmpresa() {
+		return bauEmpresa;
+	}
+
+	public void setBauEmpresa(Integer bauEmpresa) {
+		this.bauEmpresa = bauEmpresa;
 	}
 
 	public String getCatCanton() {

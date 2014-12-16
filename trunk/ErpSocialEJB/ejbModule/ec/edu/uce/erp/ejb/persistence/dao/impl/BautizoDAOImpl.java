@@ -82,7 +82,11 @@ public class BautizoDAOImpl extends AbstractFacadeImpl<BautizoDTO>implements Bau
 					criteriaList.add(predicate);
 				}
 		
-		
+				//por empresa
+				if (bautizo.getBauEmpresa()!=null) {
+					predicate = cb.equal(from.get("bauEmpresa"), bautizo.getBauEmpresa());
+					criteriaList.add(predicate);
+				}
 				
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		

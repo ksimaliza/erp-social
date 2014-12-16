@@ -66,7 +66,9 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApeMadre" style="width: 100%"
-								 value="#{partidaBautizoDataManager.madreInsertar.perApellidos}" />
+								 value="#{partidaBautizoDataManager.madreInsertar.perApellidos}" >
+								 <p:ajax event="blur" listener="#{partidaBautizoController.actualizarCampo}" process="@this"/>
+								  </p:inputText>
 						</td>	
 					</tr>
 		
@@ -76,7 +78,9 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomMadre" style="width: 100%"
-								 value="#{partidaBautizoDataManager.madreInsertar.perNombres}" />
+								 value="#{partidaBautizoDataManager.madreInsertar.perNombres}" >
+								 <p:ajax event="blur" listener="#{partidaBautizoController.actualizarCampo}" process="@this"/>
+								  </p:inputText>
 						</td>	
 					</tr>
 					
@@ -99,7 +103,9 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApePadre" style="width: 100%"
-								 value="#{partidaBautizoDataManager.padreInsertar.perApellidos}" />
+								 value="#{partidaBautizoDataManager.padreInsertar.perApellidos}" >
+								 <p:ajax event="blur" listener="#{partidaBautizoController.actualizarCampo}" process="@this"/>
+								  </p:inputText>
 						</td>	
 					</tr>
 		
@@ -109,7 +115,9 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomPadre" style="width: 100%"
-								 value="#{partidaBautizoDataManager.padreInsertar.perNombres}" />
+								 value="#{partidaBautizoDataManager.padreInsertar.perNombres}" >
+								 <p:ajax event="blur" listener="#{partidaBautizoController.actualizarCampo}" process="@this"/>
+								  </p:inputText>
 						</td>	
 					</tr>
 						
