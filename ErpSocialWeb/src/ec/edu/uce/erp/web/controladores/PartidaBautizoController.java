@@ -108,6 +108,8 @@ public class PartidaBautizoController extends BaseController {
 					.setPadrino(partidaBautizoDataManager.getPadrinoInsertar());
 			
 			partidaBautizoDataManager.getBautizoDTO().setBauCertificadoPor(getPersonaCode());
+			
+			partidaBautizoDataManager.getBautizoDTO().setBauEmpresa(getEmpresaTbl().getEmrPk());
 		
 					
 			if(partidaBautizoDataManager.getBautizadoInsertar().getPerCi().toString().equals(partidaBautizoDataManager.getPadrinoInsertar().getPerCi().toString()) || 
@@ -191,17 +193,6 @@ public class PartidaBautizoController extends BaseController {
 			cargarDatosBautizo(bautizo);
 
 			if (bautizoNuevo != null) {
-
-				/*partidaBautizoDataManager.setBautizadoInsertar(new Persona());
-				partidaBautizoDataManager.setMadrinaInsertar(new Persona());
-				partidaBautizoDataManager.setPadrinoInsertar(new Persona());
-				partidaBautizoDataManager.setMadreInsertar(new Persona());
-				partidaBautizoDataManager.setPadreInsertar(new Persona());
-				partidaBautizoDataManager.setBautizoDTO(new BautizoDTO());
-				partidaBautizoDataManager.setSacerdoteCodigo(0);
-				partidaBautizoDataManager.setFechaApCInsertar(new Date());
-				partidaBautizoDataManager.setFechaBautizoInsertar(new Date());
-				partidaBautizoDataManager.setEstadoCodigo(0);*/
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.partida.bautizo.registrar.exito");
 			}
 			buscarPartidaBautizo();
@@ -286,6 +277,12 @@ public class PartidaBautizoController extends BaseController {
 
 				if (CollectionUtils.isEmpty(listaMadrina)
 						&& listaMadrina.size() == 0) {
+					if(partidaBautizoDataManager.getMadrinaInsertar().getPerCi()!=null && partidaBautizoDataManager.getMadrinaInsertar().getPerCi().toString().equals(partidaBautizoDataManager.getMadreInsertar().getPerCi().toString()))
+					{
+						partidaBautizoDataManager.getMadrinaInsertar().setPerApellidos(partidaBautizoDataManager.getMadreInsertar().getPerApellidos());
+						partidaBautizoDataManager.getMadrinaInsertar().setPerNombres(partidaBautizoDataManager.getMadreInsertar().getPerNombres());
+					}else
+					
 					MensajesWebController
 							.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 				} else {
@@ -316,6 +313,12 @@ public class PartidaBautizoController extends BaseController {
 
 				if (CollectionUtils.isEmpty(listaPadrino)
 						&& listaPadrino.size() == 0) {
+					if(partidaBautizoDataManager.getPadreInsertar().getPerCi()!=null && partidaBautizoDataManager.getPadrinoInsertar().getPerCi().toString().equals(partidaBautizoDataManager.getPadreInsertar().getPerCi().toString()))
+					{
+						partidaBautizoDataManager.getPadrinoInsertar().setPerApellidos(partidaBautizoDataManager.getPadreInsertar().getPerApellidos().toString());
+						partidaBautizoDataManager.getPadrinoInsertar().setPerNombres(partidaBautizoDataManager.getPadreInsertar().getPerNombres().toString());
+					}else
+					
 					MensajesWebController
 							.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 				} else {
@@ -398,6 +401,7 @@ public class PartidaBautizoController extends BaseController {
 		List<BautizoListDTO> listaBautizo = null;
 
 		try {
+			partidaBautizoDataManager.getBautizoListDTO().setBauEmpresa(getEmpresaTbl().getEmrPk());
 			listaBautizo = this.servicioEucaristia
 					.buscarPartidaBautizo(partidaBautizoDataManager
 							.getBautizoListDTO());
@@ -691,5 +695,8 @@ public class PartidaBautizoController extends BaseController {
 			partidaBautizoDataManager.getBautizoDTO().setBauToma("");
 			partidaBautizoDataManager.getBautizoDTO().setBauPagina("");
 		}
+	}
+	public void actualizarCampo() {
+		slf4jLogger.info("actualizarCampo");
 	}
 }

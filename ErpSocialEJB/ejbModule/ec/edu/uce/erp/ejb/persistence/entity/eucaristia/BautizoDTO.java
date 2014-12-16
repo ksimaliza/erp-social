@@ -70,6 +70,11 @@ public class BautizoDTO implements Serializable {
 	
 	@Column(name="bau_estado")
 	private Integer bauEstado;
+    
+	@Column(name="bau_empresa")
+	private Integer bauEmpresa;
+	
+	
 
 	//bi-directional many-to-one association to SacerdoteDTO
 	@ManyToOne
@@ -227,6 +232,14 @@ public class BautizoDTO implements Serializable {
 
 	public void setBauEstado(Integer bauEstado) {
 		this.bauEstado = bauEstado;
+	}
+
+	public Integer getBauEmpresa() {
+		return bauEmpresa;
+	}
+
+	public void setBauEmpresa(Integer bauEmpresa) {
+		this.bauEmpresa = bauEmpresa;
 	}
 
 	
