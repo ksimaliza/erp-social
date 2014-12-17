@@ -72,7 +72,9 @@
 							<h:outputLabel for="txtFecha" value="#{i18n['erp.matricula.registro.fecha']}" />
 						</td>
 						<td class="value">
-							<p:outputLabel id="txtFecha" value="#{matriculaDataManager.fechaInsertar.toLocaleString().substring(0,10)}" required="true" />
+							<p:outputLabel id="txtFecha"  value="#{matriculaDataManager.fechaInsertar}" required="true">
+							<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</p:outputLabel>
 						</td>	
 					</tr>
 					
