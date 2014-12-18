@@ -161,14 +161,14 @@ public class ReporteExhumacionController extends BaseController {
 	public void exportar() {
 		Date fechaActual = new Date();
 		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
-		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
+		DateFormat pequena = DateFormat.getDateInstance(DateFormat.SHORT);
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
 			mapParametros.put("fechaActual", find(reporteExhumacionDataManager.getCodigoParroquia(), reporteExhumacionDataManager.getListParroquia()).getCatDescripcion() + ",  " + full.format(fechaActual));
 			mapParametros.put("parroquia",find(reporteExhumacionDataManager.getCodigoParroquia(), reporteExhumacionDataManager.getListParroquia()).getCatDescripcion());
 			mapParametros.put("provincia", find(reporteExhumacionDataManager.getCodigoProvincia(), reporteExhumacionDataManager.getListProvincia()).getCatDescripcion());
-			mapParametros.put("desde", pequeña.format(reporteExhumacionDataManager.getExumacionListDTO().getFechaDesde()));
-			mapParametros.put("hasta", pequeña.format(reporteExhumacionDataManager.getExumacionListDTO().getFechaHasta()));
+			mapParametros.put("desde", pequena.format(reporteExhumacionDataManager.getExumacionListDTO().getFechaDesde()));
+			mapParametros.put("hasta", pequena.format(reporteExhumacionDataManager.getExumacionListDTO().getFechaHasta()));
 			mapParametros.put("empresa", getEmpresaTbl().getEmrNombre());
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		

@@ -161,14 +161,14 @@ public class ReportePartidaBautizoController extends BaseController {
 	public void exportar() {
 		Date fechaActual = new Date();
 		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
-		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
+		DateFormat pequena = DateFormat.getDateInstance(DateFormat.SHORT);
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
 			mapParametros.put("fechaActual", find(reportePartidaBautizoDataManager.getCodigoParroquia(), reportePartidaBautizoDataManager.getListParroquia()).getCatDescripcion() + ",  " + full.format(fechaActual));
 			mapParametros.put("parroquia",find(reportePartidaBautizoDataManager.getCodigoParroquia(), reportePartidaBautizoDataManager.getListParroquia()).getCatDescripcion());
 			mapParametros.put("provincia", find(reportePartidaBautizoDataManager.getCodigoProvincia(), reportePartidaBautizoDataManager.getListProvincia()).getCatDescripcion());
-			mapParametros.put("desde", pequeña.format(reportePartidaBautizoDataManager.getBautizoListDTO().getFechaDesde()));
-			mapParametros.put("hasta", pequeña.format(reportePartidaBautizoDataManager.getBautizoListDTO().getFechaHasta()));
+			mapParametros.put("desde", pequena.format(reportePartidaBautizoDataManager.getBautizoListDTO().getFechaDesde()));
+			mapParametros.put("hasta", pequena.format(reportePartidaBautizoDataManager.getBautizoListDTO().getFechaHasta()));
 			mapParametros.put("empresa", getEmpresaTbl().getEmrNombre());
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		

@@ -136,7 +136,7 @@ public class PartidaConfirmacionController extends BaseController {
 			if (partidaConfirmacionDataManager.getFechaApCInsertar().getTime() > partidaConfirmacionDataManager
 					.getFechaComunionInsertar().getTime()) {
 				MensajesWebController
-						.aniadirMensajeError("Ingrese fecha de Aprobación de curso correcta");
+						.aniadirMensajeError("Ingrese fecha de Aprobaciï¿½n de curso correcta");
 				return;
 			}
 
@@ -593,7 +593,7 @@ public class PartidaConfirmacionController extends BaseController {
 		Date fechaActual = new Date();
 		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
 
-		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
+		DateFormat pequena = DateFormat.getDateInstance(DateFormat.SHORT);
 
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
 
@@ -628,7 +628,7 @@ public class PartidaConfirmacionController extends BaseController {
 				.getConfirmacionDTO().getConPagina());
 		mapParametros.put("acta", partidaConfirmacionDataManager
 				.getConfirmacionDTO().getConActa());
-		mapParametros.put("fechaConfirmacion", pequeña
+		mapParametros.put("fechaConfirmacion", pequena
 				.format(partidaConfirmacionDataManager
 						.getFechaComunionInsertar()));
 		mapParametros.put("confirmado", partidaConfirmacionDataManager
