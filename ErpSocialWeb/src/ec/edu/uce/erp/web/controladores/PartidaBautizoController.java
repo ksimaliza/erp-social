@@ -117,7 +117,7 @@ public class PartidaBautizoController extends BaseController {
 			   partidaBautizoDataManager.getBautizadoInsertar().getPerCi().toString().equals(partidaBautizoDataManager.getMadreInsertar().getPerCi().toString())   ||
 			   partidaBautizoDataManager.getBautizadoInsertar().getPerCi().toString().equals(partidaBautizoDataManager.getPadreInsertar().getPerCi().toString()))
 			{
-				MensajesWebController.aniadirMensajeError("Cédula de bautizado repetida en otro campo");
+				MensajesWebController.aniadirMensajeError("Cï¿½dula de bautizado repetida en otro campo");
 				return;
 			}
 			
@@ -160,7 +160,7 @@ public class PartidaBautizoController extends BaseController {
 			if (partidaBautizoDataManager.getFechaApCInsertar().getTime() > partidaBautizoDataManager
 					.getFechaBautizoInsertar().getTime()) {
 				MensajesWebController
-						.aniadirMensajeError("Ingrese fecha de Aprobación del Curso Correcta");
+						.aniadirMensajeError("Ingrese fecha de Aprobaciï¿½n del Curso Correcta");
 				return;
 			}
 			bautizoVO.getBautizo().setBauFechaAprobacionCruso(
@@ -561,7 +561,7 @@ public class PartidaBautizoController extends BaseController {
 		Date fechaActual = new Date();
 		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
 
-		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
+		DateFormat pequena = DateFormat.getDateInstance(DateFormat.SHORT);
 
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
 		if (partidaBautizoDataManager.getCantonEucaristiaDTOs() != null)
@@ -595,7 +595,7 @@ public class PartidaBautizoController extends BaseController {
 				.getBauPagina());
 		mapParametros.put("acta", partidaBautizoDataManager.getBautizoDTO()
 				.getBauActa());
-		mapParametros.put("fechaBautizo", pequeña
+		mapParametros.put("fechaBautizo", pequena
 				.format(partidaBautizoDataManager.getFechaBautizoInsertar()));
 		mapParametros.put("bautizado", partidaBautizoDataManager
 				.getBautizadoInsertar().getPerApellidos().toUpperCase()

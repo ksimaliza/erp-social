@@ -122,7 +122,7 @@ public void registrarMatrimonio () {
 			
 			if(partidaMatrimonioDataManager.getFechaApCurInsertar().getTime()>partidaMatrimonioDataManager.getFechaMatrInsertar().getTime())
 			{
-				MensajesWebController.aniadirMensajeError("Ingrese fecha de Aprobación del curso correcta");
+				MensajesWebController.aniadirMensajeError("Ingrese fecha de Aprobaciï¿½n del curso correcta");
 				return;
 			}
 			matrimonioVO.getMatrimonio().setMatFechaAprobacionCurso(new Timestamp(partidaMatrimonioDataManager.getFechaApCurInsertar().getTime()));
@@ -589,7 +589,7 @@ public void registrarMatrimonio () {
 		Date fechaActual = new Date();
 		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
 				
-		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
+		DateFormat pequena = DateFormat.getDateInstance(DateFormat.SHORT);
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
 		
@@ -613,7 +613,7 @@ public void registrarMatrimonio () {
 		mapParametros.put("tomo", partidaMatrimonioDataManager.getMatrimonioDTO().getMatTomo());
 		mapParametros.put("pagina", partidaMatrimonioDataManager.getMatrimonioDTO().getMatPagina());
 		mapParametros.put("acta", partidaMatrimonioDataManager.getMatrimonioDTO().getMatActa());
-		mapParametros.put("fechaMatrimonio", pequeña.format(partidaMatrimonioDataManager.getFechaMatrInsertar()));
+		mapParametros.put("fechaMatrimonio", pequena.format(partidaMatrimonioDataManager.getFechaMatrInsertar()));
 		mapParametros.put("novio", partidaMatrimonioDataManager.getNovioInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getNovioInsertar().getPerNombres().toUpperCase());
 		mapParametros.put("novia", partidaMatrimonioDataManager.getNoviaInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getNoviaInsertar().getPerNombres().toUpperCase());
 		mapParametros.put("certifica", getUsuario().getNpNombresCompletos());

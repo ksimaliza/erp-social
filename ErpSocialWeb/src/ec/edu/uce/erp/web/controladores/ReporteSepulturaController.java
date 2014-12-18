@@ -85,12 +85,12 @@ public class ReporteSepulturaController extends BaseController {
 	public void exportar() {
 		Date fechaActual = new Date();
 		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
-		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
+		DateFormat pequena = DateFormat.getDateInstance(DateFormat.SHORT);
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
 			mapParametros.put("fechaActual", full.format(fechaActual));
-			mapParametros.put("desde", pequeña.format(reporteSepulturaDataManager.getDesde()));
-			mapParametros.put("hasta", pequeña.format(reporteSepulturaDataManager.getHasta()));
+			mapParametros.put("desde", pequena.format(reporteSepulturaDataManager.getDesde()));
+			mapParametros.put("hasta", pequena.format(reporteSepulturaDataManager.getHasta()));
 			mapParametros.put("empresa", getEmpresaTbl().getEmrNombre());
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		

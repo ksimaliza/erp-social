@@ -164,15 +164,15 @@ public class ReporteComunionController extends BaseController {
 	public void exportar() {
 		Date fechaActual = new Date();
 		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
-		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
+		DateFormat pequena = DateFormat.getDateInstance(DateFormat.SHORT);
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
 				mapParametros.put("fechaActual", find(reporteComunionDataManager.getCodigoParroquia(), reporteComunionDataManager.getListParroquia()).getCatDescripcion() + ",  " + full.format(fechaActual));
 				mapParametros.put("parroquia",find(reporteComunionDataManager.getCodigoParroquia(), reporteComunionDataManager.getListParroquia()).getCatDescripcion());
 				mapParametros.put("provincia", find(reporteComunionDataManager.getCodigoProvincia(), reporteComunionDataManager.getListProvincia()).getCatDescripcion());
 				mapParametros.put("empresa", getEmpresaTbl().getEmrNombre());
-				mapParametros.put("desde", pequeña.format(reporteComunionDataManager.getComunionListDTO().getFechaDesde()));
-				mapParametros.put("hasta", pequeña.format(reporteComunionDataManager.getComunionListDTO().getFechaHasta()));
+				mapParametros.put("desde", pequena.format(reporteComunionDataManager.getComunionListDTO().getFechaDesde()));
+				mapParametros.put("hasta", pequena.format(reporteComunionDataManager.getComunionListDTO().getFechaHasta()));
 				mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(),reporteComunionDataManager.getComunionListDTOs(), "reportePrimeraComunion", mapParametros);

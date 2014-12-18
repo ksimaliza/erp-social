@@ -164,14 +164,14 @@ public class ReporteConfirmacionController extends BaseController {
 	public void exportar() {
 		Date fechaActual = new Date();
 		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
-		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
+		DateFormat pequena = DateFormat.getDateInstance(DateFormat.SHORT);
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
 		mapParametros.put("fechaActual", find(reporteConfirmacionDataManager.getCodigoParroquia(), reporteConfirmacionDataManager.getListParroquia()).getCatDescripcion() + ",  " + full.format(fechaActual));
 		mapParametros.put("parroquia",find(reporteConfirmacionDataManager.getCodigoParroquia(), reporteConfirmacionDataManager.getListParroquia()).getCatDescripcion());
 		mapParametros.put("provincia", find(reporteConfirmacionDataManager.getCodigoProvincia(), reporteConfirmacionDataManager.getListProvincia()).getCatDescripcion());
-			mapParametros.put("desde", pequeña.format(reporteConfirmacionDataManager.getConfirmacionListDTO().getFechaDesde()));
-			mapParametros.put("hasta", pequeña.format(reporteConfirmacionDataManager.getConfirmacionListDTO().getFechaHasta()));
+			mapParametros.put("desde", pequena.format(reporteConfirmacionDataManager.getConfirmacionListDTO().getFechaDesde()));
+			mapParametros.put("hasta", pequena.format(reporteConfirmacionDataManager.getConfirmacionListDTO().getFechaHasta()));
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(),reporteConfirmacionDataManager.getConfirmacionListDTOs(), "reporteConfirmacion", mapParametros);

@@ -85,7 +85,7 @@ public class ReporteEucaristiaController extends LoginController {
 	public void exportar() {
 		Date fechaActual = new Date();
 		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
-		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
+		DateFormat pequena = DateFormat.getDateInstance(DateFormat.SHORT);
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
 			mapParametros.put("fechaActual", full.format(fechaActual));
 			mapParametros.put("empresa", this.getUsuario().getEmpresaTbl().getEmrNombre().toUpperCase());
@@ -94,15 +94,15 @@ public class ReporteEucaristiaController extends LoginController {
 				for (EucaristiaListDTO eucaristiaListDTO : reporteEucaristiaDataManager.getEucaristiaListDTOs()) {
 					if(eucaristiaListDTO.getEucFechaHora().before(fechaDesde)) fechaDesde= eucaristiaListDTO.getEucFechaHora();
 				}
-				mapParametros.put("desde", pequeña.format(fechaDesde));
-			}else mapParametros.put("desde", pequeña.format(reporteEucaristiaDataManager.getEucaristiaListDTO().getFechaDesde()));
+				mapParametros.put("desde", pequena.format(fechaDesde));
+			}else mapParametros.put("desde", pequena.format(reporteEucaristiaDataManager.getEucaristiaListDTO().getFechaDesde()));
 			if(reporteEucaristiaDataManager.getEucaristiaListDTO().getFechaHasta()==null){
 				Date fechaHasta=reporteEucaristiaDataManager.getEucaristiaListDTOs().get(0).getEucFechaHora();
 				for (EucaristiaListDTO eucaristiaListDTO : reporteEucaristiaDataManager.getEucaristiaListDTOs()) {
 					if(eucaristiaListDTO.getEucFechaHora().after(fechaHasta)) fechaHasta= eucaristiaListDTO.getEucFechaHora();
 				}
-					mapParametros.put("hasta", pequeña.format(fechaHasta));
-				}else mapParametros.put("hasta", pequeña.format(reporteEucaristiaDataManager.getEucaristiaListDTO().getFechaHasta()));
+					mapParametros.put("hasta", pequena.format(fechaHasta));
+				}else mapParametros.put("hasta", pequena.format(reporteEucaristiaDataManager.getEucaristiaListDTO().getFechaHasta()));
 			
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 			

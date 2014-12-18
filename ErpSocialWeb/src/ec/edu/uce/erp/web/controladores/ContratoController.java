@@ -104,7 +104,7 @@ public ContratoController() {
 
 			if(contratoDataManager.getFechaInicio().getTime()>contratoDataManager.getFechaFin().getTime())
 			{
-				MensajesWebController.aniadirMensajeError("Fecha Inicialización excede a Fecha Finalización");
+				MensajesWebController.aniadirMensajeError("Fecha Inicializaciï¿½n excede a Fecha Finalizaciï¿½n");
 				return;
 			}
 			
@@ -161,15 +161,15 @@ public ContratoController() {
 				
 				if ((CollectionUtils.isEmpty(listaDifunto) && listaDifunto.size()==0)||CollectionUtils.isEmpty(list) && list.size()==0) {
 					contratoDataManager.setDesactivado(true);
-					MensajesWebController.aniadirMensajeAdvertencia("Difunto no Encontrado. Ingresar información en Sepultura");
+					MensajesWebController.aniadirMensajeAdvertencia("Difunto no Encontrado. Ingresar informaciï¿½n en Sepultura");
 					
 				} else {
 					
 					for (SepulturaListDTO sepulturaListDTO : list) {
 						if(sepulturaListDTO.getSepCodigo()==contratoDataManager.getSepulturaCodigo() || contratoDataManager.getSepulturaCodigo()==-1 )
 						{
-							//pues el sistema no permite ingresar personas con diferente cédula
-							//por tanto es muy seguro que la cédula es de una única persona
+							//pues el sistema no permite ingresar personas con diferente cï¿½dula
+							//por tanto es muy seguro que la cï¿½dula es de una ï¿½nica persona
 							contratoDataManager.setDifuntoInsertar(listaDifunto.get(0));
 							contratoDataManager.setSepulturaListDTO(sepulturaListDTO);
 							//para el caso de que se este editando un contrato
@@ -323,7 +323,7 @@ public ContratoController() {
 		Date fechaActual = new Date();
 		//DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
 				
-		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
+		DateFormat pequena = DateFormat.getDateInstance(DateFormat.SHORT);
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
 		
@@ -347,7 +347,7 @@ public ContratoController() {
 		mapParametros.put("seccionNicho", contratoDataManager.getSepulturaListDTO().getSeccion());
 		mapParametros.put("nivelNicho", contratoDataManager.getSepulturaListDTO().getNniDescripcion());
 		mapParametros.put("mesesArrendamiento", contratoDataManager.getContratoDTO().getConMesesArrendamiento());
-		mapParametros.put("fechaInicio", pequeña.format(StringToDate(contratoDataManager.getContratoDTO().getConFechaInicio().toString().substring(2, 10))));
+		mapParametros.put("fechaInicio", pequena.format(StringToDate(contratoDataManager.getContratoDTO().getConFechaInicio().toString().substring(2, 10))));
 		if (!CollectionUtils.isEmpty(listaDefunciones) && listaDefunciones != null)
 			for (int i = 0; i < contratoDataManager.getContratoListDTOs().size(); i++)
 				if (contratoDataManager.getContratoListDTOs().get(i).getParroquia().equals(listaDefunciones.get(0).getCatParroquia())) {
@@ -355,7 +355,7 @@ public ContratoController() {
 					mapParametros.put("parroquiaEncabezado", "\"" + contratoDataManager.getContratoListDTOs().get(i).getParroquia().toUpperCase() + "\"");
 				}
 		
-		mapParametros.put("fecha", pequeña.format(fechaActual).toString());
+		mapParametros.put("fecha", pequena.format(fechaActual).toString());
 		mapParametros.put("valorPagar", contratoDataManager.getContratoDTO().getConValorMes().toString());
 		mapParametros.put("formaPago", contratoDataManager.getFormaPagoListDTOs().get(0).getCatDescripcion());
 		

@@ -97,7 +97,7 @@ public void registrarDefuncion () {
 		   if (!CollectionUtils.isEmpty(ListaDefunciones) && ListaDefunciones.size()!=0 && ListaDefunciones.size()!=0 && defuncionDataManager.getDefuncionInsertar().getDefCodigo()==null && esDifunto)
 			      
 		   {
-			   MensajesWebController.aniadirMensajeAdvertencia("Yá se registró difunto con la misma cédula");
+			   MensajesWebController.aniadirMensajeAdvertencia("Yï¿½ se registrï¿½ difunto con la misma cï¿½dula");
 			   return;
 		   }
 			defuncionVO=new DefuncionVO();
@@ -459,7 +459,7 @@ public void registrarDefuncion () {
 		Date fechaActual = new Date();
 		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
 				
-		DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
+		DateFormat pequena = DateFormat.getDateInstance(DateFormat.SHORT);
 		
 		defuncionDataManager.setDesactivado(true);
 		
@@ -483,8 +483,8 @@ public void registrarDefuncion () {
 		mapParametros.put("tomo", defuncionDataManager.getDefuncionInsertar().getDefTomo());
 		mapParametros.put("pagina", defuncionDataManager.getDefuncionInsertar().getDefPagina());
 		mapParametros.put("acta", defuncionDataManager.getDefuncionInsertar().getDefActa());
-		mapParametros.put("fechaMuerte", pequeña.format(defuncionDataManager.getFechaMuerteInsertar()));
-		mapParametros.put("fechaSepultura", pequeña.format(defuncionDataManager.getFechaSepelioInsertar()));
+		mapParametros.put("fechaMuerte", pequena.format(defuncionDataManager.getFechaMuerteInsertar()));
+		mapParametros.put("fechaSepultura", pequena.format(defuncionDataManager.getFechaSepelioInsertar()));
 		mapParametros.put("causa", defuncionDataManager.getDefuncionInsertar().getDefCausaMuerte());
 		mapParametros.put("difunto", defuncionDataManager.getDifuntoInsertar().getPerApellidos().toUpperCase() + " "+   defuncionDataManager.getDifuntoInsertar().getPerNombres().toUpperCase());
 		mapParametros.put("doctor", defuncionDataManager.getDoctorListDTO().get(0).getPerApellidos().toUpperCase() + " "+  defuncionDataManager.getDoctorListDTO().get(0).getPerNombres().toUpperCase());
