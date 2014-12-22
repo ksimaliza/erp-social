@@ -80,7 +80,11 @@ public class PrimeraComunionDAOImpl extends AbstractFacadeImpl<PrimeraComunionDT
 					predicate = cb.like(cb.upper(from.<String>get("perCi")), cedulaAsignado);
 					criteriaList.add(predicate);
 				}
-		
+				//por empresa
+				if (comunion.getPcoEmpresa()!=null) {
+					predicate = cb.equal(from.get("pcoEmpresa"), comunion.getPcoEmpresa());
+					criteriaList.add(predicate);
+				}
 				
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		

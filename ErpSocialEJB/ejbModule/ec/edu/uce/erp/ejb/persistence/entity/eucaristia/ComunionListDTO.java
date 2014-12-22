@@ -90,6 +90,9 @@ public class ComunionListDTO implements Serializable {
 
 	@Column(name="pco_tomo")
 	private String pcoTomo;
+	
+	@Column(name="pco_empresa")
+	private Integer pcoEmpresa;
 
 	@Column(name="per_apellidos")
 	private String perApellidos;
@@ -332,6 +335,19 @@ public class ComunionListDTO implements Serializable {
 	public void setPcoTomo(String pcoTomo) {
 		this.pcoTomo = pcoTomo;
 	}
+
+	
+	
+	
+	public Integer getPcoEmpresa() {
+		return pcoEmpresa;
+	}
+
+
+	public void setPcoEmpresa(Integer pcoEmpresa) {
+		this.pcoEmpresa = pcoEmpresa;
+	}
+
 
 	public String getPerApellidos() {
 		return this.perApellidos;

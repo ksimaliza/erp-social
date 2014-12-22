@@ -265,7 +265,6 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{partidaComunionController.registrarPrimeraComunion}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarPartidaPrimeraComunion.hide()"
 					process="@this,pnlEditarPartidaPrimeraComunion,pnlDatos,pnlDatosPadrino" update="pnlEditarPartidaPrimeraComunion,pnlDatos,pnlDatosPadrino,:formPartidaPrimeraComunion:pnlMessages,:formPartidaPrimeraComunion:tablaPartidaPrimeraComunion"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarPartidaPrimeraComunion.hide()" type="button" />
 			</p:panel>
