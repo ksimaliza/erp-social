@@ -46,6 +46,9 @@ public class PrimeraComunionDTO implements Serializable {
 
 	@Column(name="pco_tipo")
 	private Integer pcoTipo;
+	
+	@Column(name="pco_empresa")
+	private Integer pcoEmpresa;
 
 	@Column(name="pco_nota_marginal")
 	private String pcoNotaMarginal;
@@ -146,6 +149,17 @@ public class PrimeraComunionDTO implements Serializable {
 
 	public void setPcoTipo(Integer pcoTipo) {
 		this.pcoTipo = pcoTipo;
+	}
+
+	
+	
+	
+	public Integer getPcoEmpresa() {
+		return pcoEmpresa;
+	}
+
+	public void setPcoEmpresa(Integer pcoEmpresa) {
+		this.pcoEmpresa = pcoEmpresa;
 	}
 
 	public String getPcoNotaMarginal() {

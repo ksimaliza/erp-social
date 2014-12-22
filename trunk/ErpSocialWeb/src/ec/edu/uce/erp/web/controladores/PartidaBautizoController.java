@@ -2,6 +2,7 @@ package ec.edu.uce.erp.web.controladores;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -117,7 +118,7 @@ public class PartidaBautizoController extends BaseController {
 			   partidaBautizoDataManager.getBautizadoInsertar().getPerCi().toString().equals(partidaBautizoDataManager.getMadreInsertar().getPerCi().toString())   ||
 			   partidaBautizoDataManager.getBautizadoInsertar().getPerCi().toString().equals(partidaBautizoDataManager.getPadreInsertar().getPerCi().toString()))
 			{
-				MensajesWebController.aniadirMensajeError("C�dula de bautizado repetida en otro campo");
+				MensajesWebController.aniadirMensajeError("Cedula de bautizado repetida en otro campo");
 				return;
 			}
 			
@@ -405,8 +406,10 @@ public class PartidaBautizoController extends BaseController {
 			listaBautizo = this.servicioEucaristia
 					.buscarPartidaBautizo(partidaBautizoDataManager
 							.getBautizoListDTO());
+			
 			if (CollectionUtils.isEmpty(listaBautizo)
 					&& listaBautizo.size() == 0) {
+				partidaBautizoDataManager.setBautizoListDTOs(new ArrayList<BautizoListDTO>());
 				MensajesWebController
 						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {

@@ -1,6 +1,7 @@
 package ec.edu.uce.erp.web.controladores;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -113,10 +115,18 @@ public void registrarPrimeraComunion () {
 			comunionVO.setSacerdote(sacerdoteDTO);
 			comunionVO.getComunion().setPcoFechaAprobacionCurso(new Timestamp(partidaPrimeraComunionDataManager.getFechaApComInsertar().getTime()));
 			comunionVO.getComunion().setPcoFechaHora(new Timestamp(partidaPrimeraComunionDataManager.getFechaComunionInsertar().getTime()));
+			comunionVO.getComunion().setPcoEmpresa(getEmpresaTbl().getEmrPk());
 			
+			if(partidaPrimeraComunionDataManager.getAsignadoInsertar().getPerCi().toString().equals(
+					partidaPrimeraComunionDataManager.getMad_padInsertar().getPerCi().toString()))
+					{
+				
+						MensajesWebController.aniadirMensajeError("Cedula de primera comunion repetida en otro campo");
+						return;
+					}
 			if(partidaPrimeraComunionDataManager.getFechaApComInsertar().getTime()>partidaPrimeraComunionDataManager.getFechaComunionInsertar().getTime())
 			{
-				MensajesWebController.aniadirMensajeError("Ingrese fecha de Primera Comunión correcta");
+				MensajesWebController.aniadirMensajeError("Ingrese fecha de Primera Comunion correcta");
 				return;
 			}
 			
@@ -136,7 +146,8 @@ public void registrarPrimeraComunion () {
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.partida.comunion.registrar.exito");
 			}
 			buscarPartidaComunion();
-			
+			RequestContext.getCurrentInstance().execute(
+					"dlgNuevaPartidaPrimeraComunion.hide(), dlgEditarPartidaPrimeraComunion.hide()");
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -230,11 +241,12 @@ public void registrarPrimeraComunion () {
 		List<ComunionListDTO> listaComunion=null;
 		
 		try {
-			
+			partidaPrimeraComunionDataManager.getComunionListDTO().setPcoEmpresa(getEmpresaTbl().getEmrPk());
 			listaComunion=this.servicioEucaristia.buscarPartidaComunion(partidaPrimeraComunionDataManager.getComunionListDTO());
 								
 			
 			if (CollectionUtils.isEmpty(listaComunion) && listaComunion.size()==0) {
+				partidaPrimeraComunionDataManager.setComunionListDTOs(new ArrayList<ComunionListDTO>());
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.partidaPrimeraComunionDataManager.setComunionListDTOs(listaComunion);

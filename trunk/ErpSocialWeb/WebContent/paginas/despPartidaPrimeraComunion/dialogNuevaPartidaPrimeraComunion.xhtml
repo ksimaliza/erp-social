@@ -31,7 +31,7 @@
 							<h:outputLabel for="txtNomCom" value="#{i18n['erp.despacho.partida.comunion.nombres']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNomCom" style="width: 100%"
+							<p:inputText id="txtNomCom" style="width: 100%" label="#{i18n['erp.despacho.partida.comunion.nombres']}"
 								value="#{partidaPrimeraComunionDataManager.asignadoInsertar.perNombres}" required="true"/>
 						</td>	
 					</tr>
@@ -41,7 +41,7 @@
 							<h:outputLabel for="txtApeCom" value="#{i18n['erp.despacho.partida.comunion.apellidos']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtApeCom" style="width: 100%"
+							<p:inputText id="txtApeCom" style="width: 100%" label="#{i18n['erp.despacho.partida.comunion.apellidos']}"
 								value="#{partidaPrimeraComunionDataManager.asignadoInsertar.perApellidos}" required="true"/>
 						</td>	
 					</tr>
@@ -51,7 +51,7 @@
 							<h:outputLabel for="txtFechaComunion" value="#{i18n['erp.despacho.partida.comunion.fecha']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFechaComunion" style="width: 100%" navigator="true"   showOn="button" required="true" value="#{partidaPrimeraComunionDataManager.fechaComunionInsertar}"/>
+							<p:calendar id="txtFechaComunion" style="width: 100%" navigator="true"   showOn="button" required="true" value="#{partidaPrimeraComunionDataManager.fechaComunionInsertar}" label="#{i18n['erp.despacho.partida.comunion.fecha']}"/>
 						</td>	
 					</tr>
 					
@@ -60,7 +60,7 @@
 							<h:outputLabel for="txtFechaCurso" value="#{i18n['erp.despacho.partida.comunion.fecha.curso']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFechaCurso" style="width: 100%" navigator="true"   showOn="button" required="true" value="#{partidaPrimeraComunionDataManager.fechaApComInsertar}"/>
+							<p:calendar id="txtFechaCurso" style="width: 100%" navigator="true"   showOn="button" required="true" value="#{partidaPrimeraComunionDataManager.fechaApComInsertar}" label="#{i18n['erp.despacho.partida.comunion.fecha.curso']}"/>
 						</td>	
 					</tr>
 					
@@ -72,7 +72,7 @@
 						</td>
 					
 					<td width="70%">
-						<p:selectOneMenu id="sacerdote" value="#{partidaPrimeraComunionDataManager.sacerdoteCodigo}" filter="true" required="true">
+						<p:selectOneMenu id="sacerdote" value="#{partidaPrimeraComunionDataManager.sacerdoteCodigo}" label="#{i18n['erp.despacho.partida.comunion.sacerdote']}" filter="true" required="true">
 									<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 									<f:selectItems value="#{partidaComunionController.partidaPrimeraComunionDataManager.sacerdoteListDTO}" var="sac" itemLabel="#{sac.perNombres} #{sac.perApellidos}" itemValue="#{sac.sacCodigo}"/>
 						</p:selectOneMenu>
@@ -81,7 +81,7 @@
 					
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.comunion.provincia']}"  /> </td>
-						<td width="70%" ><p:selectOneMenu id="provincia" value="#{partidaPrimeraComunionDataManager.provinciaCodigo}" filter="true" required="true">
+						<td width="70%" ><p:selectOneMenu id="provincia" value="#{partidaPrimeraComunionDataManager.provinciaCodigo}" label="#{i18n['erp.despacho.partida.comunion.provincia']}" filter="true" required="true">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{partidaComunionController.partidaPrimeraComunionDataManager.provinciasEucaristiaDTOs}" var="provincia" itemLabel="#{provincia.catDescripcion} " itemValue="#{provincia.catCodigo}"/>
 								<p:ajax listener="#{partidaComunionController.buscarCanton}" process="@this" update="canton"/>
@@ -91,7 +91,7 @@
 					
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.comunion.canton']}"  /> </td>
-						<td width="70%"><p:selectOneMenu id="canton" value="#{partidaPrimeraComunionDataManager.cantonCodigo}" filter="true" required="true">
+						<td width="70%"><p:selectOneMenu id="canton" value="#{partidaPrimeraComunionDataManager.cantonCodigo}" label="#{i18n['erp.despacho.partida.comunion.canton']}" filter="true" required="true">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{partidaPrimeraComunionDataManager.cantonEucaristiaDTOs}" var="canton" itemLabel="#{canton.catDescripcion}" itemValue="#{canton.catCodigo}"/>
 								<p:ajax listener="#{partidaComunionController.buscarParroquia}" process="@this" update="parroquia"/>
@@ -100,7 +100,7 @@
 					</tr>		
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.comunion.parroquia']}"  /> </td>
-						<td width="70%" ><p:selectOneMenu id="parroquia" value="#{partidaPrimeraComunionDataManager.parroquiaCodigo}" filter="true" required="true">
+						<td width="70%" ><p:selectOneMenu id="parroquia" value="#{partidaPrimeraComunionDataManager.parroquiaCodigo}" label="#{i18n['erp.despacho.partida.comunion.parroquia']}" filter="true" required="true">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{partidaPrimeraComunionDataManager.parroquiaEucaristiaDTOs}" var="parroquia" itemLabel="#{parroquia.catDescripcion}" itemValue="#{parroquia.catCodigo}"/>
 							</p:selectOneMenu>
@@ -110,7 +110,7 @@
 					
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['label.estado']}"  /> </td>
-						<td width="70%"><p:selectOneMenu id="estado" value="#{partidaPrimeraComunionDataManager.estadoCodigo}" filter="true" required="true">
+						<td width="70%"><p:selectOneMenu id="estado" value="#{partidaPrimeraComunionDataManager.estadoCodigo}" label="#{i18n['label.estado']}" filter="true" required="true">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{partidaComunionController.partidaPrimeraComunionDataManager.estadoEucaristiaDTOs}" var="estado" itemLabel="#{estado.catDescripcion}" itemValue="#{estado.catCodigo}"/>
 								<f:ajax render="pnlDatos" listener="#{partidaComunionController.estadoMatriculadoPorRPComunion}"/>
@@ -128,7 +128,7 @@
 							<h:outputLabel value="#{i18n['erp.despacho.partida.tipo.padrino']}" />
 						</td>
 						<td width="70%">
-							<p:selectOneMenu id="padrino" value="#{partidaPrimeraComunionDataManager.tipoCodigo}" filter="true" required="true">
+							<p:selectOneMenu id="padrino" value="#{partidaPrimeraComunionDataManager.tipoCodigo}" label="#{i18n['erp.despacho.partida.tipo.padrino']}" filter="true" required="true">
 									<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 									<f:selectItems value="#{partidaComunionController.partidaPrimeraComunionDataManager.tipoEucaristiaDTOs}" var="tipo" itemLabel="#{tipo.catDescripcion} " itemValue="#{tipo.catCodigo}"/>
 							</p:selectOneMenu>
@@ -141,7 +141,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiPad"  style="width: 100%"
-							required="true" value="#{partidaPrimeraComunionDataManager.mad_padInsertar.perCi}" >
+							required="true" value="#{partidaPrimeraComunionDataManager.mad_padInsertar.perCi}" label="#{i18n['erp.despacho.partida.comunion.cedula.padrino.madrina']}" >
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur" update="txtApePad,txtNomPad" listener="#{partidaComunionController.buscarMadrina}" process="@this"/>
@@ -155,7 +155,7 @@
 							<h:outputLabel for="txtNomPad" value="#{i18n['erp.despacho.partida.comunion.nombres.padrino.madrina']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNomPad" style="width: 100%"
+							<p:inputText id="txtNomPad" style="width: 100%" label="#{i18n['erp.despacho.partida.comunion.nombres.padrino.madrina']}"
 								 required="true" value="#{partidaPrimeraComunionDataManager.mad_padInsertar.perNombres}" />
 						</td>	
 					</tr>
@@ -165,7 +165,7 @@
 							<h:outputLabel for="txtApePad" value="#{i18n['erp.despacho.partida.comunion.apellidos.padrino.madrina']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtApePad" style="width: 100%"
+							<p:inputText id="txtApePad" style="width: 100%" label="#{i18n['erp.despacho.partida.comunion.apellidos.padrino.madrina']}"
 								 required="true" value="#{partidaPrimeraComunionDataManager.mad_padInsertar.perApellidos}" />
 						</td>	
 					</tr>
@@ -182,7 +182,7 @@
 							<h:outputLabel for="txtNotaM" value="#{i18n['erp.despacho.partida.comunion.nota.marginal']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNotaM" style="width: 100%"  value="#{partidaPrimeraComunionDataManager.primeraComunionInsertar.pcoNotaMarginal}" maxlength="255"/>
+							<p:inputText id="txtNotaM" style="width: 100%"  value="#{partidaPrimeraComunionDataManager.primeraComunionInsertar.pcoNotaMarginal}" label="#{i18n['erp.despacho.partida.comunion.nota.marginal']}" maxlength="255"/>
 						</td>	
 					</tr>
 					
@@ -192,7 +192,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtTomo" style="width: 100%"  
-								  value="#{partidaPrimeraComunionDataManager.primeraComunionInsertar.pcoTomo}" required="#{partidaPrimeraComunionDataManager.estadoCodigo.toString()=='28'}" onkeypress="return isNumberKey(event)" maxlength="10"/>
+								  value="#{partidaPrimeraComunionDataManager.primeraComunionInsertar.pcoTomo}" label="#{i18n['erp.despacho.partida.comunion.tomo']}" required="#{partidaPrimeraComunionDataManager.estadoCodigo.toString()=='28'}" onkeypress="return isNumberKey(event)" maxlength="10"/>
 						</td>	
 					</tr>
 					<tr>
@@ -214,7 +214,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtPagina" style="width: 100%"  
-								 value="#{partidaPrimeraComunionDataManager.primeraComunionInsertar.pcoPagina}" required="#{partidaPrimeraComunionDataManager.estadoCodigo.toString()=='28'}" onkeypress="return isNumberKey(event)" maxlength="10"/>
+								 value="#{partidaPrimeraComunionDataManager.primeraComunionInsertar.pcoPagina}" label="#{i18n['erp.despacho.partida.comunion.pagina']}" required="#{partidaPrimeraComunionDataManager.estadoCodigo.toString()=='28'}" onkeypress="return isNumberKey(event)" maxlength="10"/>
 						</td>	
 					</tr>
 					
@@ -231,7 +231,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtProv" style="width: 100%"  
-								value="#{partidaPrimeraComunionDataManager.bautizoListDTO.catProvincia}" readonly="true" />
+								value="#{partidaPrimeraComunionDataManager.bautizoListDTO.catProvincia}" label="#{i18n['erp.despacho.partida.bautizo.provincia']}" readonly="true" />
 						</td>
 					</tr>
 					
@@ -241,7 +241,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCanton" style="width: 100%"  
-								value="#{partidaPrimeraComunionDataManager.bautizoListDTO.catCanton}"  readonly="true"/>
+								value="#{partidaPrimeraComunionDataManager.bautizoListDTO.catCanton}" label="#{i18n['erp.despacho.partida.bautizo.canton']}" readonly="true"/>
 						</td>
 					</tr>	
 					
@@ -251,7 +251,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtParroquia" style="width: 100%"  
-							 	value="#{partidaPrimeraComunionDataManager.bautizoListDTO.catParroquia}" readonly="true" />
+							 	value="#{partidaPrimeraComunionDataManager.bautizoListDTO.catParroquia}" label="#{i18n['erp.despacho.partida.bautizo.parroquia']}" readonly="true" />
 						</td>
 					</tr>					
 					
@@ -262,7 +262,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtFechaBautizo" style="width: 100%"  
-							 	value="#{fn:substring(partidaPrimeraComunionDataManager.bautizoListDTO.bauFechaBautizo,0,10)}"  readonly="true"/>
+							 	value="#{fn:substring(partidaPrimeraComunionDataManager.bautizoListDTO.bauFechaBautizo,0,10)}" label="#{i18n['erp.despacho.partida.bautizo.fecha.bautizo']}"  readonly="true"/>
 						</td>
 					</tr>					
 						
@@ -272,7 +272,6 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{partidaComunionController.registrarPrimeraComunion}"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaPartidaPrimeraComunion.hide()"
 					process="@this,pnlNuevaPartidaPrimeraComunion,pnlDatos,pnlDatosPadrino" update="pnlNuevaPartidaPrimeraComunion,pnlDatos,pnlDatosPadrino,:formPartidaPrimeraComunion:pnlMessages,:formPartidaPrimeraComunion:tablaPartidaPrimeraComunion"/>
 				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{partidaComunionController.limpiarFormulario()}" process="@this" immediate="true" update="pnlNuevaPartidaPrimeraComunion,pnlDatosPadrino,pnlDatos,pnlBautizo" oncomplete="dlgNuevaPartidaPrimeraComunion.hide()"/>
 			</p:panel>
