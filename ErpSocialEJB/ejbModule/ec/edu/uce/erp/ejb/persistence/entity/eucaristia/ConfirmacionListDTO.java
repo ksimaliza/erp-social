@@ -88,6 +88,9 @@ public class ConfirmacionListDTO implements Serializable {
 
 	@Column(name="con_toma")
 	private String conToma;
+	
+	@Column(name="con_empresa")
+	private Integer conEmpresa;
 
 	@Column(name="madre_apellidos")
 	private String madreApellidos;
@@ -362,6 +365,14 @@ public class ConfirmacionListDTO implements Serializable {
 
 	public void setConToma(String conToma) {
 		this.conToma = conToma;
+	}
+	
+	public Integer getConEmpresa() {
+		return this.conEmpresa;
+	}
+
+	public void setConEmpresa(Integer conEmpresa) {
+		this.conEmpresa = conEmpresa;
 	}
 
 	public String getMadreApellidos() {
