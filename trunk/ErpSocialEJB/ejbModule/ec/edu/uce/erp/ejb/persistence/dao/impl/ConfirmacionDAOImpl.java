@@ -80,6 +80,11 @@ public class ConfirmacionDAOImpl extends AbstractFacadeImpl<ConfirmacionDTO> imp
 					criteriaList.add(predicate);
 				}
 		
+	   //por empresa
+				if (confirmacion.getConEmpresa()!=null) {
+					predicate = cb.equal(from.get("conEmpresa"), confirmacion.getConEmpresa());
+					criteriaList.add(predicate);
+				}
 				
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		

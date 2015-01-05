@@ -2,6 +2,7 @@ package ec.edu.uce.erp.web.controladores;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -132,14 +133,21 @@ public class PartidaConfirmacionController extends BaseController {
 			confirmacionVO.getConfirmacion()
 					.setConEstado(estado.getCatCodigo());
 			confirmacionVO.getConfirmacion().setConTipo(tipo.getCatCodigo());
+			confirmacionVO.getConfirmacion().setConEmpresa(getEmpresaTbl().getEmrPk());
 
 			if (partidaConfirmacionDataManager.getFechaApCInsertar().getTime() > partidaConfirmacionDataManager
 					.getFechaComunionInsertar().getTime()) {
 				MensajesWebController
-						.aniadirMensajeError("Ingrese fecha de Aprobaci�n de curso correcta");
+						.aniadirMensajeError("Ingrese fecha de Aprobación de curso correcta");
 				return;
 			}
-
+           
+			if(partidaConfirmacionDataManager.getMadreInsertar().getPerCi().toString().equals(partidaConfirmacionDataManager.getPadreInsertar().getPerCi().toString()))
+			{
+				MensajesWebController.aniadirMensajeError("La Madre no puede ser registrado como Padre");
+				return;
+			}
+			
 			confirmacionVO.getConfirmacion().setConFechaAprobacionCurso(
 					new Timestamp(partidaConfirmacionDataManager
 							.getFechaApCInsertar().getTime()));
@@ -238,26 +246,22 @@ public class PartidaConfirmacionController extends BaseController {
 						if (list.get(0).getBauMadre() != null) {
 							Persona madre = new Persona();
 							madre.setPerPk(list.get(0).getBauMadre());
-							List<Persona> listaMadreConfirmado = this.servicioAdministracion
-									.buscarPersona(madre);
-							if (!CollectionUtils.isEmpty(listaMadreConfirmado)
-									&& listaMadreConfirmado.size() != 0)
+							Persona madreConfirmado = this.servicioAdministracion
+									.buscarPersona(madre.getPerPk());
+							if (madreConfirmado!=null)
 								this.partidaConfirmacionDataManager
-										.setMadreInsertar(listaMadreConfirmado
-												.get(0));
+										.setMadreInsertar(madreConfirmado);
 						}
 
 						// buscar padre de bautizado
 						if (list.get(0).getBauPadre() != null) {
 							Persona padre = new Persona();
 							padre.setPerPk(list.get(0).getBauPadre());
-							List<Persona> listaPadreConfirmado = this.servicioAdministracion
-									.buscarPersona(padre);
-							if (!CollectionUtils.isEmpty(listaPadreConfirmado)
-									&& listaPadreConfirmado.size() != 0)
+							Persona padreConfirmado = this.servicioAdministracion
+									.buscarPersona(padre.getPerPk());
+							if (padreConfirmado!=null)
 								this.partidaConfirmacionDataManager
-										.setPadreInsertar(listaPadreConfirmado
-												.get(0));
+										.setPadreInsertar(padreConfirmado);
 						}
 
 					}
@@ -290,6 +294,17 @@ public class PartidaConfirmacionController extends BaseController {
 
 				if (CollectionUtils.isEmpty(listaMad_Pad)
 						&& listaMad_Pad.size() == 0) {
+					if(partidaConfirmacionDataManager.getMadreInsertar().getPerCi()!=null && partidaConfirmacionDataManager.getMad_padInsertar().getPerCi().toString().equals(partidaConfirmacionDataManager.getMadreInsertar().getPerCi().toString()))
+					{
+						partidaConfirmacionDataManager.getMad_padInsertar().setPerApellidos(partidaConfirmacionDataManager.getMadreInsertar().getPerApellidos());
+						partidaConfirmacionDataManager.getMad_padInsertar().setPerNombres(partidaConfirmacionDataManager.getMadreInsertar().getPerNombres());
+					}
+					else if(partidaConfirmacionDataManager.getPadreInsertar().getPerCi()!=null && partidaConfirmacionDataManager.getMad_padInsertar().getPerCi().toString().equals(partidaConfirmacionDataManager.getPadreInsertar().getPerCi().toString()))
+					{
+						partidaConfirmacionDataManager.getMad_padInsertar().setPerApellidos(partidaConfirmacionDataManager.getPadreInsertar().getPerApellidos());
+						partidaConfirmacionDataManager.getMad_padInsertar().setPerNombres(partidaConfirmacionDataManager.getPadreInsertar().getPerNombres());
+					}
+					else
 					MensajesWebController
 							.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 				} else {
@@ -376,13 +391,14 @@ public class PartidaConfirmacionController extends BaseController {
 		List<ConfirmacionListDTO> listaConfirmacion = null;
 
 		try {
-
+            partidaConfirmacionDataManager.getConfirmacionListDTO().setConEmpresa(getEmpresaTbl().getEmrPk());
 			listaConfirmacion = this.servicioEucaristia
 					.buscarPartidaConfirmacion(partidaConfirmacionDataManager
 							.getConfirmacionListDTO());
 
 			if (CollectionUtils.isEmpty(listaConfirmacion)
 					&& listaConfirmacion.size() == 0) {
+				partidaConfirmacionDataManager.setConfirmacionListDTOs(new ArrayList<ConfirmacionListDTO>());
 				MensajesWebController
 						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
@@ -710,6 +726,7 @@ public class PartidaConfirmacionController extends BaseController {
 		partidaConfirmacionDataManager.setFechaApCInsertar(new Date());
 		partidaConfirmacionDataManager.setFechaComunionInsertar(new Date());
 		partidaConfirmacionDataManager.setEstadoCodigo(0);
+		partidaConfirmacionDataManager.setExportDesactivado(true);
 	}
 
 	@Override
@@ -729,5 +746,7 @@ public class PartidaConfirmacionController extends BaseController {
 			partidaConfirmacionDataManager.getConfirmacionDTO().setConActa("");
 		}
 	}
-
+	public void actualizarCampo() {
+		slf4jLogger.info("actualizarCampo");
+	}
 }

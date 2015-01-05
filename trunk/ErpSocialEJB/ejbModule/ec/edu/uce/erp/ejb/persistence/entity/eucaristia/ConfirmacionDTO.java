@@ -70,6 +70,9 @@ public class ConfirmacionDTO implements Serializable {
 
 	@Column(name="con_toma")
 	private String conToma;
+	
+	@Column(name="con_empresa")
+	private Integer conEmpresa;
 
 	//bi-directional many-to-one association to SacerdoteDTO
 	@ManyToOne
@@ -158,6 +161,14 @@ public class ConfirmacionDTO implements Serializable {
 
 	public void setConToma(String conToma) {
 		this.conToma = conToma;
+	}
+	
+	public Integer getConEmpresa() {
+		return conEmpresa;
+	}
+
+	public void setConEmpresa(Integer conEmpresa) {
+		this.conEmpresa = conEmpresa;
 	}
 
 	public SacerdoteDTO getEucSacerdote() {
