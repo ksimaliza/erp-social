@@ -2,6 +2,7 @@ package ec.edu.uce.erp.web.controladores;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
@@ -97,9 +99,30 @@ public void registrarDefuncion () {
 		   if (!CollectionUtils.isEmpty(ListaDefunciones) && ListaDefunciones.size()!=0 && ListaDefunciones.size()!=0 && defuncionDataManager.getDefuncionInsertar().getDefCodigo()==null && esDifunto)
 			      
 		   {
-			   MensajesWebController.aniadirMensajeAdvertencia("Y� se registr� difunto con la misma c�dula");
+			   MensajesWebController.aniadirMensajeAdvertencia("Ya existe difunto con la misma cedula");
 			   return;
 		   }
+		   //si se repite la cedula del defunto en otro campo no permitido 
+		   if(defuncionDataManager.getDifuntoInsertar().getPerCi().toString().equals(defuncionDataManager.getPadreInsertar().getPerCi().toString()) ||
+			  defuncionDataManager.getDifuntoInsertar().getPerCi().toString().equals(defuncionDataManager.getMadreInsertar().getPerCi().toString()))
+				   {
+					MensajesWebController.aniadirMensajeError("Cedula de difunto repetida en otro campo");
+					return;
+				   }
+		   //si se repite la cedula de la madre del difunto en un campo no permitido
+		   if(defuncionDataManager.getMadreInsertar().getPerCi().toString().equals(defuncionDataManager.getDifuntoInsertar().getPerCi().toString()) ||
+		      defuncionDataManager.getMadreInsertar().getPerCi().toString().equals(defuncionDataManager.getPadreInsertar().getPerCi().toString()))
+						   {
+							MensajesWebController.aniadirMensajeError("Cedula de la madre repetida en otro campo");
+							return;
+						   }
+		 //si se repite la cedula del padre  en un campo no permitido
+		   if(defuncionDataManager.getPadreInsertar().getPerCi().toString().equals(defuncionDataManager.getDifuntoInsertar().getPerCi().toString()) ||
+		      defuncionDataManager.getPadreInsertar().getPerCi().toString().equals(defuncionDataManager.getMadreInsertar().getPerCi().toString()))
+						   {
+							MensajesWebController.aniadirMensajeError("Cedula de padre repetida en otro campo");
+							return;
+						   }
 			defuncionVO=new DefuncionVO();
 			sacerdoteDTO=new SacerdoteDTO();
 			doctorDTO=new DoctorDTO();
@@ -140,7 +163,7 @@ public void registrarDefuncion () {
 			
 			defuncionVO.getDefuncion().setDefFecha(new Timestamp(defuncionDataManager.getFechaSepelioInsertar().getTime()));
 			defuncionVO.getDefuncion().setDefFechaDifunto(new Timestamp(defuncionDataManager.getFechaMuerteInsertar().getTime()));
-			
+			defuncionVO.getDefuncion().setDefEmpresa(getEmpresaTbl().getEmrPk());
 			DefuncionDTO defuncionNueva= this.servicioEucaristia.createOrUpdateDefuncion(defuncionVO);
 			
 			defuncionDataManager.setExportDesactivado(false);
@@ -321,8 +344,10 @@ public void registrarDefuncion () {
 		List<DefuncionListDTO> listaDefuncion=null;
 		
 		try {
+			defuncionDataManager.getDefuncionListDTO().setDefEmpresa(getEmpresaTbl().getEmrPk());
 			listaDefuncion=this.servicioEucaristia.buscarDefuncion(defuncionDataManager.getDefuncionListDTO());
 			if (CollectionUtils.isEmpty(listaDefuncion) && listaDefuncion.size()==0) {
+				defuncionDataManager.setDefuncionDTOs(new ArrayList<DefuncionListDTO>());
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.defuncionDataManager.setDefuncionDTOs(listaDefuncion);

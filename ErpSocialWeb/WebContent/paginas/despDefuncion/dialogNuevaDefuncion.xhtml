@@ -48,7 +48,7 @@
 							<h:outputText for="txtCiMadre" value="#{i18n['erp.despacho.defuncion.cedula.madre']}" />
 						</td>
 						<td width="70%" >
-						<p:inputText id="txtCiMadre"  style="width: 70%"
+						<p:inputText id="txtCiMadre"  style="width: 70%" label="#{i18n['erp.despacho.defuncion.cedula.madre']}" required="true"
 							  value="#{defuncionDataManager.madreInsertar.perCi}">
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur" update="txtApeMadre,txtNomMadre" listener="#{defuncionController.buscarMadre}" process="@this"/> 
@@ -61,7 +61,7 @@
 							<h:outputLabel for="txtApeMadre" value="#{i18n['erp.despacho.defuncion.apellidos.madre']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtApeMadre" style="width: 70%"
+							<p:inputText id="txtApeMadre" style="width: 70%" label="#{i18n['erp.despacho.defuncion.apellidos.madre']}" required="true"
 								 value="#{defuncionDataManager.madreInsertar.perApellidos}" />
 						</td>	
 					</tr>
@@ -71,7 +71,7 @@
 							<h:outputLabel for="txtNomMadre" value="#{i18n['erp.despacho.defuncion.nombres.madre']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNomMadre" style="width: 70%"
+							<p:inputText id="txtNomMadre" style="width: 70%" label="#{i18n['erp.despacho.defuncion.nombres.madre']}" required="true"
 								 value="#{defuncionDataManager.madreInsertar.perNombres}"/>
 						</td>	
 					</tr>
@@ -81,7 +81,7 @@
 							<h:outputText for="txtCiPadre" value="#{i18n['erp.despacho.defuncion.cedula.padre']}" />
 						</td>
 						<td width="70%" >
-						<p:inputText id="txtCiPadre"  style="width: 70%"
+						<p:inputText id="txtCiPadre"  style="width: 70%" label="#{i18n['erp.despacho.defuncion.cedula.padre']}" required="true"
 							  value="#{defuncionDataManager.padreInsertar.perCi}">
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur" update="txtNomPadre,txtApePadre" listener="#{defuncionController.buscarPadre}" process="@this"/> 
@@ -94,7 +94,7 @@
 							<h:outputLabel for="txtApePadre" value="#{i18n['erp.despacho.defuncion.apellidos.padre']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtApePadre" style="width: 70%"
+							<p:inputText id="txtApePadre" style="width: 70%" label="#{i18n['erp.despacho.defuncion.apellidos.padre']}" required="true"
 								 value="#{defuncionDataManager.padreInsertar.perApellidos}"/>
 						</td>	
 					</tr>
@@ -104,7 +104,7 @@
 							<h:outputLabel for="txtNomPadre" value="#{i18n['erp.despacho.defuncion.nombres.padre']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNomPadre" style="width: 70%"
+							<p:inputText id="txtNomPadre" style="width: 70%" label="#{i18n['erp.despacho.defuncion.nombres.padre']}" required="true"
 								 value="#{defuncionDataManager.padreInsertar.perNombres}" />
 						</td>	
 					</tr>
@@ -205,7 +205,7 @@
 							<h:outputLabel for="txtFechaFallecimiento" value="#{i18n['erp.despacho.defuncion.fecha.muerte']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFechaFallecimiento" style="width: 70%" navigator="true"   showOn="button" required="true" value="#{defuncionDataManager.fechaMuerteInsertar}"/>
+							<p:calendar id="txtFechaFallecimiento" style="width: 70%" navigator="true"   showOn="button" label="#{i18n['erp.despacho.defuncion.fecha.muerte']}" required="true" value="#{defuncionDataManager.fechaMuerteInsertar}"/>
 						</td>
 					</tr>
 					
@@ -214,7 +214,7 @@
 							<h:outputLabel for="txtFechaSepelio" value="#{i18n['erp.despacho.defuncion.fecha.sepelio']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFechaSepelio" style="width: 70%" navigator="true"   showOn="button" required="true" value="#{defuncionDataManager.fechaSepelioInsertar}" />
+							<p:calendar id="txtFechaSepelio" style="width: 70%" navigator="true"   showOn="button" label="#{i18n['erp.despacho.defuncion.fecha.sepelio']}" required="true" value="#{defuncionDataManager.fechaSepelioInsertar}" />
 						</td>
 					</tr>
 					
@@ -222,7 +222,7 @@
 					
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.defuncion.provincia.muerte']}"  /> </td>
-						<td width="70%" ><p:selectOneMenu id="provincia" value="#{defuncionDataManager.provinciaCodigo}" filter="true">
+						<td width="70%" ><p:selectOneMenu id="provincia" value="#{defuncionDataManager.provinciaCodigo}" label="#{i18n['erp.despacho.defuncion.provincia.muerte']}" required="true" filter="true">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{defuncionController.defuncionDataManager.provinciasEucaristiaDTOs}" var="provincia" itemLabel="#{provincia.catDescripcion} " itemValue="#{provincia.catCodigo}" />
 								<p:ajax listener="#{defuncionController.buscarCanton}" process="@this" update="canton"/>
@@ -232,7 +232,7 @@
 					
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.defuncion.canton.muerte']}"  /> </td>
-						<td width="70%"><p:selectOneMenu id="canton" value="#{defuncionDataManager.cantonCodigo}" filter="true"  >
+						<td width="70%"><p:selectOneMenu id="canton" value="#{defuncionDataManager.cantonCodigo}" label="#{i18n['erp.despacho.defuncion.canton.muerte']}" required="true" filter="true"  >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{defuncionDataManager.cantonEucaristiaDTOs}" var="canton" itemLabel="#{canton.catDescripcion}" itemValue="#{canton.catCodigo}" />
 								<p:ajax listener="#{defuncionController.buscarParroquia}" process="@this" update="parroquia"/>
@@ -242,7 +242,7 @@
 					
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.defuncion.parroquia.muerte']}"  /> </td>
-						<td width="70%" ><p:selectOneMenu id="parroquia" value="#{defuncionDataManager.parroquiaCodigo}" filter="true"  >
+						<td width="70%" ><p:selectOneMenu id="parroquia" value="#{defuncionDataManager.parroquiaCodigo}" label="#{i18n['erp.despacho.defuncion.parroquia.muerte']}" required="true" filter="true"  >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{defuncionDataManager.parroquiaEucaristiaDTOs}" var="parroquia" itemLabel="#{parroquia.catDescripcion}" itemValue="#{parroquia.catCodigo}"/>
 							</p:selectOneMenu>
