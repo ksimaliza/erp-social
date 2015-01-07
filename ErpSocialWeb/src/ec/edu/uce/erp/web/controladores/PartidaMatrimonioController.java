@@ -2,6 +2,7 @@ package ec.edu.uce.erp.web.controladores;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioListDTO;
@@ -120,9 +122,161 @@ public void registrarMatrimonio () {
 			
 			matrimonioVO.setSacerdote(sacerdoteDTO);
 			
+			partidaMatrimonioDataManager.getMatrimonioDTO().setMatEmpresa(getEmpresaTbl().getEmrPk());
+			
+			System.out.println("Cedula Novio: "+partidaMatrimonioDataManager.getNovioInsertar().getPerCi().toString());
+			
+			//novio no repetido en los demas campos
+			if(partidaMatrimonioDataManager.getNovioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMadre_novioInsertar().getPerCi().toString()) || 
+			   partidaMatrimonioDataManager.getNovioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPadre_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getNovioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPad_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getNovioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMad_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getNovioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMadre_noviaInsertar().getPerCi().toString()) || 
+			   partidaMatrimonioDataManager.getNovioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPadre_noviaInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getNovioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPad_noviaInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getNovioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMad_noviaInsertar().getPerCi().toString()) ||
+               partidaMatrimonioDataManager.getNoviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPad_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getNoviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMad_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getNovioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getNoviaInsertar().getPerCi().toString()))
+			   
+			   {
+				MensajesWebController.aniadirMensajeError("Cedula de Novio repetida en otro campo");
+				return;
+			}
+			
+			//novia no repetido en los demas campos
+			if(partidaMatrimonioDataManager.getNoviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMadre_novioInsertar().getPerCi().toString()) || 
+			   partidaMatrimonioDataManager.getNoviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPadre_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getNoviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPad_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getNoviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMad_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getNoviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMadre_noviaInsertar().getPerCi().toString()) || 
+			   partidaMatrimonioDataManager.getNoviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPadre_noviaInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getNoviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPad_noviaInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getNoviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMad_noviaInsertar().getPerCi().toString()) ||
+               partidaMatrimonioDataManager.getNoviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPad_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getNoviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMad_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getNoviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getNovioInsertar().getPerCi().toString()))
+			   
+			   {
+				MensajesWebController.aniadirMensajeError("Cedula de Novia repetida en otro campo");
+				return;
+			}
+			
+			//madre novio no repetido en los campos no permitidos
+			if(partidaMatrimonioDataManager.getMadre_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getNovioInsertar().getPerCi().toString()) || 
+			   partidaMatrimonioDataManager.getMadre_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPadre_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getMadre_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPad_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getMadre_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMadre_noviaInsertar().getPerCi().toString()) || 
+			   partidaMatrimonioDataManager.getMadre_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPadre_noviaInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getMadre_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPad_noviaInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getMadre_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getNoviaInsertar().getPerCi().toString()))
+			   
+			   {
+				MensajesWebController.aniadirMensajeError("Cedula de madre del novio repetida en otro campo no permitido");
+				return;
+			}
+			
+			//padre novio no repetido en los campos no permitidos
+			if(partidaMatrimonioDataManager.getPadre_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getNovioInsertar().getPerCi().toString()) || 
+			   partidaMatrimonioDataManager.getPadre_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMadre_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getPadre_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMad_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getPadre_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMadre_noviaInsertar().getPerCi().toString()) || 
+			   partidaMatrimonioDataManager.getPadre_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPadre_noviaInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getPadre_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMad_noviaInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getPadre_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getNoviaInsertar().getPerCi().toString()))
+			   
+			   {
+				MensajesWebController.aniadirMensajeError("Cedula de padre del novio repetida en otro campo no permitido");
+				return;
+			}
+			
+			//padrino novio no repetido en los campos no permitidos
+			if(!partidaMatrimonioDataManager.getPad_novioInsertar().getPerCi().toString().equals("")
+					   && (partidaMatrimonioDataManager.getPad_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getNovioInsertar().getPerCi().toString()) || 
+			   partidaMatrimonioDataManager.getPad_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMadre_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getPad_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMad_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getPad_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMadre_noviaInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getPad_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMad_noviaInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getPad_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getNoviaInsertar().getPerCi().toString())))
+			   
+			   {
+				MensajesWebController.aniadirMensajeError("Cedula de padrino del novio repetida en otro campo no permitido");
+				return;
+			}
+			
+			//madrina novio no repetido en los campos no permitidos
+			if(!partidaMatrimonioDataManager.getMad_novioInsertar().getPerCi().toString().equals("")
+					   && (partidaMatrimonioDataManager.getMad_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getNovioInsertar().getPerCi().toString()) || 
+			   partidaMatrimonioDataManager.getMad_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPadre_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getMad_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPad_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getMad_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPadre_noviaInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getMad_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPad_noviaInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getMad_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getNoviaInsertar().getPerCi().toString())))
+			   
+			   {
+				MensajesWebController.aniadirMensajeError("Cedula de madrina del novio repetida en otro campo no permitido");
+				return;
+			}
+			//validacion datos relacionados con los datos de la novia
+			
+			//madre novia no repetido en los campos no permitidos
+			if(partidaMatrimonioDataManager.getMadre_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getNovioInsertar().getPerCi().toString()) || 
+			   partidaMatrimonioDataManager.getMadre_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPadre_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getMadre_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPad_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getMadre_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMadre_novioInsertar().getPerCi().toString()) || 
+			   partidaMatrimonioDataManager.getMadre_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPadre_noviaInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getMadre_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPad_noviaInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getMadre_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getNoviaInsertar().getPerCi().toString()))
+			   
+			   {
+				MensajesWebController.aniadirMensajeError("Cedula de madre del novia repetida en otro campo no permitido");
+				return;
+			}
+			
+			//padre novia no repetido en los campos no permitidos
+			if(partidaMatrimonioDataManager.getPadre_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getNovioInsertar().getPerCi().toString()) || 
+			   partidaMatrimonioDataManager.getPadre_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMadre_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getPadre_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMad_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getPadre_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMadre_noviaInsertar().getPerCi().toString()) || 
+			   partidaMatrimonioDataManager.getPadre_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPadre_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getPadre_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMad_noviaInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getPadre_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getNoviaInsertar().getPerCi().toString()))
+			   
+			   {
+				MensajesWebController.aniadirMensajeError("Cedula de padre de la novia repetida en otro campo no permitido");
+				return;
+			}
+			
+			//padrino novia no repetido en los campos no permitidos
+			if(!partidaMatrimonioDataManager.getPad_noviaInsertar().getPerCi().toString().equals("")
+					   && (partidaMatrimonioDataManager.getPad_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getNovioInsertar().getPerCi().toString()) || 
+			   partidaMatrimonioDataManager.getPad_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMadre_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getPad_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMad_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getPad_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMadre_noviaInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getPad_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getMad_noviaInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getPad_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getNoviaInsertar().getPerCi().toString())))
+			   
+			   {
+				MensajesWebController.aniadirMensajeError("Cedula de padrino de la novia repetida en otro campo no permitido");
+				return;
+			}
+			
+			//madrina novia no repetido en los campos no permitidos
+			if(!partidaMatrimonioDataManager.getMad_noviaInsertar().getPerCi().toString().equals("")
+					   && (partidaMatrimonioDataManager.getMad_novioInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getNovioInsertar().getPerCi().toString()) || 
+			   partidaMatrimonioDataManager.getMad_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPadre_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getMad_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPad_novioInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getMad_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPadre_noviaInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getMad_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getPad_noviaInsertar().getPerCi().toString()) ||
+			   partidaMatrimonioDataManager.getMad_noviaInsertar().getPerCi().toString().equals(partidaMatrimonioDataManager.getNoviaInsertar().getPerCi().toString())))
+			   
+			   {
+				MensajesWebController.aniadirMensajeError("Cedula de madrina de la novia repetida en otro campo no permitido");
+				return;
+			}
 			if(partidaMatrimonioDataManager.getFechaApCurInsertar().getTime()>partidaMatrimonioDataManager.getFechaMatrInsertar().getTime())
 			{
-				MensajesWebController.aniadirMensajeError("Ingrese fecha de Aprobaci�n del curso correcta");
+				MensajesWebController.aniadirMensajeError("Ingrese fecha de Aprobacion del curso correcta");
 				return;
 			}
 			matrimonioVO.getMatrimonio().setMatFechaAprobacionCurso(new Timestamp(partidaMatrimonioDataManager.getFechaApCurInsertar().getTime()));
@@ -465,8 +619,10 @@ public void registrarMatrimonio () {
 		List<MatrimonioListDTO> listaMatrimonio=null;
 		
 		try {
+			partidaMatrimonioDataManager.getMatrimonioListDTO().setMatEmpresa(getEmpresaTbl().getEmrPk());
 			listaMatrimonio=this.servicioEucaristia.buscarPartidaMatrimonio(partidaMatrimonioDataManager.getMatrimonioListDTO());
 			if (CollectionUtils.isEmpty(listaMatrimonio) && listaMatrimonio.size()==0) {
+				partidaMatrimonioDataManager.setMatrimonioListDTOs(new ArrayList<MatrimonioListDTO>());
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				
@@ -617,11 +773,23 @@ public void registrarMatrimonio () {
 		mapParametros.put("novio", partidaMatrimonioDataManager.getNovioInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getNovioInsertar().getPerNombres().toUpperCase());
 		mapParametros.put("novia", partidaMatrimonioDataManager.getNoviaInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getNoviaInsertar().getPerNombres().toUpperCase());
 		mapParametros.put("certifica", getUsuario().getNpNombresCompletos());
+		//cuando el novio tiene padrino
+		if(partidaMatrimonioDataManager.getPad_novioInsertar().getPerApellidos()!=null &&  partidaMatrimonioDataManager.getPad_novioInsertar().getPerNombres()!=null)
 		mapParametros.put("padrinoNovio", partidaMatrimonioDataManager.getPad_novioInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getPad_novioInsertar().getPerNombres().toUpperCase());
+		else mapParametros.put("padrinoNovio", "");
+		//cuando el novio tiene padrino
+		if(partidaMatrimonioDataManager.getMad_novioInsertar().getPerApellidos()!=null &&  partidaMatrimonioDataManager.getMad_novioInsertar().getPerNombres()!=null)
 		mapParametros.put("madrinaNovio", partidaMatrimonioDataManager.getMad_novioInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getMad_novioInsertar().getPerNombres().toUpperCase());
+		else mapParametros.put("madrinaNovio","");
 		mapParametros.put("parroquiafechaActual", partidaMatrimonioDataManager.getParroquiaEucaristiaDTOs().get(0).getCatDescripcion()+ ", "+full.format(fechaActual));
+		//cuando la novia tiene padrino
+		if(partidaMatrimonioDataManager.getPad_noviaInsertar().getPerApellidos()!=null &&  partidaMatrimonioDataManager.getPad_noviaInsertar().getPerNombres()!=null)
 		mapParametros.put("padrinoNovia", partidaMatrimonioDataManager.getPad_noviaInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getPad_noviaInsertar().getPerNombres().toUpperCase());
+		else mapParametros.put("padrinoNovia","");
+		//cuando la novia tiene madrina
+		if(partidaMatrimonioDataManager.getMad_noviaInsertar().getPerApellidos()!=null &&  partidaMatrimonioDataManager.getMad_noviaInsertar().getPerNombres()!=null)
 		mapParametros.put("madrinaNovia", partidaMatrimonioDataManager.getMad_noviaInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getMad_noviaInsertar().getPerNombres().toUpperCase());
+		else mapParametros.put("madrinaNovia","");
 		mapParametros.put("notaMarginal", partidaMatrimonioDataManager.getMatrimonioDTO().getMatNotaMarginal());
 		if (partidaMatrimonioDataManager.getParroquiaEucaristiaDTOs() != null)
 			for (int i = 0; i < partidaMatrimonioDataManager

@@ -91,7 +91,11 @@ public class MatrimonioDAOImpl extends AbstractFacadeImpl<MatrimonioDTO> impleme
 							criteriaList.add(predicate);
 						}
 				
-				
+						//por empresa
+						if (matrimonioListDTO.getMatEmpresa()!=null) {
+							predicate = cb.equal(from.get("matEmpresa"), matrimonioListDTO.getMatEmpresa());
+							criteriaList.add(predicate);
+						}		
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		
 		TypedQuery<MatrimonioListDTO> typedQuery = entityManager.createQuery(select);

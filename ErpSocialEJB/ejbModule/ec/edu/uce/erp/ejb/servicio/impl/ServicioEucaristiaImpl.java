@@ -595,12 +595,14 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 					else
 						noviaPersona=listPersona.get(0);
 				}
+			
 			mad_novio=matrimonioVO.getMad_novio();
 			if(mad_novio.getPerPk()!=null )
 			{
 				mad_novio=factoryDAO.getPersonaDAOImpl().update(mad_novio);
 			}
-			else	
+			//cuando el novio no tiene madrina
+			else if(!mad_novio.getPerCi().toString().equals(""))	
 			{
 				listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(mad_novio);
 				if(listPersona.size()<=0)
@@ -614,8 +616,10 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			{
 				mad_novia=factoryDAO.getPersonaDAOImpl().update(mad_novia);
 			}
-			else	
+			//cuando la novia no tiene madrina
+			else if(!mad_novia.getPerCi().toString().equals(""))
 			{
+				
 				listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(mad_novia);
 				if(listPersona.size()<=0)
 					mad_novia=factoryDAO.getPersonaDAOImpl().create(mad_novia);
@@ -628,7 +632,8 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			{
 				pad_novio=factoryDAO.getPersonaDAOImpl().update(pad_novio);
 			}
-			else	
+			//cuando el novio no tiene padrino
+			else if(!pad_novio.getPerCi().toString().equals(""))	
 			{			
 				listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(pad_novio);
 				if(listPersona.size()<=0)
@@ -641,7 +646,8 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			{
 				pad_novia=factoryDAO.getPersonaDAOImpl().update(pad_novia);
 			}
-			else	
+			//cuando la novia no tiene padrino
+			else if(!pad_novia.getPerCi().toString().equals(""))	
 			{
 				listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(pad_novia);
 				if(listPersona.size()<=0)
@@ -764,9 +770,13 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		matrimonio.setNovio(factoryDAO.getPersonaDAOImpl().find(matrimonioListDTO.getMatNovio()));
 		matrimonio.setNovia(factoryDAO.getPersonaDAOImpl().find(matrimonioListDTO.getMatNovia()));
 		matrimonio.setMatrimonio(eucaristiaFactoryDAO.getMatrimonioDAOImpl().find(matrimonioListDTO.getMatCodigo()));
+		if(matrimonioListDTO.getMatMadrinaNovia()!=null)
 		matrimonio.setMad_novia(factoryDAO.getPersonaDAOImpl().find(matrimonioListDTO.getMatMadrinaNovia()));
+		if(matrimonioListDTO.getMatMadrinaNovio()!=null)
 		matrimonio.setMad_novio(factoryDAO.getPersonaDAOImpl().find(matrimonioListDTO.getMatMadrinaNovio()));
+		if(matrimonioListDTO.getMatPadrinoNovia()!=null)
 		matrimonio.setPad_novia(factoryDAO.getPersonaDAOImpl().find(matrimonioListDTO.getMatPadrinoNovia()));
+		if(matrimonioListDTO.getMatPadrinoNovio()!=null)
 		matrimonio.setPad_novio(factoryDAO.getPersonaDAOImpl().find(matrimonioListDTO.getMatPadrinoNovio()));
 		matrimonio.setPadre_novio(factoryDAO.getPersonaDAOImpl().find(matrimonioListDTO.getMatPadreNovio()));
 		matrimonio.setPadre_novia(factoryDAO.getPersonaDAOImpl().find(matrimonioListDTO.getMatPadreNovia()));
@@ -1592,7 +1602,7 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			listResultado = eucaristiaFactoryDAO.getEucaristiaDAOImpl().getDistinctReporteEcaristiaByAnd(eucaristia);
 		} catch (Exception e) {
 			slf4jLogger.info("Error readEucaristiaReport {}", e.getMessage());
-			throw new SeguridadesException("No se pudo obtener eucaristía de la base de datos");
+			throw new SeguridadesException("No se pudo obtener eucaristï¿½a de la base de datos");
 		}
 		return listResultado;
 	}
@@ -1685,7 +1695,7 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			listResultado = eucaristiaFactoryDAO.getExumacionDAOImpl().getDistinctReporteExhumacionByAnd(exumacion);
 		} catch (Exception e) {
 			slf4jLogger.info("Error readExhumacionReport {}", e.getMessage());
-			throw new SeguridadesException("No se pudo obtener exhumación de la base de datos");
+			throw new SeguridadesException("No se pudo obtener exhumaciï¿½n de la base de datos");
 		}
 		return listResultado;
 	}

@@ -94,6 +94,9 @@ public class MatrimonioDTO implements Serializable {
 
 	@Column(name="mat_tomo")
 	private String matTomo;
+	
+	@Column(name="mat_empresa")
+	private Integer matEmpresa;
 
 	//bi-directional many-to-one association to SacerdoteDTO
 	@ManyToOne
@@ -311,6 +314,14 @@ public class MatrimonioDTO implements Serializable {
 
 	public void setMatPadreNovio(Integer matPadreNovio) {
 		this.matPadreNovio = matPadreNovio;
+	}
+
+	public Integer getMatEmpresa() {
+		return matEmpresa;
+	}
+
+	public void setMatEmpresa(Integer matEmpresa) {
+		this.matEmpresa = matEmpresa;
 	}
 
 	
