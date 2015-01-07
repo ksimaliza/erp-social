@@ -61,6 +61,9 @@ public class DefuncionListDTO implements Serializable {
 
 	@Column(name="def_nota_marginal")
 	private String defNotaMarginal;
+	
+	@Column(name="def_empresa")
+	private Integer defEmpresa;
 
 	@Column(name="def_padre")
 	private Integer defPadre;
@@ -585,5 +588,15 @@ public class DefuncionListDTO implements Serializable {
 	public void setFechaHasta(Date fechaHasta) {
 		this.fechaHasta = fechaHasta;
 	}
+
+	public Integer getDefEmpresa() {
+		return defEmpresa;
+	}
+
+	public void setDefEmpresa(Integer defEmpresa) {
+		this.defEmpresa = defEmpresa;
+	}
+	
+	
 
 }

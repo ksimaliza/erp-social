@@ -601,7 +601,7 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			{
 				mad_novio=factoryDAO.getPersonaDAOImpl().update(mad_novio);
 			}
-			//cuando el novio no tiene madrina
+			//cuando el novio no tiene madrina registrada
 			else if(!mad_novio.getPerCi().toString().equals(""))	
 			{
 				listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(mad_novio);
@@ -616,7 +616,7 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			{
 				mad_novia=factoryDAO.getPersonaDAOImpl().update(mad_novia);
 			}
-			//cuando la novia no tiene madrina
+			//cuando la novia no tiene madrina registrada
 			else if(!mad_novia.getPerCi().toString().equals(""))
 			{
 				
@@ -632,7 +632,7 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			{
 				pad_novio=factoryDAO.getPersonaDAOImpl().update(pad_novio);
 			}
-			//cuando el novio no tiene padrino
+			//cuando el novio no tiene padrino registrado
 			else if(!pad_novio.getPerCi().toString().equals(""))	
 			{			
 				listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(pad_novio);
@@ -646,7 +646,7 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			{
 				pad_novia=factoryDAO.getPersonaDAOImpl().update(pad_novia);
 			}
-			//cuando la novia no tiene padrino
+			//cuando la novia no tiene padrino registrado
 			else if(!pad_novia.getPerCi().toString().equals(""))	
 			{
 				listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(pad_novia);
@@ -821,8 +821,9 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			{
 				conyuge=factoryDAO.getPersonaDAOImpl().update(conyuge);
 			}
-				else	
-				{
+			//cuando el defunto no tiene conyuge resgistrado
+			else if(!conyuge.getPerCi().toString().equals(""))	
+			{
 					listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(conyuge);
 					if(listPersona.size()<=0)
 						conyuge=factoryDAO.getPersonaDAOImpl().create(conyuge);

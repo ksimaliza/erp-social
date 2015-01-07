@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 5.6.2.final using JasperReports Library version 5.6.1  -->
-<!-- 2014-11-05T16:05:42 -->
+<!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
+<!-- 2015-01-07T14:55:31 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="partidaDefuncion" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cf6663c6-bc77-4d13-a6e3-52e85ef7463e">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
@@ -54,7 +54,7 @@
 				<textFieldExpression><![CDATA[$P{tomo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="218" y="428" width="230" height="20" uuid="3a78d1b2-42da-4069-ba05-15c39ea427e3"/>
+				<reportElement x="314" y="427" width="230" height="20" uuid="3a78d1b2-42da-4069-ba05-15c39ea427e3"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -145,7 +145,7 @@
 				<text><![CDATA[en el TOMO: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="65" y="554" width="221" height="20" uuid="12d2bcf2-9fb1-4321-8a88-5f69518c6598"/>
+				<reportElement x="65" y="554" width="236" height="20" uuid="12d2bcf2-9fb1-4321-8a88-5f69518c6598"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -159,7 +159,7 @@
 				<text><![CDATA[HIJO/A DE:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="140" y="428" width="27" height="20" uuid="81639a39-c59f-4ef7-80df-50c459b84097"/>
+				<reportElement x="196" y="428" width="27" height="20" uuid="81639a39-c59f-4ef7-80df-50c459b84097"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -208,7 +208,7 @@
 				<text><![CDATA[FALLECIDO/A A CAUSA DE:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="292" y="449" width="160" height="20" uuid="93bc795a-c87c-4cca-a655-aaf9f7ce1d5c"/>
+				<reportElement x="270" y="449" width="182" height="20" uuid="93bc795a-c87c-4cca-a655-aaf9f7ce1d5c"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -243,7 +243,7 @@
 				<text><![CDATA[de partida de defunciones,]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="24" y="449" width="261" height="20" uuid="52d9e29e-5fd3-4daa-adaa-845d004eecd1"/>
+				<reportElement x="24" y="449" width="246" height="20" uuid="52d9e29e-5fd3-4daa-adaa-845d004eecd1"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -299,7 +299,7 @@
 				<textFieldExpression><![CDATA[$P{parroquiaCabecera}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="170" y="428" width="48" height="20" uuid="33cf2e6c-1f1f-42d0-8f5b-66449304c05d"/>
+				<reportElement x="225" y="428" width="80" height="20" uuid="33cf2e6c-1f1f-42d0-8f5b-66449304c05d"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -320,7 +320,7 @@
 				<textFieldExpression><![CDATA[$P{fechaMuerte}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="44" y="428" width="100" height="20" uuid="7489f5e7-79c0-4b08-bcb4-8d877825ba7b"/>
+				<reportElement x="44" y="428" width="148" height="20" uuid="7489f5e7-79c0-4b08-bcb4-8d877825ba7b"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>

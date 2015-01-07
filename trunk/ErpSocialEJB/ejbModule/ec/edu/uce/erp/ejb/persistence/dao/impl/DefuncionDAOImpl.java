@@ -80,7 +80,11 @@ public class DefuncionDAOImpl extends AbstractFacadeImpl<DefuncionDTO> implement
 					predicate = cb.like(cb.upper(from.<String>get("perCi")), cedulaDifunto);
 					criteriaList.add(predicate);
 				}
-		
+				//por empresa
+				if (defuncion.getDefEmpresa()!=null) {
+					predicate = cb.equal(from.get("defEmpresa"), defuncion.getDefEmpresa());
+					criteriaList.add(predicate);
+				}
 				
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		

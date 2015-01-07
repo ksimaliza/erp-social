@@ -68,6 +68,9 @@ public class DefuncionDTO implements Serializable {
 	
 	@Column(name="def_nota_marginal")
 	private String defNotaMarginal;
+	
+	@Column(name="def_empresa")
+	private Integer defEmpresa;
 
 	//bi-directional many-to-one association to SacerdoteDTO
 	@ManyToOne
@@ -223,6 +226,14 @@ public class DefuncionDTO implements Serializable {
 
 	public void setDefPadre(Integer defPadre) {
 		this.defPadre = defPadre;
+	}
+
+	public Integer getDefEmpresa() {
+		return defEmpresa;
+	}
+
+	public void setDefEmpresa(Integer defEmpresa) {
+		this.defEmpresa = defEmpresa;
 	}
 
 	

@@ -39,7 +39,7 @@
 							<h:outputLabel for="txtNombre" value="#{i18n['erp.despacho.defuncion.nombres']}" />
 						</td>
 						<td>
-							<h:inputText for="txtNombre" label="#{i18n['erp.despacho.defuncion.nombres']}"  
+							<h:inputText id="txtNombre" label="#{i18n['erp.despacho.defuncion.nombres']}"  
 							value="#{defuncionDataManager.defuncionListDTO.perNombres}"/>
 						</td>
 					</tr>
@@ -48,7 +48,7 @@
 							<h:outputLabel for="txtApe" value="#{i18n['erp.despacho.defuncion.apellidos']}" />
 						</td>
 						<td>
-							<h:inputText for="txtApe" label="#{i18n['erp.despacho.defuncion.apellidos']}" 
+							<h:inputText id="txtApe" label="#{i18n['erp.despacho.defuncion.apellidos']}" 
 							value="#{defuncionDataManager.defuncionListDTO.perApellidos}" />
 						</td>
 					</tr>
