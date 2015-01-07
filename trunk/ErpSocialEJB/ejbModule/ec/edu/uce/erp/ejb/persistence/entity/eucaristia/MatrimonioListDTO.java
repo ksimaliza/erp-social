@@ -267,6 +267,9 @@ public class MatrimonioListDTO implements Serializable {
 	
 	@Transient
 	private Date fechaHasta;
+	
+	@Column(name="mat_empresa")
+	private Integer matEmpresa;
 
 	public MatrimonioListDTO() {
 	}
@@ -940,4 +943,13 @@ public class MatrimonioListDTO implements Serializable {
 		this.fechaHasta = fechaHasta;
 	}
 
+	public Integer getMatEmpresa() {
+		return matEmpresa;
+	}
+
+	public void setMatEmpresa(Integer matEmpresa) {
+		this.matEmpresa = matEmpresa;
+	}
+    
+	
 }

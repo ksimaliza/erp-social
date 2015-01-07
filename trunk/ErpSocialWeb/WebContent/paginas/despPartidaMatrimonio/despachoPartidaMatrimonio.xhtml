@@ -32,7 +32,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNom" 
-								value="#{partidaMatrimonioDataManager.noviaInsertar.perNombres}"/>
+								value="#{partidaMatrimonioDataManager.matrimonioListDTO.perNombres}"/>
 						</td>	
 					</tr>
 					
@@ -43,7 +43,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApe" 
-								value="#{partidaMatrimonioDataManager.noviaInsertar.perApellidos}" />
+								value="#{partidaMatrimonioDataManager.matrimonioListDTO.perApellidos}" />
 						</td>	
 					</tr>
 					<tr>
@@ -52,7 +52,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomNov" 
-								value="#{partidaMatrimonioDataManager.mad_novioInsertar.perNombres}"/>
+								value="#{partidaMatrimonioDataManager.matrimonioListDTO.novioNombres}"/>
 						</td>	
 					</tr>
 					
@@ -63,7 +63,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApeNov" 
-								value="#{partidaMatrimonioDataManager.mad_novioInsertar.perApellidos}" />
+								value="#{partidaMatrimonioDataManager.matrimonioListDTO.novioApellidos}" />
 						</td>	
 					</tr>
 				</table>
@@ -82,7 +82,7 @@
 	rowIndexVar="rowIndex"
 	paginator="true" rows="5" paginatorPosition="bottom"
 	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-	rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.despacho.partida.comunion.lista']}">
+	rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.despacho.partida.matrimonio.lista']}">
 	<f:facet name="header">
 		#{i18n['erp.despacho.partida.matrimonio.lista']}
 	</f:facet>

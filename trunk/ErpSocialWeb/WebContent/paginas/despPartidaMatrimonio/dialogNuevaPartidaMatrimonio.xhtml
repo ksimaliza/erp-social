@@ -18,7 +18,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiNovio"  style="width: 70%"
-							 label="#{i18n['erp.despacho.partida.matrimonio.cedulanovio']}" value="#{partidaMatrimonioDataManager.novioInsertar.perCi}">
+							 label="#{i18n['erp.despacho.partida.matrimonio.cedulanovio']}" required="true" value="#{partidaMatrimonioDataManager.novioInsertar.perCi}">
 							<p:ajax event="blur" update="txtNomNovio,txtApeNovio" listener="#{partidaMatrimonioController.buscarNovio}" process="@this"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							
@@ -31,7 +31,7 @@
 							<h:outputLabel for="txtNomNovio" value="#{i18n['erp.despacho.partida.matrimonio.nombresnovio']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNomNovio" style="width: 100%"
+							<p:inputText id="txtNomNovio" style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.nombresnovio']}" required="true"
 								 value="#{partidaMatrimonioDataManager.novioInsertar.perNombres}" />
 						</td>	
 					</tr>
@@ -42,7 +42,7 @@
 							<h:outputLabel for="txtApeNovio" value="#{i18n['erp.despacho.partida.matrimonio.apellidosnovio']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtApeNovio" style="width: 100%"
+							<p:inputText id="txtApeNovio" style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.apellidosnovio']}" required="true"
 								 value="#{partidaMatrimonioDataManager.novioInsertar.perApellidos}" />
 						</td>	
 					</tr>
@@ -52,7 +52,7 @@
 							<h:outputText for="txtCiMadreNovio" value="#{i18n['erp.despacho.partida.matrimonio.cedulanovio.madre']}" />
 						</td>
 						<td width="70%" >
-						<p:inputText id="txtCiMadreNovio"  style="width: 100%"
+						<p:inputText id="txtCiMadreNovio"  style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.cedulanovio.madre']}" required="true"
 							  value="#{partidaMatrimonioDataManager.madre_novioInsertar.perCi}">
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur" update="txtApeMadreNovio,txtNomMadreNovio" listener="#{partidaMatrimonioController.buscarMadre_Novio}" process="@this"/> 
@@ -65,7 +65,7 @@
 							<h:outputLabel for="txtApeMadreNovio" value="#{i18n['erp.despacho.partida.matrimonio.apellidosnovio.madre']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtApeMadreNovio" style="width: 100%"
+							<p:inputText id="txtApeMadreNovio" style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.apellidosnovio.madre']}" required="true"
 								 value="#{partidaMatrimonioDataManager.madre_novioInsertar.perApellidos}" />
 						</td>	
 					</tr>
@@ -75,7 +75,7 @@
 							<h:outputLabel for="txtNomMadreNovio" value="#{i18n['erp.despacho.partida.matrimonio.nombresnovio.madre']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNomMadreNovio" style="width: 100%"
+							<p:inputText id="txtNomMadreNovio" style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.nombresnovio.madre']}" required="true"
 								 value="#{partidaMatrimonioDataManager.madre_novioInsertar.perNombres}" />
 						</td>	
 					</tr>
@@ -85,7 +85,7 @@
 							<h:outputText for="txtCiPadreNovio" value="#{i18n['erp.despacho.partida.matrimonio.cedulanovio.padre']}" />
 						</td>
 						<td width="70%" >
-						<p:inputText id="txtCiPadreNovio"  style="width: 100%"
+						<p:inputText id="txtCiPadreNovio"  style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.cedulanovio.padre']}" required="true"
 							  value="#{partidaMatrimonioDataManager.padre_novioInsertar.perCi}">
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur" update="txtApePadreNovio,txtNomPadreNovio" listener="#{partidaMatrimonioController.buscarPadre_Novio}" process="@this"/> 
@@ -98,7 +98,7 @@
 							<h:outputLabel for="txtApePadreNovio" value="#{i18n['erp.despacho.partida.matrimonio.apellidosnovio.padre']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtApePadreNovio" style="width: 100%"
+							<p:inputText id="txtApePadreNovio" style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.apellidosnovio.padre']}" required="true"
 								 value="#{partidaMatrimonioDataManager.padre_novioInsertar.perApellidos}" />
 						</td>	
 					</tr>
@@ -108,7 +108,7 @@
 							<h:outputLabel for="txtNomPadreNovio" value="#{i18n['erp.despacho.partida.matrimonio.nombresnovio.padre']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNomPadreNovio" style="width: 100%"
+							<p:inputText id="txtNomPadreNovio" style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.nombresnovio.padre']}" required="true"
 								 value="#{partidaMatrimonioDataManager.padre_novioInsertar.perNombres}" />
 						</td>	
 					</tr>
@@ -118,8 +118,8 @@
 							<h:outputLabel for="txtParroquiaNovio" value="#{i18n['erp.despacho.partida.matrimonio.parroquianovio']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtParroquiaNovio" style="width: 100%"
-								required="true" value="#{partidaMatrimonioDataManager.matrimonioDTO.matParroquiaNovio}"/>
+							<p:inputText id="txtParroquiaNovio" style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.parroquianovio']}"
+							      value="#{partidaMatrimonioDataManager.matrimonioDTO.matParroquiaNovio}"/>
 						</td>	
 					</tr>
 					<tr>
@@ -127,8 +127,8 @@
 							<h:outputLabel for="txtCodNovio" value="#{i18n['erp.despacho.partida.matrimonio.codigo.certificadonovio']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtCodNovio" style="width: 100%"
-								required="true" value="#{partidaMatrimonioDataManager.matrimonioDTO.matCertificadoNovio}" />
+							<p:inputText id="txtCodNovio" style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.codigo.certificadonovio']}"
+								 value="#{partidaMatrimonioDataManager.matrimonioDTO.matCertificadoNovio}" />
 						</td>	
 					</tr>	
 											
@@ -160,8 +160,8 @@
 							<h:outputLabel for="txtNomPadNov" value="#{i18n['erp.despacho.partida.matrimonio.nombres.padrinonovio']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNomPadNov" style="width: 100%"
-								 required="true" value="#{partidaMatrimonioDataManager.pad_novioInsertar.perNombres}"/>
+							<p:inputText id="txtNomPadNov" style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.nombres.padrinonovio']}"
+								  value="#{partidaMatrimonioDataManager.pad_novioInsertar.perNombres}"/>
 						</td>	
 					</tr>
 						
@@ -170,8 +170,8 @@
 							<h:outputLabel for="txtApePadNov" value="#{i18n['erp.despacho.partida.matrimonio.apellidos.padrinonovio']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtApePadNov" style="width: 100%"
-								 required="true" value="#{partidaMatrimonioDataManager.pad_novioInsertar.perApellidos}" />
+							<p:inputText id="txtApePadNov" style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.apellidos.padrinonovio']}"
+								  value="#{partidaMatrimonioDataManager.pad_novioInsertar.perApellidos}" />
 						</td>	
 					</tr>
 					
@@ -202,8 +202,8 @@
 							<h:outputLabel for="txtNomMadNov" value="#{i18n['erp.despacho.partida.matrimonio.nombres.madrinanovio']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNomMadNov" style="width: 100%"  
-								 required="true" value="#{partidaMatrimonioDataManager.mad_novioInsertar.perNombres}" />
+							<p:inputText id="txtNomMadNov" style="width: 100%"  label="#{i18n['erp.despacho.partida.matrimonio.nombres.madrinanovio']}"
+								  value="#{partidaMatrimonioDataManager.mad_novioInsertar.perNombres}" />
 						</td>	
 					</tr>
 					
@@ -212,8 +212,8 @@
 							<h:outputLabel for="txtApeMadNov" value="#{i18n['erp.despacho.partida.matrimonio.apellidos.madrinanovio']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtApeMadNov" style="width: 100%"  
-								 required="true" value="#{partidaMatrimonioDataManager.mad_novioInsertar.perApellidos}" />
+							<p:inputText id="txtApeMadNov" style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.apellidos.madrinanovio']}" 
+								  value="#{partidaMatrimonioDataManager.mad_novioInsertar.perApellidos}" />
 						</td>	
 					</tr>
 					
@@ -231,7 +231,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiNovia"  style="width: 70%"
-							 label="#{i18n['erp.despacho.partida.matrimonio.cedulanovia']}" value="#{partidaMatrimonioDataManager.noviaInsertar.perCi}">
+							  required="true" label="#{i18n['erp.despacho.partida.matrimonio.cedulanovia']}" value="#{partidaMatrimonioDataManager.noviaInsertar.perCi}">
 							<p:ajax event="blur" update="txtNomNovia,txtApeNovia" listener="#{partidaMatrimonioController.buscarNovia}" process="@this"/>
 							<f:validateLength maximum="10" minimum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
@@ -245,7 +245,7 @@
 							<h:outputLabel for="txtNomNovia" value="#{i18n['erp.despacho.partida.matrimonio.nombresnovia']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNomNovia" style="width: 100%"
+							<p:inputText id="txtNomNovia" style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.nombresnovia']}" required="true"
 								value="#{partidaMatrimonioDataManager.noviaInsertar.perNombres}" />
 						</td>	
 					</tr>
@@ -256,7 +256,7 @@
 							<h:outputLabel for="txtApeNovia" value="#{i18n['erp.despacho.partida.matrimonio.apellidosnovia']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtApeNovia" style="width: 100%"
+							<p:inputText id="txtApeNovia" style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.apellidosnovia']}"
 								required="true" value="#{partidaMatrimonioDataManager.noviaInsertar.perApellidos}" />
 						</td>	
 					</tr>
@@ -266,7 +266,7 @@
 							<h:outputText for="txtCiMadreNovia" value="#{i18n['erp.despacho.partida.matrimonio.cedulanovia.madre']}" />
 						</td>
 						<td width="70%" >
-						<p:inputText id="txtCiMadreNovia"  style="width: 100%"
+						<p:inputText id="txtCiMadreNovia"  style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.cedulanovia.madre']}" required="true"
 							  value="#{partidaMatrimonioDataManager.madre_noviaInsertar.perCi}">
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur" update="txtApeMadreNovia,txtNomMadreNovia" listener="#{partidaMatrimonioController.buscarMadre_Novia}" process="@this"/> 
@@ -279,7 +279,7 @@
 							<h:outputLabel for="txtApeMadreNovia" value="#{i18n['erp.despacho.partida.matrimonio.apellidosnovia.madre']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtApeMadreNovia" style="width: 100%"
+							<p:inputText id="txtApeMadreNovia" style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.apellidosnovia.madre']}" required="true"
 								 value="#{partidaMatrimonioDataManager.madre_noviaInsertar.perApellidos}" />
 						</td>	
 					</tr>
@@ -289,7 +289,7 @@
 							<h:outputLabel for="txtNomMadreNovia" value="#{i18n['erp.despacho.partida.matrimonio.nombresnovia.madre']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNomMadreNovia" style="width: 100%"
+							<p:inputText id="txtNomMadreNovia" style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.nombresnovia.madre']}" required="true"
 								 value="#{partidaMatrimonioDataManager.madre_noviaInsertar.perNombres}" />
 						</td>	
 					</tr>
@@ -299,7 +299,7 @@
 							<h:outputText for="txtCiPadreNovia" value="#{i18n['erp.despacho.partida.matrimonio.cedulanovia.padre']}" />
 						</td>
 						<td width="70%" >
-						<p:inputText id="txtCiPadreNovia"  style="width: 100%"
+						<p:inputText id="txtCiPadreNovia"  style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.cedulanovia.padre']}" required="true"
 							  value="#{partidaMatrimonioDataManager.padre_noviaInsertar.perCi}">
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur" update="txtApePadreNovia,txtNomPadreNovia" listener="#{partidaMatrimonioController.buscarPadre_Novia}" process="@this"/> 
@@ -312,7 +312,7 @@
 							<h:outputLabel for="txtApePadreNovia" value="#{i18n['erp.despacho.partida.matrimonio.apellidosnovia.padre']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtApePadreNovia" style="width: 100%"
+							<p:inputText id="txtApePadreNovia" style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.apellidosnovia.padre']}" required="true"
 								 value="#{partidaMatrimonioDataManager.padre_noviaInsertar.perApellidos}" />
 						</td>	
 					</tr>
@@ -322,7 +322,7 @@
 							<h:outputLabel for="txtNomPadreNovia" value="#{i18n['erp.despacho.partida.matrimonio.nombresnovia.padre']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNomPadreNovia" style="width: 100%"
+							<p:inputText id="txtNomPadreNovia" style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.nombresnovia.padre']}" required="true"
 								 value="#{partidaMatrimonioDataManager.padre_noviaInsertar.perNombres}" />
 						</td>	
 					</tr>
@@ -332,8 +332,8 @@
 							<h:outputLabel for="txtParroquiaNovia" value="#{i18n['erp.despacho.partida.matrimonio.parroquianovia']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtParroquiaNovia" style="width: 100%"
-								required="true" value="#{partidaMatrimonioDataManager.matrimonioDTO.matParroquiaNovia}"  />
+							<p:inputText id="txtParroquiaNovia" style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.parroquianovia']}"
+								 value="#{partidaMatrimonioDataManager.matrimonioDTO.matParroquiaNovia}"  />
 						</td>	
 					</tr>
 					<tr>
@@ -341,8 +341,8 @@
 							<h:outputLabel for="txtCodNovia" value="#{i18n['erp.despacho.partida.matrimonio.codigo.certificadonovia']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtCodNovia" style="width: 100%"
-								required="true" value="#{partidaMatrimonioDataManager.matrimonioDTO.matCertificadoNovia}" />
+							<p:inputText id="txtCodNovia" style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.codigo.certificadonovia']}"
+								 value="#{partidaMatrimonioDataManager.matrimonioDTO.matCertificadoNovia}" />
 						</td>	
 					</tr>	
 											
@@ -374,8 +374,8 @@
 							<h:outputLabel for="txtNomPadNovia" value="#{i18n['erp.despacho.partida.matrimonio.nombres.padrinonovia']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNomPadNovia" style="width: 100%"
-								 required="true" value="#{partidaMatrimonioDataManager.pad_noviaInsertar.perNombres}" />
+							<p:inputText id="txtNomPadNovia" style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.nombres.padrinonovia']}"
+								  value="#{partidaMatrimonioDataManager.pad_noviaInsertar.perNombres}" />
 						</td>	
 					</tr>
 						
@@ -384,8 +384,8 @@
 							<h:outputLabel for="txtApePadNovia" value="#{i18n['erp.despacho.partida.matrimonio.apellidos.padrinonovia']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtApePadNovia" style="width: 100%"
-								 required="true" value="#{partidaMatrimonioDataManager.pad_noviaInsertar.perApellidos}" />
+							<p:inputText id="txtApePadNovia" style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.apellidos.padrinonovia']}"
+								  value="#{partidaMatrimonioDataManager.pad_noviaInsertar.perApellidos}" />
 						</td>	
 					</tr>
 					
@@ -415,8 +415,8 @@
 							<h:outputLabel for="txtNomMadNovia" value="#{i18n['erp.despacho.partida.matrimonio.nombres.madrinanovia']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNomMadNovia" style="width: 100%"  
-								 required="true"  value="#{partidaMatrimonioDataManager.mad_noviaInsertar.perNombres}"/>
+							<p:inputText id="txtNomMadNovia" style="width: 100%" label="#{i18n['erp.despacho.partida.matrimonio.nombres.madrinanovia']}"
+								   value="#{partidaMatrimonioDataManager.mad_noviaInsertar.perNombres}"/>
 						</td>	
 					</tr>
 					
@@ -425,8 +425,8 @@
 							<h:outputLabel for="txtApeMadNovia" value="#{i18n['erp.despacho.partida.matrimonio.apellidos.madrinanovia']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtApeMadNovia" style="width: 100%"  
-								 required="true" value="#{partidaMatrimonioDataManager.mad_noviaInsertar.perApellidos}" />
+							<p:inputText id="txtApeMadNovia" style="width: 100%"  label="#{i18n['erp.despacho.partida.matrimonio.apellidos.madrinanovia']}"
+								  value="#{partidaMatrimonioDataManager.mad_noviaInsertar.perApellidos}" />
 						</td>	
 					</tr>
 					
@@ -443,7 +443,7 @@
 							<h:outputLabel for="txtFechaMatrimonio" value="#{i18n['erp.despacho.partida.matrimonio.fecha']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFechaMatrimonio" style="width: 100%" navigator="true"   showOn="button" required="true" value="#{partidaMatrimonioDataManager.fechaMatrInsertar}" />
+							<p:calendar id="txtFechaMatrimonio" style="width: 100%" navigator="true"   showOn="button" required="true" value="#{partidaMatrimonioDataManager.fechaMatrInsertar}" label="#{i18n['erp.despacho.partida.matrimonio.fecha']}" />
 						</td>	
 					</tr>
 					
@@ -452,7 +452,7 @@
 							<h:outputLabel for="txtFechaCurso" value="#{i18n['erp.despacho.partida.matrimonio.fecha.curso']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFechaCurso" style="width: 100%" navigator="true"   showOn="button" required="true" value="#{partidaMatrimonioDataManager.fechaApCurInsertar}" />
+							<p:calendar id="txtFechaCurso" style="width: 100%" navigator="true"   showOn="button" required="true" value="#{partidaMatrimonioDataManager.fechaApCurInsertar}" label="#{i18n['erp.despacho.partida.matrimonio.fecha.curso']}"/>
 						</td>	
 					</tr>
 								
@@ -464,7 +464,7 @@
 						
 						</td>
 					<td width="70%">
-					<p:selectOneMenu id="sacerdote" value="#{partidaMatrimonioDataManager.sacerdoteCodigo}" filter="true" required="true" >
+					<p:selectOneMenu id="sacerdote" value="#{partidaMatrimonioDataManager.sacerdoteCodigo}" label="#{i18n['erp.despacho.partida.matrimonio.sacerdote']}" filter="true" required="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{partidaMatrimonioController.partidaMatrimonioDataManager.sacerdoteListDTO}" var="sac" itemLabel="#{sac.perNombres} #{sac.perApellidos}" itemValue="#{sac.sacCodigo}"/>
 							</p:selectOneMenu>
@@ -472,8 +472,8 @@
 					</tr> 
 					
 					<tr>
-						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.matrimonio.provincia']}"  /> </td>
-						<td width="70%" ><p:selectOneMenu id="provincia" value="#{partidaMatrimonioDataManager.provincia}" filter="true" >
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.matrimonio.provincia']}" label="#{i18n['erp.despacho.partida.matrimonio.provincia']}" /> </td>
+						<td width="70%" ><p:selectOneMenu id="provincia" value="#{partidaMatrimonioDataManager.provincia}" filter="true" required="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{partidaMatrimonioController.partidaMatrimonioDataManager.provinciaEucaristiaDTOs}" var="provincia" itemLabel="#{provincia.catDescripcion} " itemValue="#{provincia.catCodigo}"/>
 								<p:ajax listener="#{partidaMatrimonioController.buscarCanton}" process="@this" update="canton"/>
@@ -483,7 +483,7 @@
 					
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.matrimonio.canton']}"  /> </td>
-						<td width="70%"><p:selectOneMenu id="canton" value="#{partidaMatrimonioDataManager.canton}" filter="true" >
+						<td width="70%"><p:selectOneMenu id="canton" value="#{partidaMatrimonioDataManager.canton}" label="#{i18n['erp.despacho.partida.matrimonio.canton']}" filter="true" required="true">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{partidaMatrimonioDataManager.cantonEucaristiaDTOs}" var="canton" itemLabel="#{canton.catDescripcion}" itemValue="#{canton.catCodigo}"/>
 								<p:ajax listener="#{partidaMatrimonioController.buscarParroquia}" process="@this" update="parroquia"/>
@@ -491,8 +491,8 @@
 						</td>
 					</tr>		
 					<tr>
-						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.bautizo.parroquia']}"  /> </td>
-						<td width="70%" ><p:selectOneMenu id="parroquia" value="#{partidaMatrimonioDataManager.parroquia}" filter="true" >
+						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.partida.matrimonio.parroquia']}"  /> </td>
+						<td width="70%" ><p:selectOneMenu id="parroquia" value="#{partidaMatrimonioDataManager.parroquia}" label="#{i18n['erp.despacho.partida.matrimonio.parroquia']}" filter="true" required="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{partidaMatrimonioDataManager.parroquiaEucaristiaDTOs}" var="parroquia" itemLabel="#{parroquia.catDescripcion}" itemValue="#{parroquia.catCodigo}"/>
 							</p:selectOneMenu>
@@ -510,7 +510,7 @@
 							<h:outputLabel for="txtNotaM" value="#{i18n['erp.despacho.partida.matrimonio.nota.marginal']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNotaM" style="width: 100%" value="#{partidaMatrimonioDataManager.matrimonioDTO.matNotaMarginal}" maxlength="255"/>
+							<p:inputText id="txtNotaM" style="width: 100%" value="#{partidaMatrimonioDataManager.matrimonioDTO.matNotaMarginal}" label="#{i18n['erp.despacho.partida.matrimonio.nota.marginal']}" maxlength="255"/>
 						</td>	
 					</tr>
 					
@@ -519,7 +519,7 @@
 							<h:outputLabel for="txtTomo" value="#{i18n['erp.despacho.partida.matrimonio.tomo']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtTomo" style="width: 100%"  
+							<p:inputText id="txtTomo" style="width: 100%"  label="#{i18n['erp.despacho.partida.matrimonio.tomo']}"
 								 required="true" value="#{partidaMatrimonioDataManager.matrimonioDTO.matTomo}" onkeypress="return isNumberKey(event)" maxlength="10"/>
 						</td>	
 					</tr>
@@ -541,7 +541,7 @@
 							<h:outputLabel for="txtPagina" value="#{i18n['erp.despacho.partida.matrimonio.pagina']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtPagina" style="width: 100%"  
+							<p:inputText id="txtPagina" style="width: 100%"  label="#{i18n['erp.despacho.partida.matrimonio.pagina']}"
 								 required="true"  value="#{partidaMatrimonioDataManager.matrimonioDTO.matPagina}" onkeypress="return isNumberKey(event)" maxlength="10"/>
 						</td>	
 					</tr>

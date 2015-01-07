@@ -161,7 +161,7 @@ public class PartidaBautizoController extends BaseController {
 			if (partidaBautizoDataManager.getFechaApCInsertar().getTime() > partidaBautizoDataManager
 					.getFechaBautizoInsertar().getTime()) {
 				MensajesWebController
-						.aniadirMensajeError("Ingrese fecha de Aprobaci�n del Curso Correcta");
+						.aniadirMensajeError("Ingrese fecha de Aprobacion del Curso Correcta");
 				return;
 			}
 			bautizoVO.getBautizo().setBauFechaAprobacionCruso(
