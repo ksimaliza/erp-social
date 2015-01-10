@@ -32,6 +32,12 @@ public class NichoListDTO implements Serializable {
 
 	@Column(name="nic_seccion")
 	private Integer nicSeccion;
+	
+	@Column(name="nic_empresa")
+	private Integer nicEmpresa;
+	
+	@Column(name="nic_estado")
+	private String nicEstado;
 
 	@Column(name="nic_tipo")
 	private Integer nicTipo;
@@ -150,4 +156,21 @@ public class NichoListDTO implements Serializable {
 		this.tniDescripcion = tniDescripcion;
 	}
 
+	public Integer getNicEmpresa() {
+		return nicEmpresa;
+	}
+
+	public void setNicEmpresa(Integer nicEmpresa) {
+		this.nicEmpresa = nicEmpresa;
+	}
+
+	public String getNicEstado() {
+		return nicEstado;
+	}
+
+	public void setNicEstado(String nicEstado) {
+		this.nicEstado = nicEstado;
+	}
+   
+	
 }

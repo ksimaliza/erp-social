@@ -1,5 +1,6 @@
 package ec.edu.uce.erp.web.datamanager;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -163,5 +164,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(SepulturaDataM
 		this.nichoListDTO = nichoListDTO;
 	}
 
-
+	public String getEstadoDesactivo() {
+		return null;
+	}
 }

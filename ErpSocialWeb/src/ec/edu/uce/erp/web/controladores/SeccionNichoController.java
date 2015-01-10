@@ -1,14 +1,17 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -50,11 +53,12 @@ public void registrarSeccionNicho () {
 		slf4jLogger.info("registrarSeccionNicho");
 		try {
 			this.seccionNichoDataManager.getSeccionNichoInsertar().setEucCatalogo(this.servicioEucaristia.obtenerSeccionNichoPorId(29));
+			this.seccionNichoDataManager.getSeccionNichoInsertar().setCatEmpresa(getEmpresaTbl().getEmrPk());
 			CatalogoEucaristiaDTO SeccionNichoNuevo=this.servicioEucaristia.createOrUpdateSeccionNicho(this.seccionNichoDataManager.getSeccionNichoInsertar());
 			
 			if (SeccionNichoNuevo != null) {
 				seccionNichoDataManager.setSeccionNichoInsertar(new CatalogoEucaristiaDTO());
-				MensajesWebController.aniadirMensajeInformacion("Se ha registrado correctamente nueva sección");
+				MensajesWebController.aniadirMensajeInformacion("Seccion Nicho guardado correctamente");
 			}
 			buscarSeccionNicho();
 		} catch (SeguridadesException e) {
@@ -70,9 +74,11 @@ public void registrarSeccionNicho () {
 		List<CatalogoEucaristiaDTO> listaSeccionNicho=null;
 		
 		try {
+			seccionNichoDataManager.getSeccionNichoBuscar().setCatEmpresa(getEmpresaTbl().getEmrPk());
 			listaSeccionNicho = this.servicioEucaristia.buscarSeccionNicho(seccionNichoDataManager.getSeccionNichoBuscar());
 			
 			if (CollectionUtils.isEmpty(listaSeccionNicho) && listaSeccionNicho.size()==0) {
+				this.seccionNichoDataManager.setSeccionNichoDTOs(new ArrayList<CatalogoEucaristiaDTO>());
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.seccionNichoDataManager.setSeccionNichoDTOs(listaSeccionNicho);

@@ -62,7 +62,11 @@ public class NivelNichoDAOImpl extends AbstractFacadeImpl<NivelNichoDTO> impleme
 			predicate = cb.like(cb.upper(from.<String>get("nniDescripcion")), descNivelNicho);
 			criteriaList.add(predicate);
 		}
-		
+		//por empresa
+				if (nivelNichoDTO.getNniEmpresa()!=null) {
+					predicate = cb.equal(from.get("nniEmpresa"), nivelNichoDTO.getNniEmpresa());
+					criteriaList.add(predicate);
+				}
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		
 		TypedQuery<NivelNichoDTO> typedQuery = entityManager.createQuery(select);

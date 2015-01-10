@@ -30,7 +30,7 @@
 							<h:outputLabel for="txtNomSeccionNicho" value="#{i18n['erp.despacho.seccion.nicho.nombre']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNomSeccionNicho"  />
+							<p:inputText id="txtNomSeccionNicho" label="#{i18n['erp.despacho.seccion.nicho.nombre']}"   value="#{seccionNichoDataManager.seccionNichoBuscar.catDescripcion}" />
 						</td>	
 					</tr>
 										
@@ -65,7 +65,9 @@
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
-							>
+							oncomplete="dlgEditarSeccionNicho.show()"
+							actionListener="#{seccionNichoController.cargarDatosSeccionNicho(snicho)}"
+							process="@this" update=":formEditarSeccionNicho:pnlEditarSeccionNicho,:formEditarSeccionNicho:pnlBotones">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
 					</h:panelGroup>
@@ -74,6 +76,7 @@
 	
 	</h:form>			
 		<ui:include src="dialogNuevoSeccionNicho.xhtml" />
+		<ui:include src="dialogEditarSeccionNicho.xhtml" />
 		
 		
 </ui:define>		

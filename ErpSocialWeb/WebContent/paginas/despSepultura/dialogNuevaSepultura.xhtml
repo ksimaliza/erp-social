@@ -50,7 +50,7 @@
 						
 						</td>
 					<td width="70%">
-					<p:selectOneMenu id="nicho" value="#{sepulturaDataManager.codigoNicho}" filter="true"  disabled="#{sepulturaDataManager.desactivado}" >
+					<p:selectOneMenu id="nicho" label="#{i18n['erp.despacho.sepultura.numero_nicho']}" required="true" value="#{sepulturaDataManager.codigoNicho}" filter="true"  disabled="#{sepulturaDataManager.desactivado}" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{sepulturaController.sepulturaDataManager.nichoListDTOs2}" var="nicho" itemLabel="#{nicho.nicDescripcion}" itemValue="#{nicho.nicCodigo}"/>
 								<p:ajax listener="#{sepulturaController.buscarNicho2}" process="@this" update="txtSeccionNicho,txtTipoNicho,txtNivelNicho"/>

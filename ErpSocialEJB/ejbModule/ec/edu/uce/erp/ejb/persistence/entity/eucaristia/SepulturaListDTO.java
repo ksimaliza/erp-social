@@ -62,6 +62,9 @@ public class SepulturaListDTO implements Serializable {
 
 	@Column(name="sep_observacion")
 	private String sepObservacion;
+	
+	@Column(name="sep_empresa")
+	private Integer sepEmpresa;
 
 	@Column(name="tni_descripcion")
 	private String tniDescripcion;
@@ -240,4 +243,12 @@ public class SepulturaListDTO implements Serializable {
 		this.fechaHasta = fechaHasta;
 	}
 
+	public Integer getSepEmpresa() {
+		return sepEmpresa;
+	}
+
+	public void setSepEmpresa(Integer sepEmpresa) {
+		this.sepEmpresa = sepEmpresa;
+	}
+ 
 }

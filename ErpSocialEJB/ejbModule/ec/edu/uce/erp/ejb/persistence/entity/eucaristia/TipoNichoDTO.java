@@ -23,7 +23,10 @@ public class TipoNichoDTO implements Serializable {
 
 	@Column(name="tni_descripcion")
 	private String tniDescripcion;
-
+  
+	@Column(name="tni_empresa")
+	private Integer tniEmpresa;
+	
 	//bi-directional many-to-one association to NichoDTO
 	@OneToMany(mappedBy="eucTipoNicho")
 	private List<NichoDTO> eucNichos;
@@ -69,4 +72,12 @@ public class TipoNichoDTO implements Serializable {
 		return eucNicho;
 	}
 
+	public Integer getTniEmpresa() {
+		return tniEmpresa;
+	}
+
+	public void setTniEmpresa(Integer tniEmpresa) {
+		this.tniEmpresa = tniEmpresa;
+	}
+ 
 }
