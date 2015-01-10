@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.common.util.ConstantesApplication;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.dao.factory.EucaristiaFactoryDAO;
 import ec.edu.uce.erp.ejb.dao.factory.FactoryDAO;
@@ -449,7 +450,7 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		slf4jLogger.info("buscarCatalogo");
 		List<CatalogoEucaristiaDTO> listCatalogo = null;
 		try {
-			listCatalogo = eucaristiaFactoryDAO.getCatalogoDAOImpl().getAll(catalogoEucaristiaDTO);
+			listCatalogo = eucaristiaFactoryDAO.getCatalogoDAOImpl().obtenerSeccionNicho(catalogoEucaristiaDTO);
 		} catch (Exception e) {
 			slf4jLogger.info("Error al buscarCatalogo {}", e.getMessage());
 			throw new SeguridadesException("No se pudo buscarCatalogo de la base de datos");
@@ -1400,16 +1401,26 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 					
 			
 			sepulturaVO.getSepultura().setSepDifunto(difuntoPersona.getPerPk());
-			
-			
+				
 		if(sepulturaVO.getSepultura().getSepCodigo()!=null){
+			if(sepulturaVO.getNichoDTO().getNicCodigo()!=null)
+			{
 				nichoDTO=eucaristiaFactoryDAO.getNichoDAOImpl().find(sepulturaVO.getNichoDTO().getNicCodigo());
+				//nicho ocupado
+				nichoDTO.setNicEstado(ConstantesApplication.ESTADO_INACTIVO);
+				eucaristiaFactoryDAO.getNichoDAOImpl().update(nichoDTO);
 				sepulturaVO.getSepultura().setSepNicho(nichoDTO.getNicCodigo());
+			}else
+				//sin nicho 
+				sepulturaVO.getSepultura().setSepNicho(0);
 							
 				return  eucaristiaFactoryDAO.getSepulturaDAOImpl().update(sepulturaVO.getSepultura());
 			}
 			else{
 				nichoDTO=eucaristiaFactoryDAO.getNichoDAOImpl().find(sepulturaVO.getNichoDTO().getNicCodigo());
+				//nicho ocupado
+				nichoDTO.setNicEstado(ConstantesApplication.ESTADO_INACTIVO);
+				eucaristiaFactoryDAO.getNichoDAOImpl().update(nichoDTO);
 				sepulturaVO.getSepultura().setSepNicho(nichoDTO.getNicCodigo());			
 				return  eucaristiaFactoryDAO.getSepulturaDAOImpl().create(sepulturaVO.getSepultura());
 				

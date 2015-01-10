@@ -80,7 +80,12 @@ public class CatalogoDAOImpl extends AbstractFacadeImpl<CatalogoEucaristiaDTO> i
 			predicate = cb.like(cb.upper(from.<String>get("catDescripcion")), descNivelNicho);
 			criteriaList.add(predicate);
 		}
-		
+
+		//por empresa
+		if (seccionNichoDTO.getCatEmpresa()!=null) {
+			predicate = cb.equal(from.get("catEmpresa"), seccionNichoDTO.getCatEmpresa());
+			criteriaList.add(predicate);
+		}
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		
 		TypedQuery<CatalogoEucaristiaDTO> typedQuery = entityManager.createQuery(select);

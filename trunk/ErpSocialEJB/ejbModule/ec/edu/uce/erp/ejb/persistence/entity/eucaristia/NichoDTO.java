@@ -35,6 +35,12 @@ public class NichoDTO implements Serializable {
 	
 	@Column(name="nic_seccion")
 	private Integer nicSeccion;
+	
+	@Column(name="nic_empresa")
+	private Integer nicEmpresa;
+	
+	@Column(name="nic_estado")
+	private String nicEstado;
 
 	/*//bi-directional many-to-one association to ContratoDTO
 	@OneToMany(mappedBy="eucNicho")
@@ -115,4 +121,20 @@ public class NichoDTO implements Serializable {
 		this.nicSeccion = nicSeccion;
 	}
 
+	public Integer getNicEmpresa() {
+		return nicEmpresa;
+	}
+
+	public void setNicEmpresa(Integer nicEmpresa) {
+		this.nicEmpresa = nicEmpresa;
+	}
+
+	public String getNicEstado() {
+		return nicEstado;
+	}
+
+	public void setNicEstado(String nicEstado) {
+		this.nicEstado = nicEstado;
+	}
+    
 }

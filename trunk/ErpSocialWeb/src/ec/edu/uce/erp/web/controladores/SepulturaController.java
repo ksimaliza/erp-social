@@ -13,6 +13,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.common.util.ConstantesApplication;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
@@ -85,7 +86,7 @@ public class SepulturaController extends BaseController {
 						
 			sepulturaVO.setDefuncionPersona(sepulturaDataManager.getDefuncionInsertar());
 			sepulturaVO.getSepultura().setSepDifunto(sepulturaDataManager.getDefuncionInsertar().getPerPk());
-					
+			sepulturaVO.getSepultura().setSepEmpresa(getEmpresaTbl().getEmrPk());		
 			SepulturaDTO sepulturaNueva=this.servicioEucaristia.createOrUpdateSepultura(sepulturaVO);
 												
 			if (sepulturaNueva!= null) {
@@ -109,11 +110,13 @@ public class SepulturaController extends BaseController {
 		List<NichoListDTO> listResultado=new ArrayList<NichoListDTO>();
 		
 		try {
-			
-			listResultado = this.servicioEucaristia.buscarNicho(new NichoListDTO());
+			NichoListDTO nichoListDTO=new NichoListDTO();
+			nichoListDTO.setNicEmpresa(getEmpresaTbl().getEmrPk());
+			nichoListDTO.setNicEstado(ConstantesApplication.ESTADO_ACTIVO);
+			listResultado = this.servicioEucaristia.buscarNicho(nichoListDTO);
 			
 			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				MensajesWebController.aniadirMensajeAdvertencia("erp.despacho.sepultura.nicho.mensaje.busqueda.vacia");
 			} else {
 				this.sepulturaDataManager.setNichoListDTOs2(listResultado);
 				
@@ -159,6 +162,7 @@ public class SepulturaController extends BaseController {
 		List<SepulturaListDTO> listaSepultura = null;
 
 		try {
+			this.sepulturaDataManager.getSepulturaListDTO().setSepEmpresa(getEmpresaTbl().getEmrPk());
 			listaSepultura = this.servicioEucaristia.readSepultura(this.sepulturaDataManager.getSepulturaListDTO());
 			if (CollectionUtils.isEmpty(listaSepultura)
 					&& listaSepultura.size() == 0) {
@@ -199,7 +203,7 @@ public class SepulturaController extends BaseController {
 				
 				if ((CollectionUtils.isEmpty(listaDifunto) && listaDifunto.size()==0)||CollectionUtils.isEmpty(list) && list.size()==0) {
 					sepulturaDataManager.setDesactivado(true);
-					MensajesWebController.aniadirMensajeAdvertencia("Difunto no encontrado. Ingresar información en Defunción");
+					MensajesWebController.aniadirMensajeAdvertencia("Difunto no encontrado. Ingresar informacion en Defuncion");
 				} else {
 					sepulturaDataManager.setDefuncionInsertar(listaDifunto.get(0));
 					sepulturaDataManager.setDefuncionlistDTO(list.get(0));
@@ -227,12 +231,16 @@ public class SepulturaController extends BaseController {
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosSepultura seleccionado");
 		}
 	}
-	//permite cargar lista de difuntos que no estan todavía sepultadas
+	//permite cargar lista de difuntos que no estan todavï¿½a sepultadas
 	public void buscarDifuntos() {
 		try {
 			sepulturaDataManager.setDefuncionListDTOs(new ArrayList<DefuncionListDTO>());
-			List<DefuncionListDTO> difuntosEncontrados=servicioEucaristia.buscarDefuncion(new DefuncionListDTO());
-			List<SepulturaListDTO> sepultutasEncontrados=servicioEucaristia.readSepultura(new SepulturaListDTO());
+			DefuncionListDTO defuncion = new DefuncionListDTO();
+			SepulturaListDTO sepultura = new SepulturaListDTO();
+			defuncion.setDefEmpresa(getEmpresaTbl().getEmrPk());
+			sepultura.setSepEmpresa(getEmpresaTbl().getEmrPk());
+			List<DefuncionListDTO> difuntosEncontrados=servicioEucaristia.buscarDefuncion(defuncion);
+			List<SepulturaListDTO> sepultutasEncontrados=servicioEucaristia.readSepultura(sepultura);
 			
 			if (!CollectionUtils.isEmpty(difuntosEncontrados) && difuntosEncontrados.size()!=0 && !CollectionUtils.isEmpty(sepultutasEncontrados) && sepultutasEncontrados.size()!=0 ||
 			    !CollectionUtils.isEmpty(difuntosEncontrados) && difuntosEncontrados.size()!=0 && (CollectionUtils.isEmpty(sepultutasEncontrados) || sepultutasEncontrados.size()!=0)
@@ -262,8 +270,10 @@ public class SepulturaController extends BaseController {
 		sepulturaDataManager.setSepulturaDTO(new SepulturaDTO());
 		sepulturaDataManager.setDefuncionInsertar(new Persona());
 		sepulturaDataManager.setNichoListDTO(new NichoListDTO());
+		sepulturaDataManager.setNichoListDTOs2(new ArrayList<NichoListDTO>());
 		sepulturaDataManager.setDesactivado(false);
 		buscarDifuntos();
+		buscarNicho();
 	}
 
 	@Override
@@ -299,6 +309,42 @@ public class SepulturaController extends BaseController {
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosSepulturasEditar {}", e.getMessage());
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosSepultura seleccionado");
+		}
+		
+	}
+	
+public void inactivarSepultura () {
+		
+		slf4jLogger.info("inactivarModulo");
+		
+		try {
+			
+			if (this.sepulturaDataManager.getSepulturaDTO()!=null) {
+				SepulturaVO sepulturaVO=new SepulturaVO();
+				sepulturaVO.setSepultura(this.sepulturaDataManager.getSepulturaDTO());
+				sepulturaVO.setDefuncionPersona(sepulturaDataManager.getDefuncionInsertar());
+				SepulturaDTO sepulturaNueva=this.servicioEucaristia.createOrUpdateSepultura(sepulturaVO);
+				if(sepulturaNueva!=null){
+				NichoListDTO nicho= new NichoListDTO();
+				nicho.setNicCodigo(this.sepulturaDataManager.getCodigoNicho());
+				
+				List<NichoListDTO> listaNichos=servicioEucaristia.buscarNicho(nicho);
+				if(listaNichos!=null)
+				{
+					NichoDTO nichoDTO= servicioEucaristia.obtenerNichoPorId(listaNichos.get(0));
+					
+				//deja libre el nicho
+				nichoDTO.setNicEstado(ConstantesApplication.ESTADO_ACTIVO);
+				 servicioEucaristia.createOrUpdateNicho(nichoDTO);
+				}
+				
+				MensajesWebController.aniadirMensajeInformacion("erp.despacho.sepultura.actualizar");
+				}
+				
+			}
+			buscarSepultura();
+		} catch (SeguridadesException e) {
+			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 		
 	}

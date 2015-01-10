@@ -23,6 +23,9 @@ public class NivelNichoDTO implements Serializable {
 
 	@Column(name="nni_descripcion")
 	private String nniDescripcion;
+	
+	@Column(name="nnicho")
+	private Integer nniEmpresa;
 
 	//bi-directional many-to-one association to NichoDTO
 	@OneToMany(mappedBy="eucNivelNicho")
@@ -69,4 +72,12 @@ public class NivelNichoDTO implements Serializable {
 		return eucNicho;
 	}
 
+	public Integer getNniEmpresa() {
+		return nniEmpresa;
+	}
+
+	public void setNniEmpresa(Integer nniEmpresa) {
+		this.nniEmpresa = nniEmpresa;
+	}
+   
 }

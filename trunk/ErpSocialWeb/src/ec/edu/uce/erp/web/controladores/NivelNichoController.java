@@ -1,5 +1,6 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -49,7 +50,7 @@ public void registrarNivelNicho () {
 		
 		slf4jLogger.info("registrarNivelNicho");
 		try {
-			
+			this.nivelNichoDataManager.getNivelNichoInsertar().setNniEmpresa(getEmpresaTbl().getEmrPk());
 			NivelNichoDTO NivelNichoNuevo=this.servicioEucaristia.createOrUpdateNivelNicho(this.nivelNichoDataManager.getNivelNichoInsertar());
 			
 			if (NivelNichoNuevo != null) {
@@ -70,9 +71,11 @@ public void registrarNivelNicho () {
 		List<NivelNichoDTO> listaNivelNicho=null;
 		
 		try {
+			nivelNichoDataManager.getNivelNichoBuscar().setNniEmpresa(getEmpresaTbl().getEmrPk());
 			listaNivelNicho = this.servicioEucaristia.buscarNivelNicho(nivelNichoDataManager.getNivelNichoBuscar());
 			
 			if (CollectionUtils.isEmpty(listaNivelNicho) && listaNivelNicho.size()==0) {
+				this.nivelNichoDataManager.setNivelNichoDTOs(new ArrayList<NivelNichoDTO>());
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.nivelNichoDataManager.setNivelNichoDTOs(listaNivelNicho);

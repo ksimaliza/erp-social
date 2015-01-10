@@ -23,6 +23,9 @@ public class CatalogoEucaristiaDTO implements Serializable {
 
 	@Column(name="cat_descripcion")
 	private String catDescripcion;
+	
+	@Column(name="cat_empresa")
+	private Integer catEmpresa;
 
 	//bi-directional many-to-one association to CatalogoDTO
 	@ManyToOne
@@ -82,4 +85,12 @@ public class CatalogoEucaristiaDTO implements Serializable {
 		return eucCatalogo;
 	}
 
+	public Integer getCatEmpresa() {
+		return catEmpresa;
+	}
+
+	public void setCatEmpresa(Integer catEmpresa) {
+		this.catEmpresa = catEmpresa;
+	}
+ 
 }

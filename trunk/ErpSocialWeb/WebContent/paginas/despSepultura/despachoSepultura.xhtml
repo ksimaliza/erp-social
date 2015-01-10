@@ -118,9 +118,39 @@
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
 					</h:panelGroup>
+					<h:panelGroup>
+						<h:outputText value="&#160;|&#160;" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.activar']}" 
+							oncomplete="dlgEditarSepultura.show()"
+							actionListener="#{sepulturaController.cargarDatosSepulturasEditar(sepultura)}"
+							process="@this" update=":formEditarSepultura:pnlEditarSepultura"
+							rendered="#{sepultura.nicCodigo.toString()==sepulturaDataManager.estadoDesactivo}">
+							<h:graphicImage value="/resources/img/tick.png" alt="#{i18n['label.activar']}"/>
+						</p:commandLink>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.desabilitar']}"
+							actionListener="#{sepulturaController.cargarDatosSepulturasEditar(sepultura)}"
+							 oncomplete="dlgInactivar.show()"
+							rendered="#{!(sepultura.nicCodigo.toString()==sepulturaDataManager.estadoDesactivo)}">
+							<h:graphicImage value="/resources/img/delete.png" alt="#{i18n['label.desabilitar']}"/>
+						</p:commandLink>
+					</h:panelGroup>
 					</p:column>
 			</p:dataTable>			
-	
+	    <!-- Desactivar modulo -->
+			<p:confirmDialog id="dialogInactivar" message="#{i18n['erp.despacho.sepultura.desactivar.pregunta.confirmacion']}" appendTo="@(body)"
+				header="#{i18n['erp.despacho.sepultura.desactivar']}" severity="alert" widgetVar="dlgInactivar" >
+				<p:commandButton value="#{i18n['label.aceptar']}"
+					actionListener="#{sepulturaController.inactivarSepultura}"
+					oncomplete="dlgInactivar.hide()" 
+					update=":formSepultura:pnlMessages,:formSepultura:tablaSepultura" process="@this"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgInactivar.hide();" type="button" />
+			</p:confirmDialog>
 	</h:form>			
 		<ui:include src="dialogNuevaSepultura.xhtml" />
 		<ui:include src="dialogEditarSepultura.xhtml" />

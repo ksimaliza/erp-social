@@ -36,7 +36,7 @@ public class TipoNichoDAOImpl extends AbstractFacadeImpl<TipoNichoDTO> implement
 	@Override
 	public List<TipoNichoDTO> obtenerTipoNicho(TipoNichoDTO tipoNichoDTO) throws SeguridadesException {
 		
-		slf4jLogger.info("obtenerMateria");
+		slf4jLogger.info("obtenerTipoNicho");
 		List<TipoNichoDTO> tipoNichoEncontrado = null;
 		
 		List<Predicate> criteriaList = null;
@@ -62,6 +62,11 @@ public class TipoNichoDAOImpl extends AbstractFacadeImpl<TipoNichoDTO> implement
 			criteriaList.add(predicate);
 		}
 		
+		//por empresa
+		if (tipoNichoDTO.getTniEmpresa()!=null) {
+			predicate = cb.equal(from.get("tniEmpresa"), tipoNichoDTO.getTniEmpresa());
+			criteriaList.add(predicate);
+		}
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		
 		TypedQuery<TipoNichoDTO> typedQuery = entityManager.createQuery(select);

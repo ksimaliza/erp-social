@@ -30,7 +30,7 @@
 							<h:outputLabel for="txtNumNicho" value="#{i18n['erp.despacho.nicho.numero']}"  />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNumNicho" value="#{nichoDataManager.nichoListDTO.nicDescripcion}"  />
+							<p:inputText id="txtNumNicho" label="#{i18n['erp.despacho.nicho.numero']}" value="#{nichoDataManager.nichoListDTO.nicDescripcion}"  />
 						</td>	
 					</tr>
 										
@@ -72,8 +72,15 @@
 				<p:column headerText="#{i18n['erp.despacho.nicho.seccion']}" width="40%">
 					<h:outputText  value="#{nicho.catDescripcion}" />
 				</p:column>
-				
-											
+				<p:column headerText="#{i18n['erp.despacho.nicho.estado']}" width="40%">
+				<p:selectOneMenu id="inputEstado"
+								
+								value="#{nicho.nicEstado}" disabled="true" >
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{sepulturaDataManager.estadoActivo}"/>
+								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{sepulturaDataManager.estadoInactivo}"/>
+							</p:selectOneMenu>
+				</p:column>							
 			<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"

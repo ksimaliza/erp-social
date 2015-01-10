@@ -16,14 +16,14 @@
 							<h:outputLabel for="txtNum" value="#{i18n['erp.despacho.nicho.numero']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNum" style="width: 100%"  required="true"  value="#{nichoDataManager.nichoInsertar.nicDescripcion}"/>
+							<p:inputText id="txtNum" style="width: 100%" label="#{i18n['erp.despacho.nicho.numero']}"  required="true"  value="#{nichoDataManager.nichoInsertar.nicDescripcion}"/>
 						</td>	
 					</tr>
 					
 										
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.nicho.seccion']}"  /> </td>
-						<td width="70%"><p:selectOneMenu id="listboxSeccion" value="#{nichoDataManager.codigoSeccion}" filter="true" >
+						<td width="70%"><p:selectOneMenu id="listboxSeccion" value="#{nichoDataManager.codigoSeccion}" label="#{i18n['erp.despacho.nicho.seccion']}" required="true" filter="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{nichoController.nichoDataManager.seccionEucaristiaDTOs}" var="seccion" itemLabel="#{seccion.catDescripcion}" itemValue="#{seccion.catCodigo}"/>
 							</p:selectOneMenu>
@@ -32,7 +32,7 @@
 								
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.nicho.tipo']}"  /> </td>
-						<td width="70%"><p:selectOneMenu id="listboxTipo" value="#{nichoDataManager.codigoTipoNicho}" filter="true" >
+						<td width="70%"><p:selectOneMenu id="listboxTipo" value="#{nichoDataManager.codigoTipoNicho}" label="#{i18n['erp.despacho.nicho.tipo']}" required="true" filter="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{nichoController.nichoDataManager.tipoNichoDTOs}" var="tipo" itemLabel="#{tipo.tniDescripcion}" itemValue="#{tipo.tniCodigo}"/>
 							</p:selectOneMenu>
@@ -41,7 +41,7 @@
 								
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.nicho.nivel']}"  /> </td>
-						<td width="70%"><p:selectOneMenu id="listboxNivel" value="#{nichoDataManager.codigoNivelNicho}" filter="true" >
+						<td width="70%"><p:selectOneMenu id="listboxNivel" value="#{nichoDataManager.codigoNivelNicho}" label="#{i18n['erp.despacho.nicho.nivel']}" required="true" filter="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{nichoController.nichoDataManager.nivelNichoDTOs}" var="nivel" itemLabel="#{nivel.nniDescripcion}" itemValue="#{nivel.nniCodigo}"/>
 							</p:selectOneMenu>

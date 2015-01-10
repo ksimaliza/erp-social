@@ -71,6 +71,16 @@ public class NichoDAOImpl extends AbstractFacadeImpl<NichoDTO> implements NichoD
 			criteriaList.add(predicate);
 		}
 		
+		//por empresa
+		if (nichoListDTO.getNicEmpresa()!=null) {
+			predicate = cb.equal(from.get("nicEmpresa"), nichoListDTO.getNicEmpresa());
+			criteriaList.add(predicate);
+		}
+		//por estado
+		if (StringUtils.isNotBlank(nichoListDTO.getNicEstado())) {
+			predicate = cb.equal(from.get("nicEstado"), nichoListDTO.getNicEstado());
+			criteriaList.add(predicate);
+		}
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		
 		TypedQuery<NichoListDTO> typedQuery = entityManager.createQuery(select);

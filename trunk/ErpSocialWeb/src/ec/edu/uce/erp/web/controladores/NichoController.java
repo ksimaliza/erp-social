@@ -10,10 +10,12 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.context.ApplicationContext;
 import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.common.util.ConstantesApplication;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.NichoDTO;
@@ -84,7 +86,9 @@ public void registrarNicho () {
 		nicho.setEucTipoNicho(tipoNicho);
 		nicho.setNicSeccion(seccionNicho.getCatCodigo());
 		nicho.setNicDescripcion(nichoDataManager.getNichoInsertar().getNicDescripcion());
-		
+		nicho.setNicCodigo(nichoDataManager.getNichoInsertar().getNicCodigo());
+		nicho.setNicEmpresa(getEmpresaTbl().getEmrPk());
+		nicho.setNicEstado(ConstantesApplication.ESTADO_ACTIVO);
 		NichoDTO nichoNuevo=this.servicioEucaristia.createOrUpdateNicho(nicho);
 					
 		if (nichoNuevo != null) {
@@ -109,9 +113,11 @@ public void buscar() {
 	slf4jLogger.info("buscarNicho");
 	List<NichoListDTO> listResultado=new ArrayList<NichoListDTO>();
 	try {
+		nichoDataManager.getNichoListDTO().setNicEmpresa(getEmpresaTbl().getEmrPk());
 		listResultado = this.servicioEucaristia.buscarNicho(nichoDataManager.getNichoListDTO());
 		
 		if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
+			this.nichoDataManager.setNichoDTOs(new ArrayList<NichoListDTO>());
 			MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 		} else {
 			this.nichoDataManager.setNichoDTOs(listResultado);
@@ -130,10 +136,12 @@ public void buscarNivelNicho () {
 	List<NivelNichoDTO> listaNivelNicho=null;
 	
 	try {
-		listaNivelNicho = this.servicioEucaristia.buscarNivelNicho(new NivelNichoDTO());
+		NivelNichoDTO nivelNichoDTO=new NivelNichoDTO();
+		nivelNichoDTO.setNniEmpresa(getEmpresaTbl().getEmrPk());
+		listaNivelNicho = this.servicioEucaristia.buscarNivelNicho(nivelNichoDTO);
 		
 		if (CollectionUtils.isEmpty(listaNivelNicho) && listaNivelNicho.size()==0) {
-			MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			MensajesWebController.aniadirMensajeAdvertencia("Nivel Nicho "+"erp.mensaje.busqueda.vacia");
 		} else {
 			
 			this.nichoDataManager.setNivelNichoDTOs(listaNivelNicho);
@@ -152,10 +160,12 @@ public void buscarTipoNicho () {
 	List<TipoNichoDTO> listaTipoNicho=null;
 	
 	try {
-		listaTipoNicho = this.servicioEucaristia.buscarTipoNicho(new TipoNichoDTO());
+		TipoNichoDTO tipoNichoDTO=new TipoNichoDTO();
+		tipoNichoDTO.setTniEmpresa(getEmpresaTbl().getEmrPk());
+		listaTipoNicho = this.servicioEucaristia.buscarTipoNicho(tipoNichoDTO);
 		
 		if (CollectionUtils.isEmpty(listaTipoNicho) && listaTipoNicho.size()==0) {
-			MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			MensajesWebController.aniadirMensajeAdvertencia("Tipo Nicho "+"erp.mensaje.busqueda.vacia");
 		} else {
 			this.nichoDataManager.setTipoNichoDTOs(listaTipoNicho);
 			
@@ -176,6 +186,7 @@ public void buscarSeccion  () {
 	try {
 		CatalogoEucaristiaDTO cat=new CatalogoEucaristiaDTO();
 		cat.setCatCodigo(29);
+		cat.setCatEmpresa(getEmpresaTbl().getEmrPk());
 		listaCatalogo=this.servicioEucaristia.buscarCatalogo(cat);
 		
 		if (CollectionUtils.isEmpty(listaCatalogo) && listaCatalogo.size()==0) {
