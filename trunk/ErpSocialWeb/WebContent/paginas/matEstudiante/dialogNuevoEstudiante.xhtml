@@ -20,23 +20,13 @@
 						<td width="60%" colspan="4"><p:graphicImage id="image" height="80" cache="false" value="#{estudianteDataManager.estudiantePersonaInsertar.perFoto}"/></td>
 					</tr>
 				
-					<tr>
-						<td class="label">
-							<h:outputLabel value="#{i18n['erp.matricula.estudiante.foto']}" />
-						</td>
-						<td colspan="3">
-							    <p:fileUpload fileUploadListener="#{estudianteController.handleFileUpload}" mode="advanced" dragDropSupport="true"
-                     				 update="image" auto="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Seleccionar" process="@this"/>
-						</td>
-					</tr>
-					
 					<tr>	
 						<td class="label">
 							<h:outputLabel for="txtCi" value="#{i18n['erp.matricula.estudiante.cedula']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td class="value">
-							<p:inputText id="txtCi" value="#{estudianteDataManager.estudiantePersonaInsertar.perCi}" style="width: 100%" maxlength="10"
+							<p:inputText id="txtCi" value="#{estudianteDataManager.estudiantePersonaInsertar.perCi}"  maxlength="10"
 								required="true" requiredMessage="El campo #{i18n['erp.matricula.estudiante.cedula']} es Obligatorio"
 								 label="#{i18n['erp.matricula.estudiante.cedula']}" onkeypress="return isNumberKey(event);">
 								<f:validateLength maximum="10" minimum="10"/>
@@ -110,13 +100,14 @@
 							<h:outputLabel for="txtCelular" value="#{i18n['erp.matricula.estudiante.celular']}" />
 						</td>
 						<td class="value">
-							<p:inputMask mask="(99) 99999-999" id="txtCelular" style="width: 100%"
+							<p:inputMask mask="(99) 99999-999" id="txtCelular" 
 								value="#{estudianteDataManager.estudiantePersonaInsertar.perCelular}" label="#{i18n['erp.matricula.estudiante.direccion']}"  />
 						</td>	
 						<p:tooltip for="txtCelular" value=" Ejemplo: (09)99999-999" showEffect="slide" hideEffect="slide"
                                                    showEvent="focus" hideEvent="blur"
                                                    />
 					</tr>
+					
 					<tr>
 						<td class="label">
 							<h:outputLabel for="txtEmail" value="#{i18n['erp.matricula.estudiante.email']}" />
@@ -139,19 +130,37 @@
 								value="#{estudianteDataManager.estudiantePersonaInsertar.perDireccion}" label="#{i18n['erp.matricula.estudiante.direccion']}" required="true" />
 						</td>	
 					</tr>
+					<tr>
+						<td class="label">
+							<h:outputLabel value="#{i18n['erp.matricula.estudiante.foto']}" />
+						</td>
+						<td>
+						<table width="50" title="Adjuntar Foto Estudiante">
+							<tr>
+							<td>
+							    <p:fileUpload fileUploadListener="#{estudianteController.handleFileUpload}" mode="advanced" dragDropSupport="true"
+                     				 update="image" auto="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Seleccionar" process="@this"/>
+						</td>
+						</tr>
+						</table>
+						</td>
+					</tr>
 				</table>
 				</p:panel>
 
 				<p:panel id="pnlNuevoRepresentante" header="Datos Representante">
 
 				<table class="formulario">
+				<tr>
+						<td width="100%" colspan="4"></td>
+					</tr>
 					<tr>
 						<td class="label">
 							<h:outputLabel for="txtCiRepresentante" value="#{i18n['erp.matricula.representante.cedula']}" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}"/>
 						</td>
 						<td class="value">
-							<p:inputText id="txtCiRepresentante" value="#{representanteDataManager.personaInstancia.perCi}" style="width: 100%"
+							<p:inputText id="txtCiRepresentante" value="#{representanteDataManager.personaInstancia.perCi}" 
 								required="true" label="#{i18n['erp.matricula.representante.cedula']}" onkeypress="return isNumberKey(event);" maxlength="10" requiredMessage="El campo #{i18n['erp.matricula.representante.cedula']} es Obligatorio">
 								<f:validateLength maximum="10" minimum="10"/>
 								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
@@ -213,7 +222,7 @@
 							<h:outputLabel for="txtTelefonoRepresentante" value="#{i18n['erp.matricula.representante.telefono']}" />
 						</td>
 						<td class="value">
-							<p:inputMask mask="(99) 9999-999" id="txtTelefonoRepresentante" style="width: 100%"
+							<p:inputMask mask="(99) 9999-999" id="txtTelefonoRepresentante" 
 								value="#{representanteDataManager.personaInstancia.perTelefono}" label="#{i18n['erp.matricula.representante.telefono']}" onkeypress="return isNumberKey(event)" />
 						<p:tooltip for="txtTelefonoRepresentante" value=" Ejemplo: (02)2222-222" showEffect="slide" hideEffect="slide"
                                                    showEvent="focus" hideEvent="blur"
@@ -225,13 +234,14 @@
 							<h:outputLabel for="txtCelularRepresentante" value="#{i18n['erp.matricula.representante.celular']}" />
 						</td>
 						<td class="value">
-							<p:inputMask mask="(99) 99999-999" id="txtCelularRepresentante" style="width: 100%"
+							<p:inputMask mask="(99) 99999-999" id="txtCelularRepresentante" 
 								value="#{representanteDataManager.personaInstancia.perCelular}" label="#{i18n['erp.matricula.representante.celular']}" onkeypress="return isNumberKey(event)" />
 						<p:tooltip for="txtCelularRepresentante" value=" Ejemplo: (09)99999-999" showEffect="slide" hideEffect="slide"
                                                    showEvent="focus" hideEvent="blur"
                                                    />
 						</td>	
 					</tr>
+					
 					<tr>
 						<td class="label">
 							<h:outputLabel for="txtEmailRepresentante" value="#{i18n['erp.matricula.representante.email']}" />
