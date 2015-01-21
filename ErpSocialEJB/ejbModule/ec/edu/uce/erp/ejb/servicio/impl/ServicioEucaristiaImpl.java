@@ -450,7 +450,7 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		slf4jLogger.info("buscarCatalogo");
 		List<CatalogoEucaristiaDTO> listCatalogo = null;
 		try {
-			listCatalogo = eucaristiaFactoryDAO.getCatalogoDAOImpl().obtenerSeccionNicho(catalogoEucaristiaDTO);
+			listCatalogo = eucaristiaFactoryDAO.getCatalogoDAOImpl().getAll(catalogoEucaristiaDTO);
 		} catch (Exception e) {
 			slf4jLogger.info("Error al buscarCatalogo {}", e.getMessage());
 			throw new SeguridadesException("No se pudo buscarCatalogo de la base de datos");
@@ -459,7 +459,21 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		return listCatalogo;
 	}
 	
-	
+	@Override
+	public List<CatalogoEucaristiaDTO> buscarCatalogoPorId(Integer catCodigo) throws SeguridadesException {
+		slf4jLogger.info("buscarCatalogos");
+		List<CatalogoEucaristiaDTO> ListaCatalogo = null;
+		CatalogoEucaristiaDTO catalogo=new CatalogoEucaristiaDTO();
+		try {
+			catalogo.setCatCodigo(catCodigo);
+			ListaCatalogo = eucaristiaFactoryDAO.getCatalogoDAOImpl().getAll(catalogo);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarCatalogos {}", e.getMessage());
+			throw new SeguridadesException("No se pudo buscarCatalogo de la base de datos");
+		}
+		
+		return ListaCatalogo;
+	}
 	@Override
 	public PrimeraComunionDTO createOrUpdateComunion(ComunionVO comunionVO) throws SeguridadesException
 	{
@@ -1128,9 +1142,6 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		
 		NichoDTO nicho=new NichoDTO();
 		nicho=eucaristiaFactoryDAO.getNichoDAOImpl().find(nichoListDTO.getNicCodigo());
-		nicho.setEucNivelNicho(eucaristiaFactoryDAO.getNivelNichoDAOImpl().find(nichoListDTO.getNniNivel()));
-		nicho.setEucTipoNicho(eucaristiaFactoryDAO.getTipoNichoDAOImpl().find(nichoListDTO.getNicTipo()));
-		nicho.setNicSeccion(nichoListDTO.getCatCodigo());
 		return nicho;
 	}
 	
@@ -1442,6 +1453,32 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			throw new SeguridadesException("No se pudo readSepultura de la base de datos");
 		}
 		return listResultado;
+	}
+	
+	@Override
+	public List<SepulturaVO> obtenerSepulturasActivasPorIdEmpresa(Integer idEmpresa) throws SeguridadesException {
+		slf4jLogger.info("obtenerSepulturasActivas");
+		List<SepulturaListDTO> listResultadoConsulta = null;
+		List<SepulturaVO> sepulturasVO= new ArrayList<SepulturaVO>();
+		try {
+			SepulturaListDTO sepulturaListDTO= new SepulturaListDTO();
+				sepulturaListDTO.setSepEmpresa(idEmpresa);
+			listResultadoConsulta = eucaristiaFactoryDAO.getSepulturaDAOImpl().getByAnd(sepulturaListDTO);
+			for (SepulturaListDTO sepulturaListDTO1 : listResultadoConsulta) {
+				SepulturaVO sepulturaVO1= new SepulturaVO();
+				if(sepulturaListDTO1.getNicCodigo()!=null){
+					sepulturaVO1.setSepultura(eucaristiaFactoryDAO.getSepulturaDAOImpl().find(sepulturaListDTO1.getSepCodigo()));
+					sepulturaVO1.setDefuncionPersona(factoryDAO.getPersonaDAOImpl().find(sepulturaListDTO1.getSepDifunto()));
+					sepulturaVO1.setNichoDTO(eucaristiaFactoryDAO.getNichoDAOImpl().find(sepulturaListDTO1.getNicCodigo()));
+					sepulturasVO.add(sepulturaVO1);
+					
+				}
+			}
+		} catch (Exception e) {
+			slf4jLogger.info("Error al obtenerSepulturasActivas {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtenerSepultura de la base de datos");
+		}
+		return sepulturasVO;
 	}
 	
 	@Override

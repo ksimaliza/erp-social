@@ -74,25 +74,23 @@ public class SepulturaController extends BaseController {
 		slf4jLogger.info("registrarSepultura");
 		
 		SepulturaVO sepulturaVO;
-		NichoDTO nichoDTO;
+		NichoListDTO nichoListDTO;
 		
 		try {
 		
 			sepulturaVO=new SepulturaVO();
-			nichoDTO=new NichoDTO();
+			nichoListDTO=new NichoListDTO();
 			sepulturaVO.setSepultura(sepulturaDataManager.getSepulturaDTO());
-			nichoDTO.setNicCodigo(sepulturaDataManager.getCodigoNicho());
-			sepulturaVO.setNichoDTO(nichoDTO);
+			nichoListDTO.setNicCodigo(sepulturaDataManager.getCodigoNicho());
+			sepulturaVO.setNichoDTO(this.servicioEucaristia.obtenerNichoPorId(nichoListDTO));
 						
 			sepulturaVO.setDefuncionPersona(sepulturaDataManager.getDefuncionInsertar());
 			sepulturaVO.getSepultura().setSepDifunto(sepulturaDataManager.getDefuncionInsertar().getPerPk());
-			sepulturaVO.getSepultura().setSepEmpresa(getEmpresaTbl().getEmrPk());		
+			sepulturaVO.getSepultura().setSepEmpresa(getEmpresaTbl().getEmrPk());
+			this.servicioEucaristia.createOrUpdateNicho(sepulturaVO.getNichoDTO());
 			SepulturaDTO sepulturaNueva=this.servicioEucaristia.createOrUpdateSepultura(sepulturaVO);
 												
 			if (sepulturaNueva!= null) {
-				sepulturaDataManager.setCodigoNicho(0);
-				sepulturaDataManager.setSepulturaDTO(new SepulturaDTO());
-				sepulturaDataManager.setDefuncionInsertar(new Persona());
 																		
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.sepultura.registrar.exito");
 			}
@@ -105,6 +103,64 @@ public class SepulturaController extends BaseController {
 		
 	}
 	
+
+public void registrarSepulturaEditar () {
+		
+		slf4jLogger.info("registrarSepulturaEditar");
+		
+NichoDTO nichoLiberar=null;
+NichoDTO nichoActulizado=null;
+SepulturaVO sepultura = null;
+SepulturaVO sepulturaActualizadaVO = null;
+		try {
+			SepulturaListDTO sepulturaListDTO= new SepulturaListDTO();
+			sepulturaListDTO.setSepCodigo(this.sepulturaDataManager.getSepulturaDTO().getSepCodigo());
+			sepulturaListDTO.setSepDifunto(this.sepulturaDataManager.getSepulturaDTO().getSepDifunto());
+			sepultura =  this.servicioEucaristia.obtenerSepulturaPorId(sepulturaListDTO);
+			//liberar nicho anteriormente ocupado por difunto
+			if (sepultura!=null) {
+			NichoListDTO nicho=new NichoListDTO();
+			nicho.setNicCodigo(sepultura.getSepultura().getSepNicho());
+				nichoLiberar = this.servicioEucaristia.obtenerNichoPorId(nicho);
+			}//fin de liberar nicho
+			registrarSepultura();
+			SepulturaListDTO sepulturaActualizada= new SepulturaListDTO();
+			sepulturaActualizada.setSepCodigo(this.sepulturaDataManager.getSepulturaDTO().getSepCodigo());
+			sepulturaActualizada.setSepDifunto(this.sepulturaDataManager.getSepulturaDTO().getSepDifunto());
+			sepulturaActualizadaVO =  this.servicioEucaristia.obtenerSepulturaPorId(sepulturaActualizada);
+			//liberar nicho anteriormente ocupado por difunto
+			if (sepulturaActualizadaVO!=null) {
+			NichoListDTO nicho=new NichoListDTO();
+			nicho.setNicCodigo(sepulturaActualizadaVO.getSepultura().getSepNicho());
+				nichoActulizado = this.servicioEucaristia.obtenerNichoPorId(nicho);
+				System.out.print(" Id Nicho Actualizado: "+nichoActulizado.getNicCodigo());
+			
+			}//fin de liberar nicho
+			System.out.println(" fuera de ifs: ");
+			if(nichoLiberar!=null && nichoActulizado!=null && !nichoLiberar.getNicCodigo().equals(nichoActulizado.getNicCodigo())) {
+				nichoLiberar.setNicEstado(ConstantesApplication.ESTADO_ACTIVO);
+				this.servicioEucaristia.createOrUpdateNicho(nichoLiberar);
+			}
+			
+			/*if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
+				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			} else {
+				this.sepulturaDataManager.setNichoListDTO(listResultado.get(0));
+				//Poner ocupado el nicho del difunto para que no se pueda utilizar
+				NichoDTO nichoOcupado=new NichoDTO();
+				nichoOcupado = this.servicioEucaristia.obtenerNichoPorId(nicho);
+				if(nichoOcupado!=null) {
+				nichoOcupado.setNicEstado(ConstantesApplication.ESTADO_INACTIVO);
+				this.servicioEucaristia.createOrUpdateNicho(nichoOcupado);
+				}
+				//fin de poner ocupado*/
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info(e.toString());
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
 	public void buscarNicho() {
 		slf4jLogger.info("buscarNicho");
 		List<NichoListDTO> listResultado=new ArrayList<NichoListDTO>();
@@ -114,7 +170,6 @@ public class SepulturaController extends BaseController {
 			nichoListDTO.setNicEmpresa(getEmpresaTbl().getEmrPk());
 			nichoListDTO.setNicEstado(ConstantesApplication.ESTADO_ACTIVO);
 			listResultado = this.servicioEucaristia.buscarNicho(nichoListDTO);
-			
 			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.despacho.sepultura.nicho.mensaje.busqueda.vacia");
 			} else {
@@ -137,14 +192,24 @@ public class SepulturaController extends BaseController {
 			
 			NichoListDTO nicho=new NichoListDTO();
 			nicho.setNicCodigo(this.sepulturaDataManager.getCodigoNicho());
-			
 			listResultado = this.servicioEucaristia.buscarNicho(nicho);
-			
 			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				this.sepulturaDataManager.setNichoListDTO(listResultado.get(0));
-				
+				if(this.sepulturaDataManager.getNichoListDTOs2()!=null)
+				{
+					if(!CollectionUtils.isEmpty(this.sepulturaDataManager.getNichoListDTOs2()) && this.sepulturaDataManager.getNichoListDTOs2().size()!=0)
+					{
+						Boolean estaNichoActual= false;
+						for (NichoListDTO nicho1 : this.sepulturaDataManager.getNichoListDTOs2()) {
+							if(nicho1.getNicCodigo().equals(this.sepulturaDataManager.getNichoListDTO().getNicCodigo()))estaNichoActual=true;
+						}
+						if(!estaNichoActual)
+				this.sepulturaDataManager.getNichoListDTOs2().add(listResultado.get(0));
+				}
+				}else
+					this.sepulturaDataManager.setNichoListDTOs2(listResultado);
 			}
 			
 		} catch (SeguridadesException e) {
@@ -284,7 +349,8 @@ public class SepulturaController extends BaseController {
 	
 	public void cargarDatosSepulturasEditar(SepulturaListDTO sepultura)
 	{
-		
+		this.sepulturaDataManager.setNichoListDTOs2(null);
+		buscarNicho();
 	    Boolean estaEnListaDifuntos=false;
 		cargarDatosSepultura(sepultura);
 		buscarDifuntos();
