@@ -50,7 +50,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCiBen" label="#{i18n['erp.despacho.contrato.cedula.beneficiario']}" style="width: 70%" 
-								 value="#{contratoDataManager.beneficiariInsertar.perCi}" >
+								 value="#{contratoDataManager.beneficiariInsertar.perCi}" required="true" >
 							
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur" update="txtNombresBen,txtApellidosBen" listener="#{contratoController.buscarBeneficiario}" process="@this"/>
@@ -64,7 +64,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNombresBen" label="#{i18n['erp.despacho.contrato.nombres']}" style="width: 70%"
-							value="#{contratoDataManager.beneficiariInsertar.perNombres}" readonly="true"/>
+							value="#{contratoDataManager.beneficiariInsertar.perNombres}" required="true"/>
 						</td>
 					</tr>
 					<tr>
@@ -73,7 +73,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApellidosBen" label="#{i18n['erp.despacho.contrato.apellidos']}" style="width: 70%" 
-							value="#{contratoDataManager.beneficiariInsertar.perApellidos}" readonly="true"/>
+							value="#{contratoDataManager.beneficiariInsertar.perApellidos}" required="true"/>
 						</td>
 					</tr>
 									
@@ -83,7 +83,9 @@
 						</td>
 						<td width="70%">
 							<p:calendar id="txtFechaInicio" style="width: 70%" navigator="true"   showOn="button" required="true"
-							value="#{contratoDataManager.fechaInicio}"/>
+							value="#{contratoDataManager.fechaInicio}" label="#{i18n['erp.despacho.contrato.fecha.inicio']}">
+							<p:ajax event="dateSelect" listener="#{contratoController.actualizarCampo}" process="@this"/>
+							</p:calendar>
 						</td>
 					</tr>
 					<tr>
@@ -92,7 +94,9 @@
 						</td>
 						<td width="70%">
 							<p:calendar id="txtFechaFinalizacion" style="width: 70%" navigator="true"   showOn="button" required="true"
-							value="#{contratoDataManager.fechaFin}"/>
+						label="#{i18n['erp.despacho.contrato.fecha.fin']}"	value="#{contratoDataManager.fechaFin}" >
+							<p:ajax event="dateSelect" update="txtMesesArrend,txtValorMes,txtValorTotal" listener="#{contratoController.obtenerNumMeses}" process="@this,txtMesesArrend"/>
+							</p:calendar>
 						</td>
 					</tr>
 					
@@ -102,7 +106,7 @@
 							<h:outputLabel for="nicho" value="#{i18n['erp.despacho.contrato.numero.nicho']}"  />
 						</td>
 						<td width="70%">
-							<h:inputText id="nicho"  style="width: 70%" 
+							<p:inputText id="nicho"  style="width: 70%" label="#{i18n['erp.despacho.contrato.numero.nicho']}"
 							value="#{contratoDataManager.sepulturaListDTO.nicDescripcion}" readonly="true"/>
 						</td>
 					</tr>
@@ -113,7 +117,7 @@
 							<h:outputLabel for="txtSeccionNicho" value="#{i18n['erp.despacho.contrato.seccion.nicho']}"  />
 						</td>
 						<td width="70%">
-							<h:inputText id="txtSeccionNicho"  style="width: 70%" 
+							<p:inputText id="txtSeccionNicho"  style="width: 70%" label="#{i18n['erp.despacho.contrato.seccion.nicho']}"
 							value="#{contratoDataManager.sepulturaListDTO.seccion}" readonly="true"/>
 						</td>
 					</tr>
@@ -145,7 +149,7 @@
 							<h:outputLabel for="txtMesesArrend" value="#{i18n['erp.despacho.contrato.meses.arrendamiento']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtMesesArrend" style="width: 70%" value="#{contratoDataManager.contratoDTO.conMesesArrendamiento}" >
+							<p:inputText id="txtMesesArrend" style="width: 70%" label="#{i18n['erp.despacho.contrato.meses.arrendamiento']}" value="#{contratoDataManager.contratoDTO.conMesesArrendamiento}" required="true" >
 						</p:inputText>
 						</td>	
 					</tr>
@@ -156,7 +160,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtValorMes" style="width: 70%" 
-								 label="#{i18n['erp.despacho.contrato.valor.mes']}" value="#{contratoDataManager.contratoDTO.conValorMes}" >
+								 label="#{i18n['erp.despacho.contrato.valor.mes']}" value="#{contratoDataManager.contratoDTO.conValorMes}" required="true" >
 						<p:ajax event="blur" update="txtValorTotal" listener="#{contratoController.calcularValorTotal}" process="@this,txtMesesArrend"/>
 						</p:inputText>
 						</td>	
@@ -167,7 +171,7 @@
 							<h:outputLabel for="txtValorTotal" value="#{i18n['erp.despacho.contrato.valor.total']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtValorTotal" style="width: 70%" 
+							<p:inputText id="txtValorTotal" style="width: 70%" required="true"
 								 label="#{i18n['erp.despacho.contrato.valor.total']}" value="#{contratoDataManager.contratoDTO.conValorTotal}" readonly="true">
 							</p:inputText>
 						</td>	
@@ -193,7 +197,7 @@
 						</td>
 						<td width="70%">
 							<p:inputTextarea id="txtObs" style="width: 70%" 
-								 label="#{i18n['erp.despacho.contrato.observacion']}" value="#{contratoDataManager.contratoDTO.conObservacion}">
+								 label="#{i18n['erp.despacho.contrato.observacion']}" value="#{contratoDataManager.contratoDTO.conObservacion}" maxlength="255">
 						</p:inputTextarea>
 						</td>	
 					</tr>

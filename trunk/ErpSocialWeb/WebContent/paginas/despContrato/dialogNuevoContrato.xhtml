@@ -47,7 +47,7 @@
 							<h:outputLabel for="txtCiBen" value="#{i18n['erp.despacho.contrato.cedula.beneficiario']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtCiBen" label="#{i18n['erp.despacho.contrato.cedula.beneficiario']}" style="width: 70%" 
+							<p:inputText id="txtCiBen" label="#{i18n['erp.despacho.contrato.cedula.beneficiario']}" style="width: 70%" required="true" 
 								 value="#{contratoDataManager.beneficiariInsertar.perCi}" disabled="#{contratoDataManager.desactivado}" >
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur" update="txtNombresBen,txtApellidosBen" listener="#{contratoController.buscarBeneficiario}" process="@this"/>
@@ -60,7 +60,7 @@
 							<h:outputLabel for="txtNombresBen" value="#{i18n['erp.despacho.contrato.nombres.beneficiario']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtNombresBen" label="#{i18n['erp.despacho.contrato.nombres']}" style="width: 70%"
+							<p:inputText id="txtNombresBen" label="#{i18n['erp.despacho.contrato.nombres']}" style="width: 70%" required="true"
 							value="#{contratoDataManager.beneficiariInsertar.perNombres}" disabled="#{contratoDataManager.desactivado}" />
 						</td>
 					</tr>
@@ -69,7 +69,7 @@
 							<h:outputLabel for="txtApellidosBen" value="#{i18n['erp.despacho.contrato.apellidos.beneficiario']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtApellidosBen" label="#{i18n['erp.despacho.contrato.apellidos']}" style="width: 70%" 
+							<p:inputText id="txtApellidosBen" label="#{i18n['erp.despacho.contrato.apellidos']}" style="width: 70%" required="true"
 							value="#{contratoDataManager.beneficiariInsertar.perApellidos}"  disabled="#{contratoDataManager.desactivado}"/>
 						</td>
 					</tr>
@@ -80,7 +80,9 @@
 						</td>
 						<td width="70%">
 							<p:calendar id="txtFechaInicio" label="#{i18n['erp.despacho.contrato.fecha.inicio']}" style="width: 70%" navigator="true"   showOn="button" required="true"
-							value="#{contratoDataManager.fechaInicio}"  disabled="#{contratoDataManager.desactivado}" />
+							value="#{contratoDataManager.fechaInicio}"  disabled="#{contratoDataManager.desactivado}" >
+							<p:ajax event="dateSelect" listener="#{contratoController.actualizarCampo}" process="@this"/>
+							</p:calendar>
 						</td>
 					</tr>
 					<tr>
@@ -89,7 +91,9 @@
 						</td>
 						<td width="70%">
 							<p:calendar id="txtFechaFinalizacion" label="#{i18n['erp.despacho.contrato.fecha.fin']}" style="width: 70%" navigator="true"   showOn="button" required="true"
-							value="#{contratoDataManager.fechaFin}" disabled="#{contratoDataManager.desactivado}" />
+							value="#{contratoDataManager.fechaFin}" disabled="#{contratoDataManager.desactivado}" >
+							<p:ajax event="dateSelect" update="txtMesesArrend,txtValorMes,txtValorTotal" listener="#{contratoController.obtenerNumMeses}" process="@this,txtMesesArrend"/>
+							</p:calendar>
 						</td>
 					</tr>
 					
@@ -130,7 +134,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNivelNicho" label="#{i18n['erp.despacho.contrato.nivel.nicho']}" style="width: 70%"
-							value="#{contratoDataManager.sepulturaListDTO.nniDescripcion}" disabled="#{contratoDataManager.desactivado}" readonly="true" />
+							value="#{contratoDataManager.sepulturaListDTO.nniDescripcion}" disabled="#{contratoDataManager.desactivado}" readonly="true"/>
 						</td>
 					</tr>
 					
@@ -139,7 +143,7 @@
 							<h:outputLabel for="txtMesesArrend" value="#{i18n['erp.despacho.contrato.meses.arrendamiento']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtMesesArrend" style="width: 70%" label="#{i18n['erp.despacho.contrato.meses.arrendamiento']}" value="#{contratoDataManager.contratoDTO.conMesesArrendamiento}" disabled="#{contratoDataManager.desactivado}" >
+							<p:inputText id="txtMesesArrend" style="width: 70%" label="#{i18n['erp.despacho.contrato.meses.arrendamiento']}" value="#{contratoDataManager.contratoDTO.conMesesArrendamiento}" readonly="true" >
 						</p:inputText>
 						</td>	
 					</tr>
@@ -149,8 +153,8 @@
 							<h:outputLabel for="txtValorMes" value="#{i18n['erp.despacho.contrato.valor.mes']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtValorMes" style="width: 70%" 
-								 label="#{i18n['erp.despacho.contrato.valor.mes']}" value="#{contratoDataManager.contratoDTO.conValorMes}" onkeypress="return NumCheck(event,this)" disabled="#{contratoDataManager.desactivado}" >
+							<p:inputText id="txtValorMes" style="width: 70%" required="true"
+								 label="#{i18n['erp.despacho.contrato.valor.mes']}" value="#{contratoDataManager.contratoDTO.conValorMes}" onkeypress="return NumCheck(event,this)" disabled="#{contratoDataManager.desactivado}">
 						<p:ajax event="blur" update="txtValorTotal" listener="#{contratoController.calcularValorTotal}" process="@this,txtMesesArrend"/>
 						</p:inputText>
 						</td>	
@@ -161,7 +165,7 @@
 							<h:outputLabel for="txtValorTotal" value="#{i18n['erp.despacho.contrato.valor.total']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtValorTotal" style="width: 70%" 
+							<p:inputText id="txtValorTotal" style="width: 70%"
 								 label="#{i18n['erp.despacho.contrato.valor.total']}" value="#{contratoDataManager.contratoDTO.conValorTotal}" readonly="true" onkeypress="return NumCheck(event,this)" disabled="#{contratoDataManager.desactivado}" >
 							</p:inputText>
 						</td>	
@@ -187,7 +191,7 @@
 						</td>
 						<td width="70%">
 							<p:inputTextarea id="txtObs" label="#{i18n['erp.despacho.contrato.observacion']}" style="width: 70%" 
-								  value="#{contratoDataManager.contratoDTO.conObservacion}"  disabled="#{contratoDataManager.desactivado}" >
+								  value="#{contratoDataManager.contratoDTO.conObservacion}"  disabled="#{contratoDataManager.desactivado}" maxlength="255" >
 						</p:inputTextarea>
 						</td>	
 					</tr>

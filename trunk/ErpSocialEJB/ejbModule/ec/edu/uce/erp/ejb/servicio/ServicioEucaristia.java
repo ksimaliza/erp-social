@@ -80,8 +80,6 @@ public interface ServicioEucaristia {
 	List<BautizoListDTO> buscarPartidaBautizo(BautizoListDTO bautizoListDTO)
 			throws SeguridadesException;
 
-
-
 	ConfirmacionDTO createOrUpdateConfirmacion(ConfirmacionVO confirmacionVO)
 			throws SeguridadesException;
 
@@ -89,10 +87,12 @@ public interface ServicioEucaristia {
 			ConfirmacionListDTO confirmacionListDTO)
 			throws SeguridadesException;
 
-	
-
+	// busque de secciones de nicho
 	List<CatalogoEucaristiaDTO> buscarCatalogo(
 			CatalogoEucaristiaDTO catalogoEucaristiaDTO)
+			throws SeguridadesException;
+
+	List<CatalogoEucaristiaDTO> buscarCatalogoPorId(Integer catCodigo)
 			throws SeguridadesException;
 
 	PrimeraComunionDTO createOrUpdateComunion(ComunionVO comunionVO)
@@ -101,19 +101,12 @@ public interface ServicioEucaristia {
 	List<ComunionListDTO> buscarPartidaComunion(ComunionListDTO comunionListDTO)
 			throws SeguridadesException;
 
-
-
-	
-
 	MatrimonioDTO createOrUpdateMatrimonio(MatrimonioVO matrimonioVO)
 			throws SeguridadesException;
 
 	List<MatrimonioListDTO> buscarPartidaMatrimonio(
 			MatrimonioListDTO matrimonioListDTO) throws SeguridadesException;
 
-
-
-	
 	MatrimonioVO obtenerMatrimonioPorId(MatrimonioListDTO matrimonioListDTO)
 			throws SeguridadesException;
 
@@ -152,12 +145,12 @@ public interface ServicioEucaristia {
 
 	NivelNichoDTO obtenerNivelNichoPorId(Integer id)
 			throws SeguridadesException;
-	
-	CatalogoEucaristiaDTO createOrUpdateSeccionNicho(CatalogoEucaristiaDTO seccionNichoDTO)
-			throws SeguridadesException;
 
-	List<CatalogoEucaristiaDTO> buscarSeccionNicho(CatalogoEucaristiaDTO seccionNichoDTO)
-			throws SeguridadesException;
+	CatalogoEucaristiaDTO createOrUpdateSeccionNicho(
+			CatalogoEucaristiaDTO seccionNichoDTO) throws SeguridadesException;
+
+	List<CatalogoEucaristiaDTO> buscarSeccionNicho(
+			CatalogoEucaristiaDTO seccionNichoDTO) throws SeguridadesException;
 
 	CatalogoEucaristiaDTO obtenerSeccionNichoPorId(Integer id)
 			throws SeguridadesException;
@@ -173,7 +166,6 @@ public interface ServicioEucaristia {
 	EucaristiaDTO createOrUpdateEucaristia(EucaristiaVO eucaristiaVO)
 			throws SeguridadesException;
 
-	
 	EucaristiaVO obtenerEucaristiaPorId(EucaristiaListDTO eucaristiaListDTO)
 			throws SeguridadesException;
 
@@ -197,7 +189,6 @@ public interface ServicioEucaristia {
 	ExhumacionVO obtenerExhumacionPorId(ExumacionListDTO exumacionListDTO)
 			throws SeguridadesException;
 
-
 	List<ContratoListDTO> buscarContrato(ContratoListDTO contratoListDTO)
 			throws SeguridadesException;
 
@@ -210,16 +201,17 @@ public interface ServicioEucaristia {
 	List<SepulturaListDTO> readSepultura(SepulturaListDTO sepultura)
 			throws SeguridadesException;
 
+	List<SepulturaVO> obtenerSepulturasActivasPorIdEmpresa(Integer idEmpresa)
+			throws SeguridadesException;
+
 	SepulturaVO obtenerSepulturaPorId(SepulturaListDTO sepulturaListDTO)
 			throws SeguridadesException;
-	
-	List<SepulturaVO> obtenerTodasSepulturas()
-			throws SeguridadesException;
+
+	List<SepulturaVO> obtenerTodasSepulturas() throws SeguridadesException;
 
 	List<NichoListDTO> readNicho(NichoListDTO nichoListDTO)
 			throws SeguridadesException;
 
-	
 	List<PagoContratoListDTO> readPago(PagoContratoListDTO pago)
 			throws SeguridadesException;
 
@@ -271,8 +263,5 @@ public interface ServicioEucaristia {
 
 	List<ExumacionListDTO> readExhumacionReport(ExumacionListDTO exumacion)
 			throws SeguridadesException;
-
-	
-
 
 }

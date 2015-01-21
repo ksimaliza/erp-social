@@ -110,7 +110,7 @@
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
-					actionListener="#{sepulturaController.registrarSepultura}"
+					actionListener="#{sepulturaController.registrarSepulturaEditar}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarSepultura.hide()"
 					process="@this,pnlEditarSepultura" update="pnlEditarSepultura,:formSepultura:pnlMessages,:formSepultura:tablaSepultura" disabled="#{sepulturaDataManager.desactivado}" />
 				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgEditarSepultura.hide()" type="button" />

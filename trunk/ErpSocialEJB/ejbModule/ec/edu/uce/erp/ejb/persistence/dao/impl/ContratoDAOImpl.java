@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.common.util.UtilAplication;
 import ec.edu.uce.erp.ejb.persistence.dao.ContratoDAO;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoListDTO;
 
@@ -103,7 +104,11 @@ public class ContratoDAOImpl extends AbstractFacadeImpl<ContratoDTO> implements 
 					predicate = cb.like(cb.upper(from.<String>get("benCi")), cedulaBeneficiario);
 					criteriaList.add(predicate);
 				}				
-				
+		//por empresa
+		        if (contratoListDTO.getConEmpresa()!=null) {
+					predicate = cb.equal(from.get("conEmpresa"), contratoListDTO.getConEmpresa());
+					criteriaList.add(predicate);
+				}		
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		
 		TypedQuery<ContratoListDTO> typedQuery = entityManager.createQuery(select);
@@ -116,6 +121,7 @@ public class ContratoDAOImpl extends AbstractFacadeImpl<ContratoDTO> implements 
 	
 	return contratoEncontrado;
 }
+
 	
 	
 	@Override

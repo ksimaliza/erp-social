@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -83,6 +84,29 @@ public ContratoController() {
 		ContratoVO contratoVO;
 		CatalogoEucaristiaDTO formaPago;
 		try {
+			Calendar fechaInicio = Calendar.getInstance();
+			Calendar fechaFin = Calendar.getInstance();
+			fechaInicio.setTimeInMillis(contratoDataManager.getFechaInicio().getTime());
+			fechaFin.setTimeInMillis(contratoDataManager.getFechaFin().getTime());
+			//comprueba que las fechas de inicio y fin sean correctas
+			int diasInicio=fechaInicio.get(Calendar.YEAR)*365;
+			diasInicio=diasInicio+fechaInicio.get(Calendar.MONTH)*30;
+			diasInicio=diasInicio+fechaInicio.get(Calendar.DAY_OF_MONTH);
+			int diasFin=fechaFin.get(Calendar.YEAR)*365;
+			diasFin=diasFin+fechaFin.get(Calendar.MONTH)*30;
+			diasFin=diasFin+fechaFin.get(Calendar.DAY_OF_MONTH);
+			System.out.println("diasInicio: "+diasInicio);
+			System.out.println("diasFin: "+diasFin);
+			if(diasInicio==diasFin)
+			{
+				MensajesWebController.aniadirMensajeError("Fecha Inicio  coincide con  Fecha Final");
+				return;
+			}
+			if(diasInicio>diasFin)
+			{
+				MensajesWebController.aniadirMensajeError("Fecha Inicio excede a Fecha Final");
+				return;
+			}
 			if(contratoDataManager.getDifuntoInsertar().getPerCi().toString().equals(contratoDataManager.getBeneficiariInsertar().getPerCi().toString()))
 			{
 				MensajesWebController.aniadirMensajeError("El difunto no puede ser beneficiario");
@@ -101,12 +125,7 @@ public ContratoController() {
 			
 			contratoVO.getContratoDTO().setConFechaFin(new Timestamp(contratoDataManager.getFechaFin().getTime()));
 			contratoVO.getContratoDTO().setConFechaInicio(new Timestamp(contratoDataManager.getFechaInicio().getTime()));
-
-			if(contratoDataManager.getFechaInicio().getTime()>contratoDataManager.getFechaFin().getTime())
-			{
-				MensajesWebController.aniadirMensajeError("Fecha Inicializaci�n excede a Fecha Finalizaci�n");
-				return;
-			}
+			contratoVO.getContratoDTO().setConEmpresa(getEmpresaTbl().getEmrPk());
 			
 			ContratoDTO contratoNuevo=this.servicioEucaristia.createOrUpdateContrato(contratoVO);
 			contratoDataManager.setExportDesactivado(false);						
@@ -193,9 +212,8 @@ public ContratoController() {
 		List<CatalogoEucaristiaDTO> listaCatalogo=null;
 		
 		try {
-			CatalogoEucaristiaDTO cat=new CatalogoEucaristiaDTO();
-			cat.setCatCodigo(34);
-			listaCatalogo=this.servicioEucaristia.buscarCatalogo(cat);
+			
+			listaCatalogo=this.servicioEucaristia.buscarCatalogoPorId(34);
 			
 			if (CollectionUtils.isEmpty(listaCatalogo) && listaCatalogo.size()==0) {
 				
@@ -214,14 +232,45 @@ public ContratoController() {
 		slf4jLogger.info("buscarSepulturas");
 		
 		List<SepulturaVO> listaSepulturas=null;
-		
+		List<ContratoListDTO> listaContrato=null;
+		List<SepulturaVO> listaSepulturasFiltrada=null;
 		try {
+			contratoDataManager.getContratoListDTO().setConEmpresa(getEmpresaTbl().getEmrPk());
+			listaContrato=this.servicioEucaristia.buscarContrato(contratoDataManager.getContratoListDTO());
 			
-			listaSepulturas=this.servicioEucaristia.obtenerTodasSepulturas();
+			listaSepulturas=this.servicioEucaristia.obtenerSepulturasActivasPorIdEmpresa(getEmpresaTbl().getEmrPk());
 		
 			if (CollectionUtils.isEmpty(listaSepulturas) && listaSepulturas.size()==0) {
-				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia"+"debe haber registrado sepulturas primero");	
+				this.contratoDataManager.setSepulturasVO(new ArrayList<SepulturaVO>());
+				MensajesWebController.aniadirMensajeAdvertencia("erp.despacho.contrato.sepultura.busqueda.vacia");	
 			} else {
+				if (!CollectionUtils.isEmpty(listaContrato) && listaContrato.size()!=0) {
+					listaSepulturasFiltrada=new ArrayList<SepulturaVO>();
+					
+					for (SepulturaVO sepulturaVO : listaSepulturas) {
+						Boolean estaRegistrada=false;
+						for ( ContratoListDTO contrato : listaContrato) {
+							if(contrato.getConDifunto().equals(sepulturaVO.getSepultura().getSepDifunto()) )estaRegistrada=true;
+							if(contrato.getConDifunto().equals(sepulturaVO.getSepultura().getSepDifunto()) && this.contratoDataManager.getContratoDTO().getConCodigo()!=null && this.contratoDataManager.getContratoDTO().getConCodigo().equals(contrato.getConCodigo()))
+							{
+								listaSepulturasFiltrada.add(sepulturaVO);
+								System.out.println("Si entró aqui: ");
+							}
+							
+								System.out.println("For interno: "+estaRegistrada);
+								System.out.println("De lista de contrato: "+contrato.getConCodigo() +" "+"Contrato interno: "+this.contratoDataManager.getContratoDTO().getConCodigo());
+								System.out.println("contrato difunto: "+contrato.getConDifunto() +" "+"sepultura difunto: "+sepulturaVO.getSepultura().getSepDifunto());
+						}
+						
+						if(!estaRegistrada)listaSepulturasFiltrada.add(sepulturaVO);
+						System.out.println("For externo: "+estaRegistrada);
+					}
+					if (CollectionUtils.isEmpty(listaSepulturasFiltrada) && listaSepulturasFiltrada.size()==0) {
+						this.contratoDataManager.setSepulturasVO(new ArrayList<SepulturaVO>());
+						MensajesWebController.aniadirMensajeAdvertencia("erp.despacho.contrato.sepultura.busqueda.vacia");
+					}else
+					this.contratoDataManager.setSepulturasVO(listaSepulturasFiltrada);
+				}else
 				this.contratoDataManager.setSepulturasVO(listaSepulturas);
 			}
 			
@@ -237,6 +286,7 @@ public ContratoController() {
 		
 		List<ContratoListDTO> listaContrato=null;
 		try {
+			contratoDataManager.getContratoListDTO().setConEmpresa(getEmpresaTbl().getEmrPk());
 			listaContrato=this.servicioEucaristia.buscarContrato(contratoDataManager.getContratoListDTO());
 			if (CollectionUtils.isEmpty(listaContrato) && listaContrato.size()==0) {
 				this.contratoDataManager.setContratoListDTOs(new ArrayList<ContratoListDTO>());
@@ -326,7 +376,7 @@ public ContratoController() {
 		DateFormat pequena = DateFormat.getDateInstance(DateFormat.SHORT);
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
-		
+		List<CatalogoEucaristiaDTO> listaFormaPagos=null;
 		DefuncionListDTO defuncionAux=new DefuncionListDTO();
 		defuncionAux.setPerCi(contratoDataManager.getDifuntoInsertar().getPerCi());
 		List<DefuncionListDTO> listaDefunciones=null;
@@ -357,8 +407,14 @@ public ContratoController() {
 		
 		mapParametros.put("fecha", pequena.format(fechaActual).toString());
 		mapParametros.put("valorPagar", contratoDataManager.getContratoDTO().getConValorMes().toString());
-		mapParametros.put("formaPago", contratoDataManager.getFormaPagoListDTOs().get(0).getCatDescripcion());
+		if (!CollectionUtils.isEmpty(contratoDataManager.getFormaPagoListDTOs()) && contratoDataManager.getFormaPagoListDTOs() != null)
+		{
+			for (CatalogoEucaristiaDTO formaPagoDTO : contratoDataManager.getFormaPagoListDTOs()) {
+				if(formaPagoDTO.getCatCodigo().equals(contratoDataManager.getContratoDTO().getConFormaPago()))
+					mapParametros.put("formaPago", formaPagoDTO.getCatDescripcion());
+			}
 		
+		}
 		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 		
@@ -390,7 +446,9 @@ public ContratoController() {
 		contratoDataManager.setFechaInicio(new Date());
 		contratoDataManager.setBeneficiariInsertar(new Persona());
 		contratoDataManager.setSepulturaListDTO(new SepulturaListDTO());
+		contratoDataManager.setSepulturasVO(new ArrayList<SepulturaVO>());
 		contratoDataManager.setExportDesactivado(true);
+		buscarSepulturas();
 	}
 	
 	public void cargarDatosContratoEditar(ContratoListDTO contrato)
@@ -414,4 +472,42 @@ public ContratoController() {
 				}
 		     return fecha;
 		 }
+	
+	public void obtenerNumMeses() throws SeguridadesException {
+		slf4jLogger.info("obtenerNumMeses");
+		contratoDataManager.getContratoDTO().setConValorMes(null);
+		contratoDataManager.getContratoDTO().setConValorTotal(null);
+		contratoDataManager.getContratoDTO().setConMesesArrendamiento(null);
+		Calendar fechaInicio = Calendar.getInstance();
+		Calendar fechaFin = Calendar.getInstance();
+		Calendar diferenciaFechas = Calendar.getInstance();
+		fechaInicio.setTimeInMillis(contratoDataManager.getFechaInicio().getTime());
+		fechaFin.setTimeInMillis(contratoDataManager.getFechaFin().getTime());
+		int diasInicio=fechaInicio.get(Calendar.YEAR)*365;
+		diasInicio=diasInicio+fechaInicio.get(Calendar.MONTH)*30;
+		diasInicio=diasInicio+fechaInicio.get(Calendar.DAY_OF_MONTH);
+		int diasFin=fechaFin.get(Calendar.YEAR)*365;
+		diasFin=diasFin+fechaFin.get(Calendar.MONTH)*30;
+		diasFin=diasFin+fechaFin.get(Calendar.DAY_OF_MONTH);
+		System.out.println("diasInicio: "+diasInicio);
+		System.out.println("diasFin: "+diasFin);
+		if(diasInicio==diasFin)
+		{
+			MensajesWebController.aniadirMensajeError("Fecha Inicio  coincide con  Fecha Final");
+			return;
+		}
+		if(diasInicio>diasFin)
+		{
+			MensajesWebController.aniadirMensajeError("Fecha Inicio excede a Fecha Final");
+			return;
+		}
+		diferenciaFechas.setTimeInMillis(fechaFin.getTimeInMillis()-fechaInicio.getTimeInMillis());
+		int meses=(diferenciaFechas.get(Calendar.YEAR)-1970)*12;
+		meses=meses+diferenciaFechas.get(Calendar.MONTH);
+		if(diferenciaFechas.get(Calendar.DAY_OF_MONTH)>=30)meses=meses+1;
+		this.contratoDataManager.getContratoDTO().setConMesesArrendamiento(meses);
+	}
+	public void actualizarCampo() {
+		slf4jLogger.info("actualizarCampo");
+	}
 }

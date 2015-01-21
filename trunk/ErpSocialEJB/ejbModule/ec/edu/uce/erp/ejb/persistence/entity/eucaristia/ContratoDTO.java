@@ -57,6 +57,9 @@ public class ContratoDTO implements Serializable {
 	
 	@Column(name="con_valor_saldo")
 	private BigDecimal conValorSaldo;
+	
+	@Column(name="con_empresa")
+	private Integer conEmpresa;
 
 	public ContratoDTO() {
 	}
@@ -165,4 +168,12 @@ public class ContratoDTO implements Serializable {
 		this.conValorSaldo = conValorSaldo;
 	}
 
+	public Integer getConEmpresa() {
+		return conEmpresa;
+	}
+
+	public void setConEmpresa(Integer conEmpresa) {
+		this.conEmpresa = conEmpresa;
+	}
+   
 }

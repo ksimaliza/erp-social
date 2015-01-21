@@ -1,7 +1,9 @@
 package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.sql.Timestamp;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -26,7 +28,7 @@ public class ContratoListDTO implements Serializable {
 	@Column(name="ben_nombres")
 	private String benNombres;
 
-	@Id
+	
 	@Column(name="cat_codigo")
 	private Integer catCodigo;
 
@@ -38,7 +40,7 @@ public class ContratoListDTO implements Serializable {
 
 	@Column(name="con_beneficiario")
 	private Integer conBeneficiario;
-
+	@Id
 	@Column(name="con_codigo")
 	private Integer conCodigo;
 
@@ -71,6 +73,9 @@ public class ContratoListDTO implements Serializable {
 
 	@Column(name="con_valor_saldo")
 	private BigDecimal conValorSaldo;
+	
+	@Column(name="con_empresa")
+	private Integer conEmpresa;
 
 	@Column(name="con_valor_total")
 	private BigDecimal conValorTotal;
@@ -118,7 +123,7 @@ public class ContratoListDTO implements Serializable {
 
 	public ContratoListDTO() {
 	}
-
+	
 	public String getBenApellidos() {
 		return this.benApellidos;
 	}
@@ -383,4 +388,13 @@ public class ContratoListDTO implements Serializable {
 		this.tniDescripcion = tniDescripcion;
 	}
 
+	public Integer getConEmpresa() {
+		return conEmpresa;
+	}
+
+	public void setConEmpresa(Integer conEmpresa) {
+		this.conEmpresa = conEmpresa;
+	}
+    
+	
 }

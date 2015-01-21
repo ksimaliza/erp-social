@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 5.6.2.final using JasperReports Library version 5.6.1  -->
-<!-- 2014-11-11T22:33:01 -->
+<!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
+<!-- 2015-01-21T01:18:11 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comprobanteContrato" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b259b1fb-2886-42ac-9875-22ee5fce1ec1">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
@@ -32,21 +32,21 @@
 				<text><![CDATA[CONTRATO DE OCUPACIÓN DE NICHO]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="37" y="180" width="57" height="20" uuid="7f872c40-3edc-46ab-918f-fcb64d38c032"/>
+				<reportElement x="37" y="180" width="75" height="20" uuid="7f872c40-3edc-46ab-918f-fcb64d38c032"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="276" y="180" width="108" height="20" uuid="96c90390-f952-489d-9d46-ea45b47259b3"/>
+				<reportElement x="301" y="180" width="108" height="20" uuid="96c90390-f952-489d-9d46-ea45b47259b3"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[, se hace presente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="95" y="180" width="103" height="20" uuid="cfa6714a-a44c-4222-9d99-e91409edb997"/>
+				<reportElement x="120" y="180" width="103" height="20" uuid="cfa6714a-a44c-4222-9d99-e91409edb997"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -81,11 +81,11 @@
 				<text><![CDATA[Nivel:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="18" y="407" width="499" height="21" uuid="5246151f-e0a1-423f-a44d-912061ef76da"/>
+				<reportElement x="18" y="407" width="513" height="21" uuid="5246151f-e0a1-423f-a44d-912061ef76da"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
-				<text><![CDATA[La forma de pago es                        de acuerdo a la firma del presente convenio.]]></text>
+				<text><![CDATA[La forma de pago es                                de acuerdo a la firma del presente convenio.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="371" y="366" width="92" height="20" uuid="34664ffb-9643-4573-8356-1d7c7d48c4ca"/>
@@ -176,17 +176,17 @@
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Se compromete asistir a las mingas, reuniones y actividades varias para el arreglo digno y propio ]]></text>
+				<text><![CDATA[Se compromete asistir a las mingas, reuniones y actividades varias para el arreglo digno ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="18" y="459" width="549" height="18" uuid="bc9b3705-1473-4763-ad94-79e06960ca53"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
-				<text><![CDATA[del cementario. Además se compromete acatar las políticas y el reglamento interno del cementerio.]]></text>
+				<text><![CDATA[y propio del cementario. Además se compromete acatar las políticas y el reglamento]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="386" y="621" width="76" height="18" uuid="f4194911-ca8c-48d5-b4dd-347f252b2296"/>
+				<reportElement x="386" y="621" width="82" height="18" uuid="f4194911-ca8c-48d5-b4dd-347f252b2296"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -200,11 +200,11 @@
 				<text><![CDATA[Firma y Sello Encargado]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="17" y="488" width="544" height="18" uuid="a309b495-e0e4-451d-99af-4258d460bac1"/>
+				<reportElement x="17" y="503" width="544" height="18" uuid="a309b495-e0e4-451d-99af-4258d460bac1"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
-				<text><![CDATA[De no cumplir con sus obligaciones de acuerdo a las políticas o reglamento el mencionado nicho ]]></text>
+				<text><![CDATA[De no cumplir con sus obligaciones de acuerdo a las políticas o reglamento el mencionado  ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="16" y="539" width="179" height="18" uuid="67bec4b1-6804-4200-943a-ea23ca684bc1"/>
@@ -214,11 +214,11 @@
 				<text><![CDATA[Así lo acordamos y firmamos:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="17" y="503" width="524" height="18" uuid="f5ed22f7-d47a-4f21-9c27-6dcfa035752f"/>
+				<reportElement x="17" y="518" width="524" height="18" uuid="f5ed22f7-d47a-4f21-9c27-6dcfa035752f"/>
 				<textElement>
 					<font size="12" isBold="false"/>
 				</textElement>
-				<text><![CDATA[podría volver a disposición.]]></text>
+				<text><![CDATA[nicho podría volver a disposición.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="20" y="219" width="178" height="20" uuid="dd2a19dc-a63c-4428-8162-0bfb3af383af"/>
@@ -242,7 +242,7 @@
 				<text><![CDATA[PARROQUIA  DE ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="137" y="407" width="90" height="20" uuid="62faa78b-663c-4f84-84a3-ad3ede32b39b"/>
+				<reportElement x="137" y="407" width="113" height="20" uuid="62faa78b-663c-4f84-84a3-ad3ede32b39b"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -263,7 +263,7 @@
 				<textFieldExpression><![CDATA[$P{parroquiaEncabezado}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="201" y="180" width="86" height="20" uuid="3b36322b-c635-4e64-9f99-5872721078b0"/>
+				<reportElement x="226" y="180" width="86" height="20" uuid="3b36322b-c635-4e64-9f99-5872721078b0"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -304,6 +304,13 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fechaInicio}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="17" y="477" width="549" height="18" uuid="fc72bbcf-0ccd-4656-a890-d4ca29680378"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[interno del cementerio.]]></text>
+			</staticText>
 		</band>
 	</title>
 </jasperReport>
