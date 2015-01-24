@@ -81,7 +81,7 @@
 						<td width="70%">
 							<p:calendar id="txtFechaInicio" label="#{i18n['erp.despacho.contrato.fecha.inicio']}" style="width: 70%" navigator="true"   showOn="button" required="true"
 							value="#{contratoDataManager.fechaInicio}"  disabled="#{contratoDataManager.desactivado}" >
-							<p:ajax event="dateSelect" listener="#{contratoController.actualizarCampo}" process="@this"/>
+							<p:ajax event="dateSelect" listener="#{contratoController.actualizarCampo}" update="txtFechaFinalizacion" process="@this"/>
 							</p:calendar>
 						</td>
 					</tr>
@@ -140,10 +140,10 @@
 					
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtMesesArrend" value="#{i18n['erp.despacho.contrato.meses.arrendamiento']}" />
+							<h:outputLabel for="txtMesesArrend" value="#{i18n['erp.despacho.contrato.meses.arrendamiento.total']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtMesesArrend" style="width: 70%" label="#{i18n['erp.despacho.contrato.meses.arrendamiento']}" value="#{contratoDataManager.contratoDTO.conMesesArrendamiento}" readonly="true" >
+							<p:inputText id="txtMesesArrend" style="width: 70%" label="#{i18n['erp.despacho.contrato.meses.arrendamiento.total']}" value="#{contratoDataManager.contratoDTO.conMesesArrendamiento}" readonly="true" >
 						</p:inputText>
 						</td>	
 					</tr>

@@ -80,7 +80,11 @@ public class ExumacionDAOImpl extends AbstractFacadeImpl<ExumacionDTO> implement
 					predicate = cb.like(cb.upper(from.<String>get("perCi")), cedulaDifunto);
 					criteriaList.add(predicate);
 				}
-		
+				//por empresa
+				if (exumacionListDTO.getExuEmpresa()!=null) {
+					predicate = cb.equal(from.get("exuEmpresa"), exumacionListDTO.getExuEmpresa());
+					criteriaList.add(predicate);
+				}
 				
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		

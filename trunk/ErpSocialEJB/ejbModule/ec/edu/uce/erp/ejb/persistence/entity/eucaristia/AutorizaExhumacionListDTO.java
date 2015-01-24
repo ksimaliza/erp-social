@@ -20,6 +20,9 @@ public class AutorizaExhumacionListDTO implements Serializable {
 
 	@Column(name="aut_persona")
 	private Integer autPersona;
+	
+	@Column(name="aut_empresa")
+	private Integer autEmpresa;
 
 	@Column(name="per_apellidos")
 	private String perApellidos;
@@ -141,4 +144,13 @@ public class AutorizaExhumacionListDTO implements Serializable {
 		this.perTelefono = perTelefono;
 	}
 
+	public Integer getAutEmpresa() {
+		return autEmpresa;
+	}
+
+	public void setAutEmpresa(Integer autEmpresa) {
+		this.autEmpresa = autEmpresa;
+	}
+   
+   
 }

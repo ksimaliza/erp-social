@@ -21,11 +21,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ContratoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoContratoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.PagoDTO;
+import ec.edu.uce.erp.ejb.persistence.vo.ContratoVO;
 import ec.edu.uce.erp.ejb.persistence.vo.PagoVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -104,10 +106,13 @@ public class PagoContratoController extends BaseController {
 			contratoDTO.setConObservacion(pagoContratoDataManager.getContratoListDTO().getConObservacion());
 			contratoDTO.setConValorMes(pagoContratoDataManager.getContratoListDTO().getConValorMes());
 			contratoDTO.setConValorTotal(pagoContratoDataManager.getContratoListDTO().getConValorTotal());
-			
+			contratoDTO.setConEmpresa(pagoContratoDataManager.getContratoListDTO().getConEmpresa());
 			pago.setContratoDTO(contratoDTO);
+			pago.getPago().setPagContratoFechaIncio(contratoDTO.getConFechaInicio());
+			pago.getPago().setPagContratoFechaFin(contratoDTO.getConFechaFin());
+			pago.getPago().setPagNichoDescripcion(pagoContratoDataManager.getContratoListDTO().getNicDescripcion());
 			pago.getPago().setPagContrato(contratoDTO.getConCodigo());
-			
+			pago.getPago().setPagEmpresa(getEmpresaTbl().getEmrPk());
 			if(pagoContratoDataManager.getPagoDTO().getPagMesesPagados()>pagoContratoDataManager.getContratoListDTO().getConMesesArrendamiento())
 			{
 				MensajesWebController.aniadirMensajeError("Meses a Pagar superior a los Meses de arrendamiento del Contrato");
@@ -137,10 +142,8 @@ public class PagoContratoController extends BaseController {
 			cargarDatosPagoContrato(pago1);
 						
 			if (pagoNuevo!= null) {
-			/*	pagoContratoDataManager.setPagoDTO(new PagoDTO());
-				pagoContratoDataManager.setContratoListDTO(new ContratoListDTO());
-				pagoContratoDataManager.setFechaPago(new Date());*/
-
+			
+                this.pagoContratoDataManager.setDesactivado(true);
 				MensajesWebController.aniadirMensajeInformacion("erp.despacho.contrato.pago.registrar.exito");
 			}
 			buscarPagoContrato();
@@ -154,18 +157,62 @@ public class PagoContratoController extends BaseController {
 	public void actualizar()
 	{
 		PagoDTO pago;
+		PagoContratoListDTO pagoSinActualizar=null;
 		try {
+			Integer sumaContratoMeses=null; 
+			Integer mesesContratoPagar=null;
+			PagoContratoListDTO pagoObtener= new PagoContratoListDTO();
+			pagoObtener.setPagCodigo(this.pagoContratoDataManager.getPagoContratoListDTOEditar().getPagCodigo());
+			pagoSinActualizar=this.servicioEucaristia.readPago(pagoObtener).get(0);
+			if(pagoSinActualizar!=null){
+				 sumaContratoMeses=pagoSinActualizar.getPagMesesPagados().intValue()+pagoContratoDataManager.getPagoContratoListDTOEditar().getConMesesPorPagar().intValue();
+				System.out.println("Meses Pagados anterio: "+pagoSinActualizar.getPagMesesPagados());
+				System.out.println("Meses Contrato meses por pagar: "+pagoContratoDataManager.getPagoContratoListDTOEditar().getConMesesPorPagar());
+				System.out.println("Suma de meses por pagar: "+sumaContratoMeses);
+			       if(pagoContratoDataManager.getPagoContratoListDTOEditar().getPagMesesPagados()>sumaContratoMeses) {
+			    	   pagoContratoDataManager.getPagoContratoListDTOEditar().setPagMesesPagados(null);
+						MensajesWebController.aniadirMensajeAdvertencia("Meses a Pagar Contrato excede a Meses de Pago Pendiete");
+						return; 
+			       }
+			        mesesContratoPagar=sumaContratoMeses.intValue()-pagoContratoDataManager.getPagoContratoListDTOEditar().getPagMesesPagados().intValue();
+			       ContratoListDTO contrato=new ContratoListDTO();
+			       contrato.setConCodigo(pagoContratoDataManager.getPagoContratoListDTOEditar().getConCodigo());
+			       ContratoListDTO contratoConsulta=servicioEucaristia.buscarContrato(contrato).get(0);
+			       if(contratoConsulta!=null){
+			    	   BigDecimal valorContratoSaldo=contratoConsulta.getConValorMes().multiply(BigDecimal.valueOf(mesesContratoPagar));
+			    	   contratoConsulta.setConMesesPorPagar(mesesContratoPagar);
+			    	   contratoConsulta.setConValorSaldo(valorContratoSaldo);
+			    	   ContratoVO contratoVO =this.servicioEucaristia.obtenerContratoPorId(contratoConsulta);
+			    	   if(contratoVO!=null)  {
+			    		   contratoVO.getContratoDTO().setConMesesPorPagar(mesesContratoPagar);
+			    		   contratoVO.getContratoDTO().setConValorSaldo(valorContratoSaldo);
+			    		   CatalogoEucaristiaDTO formaPago=new CatalogoEucaristiaDTO();
+			    		   formaPago.setCatCodigo(pagoContratoDataManager.getPagoContratoListDTOEditar().getConFormaPago());
+			    		   contratoVO.setFormaPago(formaPago);
+			    		   servicioEucaristia.createOrUpdateContrato(contratoVO);
+			    	   }
+			       }
+			}
+				
 			pago=new PagoDTO();
 			pago.setPagCodigo(pagoContratoDataManager.getPagoContratoListDTOEditar().getPagCodigo());
 			pago.setPagValorPagado(pagoContratoDataManager.getPagoContratoListDTOEditar().getPagValorPagado());
-			pago.setPagFecha(pagoContratoDataManager.getPagoContratoListDTOEditar().getPagFecha());
+			pago.setPagFecha(new Timestamp(pagoContratoDataManager.getFechaPago().getTime()));
 			pago.setPagMesesPagados(pagoContratoDataManager.getPagoContratoListDTOEditar().getPagMesesPagados());
-			servicioEucaristia.updatePagoContrato(pago);
+			pago.setPagMesesFaltantes(mesesContratoPagar);
+			PagoDTO pagoActualizado=this.servicioEucaristia.updatePagoContrato(pago);
+			if(pagoActualizado!=null){
+				PagoContratoListDTO pagoContratoListDTO1= new PagoContratoListDTO();
+				pagoContratoListDTO1.setPagCodigo(pagoActualizado.getPagCodigo());
+				cargarDatosPagoContrato(this.servicioEucaristia.readPago(pagoContratoListDTO1).get(0));
+				
+			}
 			
 			MensajesWebController.aniadirMensajeInformacion("erp.despacho.contrato.pago.actualizar");
+			buscarPagoContrato();
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
-			MensajesWebController.aniadirMensajeError(e.getMessage());
+			MensajesWebController.aniadirMensajeError("Error Actualizar Pago Contrato: "+e.getMessage());
 		}
 	}
 	
@@ -173,10 +220,8 @@ public class PagoContratoController extends BaseController {
 	public void buscarPagoContrato()
 	{
 		try {
+			this.pagoContratoDataManager.getPagoContratoListDTO().setPagEmpresa(getEmpresaTbl().getEmrPk());
 			pagoContratoDataManager.setPagoContratoListDTOs(this.servicioEucaristia.readPago(this.pagoContratoDataManager.getPagoContratoListDTO()));
-			for ( PagoContratoListDTO pagoContratoListDTO: pagoContratoDataManager.getPagoContratoListDTOs()) {
-				System.out.println("Código de contrato: "+pagoContratoListDTO.getPagCodigo());
-			}
 			this.pagoContratoDataManager.setPagoContratoListDTO(new PagoContratoListDTO());
 		
 		} catch (SeguridadesException e) {
@@ -194,10 +239,11 @@ public class PagoContratoController extends BaseController {
 		try {
 			if(this.pagoContratoDataManager.getContratoListDTO().getPerCi()!=null && this.pagoContratoDataManager.getContratoListDTO().getPerCi()!="" )
 			{
+				this.pagoContratoDataManager.getContratoListDTO().setConEmpresa(getEmpresaTbl().getEmrPk());
 				listaContrato=this.servicioEucaristia.buscarContrato(this.pagoContratoDataManager.getContratoListDTO());
 				if (CollectionUtils.isEmpty(listaContrato) && listaContrato.size()==0) {
 					pagoContratoDataManager.setDesactivado(true);
-					MensajesWebController.aniadirMensajeAdvertencia("Busqueda vacía. Ingrese información en Contrato");
+					MensajesWebController.aniadirMensajeAdvertencia("Busqueda vacï¿½a. Ingrese informaciï¿½n en Contrato");
 				} else {
 					this.pagoContratoDataManager.setContratoListDTO(listaContrato.get(0));
 				}
@@ -216,7 +262,7 @@ public class PagoContratoController extends BaseController {
 			  listaContrato=this.servicioEucaristia.buscarContrato(this.pagoContratoDataManager.getContratoListDTO());
 				if (CollectionUtils.isEmpty(listaContrato) && listaContrato.size()==0) {
 					pagoContratoDataManager.setDesactivado(true);
-					MensajesWebController.aniadirMensajeAdvertencia("Busqueda vacía. Ingrese información en Contrato");
+					MensajesWebController.aniadirMensajeAdvertencia("Busqueda vacï¿½a. Ingrese informaciï¿½n en Contrato");
 				} else {
 					for (ContratoListDTO contratoListDTO : listaContrato) {
 						if(contratoListDTO.getConCodigo()==this.pagoContratoDataManager.getContratoListDTO().getConCodigo())
@@ -234,21 +280,62 @@ public class PagoContratoController extends BaseController {
 
 	public void cargarDatosPagoContrato(PagoContratoListDTO pagoContratoListDTO) {
 		try {
+			this.pagoContratoDataManager.setDesactivado(false);
 			this.pagoContratoDataManager.setPagoContratoListDTOEditar(pagoContratoListDTO);
-			this.pagoContratoDataManager.getContratoListDTO().setConCodigo(this.pagoContratoDataManager.getPagoContratoListDTOEditar().getConCodigo());
+			ContratoListDTO contrato= new ContratoListDTO();
+			contrato.setConCodigo(pagoContratoDataManager.getPagoContratoListDTOEditar().getConCodigo());
+			List<ContratoListDTO> contratos=servicioEucaristia.buscarContrato(contrato);
+			this.pagoContratoDataManager.setContratoListDTO(contratos.get(0));
+			this.pagoContratoDataManager.setFechaPago( new Date(this.pagoContratoDataManager.getPagoContratoListDTOEditar().getPagFecha().getTime()));
 			buscarContrato2();										
-			
 		} catch (Exception e) {
 			slf4jLogger.info("Error al cargarDatosSepultura {}", e.getMessage());
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosSepultura seleccionado");
 		}
 	}
-
+	public void calcularValorPagarEditar()
+	{
+		slf4jLogger.info("calcularValorPagarEditar");
+		try {
+			//pagoContratoDataManager.setContratoListDTO(servicioEucaristia.buscarContrato(pagoContratoDataManager.getContratoListDTO()).get(0));
+			PagoContratoListDTO pagoContrato=new PagoContratoListDTO();
+			BigDecimal valorPagar;
+			pagoContrato.setPagCodigo(pagoContratoDataManager.getPagoContratoListDTOEditar().getPagCodigo());
+			PagoContratoListDTO pagoContratoObtenido=this.servicioEucaristia.readPago(pagoContrato).get(0);
+				if(pagoContratoDataManager.getPagoContratoListDTOEditar().getPagMesesPagados().intValue()>(pagoContratoObtenido.getPagMesesPagados().intValue()+pagoContratoDataManager.getContratoListDTO().getConMesesPorPagar().intValue()))
+				{
+					pagoContratoDataManager.getPagoContratoListDTOEditar().setPagMesesPagados(null);
+				MensajesWebController.aniadirMensajeAdvertencia("Meses a Pagar Contrato excede a Meses de Pago Pendiete");
+				return;
+				}
+				PagoDTO pago=new PagoDTO();
+				pago.setPagMesesPagados(pagoContratoDataManager.getPagoContratoListDTOEditar().getPagMesesPagados());
+			valorPagar=new BigDecimal(servicioEucaristia.calcularValorPagar(pago,pagoContratoDataManager.getContratoListDTO()).doubleValue());		
+			valorPagar = valorPagar.setScale(2, BigDecimal.ROUND_UP);
+			pagoContratoDataManager.getPagoContratoListDTOEditar().setPagValorPagado(valorPagar);
+			} catch (SeguridadesException e) {
+				slf4jLogger.info("Error al calcularValorPagar {}", e.getMessage());
+				MensajesWebController.aniadirMensajeError("Error al calcularValorTotalEditar seleccionado");
+			}
+	}
 	public void calcularValorPagar()
 	{
 		slf4jLogger.info("calcularValorPagar");
 		BigDecimal valorPagar;
 		try {
+			if(pagoContratoDataManager.getContratoListDTO().getConMesesPorPagar().equals(0))
+			{
+				pagoContratoDataManager.getPagoDTO().setPagMesesPagados(null);
+				pagoContratoDataManager.setDesactivado(true);
+			MensajesWebController.aniadirMensajeAdvertencia("No tiene pagos pendientes por el contrato Actual");
+			return;
+			}
+			if(pagoContratoDataManager.getPagoDTO().getPagMesesPagados()>pagoContratoDataManager.getContratoListDTO().getConMesesPorPagar())
+			{
+				pagoContratoDataManager.getPagoDTO().setPagMesesPagados(null);
+			MensajesWebController.aniadirMensajeAdvertencia("Meses a Pagar Contrato excede a Meses de Pago Pendiete");
+			return;
+			}
 		valorPagar=new BigDecimal(servicioEucaristia.calcularValorPagar(pagoContratoDataManager.getPagoDTO(),pagoContratoDataManager.getContratoListDTO()).doubleValue());		
 		valorPagar = valorPagar.setScale(2, BigDecimal.ROUND_UP);
 		pagoContratoDataManager.getPagoDTO().setPagValorPagado(valorPagar);
@@ -263,9 +350,6 @@ public class PagoContratoController extends BaseController {
 	{
 		Date fechaActual = new Date();
 		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
-				
-		//DateFormat pequeña = DateFormat.getDateInstance(DateFormat.SHORT);
-		
 		DefuncionListDTO defuncionAux=new DefuncionListDTO();
 		defuncionAux.setPerCi(pagoContratoDataManager.getPagoContratoListDTOEditar().getPerCi());
 		List<DefuncionListDTO> listaDefunciones=null;
@@ -283,7 +367,7 @@ public class PagoContratoController extends BaseController {
 		mapParametros.put("beneficiarioCedula", pagoContratoDataManager.getPagoContratoListDTOEditar().getBenci());
 		mapParametros.put("difunto", pagoContratoDataManager.getPagoContratoListDTOEditar().getPerNombres().toUpperCase()+" "+pagoContratoDataManager.getPagoContratoListDTOEditar().getPerApellidos().toUpperCase());
 		mapParametros.put("nicho", pagoContratoDataManager.getPagoContratoListDTOEditar().getNicDescripcion()+" - "+ pagoContratoDataManager.getPagoContratoListDTOEditar().getNniDescripcion()+" - "+pagoContratoDataManager.getPagoContratoListDTOEditar().getSeccion()+" - "+pagoContratoDataManager.getPagoContratoListDTOEditar().getTniDescripcion());
-		mapParametros.put("mesPago", pagoContratoDataManager.getPagoContratoListDTOEditar().getPagMesesFaltantes().toString()+"/"+pagoContratoDataManager.getContratoListDTO().getConMesesArrendamiento().toString());
+		mapParametros.put("mesPago", pagoContratoDataManager.getContratoListDTO().getConMesesPorPagar().toString()+"/"+pagoContratoDataManager.getContratoListDTO().getConMesesArrendamiento().toString());
 		mapParametros.put("fechaPago", pagoContratoDataManager.getPagoContratoListDTOEditar().getPagFecha().toString().substring(2, 10));
 		
 		if (!CollectionUtils.isEmpty(listaDefunciones) && listaDefunciones != null)
@@ -312,9 +396,29 @@ public class PagoContratoController extends BaseController {
 		cargarDatosPagoContrato(pagoContratoListDTO);
 		exportar();
 	}
-	
+	public void exportarPdf1()
+	{
+		List<PagoContratoListDTO> pagoContratoListDTOs=null;
+		PagoContratoListDTO pagoContratoListDTO= new PagoContratoListDTO();
+		pagoContratoListDTO.setPagCodigo(pagoContratoDataManager.getPagoDTO().getPagCodigo());
+		pagoContratoListDTO.setConCodigo(pagoContratoDataManager.getPagoDTO().getPagContrato());
+		pagoContratoListDTO.setPagEmpresa(getEmpresaTbl().getEmrPk());
+		try {
+			pagoContratoListDTOs=this.servicioEucaristia.readPago(pagoContratoListDTO);
+			if (!CollectionUtils.isEmpty(pagoContratoListDTOs) && pagoContratoListDTOs != null)
+				cargarDatosPagoContrato(pagoContratoListDTOs.get(0));
+				exportar();
+				pagoContratoDataManager.setDesactivado(true);
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al exportar pago contrato no encontrado {}", e.getMessage());
+			MensajesWebController.aniadirMensajeError("Error al exportar pago contrato no encontrado");
+		
+		}
+		
+	}
 	public void limpiarFormulario()
 	{
+		System.out.println("limpiarFormulario");
 		pagoContratoDataManager.setPagoDTO(new PagoDTO());
 		pagoContratoDataManager.setContratoListDTO(new ContratoListDTO());
 		pagoContratoDataManager.setFechaPago(new Date());

@@ -22,7 +22,7 @@
 							<p:inputText id="txtCi" style="width: 70%" 
 								   value="#{pagoContratoDataManager.contratoListDTO.perCi}" disabled="#{pagoContratoDataManager.desactivado}">
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-							<p:ajax event="blur"  listener="#{pagoContratoController.buscarContrato}" process="@this" update="txtCi,txtNombres,txtApellidos,txtCiBen,txtNombresBen,txtApellidosBen, txtFechaInicio,txtFechaFinalizacion,txtNumNicho,txtSeccionNicho,txtTipoNicho,txtNivelNicho,txtMesesArrend,txtFormaPago,txtObs,txtValorMes,txtValorTotal,txtFechaPago,txtMesesPago,txtMontoPagar"/>
+							<p:ajax event="blur"  listener="#{pagoContratoController.buscarContrato}" process="@this" update="txtCi,txtNombres,txtApellidos,txtCiBen,txtNombresBen,txtApellidosBen, txtFechaInicio,txtFechaFinalizacion,txtNumNicho,txtSeccionNicho,txtTipoNicho,txtNivelNicho,txtMesesArrend,txtMesesArrendPen,txtFormaPago,txtObs,txtValorMes,txtValorTotal,txtFechaPago,txtMesesPago,txtMontoPagar"/>
 						</p:inputText>
 						</td>	
 					</tr>
@@ -139,22 +139,32 @@
 				
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtMesesArrend" value="#{i18n['erp.despacho.contrato.meses.arrendamiento']}" />
+							<h:outputLabel for="txtMesesArrend" value="#{i18n['erp.despacho.contrato.meses.arrendamiento.total']}" />
 						</td>
 						<td width="70%">
 							<p:inputText id="txtMesesArrend" style="width: 70%" 
-								 label="#{i18n['erp.despacho.contrato.meses.arrendamiento']}" value="#{pagoContratoDataManager.contratoListDTO.conMesesArrendamiento}"
+								 label="#{i18n['erp.despacho.contrato.meses.arrendamiento.total']}" value="#{pagoContratoDataManager.contratoListDTO.conMesesArrendamiento}"
 								 readonly="true"  disabled="#{pagoContratoDataManager.desactivado}" >
 						</p:inputText>
 						</td>	
 					</tr>
-					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtMesesArrendPen" value="#{i18n['erp.despacho.contrato.meses.arrendamiento.pago.pendiente']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtMesesArrendPen" style="width: 70%" 
+								 label="#{i18n['erp.despacho.contrato.meses.arrendamiento.pago.pendiente']}" value="#{pagoContratoDataManager.contratoListDTO.conMesesPorPagar}"
+								 readonly="true"  disabled="#{pagoContratoDataManager.desactivado}" >
+						</p:inputText>
+						</td>	
+					</tr>
 					<tr>
 						<td width="30%">
 							<h:outputLabel for="txtValorMes" value="#{i18n['erp.despacho.contrato.valor.mes']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtValorMes" label="#{i18n['erp.despacho.contrato.valor.mes']}" style="width: 70%"
+							<p:inputText id="txtValorMes" label="#{i18n['erp.despacho.contrato.valor.mes']}" style="width: 70%" readonly="true"
 							value="#{pagoContratoDataManager.contratoListDTO.conValorMes}"  disabled="#{pagoContratoDataManager.desactivado}" />
 						</td>
 					</tr>
@@ -164,7 +174,7 @@
 							<h:outputLabel for="txtValorTotal" value="#{i18n['erp.despacho.contrato.pago.valor.total']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtValorTotal" label="#{i18n['erp.despacho.contrato.pago.valor.total']}" style="width: 70%"
+							<p:inputText id="txtValorTotal" label="#{i18n['erp.despacho.contrato.pago.valor.total']}" style="width: 70%" readonly="true"
 							value="#{pagoContratoDataManager.contratoListDTO.conValorTotal}"  disabled="#{pagoContratoDataManager.desactivado}" />
 						</td>
 					</tr>
@@ -197,8 +207,8 @@
 							<h:outputLabel for="txtFechaPago" value="#{i18n['erp.despacho.contrato.pago.fecha.pago']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFechaPago" style="width: 70%" navigator="true"   showOn="button" required="true"
-							value="#{pagoContratoDataManager.fechaPago}" disabled="#{pagoContratoDataManager.desactivado}"  />
+							<p:calendar id="txtFechaPago" style="width: 70%" navigator="true"   showOn="button" required="true" label="#{i18n['erp.despacho.contrato.pago.fecha.pago']}"
+							value="#{pagoContratoDataManager.fechaPago}" disabled="#{pagoContratoDataManager.desactivado}" />
 						</td>
 					</tr>
 					
@@ -207,9 +217,9 @@
 							<h:outputLabel for="txtMesesPago" value="#{i18n['erp.despacho.contrato.pago.meses']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtMesesPago" label="#{i18n['erp.despacho.contrato.pago.meses']}" style="width: 70%"
+							<p:inputText id="txtMesesPago" label="#{i18n['erp.despacho.contrato.pago.meses']}" style="width: 70%" required="true" onkeypress="return NumCheck(event,this)"
 							value="#{pagoContratoDataManager.pagoDTO.pagMesesPagados}">
-							<p:ajax event="blur" update="txtMontoPagar" listener="#{pagoContratoController.calcularValorPagar}" process="@this,txtMesesArrend"  disabled="#{pagoContratoDataManager.desactivado}" />
+							<p:ajax event="blur" update="txtMontoPagar,txtMesesPago" listener="#{pagoContratoController.calcularValorPagar}" process="@this,txtMesesArrend"  disabled="#{pagoContratoDataManager.desactivado}" />
 							</p:inputText>
 						</td>
 					</tr>
@@ -229,9 +239,10 @@
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{pagoContratoController.registrarPagoContrato}"
-					
 					process="@this,pnlNuevoPagoContrato" update="pnlNuevoPagoContrato,:formPagoContrato:pnlMessages,:formPagoContrato:tablaPagoContrato,:formNuevoPagoContrato:pnlBotones" disabled="#{pagoContratoDataManager.desactivado}"   />
-				<p:commandButton value="#{i18n['label.cancelar']}" actionListener="#{pagoContratoController.limpiarFormulario}" process="@this" immediate="true" update="pnlNuevoPagoContrato,pnlBotones"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevoPagoContrato.hide()" type="button" />
+				<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{pagoContratoController.exportarPdf1}" icon="exportPdf" ajax="false"
+				disabled="#{pagoContratoDataManager.exportDesactivado}" oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoPagoContrato.hide()"/>
 			</p:panel>
 		</h:form>
 		</p:scrollPanel>
