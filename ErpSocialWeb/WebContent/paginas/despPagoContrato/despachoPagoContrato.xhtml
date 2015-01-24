@@ -124,11 +124,17 @@
 				</p:column>
 	
 				<p:column headerText="#{i18n['erp.despacho.contrato.fecha.inicio']}" width="40%">
-					<h:outputText  value="#{fn:substring(pago.conFechaInicio,0,10)}" />
+					<h:outputText  value="#{fn:substring(pago.pagContratoFechaIncio,0,10)}" />
 				</p:column>
 				
-				<p:column headerText="#{i18n['erp.despacho.contrato.fecha.inicio']}" width="40%">
-					<h:outputText  value="#{fn:substring(pago.conFechaFin,0,10)}" />
+				<p:column headerText="#{i18n['erp.despacho.contrato.fecha.fin']}" width="40%">
+					<h:outputText  value="#{fn:substring(pago.pagContratoFechaFin,0,10)}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.despacho.contrato.pago.nicho.descripcion']}" width="40%">
+					<h:outputText  value="#{pago.pagNichoDescripcion}" />
+				</p:column>
+				<p:column headerText="#{i18n['erp.despacho.contrato.pago.fecha.pago']}" width="40%">
+					<h:outputText  value="#{fn:substring(pago.pagFecha,0,10)}" />
 				</p:column>
 			
 				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">

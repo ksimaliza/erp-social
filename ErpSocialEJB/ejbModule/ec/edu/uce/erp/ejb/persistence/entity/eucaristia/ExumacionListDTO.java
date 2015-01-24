@@ -76,6 +76,9 @@ public class ExumacionListDTO implements Serializable {
 
 	@Column(name="exu_tomo")
 	private String exuTomo;
+	
+	@Column(name="exu_empresa")
+	private Integer exuEmpresa;
 
 	@Temporal(TemporalType.DATE)
 	private Date fechanacautoriza;
@@ -427,4 +430,13 @@ public class ExumacionListDTO implements Serializable {
 		this.fechaHasta = fechaHasta;
 	}
 
+	public Integer getExuEmpresa() {
+		return exuEmpresa;
+	}
+
+	public void setExuEmpresa(Integer exuEmpresa) {
+		this.exuEmpresa = exuEmpresa;
+	}
+ 
+	
 }

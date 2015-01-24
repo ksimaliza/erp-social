@@ -70,7 +70,11 @@ public class AutorizacionExhumacionDAOImpl extends AbstractFacadeImpl<AutorizaEx
 					predicate = cb.like(cb.upper(from.<String>get("perApellidos")), apellidoSacerdote);
 					criteriaList.add(predicate);
 				}
-		
+				//por empresa
+				if (autorizaExhumacionListDTO.getAutEmpresa()!=null) {
+					predicate = cb.equal(from.get("autEmpresa"), autorizaExhumacionListDTO.getAutEmpresa());
+					criteriaList.add(predicate);
+				}
 				
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		

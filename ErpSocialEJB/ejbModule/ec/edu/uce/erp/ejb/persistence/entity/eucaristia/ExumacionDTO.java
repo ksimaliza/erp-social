@@ -44,6 +44,9 @@ public class ExumacionDTO implements Serializable {
 
 	@Column(name="exu_tomo")
 	private String exuTomo;
+	
+	@Column(name="exu_empresa")
+	private Integer exuEmpresa;
 
 	public ExumacionDTO() {
 	}
@@ -110,6 +113,16 @@ public class ExumacionDTO implements Serializable {
 
 	public void setExuPagina(String exuPagina) {
 		this.exuPagina = exuPagina;
+	}
+
+	
+	
+	public Integer getExuEmpresa() {
+		return exuEmpresa;
+	}
+
+	public void setExuEmpresa(Integer exuEmpresa) {
+		this.exuEmpresa = exuEmpresa;
 	}
 
 	public String getExuTomo() {

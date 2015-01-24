@@ -1569,13 +1569,14 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	@Override
 	public PagoDTO updatePagoContrato(PagoDTO pago) throws SeguridadesException
 	{
-		slf4jLogger.info("createOrUpdatePagoContrato");
+		slf4jLogger.info("updatePagoContrato");
 		PagoDTO pagoInter;										
 		try{
 			pagoInter=eucaristiaFactoryDAO.getPagoDAOImpl().find(pago.getPagCodigo());
 			pagoInter.setPagFecha(pago.getPagFecha());
 			pagoInter.setPagValorPagado(pago.getPagValorPagado());
 			pagoInter.setPagMesesPagados(pago.getPagMesesPagados());
+			pagoInter.setPagMesesFaltantes(pago.getPagMesesFaltantes());
 			eucaristiaFactoryDAO.getPagoDAOImpl().update(pagoInter);		
 		 
 		}catch (Exception e) {

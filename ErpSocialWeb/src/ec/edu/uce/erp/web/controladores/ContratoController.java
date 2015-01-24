@@ -509,5 +509,6 @@ public ContratoController() {
 	}
 	public void actualizarCampo() {
 		slf4jLogger.info("actualizarCampo");
+		contratoDataManager.setFechaFin(null);
 	}
 }

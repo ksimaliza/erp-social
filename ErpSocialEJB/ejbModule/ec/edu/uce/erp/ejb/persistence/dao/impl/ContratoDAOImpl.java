@@ -103,7 +103,12 @@ public class ContratoDAOImpl extends AbstractFacadeImpl<ContratoDTO> implements 
 					(UtilAplication.concatenarPorcenteje(contratoListDTO.getBenCi())));
 					predicate = cb.like(cb.upper(from.<String>get("benCi")), cedulaBeneficiario);
 					criteriaList.add(predicate);
-				}				
+				}
+		//por codigo
+		        if (contratoListDTO.getConCodigo()!=null) {
+					predicate = cb.equal(from.get("conCodigo"), contratoListDTO.getConCodigo());
+					criteriaList.add(predicate);
+				}
 		//por empresa
 		        if (contratoListDTO.getConEmpresa()!=null) {
 					predicate = cb.equal(from.get("conEmpresa"), contratoListDTO.getConEmpresa());

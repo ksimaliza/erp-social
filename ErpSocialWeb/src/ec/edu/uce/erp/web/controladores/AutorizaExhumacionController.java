@@ -80,13 +80,14 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(AutorizaExhuma
 		   if (!CollectionUtils.isEmpty(listaAutorizaExhumacions) && listaAutorizaExhumacions.size()!=0 && autorizaExhumacionDataManager.getAutorizaExhumacionDTO().getAutCodigo()==null && esAutorizaExhumacion)
 		   {
 			   
-			   MensajesWebController.aniadirMensajeAdvertencia("Yá se registró uno que autoriza exhumación con la misma cédula");
+			   MensajesWebController.aniadirMensajeAdvertencia("erp.despauto.autorizacion.persona.repetida");
 			   return;
 		   }
 			
 			autorizacionExhumacionVO=new AutorizacionExhumacionVO();
 			autorizacionExhumacionVO.setPersona(autorizaExhumacionDataManager.getAutorizaExhuPerInsertar());
 			autorizacionExhumacionVO.setAutorizaExhumacionDTO(autorizaExhumacionDataManager.getAutorizaExhumacionDTO());
+			autorizacionExhumacionVO.getAutorizaExhumacionDTO().setAutEmpresa(getEmpresaTbl().getEmrPk());
 			AutorizaExhumacionDTO autorizacionNuevo=this.servicioEucaristia.createOrUpdateAutorizacion(autorizacionExhumacionVO);
 						
 			if (autorizacionNuevo != null) {
@@ -111,7 +112,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(AutorizaExhuma
 		List<AutorizaExhumacionListDTO> listaAutoriza=null;
 		
 		try {
-							
+			autorizaExhumacionDataManager.getAutorizaExhuBuscar().setAutEmpresa(getEmpresaTbl().getEmrPk());			
 			listaAutoriza=this.servicioEucaristia.buscarAutorizacion(autorizaExhumacionDataManager.getAutorizaExhuBuscar());
 			
 			if (CollectionUtils.isEmpty(listaAutoriza) && listaAutoriza.size()==0) {

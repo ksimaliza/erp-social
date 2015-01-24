@@ -1,7 +1,9 @@
 package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.sql.Timestamp;
 import java.math.BigDecimal;
 
@@ -27,6 +29,15 @@ public class PagoDTO implements Serializable {
 
 	@Column(name="pag_fecha")
 	private Timestamp pagFecha;
+	
+	@Column(name="pag_contrato_fecha_inicio")
+	private Timestamp pagContratoFechaIncio;
+	
+	@Column(name="pag_contrato_fecha_fin")
+	private Timestamp pagContratoFechaFin;
+	
+	@Column(name="pag_nicho_descripcion")
+	private String pagNichoDescripcion;
 
 	@Column(name="pag_meses_faltantes")
 	private Integer pagMesesFaltantes;
@@ -42,6 +53,9 @@ public class PagoDTO implements Serializable {
 
 	@Column(name="pag_valor_total")
 	private BigDecimal pagValorTotal;
+	
+	@Column(name="pag_empresa")
+	private Integer pagEmpresa;
 
 	public PagoDTO() {
 	}
@@ -110,4 +124,37 @@ public class PagoDTO implements Serializable {
 		this.pagValorTotal = pagValorTotal;
 	}
 
+	public Integer getPagEmpresa() {
+		return pagEmpresa;
+	}
+
+	public void setPagEmpresa(Integer pagEmpresa) {
+		this.pagEmpresa = pagEmpresa;
+	}
+
+	public Timestamp getPagContratoFechaIncio() {
+		return pagContratoFechaIncio;
+	}
+
+	public void setPagContratoFechaIncio(Timestamp pagContratoFechaIncio) {
+		this.pagContratoFechaIncio = pagContratoFechaIncio;
+	}
+
+	public Timestamp getPagContratoFechaFin() {
+		return pagContratoFechaFin;
+	}
+
+	public void setPagContratoFechaFin(Timestamp pagContratoFechaFin) {
+		this.pagContratoFechaFin = pagContratoFechaFin;
+	}
+
+	public String getPagNichoDescripcion() {
+		return pagNichoDescripcion;
+	}
+
+	public void setPagNichoDescripcion(String pagNichoDescripcion) {
+		this.pagNichoDescripcion = pagNichoDescripcion;
+	}
+   
+	
 }
