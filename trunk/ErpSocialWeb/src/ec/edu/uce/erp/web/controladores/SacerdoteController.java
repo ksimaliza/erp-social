@@ -14,6 +14,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.common.util.ConstantesApplication;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.SacerdoteDTO;
@@ -75,13 +76,15 @@ public void registrarSacerdote () {
 		   if (!CollectionUtils.isEmpty(listaSacerdotes) && listaSacerdotes.size()!=0 && sacerdoteDataManager.getSacerdoteInsertar().getSacCodigo()==null && esSacerdote)
 		   {
 			   
-			   MensajesWebController.aniadirMensajeAdvertencia("Yá se registró sacerdote con la misma cédula");
+			   MensajesWebController.aniadirMensajeAdvertencia("erp.despacho.sacerdote.cedula.repetida");
 			   return;
 		   }
 			
 			sacerdoteVO=new SacerdoteVO();
 			sacerdoteVO.setSacerdoteDTO(sacerdoteDataManager.getSacerdoteInsertar());
 			sacerdoteVO.setPersona(sacerdoteDataManager.getSacerdotePersonaInsertar());
+			sacerdoteVO.getSacerdoteDTO().setSacEmpresa(getEmpresaTbl().getEmrPk());
+			sacerdoteVO.getSacerdoteDTO().setSacEstado(ConstantesApplication.ESTADO_ACTIVO);
 			SacerdoteDTO sacerdoteNuevo= this.servicioEucaristia.createOrUpdateSacerdote(sacerdoteVO);
 			
 					
@@ -106,7 +109,7 @@ public void registrarSacerdote () {
 		List<SacerdoteListDTO> listaSacerdote=null;
 		
 		try {
-							
+			sacerdoteDataManager.getSacerdoteBuscar().setSacEmpresa(getEmpresaTbl().getEmrPk());				
 			listaSacerdote=this.servicioEucaristia.buscarSacerdote(sacerdoteDataManager.getSacerdoteBuscar());
 			
 			if (CollectionUtils.isEmpty(listaSacerdote) && listaSacerdote.size()==0) {
@@ -181,4 +184,49 @@ public void registrarSacerdote () {
 		// TODO Auto-generated method stub
 		
 	}
+	
+public void inactivarSacerdote () {
+		
+		slf4jLogger.info("inactivarSacerdote");
+		
+		try {
+			
+			if (this.sacerdoteDataManager.getSacerdoteInsertar()!=null) {
+				SacerdoteVO sacerdoteVO=new SacerdoteVO();
+				sacerdoteVO.setSacerdoteDTO(this.sacerdoteDataManager.getSacerdoteInsertar());
+				sacerdoteVO.getSacerdoteDTO().setSacEstado(ConstantesApplication.ESTADO_INACTIVO);
+				this.servicioEucaristia.activarDesactivarSacerdote(sacerdoteVO);
+				MensajesWebController.aniadirMensajeInformacion("erp.despacho.sacerdote.actualizar");
+				}
+			buscarSacerdote();
+			
+		
+		} catch (SeguridadesException e) {
+			MensajesWebController.aniadirMensajeError("Error al Inactivar Sacerdote");
+		}
+		
+	}
+
+public void activarSacerdote () {
+	
+	slf4jLogger.info("activarSacerdote");
+	
+	try {
+		
+		if (this.sacerdoteDataManager.getSacerdoteInsertar()!=null) {
+			SacerdoteVO sacerdoteVO=new SacerdoteVO();
+			sacerdoteVO.setSacerdoteDTO(this.sacerdoteDataManager.getSacerdoteInsertar());
+			sacerdoteVO.getSacerdoteDTO().setSacEstado(ConstantesApplication.ESTADO_ACTIVO);
+			this.servicioEucaristia.activarDesactivarSacerdote(sacerdoteVO);
+			MensajesWebController.aniadirMensajeInformacion("erp.despacho.sacerdote.actualizar");
+			}
+		buscarSacerdote();
+		
+	
+	} catch (SeguridadesException e) {
+		MensajesWebController.aniadirMensajeError("Error al Activar Sacerdote");
+	}
+	
+}
+
 }

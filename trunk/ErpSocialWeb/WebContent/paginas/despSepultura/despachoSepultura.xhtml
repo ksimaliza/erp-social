@@ -107,7 +107,12 @@
 				<p:column headerText="#{i18n['erp.despacho.sepultura.observacion']}" width="40%">
 					<h:outputText value="#{sepultura.sepObservacion}" />
 				</p:column>
-			
+			    <p:column headerText="#{i18n['label.estado']}" styleClass="centered" width="10%">
+					<h:outputText value="#{i18n['label.estado.activo']}"
+						rendered="#{!(sepultura.nicEstado eq sepulturaDataManager.estadoDesactivo)}" />
+					<h:outputText value="#{i18n['label.estado.inactivo']}"
+						rendered="#{sepultura.nicEstado eq sepulturaDataManager.estadoDesactivo}" />
+				</p:column>
 			<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"

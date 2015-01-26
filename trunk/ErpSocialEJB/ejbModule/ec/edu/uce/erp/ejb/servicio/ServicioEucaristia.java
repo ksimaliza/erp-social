@@ -62,6 +62,9 @@ public interface ServicioEucaristia {
 	SacerdoteDTO createOrUpdateSacerdote(SacerdoteVO sacerdoteVO)
 			throws SeguridadesException;
 
+	SacerdoteDTO activarDesactivarSacerdote(SacerdoteVO sacerdoteVO)
+			throws SeguridadesException;
+
 	List<SacerdoteListDTO> buscarSacerdote(SacerdoteListDTO sacerdoteListDTO)
 			throws SeguridadesException;
 

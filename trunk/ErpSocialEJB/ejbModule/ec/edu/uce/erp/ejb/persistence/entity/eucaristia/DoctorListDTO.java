@@ -1,7 +1,9 @@
 package ec.edu.uce.erp.ejb.persistence.entity.eucaristia;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 
 
@@ -20,6 +22,12 @@ public class DoctorListDTO implements Serializable {
 
 	@Column(name="doc_persona")
 	private Integer docPersona;
+	
+	@Column(name="doc_num_licencia_med")
+	private String docNumLicenciaMed;
+	
+	@Column(name="doc_empresa")
+	private Integer docEmpresa;
 
 	@Column(name="per_apellidos")
 	private String perApellidos;
@@ -152,4 +160,20 @@ public class DoctorListDTO implements Serializable {
 		this.perTelefono = perTelefono;
 	}
 
+	public String getDocNumLicenciaMed() {
+		return docNumLicenciaMed;
+	}
+
+	public void setDocNumLicenciaMed(String docNumLicenciaMed) {
+		this.docNumLicenciaMed = docNumLicenciaMed;
+	}
+
+	public Integer getDocEmpresa() {
+		return docEmpresa;
+	}
+
+	public void setDocEmpresa(Integer docEmpresa) {
+		this.docEmpresa = docEmpresa;
+	}
+  
 }

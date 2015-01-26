@@ -66,6 +66,7 @@ public void registrarDoctor () {
 		DoctorListDTO doctorAux=new DoctorListDTO();
 		try {
 			 doctorAux.setPerCi(doctorDataManager.getDoctorPersonaInsertar().getPerCi());
+			 doctorAux.setDocEmpresa(getEmpresaTbl().getEmrPk());
 			 List<DoctorListDTO> listaDoctores= servicioEucaristia.buscarDoctor(doctorAux);
 			 Boolean esDoctor=false;
 			 for (DoctorListDTO doctorListDTO : listaDoctores) {
@@ -74,11 +75,12 @@ public void registrarDoctor () {
 				}
 		   if (!CollectionUtils.isEmpty(listaDoctores) && listaDoctores.size()!=0 && doctorDataManager.getDoctorInsertar().getDocCodigo()==null && esDoctor)
 		   {
-			   MensajesWebController.aniadirMensajeAdvertencia("Yá se registró doctor con la misma cédula");
+			   MensajesWebController.aniadirMensajeAdvertencia("erp.despacho.doctor.cedula.repetida");
 			   return;
 		   }
 			DoctorVO=new DoctorVO();
 			DoctorVO.setDoctorDTO(doctorDataManager.getDoctorInsertar());
+			DoctorVO.getDoctorDTO().setDocEmpresa(getEmpresaTbl().getEmrPk());
 			DoctorVO.setPersona(doctorDataManager.getDoctorPersonaInsertar());
 			DoctorDTO DoctorNuevo= this.servicioEucaristia.createOrUpdateDoctor(DoctorVO);
 			
@@ -104,7 +106,7 @@ public void registrarDoctor () {
 		List<DoctorListDTO> listaDoctor=null;
 		
 		try {
-							
+			doctorDataManager.getDoctorBuscar().setDocEmpresa(getEmpresaTbl().getEmrPk());				
 			listaDoctor=this.servicioEucaristia.buscarDoctor(doctorDataManager.getDoctorBuscar());
 			
 			if (CollectionUtils.isEmpty(listaDoctor) && listaDoctor.size()==0) {
@@ -117,7 +119,7 @@ public void registrarDoctor () {
 			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al buscarDoctor {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
+			MensajesWebController.aniadirMensajeError("Error al buscar Doctor");
 		}
 		
 	}

@@ -28,6 +28,9 @@ public class SepulturaListDTO implements Serializable {
 
 	@Column(name="nic_tipo")
 	private Integer nicTipo;
+	
+	@Column(name="nic_estado")
+	private String nicEstado;
 
 	@Column(name="nni_descripcion")
 	private String nniDescripcion;
@@ -249,6 +252,14 @@ public class SepulturaListDTO implements Serializable {
 
 	public void setSepEmpresa(Integer sepEmpresa) {
 		this.sepEmpresa = sepEmpresa;
+	}
+
+	public String getNicEstado() {
+		return nicEstado;
+	}
+
+	public void setNicEstado(String nicEstado) {
+		this.nicEstado = nicEstado;
 	}
  
 }

@@ -22,6 +22,12 @@ public class DoctorDTO implements Serializable {
 
 	@Column(name="doc_persona")
 	private Integer docPersona;
+	
+	@Column(name="doc_num_licencia_med")
+	private String docNumLicenciaMed;
+	
+	@Column(name="doc_empresa")
+	private Integer docEmpresa;
 
 	public DoctorDTO() {
 	}
@@ -42,4 +48,21 @@ public class DoctorDTO implements Serializable {
 		this.docPersona = docPersona;
 	}
 
+	public String getDocNumLicenciaMed() {
+		return docNumLicenciaMed;
+	}
+
+	public void setDocNumLicenciaMed(String docNumLicenciaMed) {
+		this.docNumLicenciaMed = docNumLicenciaMed;
+	}
+
+	public Integer getDocEmpresa() {
+		return docEmpresa;
+	}
+
+	public void setDocEmpresa(Integer docEmpresa) {
+		this.docEmpresa = docEmpresa;
+	}
+    
+    
 }

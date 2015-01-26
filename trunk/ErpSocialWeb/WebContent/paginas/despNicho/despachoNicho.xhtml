@@ -73,13 +73,10 @@
 					<h:outputText  value="#{nicho.catDescripcion}" />
 				</p:column>
 				<p:column headerText="#{i18n['erp.despacho.nicho.estado']}" width="40%">
-				<p:selectOneMenu id="inputEstado"
-								
-								value="#{nicho.nicEstado}" disabled="true" >
-								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
-								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{sepulturaDataManager.estadoActivo}"/>
-								<f:selectItem itemLabel="#{i18n['label.estado.inactivo']}" itemValue="#{sepulturaDataManager.estadoInactivo}"/>
-							</p:selectOneMenu>
+				<h:outputText value="#{i18n['label.estado.activo']}"
+						rendered="#{nicho.nicEstado eq nichoDataManager.estadoActivo}" />
+					<h:outputText value="#{i18n['label.estado.inactivo']}"
+						rendered="#{nicho.nicEstado eq nichoDataManager.estadoInactivo}" />
 				</p:column>							
 			<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
 					<h:panelGroup>
