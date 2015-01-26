@@ -194,7 +194,7 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			if(listPersona.size()<=0)
 				personaNueva=factoryDAO.getPersonaDAOImpl().create(personaNueva);
 			else
-				personaNueva=listPersona.get(0);	
+				personaNueva=factoryDAO.getPersonaDAOImpl().update(sacerdoteVO.getPersona());	
 				sacerdoteVO.getSacerdoteDTO().setSacPersona(personaNueva.getPerPk());
 			
 		if(sacerdoteVO.getSacerdoteDTO().getSacCodigo()!=null){
@@ -225,7 +225,24 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		
 		return listSacerdotes;
 	}
-	
+	@Override
+	public SacerdoteDTO activarDesactivarSacerdote(SacerdoteVO sacerdoteVO) throws SeguridadesException
+	{
+		slf4jLogger.info("activarDesactivarSacerdote");
+		SacerdoteDTO sacerdote=null;
+		
+		try {
+			
+		if(sacerdoteVO.getSacerdoteDTO().getSacCodigo()!=null){
+			sacerdote =eucaristiaFactoryDAO.getSacerdoteDAOImpl().update(sacerdoteVO.getSacerdoteDTO());
+		}
+		} catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdateSacerdote {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+		return sacerdote;
+	}
 	@Override
 	public SacerdoteVO obtenerSacerdotePorId(Integer Idpersona, Integer Idsacerdote) throws SeguridadesException {
 		slf4jLogger.info("obtenerSacerdotePorId");
@@ -236,6 +253,7 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		sacerdote.setSacerdoteDTO(eucaristiaFactoryDAO.getSacerdoteDAOImpl().find(Idsacerdote));
 		return sacerdote;
 	}
+	
 	
 	@Override
 	public DoctorDTO createOrUpdateDoctor(DoctorVO doctorVO) throws SeguridadesException
@@ -249,7 +267,7 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			if(listPersona.size()<=0)
 				personaNueva=factoryDAO.getPersonaDAOImpl().create(personaNueva);
 			else
-				personaNueva=listPersona.get(0);	
+				personaNueva=factoryDAO.getPersonaDAOImpl().update(doctorVO.getPersona());	
 				doctorVO.getDoctorDTO().setDocPersona(personaNueva.getPerPk());
 			
 		if(doctorVO.getDoctorDTO().getDocCodigo()!=null){

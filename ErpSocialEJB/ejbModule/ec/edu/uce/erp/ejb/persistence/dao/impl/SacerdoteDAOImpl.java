@@ -68,8 +68,16 @@ public class SacerdoteDAOImpl extends AbstractFacadeImpl<SacerdoteDTO> implement
 					predicate = cb.like(cb.upper(from.<String>get("perApellidos")), apellidoSacerdote);
 					criteriaList.add(predicate);
 				}
-		
-				
+				//por estado
+				if (sacerdote.getSacEstado()!=null) {
+					predicate = cb.equal(from.get("sacEstado"), sacerdote.getSacEstado());
+					criteriaList.add(predicate);
+				}
+				//por empresa
+				if (sacerdote.getSacEmpresa()!=null) {
+					predicate = cb.equal(from.get("sacEmpresa"), sacerdote.getSacEmpresa());
+					criteriaList.add(predicate);
+				}		
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		
 		TypedQuery<SacerdoteListDTO> typedQuery = entityManager.createQuery(select);

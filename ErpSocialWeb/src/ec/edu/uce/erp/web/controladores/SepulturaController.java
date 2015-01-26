@@ -381,7 +381,7 @@ SepulturaVO sepulturaActualizadaVO = null;
 	
 public void inactivarSepultura () {
 		
-		slf4jLogger.info("inactivarModulo");
+		slf4jLogger.info("inactivarSepultura");
 		
 		try {
 			
@@ -410,7 +410,7 @@ public void inactivarSepultura () {
 			}
 			buscarSepultura();
 		} catch (SeguridadesException e) {
-			MensajesWebController.aniadirMensajeError(e.getMessage());
+			MensajesWebController.aniadirMensajeError("Error al Inactivar Sepultura");
 		}
 		
 	}

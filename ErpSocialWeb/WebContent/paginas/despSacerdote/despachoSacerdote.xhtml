@@ -83,6 +83,13 @@
 				<p:column headerText="#{i18n['erp.despacho.sacerdote.fechanac']}" width="40%">
 					<h:outputText value="#{sacerdote.perFechaNac}" />
 				</p:column>
+				
+				<p:column headerText="#{i18n['erp.despacho.sacerdote.estado']}" width="40%">
+					<h:outputText value="#{i18n['label.estado.activo']}"
+						rendered="#{sacerdote.sacEstado eq sacerdoteDataManager.estadoActivo}" />
+					<h:outputText value="#{i18n['label.estado.inactivo']}"
+						rendered="#{sacerdote.sacEstado eq sacerdoteDataManager.estadoInactivo}" />
+				</p:column>
 								
 				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
 					<h:panelGroup>
@@ -94,9 +101,48 @@
 								<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
 					</h:panelGroup>
-				</p:column>
+					<h:panelGroup>
+						<h:outputText value="&#160;|&#160;" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.activar']}" 
+							oncomplete="dlgActivar.show()"
+							actionListener="#{sacerdoteController.cargarDatosSacerdote(sacerdote)}"
+							process="@this"
+							rendered="#{(sacerdote.sacEstado.toString()==sacerdoteDataManager.estadoInactivo)}">
+							<h:graphicImage value="/resources/img/tick.png" alt="#{i18n['label.activar']}"/>
+						</p:commandLink>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:commandLink styleClass="no-decor"
+							title="#{i18n['label.desabilitar']}"
+							actionListener="#{sacerdoteController.cargarDatosSacerdote(sacerdote)}"
+							 oncomplete="dlgInactivar.show()"
+							rendered="#{(sacerdote.sacEstado.toString()==sacerdoteDataManager.estadoActivo)}">
+							<h:graphicImage value="/resources/img/delete.png" alt="#{i18n['label.desabilitar']}"/>
+						</p:commandLink>
+					</h:panelGroup>
+					</p:column>
 			</p:dataTable>			
-			
+	    <!-- Desactivar sacerdote -->
+			<p:confirmDialog id="dialogInactivar" message="#{i18n['erp.despacho.sacerdote.desactivar.pregunta.confirmacion']}" appendTo="@(body)"
+				header="#{i18n['erp.despacho.sacerdote.desactivar']}" severity="alert" widgetVar="dlgInactivar" >
+				<p:commandButton value="#{i18n['label.aceptar']}"
+					actionListener="#{sacerdoteController.inactivarSacerdote}"
+					oncomplete="dlgInactivar.hide()" 
+					update=":formSacerdote:pnlMessages,:formSacerdote:tablaSacerdote" process="@this"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgInactivar.hide();" type="button" />
+			</p:confirmDialog>		
+		<!-- Activar sacerdote -->
+			<p:confirmDialog id="dialogActivar" message="#{i18n['erp.despacho.sacerdote.activar.pregunta.confirmacion']}" appendTo="@(body)"
+				header="#{i18n['erp.despacho.sacerdote.desactivar']}" severity="alert" widgetVar="dlgActivar" >
+				<p:commandButton value="#{i18n['label.aceptar']}"
+					actionListener="#{sacerdoteController.activarSacerdote}"
+					oncomplete="dlgActivar.hide()" 
+					update="pnlMessages,tablaSacerdote" process="@this"/>
+				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgActivar.hide();" type="button" />
+			</p:confirmDialog>	
 		</h:form>			
 			<ui:include src="dialogNuevoSacerdote.xhtml" />
 			<ui:include src="dialogEditarSacerdote.xhtml" />		

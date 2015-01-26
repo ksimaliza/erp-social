@@ -26,8 +26,6 @@ public class SacerdoteDataManager extends BaseDataManager {
 	private Persona sacerdotePersonaInsertar;
 	private SacerdoteListDTO sacerdoteBuscar;
 	private List<SacerdoteListDTO> sacerdoteListDTOs;
-	
-			
 	@PostConstruct
 	public void inicializarObjetos () {
 		
@@ -77,5 +75,6 @@ public class SacerdoteDataManager extends BaseDataManager {
 	public void setSacerdotePersonaInsertar(Persona sacerdotePersonaInsertar) {
 		this.sacerdotePersonaInsertar = sacerdotePersonaInsertar;
 	}
-
+	
+   
 }

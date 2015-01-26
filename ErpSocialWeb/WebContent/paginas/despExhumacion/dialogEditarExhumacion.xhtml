@@ -17,7 +17,7 @@
 							<h:outputLabel for="txtCi" value="#{i18n['erp.despacho.exhumacion.cedula']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtCi" style="width: 70%" 
+							<p:inputText id="txtCi" style="width: 70%" label="#{i18n['erp.despacho.exhumacion.cedula']}"
 								 required="true" value="#{exhumacionDataManager.difuntoInsertar.perCi}" >
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur" update="txtNombres,txtApellidos,txtFechaSepelio" listener="#{exhumacionController.buscarDifunto}" process="@this"/>
@@ -63,7 +63,7 @@
 						
 						</td>
 					<td width="70%">
-					<p:selectOneMenu id="autoriza" value="#{exhumacionDataManager.autorizaCodigo}" filter="true" required="true" >
+					<p:selectOneMenu id="autoriza" label="#{i18n['erp.despacho.exhumacion.autorizacion']}" value="#{exhumacionDataManager.autorizaCodigo}" filter="true" required="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{exhumacionController.exhumacionDataManager.autorizaExhumacionListDTOs}" var="aut" itemLabel="#{aut.perNombres} #{aut.perApellidos}" itemValue="#{aut.autCodigo}"/>
 							</p:selectOneMenu>
@@ -87,7 +87,7 @@
 							<h:outputLabel for="txtFechaExhumacion" value="#{i18n['erp.despacho.exhumacion.fecha.exhumacion']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFechaExhumacion" style="width: 70%" navigator="true"   showOn="button" required="true" value="#{exhumacionDataManager.fechaExhumacion}"/>
+							<p:calendar id="txtFechaExhumacion" style="width: 70%" navigator="true"   showOn="button" required="true" value="#{exhumacionDataManager.fechaExhumacion}" label="#{i18n['erp.despacho.exhumacion.fecha.exhumacion']}"/>
 						</td>
 					</tr>
 						
@@ -96,7 +96,7 @@
 							<h:outputLabel for="txtTomo" value="#{i18n['erp.despacho.exhumacion.tomo']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtTomo" style="width: 70%" 
+							<p:inputText id="txtTomo" style="width: 70%"  required="true" onkeypress="return isNumberKey(event)" maxlength="10"
 								 label="#{i18n['erp.despacho.exhumacion.tomo']}" value="#{exhumacionDataManager.exumacionDTO.exuTomo}">
 						</p:inputText>
 						</td>	
@@ -107,7 +107,7 @@
 							<h:outputLabel for="txtActa" value="#{i18n['erp.despacho.exhumacion.acta']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtActa" style="width: 70%" 
+							<p:inputText id="txtActa" style="width: 70%" required="true" onkeypress="return isNumberKey(event)" maxlength="10"
 								 label="#{i18n['erp.despacho.exhumacion.acta']}" value="#{exhumacionDataManager.exumacionDTO.exuActa}">
 						</p:inputText>
 						</td>	
@@ -118,7 +118,7 @@
 							<h:outputLabel for="txtPagina" value="#{i18n['erp.despacho.exhumacion.pagina']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtPagina" style="width: 70%" 
+							<p:inputText id="txtPagina" style="width: 70%" required="true" maxlength="10"
 								onkeypress="return isNumberKey(event)" label="#{i18n['erp.despacho.exhumacion.pagina']}" value="#{exhumacionDataManager.exumacionDTO.exuPagina}" >
 						</p:inputText>
 						</td>	

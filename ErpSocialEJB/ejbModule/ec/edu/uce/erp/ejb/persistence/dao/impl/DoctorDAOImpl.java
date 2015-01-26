@@ -69,7 +69,11 @@ public class DoctorDAOImpl extends AbstractFacadeImpl<DoctorDTO> implements Doct
 					criteriaList.add(predicate);
 				}
 		
-				
+				//por empresa
+				if (Doctor.getDocEmpresa()!=null) {
+					predicate = cb.equal(from.get("docEmpresa"), Doctor.getDocEmpresa());
+					criteriaList.add(predicate);
+				}		
 		cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
 		
 		TypedQuery<DoctorListDTO> typedQuery = entityManager.createQuery(select);

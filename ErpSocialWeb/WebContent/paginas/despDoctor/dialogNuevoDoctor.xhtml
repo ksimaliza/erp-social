@@ -30,7 +30,7 @@
 							<h:outputLabel for="txtCi" value="#{i18n['erp.despacho.doctor.cedula']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtCi" value="#{doctorDataManager.doctorPersonaInsertar.perCi}" style="width: 100%"
+							<p:inputText id="txtCi" value="#{doctorDataManager.doctorPersonaInsertar.perCi}" style="width: 100%" required="true"
 								 label="#{i18n['erp.despacho.doctor.cedula']}">
 								<f:validateLength maximum="10" minimum="10"/>
 								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
@@ -65,7 +65,7 @@
 							<h:outputLabel for="txtFecNac" value="#{i18n['erp.despacho.doctor.fechanac']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFecNac" style="width: 100%" navigator="true" value="#{doctorDataManager.doctorPersonaInsertar.perFechaNac}"  showOn="button" required="true"/>
+							<p:calendar id="txtFecNac" style="width: 100%" navigator="true" label="#{i18n['erp.despacho.doctor.fechanac']}" value="#{doctorDataManager.doctorPersonaInsertar.perFechaNac}"  showOn="button" required="true"/>
 						</td>	
 					</tr>
 					
@@ -75,7 +75,7 @@
 						</td>
 						<td width="70%">
 							<p:inputTextarea id="txtDir" style="width: 100%" autoResize="false" 
-								value="#{doctorDataManager.doctorPersonaInsertar.perDireccion}" label="#{i18n['erp.despacho.doctor.direccion']}" required="true" />
+								value="#{doctorDataManager.doctorPersonaInsertar.perDireccion}" label="#{i18n['erp.despacho.doctor.direccion']}" required="true" maxlength="255"/>
 						</td>	
 					</tr>
 					<tr>
@@ -84,7 +84,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtTelefono" style="width: 100%"
-								value="#{doctorDataManager.doctorPersonaInsertar.perTelefono}" label="#{i18n['erp.despacho.doctor.telefono']}" onkeypress="return isNumberKey(event)" />
+								value="#{doctorDataManager.doctorPersonaInsertar.perTelefono}" label="#{i18n['erp.despacho.doctor.telefono']}" onkeypress="return isNumberKey(event)" maxlength="20"/>
 						</td>	
 					</tr>
 					<tr>
@@ -93,7 +93,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtCelular" style="width: 100%"
-								value="#{doctorDataManager.doctorPersonaInsertar.perCelular}" label="#{i18n['erp.despacho.doctor.celular']}" onkeypress="return isNumberKey(event)" />
+								value="#{doctorDataManager.doctorPersonaInsertar.perCelular}" label="#{i18n['erp.despacho.doctor.celular']}" onkeypress="return isNumberKey(event)" maxlength="20" />
 						</td>	
 					</tr>
 					<tr>
@@ -102,12 +102,21 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtEmail" style="width: 100%"
-								 value="#{doctorDataManager.doctorPersonaInsertar.perEmail}" label="#{i18n['erp.despacho.doctor.email']}">
+								 value="#{doctorDataManager.doctorPersonaInsertar.perEmail}" label="#{i18n['erp.despacho.doctor.email']}" maxlength="255">
 								<f:validator validatorId="ec.edu.uce.erp.web.validador.EmailValidator" />
 							</p:inputText>
 						</td>	
 					</tr>
-					
+					<tr>
+						<td width="30%">
+							<h:outputLabel for="txtNumLicMed" value="#{i18n['erp.despacho.doctor.licencia.medica']}" />
+						</td>
+						<td width="70%">
+							<p:inputText id="txtNumLicMed" style="width: 100%" required="true"
+								 value="#{doctorDataManager.doctorInsertar.docNumLicenciaMed}" label="#{i18n['erp.despacho.doctor.licencia.medica']}" maxlength="255">
+							</p:inputText>
+						</td>	
+					</tr>
 										
 				</table>
 			</p:panel>

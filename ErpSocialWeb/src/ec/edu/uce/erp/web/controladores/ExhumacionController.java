@@ -92,13 +92,14 @@ public class ExhumacionController extends BaseController{
 			
 			if(exhumacionDataManager.getDefuncionListDTO().getDefFecha().getTime()>exhumacionDataManager.getFechaExhumacion().getTime())
 			{
-				MensajesWebController.aniadirMensajeError("Ingrese fecha de Exhumación Correcta");
+				MensajesWebController.aniadirMensajeError("erp.despacho.exhumacion.fecha.incorrecta");
 				return;
 			}			
 			
 			
 			exhumacionVO.getExumacionDTO().setExuFechaExhumacion(new Timestamp(exhumacionDataManager.getFechaExhumacion().getTime()));
 			exhumacionVO.getExumacionDTO().setExuFechaCepelio(new Timestamp(exhumacionDataManager.getDefuncionListDTO().getDefFecha().getTime()));
+			exhumacionVO.getExumacionDTO().setExuEmpresa(getEmpresaTbl().getEmrPk());
 			ExumacionDTO exhumacionNuevo=this.servicioEucaristia.createOrUpdateExhumacion(exhumacionVO);
 						
 			if (exhumacionNuevo != null) {
@@ -139,7 +140,7 @@ public class ExhumacionController extends BaseController{
 				
 				if ((CollectionUtils.isEmpty(listaDifunto) && listaDifunto.size()==0)||CollectionUtils.isEmpty(list) && list.size()==0) {
 					exhumacionDataManager.setDesactivado(true);
-					MensajesWebController.aniadirMensajeAdvertencia("Difunto no encontrado. Ingrese información en Defunción");
+					MensajesWebController.aniadirMensajeAdvertencia("erp.despacho.exhumacion.difunto.registrar.defuncion");
 				} else {
 					exhumacionDataManager.setDifuntoInsertar(listaDifunto.get(0));
 					exhumacionDataManager.setDefuncionListDTO(list.get(0));
@@ -159,8 +160,9 @@ public class ExhumacionController extends BaseController{
 		List<AutorizaExhumacionListDTO> listaAutoriza=null;
 		
 		try {
-							
-			listaAutoriza=this.servicioEucaristia.buscarAutorizacion(new AutorizaExhumacionListDTO());
+			AutorizaExhumacionListDTO autoriza=new AutorizaExhumacionListDTO();
+			autoriza.setAutEmpresa(getEmpresaTbl().getEmrPk());
+			listaAutoriza=this.servicioEucaristia.buscarAutorizacion(autoriza);
 			
 			if (CollectionUtils.isEmpty(listaAutoriza) && listaAutoriza.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
@@ -183,7 +185,7 @@ public class ExhumacionController extends BaseController{
 		List<ExumacionListDTO> listaExhumacion=null;
 		
 		try {
-			
+			exhumacionDataManager.getExumacionListDTO().setExuEmpresa(getEmpresaTbl().getEmrPk());
 			listaExhumacion=this.servicioEucaristia.buscarExhumacion(exhumacionDataManager.getExumacionListDTO());
 			
 			if (CollectionUtils.isEmpty(listaExhumacion) && listaExhumacion.size()==0) {

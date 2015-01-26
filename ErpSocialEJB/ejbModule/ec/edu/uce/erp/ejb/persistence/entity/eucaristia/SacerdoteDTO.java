@@ -23,6 +23,12 @@ public class SacerdoteDTO implements Serializable {
 
 	@Column(name="sac_persona")
 	private Integer sacPersona;
+	
+	@Column(name="sac_estado")
+	private String sacEstado;
+	
+	@Column(name="sac_empresa")
+	private Integer sacEmpresa;
 
 	//bi-directional many-to-one association to BautizoDTO
 	@OneToMany(mappedBy="eucSacerdote")
@@ -199,4 +205,21 @@ public class SacerdoteDTO implements Serializable {
 		return eucPrimeraComunion;
 	}
 
+	public String getSacEstado() {
+		return sacEstado;
+	}
+
+	public void setSacEstado(String sacEstado) {
+		this.sacEstado = sacEstado;
+	}
+
+	public Integer getSacEmpresa() {
+		return sacEmpresa;
+	}
+
+	public void setSacEmpresa(Integer sacEmpresa) {
+		this.sacEmpresa = sacEmpresa;
+	}
+ 
+	
 }
