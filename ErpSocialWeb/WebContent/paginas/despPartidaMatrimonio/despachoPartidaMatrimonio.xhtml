@@ -132,7 +132,7 @@
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarPartidaMatrimonio.show()"
-							actionListener="#{partidaMatrimonioController.cargarDatosMatrimonio(matrimonio)}"	
+							actionListener="#{partidaMatrimonioController.cargarDatosMatrimonioEditar(matrimonio)}"	
 							process="@this" update=":formEditarPartidaMatrimonio:pnlEditarPartidaMatrimonio,:formEditarPartidaMatrimonio:pnlDatosPadrinoNovio,:formEditarPartidaMatrimonio:pnlDatosMadrinaNovio,:formEditarPartidaMatrimonio:pnlDatosNovia,:formEditarPartidaMatrimonio:pnlDatosPadrinoNovia,:formEditarPartidaMatrimonio:pnlDatosMadrinaNovia,:formEditarPartidaMatrimonio:pnlDatosMatrimonio,:formEditarPartidaMatrimonio:pnlDatos,:formEditarPartidaMatrimonio:pnlBotones">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>

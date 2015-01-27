@@ -17,6 +17,7 @@ import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.common.util.ConstantesApplication;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaListDTO;
@@ -146,8 +147,10 @@ public void buscarSacerdote () {
 	List<SacerdoteListDTO> listaSacerdote=null;
 	
 	try {
-						
-		listaSacerdote=this.servicioEucaristia.buscarSacerdote(new SacerdoteListDTO());
+		SacerdoteListDTO sacerdoteListDTO= new SacerdoteListDTO();
+		sacerdoteListDTO.setSacEstado(ConstantesApplication.ESTADO_ACTIVO);
+		sacerdoteListDTO.setSacEmpresa(getEmpresaTbl().getEmrPk());
+		listaSacerdote=this.servicioEucaristia.buscarSacerdote(sacerdoteListDTO);
 		
 		if (CollectionUtils.isEmpty(listaSacerdote) && listaSacerdote.size()==0) {
 			MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
@@ -162,6 +165,30 @@ public void buscarSacerdote () {
 	
 }
 
+public void buscarSacerdoteEditar () {
+	slf4jLogger.info("buscarSacerdoteEditar");
+	
+	List<SacerdoteListDTO> listaSacerdote=null;
+	
+	try {
+		this.eucaristiaDataManager.setSacerdoteDTOs(new ArrayList<SacerdoteListDTO>());
+		buscarSacerdote();
+		SacerdoteListDTO sacerdoteListDTO= new SacerdoteListDTO();
+		sacerdoteListDTO.setSacCodigo(this.eucaristiaDataManager.getCodigoSacerdote());
+		listaSacerdote=this.servicioEucaristia.buscarSacerdote(sacerdoteListDTO);
+		List<SacerdoteListDTO> listaSacerdoteActivos=this.eucaristiaDataManager.getSacerdoteDTOs();
+		Boolean estaActivo=false;
+		for (SacerdoteListDTO sacerdote : listaSacerdoteActivos) {
+			if(sacerdote.getSacCodigo().equals(listaSacerdote.get(0).getSacCodigo()))estaActivo=true;
+		}
+		if(!estaActivo) this.eucaristiaDataManager.getSacerdoteDTOs().add(listaSacerdote.get(0));
+		
+	} catch (SeguridadesException e) {
+		slf4jLogger.info("Error al buscarSacerdote {} ", e);
+		MensajesWebController.aniadirMensajeError(e.getMessage());
+	}
+	
+}
 
 public void cargarDatosEucaristia (EucaristiaListDTO eucaristiaListDTO) {
 	try {
@@ -176,12 +203,16 @@ public void cargarDatosEucaristia (EucaristiaListDTO eucaristiaListDTO) {
 	}
 }
 
-public void cancel()
+public void cargarDatosEucaristiaEditar (EucaristiaListDTO eucaristiaListDTO) {
+	cargarDatosEucaristia (eucaristiaListDTO);
+	buscarSacerdoteEditar();
+}
+public void limpiarFormulario()
 {
 	eucaristiaDataManager.setEucaristiaInsertar(new EucaristiaDTO());
 	eucaristiaDataManager.setCodigoSacerdote(0);
 	eucaristiaDataManager.setFecha(new Date());
-	RequestContext.getCurrentInstance().execute("dlgNuevaEucaristia.hide()");
+	buscarSacerdote();
 }
 
 @Override

@@ -103,7 +103,7 @@
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarDefuncion.show()"
-							actionListener="#{defuncionController.cargarDatosDefuncion(defuncion)}"	
+							actionListener="#{defuncionController.cargarDatosDefuncionEditar(defuncion)}"	
 							process="@this" update=":formEditarDefuncion:pnlEditarDefuncion,:formEditarDefuncion:pnlConyuge,:formEditarDefuncion:pnlDatos,:formEditarDefuncion:pnlBotones">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>

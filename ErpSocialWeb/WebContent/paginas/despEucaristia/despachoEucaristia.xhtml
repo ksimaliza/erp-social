@@ -4,6 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/WEB-INF/templates/template.xhtml">
 	
 <ui:define name="title">
@@ -19,7 +20,7 @@
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
 					</p:commandButton>
-					<p:commandButton id="btnNuevaEucaristia" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevaEucaristia.show()">
+					<p:commandButton id="btnNuevaEucaristia" value="Insertar" icon="ui-icon-disk" actionListener="#{eucaristiaController.limpiarFormulario}" update=":formNuevaEucaristia:pnlNuevaEucaristia,:formNuevaEucaristia:pnlBotones" oncomplete="dlgNuevaEucaristia.show()">
 						</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
@@ -78,7 +79,7 @@
 		#{rowIndex+1}
 	</p:column>
 	<p:column headerText="#{i18n['erp.despacho.eucaristia.fechahora']}" width="35%">
-					<h:outputText  value="#{eucaristia.eucFechaHora}" />
+					<h:outputText  value="#{fn:substring(eucaristia.eucFechaHora,0,19)}" />
 				</p:column>
 							
 				<p:column headerText="#{i18n['erp.despacho.eucaristia.intencion']}" width="40%">
@@ -98,7 +99,7 @@
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarEucaristia.show()"
-							actionListener="#{eucaristiaController.cargarDatosEucaristia(eucaristia)}"
+							actionListener="#{eucaristiaController.cargarDatosEucaristiaEditar(eucaristia)}"
 							process="@this" update=":formEditarEucaristia:pnlEditarEucaristia">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>

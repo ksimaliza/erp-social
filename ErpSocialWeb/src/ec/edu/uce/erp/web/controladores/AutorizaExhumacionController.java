@@ -70,6 +70,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(AutorizaExhuma
 		AutorizaExhumacionListDTO autorizaExhumacionAux=new AutorizaExhumacionListDTO();
 		try {
 			 autorizaExhumacionAux.setPerCi(autorizaExhumacionDataManager.getAutorizaExhuPerInsertar().getPerCi());
+			 autorizaExhumacionAux.setAutEmpresa(getEmpresaTbl().getEmrPk());
 			 List<AutorizaExhumacionListDTO> listaAutorizaExhumacions= servicioEucaristia.buscarAutorizacion(autorizaExhumacionAux);
 			 Boolean esAutorizaExhumacion=false;
 			 for (AutorizaExhumacionListDTO autorizaExhumacionListDTO : listaAutorizaExhumacions) {

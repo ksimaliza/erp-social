@@ -119,7 +119,7 @@
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarPartidaBautizo.show()"
-							actionListener="#{partidaBautizoController.cargarDatosBautizo(bautizo)}"
+							actionListener="#{partidaBautizoController.cargarDatosBautizoEditar(bautizo)}"
 							process="@this" update=":formEditarPartidaBautizo:pnlEditarPartidaBautizo,:formEditarPartidaBautizo:pnlDatosPadrino,:formEditarPartidaBautizo:pnlDatosMadrina,:formEditarPartidaBautizo:pnlDatos,:formEditarPartidaBautizo:pnlDatos,:formEditarPartidaBautizo:pnlBotones">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>

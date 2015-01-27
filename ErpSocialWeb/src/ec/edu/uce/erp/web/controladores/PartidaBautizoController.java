@@ -21,6 +21,7 @@ import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.common.util.ConstantesApplication;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
@@ -211,8 +212,11 @@ public class PartidaBautizoController extends BaseController {
 		slf4jLogger.info("buscarSacerdote");
 		List<SacerdoteListDTO> listaSacerdote = null;
 		try {
+			SacerdoteListDTO sacerdoteListDTO= new SacerdoteListDTO();
+			sacerdoteListDTO.setSacEstado(ConstantesApplication.ESTADO_ACTIVO);
+			sacerdoteListDTO.setSacEmpresa(getEmpresaTbl().getEmrPk());
 			listaSacerdote = this.servicioEucaristia
-					.buscarSacerdote(new SacerdoteListDTO());
+					.buscarSacerdote(sacerdoteListDTO);
 			if (CollectionUtils.isEmpty(listaSacerdote)
 					&& listaSacerdote.size() == 0) {
 				MensajesWebController
@@ -458,7 +462,36 @@ public class PartidaBautizoController extends BaseController {
 					.aniadirMensajeError("Error al cargarDatosBautizo seleccionado");
 		}
 	}
-
+ 
+	public void cargarDatosBautizoEditar (BautizoListDTO bautizoListDTO) {
+		cargarDatosBautizo (bautizoListDTO);
+		buscarSacerdoteEditar();
+	}
+	
+	public void buscarSacerdoteEditar () {
+		slf4jLogger.info("buscarSacerdoteEditar");
+		
+		List<SacerdoteListDTO> listaSacerdote=null;
+		
+		try {
+			this.partidaBautizoDataManager.setSacerdoteListDTO(new ArrayList<SacerdoteListDTO>());
+			buscarSacerdote();
+			SacerdoteListDTO sacerdoteListDTO= new SacerdoteListDTO();
+			sacerdoteListDTO.setSacCodigo(this.partidaBautizoDataManager.getSacerdoteCodigo());
+			listaSacerdote=this.servicioEucaristia.buscarSacerdote(sacerdoteListDTO);
+			List<SacerdoteListDTO> listaSacerdoteActivos=this.partidaBautizoDataManager.getSacerdoteListDTO();
+			Boolean estaActivo=false;
+			for (SacerdoteListDTO sacerdote : listaSacerdoteActivos) {
+				if(sacerdote.getSacCodigo().equals(listaSacerdote.get(0).getSacCodigo()))estaActivo=true;
+			}
+			if(!estaActivo) this.partidaBautizoDataManager.getSacerdoteListDTO().add(listaSacerdote.get(0));
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarSacerdote {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
 	public void buscarProvincia() {
 		slf4jLogger.info("buscarCatalogo");
 
@@ -565,6 +598,7 @@ public class PartidaBautizoController extends BaseController {
 		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
 
 		DateFormat pequena = DateFormat.getDateInstance(DateFormat.SHORT);
+		List<SacerdoteListDTO> listaSacerdote=null;
 
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
 		if (partidaBautizoDataManager.getCantonEucaristiaDTOs() != null)
@@ -605,11 +639,22 @@ public class PartidaBautizoController extends BaseController {
 				+ " "
 				+ partidaBautizoDataManager.getBautizadoInsertar()
 						.getPerNombres().toUpperCase());
-		mapParametros.put("sacerdote", partidaBautizoDataManager
-				.getSacerdoteListDTO().get(0).getPerApellidos().toUpperCase()
-				+ " "
-				+ partidaBautizoDataManager.getSacerdoteListDTO().get(0)
-						.getPerNombres().toUpperCase());
+
+		
+			this.partidaBautizoDataManager.setSacerdoteListDTO(new ArrayList<SacerdoteListDTO>());
+			SacerdoteListDTO sacerdoteListDTO= new SacerdoteListDTO();
+			sacerdoteListDTO.setSacCodigo(this.partidaBautizoDataManager.getSacerdoteCodigo());
+			try {
+				listaSacerdote=this.servicioEucaristia.buscarSacerdote(sacerdoteListDTO);
+				mapParametros.put("sacerdote", listaSacerdote.get(0).getPerApellidos().toUpperCase()
+						+ " "
+						+ listaSacerdote.get(0)
+								.getPerNombres().toUpperCase());
+			} catch (SeguridadesException e) {
+				slf4jLogger.info("Error al buscarSacerdote al exportar  {} ", e);
+				MensajesWebController.aniadirMensajeError(e.getMessage());
+			}
+		
 		mapParametros.put("padrino", partidaBautizoDataManager
 				.getPadrinoInsertar().getPerApellidos().toUpperCase()
 				+ " "
@@ -687,7 +732,7 @@ public class PartidaBautizoController extends BaseController {
 		partidaBautizoDataManager.setCantonCodigo(0);
 		partidaBautizoDataManager.setParroquiaCodigo(0);
 	    partidaBautizoDataManager.setExportDesactivado(true);
-		
+		buscarSacerdote();
 		
 	}
 

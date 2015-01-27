@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
-<!-- 2015-01-07T14:55:31 -->
+<!-- 2015-01-27T12:24:02 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="partidaDefuncion" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cf6663c6-bc77-4d13-a6e3-52e85ef7463e">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
@@ -26,11 +26,11 @@
 	<title>
 		<band height="802" splitType="Stretch">
 			<staticText>
-				<reportElement x="65" y="514" width="113" height="20" uuid="e2d979e7-d0f4-4efe-af4c-76aabd7f0df9"/>
+				<reportElement x="65" y="514" width="220" height="20" uuid="e2d979e7-d0f4-4efe-af4c-76aabd7f0df9"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[CASADO/A CON:]]></text>
+				<text><![CDATA[CASADO/A /CONVIVíA CON:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="167" y="171" width="134" height="24" uuid="d20e4a56-6df3-4e1b-9580-3d58cdda31d9"/>
@@ -54,7 +54,7 @@
 				<textFieldExpression><![CDATA[$P{tomo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="314" y="427" width="230" height="20" uuid="3a78d1b2-42da-4069-ba05-15c39ea427e3"/>
+				<reportElement x="285" y="428" width="259" height="20" uuid="3a78d1b2-42da-4069-ba05-15c39ea427e3"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -208,11 +208,11 @@
 				<text><![CDATA[FALLECIDO/A A CAUSA DE:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="270" y="449" width="182" height="20" uuid="93bc795a-c87c-4cca-a655-aaf9f7ce1d5c"/>
+				<reportElement x="350" y="449" width="102" height="20" uuid="93bc795a-c87c-4cca-a655-aaf9f7ce1d5c"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[muerto/a en esta parroquia el ]]></text>
+				<text><![CDATA[muerto/a el ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="170" y="122" width="274" height="24" uuid="851ee535-4847-44c1-932c-48d3ce50c10a"/>
@@ -243,7 +243,7 @@
 				<text><![CDATA[de partida de defunciones,]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="24" y="449" width="246" height="20" uuid="52d9e29e-5fd3-4daa-adaa-845d004eecd1"/>
+				<reportElement x="24" y="449" width="316" height="20" uuid="52d9e29e-5fd3-4daa-adaa-845d004eecd1"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>

@@ -20,9 +20,9 @@ import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.common.util.ConstantesApplication;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioListDTO;
@@ -281,7 +281,7 @@ public void registrarMatrimonio () {
 			}
 			matrimonioVO.getMatrimonio().setMatFechaAprobacionCurso(new Timestamp(partidaMatrimonioDataManager.getFechaApCurInsertar().getTime()));
 			matrimonioVO.getMatrimonio().setMatFecha(new Timestamp(partidaMatrimonioDataManager.getFechaMatrInsertar().getTime()));
-			
+			matrimonioVO.getMatrimonio().setMatEmpresa(getEmpresaTbl().getEmrPk());
 					
 			MatrimonioDTO matrimonioNuevo= this.servicioEucaristia.createOrUpdateMatrimonio(matrimonioVO);
 				
@@ -322,8 +322,10 @@ public void registrarMatrimonio () {
 		List<SacerdoteListDTO> listaSacerdote=null;
 		
 		try {
-							
-			listaSacerdote=this.servicioEucaristia.buscarSacerdote(new SacerdoteListDTO());
+			SacerdoteListDTO sacerdoteListDTO= new SacerdoteListDTO();
+			sacerdoteListDTO.setSacEstado(ConstantesApplication.ESTADO_ACTIVO);
+			sacerdoteListDTO.setSacEmpresa(getEmpresaTbl().getEmrPk());
+			listaSacerdote = this.servicioEucaristia.buscarSacerdote(sacerdoteListDTO);
 			
 			if (CollectionUtils.isEmpty(listaSacerdote) && listaSacerdote.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
@@ -764,8 +766,9 @@ public void registrarMatrimonio () {
 						.getParroquia()) {
 					mapParametros.put("parroquiaCabecera", "\"" + partidaMatrimonioDataManager.getParroquiaEucaristiaDTOs().get(i).getCatDescripcion().toUpperCase() +"\"");
 					mapParametros.put("parroquia", partidaMatrimonioDataManager.getParroquiaEucaristiaDTOs().get(i).getCatDescripcion().toUpperCase());
-						}
-		mapParametros.put("parroquiaMinusculas", partidaMatrimonioDataManager.getParroquiaEucaristiaDTOs().get(0).getCatDescripcion());
+					mapParametros.put("parroquiaMinusculas", partidaMatrimonioDataManager.getParroquiaEucaristiaDTOs().get(i).getCatDescripcion());
+				}
+		
 		mapParametros.put("tomo", partidaMatrimonioDataManager.getMatrimonioDTO().getMatTomo());
 		mapParametros.put("pagina", partidaMatrimonioDataManager.getMatrimonioDTO().getMatPagina());
 		mapParametros.put("acta", partidaMatrimonioDataManager.getMatrimonioDTO().getMatActa());
@@ -809,7 +812,35 @@ public void registrarMatrimonio () {
 	
 	}
 	
+	public void cargarDatosMatrimonioEditar (MatrimonioListDTO matrimonioListDTO) {
+		cargarDatosMatrimonio (matrimonioListDTO);
+		buscarSacerdoteEditar();
+	}
 	
+	public void buscarSacerdoteEditar () {
+		slf4jLogger.info("buscarSacerdoteEditar");
+		
+		List<SacerdoteListDTO> listaSacerdote=null;
+		
+		try {
+			this.partidaMatrimonioDataManager.setSacerdoteListDTO(new ArrayList<SacerdoteListDTO>());
+			buscarSacerdote();
+			SacerdoteListDTO sacerdoteListDTO= new SacerdoteListDTO();
+			sacerdoteListDTO.setSacCodigo(this.partidaMatrimonioDataManager.getSacerdoteCodigo());
+			listaSacerdote=this.servicioEucaristia.buscarSacerdote(sacerdoteListDTO);
+			List<SacerdoteListDTO> listaSacerdoteActivos=this.partidaMatrimonioDataManager.getSacerdoteListDTO();
+			Boolean estaActivo=false;
+			for (SacerdoteListDTO sacerdote : listaSacerdoteActivos) {
+				if(sacerdote.getSacCodigo().equals(listaSacerdote.get(0).getSacCodigo()))estaActivo=true;
+			}
+			if(!estaActivo) this.partidaMatrimonioDataManager.getSacerdoteListDTO().add(listaSacerdote.get(0));
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarSacerdote {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
 	public void exportarPdf(MatrimonioListDTO matrimonio)
 	{
 		cargarDatosMatrimonio(matrimonio);
@@ -836,6 +867,7 @@ public void registrarMatrimonio () {
 		partidaMatrimonioDataManager.setCanton((0));
 		partidaMatrimonioDataManager.setParroquia((0));
 		partidaMatrimonioDataManager.setExportDesactivado(true);
+		buscarSacerdote();
 	}
 	
 
