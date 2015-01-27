@@ -16,6 +16,7 @@ import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.common.util.ConstantesApplication;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
@@ -161,8 +162,11 @@ public void registrarPrimeraComunion () {
 		List<SacerdoteListDTO> listaSacerdote=null;
 		
 		try {
-							
-			listaSacerdote=this.servicioEucaristia.buscarSacerdote(new SacerdoteListDTO());
+						
+			SacerdoteListDTO sacerdoteListDTO= new SacerdoteListDTO();
+			sacerdoteListDTO.setSacEstado(ConstantesApplication.ESTADO_ACTIVO);
+			sacerdoteListDTO.setSacEmpresa(getEmpresaTbl().getEmrPk());
+			listaSacerdote = this.servicioEucaristia.buscarSacerdote(sacerdoteListDTO);
 			
 			if (CollectionUtils.isEmpty(listaSacerdote) && listaSacerdote.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
@@ -176,7 +180,35 @@ public void registrarPrimeraComunion () {
 		
 	}
 	
+	public void cargarDatosComunionEditar (ComunionListDTO comunionListDTO) {
+		cargarDatosComunion(comunionListDTO);
+		buscarSacerdoteEditar();
+	}
 	
+	public void buscarSacerdoteEditar () {
+		slf4jLogger.info("buscarSacerdoteEditar");
+		
+		List<SacerdoteListDTO> listaSacerdote=null;
+		
+		try {
+			this.partidaPrimeraComunionDataManager.setSacerdoteListDTO(new ArrayList<SacerdoteListDTO>());
+			buscarSacerdote();
+			SacerdoteListDTO sacerdoteListDTO= new SacerdoteListDTO();
+			sacerdoteListDTO.setSacCodigo(this.partidaPrimeraComunionDataManager.getSacerdoteCodigo());
+			listaSacerdote=this.servicioEucaristia.buscarSacerdote(sacerdoteListDTO);
+			List<SacerdoteListDTO> listaSacerdoteActivos=this.partidaPrimeraComunionDataManager.getSacerdoteListDTO();
+			Boolean estaActivo=false;
+			for (SacerdoteListDTO sacerdote : listaSacerdoteActivos) {
+				if(sacerdote.getSacCodigo().equals(listaSacerdote.get(0).getSacCodigo()))estaActivo=true;
+			}
+			if(!estaActivo) this.partidaPrimeraComunionDataManager.getSacerdoteListDTO().add(listaSacerdote.get(0));
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarSacerdote {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
 	public void buscarBautizo() {
 		slf4jLogger.info("buscarBautizo");
 		
@@ -418,6 +450,7 @@ public void registrarPrimeraComunion () {
 		partidaPrimeraComunionDataManager.setEstadoCodigo(0);
 		partidaPrimeraComunionDataManager.setTipoCodigo(0);
 		partidaPrimeraComunionDataManager.setAsignadoInsertar(new Persona());
+		buscarSacerdote();
 	}
 	
 

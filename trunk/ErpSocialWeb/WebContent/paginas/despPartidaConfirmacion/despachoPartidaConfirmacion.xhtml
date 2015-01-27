@@ -116,7 +116,7 @@
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarPartidaConfirmacion.show()"
-							actionListener="#{partidaConfirmacionController.cargarDatosConfirmacion(confirmacion)}"					
+							actionListener="#{partidaConfirmacionController.cargarDatosConfirmacionEditar(confirmacion)}"					
 							process="@this" update=":formEditarPartidaConfirmacion:pnlEditarPartidaConfirmacion,:formEditarPartidaConfirmacion:pnlDatosPadrino,:formEditarPartidaConfirmacion:pnlDatos,:formEditarPartidaConfirmacion:pnlBautizo,:formEditarPartidaConfirmacion:pnlBotones">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>

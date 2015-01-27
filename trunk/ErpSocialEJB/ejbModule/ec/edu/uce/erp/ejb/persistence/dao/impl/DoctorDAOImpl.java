@@ -51,7 +51,11 @@ public class DoctorDAOImpl extends AbstractFacadeImpl<DoctorDTO> implements Doct
 		criteriaList = new ArrayList<Predicate>();
 		
 		CriteriaQuery<DoctorListDTO> select = cq.select(from);
-		
+		//por codigo
+		if (Doctor.getDocCodigo()!=null) {
+			predicate = cb.equal(from.get("docCodigo"), Doctor.getDocCodigo());
+			criteriaList.add(predicate);
+		}
 		//por nombre
 		if (!StringUtils.isEmpty(Doctor.getPerNombres())) {
 			Expression<String> nombreDoctor = 

@@ -16,7 +16,7 @@
 							<h:outputLabel for="txtFecha" value="#{i18n['erp.despacho.eucaristia.fecha']}" />
 						</td>
 						<td width="70%">
-							<p:calendar id="txtFecha" showOn="button"  value="#{eucaristiaDataManager.fecha}" pattern="dd/MM/yyyy HH:mm:ss"/>
+							<p:calendar id="txtFecha" showOn="button" label="#{i18n['erp.despacho.eucaristia.fecha']}" value="#{eucaristiaDataManager.fecha}" pattern="dd/MM/yyyy HH:mm:ss" required="true"/>
 						</td>	
 					</tr>
 					
@@ -26,13 +26,13 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtIntencion" style="width: 100%"
-								required="true" value="#{eucaristiaDataManager.eucaristiaInsertar.eucIntencion}" />
+								required="true" label="#{i18n['erp.despacho.eucaristia.intencion']}" value="#{eucaristiaDataManager.eucaristiaInsertar.eucIntencion}" />
 						</td>	
 					</tr>
 										
 					<tr>
 						<td width="30%"><h:outputLabel value="#{i18n['erp.despacho.eucaristia.sacerdote']}"  /> </td>
-						<td width="70%"><p:selectOneMenu id="listboxSacerdote" value="#{eucaristiaDataManager.codigoSacerdote}" filter="true" required="true">
+						<td width="70%"><p:selectOneMenu id="listboxSacerdote" label="#{i18n['erp.despacho.eucaristia.sacerdote']}" value="#{eucaristiaDataManager.codigoSacerdote}" filter="true" required="true">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{eucaristiaController.eucaristiaDataManager.sacerdoteDTOs}" var="sacerdote" itemLabel="#{sacerdote.perNombres} #{sacerdote.perApellidos} "  itemValue="#{sacerdote.sacCodigo}"/>
 							</p:selectOneMenu>
@@ -44,7 +44,7 @@
 							<h:outputLabel for="txtValor" value="#{i18n['erp.despacho.eucaristia.valor']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtValor" style="width: 100%" onkeypress="return isNumberKey(event)"
+							<p:inputText id="txtValor" style="width: 100%" onkeypress="return isNumberKey(event)" rendered="true"
 								 label="#{i18n['erp.despacho.eucaristia.valor']}" value="#{eucaristiaDataManager.eucaristiaInsertar.eucValor}" >
 						
 						</p:inputText>

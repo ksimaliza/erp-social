@@ -20,6 +20,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.common.util.ConstantesApplication;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
@@ -189,9 +190,10 @@ public class PartidaConfirmacionController extends BaseController {
 
 		try {
 
-			listaSacerdote = this.servicioEucaristia
-					.buscarSacerdote(new SacerdoteListDTO());
-
+			SacerdoteListDTO sacerdoteListDTO= new SacerdoteListDTO();
+			sacerdoteListDTO.setSacEstado(ConstantesApplication.ESTADO_ACTIVO);
+			sacerdoteListDTO.setSacEmpresa(getEmpresaTbl().getEmrPk());
+			listaSacerdote = this.servicioEucaristia.buscarSacerdote(sacerdoteListDTO);
 			if (CollectionUtils.isEmpty(listaSacerdote)
 					&& listaSacerdote.size() == 0) {
 				MensajesWebController
@@ -605,11 +607,43 @@ public class PartidaConfirmacionController extends BaseController {
 		}
 	}
 
+	public void cargarDatosConfirmacionEditar (ConfirmacionListDTO confirmacionListDTO) {
+		cargarDatosConfirmacion(confirmacionListDTO);
+		buscarSacerdoteEditar();
+	}
+	
+	public void buscarSacerdoteEditar () {
+		slf4jLogger.info("buscarSacerdoteEditar");
+		
+		List<SacerdoteListDTO> listaSacerdote=null;
+		
+		try {
+			this.partidaConfirmacionDataManager.setSacerdoteListDTO(new ArrayList<SacerdoteListDTO>());
+			buscarSacerdote();
+			SacerdoteListDTO sacerdoteListDTO= new SacerdoteListDTO();
+			sacerdoteListDTO.setSacCodigo(this.partidaConfirmacionDataManager.getSacerdoteCodigo());
+			listaSacerdote=this.servicioEucaristia.buscarSacerdote(sacerdoteListDTO);
+			List<SacerdoteListDTO> listaSacerdoteActivos=this.partidaConfirmacionDataManager.getSacerdoteListDTO();
+			Boolean estaActivo=false;
+			for (SacerdoteListDTO sacerdote : listaSacerdoteActivos) {
+				if(sacerdote.getSacCodigo().equals(listaSacerdote.get(0).getSacCodigo()))estaActivo=true;
+			}
+			if(!estaActivo) this.partidaConfirmacionDataManager.getSacerdoteListDTO().add(listaSacerdote.get(0));
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarSacerdote {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
+	
 	public void exportar() {
 		Date fechaActual = new Date();
 		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
 
 		DateFormat pequena = DateFormat.getDateInstance(DateFormat.SHORT);
+		
+		List<SacerdoteListDTO> listaSacerdote=null;
 
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
 
@@ -652,11 +686,19 @@ public class PartidaConfirmacionController extends BaseController {
 				+ " "
 				+ partidaConfirmacionDataManager.getConfirmadoInsertar()
 						.getPerNombres().toUpperCase());
-		mapParametros.put("sacerdote", partidaConfirmacionDataManager
-				.getSacerdoteListDTO().get(0).getPerApellidos().toUpperCase()
-				+ " "
-				+ partidaConfirmacionDataManager.getSacerdoteListDTO().get(0)
-						.getPerNombres().toUpperCase());
+		this.partidaConfirmacionDataManager.setSacerdoteListDTO(new ArrayList<SacerdoteListDTO>());
+		SacerdoteListDTO sacerdoteListDTO= new SacerdoteListDTO();
+		sacerdoteListDTO.setSacCodigo(this.partidaConfirmacionDataManager.getSacerdoteCodigo());
+		try {
+			listaSacerdote=this.servicioEucaristia.buscarSacerdote(sacerdoteListDTO);
+			mapParametros.put("sacerdote", listaSacerdote.get(0).getPerApellidos().toUpperCase()
+					+ " "
+					+ listaSacerdote.get(0)
+							.getPerNombres().toUpperCase());
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarSacerdote al exportar  {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
 		mapParametros.put("padrino", partidaConfirmacionDataManager
 				.getMad_padInsertar().getPerApellidos().toUpperCase()
 				+ " "
@@ -727,6 +769,7 @@ public class PartidaConfirmacionController extends BaseController {
 		partidaConfirmacionDataManager.setFechaComunionInsertar(new Date());
 		partidaConfirmacionDataManager.setEstadoCodigo(0);
 		partidaConfirmacionDataManager.setExportDesactivado(true);
+		buscarSacerdote();
 	}
 
 	@Override

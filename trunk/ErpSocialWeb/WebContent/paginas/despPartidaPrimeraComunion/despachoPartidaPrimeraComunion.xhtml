@@ -116,7 +116,7 @@
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarPartidaPrimeraComunion.show()"
-							actionListener="#{partidaComunionController.cargarDatosComunion(comunion)}"
+							actionListener="#{partidaComunionController.cargarDatosComunionEditar(comunion)}"
 							process="@this" update=":formEditarPartidaPrimeraComunion:pnlEditarPartidaPrimeraComunion, :formEditarPartidaPrimeraComunion:pnlDatosPadrino,:formEditarPartidaPrimeraComunion:pnlDatos,:formEditarPartidaPrimeraComunion:pnlBautizo">
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>

@@ -20,9 +20,9 @@ import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ec.edu.uce.erp.common.util.ConstantesApplication;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
@@ -198,7 +198,10 @@ public void registrarDefuncion () {
 		slf4jLogger.info("buscarSacerdote");
 		List<SacerdoteListDTO> listaSacerdote=null;
 		try {
-			listaSacerdote=this.servicioEucaristia.buscarSacerdote(new SacerdoteListDTO());
+			SacerdoteListDTO sacerdoteListDTO= new SacerdoteListDTO();
+			sacerdoteListDTO.setSacEstado(ConstantesApplication.ESTADO_ACTIVO);
+			sacerdoteListDTO.setSacEmpresa(getEmpresaTbl().getEmrPk());
+			listaSacerdote = this.servicioEucaristia.buscarSacerdote(sacerdoteListDTO);
 			if (CollectionUtils.isEmpty(listaSacerdote) && listaSacerdote.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
@@ -217,8 +220,9 @@ public void registrarDefuncion () {
 		List<DoctorListDTO> listaDoctor=null;
 		
 		try {
-							
-			listaDoctor=this.servicioEucaristia.buscarDoctor(new DoctorListDTO());
+			DoctorListDTO doctorListDTO = new DoctorListDTO();
+			doctorListDTO.setDocEmpresa(getEmpresaTbl().getEmrPk());
+			listaDoctor=this.servicioEucaristia.buscarDoctor(doctorListDTO);
 			
 			if (CollectionUtils.isEmpty(listaDoctor) && listaDoctor.size()==0) {
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
@@ -479,6 +483,8 @@ public void registrarDefuncion () {
 		}
 	}
 	
+	
+	
 	public void exportar()
 	{
 		Date fechaActual = new Date();
@@ -487,7 +493,7 @@ public void registrarDefuncion () {
 		DateFormat pequena = DateFormat.getDateInstance(DateFormat.SHORT);
 		
 		defuncionDataManager.setDesactivado(true);
-		
+		List<DoctorListDTO> listaDoctor=null;
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
 		if (defuncionDataManager.getCantonEucaristiaDTOs() != null)
 			for (int i = 0; i < defuncionDataManager
@@ -512,7 +518,16 @@ public void registrarDefuncion () {
 		mapParametros.put("fechaSepultura", pequena.format(defuncionDataManager.getFechaSepelioInsertar()));
 		mapParametros.put("causa", defuncionDataManager.getDefuncionInsertar().getDefCausaMuerte());
 		mapParametros.put("difunto", defuncionDataManager.getDifuntoInsertar().getPerApellidos().toUpperCase() + " "+   defuncionDataManager.getDifuntoInsertar().getPerNombres().toUpperCase());
-		mapParametros.put("doctor", defuncionDataManager.getDoctorListDTO().get(0).getPerApellidos().toUpperCase() + " "+  defuncionDataManager.getDoctorListDTO().get(0).getPerNombres().toUpperCase());
+	
+		DoctorListDTO doctorListDTO= new DoctorListDTO();
+		doctorListDTO.setDocCodigo(this.defuncionDataManager.getDoctorCodigo());
+		try {
+			listaDoctor=this.servicioEucaristia.buscarDoctor(doctorListDTO);
+		mapParametros.put("doctor", listaDoctor.get(0).getPerApellidos().toUpperCase() + " "+  listaDoctor.get(0).getPerNombres().toUpperCase());
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscar Doctor al exportar  {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
 		mapParametros.put("parroquiafechaActual", defuncionDataManager.getParroquiaEucaristiaDTOs().get(0).getCatDescripcion()+ ", "+full.format(fechaActual));
 		mapParametros.put("notaMarginal", defuncionDataManager.getDefuncionInsertar().getDefNotaMarginal());
 		if (defuncionDataManager.getParroquiaEucaristiaDTOs() != null)
@@ -524,7 +539,7 @@ public void registrarDefuncion () {
 		mapParametros.put("provincia", defuncionDataManager.getProvinciasEucaristiaDTOs().get(i).getCatDescripcion().toUpperCase());
 		mapParametros.put("padre", defuncionDataManager.getPadreInsertar().getPerApellidos().toUpperCase() +  " "+defuncionDataManager.getPadreInsertar().getPerNombres().toUpperCase());
 		mapParametros.put("madre", defuncionDataManager.getMadreInsertar().getPerApellidos().toUpperCase() + " "+ defuncionDataManager.getMadreInsertar().getPerNombres().toUpperCase());
-		if(defuncionDataManager.getConyugeInsertar()!=null)
+		if(defuncionDataManager.getConyugeInsertar()!=null && defuncionDataManager.getConyugeInsertar().getPerApellidos()!=null && defuncionDataManager.getConyugeInsertar().getPerApellidos()!=null )
 			mapParametros.put("conyuge", defuncionDataManager.getConyugeInsertar().getPerApellidos().toUpperCase() + " "+  defuncionDataManager.getConyugeInsertar().getPerNombres().toUpperCase());
 		else
 			mapParametros.put("conyuge", "No tiene conyuge" );
@@ -537,6 +552,35 @@ public void registrarDefuncion () {
 	
 		}
 	
+	public void cargarDatosDefuncionEditar (DefuncionListDTO defuncionListDTO) {
+		cargarDatosDefuncion (defuncionListDTO);
+		buscarSacerdoteEditar();
+	}
+	
+	public void buscarSacerdoteEditar () {
+		slf4jLogger.info("buscarSacerdoteEditar");
+		
+		List<SacerdoteListDTO> listaSacerdote=null;
+		
+		try {
+			this.defuncionDataManager.setSacerdoteListDTO(new ArrayList<SacerdoteListDTO>());
+			buscarSacerdote();
+			SacerdoteListDTO sacerdoteListDTO= new SacerdoteListDTO();
+			sacerdoteListDTO.setSacCodigo(this.defuncionDataManager.getSacerdoteCodigo());
+			listaSacerdote=this.servicioEucaristia.buscarSacerdote(sacerdoteListDTO);
+			List<SacerdoteListDTO> listaSacerdoteActivos=this.defuncionDataManager.getSacerdoteListDTO();
+			Boolean estaActivo=false;
+			for (SacerdoteListDTO sacerdote : listaSacerdoteActivos) {
+				if(sacerdote.getSacCodigo().equals(listaSacerdote.get(0).getSacCodigo()))estaActivo=true;
+			}
+			if(!estaActivo) this.defuncionDataManager.getSacerdoteListDTO().add(listaSacerdote.get(0));
+			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarSacerdote {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		
+	}
 	public void exportarPdf(DefuncionListDTO defuncion)
 	{
 		cargarDatosDefuncion(defuncion);
@@ -560,6 +604,7 @@ public void registrarDefuncion () {
 		defuncionDataManager.setFechaMuerteInsertar(new Date());
 		defuncionDataManager.setFechaSepelioInsertar(new Date());
 		defuncionDataManager.setExportDesactivado(true);
+		buscarSacerdote();
 	}
 
 	

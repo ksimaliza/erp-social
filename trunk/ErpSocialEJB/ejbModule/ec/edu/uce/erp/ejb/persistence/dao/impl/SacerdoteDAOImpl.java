@@ -51,7 +51,11 @@ public class SacerdoteDAOImpl extends AbstractFacadeImpl<SacerdoteDTO> implement
 		criteriaList = new ArrayList<Predicate>();
 		
 		CriteriaQuery<SacerdoteListDTO> select = cq.select(from);
-		
+		//por codigo
+		if (sacerdote.getSacCodigo()!=null) {
+			predicate = cb.equal(from.get("sacCodigo"), sacerdote.getSacCodigo());
+			criteriaList.add(predicate);
+		}
 		//por nombre
 		if (!StringUtils.isEmpty(sacerdote.getPerNombres())) {
 			Expression<String> nombreSacerdote = 
