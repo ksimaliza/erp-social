@@ -94,7 +94,7 @@ public class EucaristiaDAOImpl extends AbstractFacadeImpl<EucaristiaDTO> impleme
 				criteriaList.add(predicate);
 			}
 				
-			//por año
+			//por aï¿½o
 			if (filtro.getAnio()!=null){
 				predicate=cb.equal(cb.function("year", Integer.class, from.get("eucFechaHora")),filtro.getAnio());
 				criteriaList.add(predicate);
@@ -124,6 +124,42 @@ public class EucaristiaDAOImpl extends AbstractFacadeImpl<EucaristiaDTO> impleme
 	}
 	
 	return eucaristiaEncontrada;
+}
+	@Override
+	public Date obtenerFechaMinEucaristia(EucaristiaListDTO eucaristia) throws SeguridadesException {
+		
+		slf4jLogger.info("obtenerEucaristiaPorFechaMin");
+		Date fechaMin= null;
+		
+		try {
+			fechaMin=(Date) entityManager.createQuery("select min(e.eucEucFechaHora) from EucaristiaListDTO e where e.eucEmpresa=:idEmpresa")
+			  .setParameter("idEmpresa", eucaristia.getEucEmpresa())
+			  .getSingleResult();
+		
+	} catch (Exception e) {
+		slf4jLogger.info("No se pudo obtener los parametros de la BD {}", e);
+		throw new SeguridadesException(e);
+	}
+	
+	return fechaMin;
+}
+	@Override
+	public Date obtenerFechaMaxEucaristia(EucaristiaListDTO eucaristia) throws SeguridadesException {
+		
+		slf4jLogger.info("obtenerEucaristiaPorFechaMax");
+		Date fechaMax= null;
+		
+		try {
+			fechaMax=(Date) entityManager.createQuery("select max(e.eucEucFechaHora) from EucaristiaListDTO e where e.eucEmpresa=:idEmpresa")
+			  .setParameter("idEmpresa", eucaristia.getEucEmpresa())
+			  .getSingleResult();
+		
+	} catch (Exception e) {
+		slf4jLogger.info("No se pudo obtener los parametros de la BD {}", e);
+		throw new SeguridadesException(e);
+	}
+	
+	return fechaMax;
 }
 	
 	@Override

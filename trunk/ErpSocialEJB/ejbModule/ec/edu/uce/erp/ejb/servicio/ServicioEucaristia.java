@@ -1,6 +1,7 @@
 package ec.edu.uce.erp.ejb.servicio;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -172,6 +173,12 @@ public interface ServicioEucaristia {
 	EucaristiaVO obtenerEucaristiaPorId(EucaristiaListDTO eucaristiaListDTO)
 			throws SeguridadesException;
 
+	Date obtenerFechaMaxEucaristia(EucaristiaListDTO eucaristia)
+			throws SeguridadesException;
+
+	Date obtenerFechaMinEucaristia(EucaristiaListDTO eucaristia)
+			throws SeguridadesException;
+
 	AutorizaExhumacionDTO createOrUpdateAutorizacion(
 			AutorizacionExhumacionVO autorizacionExhumacionVO)
 			throws SeguridadesException;
@@ -247,6 +254,12 @@ public interface ServicioEucaristia {
 			throws SeguridadesException;
 
 	List<BautizoListDTO> readBautizoReport(BautizoListDTO bautizo)
+			throws SeguridadesException;
+
+	Date obtenerFechaMinBautizo(BautizoListDTO bautizo)
+			throws SeguridadesException;
+
+	Date obtenerFechaMaxBautizo(BautizoListDTO bautizo)
 			throws SeguridadesException;
 
 	List<ComunionListDTO> readComunionReport(ComunionListDTO comunion)

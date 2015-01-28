@@ -2,6 +2,7 @@ package ec.edu.uce.erp.ejb.servicio.impl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -1218,6 +1219,31 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	}
 	
 	@Override
+	public Date obtenerFechaMinEucaristia(EucaristiaListDTO eucaristia) throws SeguridadesException {
+		slf4jLogger.info("obtenerFechaMinEucaristia");
+		Date listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getEucaristiaDAOImpl().obtenerFechaMinEucaristia(eucaristia);
+		} catch (Exception e) {
+			slf4jLogger.info("obtenerFechaMinEucaristia {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener bautizo de la base de datos");
+		}
+		return listResultado;
+	}
+	
+	@Override
+	public Date obtenerFechaMaxEucaristia(EucaristiaListDTO eucaristia) throws SeguridadesException {
+		slf4jLogger.info("obtenerFechaMaxEucaristia");
+		Date listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getEucaristiaDAOImpl().obtenerFechaMaxEucaristia(eucaristia);
+		} catch (Exception e) {
+			slf4jLogger.info("obtenerFechaMaxEucaristia {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener bautizo de la base de datos");
+		}
+		return listResultado;
+	}
+	@Override
 	public AutorizaExhumacionDTO createOrUpdateAutorizacion(AutorizacionExhumacionVO autorizacionExhumacionVO) throws SeguridadesException
 	{
 		Persona personaNueva;
@@ -1687,7 +1713,31 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		}
 		return listResultado;
 	}
-	
+	@Override
+	public Date obtenerFechaMinBautizo(BautizoListDTO bautizo) throws SeguridadesException {
+		slf4jLogger.info("obtenerFechaMinBautizo");
+		//List<BautizoListDTO> listResultado = null;
+		Date listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getBautizoDAOImpl().obtenerFechaMinBautizo(bautizo);
+		} catch (Exception e) {
+			slf4jLogger.info("Error readBautizoReport {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener bautizo de la base de datos");
+		}
+		return listResultado;
+	}
+	@Override
+	public Date obtenerFechaMaxBautizo(BautizoListDTO bautizo) throws SeguridadesException {
+		slf4jLogger.info("obtenerFechaMinBautizo");
+		Date listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getBautizoDAOImpl().obtenerFechaMaxBautizo(bautizo);
+		} catch (Exception e) {
+			slf4jLogger.info("Error readBautizoReport {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener bautizo de la base de datos");
+		}
+		return listResultado;
+	}
 	@Override
 	public List<ComunionListDTO> readComunionReport(ComunionListDTO comunion) throws SeguridadesException {
 		slf4jLogger.info("readComunionReport");

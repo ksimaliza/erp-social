@@ -21,7 +21,6 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
@@ -61,92 +60,20 @@ public class ReportePartidaBautizoController extends BaseController {
 	
 	@PostConstruct
 	public void inicializarObjetos() {
-		buscarProvincia();
 	}
 
 	
-	public void buscarProvincia() {
-		slf4jLogger.info("buscarCatalogo");
 
-		List<CatalogoEucaristiaDTO> listaCatalogo = null;
-
-		try {
-			CatalogoEucaristiaDTO cat = new CatalogoEucaristiaDTO();
-			cat.setCatCodigo(1);
-			listaCatalogo = this.servicioEucaristia.buscarCatalogo(cat);
-
-			if (CollectionUtils.isEmpty(listaCatalogo)
-					&& listaCatalogo.size() == 0) {
-				MensajesWebController
-						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.reportePartidaBautizoDataManager
-						.setListProvincia(listaCatalogo);
-			}
-
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarCatalogo {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-
-	}
-
-	public void buscarCanton() {
-		slf4jLogger.info("buscarCanton");
-		List<CatalogoEucaristiaDTO> listaCatalogo = null;
-		try {
-			CatalogoEucaristiaDTO cat = new CatalogoEucaristiaDTO();
-			cat.setCatCodigo(reportePartidaBautizoDataManager.getCodigoProvincia());
-			listaCatalogo = this.servicioEucaristia.buscarCatalogo(cat);
-			if (CollectionUtils.isEmpty(listaCatalogo)
-					&& listaCatalogo.size() == 0) {
-				MensajesWebController
-						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.reportePartidaBautizoDataManager
-						.setListCanton(listaCatalogo);
-			}
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarCanton {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-	}
-
-	public void buscarParroquia() {
-		slf4jLogger.info("buscarParroquia");
-
-		List<CatalogoEucaristiaDTO> listaCatalogo = null;
-
-		try {
-			CatalogoEucaristiaDTO cat = new CatalogoEucaristiaDTO();
-			cat.setCatCodigo(reportePartidaBautizoDataManager.getCodigoCanton());
-			listaCatalogo = this.servicioEucaristia.buscarCatalogo(cat);
-
-			if (CollectionUtils.isEmpty(listaCatalogo)
-					&& listaCatalogo.size() == 0) {
-				MensajesWebController
-						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.reportePartidaBautizoDataManager
-						.setListParroquia(listaCatalogo);
-			}
-
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarCiudad {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-
-	}
 	
 	public void buscar() {
 		slf4jLogger.info("buscarBautizo");
 		List<BautizoListDTO> listResultado=new ArrayList<BautizoListDTO>();
 		try {
-			reportePartidaBautizoDataManager.getBautizoListDTO().setBauParroquia(reportePartidaBautizoDataManager.getCodigoParroquia());
-			reportePartidaBautizoDataManager.getBautizoListDTO().setBauProvincia(reportePartidaBautizoDataManager.getCodigoProvincia());
-			reportePartidaBautizoDataManager.getBautizoListDTO().setBauCanton(reportePartidaBautizoDataManager.getCodigoCanton());
+			reportePartidaBautizoDataManager.getBautizoListDTO().setBauEmpresa(getEmpresaTbl().getEmrPk());
 			listResultado = this.servicioEucaristia.readBautizoReport(reportePartidaBautizoDataManager.getBautizoListDTO());
 			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
+				this.reportePartidaBautizoDataManager.setBautizoListDTOs(new ArrayList<BautizoListDTO>());
+				this.reportePartidaBautizoDataManager.setExportDesactivado(true);
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				reportePartidaBautizoDataManager.setExportDesactivado(false);
@@ -162,16 +89,33 @@ public class ReportePartidaBautizoController extends BaseController {
 		Date fechaActual = new Date();
 		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
 		DateFormat pequena = DateFormat.getDateInstance(DateFormat.SHORT);
+		BautizoListDTO bautizo= new BautizoListDTO();
+		bautizo.setBauEmpresa(getEmpresaTbl().getEmrPk());
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
-			mapParametros.put("fechaActual", find(reportePartidaBautizoDataManager.getCodigoParroquia(), reportePartidaBautizoDataManager.getListParroquia()).getCatDescripcion() + ",  " + full.format(fechaActual));
-			mapParametros.put("parroquia",find(reportePartidaBautizoDataManager.getCodigoParroquia(), reportePartidaBautizoDataManager.getListParroquia()).getCatDescripcion());
-			mapParametros.put("provincia", find(reportePartidaBautizoDataManager.getCodigoProvincia(), reportePartidaBautizoDataManager.getListProvincia()).getCatDescripcion());
+			mapParametros.put("fechaActual", full.format(fechaActual));
+			if(reportePartidaBautizoDataManager.getBautizoListDTO().getFechaDesde()==null){
+				try {
+					reportePartidaBautizoDataManager.getBautizoListDTO().setFechaDesde(this.servicioEucaristia.obtenerFechaMinBautizo(bautizo));
+				} catch (SeguridadesException e) {
+					slf4jLogger.info("Error al buscarMinimaFecha {} ", e);
+					MensajesWebController.aniadirMensajeError(e.getMessage());
+				}
+				
+			}
 			mapParametros.put("desde", pequena.format(reportePartidaBautizoDataManager.getBautizoListDTO().getFechaDesde()));
+			if(reportePartidaBautizoDataManager.getBautizoListDTO().getFechaHasta()==null){
+				try {
+					reportePartidaBautizoDataManager.getBautizoListDTO().setFechaHasta(this.servicioEucaristia.obtenerFechaMaxBautizo(bautizo));
+				} catch (SeguridadesException e) {
+					slf4jLogger.info("Error al buscarMaximaFecha {} ", e);
+					MensajesWebController.aniadirMensajeError(e.getMessage());
+				}
+			}
 			mapParametros.put("hasta", pequena.format(reportePartidaBautizoDataManager.getBautizoListDTO().getFechaHasta()));
 			mapParametros.put("empresa", getEmpresaTbl().getEmrNombre());
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
-		
+			
 			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(),reportePartidaBautizoDataManager.getBautizoListDTOs(), "reportePartidasBautizos", mapParametros);
 			ReporteUtil.generarReporte(jasperPrint, this.reportePartidaBautizoDataManager.getFormatoPdf(), "reportePartidasBautizos");
 	}
@@ -182,16 +126,5 @@ public class ReportePartidaBautizoController extends BaseController {
 		
 	}
 	
-	private CatalogoEucaristiaDTO find(Integer code,List<CatalogoEucaristiaDTO> list)
-	{
-		CatalogoEucaristiaDTO obj=null;
-		for(CatalogoEucaristiaDTO cat:list)
-		{
-			if(cat.getCatCodigo()==code)
-				obj=cat;
-		}
-		return obj;
-		
-	}
 
 }

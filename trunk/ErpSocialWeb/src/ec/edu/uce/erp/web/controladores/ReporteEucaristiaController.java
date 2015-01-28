@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaListDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -67,6 +68,8 @@ public class ReporteEucaristiaController extends LoginController {
 		slf4jLogger.info("buscarEucaristia");
 		List<EucaristiaListDTO> listResultado=new ArrayList<EucaristiaListDTO>();
 		try {
+			
+			reporteEucaristiaDataManager.getEucaristiaListDTO().setEucEmpresa(getEmpresaTbl().getEmrPk());
 			listResultado = this.servicioEucaristia.readEucaristiaReport(reporteEucaristiaDataManager.getEucaristiaListDTO());
 			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
 				this.reporteEucaristiaDataManager.setEucaristiaListDTOs( new ArrayList<EucaristiaListDTO>());
@@ -86,23 +89,30 @@ public class ReporteEucaristiaController extends LoginController {
 		Date fechaActual = new Date();
 		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
 		DateFormat pequena = DateFormat.getDateInstance(DateFormat.SHORT);
+		EucaristiaListDTO eucaristia= new EucaristiaListDTO();
+		eucaristia.setEucEmpresa(getEmpresaTbl().getEmrPk());
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
 			mapParametros.put("fechaActual", full.format(fechaActual));
 			mapParametros.put("empresa", this.getUsuario().getEmpresaTbl().getEmrNombre().toUpperCase());
 			if(reporteEucaristiaDataManager.getEucaristiaListDTO().getFechaDesde()==null){
-				Date fechaDesde=reporteEucaristiaDataManager.getEucaristiaListDTOs().get(0).getEucFechaHora();
-				for (EucaristiaListDTO eucaristiaListDTO : reporteEucaristiaDataManager.getEucaristiaListDTOs()) {
-					if(eucaristiaListDTO.getEucFechaHora().before(fechaDesde)) fechaDesde= eucaristiaListDTO.getEucFechaHora();
+				try {
+					reporteEucaristiaDataManager.getEucaristiaListDTO().setFechaDesde(this.servicioEucaristia.obtenerFechaMinEucaristia(eucaristia));
+				} catch (SeguridadesException e) {
+					slf4jLogger.info("Error al buscarMinimaFecha {} ", e);
+					MensajesWebController.aniadirMensajeError(e.getMessage());
 				}
-				mapParametros.put("desde", pequena.format(fechaDesde));
-			}else mapParametros.put("desde", pequena.format(reporteEucaristiaDataManager.getEucaristiaListDTO().getFechaDesde()));
+			}
+			mapParametros.put("desde", pequena.format(reporteEucaristiaDataManager.getEucaristiaListDTO().getFechaDesde()));
 			if(reporteEucaristiaDataManager.getEucaristiaListDTO().getFechaHasta()==null){
-				Date fechaHasta=reporteEucaristiaDataManager.getEucaristiaListDTOs().get(0).getEucFechaHora();
-				for (EucaristiaListDTO eucaristiaListDTO : reporteEucaristiaDataManager.getEucaristiaListDTOs()) {
-					if(eucaristiaListDTO.getEucFechaHora().after(fechaHasta)) fechaHasta= eucaristiaListDTO.getEucFechaHora();
+				try {
+					reporteEucaristiaDataManager.getEucaristiaListDTO().setFechaDesde(this.servicioEucaristia.obtenerFechaMaxEucaristia(eucaristia));
+				} catch (SeguridadesException e) {
+					slf4jLogger.info("Error al buscarMaximaFecha {} ", e);
+					MensajesWebController.aniadirMensajeError(e.getMessage());
 				}
-					mapParametros.put("hasta", pequena.format(fechaHasta));
-				}else mapParametros.put("hasta", pequena.format(reporteEucaristiaDataManager.getEucaristiaListDTO().getFechaHasta()));
+				}
+					
+			mapParametros.put("hasta", pequena.format(reporteEucaristiaDataManager.getEucaristiaListDTO().getFechaHasta()));
 			
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 			
