@@ -183,9 +183,7 @@ public class BautizoListDTO implements Serializable {
 	public BautizoListDTO() {
 	}
 
-	public BautizoListDTO(Integer bauParroquia,
-			Integer bauProvincia,
-			Integer bauCanton,
+	public BautizoListDTO(
 			String perCi,
 			String perApellidos,
 			String perNombres,
@@ -194,9 +192,6 @@ public class BautizoListDTO implements Serializable {
 			Date bauFechaAprobacionCruso,
 			Date bauFechaBautizo) {
 			super();
-			this.bauParroquia=bauParroquia;
-			this.bauProvincia=bauProvincia;
-			this.bauCanton=bauCanton;
 			this.perCi = perCi;
 			this.perApellidos = perApellidos;
 			this.perNombres = perNombres;

@@ -2,6 +2,7 @@ package ec.edu.uce.erp.ejb.persistence.dao.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -100,7 +101,42 @@ public class BautizoDAOImpl extends AbstractFacadeImpl<BautizoDTO>implements Bau
 	
 	return bautizoEncontrado;
 }
-
+	@Override
+	public Date obtenerFechaMinBautizo(BautizoListDTO bautizo) throws SeguridadesException {
+		
+		slf4jLogger.info("obtenerBautizoPorFechaMin");
+		Date fechaMin= null;
+		
+		try {
+			fechaMin=(Date) entityManager.createQuery("select min(e.bauFechaBautizo) from BautizoListDTO e where e.bauEmpresa=:idEmpresa")
+			  .setParameter("idEmpresa", bautizo.getBauEmpresa())
+			  .getSingleResult();
+		
+	} catch (Exception e) {
+		slf4jLogger.info("No se pudo obtener los parametros de la BD {}", e);
+		throw new SeguridadesException(e);
+	}
+	
+	return fechaMin;
+}
+	@Override
+	public Date obtenerFechaMaxBautizo(BautizoListDTO bautizo) throws SeguridadesException {
+		
+		slf4jLogger.info("obtenerBautizoPorFechaMin");
+		Date fechaMax= null;
+		
+		try {
+			fechaMax=(Date) entityManager.createQuery("select max(e.bauFechaBautizo) from BautizoListDTO e where e.bauEmpresa=:idEmpresa")
+			  .setParameter("idEmpresa", bautizo.getBauEmpresa())
+			  .getSingleResult();
+		
+	} catch (Exception e) {
+		slf4jLogger.info("No se pudo obtener los parametros de la BD {}", e);
+		throw new SeguridadesException(e);
+	}
+	
+	return fechaMax;
+}
 	@Override
 	public List<BautizoListDTO> getDistinctReporteBautizoByAnd(BautizoListDTO objetoDTO) throws SeguridadesException
 	{
@@ -121,9 +157,6 @@ public class BautizoDAOImpl extends AbstractFacadeImpl<BautizoDTO>implements Bau
 			from= cq.from(BautizoListDTO.class);
 			
 			cq.multiselect(
-					from.get("bauParroquia"),
-					from.get("bauProvincia"),
-					from.get("bauCanton"),
 					from.get("perCi"),
 					from.get("perApellidos"),
 					from.get("perNombres"),
@@ -155,8 +188,16 @@ public class BautizoDAOImpl extends AbstractFacadeImpl<BautizoDTO>implements Bau
 	        }
 	        
 	        if(objetoDTO.getFechaDesde()!=null && objetoDTO.getFechaHasta()!=null)
+	        {
 	        	predicateList.add(cb.between(from.get("bauFechaBautizo").as(Timestamp.class), objetoDTO.getFechaDesde(), objetoDTO.getFechaHasta()));	        
-	
+	        }else if(objetoDTO.getFechaDesde()!=null)
+	        	predicateList.add(cb.greaterThanOrEqualTo(from.get("bauFechaBautizo").as(Timestamp.class), objetoDTO.getFechaDesde()));	        
+	        else if(objetoDTO.getFechaHasta()!=null)
+	        {
+	        	
+	        	predicateList.add(cb.lessThanOrEqualTo(from.get("bauFechaBautizo").as(Timestamp.class),objetoDTO.getFechaHasta()));	        
+	            
+	        }
 	        if(!predicateList.isEmpty())
 	        	cq.where(cb.and(predicateList.toArray(new Predicate[0])));		
 			
