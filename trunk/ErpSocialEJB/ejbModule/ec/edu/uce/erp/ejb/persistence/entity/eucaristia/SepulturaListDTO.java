@@ -71,6 +71,11 @@ public class SepulturaListDTO implements Serializable {
 
 	@Column(name="tni_descripcion")
 	private String tniDescripcion;
+	
+	//campo que almacena fecha de sepelio
+	@Column(name="def_fecha")
+	@Temporal(TemporalType.DATE)
+	private Date sepFecha;
 
 	@Transient
 	private Date fechaDesde;
@@ -88,7 +93,8 @@ public class SepulturaListDTO implements Serializable {
 			String seccion,
 			String nniDescripcion,
 			String tniDescripcion,
-			String nicDescripcion
+			String nicDescripcion,
+			Date sepFecha
 			) {
 			super();
 			this.perCi=perCi;
@@ -97,7 +103,8 @@ public class SepulturaListDTO implements Serializable {
 			this.seccion = seccion;
 			this.tniDescripcion = tniDescripcion;
 			this.nniDescripcion = nniDescripcion;
-			this.nicDescripcion = nicDescripcion;;
+			this.nicDescripcion = nicDescripcion;
+			this.sepFecha=sepFecha;
 		}
 	
 	
@@ -261,5 +268,13 @@ public class SepulturaListDTO implements Serializable {
 	public void setNicEstado(String nicEstado) {
 		this.nicEstado = nicEstado;
 	}
- 
+
+	public Date getSepFecha() {
+		return sepFecha;
+	}
+
+	public void setSepFecha(Date sepFecha) {
+		this.sepFecha = sepFecha;
+	}
+   
 }

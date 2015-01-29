@@ -68,9 +68,11 @@ public class ReporteSepulturaController extends BaseController {
 		slf4jLogger.info("buscarSepultura");
 		List<SepulturaListDTO> listResultado=new ArrayList<SepulturaListDTO>();
 		try {
-			
+			reporteSepulturaDataManager.getSepulturaListDTO().setSepEmpresa(getEmpresaTbl().getEmrPk());
 			listResultado = this.servicioEucaristia.readSepulturaReport(reporteSepulturaDataManager.getSepulturaListDTO());
 			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
+				this.reporteSepulturaDataManager.setSepulturaListDTOs(new ArrayList<SepulturaListDTO>());
+				reporteSepulturaDataManager.setExportDesactivado(true);
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				reporteSepulturaDataManager.setExportDesactivado(false);
@@ -86,11 +88,30 @@ public class ReporteSepulturaController extends BaseController {
 		Date fechaActual = new Date();
 		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
 		DateFormat pequena = DateFormat.getDateInstance(DateFormat.SHORT);
+		SepulturaListDTO sepultura= new SepulturaListDTO();
+		sepultura.setSepEmpresa(getEmpresaTbl().getEmrPk());
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
-			mapParametros.put("fechaActual", full.format(fechaActual));
-			mapParametros.put("desde", pequena.format(reporteSepulturaDataManager.getDesde()));
-			mapParametros.put("hasta", pequena.format(reporteSepulturaDataManager.getHasta()));
+		mapParametros.put("fechaActual",String.valueOf(full.format(fechaActual).charAt(0)).toUpperCase() +full.format(fechaActual).substring(1));
+			if(reporteSepulturaDataManager.getSepulturaListDTO().getFechaDesde()==null){
+				try {
+					reporteSepulturaDataManager.getSepulturaListDTO().setFechaDesde(this.servicioEucaristia.obtenerFechaMinSepultura(sepultura));
+				} catch (SeguridadesException e) {
+					slf4jLogger.info("Error al buscarMinimaFecha {} ", e);
+					MensajesWebController.aniadirMensajeError(e.getMessage());
+				}
+				
+			}
+			mapParametros.put("desde", pequena.format(reporteSepulturaDataManager.getSepulturaListDTO().getFechaDesde()));
+			if(reporteSepulturaDataManager.getSepulturaListDTO().getFechaHasta()==null){
+				try {
+					reporteSepulturaDataManager.getSepulturaListDTO().setFechaHasta(this.servicioEucaristia.obtenerFechaMaxSepultura(sepultura));
+				} catch (SeguridadesException e) {
+					slf4jLogger.info("Error al buscarMaximaFecha {} ", e);
+					MensajesWebController.aniadirMensajeError(e.getMessage());
+				}
+			}
+			mapParametros.put("hasta", pequena.format(reporteSepulturaDataManager.getSepulturaListDTO().getFechaHasta()));
 			mapParametros.put("empresa", getEmpresaTbl().getEmrNombre());
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		

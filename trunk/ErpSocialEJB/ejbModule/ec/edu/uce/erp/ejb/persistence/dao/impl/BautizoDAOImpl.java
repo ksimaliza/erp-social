@@ -122,7 +122,7 @@ public class BautizoDAOImpl extends AbstractFacadeImpl<BautizoDTO>implements Bau
 	@Override
 	public Date obtenerFechaMaxBautizo(BautizoListDTO bautizo) throws SeguridadesException {
 		
-		slf4jLogger.info("obtenerBautizoPorFechaMin");
+		slf4jLogger.info("obtenerBautizoPorFechaMax");
 		Date fechaMax= null;
 		
 		try {

@@ -175,9 +175,7 @@ public class DefuncionListDTO implements Serializable {
 	public DefuncionListDTO() {
 	}
 	
-	public DefuncionListDTO(Integer defParroquia,
-			Integer defProvincia,
-			Integer defCanton,
+	public DefuncionListDTO(
 			String perCi,
 			String perApellidos,
 			String perNombres,
@@ -185,9 +183,6 @@ public class DefuncionListDTO implements Serializable {
 			String sacApellidos,
 			Date defFecha) {
 			super();
-			this.defParroquia=defParroquia;
-			this.defProvincia=defProvincia;
-			this.defCanton=defCanton;
 			this.perCi = perCi;
 			this.perApellidos = perApellidos;
 			this.perNombres = perNombres;

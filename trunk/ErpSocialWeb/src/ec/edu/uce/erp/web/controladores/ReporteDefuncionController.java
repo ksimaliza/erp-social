@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.DefuncionListDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -61,92 +60,17 @@ public class ReporteDefuncionController extends BaseController {
 	
 	@PostConstruct
 	public void inicializarObjetos() {
-		buscarProvincia();
-	}
-
-	
-	public void buscarProvincia() {
-		slf4jLogger.info("buscarCatalogo");
-
-		List<CatalogoEucaristiaDTO> listaCatalogo = null;
-
-		try {
-			CatalogoEucaristiaDTO cat = new CatalogoEucaristiaDTO();
-			cat.setCatCodigo(1);
-			listaCatalogo = this.servicioEucaristia.buscarCatalogo(cat);
-
-			if (CollectionUtils.isEmpty(listaCatalogo)
-					&& listaCatalogo.size() == 0) {
-				MensajesWebController
-						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.reporteDefuncionDataManager
-						.setListProvincia(listaCatalogo);
-			}
-
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarCatalogo {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-
-	}
-
-	public void buscarCanton() {
-		slf4jLogger.info("buscarCanton");
-		List<CatalogoEucaristiaDTO> listaCatalogo = null;
-		try {
-			CatalogoEucaristiaDTO cat = new CatalogoEucaristiaDTO();
-			cat.setCatCodigo(reporteDefuncionDataManager.getCodigoProvincia());
-			listaCatalogo = this.servicioEucaristia.buscarCatalogo(cat);
-			if (CollectionUtils.isEmpty(listaCatalogo)
-					&& listaCatalogo.size() == 0) {
-				MensajesWebController
-						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.reporteDefuncionDataManager
-						.setListCanton(listaCatalogo);
-			}
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarCanton {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-	}
-
-	public void buscarParroquia() {
-		slf4jLogger.info("buscarParroquia");
-
-		List<CatalogoEucaristiaDTO> listaCatalogo = null;
-
-		try {
-			CatalogoEucaristiaDTO cat = new CatalogoEucaristiaDTO();
-			cat.setCatCodigo(reporteDefuncionDataManager.getCodigoCanton());
-			listaCatalogo = this.servicioEucaristia.buscarCatalogo(cat);
-
-			if (CollectionUtils.isEmpty(listaCatalogo)
-					&& listaCatalogo.size() == 0) {
-				MensajesWebController
-						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.reporteDefuncionDataManager
-						.setListParroquia(listaCatalogo);
-			}
-
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarCiudad {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-
 	}
 	
 	public void buscar() {
 		slf4jLogger.info("buscarDefuncion");
 		List<DefuncionListDTO> listResultado=new ArrayList<DefuncionListDTO>();
 		try {
-			reporteDefuncionDataManager.getDefuncionListDTO().setDefParroquia(reporteDefuncionDataManager.getCodigoParroquia());
-			reporteDefuncionDataManager.getDefuncionListDTO().setDefProvincia(reporteDefuncionDataManager.getCodigoProvincia());
-			reporteDefuncionDataManager.getDefuncionListDTO().setDefCanton(reporteDefuncionDataManager.getCodigoCanton());
+			reporteDefuncionDataManager.getDefuncionListDTO().setDefEmpresa(getEmpresaTbl().getEmrPk());
 			listResultado = this.servicioEucaristia.readDefuncionReport(reporteDefuncionDataManager.getDefuncionListDTO());
 			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
+				this.reporteDefuncionDataManager.setDefuncionListDTOs(new ArrayList<DefuncionListDTO>());
+				reporteDefuncionDataManager.setExportDesactivado(true);
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				reporteDefuncionDataManager.setExportDesactivado(false);
@@ -162,13 +86,29 @@ public class ReporteDefuncionController extends BaseController {
 		Date fechaActual = new Date();
 		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
 		DateFormat pequena = DateFormat.getDateInstance(DateFormat.SHORT);
+		DefuncionListDTO defuncion= new DefuncionListDTO();
+		defuncion.setDefEmpresa(getEmpresaTbl().getEmrPk());
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
-			mapParametros.put("fechaActual", find(reporteDefuncionDataManager.getCodigoParroquia(), reporteDefuncionDataManager.getListParroquia()).getCatDescripcion() + ",  " + full.format(fechaActual));
-			mapParametros.put("parroquia",find(reporteDefuncionDataManager.getCodigoParroquia(), reporteDefuncionDataManager.getListParroquia()).getCatDescripcion());
-			mapParametros.put("provincia", find(reporteDefuncionDataManager.getCodigoProvincia(), reporteDefuncionDataManager.getListProvincia()).getCatDescripcion());
+		mapParametros.put("fechaActual",String.valueOf(full.format(fechaActual).charAt(0)).toUpperCase() +full.format(fechaActual).substring(1));
+			if(reporteDefuncionDataManager.getDefuncionListDTO().getFechaDesde()==null){
+				try {
+					reporteDefuncionDataManager.getDefuncionListDTO().setFechaDesde(this.servicioEucaristia.obtenerFechaMinDefuncion(defuncion));
+				} catch (SeguridadesException e) {
+					slf4jLogger.info("Error al buscarMinimaFecha {} ", e);
+					MensajesWebController.aniadirMensajeError(e.getMessage());
+				}
+				
+			}
 			mapParametros.put("desde", pequena.format(reporteDefuncionDataManager.getDefuncionListDTO().getFechaDesde()));
-			mapParametros.put("hasta", pequena.format(reporteDefuncionDataManager.getDefuncionListDTO().getFechaHasta()));
+			if(reporteDefuncionDataManager.getDefuncionListDTO().getFechaHasta()==null){
+				try {
+					reporteDefuncionDataManager.getDefuncionListDTO().setFechaHasta(this.servicioEucaristia.obtenerFechaMaxDefuncion(defuncion));
+				} catch (SeguridadesException e) {
+					slf4jLogger.info("Error al buscarMaximaFecha {} ", e);
+					MensajesWebController.aniadirMensajeError(e.getMessage());
+				}
+			}mapParametros.put("hasta", pequena.format(reporteDefuncionDataManager.getDefuncionListDTO().getFechaHasta()));
 			mapParametros.put("empresa", getEmpresaTbl().getEmrNombre());
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
@@ -179,18 +119,6 @@ public class ReporteDefuncionController extends BaseController {
 	@Override
 	public void refrescarFormulario() {
 		// TODO Auto-generated method stub
-		
-	}
-	
-	private CatalogoEucaristiaDTO find(Integer code,List<CatalogoEucaristiaDTO> list)
-	{
-		CatalogoEucaristiaDTO obj=null;
-		for(CatalogoEucaristiaDTO cat:list)
-		{
-			if(cat.getCatCodigo()==code)
-				obj=cat;
-		}
-		return obj;
 		
 	}
 

@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -98,6 +99,42 @@ public class ConfirmacionDAOImpl extends AbstractFacadeImpl<ConfirmacionDTO> imp
 	
 	return confirmacionEncontrada;
 }
+	@Override
+	public Date obtenerFechaMinConfirmacion(ConfirmacionListDTO confirmacion) throws SeguridadesException {
+		
+		slf4jLogger.info("obtenerConfirmacionPorFechaMin");
+		Date fechaMin= null;
+		
+		try {
+			fechaMin=(Date) entityManager.createQuery("select min(e.conFecha) from ConfirmacionListDTO e where e.conEmpresa=:idEmpresa")
+			  .setParameter("idEmpresa", confirmacion.getConEmpresa())
+			  .getSingleResult();
+		
+	} catch (Exception e) {
+		slf4jLogger.info("No se pudo obtener los parametros de la BD {}", e);
+		throw new SeguridadesException(e);
+	}
+	
+	return fechaMin;
+}
+	@Override
+	public Date obtenerFechaMaxConfirmacion(ConfirmacionListDTO confirmacion) throws SeguridadesException {
+		
+		slf4jLogger.info("obtenerConfirmacionPorFechaMin");
+		Date fechaMax= null;
+		
+		try {
+			fechaMax=(Date) entityManager.createQuery("select max(e.conFecha) from ConfirmacionListDTO e where e.conEmpresa=:idEmpresa")
+			  .setParameter("idEmpresa", confirmacion.getConEmpresa())
+			  .getSingleResult();
+		
+	} catch (Exception e) {
+		slf4jLogger.info("No se pudo obtener los parametros de la BD {}", e);
+		throw new SeguridadesException(e);
+	}
+	
+	return fechaMax;
+}
 	
 	@Override
 	public List<ConfirmacionListDTO> getDistinctReporteConfirmacionByAnd(ConfirmacionListDTO objetoDTO) throws SeguridadesException
@@ -119,9 +156,6 @@ public class ConfirmacionDAOImpl extends AbstractFacadeImpl<ConfirmacionDTO> imp
 			from= cq.from(ConfirmacionListDTO.class);
 			
 			cq.multiselect(
-					from.get("conParroquia"),
-					from.get("conProvincia"),
-					from.get("conCanton"),
 					from.get("perCi"),
 					from.get("perApellidos"),
 					from.get("perNombres"),
@@ -153,8 +187,16 @@ public class ConfirmacionDAOImpl extends AbstractFacadeImpl<ConfirmacionDTO> imp
 	        }
 	        
 	        if(objetoDTO.getFechaDesde()!=null && objetoDTO.getFechaHasta()!=null)
+	        {
 	        	predicateList.add(cb.between(from.get("conFecha").as(Timestamp.class), objetoDTO.getFechaDesde(), objetoDTO.getFechaHasta()));	        
-	
+	        }else if(objetoDTO.getFechaDesde()!=null)
+	        	predicateList.add(cb.greaterThanOrEqualTo(from.get("conFecha").as(Timestamp.class), objetoDTO.getFechaDesde()));	        
+	        else if(objetoDTO.getFechaHasta()!=null)
+	        {
+	        	
+	        	predicateList.add(cb.lessThanOrEqualTo(from.get("conFecha").as(Timestamp.class),objetoDTO.getFechaHasta()));	        
+	            
+	        }
 	        if(!predicateList.isEmpty())
 	        	cq.where(cb.and(predicateList.toArray(new Predicate[0])));		
 			

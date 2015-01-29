@@ -2,7 +2,9 @@ package ec.edu.uce.erp.ejb.persistence.dao.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -92,6 +94,43 @@ public class SepulturaDAOImpl extends AbstractFacadeImpl<SepulturaDTO> implement
 	}
 	
 	@Override
+	public Date obtenerFechaMinSepultura(SepulturaListDTO sepultura) throws SeguridadesException {
+		
+		slf4jLogger.info("obtenerSepulturaPorFechaMin");
+		Date fechaMin= null;
+		
+		try {
+			fechaMin=(Date) entityManager.createQuery("select min(e.sepFecha) from SepulturaListDTO e where e.sepEmpresa=:idEmpresa")
+			  .setParameter("idEmpresa", sepultura.getSepEmpresa())
+			  .getSingleResult();
+		
+	} catch (Exception e) {
+		slf4jLogger.info("No se pudo obtener los parametros de la BD {}", e);
+		throw new SeguridadesException(e);
+	}
+	
+	return fechaMin;
+}
+	@Override
+	public Date obtenerFechaMaxSepultura(SepulturaListDTO sepultura) throws SeguridadesException {
+		
+		slf4jLogger.info("obtenerSepulturaPorFechaMax");
+		Date fechaMax= null;
+		
+		try {
+			fechaMax=(Date) entityManager.createQuery("select max(e.sepFecha) from SepulturaListDTO e where e.sepEmpresa=:idEmpresa")
+			  .setParameter("idEmpresa", sepultura.getSepEmpresa())
+			  .getSingleResult();
+		
+	} catch (Exception e) {
+		slf4jLogger.info("No se pudo obtener los parametros de la BD {}", e);
+		throw new SeguridadesException(e);
+	}
+	
+	return fechaMax;
+}
+	
+	@Override
 	public List<SepulturaListDTO> getDistinctReporteSepulturaByAnd(SepulturaListDTO objetoDTO) throws SeguridadesException
 	{
 		CriteriaBuilder cb;
@@ -117,7 +156,8 @@ public class SepulturaDAOImpl extends AbstractFacadeImpl<SepulturaDTO> implement
 					from.get("seccion"),
 					from.get("nniDescripcion"),
 					from.get("tniDescripcion"),
-					from.get("nicDescripcion")
+					from.get("nicDescripcion"),
+					from.get("sepFecha")
 					).distinct(true);
 			
 			predicateList=new ArrayList<Predicate>();
@@ -126,7 +166,7 @@ public class SepulturaDAOImpl extends AbstractFacadeImpl<SepulturaDTO> implement
 
 	        for(Field f : fields){
 	            fieldName = f.getName();
-				if(!fieldName.equals("serialVersionUID"))
+	            if(!fieldName.equals("serialVersionUID")&&!fieldName.equals("fechaDesde")&&!fieldName.equals("fechaHasta"))
 				{
 				    getter = objetoDTO.getClass().getMethod("get" + String.valueOf(fieldName.charAt(0)).toUpperCase() +
 				            fieldName.substring(1));
@@ -140,7 +180,17 @@ public class SepulturaDAOImpl extends AbstractFacadeImpl<SepulturaDTO> implement
 				    }
 				}
 	        }
-	        
+	        if(objetoDTO.getFechaDesde()!=null && objetoDTO.getFechaHasta()!=null)
+	        {
+	        	predicateList.add(cb.between(from.get("sepFecha").as(Timestamp.class), objetoDTO.getFechaDesde(), objetoDTO.getFechaHasta()));	        
+	        }else if(objetoDTO.getFechaDesde()!=null)
+	        	predicateList.add(cb.greaterThanOrEqualTo(from.get("sepFecha").as(Timestamp.class), objetoDTO.getFechaDesde()));	        
+	        else if(objetoDTO.getFechaHasta()!=null)
+	        {
+	        	
+	        	predicateList.add(cb.lessThanOrEqualTo(from.get("sepFecha").as(Timestamp.class),objetoDTO.getFechaHasta()));	        
+	            
+	        }
 	
 	        if(!predicateList.isEmpty())
 	        	cq.where(cb.and(predicateList.toArray(new Predicate[0])));		

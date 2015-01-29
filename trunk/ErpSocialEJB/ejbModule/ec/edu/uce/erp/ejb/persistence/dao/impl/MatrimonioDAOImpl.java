@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -110,6 +111,44 @@ public class MatrimonioDAOImpl extends AbstractFacadeImpl<MatrimonioDTO> impleme
 }
 	
 	@Override
+	public Date obtenerFechaMinMatrimonio(MatrimonioListDTO matrimonio) throws SeguridadesException {
+		
+		slf4jLogger.info("obtenerMatrimonioPorFechaMin");
+		Date fechaMin= null;
+		
+		try {
+			fechaMin=(Date) entityManager.createQuery("select min(e.matFecha) from MatrimonioListDTO e where e.matEmpresa=:idEmpresa")
+			  .setParameter("idEmpresa", matrimonio.getMatEmpresa())
+			  .getSingleResult();
+		
+	} catch (Exception e) {
+		slf4jLogger.info("No se pudo obtener los parametros de la BD {}", e);
+		throw new SeguridadesException(e);
+	}
+	
+	return fechaMin;
+}
+	@Override
+	public Date obtenerFechaMaxMatrimonio(MatrimonioListDTO matrimonio) throws SeguridadesException {
+		
+		slf4jLogger.info("obtenerMatrimonioPorFechaMin");
+		Date fechaMax= null;
+		
+		try {
+			fechaMax=(Date) entityManager.createQuery("select max(e.matFecha) from MatrimonioListDTO e where e.matEmpresa=:idEmpresa")
+			  .setParameter("idEmpresa", matrimonio.getMatEmpresa())
+			  .getSingleResult();
+		
+	} catch (Exception e) {
+		slf4jLogger.info("No se pudo obtener los parametros de la BD {}", e);
+		throw new SeguridadesException(e);
+	}
+	
+	return fechaMax;
+}
+	
+	
+	@Override
 	public List<MatrimonioListDTO> getDistinctReporteBautizoByAnd(MatrimonioListDTO objetoDTO) throws SeguridadesException
 	{
 		CriteriaBuilder cb;
@@ -129,9 +168,6 @@ public class MatrimonioDAOImpl extends AbstractFacadeImpl<MatrimonioDTO> impleme
 			from= cq.from(MatrimonioListDTO.class);
 			
 			cq.multiselect(
-					from.get("matParroquia"),
-					from.get("matProvincia"),
-					from.get("matCanton"),
 					from.get("novioCedula"),
 					from.get("novioApellidos"),
 					from.get("novioNombres"),
@@ -166,8 +202,16 @@ public class MatrimonioDAOImpl extends AbstractFacadeImpl<MatrimonioDTO> impleme
 	        }
 	        
 	        if(objetoDTO.getFechaDesde()!=null && objetoDTO.getFechaHasta()!=null)
+	        {
 	        	predicateList.add(cb.between(from.get("matFecha").as(Timestamp.class), objetoDTO.getFechaDesde(), objetoDTO.getFechaHasta()));	        
-	
+	        }else if(objetoDTO.getFechaDesde()!=null)
+	        	predicateList.add(cb.greaterThanOrEqualTo(from.get("matFecha").as(Timestamp.class), objetoDTO.getFechaDesde()));	        
+	        else if(objetoDTO.getFechaHasta()!=null)
+	        {
+	        	
+	        	predicateList.add(cb.lessThanOrEqualTo(from.get("matFecha").as(Timestamp.class),objetoDTO.getFechaHasta()));	        
+	            
+	        }
 	        if(!predicateList.isEmpty())
 	        	cq.where(cb.and(predicateList.toArray(new Predicate[0])));		
 			

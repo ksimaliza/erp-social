@@ -27,12 +27,12 @@
 
                                 <tr >
                                 <td ><h:outputLabel value="Desde:" /></td>
-                                        <td ><p:calendar id="txtDesde" style="width: 100%" navigator="true"  value="#{reporteSepulturaDataManager.desde}" showOn="button" /></td>
+                                        <td ><p:calendar id="txtDesde" style="width: 100%" navigator="true"  value="#{reporteSepulturaDataManager.sepulturaListDTO.fechaDesde}" showOn="button" /></td>
                                 </tr>       
                                 <tr>
                                  <td ><h:outputLabel value="Hasta:" /></td>
                                         <td >
-                                        	<p:calendar id="txtHasta"  navigator="true"   showOn="button" value="#{reporteSepulturaDataManager.hasta}" />
+                                        	<p:calendar id="txtHasta"  navigator="true"   showOn="button" value="#{reporteSepulturaDataManager.sepulturaListDTO.fechaHasta}" />
                                         </td>		
                                         <td >
 	                                        <p:commandButton id="btnBuscar"
@@ -81,6 +81,9 @@
                                 </p:column>
                                 <p:column headerText="Número">
                                         <h:outputText value="#{sepultura.nicDescripcion}" />                          
+                                </p:column>
+                                <p:column headerText="Fecha Sepelio">
+                                        <h:outputText value="#{sepultura.sepFecha}" />
                                 </p:column>
                         </p:dataTable>
                 </h:form>

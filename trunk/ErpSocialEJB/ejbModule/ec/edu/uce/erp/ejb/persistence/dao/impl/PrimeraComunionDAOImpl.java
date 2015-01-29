@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -99,7 +100,44 @@ public class PrimeraComunionDAOImpl extends AbstractFacadeImpl<PrimeraComunionDT
 	return comunionEncontrada;
 }
 	
+	@Override
+	public Date obtenerFechaMinComunion(ComunionListDTO comunion) throws SeguridadesException {
+		
+		slf4jLogger.info("obtenerFechaMinComunion");
+		Date fechaMin= null;
+		
+		try {
+			fechaMin=(Date) entityManager.createQuery("select min(e.pcoFechaHora) from ComunionListDTO e where e.pcoEmpresa=:idEmpresa")
+			  .setParameter("idEmpresa", comunion.getPcoEmpresa())
+			  .getSingleResult();
+		
+	} catch (Exception e) {
+		slf4jLogger.info("No se pudo obtener los parametros de la BD {}", e);
+		throw new SeguridadesException(e);
+	}
 	
+	return fechaMin;
+}
+	
+	@Override
+	public Date obtenerFechaMaxComunion(ComunionListDTO comunion) throws SeguridadesException {
+		
+		slf4jLogger.info("obtenerFechaMaxComunion");
+		Date fechaMax= null;
+		
+		try {
+			fechaMax=(Date) entityManager.createQuery("select max(e.pcoFechaHora) from ComunionListDTO e where e.pcoEmpresa=:idEmpresa")
+			  .setParameter("idEmpresa", comunion.getPcoEmpresa())
+			  .getSingleResult();
+		
+	} catch (Exception e) {
+		slf4jLogger.info("No se pudo obtener los parametros de la BD {}", e);
+		throw new SeguridadesException(e);
+	}
+	
+	return fechaMax;
+
+	}
 	@Override
 	public List<ComunionListDTO> getDistinctReporteComunionByAnd(ComunionListDTO objetoDTO) throws SeguridadesException
 	{
@@ -120,9 +158,6 @@ public class PrimeraComunionDAOImpl extends AbstractFacadeImpl<PrimeraComunionDT
 			from= cq.from(ComunionListDTO.class);
 			
 			cq.multiselect(
-					from.get("catParroquia"),
-					from.get("catProvincia"),
-					from.get("catCanton"),
 					from.get("perCi"),
 					from.get("perApellidos"),
 					from.get("perNombres"),
@@ -154,7 +189,16 @@ public class PrimeraComunionDAOImpl extends AbstractFacadeImpl<PrimeraComunionDT
 	        }
 	        
 	        if(objetoDTO.getFechaDesde()!=null && objetoDTO.getFechaHasta()!=null)
+	        {
 	        	predicateList.add(cb.between(from.get("pcoFechaHora").as(Timestamp.class), objetoDTO.getFechaDesde(), objetoDTO.getFechaHasta()));	        
+	        }else if(objetoDTO.getFechaDesde()!=null)
+	        	predicateList.add(cb.greaterThanOrEqualTo(from.get("pcoFechaHora").as(Timestamp.class), objetoDTO.getFechaDesde()));	        
+	        else if(objetoDTO.getFechaHasta()!=null)
+	        {
+	        	
+	        	predicateList.add(cb.lessThanOrEqualTo(from.get("pcoFechaHora").as(Timestamp.class),objetoDTO.getFechaHasta()));	        
+	            
+	        }	        
 	
 	        if(!predicateList.isEmpty())
 	        	cq.where(cb.and(predicateList.toArray(new Predicate[0])));		

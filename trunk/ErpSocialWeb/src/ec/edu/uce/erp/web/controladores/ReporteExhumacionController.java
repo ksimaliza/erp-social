@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ExumacionListDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -61,92 +60,18 @@ public class ReporteExhumacionController extends BaseController {
 	
 	@PostConstruct
 	public void inicializarObjetos() {
-		buscarProvincia();
-	}
-
-	
-	public void buscarProvincia() {
-		slf4jLogger.info("buscarCatalogo");
-
-		List<CatalogoEucaristiaDTO> listaCatalogo = null;
-
-		try {
-			CatalogoEucaristiaDTO cat = new CatalogoEucaristiaDTO();
-			cat.setCatCodigo(1);
-			listaCatalogo = this.servicioEucaristia.buscarCatalogo(cat);
-
-			if (CollectionUtils.isEmpty(listaCatalogo)
-					&& listaCatalogo.size() == 0) {
-				MensajesWebController
-						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.reporteExhumacionDataManager
-						.setListProvincia(listaCatalogo);
-			}
-
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarCatalogo {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-
-	}
-
-	public void buscarCanton() {
-		slf4jLogger.info("buscarCanton");
-		List<CatalogoEucaristiaDTO> listaCatalogo = null;
-		try {
-			CatalogoEucaristiaDTO cat = new CatalogoEucaristiaDTO();
-			cat.setCatCodigo(reporteExhumacionDataManager.getCodigoProvincia());
-			listaCatalogo = this.servicioEucaristia.buscarCatalogo(cat);
-			if (CollectionUtils.isEmpty(listaCatalogo)
-					&& listaCatalogo.size() == 0) {
-				MensajesWebController
-						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.reporteExhumacionDataManager
-						.setListCanton(listaCatalogo);
-			}
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarCanton {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-	}
-
-	public void buscarParroquia() {
-		slf4jLogger.info("buscarParroquia");
-
-		List<CatalogoEucaristiaDTO> listaCatalogo = null;
-
-		try {
-			CatalogoEucaristiaDTO cat = new CatalogoEucaristiaDTO();
-			cat.setCatCodigo(reporteExhumacionDataManager.getCodigoCanton());
-			listaCatalogo = this.servicioEucaristia.buscarCatalogo(cat);
-
-			if (CollectionUtils.isEmpty(listaCatalogo)
-					&& listaCatalogo.size() == 0) {
-				MensajesWebController
-						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.reporteExhumacionDataManager
-						.setListParroquia(listaCatalogo);
-			}
-
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarCiudad {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-
+		
 	}
 	
 	public void buscar() {
-		slf4jLogger.info("buscarBautizo");
+		slf4jLogger.info("buscarExumacion");
 		List<ExumacionListDTO> listResultado=new ArrayList<ExumacionListDTO>();
 		try {
-			reporteExhumacionDataManager.getExumacionListDTO().setCodigoparroquia(reporteExhumacionDataManager.getCodigoParroquia());
-			reporteExhumacionDataManager.getExumacionListDTO().setCodigoprovincia(reporteExhumacionDataManager.getCodigoProvincia());
-			reporteExhumacionDataManager.getExumacionListDTO().setCodigocanton(reporteExhumacionDataManager.getCodigoCanton());
+			reporteExhumacionDataManager.getExumacionListDTO().setExuEmpresa(getEmpresaTbl().getEmrPk());
 			listResultado = this.servicioEucaristia.readExhumacionReport(reporteExhumacionDataManager.getExumacionListDTO());
 			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
+				this.reporteExhumacionDataManager.setExumacionListDTOs(new ArrayList<ExumacionListDTO>());
+				reporteExhumacionDataManager.setExportDesactivado(true);
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				reporteExhumacionDataManager.setExportDesactivado(false);
@@ -162,12 +87,29 @@ public class ReporteExhumacionController extends BaseController {
 		Date fechaActual = new Date();
 		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
 		DateFormat pequena = DateFormat.getDateInstance(DateFormat.SHORT);
+		ExumacionListDTO exumacion= new ExumacionListDTO();
+		exumacion.setExuEmpresa(getEmpresaTbl().getEmrPk());
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
-			mapParametros.put("fechaActual", find(reporteExhumacionDataManager.getCodigoParroquia(), reporteExhumacionDataManager.getListParroquia()).getCatDescripcion() + ",  " + full.format(fechaActual));
-			mapParametros.put("parroquia",find(reporteExhumacionDataManager.getCodigoParroquia(), reporteExhumacionDataManager.getListParroquia()).getCatDescripcion());
-			mapParametros.put("provincia", find(reporteExhumacionDataManager.getCodigoProvincia(), reporteExhumacionDataManager.getListProvincia()).getCatDescripcion());
+		mapParametros.put("fechaActual",String.valueOf(full.format(fechaActual).charAt(0)).toUpperCase() +full.format(fechaActual).substring(1));
+			if(reporteExhumacionDataManager.getExumacionListDTO().getFechaDesde()==null){
+				try {
+					reporteExhumacionDataManager.getExumacionListDTO().setFechaDesde(this.servicioEucaristia.obtenerFechaMinExhumacion(exumacion));
+				} catch (SeguridadesException e) {
+					slf4jLogger.info("Error al buscarMinimaFecha {} ", e);
+					MensajesWebController.aniadirMensajeError(e.getMessage());
+				}
+				
+			}
 			mapParametros.put("desde", pequena.format(reporteExhumacionDataManager.getExumacionListDTO().getFechaDesde()));
+			if(reporteExhumacionDataManager.getExumacionListDTO().getFechaHasta()==null){
+				try {
+					reporteExhumacionDataManager.getExumacionListDTO().setFechaHasta(this.servicioEucaristia.obtenerFechaMaxExhumacion(exumacion));
+				} catch (SeguridadesException e) {
+					slf4jLogger.info("Error al buscarMaximaFecha {} ", e);
+					MensajesWebController.aniadirMensajeError(e.getMessage());
+				}
+			}
 			mapParametros.put("hasta", pequena.format(reporteExhumacionDataManager.getExumacionListDTO().getFechaHasta()));
 			mapParametros.put("empresa", getEmpresaTbl().getEmrNombre());
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
@@ -182,17 +124,5 @@ public class ReporteExhumacionController extends BaseController {
 		
 	}
 	
-	private CatalogoEucaristiaDTO find(Integer code,List<CatalogoEucaristiaDTO> list)
-	{
-		CatalogoEucaristiaDTO obj=null;
-		for(CatalogoEucaristiaDTO cat:list)
-		{
-			if(cat.getCatCodigo()==code)
-				obj=cat;
-		}
-		return obj;
-		
-	}
-
 
 }

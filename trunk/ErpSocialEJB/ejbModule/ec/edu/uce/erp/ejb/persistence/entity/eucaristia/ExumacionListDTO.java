@@ -125,9 +125,7 @@ public class ExumacionListDTO implements Serializable {
 	public ExumacionListDTO() {
 	}
 
-	public ExumacionListDTO(Integer codigoparroquia,
-			Integer codigoprovincia,
-			Integer codigocanton,
+	public ExumacionListDTO(
 			String perCi,
 			String perApellidos,
 			String perNombres,
@@ -137,9 +135,6 @@ public class ExumacionListDTO implements Serializable {
 			Date exuFechaExhumacion,
 			Date exuFechaCepelio ) {
 			super();
-			this.codigoparroquia=codigoparroquia;
-			this.codigoprovincia=codigoprovincia;
-			this.codigocanton=codigocanton;
 			this.perCi = perCi;
 			this.perApellidos = perApellidos;
 			this.perNombres = perNombres;

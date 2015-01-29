@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -98,6 +99,42 @@ public class DefuncionDAOImpl extends AbstractFacadeImpl<DefuncionDTO> implement
 	
 	return defuncionEncontrada;
 }
+	@Override
+	public Date obtenerFechaMinDefuncion(DefuncionListDTO defuncion) throws SeguridadesException {
+		
+		slf4jLogger.info("obtenerDefuncionPorFechaMin");
+		Date fechaMin= null;
+		
+		try {
+			fechaMin=(Date) entityManager.createQuery("select min(e.defFecha) from DefuncionListDTO e where e.defEmpresa=:idEmpresa")
+			  .setParameter("idEmpresa", defuncion.getDefEmpresa())
+			  .getSingleResult();
+		
+	} catch (Exception e) {
+		slf4jLogger.info("No se pudo obtener los parametros de la BD {}", e);
+		throw new SeguridadesException(e);
+	}
+	
+	return fechaMin;
+}
+	@Override
+	public Date obtenerFechaMaxDefuncion(DefuncionListDTO defuncion) throws SeguridadesException {
+		
+		slf4jLogger.info("obtenerDefuncionPorFechaMax");
+		Date fechaMax= null;
+		
+		try {
+			fechaMax=(Date) entityManager.createQuery("select max(e.defFecha) from DefuncionListDTO e where e.defEmpresa=:idEmpresa")
+			  .setParameter("idEmpresa", defuncion.getDefEmpresa())
+			  .getSingleResult();
+		
+	} catch (Exception e) {
+		slf4jLogger.info("No se pudo obtener los parametros de la BD {}", e);
+		throw new SeguridadesException(e);
+	}
+	
+	return fechaMax;
+}
 	
 	@Override
 	public List<DefuncionListDTO> getDistinctReporteDefuncionByAnd(DefuncionListDTO objetoDTO) throws SeguridadesException
@@ -119,9 +156,6 @@ public class DefuncionDAOImpl extends AbstractFacadeImpl<DefuncionDTO> implement
 			from= cq.from(DefuncionListDTO.class);
 			
 			cq.multiselect(
-					from.get("defParroquia"),
-					from.get("defProvincia"),
-					from.get("defCanton"),
 					from.get("perCi"),
 					from.get("perApellidos"),
 					from.get("perNombres"),
@@ -152,8 +186,16 @@ public class DefuncionDAOImpl extends AbstractFacadeImpl<DefuncionDTO> implement
 	        }
 	        
 	        if(objetoDTO.getFechaDesde()!=null && objetoDTO.getFechaHasta()!=null)
+	        {
 	        	predicateList.add(cb.between(from.get("defFecha").as(Timestamp.class), objetoDTO.getFechaDesde(), objetoDTO.getFechaHasta()));	        
-	
+	        }else if(objetoDTO.getFechaDesde()!=null)
+	        	predicateList.add(cb.greaterThanOrEqualTo(from.get("defFecha").as(Timestamp.class), objetoDTO.getFechaDesde()));	        
+	        else if(objetoDTO.getFechaHasta()!=null)
+	        {
+	        	
+	        	predicateList.add(cb.lessThanOrEqualTo(from.get("defFecha").as(Timestamp.class),objetoDTO.getFechaHasta()));	        
+	            
+	        }
 	        if(!predicateList.isEmpty())
 	        	cq.where(cb.and(predicateList.toArray(new Predicate[0])));		
 			

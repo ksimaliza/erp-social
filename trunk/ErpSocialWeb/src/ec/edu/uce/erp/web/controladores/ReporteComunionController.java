@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ComunionListDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -64,92 +63,20 @@ public class ReporteComunionController extends BaseController {
 	
 	@PostConstruct
 	public void inicializarObjetos() {
-		buscarProvincia();
 	}
 
-	public void buscarProvincia() {
-		slf4jLogger.info("buscarCatalogo");
-
-		List<CatalogoEucaristiaDTO> listaCatalogo = null;
-
-		try {
-			CatalogoEucaristiaDTO cat = new CatalogoEucaristiaDTO();
-			cat.setCatCodigo(1);
-			listaCatalogo = this.servicioEucaristia.buscarCatalogo(cat);
-
-			if (CollectionUtils.isEmpty(listaCatalogo)
-					&& listaCatalogo.size() == 0) {
-				MensajesWebController
-						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.reporteComunionDataManager
-						.setListProvincia(listaCatalogo);
-			}
-
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarCatalogo {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-
-	}
-
-	public void buscarCanton() {
-		slf4jLogger.info("buscarCanton");
-		List<CatalogoEucaristiaDTO> listaCatalogo = null;
-		try {
-			CatalogoEucaristiaDTO cat = new CatalogoEucaristiaDTO();
-			cat.setCatCodigo(reporteComunionDataManager.getCodigoProvincia());
-			listaCatalogo = this.servicioEucaristia.buscarCatalogo(cat);
-			if (CollectionUtils.isEmpty(listaCatalogo)
-					&& listaCatalogo.size() == 0) {
-				MensajesWebController
-						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.reporteComunionDataManager
-						.setListCanton(listaCatalogo);
-			}
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarCanton {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-	}
-
-	public void buscarParroquia() {
-		slf4jLogger.info("buscarParroquia");
-
-		List<CatalogoEucaristiaDTO> listaCatalogo = null;
-
-		try {
-			CatalogoEucaristiaDTO cat = new CatalogoEucaristiaDTO();
-			cat.setCatCodigo(reporteComunionDataManager.getCodigoCanton());
-			listaCatalogo = this.servicioEucaristia.buscarCatalogo(cat);
-
-			if (CollectionUtils.isEmpty(listaCatalogo)
-					&& listaCatalogo.size() == 0) {
-				MensajesWebController
-						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.reporteComunionDataManager
-						.setListParroquia(listaCatalogo);
-			}
-
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarCiudad {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-
-	}
+	
 	
 	public void buscar() {
 		slf4jLogger.info("buscarComunion");
 		List<ComunionListDTO> listResultado=new ArrayList<ComunionListDTO>();
 		try {
-			reporteComunionDataManager.getComunionListDTO().setPcoParroquia(reporteComunionDataManager.getCodigoParroquia());
-			reporteComunionDataManager.getComunionListDTO().setPcoProvincia(reporteComunionDataManager.getCodigoProvincia());
-			reporteComunionDataManager.getComunionListDTO().setPcoCanton(reporteComunionDataManager.getCodigoCanton());
 			
+			reporteComunionDataManager.getComunionListDTO().setPcoEmpresa(getEmpresaTbl().getEmrPk());
 			listResultado = this.servicioEucaristia.readComunionReport(reporteComunionDataManager.getComunionListDTO());
 			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
+				this.reporteComunionDataManager.setComunionListDTOs(new ArrayList<ComunionListDTO>());
+				reporteComunionDataManager.setExportDesactivado(true);
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				reporteComunionDataManager.setExportDesactivado(false);
@@ -165,13 +92,29 @@ public class ReporteComunionController extends BaseController {
 		Date fechaActual = new Date();
 		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
 		DateFormat pequena = DateFormat.getDateInstance(DateFormat.SHORT);
+		ComunionListDTO comunion= new ComunionListDTO();
+		comunion.setPcoEmpresa(getEmpresaTbl().getEmrPk());
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
-				mapParametros.put("fechaActual", find(reporteComunionDataManager.getCodigoParroquia(), reporteComunionDataManager.getListParroquia()).getCatDescripcion() + ",  " + full.format(fechaActual));
-				mapParametros.put("parroquia",find(reporteComunionDataManager.getCodigoParroquia(), reporteComunionDataManager.getListParroquia()).getCatDescripcion());
-				mapParametros.put("provincia", find(reporteComunionDataManager.getCodigoProvincia(), reporteComunionDataManager.getListProvincia()).getCatDescripcion());
+				mapParametros.put("fechaActual",String.valueOf(full.format(fechaActual).charAt(0)).toUpperCase() +full.format(fechaActual).substring(1));
 				mapParametros.put("empresa", getEmpresaTbl().getEmrNombre());
+				if(reporteComunionDataManager.getComunionListDTO().getFechaDesde()==null){
+					try {
+						reporteComunionDataManager.getComunionListDTO().setFechaDesde(this.servicioEucaristia.obtenerFechaMinComunion(comunion));
+					} catch (SeguridadesException e) {
+						slf4jLogger.info("Error al buscarMinimaFecha {} ", e);
+						MensajesWebController.aniadirMensajeError(e.getMessage());
+					}
+				}
 				mapParametros.put("desde", pequena.format(reporteComunionDataManager.getComunionListDTO().getFechaDesde()));
+				if(reporteComunionDataManager.getComunionListDTO().getFechaHasta()==null){
+					try {
+						reporteComunionDataManager.getComunionListDTO().setFechaHasta(this.servicioEucaristia.obtenerFechaMaxComunion(comunion));
+					} catch (SeguridadesException e) {
+						slf4jLogger.info("Error al buscarMaximaFecha {} ", e);
+						MensajesWebController.aniadirMensajeError(e.getMessage());
+					}
+				}
 				mapParametros.put("hasta", pequena.format(reporteComunionDataManager.getComunionListDTO().getFechaHasta()));
 				mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
@@ -186,16 +129,5 @@ public class ReporteComunionController extends BaseController {
 		
 	}
 	
-	private CatalogoEucaristiaDTO find(Integer code,List<CatalogoEucaristiaDTO> list)
-	{
-		CatalogoEucaristiaDTO obj=null;
-		for(CatalogoEucaristiaDTO cat:list)
-		{
-			if(cat.getCatCodigo()==code)
-				obj=cat;
-		}
-		return obj;
-		
-	}
 
 }
