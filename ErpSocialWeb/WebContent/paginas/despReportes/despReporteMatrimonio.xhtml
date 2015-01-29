@@ -23,38 +23,7 @@
                         </p:toolbar>
                         <p:panel id="pnlBuscar" header="Buscar Partidas de Matrimonio" style="width: 650px;" toggleable="true">
 
-                        <table id="tblData" cellspacing="5">
-
-                              <tr>
-								<td width="30%"><h:outputLabel value="Provincia:"  /> </td>
-		
-								<td width="70%" ><p:selectOneMenu id="provincia" value="#{reporteMatrimonioDataManager.codigoProvincia}" filter="true" required="true"  >
-		
-										<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-										<f:selectItems value="#{reporteMatrimonioController.reporteMatrimonioDataManager.listProvincia}" var="provincia" itemLabel="#{provincia.catDescripcion} " itemValue="#{provincia.catCodigo}"/>
-										<p:ajax listener="#{reporteMatrimonioController.buscarCanton}" process="@this" update="canton"/>
-									</p:selectOneMenu>
-								</td>
-							</tr>
-							
-							<tr>
-								<td width="30%"><h:outputLabel value="Cantón"  /> </td>
-		
-								<td width="70%"><p:selectOneMenu id="canton" value="#{reporteMatrimonioDataManager.codigoCanton}" filter="true" required="true"  >
-										<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-										<f:selectItems value="#{reporteMatrimonioDataManager.listCanton}" var="canton" itemLabel="#{canton.catDescripcion}" itemValue="#{canton.catCodigo}"/>
-										<p:ajax listener="#{reporteMatrimonioController.buscarParroquia}" process="@this" update="parroquia"/>
-									</p:selectOneMenu>
-								</td>
-							</tr>		
-							<tr>
-								<td width="30%"><h:outputLabel value="Parroquia"  /> </td>
-								<td width="70%" ><p:selectOneMenu id="parroquia" value="#{reporteMatrimonioDataManager.codigoParroquia}" filter="true" required="true" >
-										<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-										<f:selectItems value="#{reporteMatrimonioDataManager.listParroquia}" var="parroquia" itemLabel="#{parroquia.catDescripcion}" itemValue="#{parroquia.catCodigo}"/>
-									</p:selectOneMenu>
-								</td>
-							</tr>	                                                               
+                        <table id="tblData" cellspacing="5">	                                                               
                                 <tr >
                                 <td ><h:outputLabel value="Desde:" /></td>
                                         <td ><p:calendar id="txtDesde" style="width: 100%" navigator="true" value="#{reporteMatrimonioDataManager.matrimonioListDTO.fechaDesde}"  showOn="button" /></td>

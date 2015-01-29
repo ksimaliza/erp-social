@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.MatrimonioListDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -60,92 +59,18 @@ public class ReporteMatrimonioController extends BaseController {
 	
 	@PostConstruct
 	public void inicializarObjetos() {
-		buscarProvincia();
-	}
-
 	
-	public void buscarProvincia() {
-		slf4jLogger.info("buscarCatalogo");
-
-		List<CatalogoEucaristiaDTO> listaCatalogo = null;
-
-		try {
-			CatalogoEucaristiaDTO cat = new CatalogoEucaristiaDTO();
-			cat.setCatCodigo(1);
-			listaCatalogo = this.servicioEucaristia.buscarCatalogo(cat);
-
-			if (CollectionUtils.isEmpty(listaCatalogo)
-					&& listaCatalogo.size() == 0) {
-				MensajesWebController
-						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.reporteMatrimonioDataManager
-						.setListProvincia(listaCatalogo);
-			}
-
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarCatalogo {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-
-	}
-
-	public void buscarCanton() {
-		slf4jLogger.info("buscarCanton");
-		List<CatalogoEucaristiaDTO> listaCatalogo = null;
-		try {
-			CatalogoEucaristiaDTO cat = new CatalogoEucaristiaDTO();
-			cat.setCatCodigo(reporteMatrimonioDataManager.getCodigoProvincia());
-			listaCatalogo = this.servicioEucaristia.buscarCatalogo(cat);
-			if (CollectionUtils.isEmpty(listaCatalogo)
-					&& listaCatalogo.size() == 0) {
-				MensajesWebController
-						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.reporteMatrimonioDataManager
-						.setListCanton(listaCatalogo);
-			}
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarCanton {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-	}
-
-	public void buscarParroquia() {
-		slf4jLogger.info("buscarParroquia");
-
-		List<CatalogoEucaristiaDTO> listaCatalogo = null;
-
-		try {
-			CatalogoEucaristiaDTO cat = new CatalogoEucaristiaDTO();
-			cat.setCatCodigo(reporteMatrimonioDataManager.getCodigoCanton());
-			listaCatalogo = this.servicioEucaristia.buscarCatalogo(cat);
-
-			if (CollectionUtils.isEmpty(listaCatalogo)
-					&& listaCatalogo.size() == 0) {
-				MensajesWebController
-						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.reporteMatrimonioDataManager
-						.setListParroquia(listaCatalogo);
-			}
-
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarCiudad {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-
 	}
 	
 	public void buscar() {
 		slf4jLogger.info("buscarBautizo");
 		List<MatrimonioListDTO> listResultado=new ArrayList<MatrimonioListDTO>();
 		try {
-			reporteMatrimonioDataManager.getMatrimonioListDTO().setMatParroquia(reporteMatrimonioDataManager.getCodigoParroquia());
-			reporteMatrimonioDataManager.getMatrimonioListDTO().setMatProvincia(reporteMatrimonioDataManager.getCodigoProvincia());
-			reporteMatrimonioDataManager.getMatrimonioListDTO().setMatCanton(reporteMatrimonioDataManager.getCodigoCanton());
+			reporteMatrimonioDataManager.getMatrimonioListDTO().setMatEmpresa(getEmpresaTbl().getEmrPk());
 			listResultado = this.servicioEucaristia.readMatrimonioReport(reporteMatrimonioDataManager.getMatrimonioListDTO());
 			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
+				this.reporteMatrimonioDataManager.setMatrimonioListDTOs(new ArrayList<MatrimonioListDTO>());
+				reporteMatrimonioDataManager.setExportDesactivado(true);
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				reporteMatrimonioDataManager.setExportDesactivado(false);
@@ -161,12 +86,30 @@ public class ReporteMatrimonioController extends BaseController {
 		Date fechaActual = new Date();
 		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
 		DateFormat pequena = DateFormat.getDateInstance(DateFormat.SHORT);
+		MatrimonioListDTO matrimonio= new MatrimonioListDTO();
+		matrimonio.setMatEmpresa(getEmpresaTbl().getEmrPk());
 		
-		Map<String, Object> mapParametros = new HashMap<String, Object>();
-			mapParametros.put("fechaActual", find(reporteMatrimonioDataManager.getCodigoParroquia(), reporteMatrimonioDataManager.getListParroquia()).getCatDescripcion() + ",  " + full.format(fechaActual));
-			mapParametros.put("parroquia",find(reporteMatrimonioDataManager.getCodigoParroquia(), reporteMatrimonioDataManager.getListParroquia()).getCatDescripcion());
-			mapParametros.put("provincia", find(reporteMatrimonioDataManager.getCodigoProvincia(), reporteMatrimonioDataManager.getListProvincia()).getCatDescripcion());
-			mapParametros.put("desde", pequena.format(reporteMatrimonioDataManager.getMatrimonioListDTO().getFechaDesde()));
+		    Map<String, Object> mapParametros = new HashMap<String, Object>();
+		    mapParametros.put("fechaActual",String.valueOf(full.format(fechaActual).charAt(0)).toUpperCase() +full.format(fechaActual).substring(1));
+		    if(reporteMatrimonioDataManager.getMatrimonioListDTO().getFechaDesde()==null){
+				try {
+					reporteMatrimonioDataManager.getMatrimonioListDTO().setFechaDesde(this.servicioEucaristia.obtenerFechaMinMatrimonio(matrimonio));
+				} catch (SeguridadesException e) {
+					slf4jLogger.info("Error al buscarMinimaFecha {} ", e);
+					MensajesWebController.aniadirMensajeError(e.getMessage());
+				}
+				
+			}
+		    mapParametros.put("desde", pequena.format(reporteMatrimonioDataManager.getMatrimonioListDTO().getFechaDesde()));
+		    
+		    if(reporteMatrimonioDataManager.getMatrimonioListDTO().getFechaHasta()==null){
+				try {
+					reporteMatrimonioDataManager.getMatrimonioListDTO().setFechaHasta(this.servicioEucaristia.obtenerFechaMaxMatrimonio(matrimonio));
+				} catch (SeguridadesException e) {
+					slf4jLogger.info("Error al buscarMaximaFecha {} ", e);
+					MensajesWebController.aniadirMensajeError(e.getMessage());
+				}
+			}
 			mapParametros.put("hasta", pequena.format(reporteMatrimonioDataManager.getMatrimonioListDTO().getFechaHasta()));
 			mapParametros.put("empresa", getEmpresaTbl().getEmrNombre());
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
@@ -178,18 +121,6 @@ public class ReporteMatrimonioController extends BaseController {
 	@Override
 	public void refrescarFormulario() {
 		// TODO Auto-generated method stub
-		
-	}
-
-	private CatalogoEucaristiaDTO find(Integer code,List<CatalogoEucaristiaDTO> list)
-	{
-		CatalogoEucaristiaDTO obj=null;
-		for(CatalogoEucaristiaDTO cat:list)
-		{
-			if(cat.getCatCodigo()==code)
-				obj=cat;
-		}
-		return obj;
 		
 	}
 

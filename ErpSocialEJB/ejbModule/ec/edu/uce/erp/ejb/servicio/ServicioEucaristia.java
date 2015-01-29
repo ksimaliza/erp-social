@@ -90,6 +90,12 @@ public interface ServicioEucaristia {
 	List<ConfirmacionListDTO> buscarPartidaConfirmacion(
 			ConfirmacionListDTO confirmacionListDTO)
 			throws SeguridadesException;
+	
+	Date obtenerFechaMaxConfirmacion(ConfirmacionListDTO confirmacion)
+			throws SeguridadesException;
+
+	Date obtenerFechaMinConfirmacion(ConfirmacionListDTO confirmacion)
+			throws SeguridadesException;
 
 	// busque de secciones de nicho
 	List<CatalogoEucaristiaDTO> buscarCatalogo(
@@ -113,6 +119,12 @@ public interface ServicioEucaristia {
 
 	MatrimonioVO obtenerMatrimonioPorId(MatrimonioListDTO matrimonioListDTO)
 			throws SeguridadesException;
+	
+	Date obtenerFechaMaxMatrimonio(MatrimonioListDTO matrimonio)
+			throws SeguridadesException;
+
+	Date obtenerFechaMinMatrimonio(MatrimonioListDTO matrimonio)
+			throws SeguridadesException;
 
 	DefuncionDTO createOrUpdateDefuncion(DefuncionVO defuncionVO)
 			throws SeguridadesException;
@@ -121,6 +133,12 @@ public interface ServicioEucaristia {
 			throws SeguridadesException;
 
 	DefuncionVO obtenerDefuncionPorId(DefuncionListDTO defuncionListDTO)
+			throws SeguridadesException;
+	
+	Date obtenerFechaMaxDefuncion(DefuncionListDTO defuncion)
+			throws SeguridadesException;
+
+	Date obtenerFechaMinDefuncion(DefuncionListDTO defuncion)
 			throws SeguridadesException;
 
 	TipoNichoDTO createOrUpdateTipoNicho(TipoNichoDTO tipoNichoDTO)
@@ -198,6 +216,12 @@ public interface ServicioEucaristia {
 
 	ExhumacionVO obtenerExhumacionPorId(ExumacionListDTO exumacionListDTO)
 			throws SeguridadesException;
+	
+	Date obtenerFechaMaxExhumacion(ExumacionListDTO exhumacion)
+			throws SeguridadesException;
+
+	Date obtenerFechaMinExhumacion(ExumacionListDTO exhumacion)
+			throws SeguridadesException;
 
 	List<ContratoListDTO> buscarContrato(ContratoListDTO contratoListDTO)
 			throws SeguridadesException;
@@ -218,6 +242,12 @@ public interface ServicioEucaristia {
 			throws SeguridadesException;
 
 	List<SepulturaVO> obtenerTodasSepulturas() throws SeguridadesException;
+	
+	Date obtenerFechaMinSepultura(SepulturaListDTO sepultura)
+			throws SeguridadesException;
+
+	Date obtenerFechaMaxSepultura(SepulturaListDTO sepultura)
+			throws SeguridadesException;
 
 	List<NichoListDTO> readNicho(NichoListDTO nichoListDTO)
 			throws SeguridadesException;
@@ -263,6 +293,11 @@ public interface ServicioEucaristia {
 			throws SeguridadesException;
 
 	List<ComunionListDTO> readComunionReport(ComunionListDTO comunion)
+			throws SeguridadesException;
+	
+	Date obtenerFechaMinComunion(ComunionListDTO comunion)
+			throws SeguridadesException;
+	Date obtenerFechaMaxComunion(ComunionListDTO comunion)
 			throws SeguridadesException;
 
 	List<ConfirmacionListDTO> readConfirmacionReport(

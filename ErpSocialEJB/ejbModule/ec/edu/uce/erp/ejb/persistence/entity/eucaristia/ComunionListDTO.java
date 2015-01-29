@@ -137,9 +137,7 @@ public class ComunionListDTO implements Serializable {
 	}
 	
 	
-	public ComunionListDTO(String catParroquia,
-			String catProvincia,
-			String catCanton,
+	public ComunionListDTO(
 			String perCi,
 			String perApellidos,
 			String perNombres,
@@ -148,9 +146,6 @@ public class ComunionListDTO implements Serializable {
 			Date pcoFechaAprobacionCurso,
 			Date pcoFechaHora) {
 			super();
-			this.catParroquia=catParroquia;
-			this.catProvincia=catProvincia;
-			this.catCanton=catCanton;
 			this.perCi = perCi;
 			this.perApellidos = perApellidos;
 			this.perNombres = perNombres;

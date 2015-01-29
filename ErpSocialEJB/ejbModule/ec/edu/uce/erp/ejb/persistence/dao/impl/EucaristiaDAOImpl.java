@@ -132,7 +132,7 @@ public class EucaristiaDAOImpl extends AbstractFacadeImpl<EucaristiaDTO> impleme
 		Date fechaMin= null;
 		
 		try {
-			fechaMin=(Date) entityManager.createQuery("select min(e.eucEucFechaHora) from EucaristiaListDTO e where e.eucEmpresa=:idEmpresa")
+			fechaMin=(Date) entityManager.createQuery("select min(e.eucFechaHora) from EucaristiaListDTO e where e.eucEmpresa=:idEmpresa")
 			  .setParameter("idEmpresa", eucaristia.getEucEmpresa())
 			  .getSingleResult();
 		
@@ -150,7 +150,7 @@ public class EucaristiaDAOImpl extends AbstractFacadeImpl<EucaristiaDTO> impleme
 		Date fechaMax= null;
 		
 		try {
-			fechaMax=(Date) entityManager.createQuery("select max(e.eucEucFechaHora) from EucaristiaListDTO e where e.eucEmpresa=:idEmpresa")
+			fechaMax=(Date) entityManager.createQuery("select max(e.eucFechaHora) from EucaristiaListDTO e where e.eucEmpresa=:idEmpresa")
 			  .setParameter("idEmpresa", eucaristia.getEucEmpresa())
 			  .getSingleResult();
 		

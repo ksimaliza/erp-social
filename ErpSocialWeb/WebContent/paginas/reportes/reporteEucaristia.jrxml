@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
-<!-- 2015-01-27T15:41:25 -->
+<!-- 2015-01-28T22:30:18 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteEucaristia" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="37" bottomMargin="20" uuid="0cb7138f-b2e5-458f-b34c-5a1bf9f52599">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
@@ -56,8 +56,8 @@
 				<text><![CDATA[EUCARISTÍAS]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="332" y="39" width="194" height="20" uuid="e453918e-0218-41b7-be89-fb66aff3ea5b"/>
-				<textElement>
+				<reportElement x="332" y="39" width="222" height="20" uuid="e453918e-0218-41b7-be89-fb66aff3ea5b"/>
+				<textElement textAlignment="Right">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fechaActual}]]></textFieldExpression>
@@ -160,8 +160,8 @@
 			</textField>
 			<textField evaluationTime="Report">
 				<reportElement x="489" y="2" width="65" height="20" uuid="ba0c2c14-a55b-492e-846a-7c7c713d2e07"/>
-				<textElement verticalAlignment="Bottom"/>
-				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[" de " +$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

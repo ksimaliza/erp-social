@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.CatalogoEucaristiaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.ConfirmacionListDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -64,92 +63,18 @@ public class ReporteConfirmacionController extends BaseController {
 	
 	@PostConstruct
 	public void inicializarObjetos() {
-		buscarProvincia();
 	}
 
-	
-	public void buscarProvincia() {
-		slf4jLogger.info("buscarCatalogo");
-
-		List<CatalogoEucaristiaDTO> listaCatalogo = null;
-
-		try {
-			CatalogoEucaristiaDTO cat = new CatalogoEucaristiaDTO();
-			cat.setCatCodigo(1);
-			listaCatalogo = this.servicioEucaristia.buscarCatalogo(cat);
-
-			if (CollectionUtils.isEmpty(listaCatalogo)
-					&& listaCatalogo.size() == 0) {
-				MensajesWebController
-						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.reporteConfirmacionDataManager
-						.setListProvincia(listaCatalogo);
-			}
-
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarCatalogo {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-
-	}
-
-	public void buscarCanton() {
-		slf4jLogger.info("buscarCanton");
-		List<CatalogoEucaristiaDTO> listaCatalogo = null;
-		try {
-			CatalogoEucaristiaDTO cat = new CatalogoEucaristiaDTO();
-			cat.setCatCodigo(reporteConfirmacionDataManager.getCodigoProvincia());
-			listaCatalogo = this.servicioEucaristia.buscarCatalogo(cat);
-			if (CollectionUtils.isEmpty(listaCatalogo)
-					&& listaCatalogo.size() == 0) {
-				MensajesWebController
-						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.reporteConfirmacionDataManager
-						.setListCanton(listaCatalogo);
-			}
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarCanton {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-	}
-
-	public void buscarParroquia() {
-		slf4jLogger.info("buscarParroquia");
-
-		List<CatalogoEucaristiaDTO> listaCatalogo = null;
-
-		try {
-			CatalogoEucaristiaDTO cat = new CatalogoEucaristiaDTO();
-			cat.setCatCodigo(reporteConfirmacionDataManager.getCodigoCanton());
-			listaCatalogo = this.servicioEucaristia.buscarCatalogo(cat);
-
-			if (CollectionUtils.isEmpty(listaCatalogo)
-					&& listaCatalogo.size() == 0) {
-				MensajesWebController
-						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-			} else {
-				this.reporteConfirmacionDataManager
-						.setListParroquia(listaCatalogo);
-			}
-
-		} catch (SeguridadesException e) {
-			slf4jLogger.info("Error al buscarCiudad {} ", e);
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-
-	}
 	
 	public void buscar() {
 		slf4jLogger.info("buscarConfirmacion");
 		List<ConfirmacionListDTO> listResultado=new ArrayList<ConfirmacionListDTO>();
 		try {
-			reporteConfirmacionDataManager.getConfirmacionListDTO().setConParroquia(reporteConfirmacionDataManager.getCodigoParroquia());
-			reporteConfirmacionDataManager.getConfirmacionListDTO().setConProvincia(reporteConfirmacionDataManager.getCodigoProvincia());
-			reporteConfirmacionDataManager.getConfirmacionListDTO().setConCanton(reporteConfirmacionDataManager.getCodigoCanton());
+			reporteConfirmacionDataManager.getConfirmacionListDTO().setConEmpresa(getEmpresaTbl().getEmrPk());
 			listResultado = this.servicioEucaristia.readConfirmacionReport(reporteConfirmacionDataManager.getConfirmacionListDTO());
 			if (CollectionUtils.isEmpty(listResultado) && listResultado.size()==0) {
+				this.reporteConfirmacionDataManager.setConfirmacionListDTOs(new ArrayList<ConfirmacionListDTO>());
+				reporteConfirmacionDataManager.setExportDesactivado(true);
 				MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			} else {
 				reporteConfirmacionDataManager.setExportDesactivado(false);
@@ -165,29 +90,35 @@ public class ReporteConfirmacionController extends BaseController {
 		Date fechaActual = new Date();
 		DateFormat full = DateFormat.getDateInstance(DateFormat.FULL);
 		DateFormat pequena = DateFormat.getDateInstance(DateFormat.SHORT);
+		ConfirmacionListDTO confirmacion= new ConfirmacionListDTO();
+		confirmacion.setConEmpresa(getEmpresaTbl().getEmrPk());
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
-		mapParametros.put("fechaActual", find(reporteConfirmacionDataManager.getCodigoParroquia(), reporteConfirmacionDataManager.getListParroquia()).getCatDescripcion() + ",  " + full.format(fechaActual));
-		mapParametros.put("parroquia",find(reporteConfirmacionDataManager.getCodigoParroquia(), reporteConfirmacionDataManager.getListParroquia()).getCatDescripcion());
-		mapParametros.put("provincia", find(reporteConfirmacionDataManager.getCodigoProvincia(), reporteConfirmacionDataManager.getListProvincia()).getCatDescripcion());
-			mapParametros.put("desde", pequena.format(reporteConfirmacionDataManager.getConfirmacionListDTO().getFechaDesde()));
-			mapParametros.put("hasta", pequena.format(reporteConfirmacionDataManager.getConfirmacionListDTO().getFechaHasta()));
-			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
+		mapParametros.put("fechaActual",String.valueOf(full.format(fechaActual).charAt(0)).toUpperCase() +full.format(fechaActual).substring(1));
+		mapParametros.put("empresa", getEmpresaTbl().getEmrNombre());
+		if(reporteConfirmacionDataManager.getConfirmacionListDTO().getFechaDesde()==null){
+			try {
+				reporteConfirmacionDataManager.getConfirmacionListDTO().setFechaDesde(this.servicioEucaristia.obtenerFechaMinConfirmacion(confirmacion));
+			} catch (SeguridadesException e) {
+				slf4jLogger.info("Error al buscarMinimaFecha {} ", e);
+				MensajesWebController.aniadirMensajeError(e.getMessage());
+			}
+			
+		}
+		mapParametros.put("desde", pequena.format(reporteConfirmacionDataManager.getConfirmacionListDTO().getFechaDesde()));
+		if(reporteConfirmacionDataManager.getConfirmacionListDTO().getFechaHasta()==null){
+			try {
+				reporteConfirmacionDataManager.getConfirmacionListDTO().setFechaHasta(this.servicioEucaristia.obtenerFechaMaxConfirmacion(confirmacion));
+			} catch (SeguridadesException e) {
+				slf4jLogger.info("Error al buscarMaximaFecha {} ", e);
+				MensajesWebController.aniadirMensajeError(e.getMessage());
+			}
+		}
+		mapParametros.put("hasta", pequena.format(reporteConfirmacionDataManager.getConfirmacionListDTO().getFechaHasta()));
+		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(),reporteConfirmacionDataManager.getConfirmacionListDTOs(), "reporteConfirmacion", mapParametros);
 			ReporteUtil.generarReporte(jasperPrint, this.reporteConfirmacionDataManager.getFormatoPdf(), "reporteConfirmacion");
-	}
-
-	private CatalogoEucaristiaDTO find(Integer code,List<CatalogoEucaristiaDTO> list)
-	{
-		CatalogoEucaristiaDTO obj=null;
-		for(CatalogoEucaristiaDTO cat:list)
-		{
-			if(cat.getCatCodigo()==code)
-				obj=cat;
-		}
-		return obj;
-		
 	}
 
 	@Override

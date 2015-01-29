@@ -1716,24 +1716,23 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	@Override
 	public Date obtenerFechaMinBautizo(BautizoListDTO bautizo) throws SeguridadesException {
 		slf4jLogger.info("obtenerFechaMinBautizo");
-		//List<BautizoListDTO> listResultado = null;
 		Date listResultado = null;
 		try {
 			listResultado = eucaristiaFactoryDAO.getBautizoDAOImpl().obtenerFechaMinBautizo(bautizo);
 		} catch (Exception e) {
-			slf4jLogger.info("Error readBautizoReport {}", e.getMessage());
+			slf4jLogger.info("Error obtenerFechaMinBautizo {}", e.getMessage());
 			throw new SeguridadesException("No se pudo obtener bautizo de la base de datos");
 		}
 		return listResultado;
 	}
 	@Override
 	public Date obtenerFechaMaxBautizo(BautizoListDTO bautizo) throws SeguridadesException {
-		slf4jLogger.info("obtenerFechaMinBautizo");
+		slf4jLogger.info("obtenerFechaMaxBautizo");
 		Date listResultado = null;
 		try {
 			listResultado = eucaristiaFactoryDAO.getBautizoDAOImpl().obtenerFechaMaxBautizo(bautizo);
 		} catch (Exception e) {
-			slf4jLogger.info("Error readBautizoReport {}", e.getMessage());
+			slf4jLogger.info("Error obtenerFechaMaxBautizo {}", e.getMessage());
 			throw new SeguridadesException("No se pudo obtener bautizo de la base de datos");
 		}
 		return listResultado;
@@ -1752,6 +1751,32 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	}
 	
 	@Override
+	public Date obtenerFechaMinComunion(ComunionListDTO comunion) throws SeguridadesException {
+		slf4jLogger.info("obtenerFechaMinComunion");
+		Date listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getPrimeraComunionDAOImpl().obtenerFechaMinComunion(comunion);
+		} catch (Exception e) {
+			slf4jLogger.info("Error obtenerFechaMinComunion {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener bautizo de la base de datos");
+		}
+		return listResultado;
+	}
+	
+	@Override
+	public Date obtenerFechaMaxComunion(ComunionListDTO comunion) throws SeguridadesException {
+		slf4jLogger.info("obtenerFechaMaxComunion");
+		Date listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getPrimeraComunionDAOImpl().obtenerFechaMaxComunion(comunion);
+		} catch (Exception e) {
+			slf4jLogger.info("Error obtenerFechaMaxComunion {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener bautizo de la base de datos");
+		}
+		return listResultado;
+	}
+	
+	@Override
 	public List<ConfirmacionListDTO> readConfirmacionReport(ConfirmacionListDTO confirmacion) throws SeguridadesException {
 		slf4jLogger.info("readConfirmacionReport");
 		List<ConfirmacionListDTO> listResultado = null;
@@ -1760,6 +1785,32 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		} catch (Exception e) {
 			slf4jLogger.info("Error readConfirmacionReport {}", e.getMessage());
 			throw new SeguridadesException("No se pudo obtener confirmacion de la base de datos");
+		}
+		return listResultado;
+	}
+	
+	@Override
+	public Date obtenerFechaMinConfirmacion(ConfirmacionListDTO confirmacion) throws SeguridadesException {
+		slf4jLogger.info("obtenerFechaMinConfirmacion");
+		Date listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getConfirmacionDAOImpl().obtenerFechaMinConfirmacion(confirmacion);
+		} catch (Exception e) {
+			slf4jLogger.info("obtenerFechaMinConfirmacion {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener bautizo de la base de datos");
+		}
+		return listResultado;
+	}
+	
+	@Override
+	public Date obtenerFechaMaxConfirmacion(ConfirmacionListDTO confirmacion) throws SeguridadesException {
+		slf4jLogger.info("obtenerFechaMaxConfirmacion");
+		Date listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getConfirmacionDAOImpl().obtenerFechaMaxConfirmacion(confirmacion);
+		} catch (Exception e) {
+			slf4jLogger.info("obtenerFechaMaxConfirmacion {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener bautizo de la base de datos");
 		}
 		return listResultado;
 	}
@@ -1777,6 +1828,30 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		return listResultado;
 	}
 	
+	@Override
+	public Date obtenerFechaMinMatrimonio(MatrimonioListDTO matrimonio) throws SeguridadesException {
+		slf4jLogger.info("obtenerFechaMinMatrimonio");
+		Date listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getMatrimonioDAOImpl().obtenerFechaMinMatrimonio(matrimonio);
+		} catch (Exception e) {
+			slf4jLogger.info("Error obtenerFechaMinMatrimonio {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener matrimonio de la base de datos");
+		}
+		return listResultado;
+	}
+	@Override
+	public Date obtenerFechaMaxMatrimonio(MatrimonioListDTO matrimonio) throws SeguridadesException {
+		slf4jLogger.info("obtenerFechaMaxMatrimonio");
+		Date listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getMatrimonioDAOImpl().obtenerFechaMaxMatrimonio(matrimonio);
+		} catch (Exception e) {
+			slf4jLogger.info("Error obtenerFechaMaxMatrimonio {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener matrimonio de la base de datos");
+		}
+		return listResultado;
+	}
 	
 	@Override
 	public List<DefuncionListDTO> readDefuncionReport(DefuncionListDTO defuncion) throws SeguridadesException {
@@ -1791,7 +1866,30 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		return listResultado;
 	}
 	
-	
+	@Override
+	public Date obtenerFechaMinDefuncion(DefuncionListDTO defuncion) throws SeguridadesException {
+		slf4jLogger.info("obtenerFechaMinDefuncion");
+		Date listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getDefuncionDAOImpl().obtenerFechaMinDefuncion(defuncion);
+		} catch (Exception e) {
+			slf4jLogger.info("Error obtenerFechaMinDefuncion {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener defuncion de la base de datos");
+		}
+		return listResultado;
+	}
+	@Override
+	public Date obtenerFechaMaxDefuncion(DefuncionListDTO defuncion) throws SeguridadesException {
+		slf4jLogger.info("obtenerFechaMaxDefuncion");
+		Date listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getDefuncionDAOImpl().obtenerFechaMaxDefuncion(defuncion);
+		} catch (Exception e) {
+			slf4jLogger.info("Error obtenerFechaMaxDefuncion {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener defuncion de la base de datos");
+		}
+		return listResultado;
+	}
 	@Override
 	public List<SepulturaListDTO> readSepulturaReport(SepulturaListDTO sepultura) throws SeguridadesException {
 		slf4jLogger.info("readSepulturaReport");
@@ -1806,6 +1904,30 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 	}
 	
 	@Override
+	public Date obtenerFechaMinSepultura(SepulturaListDTO sepultura) throws SeguridadesException {
+		slf4jLogger.info("obtenerFechaMinSepultura");
+		Date listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getSepulturaDAOImpl().obtenerFechaMinSepultura(sepultura);
+		} catch (Exception e) {
+			slf4jLogger.info("Error obtenerFechaMinSepultura {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener sepultura de la base de datos");
+		}
+		return listResultado;
+	}
+	@Override
+	public Date obtenerFechaMaxSepultura(SepulturaListDTO sepultura) throws SeguridadesException {
+		slf4jLogger.info("obtenerFechaMaxSepultura");
+		Date listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getSepulturaDAOImpl().obtenerFechaMaxSepultura(sepultura);
+		} catch (Exception e) {
+			slf4jLogger.info("Error obtenerFechaMaxSepultura {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener sepultura de la base de datos");
+		}
+		return listResultado;
+	}
+	@Override
 	public List<ExumacionListDTO> readExhumacionReport(ExumacionListDTO exumacion) throws SeguridadesException {
 		slf4jLogger.info("readExhumacionReport");
 		List<ExumacionListDTO> listResultado = null;
@@ -1813,10 +1935,33 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			listResultado = eucaristiaFactoryDAO.getExumacionDAOImpl().getDistinctReporteExhumacionByAnd(exumacion);
 		} catch (Exception e) {
 			slf4jLogger.info("Error readExhumacionReport {}", e.getMessage());
-			throw new SeguridadesException("No se pudo obtener exhumaci�n de la base de datos");
+			throw new SeguridadesException("No se pudo obtener exhumacion de la base de datos");
 		}
 		return listResultado;
 	}
 	
-	
+	@Override
+	public Date obtenerFechaMinExhumacion(ExumacionListDTO exhumacion) throws SeguridadesException {
+		slf4jLogger.info("obtenerFechaMinExhumacion");
+		Date listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getExumacionDAOImpl().obtenerFechaMinExhumacion(exhumacion);
+		} catch (Exception e) {
+			slf4jLogger.info("Error obtenerFechaMinExhumacion {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener exhumacion de la base de datos");
+		}
+		return listResultado;
+	}
+	@Override
+	public Date obtenerFechaMaxExhumacion(ExumacionListDTO exhumacion) throws SeguridadesException {
+		slf4jLogger.info("obtenerFechaMaxExhumacion");
+		Date listResultado = null;
+		try {
+			listResultado = eucaristiaFactoryDAO.getExumacionDAOImpl().obtenerFechaMaxExhumacion(exhumacion);
+		} catch (Exception e) {
+			slf4jLogger.info("Error obtenerFechaMaxExhumacion {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener exhumacion de la base de datos");
+		}
+		return listResultado;
+	}
 }

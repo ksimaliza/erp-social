@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.EucaristiaListDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioEucaristia;
@@ -92,7 +91,7 @@ public class ReporteEucaristiaController extends LoginController {
 		EucaristiaListDTO eucaristia= new EucaristiaListDTO();
 		eucaristia.setEucEmpresa(getEmpresaTbl().getEmrPk());
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
-			mapParametros.put("fechaActual", full.format(fechaActual));
+		mapParametros.put("fechaActual",String.valueOf(full.format(fechaActual).charAt(0)).toUpperCase() +full.format(fechaActual).substring(1));
 			mapParametros.put("empresa", this.getUsuario().getEmpresaTbl().getEmrNombre().toUpperCase());
 			if(reporteEucaristiaDataManager.getEucaristiaListDTO().getFechaDesde()==null){
 				try {
@@ -105,7 +104,7 @@ public class ReporteEucaristiaController extends LoginController {
 			mapParametros.put("desde", pequena.format(reporteEucaristiaDataManager.getEucaristiaListDTO().getFechaDesde()));
 			if(reporteEucaristiaDataManager.getEucaristiaListDTO().getFechaHasta()==null){
 				try {
-					reporteEucaristiaDataManager.getEucaristiaListDTO().setFechaDesde(this.servicioEucaristia.obtenerFechaMaxEucaristia(eucaristia));
+					reporteEucaristiaDataManager.getEucaristiaListDTO().setFechaHasta(this.servicioEucaristia.obtenerFechaMaxEucaristia(eucaristia));
 				} catch (SeguridadesException e) {
 					slf4jLogger.info("Error al buscarMaximaFecha {} ", e);
 					MensajesWebController.aniadirMensajeError(e.getMessage());

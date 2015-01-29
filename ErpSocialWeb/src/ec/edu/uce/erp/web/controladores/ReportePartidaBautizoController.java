@@ -93,7 +93,7 @@ public class ReportePartidaBautizoController extends BaseController {
 		bautizo.setBauEmpresa(getEmpresaTbl().getEmrPk());
 		
 		Map<String, Object> mapParametros = new HashMap<String, Object>();
-			mapParametros.put("fechaActual", full.format(fechaActual));
+		mapParametros.put("fechaActual",String.valueOf(full.format(fechaActual).charAt(0)).toUpperCase() +full.format(fechaActual).substring(1));
 			if(reportePartidaBautizoDataManager.getBautizoListDTO().getFechaDesde()==null){
 				try {
 					reportePartidaBautizoDataManager.getBautizoListDTO().setFechaDesde(this.servicioEucaristia.obtenerFechaMinBautizo(bautizo));

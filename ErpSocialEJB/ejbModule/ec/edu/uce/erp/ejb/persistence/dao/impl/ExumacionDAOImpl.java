@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -100,6 +101,43 @@ public class ExumacionDAOImpl extends AbstractFacadeImpl<ExumacionDTO> implement
 }
 	
 	@Override
+	public Date obtenerFechaMinExhumacion(ExumacionListDTO exumacion) throws SeguridadesException {
+		
+		slf4jLogger.info("obtenerExumacionPorFechaMin");
+		Date fechaMin= null;
+		
+		try {
+			fechaMin=(Date) entityManager.createQuery("select min(e.exuFechaExhumacion) from ExumacionListDTO e where e.exuEmpresa=:idEmpresa")
+			  .setParameter("idEmpresa", exumacion.getExuEmpresa())
+			  .getSingleResult();
+		
+	} catch (Exception e) {
+		slf4jLogger.info("No se pudo obtener los parametros de la BD {}", e);
+		throw new SeguridadesException(e);
+	}
+	
+	return fechaMin;
+}
+	@Override
+	public Date obtenerFechaMaxExhumacion(ExumacionListDTO exumacion) throws SeguridadesException {
+		
+		slf4jLogger.info("obtenerExumacionPorFechaMax");
+		Date fechaMax= null;
+		
+		try {
+			fechaMax=(Date) entityManager.createQuery("select max(e.exuFechaExhumacion) from ExumacionListDTO e where e.exuEmpresa=:idEmpresa")
+			  .setParameter("idEmpresa", exumacion.getExuEmpresa())
+			  .getSingleResult();
+		
+	} catch (Exception e) {
+		slf4jLogger.info("No se pudo obtener los parametros de la BD {}", e);
+		throw new SeguridadesException(e);
+	}
+	
+	return fechaMax;
+}
+	
+	@Override
 	public List<ExumacionListDTO> getDistinctReporteExhumacionByAnd(ExumacionListDTO objetoDTO) throws SeguridadesException
 	{
 		CriteriaBuilder cb;
@@ -119,9 +157,6 @@ public class ExumacionDAOImpl extends AbstractFacadeImpl<ExumacionDTO> implement
 			from= cq.from(ExumacionListDTO.class);
 			
 			cq.multiselect(
-					from.get("codigoparroquia"),
-					from.get("codigoprovincia"),
-					from.get("codigocanton"),
 					from.get("perCi"),
 					from.get("perApellidos"),
 					from.get("perNombres"),
@@ -154,8 +189,16 @@ public class ExumacionDAOImpl extends AbstractFacadeImpl<ExumacionDTO> implement
 	        }
 	        
 	        if(objetoDTO.getFechaDesde()!=null && objetoDTO.getFechaHasta()!=null)
+	        {
 	        	predicateList.add(cb.between(from.get("exuFechaExhumacion").as(Timestamp.class), objetoDTO.getFechaDesde(), objetoDTO.getFechaHasta()));	        
-	
+	        }else if(objetoDTO.getFechaDesde()!=null)
+	        	predicateList.add(cb.greaterThanOrEqualTo(from.get("exuFechaExhumacion").as(Timestamp.class), objetoDTO.getFechaDesde()));	        
+	        else if(objetoDTO.getFechaHasta()!=null)
+	        {
+	        	
+	        	predicateList.add(cb.lessThanOrEqualTo(from.get("exuFechaExhumacion").as(Timestamp.class),objetoDTO.getFechaHasta()));	        
+	            
+	        }
 	        if(!predicateList.isEmpty())
 	        	cq.where(cb.and(predicateList.toArray(new Predicate[0])));		
 			

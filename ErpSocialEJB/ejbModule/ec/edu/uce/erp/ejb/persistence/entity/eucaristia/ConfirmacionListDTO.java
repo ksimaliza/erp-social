@@ -175,9 +175,7 @@ public class ConfirmacionListDTO implements Serializable {
 	public ConfirmacionListDTO() {
 	}
 
-	public ConfirmacionListDTO(Integer conParroquia,
-			Integer conProvincia,
-			Integer conCanton,
+	public ConfirmacionListDTO(
 			String perCi,
 			String perApellidos,
 			String perNombres,
@@ -187,9 +185,7 @@ public class ConfirmacionListDTO implements Serializable {
 			Date conFechaAprobacionCurso
 			) {
 			super();
-			this.conParroquia=conParroquia;
-			this.conProvincia=conProvincia;
-			this.conCanton=conCanton;
+			
 			this.perCi = perCi;
 			this.perApellidos = perApellidos;
 			this.perNombres = perNombres;

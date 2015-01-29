@@ -274,9 +274,7 @@ public class MatrimonioListDTO implements Serializable {
 	public MatrimonioListDTO() {
 	}
 	
-	public MatrimonioListDTO(Integer matParroquia,
-			Integer matProvincia,
-			Integer matCanton,
+	public MatrimonioListDTO(
 			String novioCedula,
 			String novioApellidos,
 			String novioNombres,
@@ -288,9 +286,6 @@ public class MatrimonioListDTO implements Serializable {
 			Date matFecha,
 			Date matFechaAprobacionCurso) {
 			super();
-			this.matParroquia=matParroquia;
-			this.matProvincia=matProvincia;
-			this.matCanton=matCanton;
 			this.novioCedula = novioCedula;
 			this.novioApellidos = novioApellidos;
 			this.novioNombres = novioNombres;
