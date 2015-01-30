@@ -57,6 +57,15 @@ public class ProfesorDAOImpl extends AbstractFacadeImpl<ProfesorDTO> implements 
 		
 		CriteriaQuery<DocenteListDTO> select = cq.select(from);
 		
+		//por ci
+				if (!StringUtils.isEmpty(docente.getPerCi())) {
+					Expression<String> ci = 
+							cb.upper(cb.literal
+									(UtilAplication.concatenarPorcenteje(docente.getPerCi())));
+					predicate = cb.like(cb.upper(from.<String>get("perCi")), ci);
+					criteriaList.add(predicate);
+				}
+		
 		//por nombre
 		if (!StringUtils.isEmpty(docente.getPerNombres())) {
 			Expression<String> nombreDocente = 

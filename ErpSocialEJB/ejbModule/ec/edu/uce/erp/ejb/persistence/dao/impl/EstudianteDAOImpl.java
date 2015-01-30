@@ -112,6 +112,17 @@ public class EstudianteDAOImpl extends AbstractFacadeImpl<EstudianteDTO> impleme
 		}
 		
 		
+		 /*Fecha 01/12/2012
+		  * @param codEstudiante
+		  * @throws Exception
+		 */
+			public void eliminarEstudiante(Integer codEstudiante) throws SeguridadesException {
+				Query query=entityManager.createNativeQuery("DELETE FROM mat_estudiante where est_codigo= :codEstudiante");
+				query.setParameter("codEstudiante", codEstudiante);
+				query.executeUpdate();
+			}
+		
+		
 	
 	
 	

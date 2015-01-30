@@ -96,6 +96,14 @@ public class VistaHistoricoTransaccionDAOImpl extends
 				criteriaList.add(predicate);
 			}
 			
+			//por login usuario 
+			if (StringUtils.isNotBlank(vistaHistoricoTransaccion.getLoginUsuario())) {
+				Expression<String> loginUsuario = 
+						criteriaBuilder.upper(criteriaBuilder.literal(UtilAplication.appendStringBuilder("%", vistaHistoricoTransaccion.getLoginUsuario(), "%").toString()));
+				predicate = criteriaBuilder.like(criteriaBuilder.upper(fromVista.<String>get("loginUsuario")), loginUsuario);
+				criteriaList.add(predicate);
+			}
+			
 			//between desde - hasta
 			if (vistaHistoricoTransaccion.getNpFechaDesde()!=null) {
 				slf4jLogger.info("vistaHistoricoTransaccion.getNpFechaDesde: {}" , vistaHistoricoTransaccion.getNpFechaDesde());
