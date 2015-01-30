@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="title">
-		<h3><h:outputLabel	value="#{i18n['erp.transacciones.reporte.titulo']}" /></h3>
+		<h3><h:outputLabel	value="Reporte Auditoría" /></h3>
 	</ui:define>
 	<ui:define name="content">
 		<h:form id="formHisTransacciones">
@@ -28,29 +28,49 @@
 					</p:commandButton>
 					<p:commandButton id="btnPDF" value="#{i18n['label.exportar.pdf']}" ajax="false"
 						actionListener="#{historicoTransaccionController.generarReporteUsuario(vistaUsuarioDataManager.formatoPdf)}"
-						icon="pdf" disabled="#{empty historicoTransaccionDataManager.listaVistaHistoricoTransaccion}">
+						icon="exportPdf" disabled="#{empty historicoTransaccionDataManager.listaVistaHistoricoTransaccion}">
 					</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
-			<p:panel id="pnlBuscarUsuario" header="#{i18n['erp.usuario.buscar']}" styleClass="formulario">
-				<table class="formulario">
+			<p:panel id="pnlBuscarUsuario" header="Auditoría" styleClass="formulario">
+				<table class="formulario" id="tableStyleRe">
 					<tr>
-						<td width="15%"><h:outputLabel for="txtNombre" value="#{i18n['erp.usuario.nombres']}" /></td>
-						<td width="85%">
-							<p:inputText id="txtNombre" style="width: 50%"
-								value="#{historicoTransaccionDataManager.historicoTransaccionBuscar.usuario}" />
+						<td class="label"><h:outputLabel for="txtloginUsuario" value="Usuario" /></td>
+						<td class="value">
+							<p:inputText id="txtloginUsuario" style="width: 175px"
+								value="#{historicoTransaccionDataManager.historicoTransaccionBuscar.loginUsuario}" />
 						</td>
-					</tr>
-					<tr>
-						<td><h:outputLabel for="txtCI" value="#{i18n['erp.usuario.ci']}" /></td>
-						<td>
-							<p:inputText id="txtCI" style="width: 50%" onkeypress="return soloEnteros(this, event)" 
+						<td class="label"><h:outputLabel for="txtCI" value="#{i18n['erp.usuario.ci']}" /></td>
+						<td class="value">
+							<p:inputText id="txtCI" style="width: 125px" onkeypress="return soloEnteros(this, event)" 
 								maxlength="10" value="#{historicoTransaccionDataManager.historicoTransaccionBuscar.ciUsuario}" />
 						</td>
 					</tr>
 					<tr>
-						<td><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
-						<td>
+						<td class="label" ><h:outputLabel for="txtNombre" value="#{i18n['erp.usuario.nombres']}" /></td>
+						<td class="value" colspan="3">
+							<p:inputText id="txtNombre" style="width:470px"
+								value="#{historicoTransaccionDataManager.historicoTransaccionBuscar.usuario}" />
+						</td>
+					</tr>
+					<tr>
+						
+					</tr>
+					
+					<tr>
+						<td class="label">
+							<h:outputLabel value="Empresa" />
+						</td>
+						<td class="value">
+							<p:selectOneMenu value="#{historicoTransaccionDataManager.historicoTransaccionBuscar.emrPk}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" />
+								<f:selectItems value="#{selectItemsController.catalogoListaEmpresa}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td class="label"><h:outputLabel for="inputEstado" value="#{i18n['label.estado']}"/></td>
+						<td class="value">
 							<p:selectOneMenu id="inputEstado" value="#{historicoTransaccionDataManager.historicoTransaccionBuscar.estado}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" noSelectionOption="true"/>
 								<f:selectItem itemLabel="#{i18n['label.estado.activo']}" itemValue="#{vistaUsuarioDataManager.estadoActivo}"/>
@@ -59,26 +79,26 @@
 						</td>
 					</tr>
 					<tr>
-						<td><h:outputLabel for="txtFechaDesde" value="#{i18n['label.fecha.desde']}" /></td>
-						<td>
+						<td class="label"><h:outputLabel for="txtFechaDesde" value="#{i18n['label.fecha.desde']}" /></td>
+						<td class="value">
 							<p:calendar id="txtFechaDesde" readonlyInput="true"
 								pattern="yyyy-MM-dd" widgetVar="txtFechaDesde"
 								value="#{historicoTransaccionDataManager.historicoTransaccionBuscar.npFechaDesde}">
 							</p:calendar>
 						</td>
-					</tr>
-					<tr>
-						<td><h:outputLabel for="txtFechaHasta" value="#{i18n['label.fecha.hasta']}" /></td>
-						<td>
-							<p:calendar id="txtFechaHasta" readonlyInput="true"
+						<td class="label"><h:outputLabel for="txtFechaHasta" value="#{i18n['label.fecha.hasta']}" /></td>
+						<td class="value">
+							<p:calendar id="txtFechaHasta" readonlyInput="true" locale="es"
 								pattern="yyyy-MM-dd" widgetVar="txtFechaHasta"
 								value="#{historicoTransaccionDataManager.historicoTransaccionBuscar.npFechaHasta}"/>
 						</td>
 					</tr>
+					
 				</table>
 			</p:panel>
 			<p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
+				    icon="ui-icon-search"
 					actionListener="#{historicoTransaccionController.buscarHistoricoTransaccion}"
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscarUsuario"
@@ -91,7 +111,7 @@
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
 				<f:facet name="header">
-					<h:outputText value="#{i18n['erp.usuario.lista']}"/>
+					<h:outputText value="Reporte Auditoría"/>
 				</f:facet>
 				<p:column styleClass="centered" width="5%">
 					<f:facet name="header">
@@ -107,15 +127,46 @@
 				</p:column>
 				<p:column width="20%">
 					<f:facet name="header">
-						<h:outputText value="#{i18n['erp.usuario.nombre']}" />
+						<h:outputText value="Cédula" />
+					</f:facet>
+					<h:outputText value="#{transaccion.ciUsuario}" />
+				</p:column>
+				<p:column width="20%">
+					<f:facet name="header">
+						<h:outputText value="Usuario" />
+					</f:facet>
+					<h:outputText value="#{transaccion.loginUsuario}" />
+				</p:column>
+				<p:column width="20%">
+					<f:facet name="header">
+						<h:outputText value="Nombres" />
 					</f:facet>
 					<h:outputText value="#{transaccion.usuario}" />
+				</p:column>
+				<p:column width="20%">
+					<f:facet name="header">
+						<h:outputText value="Estado" />
+					</f:facet>
+					<h:outputText value="#{transaccion.estadoString}" />
 				</p:column>
 				<p:column width="15%">
 					<f:facet name="header">
 						<h:outputText value="#{i18n['erp.transaccion.nombre']}"/>
 					</f:facet>
 					<h:outputText value="#{transaccion.nombreTransaccion}" />
+				</p:column>
+				<p:column width="15%">
+					<f:facet name="header">
+						<h:outputText value="IP Transacción"/>
+					</f:facet>
+					<h:outputText value="#{transaccion.ipTransaccion}" />
+				</p:column>
+				
+				<p:column width="15%">
+					<f:facet name="header">
+						<h:outputText value="Fecha Transacción"/>
+					</f:facet>
+					<h:outputText value="#{transaccion.fechaTransaccion}" />
 				</p:column>
 				
 			</p:dataTable>

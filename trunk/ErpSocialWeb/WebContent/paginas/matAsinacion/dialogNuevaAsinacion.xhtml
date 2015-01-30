@@ -12,8 +12,12 @@
 				<table class="formulario">
 					
 					<tr>
-						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.asinacion.nivel']}"  /> </td>
-						<td><p:selectOneMenu id="nivel" value="#{asinacionDataManager.nivelCodigo}" filter="true" required="true">
+						<td class="label"><h:outputLabel value="#{i18n['erp.matricula.asinacion.nivel']}"  /> 
+						<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td><p:selectOneMenu id="nivel" value="#{asinacionDataManager.nivelCodigo}" filter="true" required="true" 
+						        requiredMessage="El campo #{i18n['erp.matricula.asinacion.nivel']} es Obligatorio"
+						        style="width:200px">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{asinacionController.asinacionDataManager.nivelList}" var="nivel" itemLabel="#{nivel.nivDescaripcion} " itemValue="#{nivel.nivCodigo}"/>
 								<p:ajax listener="#{asinacionController.buscarNivelParalelo}" process="@this" update="paralelo"/>
@@ -22,8 +26,12 @@
 					</tr>
 					
 					<tr>
-						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.asinacion.paralelo']}"  /> </td>
-						<td><p:selectOneMenu id="paralelo" value="#{asinacionDataManager.paraleloCodigo}" filter="true" required="true">
+						<td class="label"><h:outputLabel value="#{i18n['erp.matricula.asinacion.paralelo']}"  /> 
+						<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td><p:selectOneMenu id="paralelo" value="#{asinacionDataManager.paraleloCodigo}" filter="true" required="true"
+						 requiredMessage="El campo #{i18n['erp.matricula.asinacion.paralelo']} es Obligatorio"
+						        style="width:200px">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{asinacionDataManager.nivelParaleloList}" var="nivelParalelo" itemLabel="#{nivelParalelo.matParalelo.parDescripcion}" itemValue="#{nivelParalelo.matParalelo.parCodigo}"/>
 							</p:selectOneMenu>
@@ -31,9 +39,13 @@
 					</tr>
 					
 					<tr>
-						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.asinacion.profesor']}" /> </td>
+						<td class="label"><h:outputLabel value="#{i18n['erp.matricula.asinacion.profesor']}" /> 
+						<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
 						<td>
-							<p:selectOneMenu id="profesor" value="#{asinacionDataManager.profesorCodigo}" filter="true" required="true">
+							<p:selectOneMenu id="profesor" value="#{asinacionDataManager.profesorCodigo}" filter="true" required="true"
+							requiredMessage="El campo #{i18n['erp.matricula.asinacion.profesor']} es Obligatorio"
+						        style="width:200px">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{asinacionController.asinacionDataManager.profesorList}" var="prof" itemLabel="#{prof.perNombres}  #{prof.perApellidos}" itemValue="#{prof.proCodigo}"/>
 							</p:selectOneMenu>
@@ -43,9 +55,14 @@
 					
 					
 					<tr>
-						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.asinacion.materia']}" /> </td>
+						<td class="label"><h:outputLabel value="#{i18n['erp.matricula.asinacion.materia']}" /> 
+						<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
 						<td>
-							<p:selectOneMenu id="materia" value="#{asinacionDataManager.materiaCodigo}" filter="true" required="true">
+							<p:selectOneMenu id="materia" value="#{asinacionDataManager.materiaCodigo}" filter="true" 
+							required="true"
+							requiredMessage="El campo #{i18n['erp.matricula.asinacion.materia']} es Obligatorio"
+						        style="width:200px">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{asinacionController.asinacionDataManager.materiaList}" var="mat" itemLabel="#{mat.mtrNombe} " itemValue="#{mat.mtrCodigo}"/>
 							</p:selectOneMenu>
@@ -54,9 +71,13 @@
 					</tr>
 					
 					<tr>
-						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.asinacion.periodo']}" /> </td>
+						<td class="label"><h:outputLabel value="#{i18n['erp.matricula.asinacion.periodo']}" /> 
+						<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
 						<td>
-							<p:selectOneMenu id="periodo" value="#{asinacionDataManager.periodoCodigo}" filter="true" required="true">
+							<p:selectOneMenu id="periodo" value="#{asinacionDataManager.periodoCodigo}" filter="true" required="true"
+							requiredMessage="El campo #{i18n['erp.matricula.asinacion.periodo']} es Obligatorio"
+						        style="width:200px">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{asinacionController.asinacionDataManager.periodoList}" var="per" itemLabel="#{per.perDescripcion} " itemValue="#{per.perCodigo}"/>
 							</p:selectOneMenu>
@@ -68,10 +89,13 @@
 			</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
+				    icon="ui-icon-disk"
 					actionListener="#{asinacionController.registrarAsinacion}"
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevaAsinacion.hide()"
 					process="@this,pnlNuevaAsinacion" update="pnlNuevaAsinacion,:formAsinacion:pnlMessages,:formAsinacion:tablaAsinacion"/>
-				<p:commandButton value="#{i18n['label.cancelar']}" onclick="dlgNuevaAsinacion.hide()" type="button" />
+				<p:commandButton value="#{i18n['label.cancelar']}" 
+				icon="ui-icon ui-icon-circle-close"
+				onclick="dlgNuevaAsinacion.hide()" type="button" />
 			</p:panel>
 		</h:form>
 	</p:dialog>

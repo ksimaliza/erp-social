@@ -20,38 +20,46 @@
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
 					</p:commandButton>
-					<p:commandButton id="btnNuevodocente" value="Insertar" icon="ui-icon ui-icon-circle-plus" oncomplete="dlgNuevoDocente.show()">
+					<p:commandButton rendered="false" id="btnNuevodocente" value="Insertar" icon="ui-icon ui-icon-circle-plus" oncomplete="dlgNuevoDocente.show()">
 						</p:commandButton>
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:panel id="pnlBuscarDocente" header="#{i18n['erp.matricula.docente.buscar']}">
-				<table class="formulario">
-					<tr >
-						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.docente.nombres']}" /> </td>
-					<td width="70%">
-							<p:inputText id="txtNombreBuscar"
-								value="#{docenteDataManager.profesorBuscar.perNombres}" />
+				<table  class="formulario" id="tableStyleRe">
+					<tr>
+						<td class="label"><h:outputLabel
+								value="Cédula Docente" /></td>
+						<td><p:inputText id="txtCiBuscar"
+								onkeypress="return isNumberKey(event);"
+								value="#{docenteDataManager.profesorBuscar.perCi}" /></td>
+						<td><p:commandButton id="btnBuscar"
+								icon="ui-icon-search"
+								actionListener="#{docenteController.buscarDocente()}"
+								value="#{i18n['label.buscar']}" process="@this,pnlBuscarDocente"
+								update=":formDocente:pnlMessages,tablaDocente,pnlBuscarDocente" />
 						</td>
-					
+
+
 					</tr>
-					
-					<tr >
-						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.docente.apellidos']}" /> </td>
-					<td width="70%">
-							<p:inputText id="txtApellidosBuscar"
-								value="#{docenteDataManager.profesorBuscar.perApellidos}" />
-						</td>
-					
+					<tr>
+					<td class="label"><h:outputLabel
+								value="#{i18n['erp.matricula.docente.nombres']}" /></td>
+						<td class="value" colspan="2"><p:inputText id="txtNombreBuscar"
+								style="width:375px"
+								value="#{docenteDataManager.profesorBuscar.perNombres}" /></td>
+					</tr>
+
+					<tr>
+						<td class="label"><h:outputLabel
+								value="#{i18n['erp.matricula.docente.apellidos']}" /></td>
+						<td class="value" colspan="2"><p:inputText
+								id="txtApellidosBuscar" style="width:375px"
+								value="#{docenteDataManager.profesorBuscar.perApellidos}" /></td>
+
 					</tr>
 				</table>
 			</p:panel>
-<p:panel id="botonesBuscar">
-				<p:commandButton id="btnBuscar"
-					actionListener="#{docenteController.buscarDocente()}"
-					value="#{i18n['label.buscar']}" 
-					process="@this,pnlBuscarDocente"
-					update=":formDocente:pnlMessages,tablaDocente,pnlBuscarDocente" />
-			</p:panel>
+<br></br>
 
 
 <p:dataTable id="tablaDocente"
@@ -66,16 +74,19 @@
 	<p:column headerText="#" styleClass="centered" width="5%">
 		#{rowIndex+1}
 	</p:column>
+	<p:column headerText="#{i18n['erp.matricula.docente.cedula']}" width="10%">
+					<h:outputText value="#{docente.perCi}" />
+				</p:column>
 	<p:column headerText="#{i18n['erp.matricula.docente.nombres']}" width="35%">
+					
+					
 					<h:outputText value="#{docente.perNombres}" />
 				</p:column>
 				<p:column headerText="#{i18n['erp.matricula.docente.apellidos']}" width="40%">
 					<h:outputText value="#{docente.perApellidos}" />
 				</p:column>
 				
-				<p:column headerText="#{i18n['erp.matricula.docente.cedula']}" width="40%">
-					<h:outputText value="#{docente.perCi}" />
-				</p:column>
+				
 				
 				<p:column headerText="#{i18n['erp.matricula.docente.direccion']}" width="40%">
 					<h:outputText value="#{docente.perDireccion}" />

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -6,107 +6,157 @@
 	xmlns:p="http://primefaces.org/ui">
 	
 	<p:dialog id="popUpEditarDocente" header="#{i18n['erp.matricula.docente.editar']}" resizable="false" draggable="false"
-		widgetVar="dlgEditarDocente" modal="true" width="500" minWidth="500" appendTo="@(body)">
+		widgetVar="dlgEditarDocente" modal="true" width="560" minWidth="560" appendTo="@(body)">
 		<h:form id="formEditarDocente" styleClass="formulario">
 			<p:panel id="pnlEditarDocente">
 				<table class="formulario">
 					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtFoto" value="#{i18n['erp.matricula.docente.foto']}" />
-						</td>
-						<td width="70%"> 
-							<p:inputText id="txtFoto" style="width: 100%"  value="#{docenteDataManager.personaInstancia.perFoto}"
-								 />
-						</td>	
+						<td width="60%" colspan="4"><p:graphicImage id="image" height="80" cache="false" value="#{docenteDataManager.personaInstancia.perFoto}"/></td>
 					</tr>
 					
-					
 					<tr>
-						<td width="30%">
+						<td class="label">
 							<h:outputLabel for="txtCi" value="#{i18n['erp.matricula.docente.cedula']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}"
+								styleClass="item-required" />
 						</td>
-						<td width="70%">
-							<p:inputText id="txtCi" style="width: 100%" value="#{docenteDataManager.personaInstancia.perCi}"
-							required="true" label="#{i18n['erp.matricula.docente.cedula']}">
-								<f:validateLength maximum="10" minimum="10"/>
-							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-								
-								</p:inputText>
+						<td class="value">
+							<p:inputText id="txtCi" 
+								value="#{docenteDataManager.personaInstancia.perCi}"
+								required="true"
+								requiredMessage="El campo #{i18n['erp.matricula.docente.cedula']} es Obligatorio."
+								label="#{i18n['erp.matricula.docente.cedula']}"
+								onkeypress="return isNumberKey(event);">
+								<f:validateLength maximum="10" minimum="10" />
+								<f:validator
+									validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+
+							</p:inputText>
 						</td>
+						<td class="label">
+							<h:outputLabel  value="Género" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}"
+								styleClass="item-required" />
+						</td>
+					<td  class="value"><p:selectOneRadio 
+															required="true"
+															requiredMessage="El campo Género es Obligatorio."
+															value="#{docenteDataManager.personaInstancia.perGenero}">
+															<f:selectItem itemLabel="Femenino" itemValue="F" />
+															<f:selectItem itemLabel="Masculino" itemValue="M" />
+														</p:selectOneRadio></td>
 						</tr>
-						
-							
-							
-							<tr>
-						
-						<td width="30%">
+						<tr>
+						<td class="label">
 							<h:outputLabel for="txtNombres" value="#{i18n['erp.matricula.docente.nombres']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}"
+								styleClass="item-required" />
 							
 						</td>
-						<td width="70%">
+						<td class="value" colspan="3">
 							<p:inputText id="txtNombres"  value="#{docenteDataManager.personaInstancia.perNombres}"
 								style="width: 100%"
-								required="true" label="#{i18n['erp.matricula.docente.nombres']}"/>
+								required="true"
+								requiredMessage="El campo #{i18n['erp.matricula.docente.nombres']} es Obligatorio."
+								label="#{i18n['erp.matricula.docente.nombres']}"/>
 						</td>
 					</tr>
 					<tr>
-						<td width="30%">
+						<td class="label">
 							<h:outputLabel for="txtApe" value="#{i18n['erp.matricula.docente.apellidos']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}"
+								styleClass="item-required" />
 						</td>
-						<td width="70%"> 
-							<p:inputText id="txtApe" style="width: 100%"  value="#{docenteDataManager.personaInstancia.perApellidos}"
-								 />
+						<td class="value" colspan="3"> 
+							<p:inputText id="txtApe" style="width: 100%"  
+							value="#{docenteDataManager.personaInstancia.perApellidos}"
+							required="true"
+							requiredMessage="El campo #{i18n['erp.matricula.docente.apellidos']} es Obligatorio."	 />
 						</td>
 						
 					</tr>
 					
 					<tr>
-						<td width="30%">
+						<td class="label">
 							<h:outputLabel for="txtFecNac" value="#{i18n['erp.matricula.docente.fechanac']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}"
+								styleClass="item-required" />
 						</td>
-						<td width="70%">
-							<p:calendar id="txtFecNac" style="width: 100%"  value="#{docenteDataManager.personaInstancia.perFechaNac}" 
-								showOn="button" required="true" />
+						<td class="value">
+							<p:calendar id="txtFecNac"   value="#{docenteDataManager.personaInstancia.perFechaNac}" 
+								showOn="button" required="true"
+							requiredMessage="El campo #{i18n['erp.matricula.docente.fechanac']} es Obligatorio."	 />
 						</td>	
 					</tr>
 					
+					
 					<tr>
-						<td width="30%">
-							<h:outputLabel for="txtDir" value="#{i18n['erp.matricula.docente.direccion']}" />
-						</td>
-						<td width="70%">
-							<p:inputTextarea id="txtDir" style="width: 100%" autoResize="false"  value="#{docenteDataManager.personaInstancia.perDireccion}"
-							required="true" />
-						</td>	
-					</tr>
-					<tr>
-						<td width="30%">
+						<td class="label">
 							<h:outputLabel for="txtTelefono" value="#{i18n['erp.matricula.docente.telefono']}" />
 						</td>
-						<td width="70%">
-							<p:inputText id="txtTelefono" style="width: 100%" value="#{docenteDataManager.personaInstancia.perTelefono}"
-								onkeypress="return isNumberKey(event)" />
+											
+						<td class="value">
+							<p:inputMask mask="(99) 9999-999" id="txtTelefono" 
+								value="#{docenteDataManager.personaInstancia.perTelefono}"
+								onkeypress="return isNumberKey(event)" ></p:inputMask>
 						</td>	
+						<p:tooltip for="txtTelefono" value="Ejemplo: (02)2222-222" showEffect="slide" hideEffect="slide"
+                                                   showEvent="focus" hideEvent="blur"/>	
 					</tr>
 					<tr>
-						<td width="30%">
+						<td class="label">
 							<h:outputLabel for="txtCelular" value="#{i18n['erp.matricula.docente.celular']}" />
 						</td>
-						<td width="70%">
-							<p:inputText id="txtCelular" style="width: 100%" value="#{docenteDataManager.personaInstancia.perCelular}" onkeypress="return isNumberKey(event)"
-								 />
+						<td class="value">
+							<p:inputMask mask="(99) 99999-999" id="txtCelular" 
+								value="#{docenteDataManager.personaInstancia.perCelular}"  
+								onkeypress="return isNumberKey(event)" />
 						</td>	
+						<p:tooltip for="txtCelular" value=" Ejemplo: (09)99999-999" showEffect="slide" hideEffect="slide"
+                                                   showEvent="focus" hideEvent="blur"
+                                                   />
+						
 					</tr>
 					<tr>
-						<td width="30%">
+						<td class="label">
 							<h:outputLabel for="txtEmail" value="#{i18n['erp.matricula.docente.email']}" />
 						</td>
-						<td width="70%">
+						<td class="value" colspan="3">
 							<p:inputText id="txtEmail" style="width: 100%" value="#{docenteDataManager.personaInstancia.perEmail}"
 								 >
 								 <f:validator validatorId="ec.edu.uce.erp.web.validador.EmailValidator" />
 						</p:inputText>
 						</td>	
+					</tr>
+					<tr>
+						<td class="label">
+							<h:outputLabel for="txtDir" value="#{i18n['erp.matricula.docente.direccion']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}"
+								styleClass="item-required" />
+						</td>
+						<td class="value" colspan="3">
+							<p:inputTextarea id="txtDir" style="width: 100%" autoResize="false"  
+							value="#{docenteDataManager.personaInstancia.perDireccion}"
+							required="true"
+							requiredMessage="El campo #{i18n['label.signo.requerido']} es Obligatorio." />
+						</td>	
+					</tr>
+					<tr>
+						<td class="label">
+							<h:outputLabel value="Foto Docente" />
+						</td>
+						<td>
+							<table>
+								<tr>
+									<td><p:fileUpload style="width:10 px"
+											fileUploadListener="#{docenteController.handleFileUpload}"
+											mode="advanced" dragDropSupport="true" update="image"
+											auto="true" sizeLimit="1000000"
+											allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Seleccionar"
+											process="@this" /></td>
+								</tr>
+							</table>
+						</td>
 					</tr>
 					
 					
@@ -119,6 +169,7 @@
 					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarDocente.hide()"
 					process="@this,pnlEditarDocente" update="pnlEditarDocente,:formDocente:pnlMessages,:formDocente:tablaDocente"/>
 				<p:commandButton 
+				actionListener="#{docenteController.cancel}" 
 				icon="ui-icon ui-icon-circle-close"
 				value="#{i18n['label.cancelar']}" onclick="dlgEditarDocente.hide();" type="button" />
 			</p:panel>

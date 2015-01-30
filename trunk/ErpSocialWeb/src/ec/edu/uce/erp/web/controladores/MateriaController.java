@@ -63,6 +63,7 @@ public class MateriaController extends BaseController{
 			if (materiaNueva != null) {
 				materiaDataManager.setMateriaInstancia(new MateriaDTO());
 				MensajesWebController.aniadirMensajeInformacion("erp.matricula.materia.registrar.exito");
+				buscarMateria();
 			}
 			
 		} catch (SeguridadesException e) {

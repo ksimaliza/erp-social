@@ -26,34 +26,46 @@
 			</p:toolbar>
 			
 			<p:panel id="pnlBuscar" header="#{i18n['erp.matricula.nivel.paralelo.buscar']}">
-				<table class="formulario">
+				<table class="formulario" id="tableStyleRe">
 					<tr>
-						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.nivel.paralelo.nivel']}"  /> </td>
-						<td><p:selectOneMenu id="nivel" value="#{nivelParaleloDataManager.nivelCodigo}" filter="true" >
+						<td class="label"><h:outputLabel value="#{i18n['erp.matricula.nivel.paralelo.nivel']}"  /> 
+						<h:outputLabel value="#{i18n['label.signo.requerido']}"
+								styleClass="item-required" />
+						</td>
+						<td class="value"><p:selectOneMenu id="nivel" value="#{nivelParaleloDataManager.nivelCodigo}" filter="true" style="width:250px">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{nivelParaleloController.nivelParaleloDataManager.nivelList}" var="nivel" itemLabel="#{nivel.nivDescaripcion} " itemValue="#{nivel.nivCodigo}"/>
 								<p:ajax listener="#{nivelParaleloController.buscarNivelParalelo}" process="@this" update="paralelo"/>
 							</p:selectOneMenu>
 						</td>
+						<td>
+						<p:commandButton id="btnBuscar"
+					actionListener="#{nivelParaleloController.buscarNivelParalelo()}"
+					value="#{i18n['label.buscar']}" 
+					 icon="ui-icon-search"
+					process="@this,pnlBuscar"
+					update=":formNivelParalelo:pnlMessages,tablaNivelParalelo,pnlBuscar" />
+						</td>
+						
 					</tr>
 					
 					<tr>
-						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.nivel.paralelo.paralelo']}"  /> </td>
-						<td><p:selectOneMenu id="paralelo" value="#{nivelParaleloDataManager.paraleloCodigo}" filter="true" >
+						<td class="label"><h:outputLabel value="#{i18n['erp.matricula.nivel.paralelo.paralelo']}"  />
+						<h:outputLabel value="#{i18n['label.signo.requerido']}"
+								styleClass="item-required" /> </td>
+						<td class="value"><p:selectOneMenu style="width:250px"
+						        id="paralelo" value="#{nivelParaleloDataManager.paraleloCodigo}" filter="true" >
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{nivelParaleloDataManager.nivelParaleloList}" var="nivelParalelo" itemLabel="#{nivelParalelo.matParalelo.parDescripcion}" itemValue="#{nivelParalelo.matParalelo.parCodigo}"/>
 							</p:selectOneMenu>
 						</td>
+												
 					</tr>
 				</table>
 			</p:panel>
 
 			<p:panel id="botonesBuscar">
-				<p:commandButton id="btnBuscar"
-					actionListener="#{nivelParaleloController.buscarNivelParalelo()}"
-					value="#{i18n['label.buscar']}" 
-					process="@this,pnlBuscar"
-					update=":formNivelParalelo:pnlMessages,tablaNivelParalelo,pnlBuscar" />
+				
 			</p:panel>
 
 

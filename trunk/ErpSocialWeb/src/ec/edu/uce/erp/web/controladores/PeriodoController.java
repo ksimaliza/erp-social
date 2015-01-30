@@ -62,6 +62,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PeriodoControl
 			if (periodoNuevo != null) {
 				periodoDataManager.setPeriodoInstancia(new PeriodoDTO());
 				MensajesWebController.aniadirMensajeInformacion("erp.matricula.periodo.registrar.exito");
+				buscarPeriodo();
 			}
 			
 		} catch (SeguridadesException e) {

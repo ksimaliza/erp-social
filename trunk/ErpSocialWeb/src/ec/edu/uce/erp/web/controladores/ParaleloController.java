@@ -64,6 +64,7 @@ public void registrarParalelo () {
 		if (paraleloNuevo != null) {
 			paraleloDataManager.setParaleloInstancia(new ParaleloDTO());
 			MensajesWebController.aniadirMensajeInformacion("erp.matricula.paralelo.registrar.exito");
+			buscarParalelo();
 		}
 		
 	} catch (SeguridadesException e) {

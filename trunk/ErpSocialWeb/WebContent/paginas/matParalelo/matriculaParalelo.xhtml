@@ -25,25 +25,27 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:panel id="pnlBuscarParalelo" header="#{i18n['erp.matricula.paralelo.buscar']}">
-				<table class="formulario">
+				<table class="formulario" id="tableStyleRe">
 					<tr >
 						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.paralelo.descripcion']}" /> </td>
-					<td width="70%">
-							<p:inputText id="txtDescripBuscar"
+					<td width="60%" colspan="2">
+							<p:inputText id="txtDescripBuscar" style="width:400px"
 								value="#{paraleloDataManager.paraleloBuscar.parDescripcion}" />
+						</td>
+						<td width="10%">
+							<p:commandButton id="btnBuscar"
+					actionListener="#{paraleloController.buscarParalelo}"
+					value="#{i18n['label.buscar']}" 
+					icon="ui-icon-search"
+					process="@this,pnlBuscarParalelo"
+					update=":formParalelo:pnlMessages,tablaParalelo,pnlBuscarParalelo" />
 						</td>
 					
 					</tr>
 				</table>
 			</p:panel>
-<p:panel id="botonesBuscar">
-				<p:commandButton id="btnBuscar"
-					actionListener="#{paraleloController.buscarParalelo}"
-					value="#{i18n['label.buscar']}" 
-					process="@this,pnlBuscarParalelo"
-					update=":formParalelo:pnlMessages,tablaParalelo,pnlBuscarParalelo" />
-			</p:panel>
-
+<br>
+</br>
 
 <p:dataTable id="tablaParalelo"
 	value="#{paraleloDataManager.paraleloDTOs}" var="paralelos"

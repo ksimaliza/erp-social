@@ -22,7 +22,7 @@ import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 @ManagedBean(name = "estudianteDataManager")
 public class EstudianteDataManager extends BaseDataManager {
 
-	private static final Logger slf4jLogger = LoggerFactory.getLogger(PerfilDataManager.class);
+	private static final Logger slf4jLogger = LoggerFactory.getLogger(EstudianteDataManager.class);
 	private static final long serialVersionUID = 1L;
 
 	private EstudianteDTO estudianteInstancia;
@@ -34,6 +34,10 @@ public class EstudianteDataManager extends BaseDataManager {
 	private Persona estudiantePersonaEditar;
 	private Persona estudiantePersonaBuscar;
 	private int estadoCodigo;
+	
+	private  Persona madreInsertar;
+	private  Persona padreInsertar;
+	private  Persona representanteInsertar;
 
 	private Date fechaInsertar;
 
@@ -51,7 +55,11 @@ public class EstudianteDataManager extends BaseDataManager {
 		this.estudiantePersonaInsertar = new Persona();
 		this.estudiantePersonaEditar = new Persona();
 		this.estudiantePersonaBuscar = new Persona();
-
+		this.madreInsertar=new Persona();
+		this.padreInsertar=new Persona();
+		this.representanteInsertar=new Persona();
+		
+		
 		this.fechaInsertar = new Date();
 
 	}
@@ -153,5 +161,37 @@ public class EstudianteDataManager extends BaseDataManager {
 	public void setRepresentanteCode(Integer representanteCode) {
 		this.representanteCode = representanteCode;
 	}
+
+
+	public Persona getMadreInsertar() {
+		return madreInsertar;
+	}
+
+
+	public void setMadreInsertar(Persona madreInsertar) {
+		this.madreInsertar = madreInsertar;
+	}
+
+
+	public Persona getPadreInsertar() {
+		return padreInsertar;
+	}
+
+
+	public void setPadreInsertar(Persona padreInsertar) {
+		this.padreInsertar = padreInsertar;
+	}
+
+
+	public Persona getRepresentanteInsertar() {
+		return representanteInsertar;
+	}
+
+
+	public void setRepresentanteInsertar(Persona representanteInsertar) {
+		this.representanteInsertar = representanteInsertar;
+	}
+	
+	
 
 }

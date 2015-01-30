@@ -12,9 +12,13 @@
 				<table class="formulario">
 					
 					<tr >
-						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.nivel.paralelo.nivel']}"  /> </td>
-					<td>
-					<p:selectOneMenu id="nivel" value="#{nivelParaleloDataManager.nivelCodigo}" filter="true" required="true">
+						<td class="label"><h:outputLabel value="#{i18n['erp.matricula.nivel.paralelo.nivel']}"  />
+						<h:outputLabel value="#{i18n['label.signo.requerido']}"
+								styleClass="item-required" /> </td>
+					<td class="value">
+					<p:selectOneMenu id="nivel" value="#{nivelParaleloDataManager.nivelCodigo}" filter="true" required="true" style="width:250px"
+					requiredMessage="El campo #{i18n['erp.matricula.nivel.paralelo.nivel']} es Obligatorio."
+					>
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{nivelParaleloController.nivelParaleloDataManager.nivelList}" var="niv" itemLabel="#{niv.nivDescaripcion} " itemValue="#{niv.nivCodigo}"/>
 							</p:selectOneMenu>
@@ -22,9 +26,15 @@
 					</tr>
 					
 					<tr>
-						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.nivel.paralelo.paralelo']}" /> </td>
-						<td>
-							<p:selectOneMenu id="paralelo" value="#{nivelParaleloDataManager.paraleloCodigo}" filter="true" required="true">
+						<td class="label"><h:outputLabel value="#{i18n['erp.matricula.nivel.paralelo.paralelo']}" /> 
+						<h:outputLabel value="#{i18n['label.signo.requerido']}"
+								styleClass="item-required" />
+						</td>
+						<td class="value">
+							<p:selectOneMenu id="paralelo" value="#{nivelParaleloDataManager.paraleloCodigo}" 
+							filter="true" required="true" style="width:250px"
+							requiredMessage="El campo #{i18n['erp.matricula.nivel.paralelo.paralelo']} es Obligatorio."
+							>
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{nivelParaleloDataManager.paraleloList}" var="par" itemLabel="#{par.parDescripcion} " itemValue="#{par.parCodigo}"/>
 							</p:selectOneMenu>
