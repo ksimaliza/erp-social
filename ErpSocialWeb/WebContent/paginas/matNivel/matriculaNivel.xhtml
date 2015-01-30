@@ -25,24 +25,29 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:panel id="pnlBuscarNivel" header="#{i18n['erp.matricula.nivel.buscar']}">
-				<table class="formulario">
+				<table class="formulario" id="tableStyleRe">
 					
 						<tr >
-						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.nivel.descripcion']}" /> </td>
-						<td width="70%">
-							<p:inputText id="txtNivelBuscar"
+						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.nivel.descripcion']}" /> 
+						</td>
+						<td width="60%">
+							<p:inputText id="txtNivelBuscar" style="width:400px"
 								value="#{nivelDataManager.nivelBuscar.nivDescaripcion}" />
+						</td>
+						<td width="10%">
+						<p:commandButton id="btnBuscar"
+					actionListener="#{nivelController.buscarNivel}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscarNivel"
+					icon="ui-icon-search"
+					update=":formNivel:pnlMessages,tablaNivel,pnlBuscarNivel" />
 						</td>
 						</tr>
 				</table>
 			</p:panel>
 
 		<p:panel id="botonesBuscar">
-				<p:commandButton id="btnBuscar"
-					actionListener="#{nivelController.buscarNivel}"
-					value="#{i18n['label.buscar']}" 
-					process="@this,pnlBuscarNivel"
-					update=":formNivel:pnlMessages,tablaNivel,pnlBuscarNivel" />
+				
 		</p:panel>
 
 

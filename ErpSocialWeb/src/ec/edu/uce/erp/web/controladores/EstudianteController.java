@@ -24,6 +24,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteRepresentanteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaVieDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 import ec.edu.uce.erp.ejb.persistence.vo.EstudianteVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
@@ -76,6 +77,8 @@ public class EstudianteController extends BaseController{
 		this.reporteCarnetDataManager = reporteCarnetDataManager;
 	}
 	
+	private Integer codEstudiante;
+	
 	@PostConstruct
 	public void inicializarObjetos () {
 		
@@ -106,17 +109,26 @@ public class EstudianteController extends BaseController{
 		EstudianteVO estudianteVO;
 		
 		try {
+			
+						
 			estudianteVO=new EstudianteVO();
 			estudianteDataManager.getEstudianteInstancia().setEstEmpresa(getEmpresaCode());
 			estudianteVO.setEstudiante(estudianteDataManager.getEstudianteInstancia());
 			estudianteVO.setPersona(estudianteDataManager.getEstudiantePersonaInsertar());
 			estudianteVO.setPersonaRepresentante(representanteDataManager.getPersonaInstancia());
+			estudianteVO.setPadre(estudianteDataManager.getPadreInsertar());
+			estudianteVO.setMadre(estudianteDataManager.getMadreInsertar());
+			estudianteVO.setRepresentanteEst(estudianteDataManager.getRepresentanteInsertar());
 
 			EstudianteDTO estudianteNuevo = this.servicioMatricula.createOrUpdateEstudiante(estudianteVO);
 			if (estudianteNuevo != null) {
 				estudianteDataManager.setEstudianteInstancia(new EstudianteDTO());
 				estudianteDataManager.setEstudiantePersonaInsertar(new Persona());
+				estudianteDataManager.setRepresentanteInsertar(new Persona());
 				representanteDataManager.setPersonaInstancia(new Persona());
+				estudianteDataManager.setMadreInsertar(new Persona());
+				estudianteDataManager.setPadreInsertar(new Persona());
+				estudianteDataManager.setRepresentanteInsertar(new Persona());
 				MensajesWebController.aniadirMensajeInformacion("erp.matricula.estudiante.registrar.exito");
 			}
 			buscarEstudiantes();
@@ -163,19 +175,14 @@ public class EstudianteController extends BaseController{
 
 	public void cargarDatosEstudiante (EstudianteListDTO estudiante) {
 		try {
-			EstudianteVO estudianteEncontrado = servicioMatricula.obtenerEstudiantePorId(estudiante.getEstPersona(),estudiante.getEstCodigo());
+			EstudianteVO estudianteEncontrado = servicioMatricula.obtenerEstudiantePorId(estudiante.getEstPersona(),estudiante.getEstCodigo(), estudiante.getEstMadre(), estudiante.getEstPadre(), estudiante.getEstRepresentante());
 			
 			this.estudianteDataManager.setEstudiantePersonaInsertar(estudianteEncontrado.getPersona());
 			this.estudianteDataManager.setEstudianteInstancia(estudianteEncontrado.getEstudiante());
-			List<EstudianteRepresentanteDTO> listEstRep= servicioMatricula.readRepresentante(estudianteEncontrado.getEstudiante());
-			
-			slf4jLogger.info("tananio",listEstRep.size());
-			
-			if(listEstRep.size()>0)
-			{
-				this.representanteDataManager.setPersonaInstancia(servicioAdministracion.buscarPersona(listEstRep.get(0).getMatEstudiante().getEstPersona()));
-			}
-							
+			this.estudianteDataManager.setPadreInsertar(estudianteEncontrado.getPadre());
+			this.estudianteDataManager.setMadreInsertar(estudianteEncontrado.getMadre());
+			this.estudianteDataManager.setRepresentanteInsertar(estudianteEncontrado.getRepresentanteEst());
+										
 			estudianteEncontrado.getPersona().getPerFotoVerificar();
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargar los datos del estudiante seleccionado {}", e.getMessage());
@@ -192,21 +199,34 @@ public class EstudianteController extends BaseController{
 	{
 		estudianteDataManager.setEstudianteInstancia(new EstudianteDTO());
 		estudianteDataManager.setEstudiantePersonaInsertar(new Persona());
-		representanteDataManager.setPersonaInstancia(new Persona());
+		//representanteDataManager.setPersonaInstancia(new Persona());
+		estudianteDataManager.setMadreInsertar(new Persona());
+		estudianteDataManager.setPadreInsertar(new Persona());
+		estudianteDataManager.setRepresentanteInsertar(new Persona());
 		RequestContext.getCurrentInstance().execute("dlgNuevoEstudiante.hide()");
 	}
 			
 	public void buscarPersonaEstudiante()
 	{
-		List<Persona> personaList;
+		List<Persona> personaList = null;
 		try {
+			
+			if(estudianteDataManager.getEstudiantePersonaInsertar().getPerCi()!=null ||estudianteDataManager.getEstudiantePersonaInsertar().getPerCi().equals("")){
 			personaList=this.servicioAdministracion.buscarPersona(estudianteDataManager.getEstudiantePersonaInsertar());
 			if(personaList.size()>0)
 				estudianteDataManager.setEstudiantePersonaInsertar(personaList.get(0));
+			}
+			if (CollectionUtils.isEmpty(personaList)
+					&& personaList.size() == 0) {
+				MensajesWebController
+						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+			}
+			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("buscarRepresentante {}", e.getMessage());
 			MensajesWebController.aniadirMensajeError(e.toString());
 		}
+		
 	}
 	
 
@@ -267,9 +287,151 @@ public class EstudianteController extends BaseController{
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 	}
+	
+	
+	
+	public void fichaEstudiantil(EstudianteListDTO estudiante)
+	{
+		MatriculaVieDTO vie;
+		try {
+			
+			vie=new MatriculaVieDTO();
+			vie.setRegCodigo(estudiante.getRegCodigo());
+			List<MatriculaVieDTO> list= servicioMatricula.readFicha(vie);
+						
+			Map<String, Object> mapParametros = new HashMap<String, Object>();
+			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
+						
+			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), list, "fichaEstudiante", mapParametros);
+			ReporteUtil.generarReporte(jasperPrint, this.reporteCarnetDataManager.getFormatoPdf(), "FichaEstudiantil");
+			
+			
+		} catch (SeguridadesException e) {
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+	}
+	
+	
+	
+	public void buscarMadre() {
+		slf4jLogger.info("buscarMadre");
+
+		List<Persona> listaPersona = null;
+
+		try {
+			if (estudianteDataManager.getMadreInsertar().getPerCi() != null
+					&& estudianteDataManager.getMadreInsertar().getPerCi() != "") {
+				estudianteDataManager.getMadreInsertar()
+						.setPerNombres(null);
+				estudianteDataManager.getMadreInsertar().setPerApellidos(
+						null);
+				listaPersona = this.servicioAdministracion
+						.buscarPersona(estudianteDataManager
+								.getMadreInsertar());
+
+				if (CollectionUtils.isEmpty(listaPersona)
+						&& listaPersona.size() == 0) {
+					MensajesWebController
+							.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.estudianteDataManager
+							.setMadreInsertar(listaPersona.get(0));
+				}
+			}
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarMadre {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+	}
+	
+	public void buscarRepresentante() {
+		slf4jLogger.info("buscarRepresentante");
+
+		List<Persona> listaPersona = null;
+
+		try {
+			if (estudianteDataManager.getRepresentanteInsertar().getPerCi() != null
+					&& estudianteDataManager.getRepresentanteInsertar().getPerCi() != "") {
+				estudianteDataManager.getRepresentanteInsertar()
+						.setPerNombres(null);
+				estudianteDataManager.getRepresentanteInsertar().setPerApellidos(
+						null);
+				listaPersona = this.servicioAdministracion
+						.buscarPersona(estudianteDataManager
+								.getRepresentanteInsertar());
+
+				if (CollectionUtils.isEmpty(listaPersona)
+						&& listaPersona.size() == 0) {
+					MensajesWebController
+							.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.estudianteDataManager.setRepresentanteInsertar(listaPersona.get(0));
+				}
+			}
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarMadre {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+	}
+	
+	public void buscarPadre() {
+		slf4jLogger.info("buscarPadre");
+
+		List<Persona> listaPersona = null;
+
+		try {
+			if (estudianteDataManager.getPadreInsertar().getPerCi() != null
+					&& estudianteDataManager.getPadreInsertar().getPerCi() != "") {
+				estudianteDataManager.getPadreInsertar()
+						.setPerNombres(null);
+				estudianteDataManager.getPadreInsertar().setPerApellidos(
+						null);
+				listaPersona = this.servicioAdministracion
+						.buscarPersona(estudianteDataManager
+								.getPadreInsertar());
+
+				if (CollectionUtils.isEmpty(listaPersona)
+						&& listaPersona.size() == 0) {
+					MensajesWebController
+							.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
+				} else {
+					this.estudianteDataManager
+							.setPadreInsertar(listaPersona.get(0));
+				}
+			}
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarPadre {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+	}
+	
+	
+	//----->>>29/01/2015
+	
+	public void eliminarEstudiante()
+	{
+		
+		try {
+			
+			servicioMatricula.eliminarEstudiante(codEstudiante);
+			buscarEstudiantes();
+			
+			
+		} catch (SeguridadesException e) {
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+	}
 
 
 	
+	public Integer getCodEstudiante() {
+		return codEstudiante;
+	}
+
+	public void setCodEstudiante(Integer codEstudiante) {
+		this.codEstudiante = codEstudiante;
+	}
+
 	@Override
 	public void refrescarFormulario() {
 		// TODO Auto-generated method stub

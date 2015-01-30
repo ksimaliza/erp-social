@@ -409,7 +409,6 @@ TD.ToolBar {
     max-width: 500 px;
     font-family: Helvetica, Arial;
     background: #FFFFFF;
-	
 	font-style: normal;
 	font-size: small;
 	width: 500px;
@@ -418,5 +417,15 @@ TD.ToolBar {
 .ui-fieldset .ui-state-default {
     background: #FFE8EF;
 }
+
+#tableStyleRe {
+    min-width: 600px;
+    max-width: 600 px;
+    background: #FFFFFF;
+	width: 500px;
+	
+}
+
+
       
     

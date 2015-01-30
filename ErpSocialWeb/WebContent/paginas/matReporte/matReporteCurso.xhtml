@@ -15,11 +15,13 @@
 		<h:form id="form">
 		
 			<p:growl id="pnlMessages" autoUpdate="true" closable="true"/>
-		
+		<p:panel id="pnlBuscar">
 			<table>
 					<tr>
-						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.registro.nivel']}"  /> </td>
-						<td><p:selectOneMenu id="nivel" value="#{reporteCursoDataManager.nivelCodigo}" filter="true" required="true">
+						<td class="label"><h:outputLabel value="#{i18n['erp.matricula.registro.nivel']}"  />
+						<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						 </td>
+						<td><p:selectOneMenu id="nivel" value="#{reporteCursoDataManager.nivelCodigo}" filter="true" required="true" style="width:150px">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{reporteCursoController.reporteCursoDataManager.nivelList}" var="nivel" itemLabel="#{nivel.nivDescaripcion} " itemValue="#{nivel.nivCodigo}"/>
 								<p:ajax listener="#{reporteCursoController.buscarNivelParalelo}" process="@this" update="paralelo,tblReporte"/>
@@ -28,8 +30,10 @@
 					</tr>
 							
 					<tr>
-						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.registro.paralelo']}"  /> </td>
-						<td><p:selectOneMenu id="paralelo" value="#{reporteCursoDataManager.paraleloCodigo}" filter="true" required="true">
+						<td class="label"><h:outputLabel value="#{i18n['erp.matricula.registro.paralelo']}"  /> 
+						<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td><p:selectOneMenu id="paralelo" value="#{reporteCursoDataManager.paraleloCodigo}" filter="true" required="true" style="width:150px">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{reporteCursoDataManager.nivelParaleloList}" var="nivelParalelo" itemLabel="#{nivelParalelo.matParalelo.parDescripcion}" itemValue="#{nivelParalelo.matParalelo.parCodigo}"/>
 								<p:ajax listener="#{reporteCursoController.buscar}" process="@this" update="tblReporte"/>		
@@ -37,31 +41,81 @@
 						</td>
 					</tr>
 					
-					<tr>
-						<td>
-							<p:commandButton value="Pdf" actionListener="#{reporteCursoController.exportar}" icon="exportPdf" ajax="false"/>
-						</td>
-					</tr>
+					
+				
 			</table>	
+			</p:panel>
+			<p:panel>
+			<table>
+			<tr>
+			<td width="50px">
 			
+			</td>
+						<td class="label"><p:commandButton id="btnBuscar"
+								actionListener="#{reporteCursoController.buscarList}"
+								value="#{i18n['label.buscar']}" process="@this,pnlBuscar"
+								update="pnlBuscar,tblReporte" icon="ui-icon-search"
+								title="Buscar" /></td>
+						<td><p:commandButton value="Pdf"
+								actionListener="#{reporteCursoController.exportar}"
+								icon="exportPdf" ajax="false" /></td>
+						<td><p:commandButton value="Excel"
+								actionListener="#{reporteCursoController.exportarExcel()}"
+								icon="exportExcel" ajax="false" /></td>		
+					</tr>
+			</table>
 			
-			<p:dataTable id="tblReporte" value="#{reporteCursoDataManager.repNivelEstudianteList}" var="rep">
+			</p:panel>
 			
-				<p:column headerText="Nombres">
-					<h:outputText value="#{rep.perNombres}" />
+			<p:dataTable id="tblReporte" value="#{reporteCursoController.list}" var="rep" rowIndexVar="rowIndex"
+				paginator="true" rows="5" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.matricula.estudiante.lista']}">
+				<f:facet name="header">
+					#{i18n['erp.matricula.estudiante.lista']}
+				</f:facet>
+				<p:column styleClass="centered" width="5%">
+					<f:facet name="header">
+						<h:outputText value="#" />
+					</f:facet>
+					<h:outputText value="#{rowIndex+1}"/>
+				</p:column>
+				<p:column headerText="N° Matrícula" width="5%">
+					<h:outputText value="#{rep.regCodigo}" />				
+				</p:column>
+				 <p:column headerText="Fecha Matrícula" width="10%">
+					<h:outputText value="#{rep.regFecha}" >
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Año de Básica" width="10%">
+					<h:outputText value="#{rep.nivDescaripcion}" />
+				</p:column>
+				
+			    <p:column headerText="Cédula" width="10%">
+					<h:outputText value="#{rep.perCi}" />
+				</p:column>
+				<p:column headerText="Apellidos y Nombres">
+					<h:outputText value="#{rep.perApellidos} #{rep.perNombres}" />
 				</p:column>
 	
-				<p:column headerText="Apellidos">
-					<h:outputText value="#{rep.perApellidos}" />				
+				
+				<p:column headerText="Género" width="10%">
+					<h:outputText value="#{rep.perGenero}" />
 				</p:column>
+				 <p:column headerText="Fecha Nacimiento" width="15%">
+					<h:outputText value="#{rep.perFechaNac}" >
+					<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Edad" width="15%">
+					<h:outputText value="#{rep.perEdad}" >
+					
+					</h:outputText>
+				</p:column>
+				
 	
-				<p:column headerText="Foto">
-					<p:graphicImage value="#{rep.regFoto}" height="45" cache="false"/>
-				</p:column>
-
-				<p:column>
-					<p:commandButton value="Carnet" actionListener="#{reporteCursoController.carnet(rep)}" icon="exportPdf" ajax="false"/>
-				</p:column>
+				
 			
 			</p:dataTable>
 			

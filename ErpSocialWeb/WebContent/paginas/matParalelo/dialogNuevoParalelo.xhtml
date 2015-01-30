@@ -17,8 +17,9 @@
 							
 						</td>
 						<td width="70%">
-							<p:inputTextarea id="txtDir" style="width: 100%" autoResize="false"  
+							<p:inputText id="txtDescrip" style="width: 100%" 
 							value="#{paraleloDataManager.paraleloInstancia.parDescripcion}"
+							    requiredMessage="El campo #{i18n['erp.matricula.paralelo.descripcion']} es Obligatorio"
 								required="true" label="#{i18n['erp.matricula.paralelo.descripcion']}"/>
 						</td>
 					</tr>

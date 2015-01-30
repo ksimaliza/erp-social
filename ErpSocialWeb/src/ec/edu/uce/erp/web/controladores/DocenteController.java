@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.FileUploadEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.ProfesorVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
@@ -131,6 +133,12 @@ public class DocenteController extends BaseController{
 	public void refrescarFormulario() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void cancel()
+	{
+		docenteDataManager.setPersonaInstancia(new Persona());
+		RequestContext.getCurrentInstance().execute("dlgNuevoDocente.hide()");
 	}
 
 	

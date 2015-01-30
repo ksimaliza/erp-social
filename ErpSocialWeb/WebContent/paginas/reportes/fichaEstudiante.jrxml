@@ -1,0 +1,944 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="carnetEstudiante" pageWidth="595" pageHeight="842" columnWidth="556" leftMargin="20" rightMargin="19" topMargin="20" bottomMargin="20" uuid="a4c235c9-086b-4146-bc9b-ae4b703c6504">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="1104"/>
+	<parameter name="imagesRealPath" class="java.lang.String"/>
+	<field name="emrNombre" class="java.lang.String"/>
+	<field name="perCi" class="java.lang.String"/>
+	<field name="perApellidos" class="java.lang.String"/>
+	<field name="perNombres" class="java.lang.String"/>
+	<field name="nivDescaripcion" class="java.lang.String"/>
+	<field name="parDescripcion" class="java.lang.String"/>
+	<field name="perDescripcion" class="java.lang.String"/>
+	<field name="perFechaNac" class="java.util.Date"/>
+	<field name="regFoto" class="java.lang.String"/>
+	<field name="fotoEmpStream" class="java.io.InputStream"/>
+	<field name="fotoStream" class="java.io.InputStream"/>
+	<field name="perGenero" class="java.lang.String"/>
+	<field name="perTelefono" class="java.lang.String"/>
+	<field name="perCallePrincipal" class="java.lang.String"/>
+	<field name="perCalleSecundaria" class="java.lang.String"/>
+	<field name="perViviendaEs" class="java.lang.String"/>
+	<field name="perNumeroVivienda" class="java.lang.String"/>
+	<field name="perLugarOcupa" class="java.lang.String"/>
+	<field name="perCuantosHermanos" class="java.lang.Integer"/>
+	<field name="perAlergias" class="java.lang.String"/>
+	<field name="perPresentaDificultad" class="java.lang.String"/>
+	<field name="perNumeHistClinica" class="java.lang.String"/>
+	<field name="perDesMed" class="java.lang.String"/>
+	<field name="perObservaciones" class="java.lang.String"/>
+	<field name="perCiPadre" class="java.lang.String"/>
+	<field name="perNombresPadre" class="java.lang.String"/>
+	<field name="perApellidosPadre" class="java.lang.String"/>
+	<field name="perFechaNacPadre" class="java.util.Date"/>
+	<field name="perEmailPadre" class="java.lang.String"/>
+	<field name="perTelefonoPadre" class="java.lang.String"/>
+	<field name="perCelularPadre" class="java.lang.String"/>
+	<field name="perDireccionPadre" class="java.lang.String"/>
+	<field name="perOcupacionPadre" class="java.lang.String"/>
+	<field name="perDireccionTrabajoPadre" class="java.lang.String"/>
+	<field name="perNumeHistClinicaPadre" class="java.lang.String"/>
+	<field name="perTituloPadre" class="java.lang.String"/>
+	<field name="perCiMadre" class="java.lang.String"/>
+	<field name="perNombresMadre" class="java.lang.String"/>
+	<field name="perApellidosMadre" class="java.lang.String"/>
+	<field name="perFechaNacMadre" class="java.util.Date"/>
+	<field name="perEmailMadre" class="java.lang.String"/>
+	<field name="perTelefonoMadre" class="java.lang.String"/>
+	<field name="perCelularMadre" class="java.lang.String"/>
+	<field name="perDireccionMadre" class="java.lang.String"/>
+	<field name="perOcupacionMadre" class="java.lang.String"/>
+	<field name="perDireccionTrabajoMadre" class="java.lang.String"/>
+	<field name="perNumeHistClinicaMadre" class="java.lang.String"/>
+	<field name="perTituloMadre" class="java.lang.String"/>
+	<field name="perCiRepresentante" class="java.lang.String"/>
+	<field name="perNombresRepresentante" class="java.lang.String"/>
+	<field name="perApellidosRepresentante" class="java.lang.String"/>
+	<field name="perFechaNacRepresentante" class="java.util.Date"/>
+	<field name="perEmailRepresentante" class="java.lang.String"/>
+	<field name="perTelefonoRepresentante" class="java.lang.String"/>
+	<field name="perCelularRepresentante" class="java.lang.String"/>
+	<field name="perDireccionRepresentante" class="java.lang.String"/>
+	<field name="perOcupacionRepresentante" class="java.lang.String"/>
+	<field name="perDireccionTrabajoRepresentante" class="java.lang.String"/>
+	<field name="perNumeHistClinicaRepresentante" class="java.lang.String"/>
+	<field name="perTituloRepresentante" class="java.lang.String"/>
+	<title>
+		<band height="135">
+			<image>
+				<reportElement uuid="be3fbacc-3207-493f-88aa-d9c5bed37404" x="247" y="0" width="71" height="64"/>
+				<imageExpression><![CDATA[$F{fotoEmpStream}]]></imageExpression>
+			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="728cbb48-3672-4f98-a8e8-4f533239f9d8" x="0" y="64" width="556" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{emrNombre}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement uuid="d1d40113-4f1f-4d84-9680-b6a4f482230e" x="217" y="-20" width="340" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("yyyy - MM - dd").format(new Date())]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c96935a7-d7cd-481d-8384-a6d89dd19c7b" x="2" y="82" width="556" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Año Lectivo "+$F{perDescripcion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e503f605-7aa6-4803-ac59-a40a2f44c004" x="31" y="101" width="78" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Año de Básica:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6899aa67-fd07-4823-b9a9-3126e983dbce" x="114" y="101" width="268" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nivDescaripcion}.toString()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="67a64866-7727-486c-985f-31e0714aa1fb" x="382" y="101" width="91" height="17"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Paralelo:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6d78df94-8423-4086-b562-ba09f0d5a9b0" x="473" y="101" width="83" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parDescripcion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="55790ab5-2fcc-484b-bae2-d8874cc60422" x="31" y="118" width="77" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Nombre Tutor:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d3708d7d-44c3-440c-8fea-c8d58f9f1968" x="114" y="118" width="442" height="17"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<text><![CDATA[Nombre Tutor]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="621" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement uuid="1a3317e3-c774-4c00-930e-18de3d5c80c8" x="21" y="4" width="536" height="283"/>
+			</rectangle>
+			<rectangle radius="10">
+				<reportElement uuid="fedae7db-7ddf-4a59-95a6-913b947c1429" x="21" y="420" width="535" height="138"/>
+			</rectangle>
+			<rectangle radius="10">
+				<reportElement uuid="0fbc929b-c81c-41f3-87e1-ff75ad717b4d" x="21" y="289" width="536" height="129"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="49dda2d4-6dff-4ce1-9f15-4d348d0b0f49" x="31" y="21" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Cédula de Identidad]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="28bf7115-23cc-452f-abea-34e23d5d080b" x="114" y="21" width="94" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perCi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="84344310-5be5-4222-8234-2e92230eb035" x="31" y="35" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Apellidos]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="71a9a569-4208-4144-b639-67c591d00e50" x="114" y="35" width="359" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perApellidos}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="ef4d87ed-733d-4329-83d0-851ea0945efa" mode="Opaque" x="475" y="20" width="77" height="77"/>
+				<imageExpression><![CDATA[$F{fotoStream}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement uuid="2a74ac0b-c19b-4739-9630-d05ec761a74d" x="31" y="48" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Nombres]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="868243ba-61d9-4894-ae81-aea91525f742" x="114" y="48" width="359" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perNombres}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f11bdb17-1063-4dad-bebe-8eea2438ac73" x="31" y="61" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Fecha Nacimiento]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="47404ac3-7d29-4106-b96e-8f2a7fea3c32" x="114" y="61" width="215" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd - MM - yyyy").format($F{perFechaNac})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c7416d6c-e096-41eb-895d-3855a5616685" x="329" y="61" width="53" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Nacionalidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a2e17608-0ea3-4bbb-a1d7-c76547a35ed5" x="385" y="61" width="88" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Ecuatoriana]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dab76b7d-c50c-407e-8d89-ed1be5494fd0" x="30" y="4" width="522" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10"/>
+				</textElement>
+				<text><![CDATA[INFORMACIÓN DEL ESTUDIANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="578d25ef-1cb9-47e7-9d58-05c2ad7d925c" x="31" y="74" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Género]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d8b61914-6f99-4990-9b2d-7e4911f82cc5" x="114" y="74" width="215" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{perGenero}.equals("F")?"FEMENINO":"MASCULINO")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9d930a32-b967-4c43-be60-53ea39eb1071" x="329" y="74" width="53" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Teléfono]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="0c47871d-4a00-46f3-8032-af84bb7f4341" x="385" y="74" width="88" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perTelefono}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="940decff-047b-4fa2-91b1-caef37d184bd" x="31" y="111" width="512" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Dirección Domicilio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ec133043-ab0b-4f6f-acd2-b3054e2a54db" x="31" y="87" width="77" height="24"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Lugar que ocupa entre los hermanos]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6349cb9f-79df-4d03-acb4-37731c8ab417" x="114" y="87" width="215" height="24"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perLugarOcupa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3285c86e-0d01-4d54-9189-53ae913ecc5b" x="31" y="132" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Calle Principal]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="83e1e670-c183-4936-a81e-9c42177fed0d" x="114" y="132" width="215" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perCallePrincipal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="95e6b1e9-d8fb-47d4-9903-25b4783b9bdd" x="329" y="132" width="81" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Número de Vivienda]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="5c9a0a16-9cbd-4b2e-826f-0a5d8f1a299b" x="410" y="132" width="133" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perNumeroVivienda}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="20375811-93aa-484e-9e0d-eaf27ef3531b" x="31" y="146" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Calle Secundaria]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="62151027-5c18-48cc-a3f2-b86c950e5db7" x="114" y="146" width="215" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perCalleSecundaria}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a1f1561d-f187-418a-a801-5af2b528cf73" x="329" y="146" width="81" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[La Vivienda es]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f75d3b83-ee9f-4143-93ea-fa990f29ec99" x="410" y="146" width="133" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perViviendaEs}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="14b18476-6194-4378-9683-e914d304c909" x="31" y="160" width="512" height="20"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Datos Médicos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a3ad50da-ddee-4b78-9041-7f80657b0947" x="31" y="183" width="166" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Alergías o intolerancia a medicamentos]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="42b0c417-436d-4f4b-abdc-6969669dd126" x="197" y="183" width="61" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{perAlergias}.equals("S")?"SI":"NO")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d52da775-1354-45db-a160-2cbba42335ae" x="329" y="183" width="81" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[N° Historia Clinica]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="9aa0936f-8ad1-452c-a8e8-f7a72bef2cda" x="410" y="183" width="133" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perNumeHistClinica}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9c2b4a56-2386-4e82-a2f3-0313fee76e7d" x="31" y="196" width="166" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Presenta alguna dificultad]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="73b90d79-be8e-43a7-b3a7-b188c45c42c3" x="197" y="196" width="61" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{perPresentaDificultad}.equals("S")?"SI":"NO")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="57d27e32-6ef1-41ed-8a2f-4e2ca4de3883" x="31" y="209" width="166" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Toma algún medicamento]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="3bf0a603-bc47-4c7a-8ed4-8664f7cf2811" x="197" y="209" width="346" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perDesMed}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9a07a843-c0a4-4394-b30d-0bcdeed6ac6a" x="31" y="226" width="77" height="13"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Observaciones]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="20fe644a-4307-42da-844e-04ebeeac956b" x="114" y="226" width="429" height="26"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perObservaciones}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="94a6332f-12cd-4258-b7c4-61abc038bf09" x="31" y="289" width="512" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[INFORMACIÓN PADRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="301a04f9-b053-4f25-871c-939270b82c06" x="31" y="303" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Cédula de Identidad]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e981be6d-b5d5-4878-afa5-4a86a36fbe2b" x="114" y="302" width="94" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perCiPadre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="06c951e2-d6ee-4bea-9c47-3f219ddfc743" x="114" y="316" width="429" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perApellidosPadre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0fa58e4b-5bd0-49fa-a017-568cd5b52d80" x="31" y="316" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Apellidos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4bb810eb-57eb-42f6-a5ae-2eb2c5f820b1" x="31" y="329" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Nombres]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="4af3db8b-145b-4923-b5c8-55a552b7c3f1" x="114" y="329" width="429" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perNombresPadre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="56d397f1-4be5-4c35-8ecd-726d7aa84b9e" x="114" y="342" width="215" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd - MM - yyyy").format($F{perFechaNacPadre})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="287d0664-f94e-4f95-8227-bf78c39687a2" x="329" y="342" width="81" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Nacionalidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="717f0d6c-b12a-4504-b19c-00ca2873bedc" x="31" y="342" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Fecha Nacimiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="95c4de7f-e175-48b2-a17b-dce9ce59354d" x="410" y="342" width="133" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Ecuatoriana]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="5eea5eae-c8d8-493f-aa35-53454cc44a19" x="410" y="355" width="132" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perTelefonoPadre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2793fde4-81e6-4ec2-a662-8c069b9ac6d8" x="329" y="355" width="81" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Teléfono]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cb97d371-7500-42ed-ac3d-7bae3e15a227" x="31" y="355" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Correo Electrónico]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="bebb4c7b-228f-4b78-86de-9c8558e4d03d" x="114" y="355" width="215" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perEmailPadre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="044311aa-e7b2-4a22-b69f-8c96f40e9f85" x="114" y="368" width="215" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perTituloPadre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e59ac2ac-c7d3-461c-8000-5bbba52b19e1" x="31" y="368" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Título]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="964c7da1-fbd4-4c5f-a0cb-f61d0004ff21" x="114" y="381" width="215" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perOcupacionPadre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="944f7f96-0591-43cb-af82-b3fab2795973" x="31" y="381" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Ocupación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a07fc4e8-7797-4251-b38e-657a0da3b3ba" x="31" y="394" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Lugar  de Trabajo]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="1b1eca56-339b-4425-b73d-91e13a1ff64e" x="114" y="394" width="428" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perDireccionTrabajoPadre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="61b55520-d44a-4e0d-a049-4cdc03ff9317" x="329" y="303" width="81" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[N° Historia Clinica]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="2cb7bbd9-847e-491a-843a-fb4dd9dc6b05" x="410" y="303" width="133" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perNumeHistClinicaPadre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="379b388e-19e9-4481-866d-fade0f58bf94" x="31" y="421" width="511" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[INFORMACIÓN MADRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="28e850eb-76f3-488b-a851-b9e2904bf695" x="329" y="437" width="81" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[N° Historia Clinica]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a74428b6-f45b-432b-836b-6c56f9c1cb3e" x="31" y="438" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Cédula de Identidad]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="7bbc6b02-429b-4d26-830f-224f0770a0e8" x="410" y="437" width="133" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perNumeHistClinicaMadre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="35ca0dec-a480-493d-a299-decba87b3155" x="114" y="437" width="94" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perCiMadre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="71982bf1-f3b7-409f-a0cc-2b21ae6d5e9e" x="114" y="451" width="429" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perApellidosMadre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="4897981c-74a8-4f53-ad90-9ceb8a9cb6e0" x="31" y="451" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Apellidos]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="af0e42be-a80d-47b0-97d3-7fcf37b16d41" x="114" y="465" width="429" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perNombresMadre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="664a251f-2d29-418c-99c1-ec3028239ea2" x="31" y="465" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Nombres]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="1e5c2cf9-1694-4724-9d8d-8f49caff1d4d" x="114" y="478" width="215" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd - MM - yyyy").format($F{perFechaNacMadre})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c1b7ebeb-0c56-4e27-91fb-7fc40835f497" x="31" y="478" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Fecha Nacimiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6ad5027c-6db8-4311-8155-73d24a7e88d9" x="329" y="478" width="81" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Nacionalidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8399abcc-766a-46bd-ba87-44eac4f2475a" x="410" y="478" width="133" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Ecuatoriana]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6085cdb3-0b24-4303-aa1a-37889f916ca2" x="31" y="491" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Correo Electrónico]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="8f5e14dd-0a0f-4a24-9819-cb7f11518b5e" x="114" y="491" width="215" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perEmailMadre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="6552683d-2ab9-47d0-a503-c89be545f372" x="410" y="491" width="132" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perTelefonoMadre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8b2b35bd-8625-4264-8b99-43629a314067" x="329" y="491" width="81" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Teléfono]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="df32fcc5-a3a5-4e6c-ac34-9fddf5fb3900" x="114" y="504" width="215" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perTituloMadre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="f835fd73-b6ec-415e-81af-f5217aec52a9" x="31" y="504" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Título]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f1b2d3ba-5d63-424a-949a-a1777cdbd7e0" x="114" y="517" width="215" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perOcupacionMadre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="15fa9e7b-61fb-49ed-a12b-f7cf196a1de3" x="31" y="517" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Ocupación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d0218bc9-75de-4c01-b819-f7e3e784a733" x="31" y="530" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Lugar  de Trabajo]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="da80c6fa-d24d-49d9-8d7c-5d47fce469fb" x="114" y="530" width="428" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perDireccionTrabajoMadre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="222a2e08-35cd-4826-adb0-5312b24a6ce7" x="329" y="87" width="53" height="24"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Cuantos Hermanos?]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="81d7eb5c-2662-472c-b14b-354e5c09118e" x="385" y="87" width="88" height="24"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perCuantosHermanos}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="308">
+			<rectangle radius="10">
+				<reportElement uuid="4cf598b0-21c9-4cf6-96c2-d80c65e6422c" x="23" y="3" width="535" height="155"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="a7c9176b-f500-418a-909e-c60e4e919f1c" x="32" y="3" width="511" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[INFORMACIÓN REPRESENTANTE]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="243ad92a-95a2-40a1-9ad9-7d1dda8c6f80" x="115" y="70" width="429" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perNombresRepresentante}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="1cd4ab75-c66c-4e46-b3f2-5e3492b38a1f" x="115" y="42" width="94" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perCiRepresentante}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="4b86d0a7-3fb0-4dd5-8598-8fc99853d467" x="32" y="43" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Cédula de Identidad]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="43e6de94-154f-4818-918b-b92fc8a6b265" x="115" y="96" width="215" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perEmailRepresentante}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="09656da6-e2fe-4d20-a311-ec5688b29760" x="330" y="83" width="81" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Nacionalidad]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="2a55d4a5-c981-428a-a180-7807ac5c5f11" x="115" y="83" width="215" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd - MM - yyyy").format($F{perFechaNacRepresentante})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e95a7523-e94e-44fa-9742-72d92ce21d9c" x="32" y="135" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Lugar  de Trabajo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6ec4f8c5-0311-4007-a6fe-fad3440fb3c1" x="330" y="42" width="81" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[N° Historia Clinica]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="08bfb506-445d-42da-87b2-79019fb3907e" x="411" y="42" width="133" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perNumeHistClinicaRepresentante}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="72c4eece-26e2-489d-ac9e-a0f5ac30e921" x="32" y="109" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Título]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a201a0a9-01bc-46c0-aca5-c420461ab844" x="330" y="96" width="81" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Teléfono]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b29df2f0-47ee-4700-b6ae-c7c3603a8d1e" x="32" y="83" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Fecha Nacimiento]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d9155f35-6a33-4bcf-beed-5d9c16ebc08c" x="411" y="96" width="133" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perTelefonoRepresentante}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="5648181d-a0c0-4c87-ae2f-bead14b1276a" x="115" y="122" width="215" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perOcupacionRepresentante}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="433406d3-d525-411c-a705-521652c315b6" x="115" y="135" width="428" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perDireccionTrabajoRepresentante}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="27715efa-72ff-4c14-bb63-9e30b7e51407" x="411" y="83" width="133" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<text><![CDATA[Ecuatoriana]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d144b7da-7f19-46ef-b68a-7b3e2499bd1c" x="32" y="56" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Apellidos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8a570edb-f84f-4c2c-a9d8-9a7938089a6f" x="32" y="70" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Nombres]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="4011f7f6-e3e8-4774-976f-361e31a0111d" x="115" y="109" width="215" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perTituloRepresentante}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8e5ded79-1a73-4070-a637-7347cda3a377" x="32" y="96" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Correo Electrónico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="758889df-31da-441a-bce3-67dd78353100" x="32" y="122" width="77" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Ocupación]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="e92e14b5-aca0-4be1-9aef-53e5267bf1a5" x="115" y="56" width="429" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perApellidosRepresentante}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="87969443-8970-404f-9c11-9af24f6a0e2d" x="81" y="277" width="116" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="79d7cc6e-9ec9-47b0-9ad8-0dccf67d98ed" x="81" y="280" width="116" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[FIRMA DOCENTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6ee7023e-c3be-406e-9457-5ec0979e43b2" x="344" y="280" width="129" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[FIRMA REPRESENTANTE]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="5f648894-6cf8-46ce-a9a7-f8059e0c40b0" x="344" y="277" width="129" height="1"/>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="30">
+			<textField>
+				<reportElement uuid="31ed5ffc-584e-4e96-bf97-c2192cc64a0d" x="444" y="10" width="70" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA["Pag. " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="921a7193-a893-4140-9e12-9b16e475f245" x="514" y="10" width="42" height="20"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

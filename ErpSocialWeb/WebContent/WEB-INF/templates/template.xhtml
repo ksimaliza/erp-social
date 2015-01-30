@@ -60,22 +60,26 @@
 															 />
 													</td>
 													<td id="HeaderIcon7"></td>
-													<td style="COLOR: #990099; height: 16px; text-align: right; ;"><h:commandLink
+													<td style="COLOR: #990099; height: 16px; text-align: right;;"><h:commandLink
 															style="FONT-SIZE: x-small; FONT-FAMILY: 'Arial'; COLOR: #990099; text-decoration:none;padding:0px 5px;white-space: nowrap;font-weight: bold;"
 															onclick="javascript:ButtonAyuda_onclick();" title="Ayuda">
 															<h:outputText value="Ayuda" />
 															<f:ajax event="click" />
 														</h:commandLink></td>
 													<td id="HeaderIcon5"></td>
-
-													<td
-														style="COLOR: #990099; height: 16px; text-align: right; width: 50px;">
-														<h:commandLink title="Salir"
-															style="FONT-SIZE: x-small; FONT-FAMILY: 'Arial'; COLOR: #990099; text-decoration:none;padding:0px 5px;white-space: nowrap;font-weight: bold;"
-															value="#{i18n['login.cerrar.sesion']}"
-															action="#{loginController.cerrarSesion}" />
+													<td>
+													
+													<p:commandLink styleClass="no-decor" style="FONT-SIZE: x-small; FONT-FAMILY: 'Arial'; COLOR: #990099; text-decoration:none;padding:0px 5px;white-space: nowrap;font-weight: bold;"
+								title="Salir"
+								
+								actionListener="#{loginController.cerrarSesion}"
+								>
+								<h:outputLabel value="Cerrar Sesión" />
+								<h:graphicImage value="/resources/img/headerIcon06.png" alt="Salir"/>
+						</p:commandLink>
 													</td>
-													<td id="HeaderIcon6"></td>
+
+													
 													<td></td>
 												</tr>
 												<tr style="height:30px;"></tr>

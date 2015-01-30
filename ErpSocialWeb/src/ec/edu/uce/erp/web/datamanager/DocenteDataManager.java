@@ -25,7 +25,7 @@ public class DocenteDataManager extends BaseDataManager {
 	/**
 	 * 
 	 */
-	private static final Logger slf4jLogger = LoggerFactory.getLogger(PerfilDataManager.class);
+	private static final Logger slf4jLogger = LoggerFactory.getLogger(DocenteDataManager.class);
 	
 	private static final long serialVersionUID = 1L;
 	

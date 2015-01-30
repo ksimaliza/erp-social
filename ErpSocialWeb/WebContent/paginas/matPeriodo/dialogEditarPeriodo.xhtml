@@ -12,17 +12,42 @@
 				<table class="formulario">
 					
 						<tr>
-						<td width="30%">
+						<td class="label">
 							<h:outputLabel for="txtDescrip" value="#{i18n['erp.matricula.periodo.descripcion']}" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}"
+								styleClass="item-required" />
 							
 						</td>
-						<td width="70%">
-							<p:inputTextarea id="txtDir" style="width: 100%" autoResize="false"  value="#{periodoDataManager.periodoInstancia.perDescripcion}"
-								required="true" label="#{i18n['erp.matricula.periodo.descripcion']}"/>
+						<td class="value">
+							<p:inputText id="txtDescrip" style="width: 100%" autoResize="false"  value="#{periodoDataManager.periodoInstancia.perDescripcion}"
+								required="true" 
+								requiredMessage="El campo #{i18n['erp.matricula.periodo.descripcion']} es Obligatorio."
+								label="#{i18n['erp.matricula.periodo.descripcion']}"/>
 						</td>
 					</tr>
+						
+					<tr>
+						<td class="label">
+							<h:outputLabel for="txtFecInicio" value="Fecha Inicio" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}"
+								styleClass="item-required" />
+						</td>
+						<td class="value">
+							<p:calendar  pattern="dd/MM/yyyy" requiredMessage="El campo Fecha Inicio es Obligatorio" locale="es" id="txtFecInicio" style="width: 100%" navigator="true" value="#{periodoDataManager.periodoInstancia.perFechaInicio}"  showOn="button" required="true"/>
+						</td>	
+					</tr>
 					
-					
+						<tr>
+						<td class="label">
+							<h:outputLabel for="txtFecFinal" value="Fecha Final" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}"
+								styleClass="item-required" />
+						</td>
+						<td class="value">
+							<p:calendar  pattern="dd/MM/yyyy" requiredMessage="El campo Fecha Final es Obligatorio" locale="es" id="txtFecFinal" style="width: 100%" navigator="true" value="#{periodoDataManager.periodoInstancia.perFechaFinal}"  showOn="button" required="true"/>
+						</td>	
+					</tr>
+				
 				</table>
 			</p:panel>
 			<p:panel id="pnlBotones">

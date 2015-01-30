@@ -14,11 +14,13 @@
 						<tr>
 						<td width="30%">
 							<h:outputLabel for="txtDescrip" value="#{i18n['erp.matricula.nivel.descripcion']}" />
+								<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 							
 						</td>
 						<td width="70%">
-							<p:inputTextarea id="txtDir" style="width: 100%" autoResize="false"  value="#{nivelDataManager.nivelInstancia.nivDescaripcion}"
-								required="true" label="#{i18n['erp.matricula.nivel.descripcion']}"/>
+							<p:inputText id="txtDescrip" style="width: 100%" autoResize="false"  value="#{nivelDataManager.nivelInstancia.nivDescaripcion}"
+								required="true" label="#{i18n['erp.matricula.nivel.descripcion']}"
+								requiredMessage="El campo #{i18n['erp.matricula.nivel.descripcion']} es Obligatorio"/>
 						</td>
 					</tr>
 					

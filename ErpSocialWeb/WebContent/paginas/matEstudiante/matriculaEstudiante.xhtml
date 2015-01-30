@@ -117,6 +117,12 @@
 						actionListener="#{estudianteController.carnet(estudiante)}">
 						<h:graphicImage value="/resources/img/icono02.png" />
 					</p:commandLink>
+					<h:outputLabel value="&#160;|&#160;" />
+					<p:commandLink styleClass="no-decor" ajax="false"
+						title="Generar Ficha Estudiantil"
+						actionListener="#{estudianteController.fichaEstudiantil(estudiante)}">
+						<h:graphicImage value="/resources/img/icono02.png" />
+					</p:commandLink>
 					</h:panelGroup>
 				</p:column>
 				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%" exportable="false">
@@ -125,12 +131,34 @@
 								title="#{i18n['label.editar']}"
 								oncomplete="dlgEditarEstudiante.show()"
 								actionListener="#{estudianteController.cargarDatosEstudiante(estudiante)}"
-								process="@this" update=":formEditarEstudiante:pnlEditarEstudiante,:formEditarEstudiante:pnlNuevoRepresentante">
+								process="@this" update=":formEditarEstudiante:pnlEditarEstudiante,:formEditarEstudiante:pnInformacion">
 								<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
+						
+						<p:commandLink styleClass="no-decor"
+							title="Eliminar Estudiante" oncomplete="dlgEliminar.show()">
+							<f:setPropertyActionListener target="#{estudianteController.codEstudiante}" value="#{estudiante.estCodigo}" />
+							<h:graphicImage value="/resources/img/delete.gif" alt="Eliminar"/>
+						</p:commandLink>
+						
+						
+						
 					</h:panelGroup>
 				</p:column>
-			</p:dataTable>			
+			</p:dataTable>	
+			
+			<!-- Reset clave usuario -->
+			<p:confirmDialog id="dlgEliminar" width="400" widgetVar="dlgEliminar"
+				message="Desea eliminar el estudiante seleccionado?"
+				header="Eliminar Estudiante" appendTo="@(body)">
+				<p:commandButton value="#{i18n['label.aceptar']}"
+					actionListener="#{estudianteController.eliminarEstudiante()}"
+					oncomplete="dlgEliminar.hide()"
+					update=":formEstudiante:pnlMessages,tablaEstudiante" process="@this"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{i18n['label.cancelar']}" type="button" 
+					onclick="dlgEliminar.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>		
 			
 		</h:form>			
 			<ui:include src="dialogNuevoEstudiante.xhtml" />

@@ -61,8 +61,8 @@ public class VistaHistoricoTransaccionController extends BaseController {
 		
 		try {
 			
-			this.historicoTransaccionDataManager
-					.getHistoricoTransaccionBuscar().setEmrPk(this.historicoTransaccionDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
+			//this.historicoTransaccionDataManager
+				//	.getHistoricoTransaccionBuscar().setEmrPk(this.historicoTransaccionDataManager.getUsuarioSession().getEmpresaTbl().getEmrPk());
 			
 			List<VistaHistoricoTransaccion> listVistaHistoricoTransaccions = servicioAdministracion
 					.obtenerVistaHistoricoTransaccion(this.historicoTransaccionDataManager.getHistoricoTransaccionBuscar());

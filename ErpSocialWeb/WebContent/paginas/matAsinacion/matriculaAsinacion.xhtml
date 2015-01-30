@@ -26,20 +26,30 @@
 			</p:toolbar>
 			
 			<p:panel id="pnlBuscar" header="#{i18n['erp.matricula.asinacion.buscar']}">
-				<table class="formulario">
+				<table class="formulario" id="tableStyleRe">
 					<tr>
-						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.asinacion.nivel']}"  /> </td>
-						<td><p:selectOneMenu id="nivel" value="#{asinacionDataManager.nivelCodigo}" filter="true" >
+						<td class="label"><h:outputLabel value="#{i18n['erp.matricula.asinacion.nivel']}"  /> </td>
+						<td><p:selectOneMenu id="nivel" value="#{asinacionDataManager.nivelCodigo}" filter="true" 
+						style="width:200px">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{asinacionController.asinacionDataManager.nivelList}" var="nivel" itemLabel="#{nivel.nivDescaripcion} " itemValue="#{nivel.nivCodigo}"/>
 								<p:ajax listener="#{asinacionController.buscarNivelParalelo}" process="@this" update="paralelo"/>
 							</p:selectOneMenu>
 						</td>
+						<td>
+						<p:commandButton id="btnBuscar"
+					icon="ui-icon-search"	
+					actionListener="#{asinacionController.buscarAsignacion}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscar"
+					update=":formAsinacion:pnlMessages,tablaAsinacion,pnlBuscar" />
+						</td>
+						
 					</tr>
 					
 					<tr>
-						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.asinacion.paralelo']}"  /> </td>
-						<td><p:selectOneMenu id="paralelo" value="#{asinacionDataManager.paraleloCodigo}" filter="true" >
+						<td class="label"><h:outputLabel value="#{i18n['erp.matricula.asinacion.paralelo']}"  /> </td>
+						<td><p:selectOneMenu id="paralelo" value="#{asinacionDataManager.paraleloCodigo}" filter="true" style="width:200px">
 								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 								<f:selectItems value="#{asinacionController.asinacionDataManager.nivelParaleloList}" var="nivelParalelo" itemLabel="#{nivelParalelo.matParalelo.parDescripcion}" itemValue="#{nivelParalelo.matParalelo.parCodigo}"/>
 							</p:selectOneMenu>
@@ -52,11 +62,7 @@
 			</p:panel>
 
 			<p:panel id="botonesBuscar">
-				<p:commandButton id="btnBuscar"
-					actionListener="#{asinacionController.buscarAsignacion}"
-					value="#{i18n['label.buscar']}" 
-					process="@this,pnlBuscar"
-					update=":formAsinacion:pnlMessages,tablaAsinacion,pnlBuscar" />
+				
 			</p:panel>
 
 

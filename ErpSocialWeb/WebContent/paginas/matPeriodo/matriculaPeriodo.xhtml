@@ -25,12 +25,20 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 			<p:panel id="pnlBuscarPeriodo" header="#{i18n['erp.matricula.periodo.buscar']}">
-				<table class="formulario">
+				<table class="formulario" id="tableStyleRe">
 					<tr >
 						<td width="30%"><h:outputLabel value="#{i18n['erp.matricula.periodo.descripcion']}" /> </td>
-					<td width="70%">
-							<p:inputText id="txtDescBuscar"
+					<td width="60%">
+							<p:inputText id="txtDescBuscar" style="width: 400px"
 								value="#{periodoDataManager.periodoBuscar.perDescripcion}" />
+						</td>
+						<td width="10%">
+						<p:commandButton id="btnBuscar"
+						icon="ui-icon-search"
+					actionListener="#{periodoController.buscarPeriodo}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscarPeriodo"
+					update=":formPeriodo:pnlMessages,tablaPeriodo,pnlBuscarPeriodo" />
 						</td>
 					
 					</tr>
@@ -38,11 +46,7 @@
 			</p:panel>
 			
 			<p:panel id="botonesBuscar">
-				<p:commandButton id="btnBuscar"
-					actionListener="#{periodoController.buscarPeriodo}"
-					value="#{i18n['label.buscar']}" 
-					process="@this,pnlBuscarPeriodo"
-					update=":formPeriodo:pnlMessages,tablaPeriodo,pnlBuscarPeriodo" />
+				
 			</p:panel>
 
 
@@ -56,23 +60,34 @@
 	<f:facet name="header">
 		#{i18n['erp.matricula.periodo.lista']}
 	</f:facet>
-	<p:column headerText="#" styleClass="centered" width="5%">
+				<p:column headerText="#" styleClass="centered" width="5%">
 		#{rowIndex+1}
 	</p:column>
-<p:column headerText="#{i18n['erp.matricula.periodo.descripcion']}" width="35%">
+				<p:column headerText="#{i18n['erp.matricula.periodo.descripcion']}"
+					width="35%">
 					<h:outputText value="#{periodos.perDescripcion}" />
 				</p:column>
-				<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
+				<p:column headerText="Fecha Inicio"
+					width="35%">
+					<h:outputText value="#{periodos.perFechaInicio}" />
+				</p:column>
+				<p:column headerText="Fecha Final"
+					width="35%">
+					<h:outputText value="#{periodos.perFechaFinal}" />
+				</p:column>
+				<p:column headerText="#{i18n['label.opciones']}"
+					styleClass="centered" width="10%">
 					<h:panelGroup>
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.editar']}"
 							oncomplete="dlgEditarPeriodo.show()"
 							actionListener="#{periodoController.cargarDatosPeriodo(periodos)}"
 							process="@this" update=":formEditarPeriodo:pnlEditarPeriodo">
-							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
+							<h:graphicImage value="/resources/img/edit.png"
+								alt="#{i18n['label.editar']}" />
 						</p:commandLink>
 					</h:panelGroup>
-					</p:column>
+				</p:column>
 			</p:dataTable>			
 	
 </h:form>			
