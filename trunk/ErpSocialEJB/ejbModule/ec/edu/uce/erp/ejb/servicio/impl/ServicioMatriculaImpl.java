@@ -1072,7 +1072,7 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	@Override
 	public List<MatriculaVieDTO> readFicha(MatriculaVieDTO objectDTO) throws SeguridadesException
 	{
-		slf4jLogger.info("readCarnet");
+		slf4jLogger.info("readFicha");
 		List<MatriculaVieDTO> lista = null;
 		try {
 			lista = matriculaFactoryDAO.getMatriculaVieDAOImpl().getFichaEstudiante(objectDTO);
