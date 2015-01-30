@@ -78,7 +78,7 @@ public class EmpresaDAOImpl extends AbstractFacadeImpl<Empresa> implements Empre
 			}
 			
 			criteriaQuery.where(criteriaBuilder.and(criteriaList.toArray(new Predicate[0])));
-			criteriaQuery.orderBy(criteriaBuilder.asc(fromEmpresa.get("emrPk")));
+			criteriaQuery.orderBy(criteriaBuilder.asc(fromEmpresa.get("emrNombre")));
 			
 			TypedQuery<Empresa> typedQuery = entityManager.createQuery(criteriaQuery);
 			
