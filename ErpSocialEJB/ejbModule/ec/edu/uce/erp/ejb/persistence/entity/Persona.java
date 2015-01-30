@@ -74,6 +74,57 @@ public class Persona implements Serializable {
 	
 	@Column(name="per_genero")
 	private String perGenero;
+	
+	@Column(name="per_calle_principal")
+	private String perCallePrincipal;
+	
+	@Column(name="per_calle_secundaria")
+	private String perCalleSecundaria;
+	
+	@Column(name="per_vivienda_es")
+	private String perViviendaEs;
+	
+	@Column(name="per_numero_vivienda")
+	private String perNumeroVivienda;
+	@Column(name="per_lugar_ocupa")
+	private String perLugarOcupa;
+	
+	@Column(name="per_cuantos_hermanos")
+	private Integer perCuantosHermanos;
+	
+	
+	@Column(name="per_alergias")
+	private String perAlergias;
+	
+	@Column(name="per_presenta_dificultad")
+	private String perPresentaDificultad;
+	
+	
+	@Column(name="per_nume_hist_clinica")
+	private String perNumeHistClinica;
+	
+	
+	@Column(name="per_des_med")
+	private String perDesMed;
+	
+	
+	
+	@Column(name="per_observaciones")
+	private String per_observaciones;
+	
+	
+	@Column(name="per_titulo")
+	private String perTitulo;
+	
+	
+	@Column(name="per_ocupacion")
+	private String perOcupacion;
+	
+	
+	@Column(name="per_direccion_trabajo")
+	private String perDireccionTrabajo;
+	
+	
 
 	@Transient
 	private Boolean perFotoVerificar;
@@ -83,13 +134,7 @@ public class Persona implements Serializable {
 	@OneToMany(mappedBy="personaTbl")
 	private List<Empleado> empleadoTbls;
 
-	//bi-directional many-to-one association to Estudiante
-	@OneToMany(mappedBy="personaTbl")
-	private List<Estudiante> estudianteTbls;
 
-	//bi-directional many-to-one association to PadreRepresentante
-	@OneToMany(mappedBy="personaTbl")
-	private List<PadreRepresentante> padreRepresentanteTbls;
 
 	//bi-directional many-to-one association to PersonaCertificado
 	@OneToMany(mappedBy="personaTbl")
@@ -163,9 +208,7 @@ public class Persona implements Serializable {
 	@JoinColumn(name="id_usuario")
 	private Usuario segtUsuario;
 
-	//bi-directional many-to-one association to Profesor
-	@OneToMany(mappedBy="personaTbl")
-	private List<Profesor> profesorTbls;
+	
 
 	public Persona() {
 	}
@@ -289,49 +332,7 @@ public class Persona implements Serializable {
 		return empleadoTbl;
 	}
 
-	public List<Estudiante> getEstudianteTbls() {
-		return this.estudianteTbls;
-	}
-
-	public void setEstudianteTbls(List<Estudiante> estudianteTbls) {
-		this.estudianteTbls = estudianteTbls;
-	}
-
-	public Estudiante addEstudianteTbl(Estudiante estudianteTbl) {
-		getEstudianteTbls().add(estudianteTbl);
-		estudianteTbl.setPersonaTbl(this);
-
-		return estudianteTbl;
-	}
-
-	public Estudiante removeEstudianteTbl(Estudiante estudianteTbl) {
-		getEstudianteTbls().remove(estudianteTbl);
-		estudianteTbl.setPersonaTbl(null);
-
-		return estudianteTbl;
-	}
-
-	public List<PadreRepresentante> getPadreRepresentanteTbls() {
-		return this.padreRepresentanteTbls;
-	}
-
-	public void setPadreRepresentanteTbls(List<PadreRepresentante> padreRepresentanteTbls) {
-		this.padreRepresentanteTbls = padreRepresentanteTbls;
-	}
-
-	public PadreRepresentante addPadreRepresentanteTbl(PadreRepresentante padreRepresentanteTbl) {
-		getPadreRepresentanteTbls().add(padreRepresentanteTbl);
-		padreRepresentanteTbl.setPersonaTbl(this);
-
-		return padreRepresentanteTbl;
-	}
-
-	public PadreRepresentante removePadreRepresentanteTbl(PadreRepresentante padreRepresentanteTbl) {
-		getPadreRepresentanteTbls().remove(padreRepresentanteTbl);
-		padreRepresentanteTbl.setPersonaTbl(null);
-
-		return padreRepresentanteTbl;
-	}
+	
 
 	public List<PersonaCertificado> getPersonaCertificadoTbls() {
 		return this.personaCertificadoTbls;
@@ -441,28 +442,6 @@ public class Persona implements Serializable {
 		this.segtUsuario = segtUsuario;
 	}
 
-	public List<Profesor> getProfesorTbls() {
-		return this.profesorTbls;
-	}
-
-	public void setProfesorTbls(List<Profesor> profesorTbls) {
-		this.profesorTbls = profesorTbls;
-	}
-
-	public Profesor addProfesorTbl(Profesor profesorTbl) {
-		getProfesorTbls().add(profesorTbl);
-		profesorTbl.setPersonaTbl(this);
-
-		return profesorTbl;
-	}
-
-	public Profesor removeProfesorTbl(Profesor profesorTbl) {
-		getProfesorTbls().remove(profesorTbl);
-		profesorTbl.setPersonaTbl(null);
-
-		return profesorTbl;
-	}
-
 	public String getPerGenero() {
 		return perGenero;
 	}
@@ -471,9 +450,124 @@ public class Persona implements Serializable {
 		this.perGenero = perGenero;
 	}
 	
-	//Metodo para calcular la Edad de la Persona
 	
-	 public Short getEdad() {
+	 public String getPerCallePrincipal() {
+		return perCallePrincipal;
+	}
+
+	public void setPerCallePrincipal(String perCallePrincipal) {
+		this.perCallePrincipal = perCallePrincipal;
+	}
+
+	public String getPerCalleSecundaria() {
+		return perCalleSecundaria;
+	}
+
+	public void setPerCalleSecundaria(String perCalleSecundaria) {
+		this.perCalleSecundaria = perCalleSecundaria;
+	}
+
+	public String getPerViviendaEs() {
+		return perViviendaEs;
+	}
+
+	public void setPerViviendaEs(String perViviendaEs) {
+		this.perViviendaEs = perViviendaEs;
+	}
+
+	public String getPerNumeroVivienda() {
+		return perNumeroVivienda;
+	}
+
+	public void setPerNumeroVivienda(String perNumeroVivienda) {
+		this.perNumeroVivienda = perNumeroVivienda;
+	}
+	
+	
+
+	public String getPerLugarOcupa() {
+		return perLugarOcupa;
+	}
+
+	public void setPerLugarOcupa(String perLugarOcupa) {
+		this.perLugarOcupa = perLugarOcupa;
+	}
+
+	public Integer getPerCuantosHermanos() {
+		return perCuantosHermanos;
+	}
+
+	public void setPerCuantosHermanos(Integer perCuantosHermanos) {
+		this.perCuantosHermanos = perCuantosHermanos;
+	}
+
+	public String getPerAlergias() {
+		return perAlergias;
+	}
+
+	public void setPerAlergias(String perAlergias) {
+		this.perAlergias = perAlergias;
+	}
+
+	public String getPerPresentaDificultad() {
+		return perPresentaDificultad;
+	}
+
+	public void setPerPresentaDificultad(String perPresentaDificultad) {
+		this.perPresentaDificultad = perPresentaDificultad;
+	}
+
+	public String getPerNumeHistClinica() {
+		return perNumeHistClinica;
+	}
+
+	public void setPerNumeHistClinica(String perNumeHistClinica) {
+		this.perNumeHistClinica = perNumeHistClinica;
+	}
+
+	public String getPerDesMed() {
+		return perDesMed;
+	}
+
+	public void setPerDesMed(String perDesMed) {
+		this.perDesMed = perDesMed;
+	}
+
+	public String getPer_observaciones() {
+		return per_observaciones;
+	}
+
+	public void setPer_observaciones(String per_observaciones) {
+		this.per_observaciones = per_observaciones;
+	}
+
+	
+	public String getPerTitulo() {
+		return perTitulo;
+	}
+
+	public void setPerTitulo(String perTitulo) {
+		this.perTitulo = perTitulo;
+	}
+
+	public String getPerOcupacion() {
+		return perOcupacion;
+	}
+
+	public void setPerOcupacion(String perOcupacion) {
+		this.perOcupacion = perOcupacion;
+	}
+
+	public String getPerDireccionTrabajo() {
+		return perDireccionTrabajo;
+	}
+
+	public void setPerDireccionTrabajo(String perDireccionTrabajo) {
+		this.perDireccionTrabajo = perDireccionTrabajo;
+	}
+
+	//Metodo para calcular la Edad de la Persona
+	public Short getEdad() {
 	    	
 	    	if (this.getPerFechaNac() == null) return 0;
 	    	

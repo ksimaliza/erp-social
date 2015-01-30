@@ -22,5 +22,8 @@ public interface MatriculaVieDAO extends AbstractFacade<MatriculaVieDTO>{
 	List<MatriculaVieDTO> getByAndDistinctDocente(MatriculaVieDTO objectDTO)
 			throws SeguridadesException;
 
+	List<MatriculaVieDTO> getFichaEstudiante(MatriculaVieDTO objectDTO)
+			throws SeguridadesException;
+
 	
 }

@@ -71,7 +71,17 @@ public class EstudianteListDTO implements Serializable {
 	@Column(name="reg_codigo")
 	private Integer regCodigo;
 	
+	@Column(name="est_madre")
+	private Integer estMadre;
 
+	@Column(name="est_padre")
+	private Integer estPadre;
+	
+	@Column(name="est_representante")
+	private Integer estRepresentante;
+	
+	
+	
 	public EstudianteListDTO() {
 	}
 
@@ -194,5 +204,30 @@ public class EstudianteListDTO implements Serializable {
 	public void setRegCodigo(Integer regCodigo) {
 		this.regCodigo = regCodigo;
 	}
+
+	public Integer getEstMadre() {
+		return estMadre;
+	}
+
+	public void setEstMadre(Integer estMadre) {
+		this.estMadre = estMadre;
+	}
+
+	public Integer getEstPadre() {
+		return estPadre;
+	}
+
+	public void setEstPadre(Integer estPadre) {
+		this.estPadre = estPadre;
+	}
+
+	public Integer getEstRepresentante() {
+		return estRepresentante;
+	}
+
+	public void setEstRepresentante(Integer estRepresentante) {
+		this.estRepresentante = estRepresentante;
+	}
+	
 
 }

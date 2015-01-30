@@ -12,6 +12,8 @@ public interface EstudianteDAO extends AbstractFacade<EstudianteDTO> {
 			throws SeguridadesException;
 	
 	public void updateEstadoEstudiante(Integer codEstudiante) throws SeguridadesException;
+	
+	public void eliminarEstudiante(Integer idPersona) throws SeguridadesException;
 
 	
 }

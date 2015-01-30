@@ -2,6 +2,7 @@ package ec.edu.uce.erp.ejb.persistence.entity.matriculacion;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -29,6 +30,14 @@ public class EstudianteDTO implements Serializable {
 	
 	@Column(name="est_empresa")
 	private Integer estEmpresa;
+	@Column(name="est_madre")
+	private Integer estMadre;
+	
+	@Column(name="est_padre")
+	private Integer estPadre;
+	
+	@Column(name="est_representante")
+	private Integer estRepresentante;
 
 	
 	//bi-directional many-to-one association to EstudianteRepresentanteDTO
@@ -116,6 +125,30 @@ public class EstudianteDTO implements Serializable {
 
 	public void setEstEmpresa(Integer estEmpresa) {
 		this.estEmpresa = estEmpresa;
+	}
+
+	public Integer getEstMadre() {
+		return estMadre;
+	}
+
+	public void setEstMadre(Integer estMadre) {
+		this.estMadre = estMadre;
+	}
+
+	public Integer getEstPadre() {
+		return estPadre;
+	}
+
+	public void setEstPadre(Integer estPadre) {
+		this.estPadre = estPadre;
+	}
+
+	public Integer getEstRepresentante() {
+		return estRepresentante;
+	}
+
+	public void setEstRepresentante(Integer estRepresentante) {
+		this.estRepresentante = estRepresentante;
 	}
 
 	

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import java.util.List;
+import java.util.Date;
 
 
 /**
@@ -28,6 +29,12 @@ public class PeriodoDTO implements Serializable {
 	
 	@Column(name="per_empresa")
 	private Integer perEmpresa;
+	@Temporal(TemporalType.DATE)
+	@Column(name="per_fecha_inicio")
+	private Date perFechaInicio;
+	@Temporal(TemporalType.DATE)
+	@Column(name="per_fecha_final")
+	private Date perFechaFinal;
 
 	//bi-directional many-to-one association to AsinacionDTO
 	@OneToMany(mappedBy="matPeriodo")
@@ -80,6 +87,22 @@ public class PeriodoDTO implements Serializable {
 
 	public void setPerEmpresa(Integer perEmpresa) {
 		this.perEmpresa = perEmpresa;
+	}
+
+	public Date getPerFechaInicio() {
+		return perFechaInicio;
+	}
+
+	public void setPerFechaInicio(Date perFechaInicio) {
+		this.perFechaInicio = perFechaInicio;
+	}
+
+	public Date getPerFechaFinal() {
+		return perFechaFinal;
+	}
+
+	public void setPerFechaFinal(Date perFechaFinal) {
+		this.perFechaFinal = perFechaFinal;
 	}
 
 

@@ -47,13 +47,7 @@ public class AnioLectivo implements Serializable {
 	@Column(name="ani_lectivo_nombre")
 	private String aniLectivoNombre;
 
-	//bi-directional many-to-one association to MatAnio
-	@OneToMany(mappedBy="anioLectivoTbl")
-	private List<MatAnio> matAnioTbls;
-
-	//bi-directional many-to-one association to Matricula
-	@OneToMany(mappedBy="anioLectivoTbl")
-	private List<Matricula> matriculaTbls;
+	
 
 	public AnioLectivo() {
 	}
@@ -98,48 +92,6 @@ public class AnioLectivo implements Serializable {
 		this.aniLectivoNombre = aniLectivoNombre;
 	}
 
-	public List<MatAnio> getMatAnioTbls() {
-		return this.matAnioTbls;
-	}
 
-	public void setMatAnioTbls(List<MatAnio> matAnioTbls) {
-		this.matAnioTbls = matAnioTbls;
-	}
-
-	public MatAnio addMatAnioTbl(MatAnio matAnioTbl) {
-		getMatAnioTbls().add(matAnioTbl);
-		matAnioTbl.setAnioLectivoTbl(this);
-
-		return matAnioTbl;
-	}
-
-	public MatAnio removeMatAnioTbl(MatAnio matAnioTbl) {
-		getMatAnioTbls().remove(matAnioTbl);
-		matAnioTbl.setAnioLectivoTbl(null);
-
-		return matAnioTbl;
-	}
-
-	public List<Matricula> getMatriculaTbls() {
-		return this.matriculaTbls;
-	}
-
-	public void setMatriculaTbls(List<Matricula> matriculaTbls) {
-		this.matriculaTbls = matriculaTbls;
-	}
-
-	public Matricula addMatriculaTbl(Matricula matriculaTbl) {
-		getMatriculaTbls().add(matriculaTbl);
-		matriculaTbl.setAnioLectivoTbl(this);
-
-		return matriculaTbl;
-	}
-
-	public Matricula removeMatriculaTbl(Matricula matriculaTbl) {
-		getMatriculaTbls().remove(matriculaTbl);
-		matriculaTbl.setAnioLectivoTbl(null);
-
-		return matriculaTbl;
-	}
 
 }
