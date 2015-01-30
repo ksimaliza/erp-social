@@ -97,7 +97,63 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		slf4jLogger.info("createOrUpdateEstudiante");
 		EstudianteDTO estudiante;
 		Persona personanueva,personaRepresentante;
+		Persona madrePersona;
+		Persona padrePersona;
+		Persona representantePersona;
+		List<Persona> listPersona;
+		
 		try {
+			
+			madrePersona = estudiantevo.getMadre();
+			if(madrePersona.getPerPk()!=null )
+			{
+				madrePersona=factoryDAO.getPersonaDAOImpl().update(madrePersona);
+			}
+				else	
+				{
+					listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(madrePersona);
+					if(listPersona.size()<=0)
+						madrePersona=factoryDAO.getPersonaDAOImpl().create(madrePersona);
+					else
+						madrePersona=factoryDAO.getPersonaDAOImpl().update(listPersona.get(0));
+				}
+			
+			padrePersona = estudiantevo.getPadre();
+			if(padrePersona.getPerPk()!=null )
+			{
+				padrePersona=factoryDAO.getPersonaDAOImpl().update(padrePersona);
+			}
+				else	
+				{
+					listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(padrePersona);
+					if(listPersona.size()<=0)
+						padrePersona=factoryDAO.getPersonaDAOImpl().create(padrePersona);
+					else
+						padrePersona=factoryDAO.getPersonaDAOImpl().update(listPersona.get(0));
+				}
+			
+			
+			
+			representantePersona = estudiantevo.getRepresentanteEst();
+			if(representantePersona.getPerPk()!=null )
+			{
+				representantePersona=factoryDAO.getPersonaDAOImpl().update(representantePersona);
+			}
+				else	
+				{
+					listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(representantePersona);
+					if(listPersona.size()<=0)
+						representantePersona=factoryDAO.getPersonaDAOImpl().create(representantePersona);
+					else
+						representantePersona=factoryDAO.getPersonaDAOImpl().update(listPersona.get(0));
+				}
+			
+			
+			estudiantevo.getEstudiante().setEstPadre(padrePersona.getPerPk());
+			estudiantevo.getEstudiante().setEstMadre(madrePersona.getPerPk());
+			estudiantevo.getEstudiante().setEstRepresentante(representantePersona.getPerPk());
+			
+			
 			if(estudiantevo.getEstudiante().getEstCodigo()!=null){
 				slf4jLogger.info("Update");
 				personanueva= factoryDAO.getPersonaDAOImpl().update(estudiantevo.getPersona());
@@ -120,7 +176,7 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 				
 				estudiante=matriculaFactoryDAO.getEstudianteDAOImpl().create(estudiantevo.getEstudiante());
 				
-				if(factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(estudiantevo.getPersonaRepresentante()).isEmpty())
+				/*if(factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(estudiantevo.getPersonaRepresentante()).isEmpty())
 					personaRepresentante= factoryDAO.getPersonaDAOImpl().create(estudiantevo.getPersonaRepresentante());
 				else
 					personaRepresentante= factoryDAO.getPersonaDAOImpl().update(estudiantevo.getPersonaRepresentante());
@@ -139,7 +195,9 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 				{
 					repre=repList.get(0);
 					rep=matriculaFactoryDAO.getRepresentanteDAOImpl().find(repre.getRepCodigo());
-				}					
+				}	
+				
+				
 
 				EstudianteRepresentanteDTO estRep=new EstudianteRepresentanteDTO();
 				estRep.setEsrEmpresa(estudiantevo.getEstudiante().getEstEmpresa());
@@ -147,6 +205,7 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 				estRep.setMatRepresentante(rep);
 				
 				matriculaFactoryDAO.getEstudianteRepresentanteDAOImpl().create(estRep);
+				*/
 				
 				return estudiante;
 				
@@ -193,13 +252,18 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	}
 	
 	@Override
-	public EstudianteVO obtenerEstudiantePorId(Integer Idpersona, Integer Idestudiante) throws SeguridadesException {
+	public EstudianteVO obtenerEstudiantePorId(Integer Idpersona, Integer Idestudiante,Integer IdMadre, Integer IdPadre, Integer IdRepresentante ) throws SeguridadesException {
 		slf4jLogger.info("obtenerEstudiantePorId");
 		
 		EstudianteVO est=new EstudianteVO();
 		
 		est.setEstudiante(matriculaFactoryDAO.getEstudianteDAOImpl().find(Idestudiante));
 		est.setPersona(factoryDAO.getPersonaDAOImpl().find(Idpersona));
+		
+		est.setPadre(factoryDAO.getPersonaDAOImpl().find(IdPadre));
+		est.setMadre(factoryDAO.getPersonaDAOImpl().find(IdMadre));
+		est.setRepresentanteEst(factoryDAO.getPersonaDAOImpl().find(IdRepresentante));
+		
 		return est;
 	}
 
@@ -582,6 +646,7 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		if(periodoDTO.getPerCodigo()!=null)
 			return matriculaFactoryDAO.getPeriodoDAOImpl().update(periodoDTO);
 		else
+			
 			return matriculaFactoryDAO.getPeriodoDAOImpl().create(periodoDTO);
 		} catch (Exception e) {
 			slf4jLogger.info("error al createOrUpdatePeriodo {}", e.toString());
@@ -812,24 +877,15 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	}
 	
 	@Override
-	//@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void createOrUpdateMatricula(MatriculaVO matriculaVO) throws SeguridadesException
 	{
 		slf4jLogger.info("createOrUpdateMatricula");
 			
 		AsinacionDTO asinacion;
 		MatriculaDetalleDTO matriculaDetalle;
-		EstudianteDTO estudiante;
 		try {
 			
 			MatriculaDTO mat= matriculaFactoryDAO.getMatriculaDAOImpl().create(matriculaVO.getMatricula());
-			//Actulizo estado persona
-			estudiante=new EstudianteDTO();
-			estudiante= matriculaFactoryDAO.getEstudianteDAOImpl().find(matriculaVO.getMatricula().getMatEstudiante().getEstCodigo());
-			estudiante.setEstEstado("Matriculado");
-			
-			matriculaFactoryDAO.getEstudianteDAOImpl().update(estudiante);
-			
 			for(AsinacionListDTO asig:matriculaVO.getAsignacion())
 			{
 				matriculaDetalle= new MatriculaDetalleDTO();
@@ -842,12 +898,6 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		catch (Exception e) {
 			slf4jLogger.info("error al createOrUpdateMatricula {}", e.toString());
 			throw new SeguridadesException(e);
-		}
-		finally{
-			asinacion=null;
-			matriculaDetalle=null;
-			estudiante=null;
-			matriculaVO=null;
 		}
 		
 	}
@@ -977,6 +1027,61 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		}
 		
 		
+	}
+	
+	@Override
+	public void eliminarEstudiante(Integer codEstudiante) throws SeguridadesException
+	{
+		slf4jLogger.info("eliminarEstudiante");
+		
+		try {
+			matriculaFactoryDAO.getEstudianteDAOImpl().eliminarEstudiante(codEstudiante);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al eliminarEstudiante {}", e.getMessage());
+			throw new SeguridadesException("No se pudo eliminar de la  base de datos");
+		}
+		
+		
+	}
+
+
+	@Override
+	public EstudianteVO obtenerEstudiantePorId(Integer Idpersona,
+			Integer Idestudiante) throws SeguridadesException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<Persona> readRepresentante(Persona objectDTO)
+			throws SeguridadesException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public EstudianteVO obtenerEstudiantePorId(Integer Idpersona,
+			Integer Idestudiante, Integer IdMadre, Integer IdPadre)
+			throws SeguridadesException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public List<MatriculaVieDTO> readFicha(MatriculaVieDTO objectDTO) throws SeguridadesException
+	{
+		slf4jLogger.info("readCarnet");
+		List<MatriculaVieDTO> lista = null;
+		try {
+			lista = matriculaFactoryDAO.getMatriculaVieDAOImpl().getFichaEstudiante(objectDTO);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al readFicha {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener datos de la base de datos");
+		}
+		
+		return lista;
 	}
 
 	
