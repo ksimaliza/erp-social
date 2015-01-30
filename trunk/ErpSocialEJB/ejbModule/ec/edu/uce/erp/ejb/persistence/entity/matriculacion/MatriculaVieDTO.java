@@ -180,6 +180,163 @@ public class MatriculaVieDTO implements Serializable {
 	private String perGenero;
 	
 	
+//-->23-01-2015
+	@Column(name="per_calle_principal")
+	private String perCallePrincipal;
+	
+	@Column(name="per_calle_secundaria")
+	private String perCalleSecundaria;
+	
+	@Column(name="per_vivienda_es")
+	private String perViviendaEs;
+	
+	@Column(name="per_numero_vivienda")
+	private String perNumeroVivienda;
+	
+	@Column(name="per_lugar_ocupa")
+	private String perLugarOcupa;
+	
+	@Column(name="per_cuantos_hermanos")
+	private Integer perCuantosHermanos;
+	
+	@Column(name="per_alergias")
+	private String perAlergias;
+	
+	@Column(name="per_presenta_dificultad")
+	private String perPresentaDificultad;
+	
+	@Column(name="per_nume_hist_clinica")
+	private String perNumeHistClinica;
+	
+	@Column(name="per_des_med")
+	private String perDesMed;
+	
+	@Column(name="per_observaciones")
+	private String perObservaciones;
+	
+	//---Ficha 24-01-2015
+	//---Ficha 22-01-2015 KS
+		@Column(name="per_ci_padre")
+		private String perCiPadre;
+		@Column(name="per_nombres_padre")
+		private String perNombresPadre;
+		
+		@Column(name="per_apellidos_padre")
+		private String perApellidosPadre;
+		
+		@Temporal(TemporalType.DATE)
+		@Column(name="per_fecha_nac_padre")
+		private Date perFechaNacPadre;
+		
+		@Column(name="per_email_padre")
+		private String perEmailPadre;
+		
+		@Column(name="per_telefono_padre")
+		private String perTelefonoPadre;
+		
+		@Column(name="per_celular_padre")
+		private String perCelularPadre;
+		
+		@Column(name="per_direccion_padre")
+		private String perDireccionPadre;
+		
+		@Column(name="per_titulo_padre")
+		private String perTituloPadre;
+		
+		@Column(name="per_ocupacion_padre")
+		private String perOcupacionPadre;
+		
+		@Column(name="per_direccion_trabajo_padre")
+		private String perDireccionTrabajoPadre;
+		
+		@Column(name="per_nume_hist_clinica_padre")
+		private String perNumeHistClinicaPadre;
+		
+		
+		
+	
+	
+	
+	
+	//---Ficha 22-01-2015(KS) Informacion Madre
+		@Column(name="per_ci_madre")
+		private String perCiMadre;
+		@Column(name="per_nombres_madre")
+		private String perNombresMadre;
+		
+		@Column(name="per_apellidos_madre")
+		private String perApellidosMadre;
+		
+		@Temporal(TemporalType.DATE)
+		@Column(name="per_fecha_nac_madre")
+		private Date perFechaNacMadre;
+		
+		@Column(name="per_email_madre")
+		private String perEmailMadre;
+		
+		@Column(name="per_telefono_madre")
+		private String perTelefonoMadre;
+		
+		@Column(name="per_celular_Madre")
+		private String perCelularMadre;
+		
+		@Column(name="per_direccion_Madre")
+		private String perDireccionMadre;
+		
+		@Column(name="per_titulo_Madre")
+		private String perTituloMadre;
+		
+		@Column(name="per_ocupacion_Madre")
+		private String perOcupacionMadre;
+		
+		@Column(name="per_direccion_trabajo_Madre")
+		private String perDireccionTrabajoMadre;
+		
+		@Column(name="per_nume_hist_clinica_Madre")
+		private String perNumeHistClinicaMadre;
+		
+		
+		//---Ficha 22-01-2015(KS) Informacion Representante
+		@Column(name="per_ci_representante")
+		private String perCiRepresentante;
+		@Column(name="per_nombres_representante")
+		private String perNombresRepresentante;
+		
+		@Column(name="per_apellidos_representante")
+		private String perApellidosRepresentante;
+		
+		@Temporal(TemporalType.DATE)
+		@Column(name="per_fecha_nac_representante")
+		private Date perFechaNacRepresentante;
+		
+		@Column(name="per_email_representante")
+		private String perEmailRepresentante;
+		
+		@Column(name="per_telefono_representante")
+		private String perTelefonoRepresentante;
+		
+		@Column(name="per_celular_representante")
+		private String perCelularRepresentante;
+		
+		@Column(name="per_direccion_representante")
+		private String perDireccionRepresentante;
+		
+		@Column(name="per_titulo_representante")
+		private String perTituloRepresentante;
+		
+		@Column(name="per_ocupacion_representante")
+		private String perOcupacionRepresentante;
+		
+		@Column(name="per_direccion_trabajo_representante")
+		private String perDireccionTrabajoRepresentante;
+		
+		@Column(name="per_nume_hist_clinica_representante")
+		private String perNumeHistClinicaRepresentante;
+	
+	
+	
+	
+	
 	@Transient
 	private Boolean regVerificarFoto;
 	
@@ -204,7 +361,8 @@ public class MatriculaVieDTO implements Serializable {
 			String emrDireccion,
 			String estEstado,
 			byte[] regFotoByte,
-			byte[] emrFoto
+			byte[] emrFoto,
+			Integer regCodigo
 			
 			) {
 		super();//reporte carnet y certificado
@@ -220,6 +378,8 @@ public class MatriculaVieDTO implements Serializable {
 		this.estEstado=estEstado;
 		this.regFotoByte = regFotoByte;
 		this.emrFoto=emrFoto;
+	    this.regCodigo=regCodigo;
+	   
 	}
 
 	public MatriculaVieDTO(Integer regCodigo,
@@ -236,10 +396,11 @@ public class MatriculaVieDTO implements Serializable {
 			 String perEdad, 
 			 String perGenero,
 			 byte[] emrFoto,
-			 String perDescripcion
+			 String perDescripcion,
+			 String emrDireccion
 			
 			
-			) {
+			) {//lista curso
 		super();
 		this.regCodigo=regCodigo;
 		this.perCi = perCi;
@@ -256,7 +417,146 @@ public class MatriculaVieDTO implements Serializable {
 		this.perGenero=perGenero;
 		this.emrFoto=emrFoto;
 		this.perDescripcion=perDescripcion;
+		this.emrDireccion=emrDireccion;
 		
+	}
+	
+	
+	public MatriculaVieDTO(String perCi,
+			String perApellidos, 
+			String perNombres,
+			String nivDescaripcion, 
+			String parDescripcion, 
+			String perDescripcion, 
+			Date perFechaNac,
+			String emrNombre,
+			String emrDireccion,
+			String estEstado,
+			byte[] regFotoByte,
+			byte[] emrFoto,
+			Integer regCodigo,
+			String perGenero,
+			String perTelefono,
+			String perCallePrincipal,
+			String perCalleSecundaria,
+			String perViviendaEs,
+			String perNumeroVivienda,
+			String perLugarOcupa,
+			Integer perCuantosHermanos,
+			String perAlergias,
+			String perPresentaDificultad,
+			String perNumeHistClinica,
+			String perDesMed,
+			String perObservaciones,
+			String perCiPadre,
+			String perNombresPadre,
+			String perApellidosPadre,
+			Date perFechaNacPadre,
+			String perEmailPadre,
+			String perTelefonoPadre,
+			String perCelularPadre,
+			String perDireccionPadre,
+			String perTituloPadre,
+			String perOcupacionPadre,
+			String perDireccionTrabajoPadre,
+			String perNumeHistClinicaPadre,
+			
+			String perCiMadre,
+			String perNombresMadre,
+			String perApellidosMadre,
+			Date perFechaNacMadre,
+			String perEmailMadre,
+			String perTelefonoMadre,
+			String perCelularMadre,
+			String perDireccionMadre,
+			String perTituloMadre,
+			String perOcupacionMadre,
+			String perDireccionTrabajoMadre,
+			String perNumeHistClinicaMadre,
+			
+			String perCiRepresentante,
+			String perNombresRepresentante,
+			String perApellidosRepresentante,
+			Date perFechaNacRepresentante,
+			String perEmailRepresentante,
+			String perTelefonoRepresentante,
+			String perCelularRepresentante,
+			String perDireccionRepresentante,
+			String perTituloRepresentante,
+			String perOcupacionRepresentante,
+			String perDireccionTrabajoRepresentante,
+			String perNumeHistClinicaRepresentante
+			
+			) {
+		super();//reporte ficha
+		this.emrNombre = emrNombre;
+		this.nivDescaripcion = nivDescaripcion;
+		this.parDescripcion = parDescripcion;
+		this.perApellidos = perApellidos;
+		this.perCi = perCi;
+		this.perDescripcion = perDescripcion;
+		this.perFechaNac = perFechaNac;
+		this.perNombres = perNombres;
+		this.emrDireccion=emrDireccion;
+		this.estEstado=estEstado;
+		this.regFotoByte = regFotoByte;
+		this.emrFoto=emrFoto;
+	    this.regCodigo=regCodigo;
+	    this.perCiMadre=perCiMadre;
+	    this.perGenero=perGenero;
+	    this.perTelefono=perTelefono;
+	    this.perCallePrincipal=perCallePrincipal;
+	    this.perCalleSecundaria=perCalleSecundaria;
+	    this.perViviendaEs=perViviendaEs;
+	    this.perNumeroVivienda=perNumeroVivienda;
+	    this.perLugarOcupa=perLugarOcupa;
+	    this.perCuantosHermanos=perCuantosHermanos;
+	    this.perAlergias=perAlergias;
+	    this.perPresentaDificultad=perPresentaDificultad;
+	    this.perNumeHistClinica=perNumeHistClinica;
+	    this.perDesMed=perDesMed;
+	    this.perObservaciones=perObservaciones;
+	    this.perCiPadre=perCiPadre;
+	    this.perNombresPadre=perNombresPadre;
+	    this.perApellidosPadre=perApellidosPadre;
+	    this.perFechaNacPadre=perFechaNacPadre;
+	    this.perEmailPadre=perEmailPadre;
+	    this.perTelefonoPadre=perTelefonoPadre;
+	    this.perCelularPadre=perCelularPadre;
+	    this.perDireccionPadre=perDireccionPadre;
+	    this.perTituloPadre=perTituloPadre;
+	    this.perOcupacionPadre=perOcupacionPadre;
+	    this.perDireccionTrabajoPadre=perDireccionTrabajoPadre;
+	    this.perNumeHistClinicaPadre=perNumeHistClinicaPadre;
+	    
+	    this.perCiMadre=perCiMadre;
+	    this.perNombresMadre=perNombresMadre;
+	    this.perApellidosMadre=perApellidosMadre;
+	    this.perFechaNacMadre=perFechaNacMadre;
+	    this.perEmailMadre=perEmailMadre;
+	    this.perTelefonoMadre=perTelefonoMadre;
+	    this.perCelularMadre=perCelularMadre;
+	    this.perDireccionMadre=perDireccionMadre;
+	    this.perTituloMadre=perTituloMadre;
+	    this.perOcupacionMadre=perOcupacionMadre;
+	    this.perDireccionTrabajoMadre=perDireccionTrabajoMadre;
+	    this.perNumeHistClinicaMadre=perNumeHistClinicaMadre;
+	    
+	    this.perCiRepresentante=perCiRepresentante;
+	    this.perNombresRepresentante=perNombresRepresentante;
+	    this.perApellidosRepresentante=perApellidosRepresentante;
+	    this.perFechaNacRepresentante=perFechaNacRepresentante;
+	    this.perEmailRepresentante=perEmailRepresentante;
+	    this.perTelefonoRepresentante=perTelefonoRepresentante;
+	    this.perCelularRepresentante=perCelularRepresentante;
+	    this.perDireccionRepresentante=perDireccionRepresentante;
+	    this.perTituloRepresentante=perTituloRepresentante;
+	    this.perOcupacionRepresentante=perOcupacionRepresentante;
+	    this.perDireccionTrabajoRepresentante=perDireccionTrabajoRepresentante;
+	    this.perNumeHistClinicaRepresentante=perNumeHistClinicaRepresentante;
+	   
+	   
+	    
 	}
 	
 	
@@ -689,7 +989,389 @@ public class MatriculaVieDTO implements Serializable {
 	public void setPerGenero(String perGenero) {
 		this.perGenero = perGenero;
 	}
+	//->>>22-01-15
+	public String getPerCiMadre() {
+		return perCiMadre;
+	}
 
+	public void setPerCiMadre(String perCiMadre) {
+		this.perCiMadre = perCiMadre;
+	}
+
+	public String getPerCallePrincipal() {
+		return perCallePrincipal;
+	}
+
+	public void setPerCallePrincipal(String perCallePrincipal) {
+		this.perCallePrincipal = perCallePrincipal;
+	}
+
+	public String getPerCalleSecundaria() {
+		return perCalleSecundaria;
+	}
+
+	public void setPerCalleSecundaria(String perCalleSecundaria) {
+		this.perCalleSecundaria = perCalleSecundaria;
+	}
+
+	public String getPerViviendaEs() {
+		return perViviendaEs;
+	}
+
+	public void setPerViviendaEs(String perViviendaEs) {
+		this.perViviendaEs = perViviendaEs;
+	}
+
+	public String getPerNumeroVivienda() {
+		return perNumeroVivienda;
+	}
+
+	public void setPerNumeroVivienda(String perNumeroVivienda) {
+		this.perNumeroVivienda = perNumeroVivienda;
+	}
+
+	public String getPerLugarOcupa() {
+		return perLugarOcupa;
+	}
+
+	public void setPerLugarOcupa(String perLugarOcupa) {
+		this.perLugarOcupa = perLugarOcupa;
+	}
+
+	public Integer getPerCuantosHermanos() {
+		return perCuantosHermanos;
+	}
+
+	public void setPerCuantosHermanos(Integer perCuantosHermanos) {
+		this.perCuantosHermanos = perCuantosHermanos;
+	}
+
+	public String getPerAlergias() {
+		return perAlergias;
+	}
+
+	public void setPerAlergias(String perAlergias) {
+		this.perAlergias = perAlergias;
+	}
+
+	public String getPerPresentaDificultad() {
+		return perPresentaDificultad;
+	}
+
+	public void setPerPresentaDificultad(String perPresentaDificultad) {
+		this.perPresentaDificultad = perPresentaDificultad;
+	}
+
+	public String getPerNumeHistClinica() {
+		return perNumeHistClinica;
+	}
+
+	public void setPerNumeHistClinica(String perNumeHistClinica) {
+		this.perNumeHistClinica = perNumeHistClinica;
+	}
+
+	public String getPerDesMed() {
+		return perDesMed;
+	}
+
+	public void setPerDesMed(String perDesMed) {
+		this.perDesMed = perDesMed;
+	}
+
+	public String getPerObservaciones() {
+		return perObservaciones;
+	}
+
+	public void setPerObservaciones(String perObservaciones) {
+		this.perObservaciones = perObservaciones;
+	}
+
+	public String getPerCiPadre() {
+		return perCiPadre;
+	}
+
+	public void setPerCiPadre(String perCiPadre) {
+		this.perCiPadre = perCiPadre;
+	}
+
+	public String getPerNombresPadre() {
+		return perNombresPadre;
+	}
+
+	public void setPerNombresPadre(String perNombresPadre) {
+		this.perNombresPadre = perNombresPadre;
+	}
+
+	public String getPerApellidosPadre() {
+		return perApellidosPadre;
+	}
+
+	public void setPerApellidosPadre(String perApellidosPadre) {
+		this.perApellidosPadre = perApellidosPadre;
+	}
+
+	public Date getPerFechaNacPadre() {
+		return perFechaNacPadre;
+	}
+
+	public void setPerFechaNacPadre(Date perFechaNacPadre) {
+		this.perFechaNacPadre = perFechaNacPadre;
+	}
+
+	public String getPerEmailPadre() {
+		return perEmailPadre;
+	}
+
+	public void setPerEmailPadre(String perEmailPadre) {
+		this.perEmailPadre = perEmailPadre;
+	}
+
+	public String getPerTelefonoPadre() {
+		return perTelefonoPadre;
+	}
+
+	public void setPerTelefonoPadre(String perTelefonoPadre) {
+		this.perTelefonoPadre = perTelefonoPadre;
+	}
+
+	public String getPerCelularPadre() {
+		return perCelularPadre;
+	}
+
+	public void setPerCelularPadre(String perCelularPadre) {
+		this.perCelularPadre = perCelularPadre;
+	}
+
+	public String getPerDireccionPadre() {
+		return perDireccionPadre;
+	}
+
+	public void setPerDireccionPadre(String perDireccionPadre) {
+		this.perDireccionPadre = perDireccionPadre;
+	}
+
+	public String getPerTituloPadre() {
+		return perTituloPadre;
+	}
+
+	public void setPerTituloPadre(String perTituloPadre) {
+		this.perTituloPadre = perTituloPadre;
+	}
+
+	
+
+	
+
+	public String getPerOcupacionPadre() {
+		return perOcupacionPadre;
+	}
+
+	public void setPerOcupacionPadre(String perOcupacionPadre) {
+		this.perOcupacionPadre = perOcupacionPadre;
+	}
+
+	public String getPerDireccionTrabajoPadre() {
+		return perDireccionTrabajoPadre;
+	}
+
+	public void setPerDireccionTrabajoPadre(String perDireccionTrabajoPadre) {
+		this.perDireccionTrabajoPadre = perDireccionTrabajoPadre;
+	}
+
+	public String getPerNumeHistClinicaPadre() {
+		return perNumeHistClinicaPadre;
+	}
+
+	public void setPerNumeHistClinicaPadre(String perNumeHistClinicaPadre) {
+		this.perNumeHistClinicaPadre = perNumeHistClinicaPadre;
+	}
+
+	public String getPerNombresMadre() {
+		return perNombresMadre;
+	}
+
+	public void setPerNombresMadre(String perNombresMadre) {
+		this.perNombresMadre = perNombresMadre;
+	}
+
+	public String getPerApellidosMadre() {
+		return perApellidosMadre;
+	}
+
+	public void setPerApellidosMadre(String perApellidosMadre) {
+		this.perApellidosMadre = perApellidosMadre;
+	}
+
+	public Date getPerFechaNacMadre() {
+		return perFechaNacMadre;
+	}
+
+	public void setPerFechaNacMadre(Date perFechaNacMadre) {
+		this.perFechaNacMadre = perFechaNacMadre;
+	}
+
+	public String getPerEmailMadre() {
+		return perEmailMadre;
+	}
+
+	public void setPerEmailMadre(String perEmailMadre) {
+		this.perEmailMadre = perEmailMadre;
+	}
+
+	public String getPerTelefonoMadre() {
+		return perTelefonoMadre;
+	}
+
+	public void setPerTelefonoMadre(String perTelefonoMadre) {
+		this.perTelefonoMadre = perTelefonoMadre;
+	}
+
+	public String getPerCelularMadre() {
+		return perCelularMadre;
+	}
+
+	public void setPerCelularMadre(String perCelularMadre) {
+		this.perCelularMadre = perCelularMadre;
+	}
+
+	public String getPerDireccionMadre() {
+		return perDireccionMadre;
+	}
+
+	public void setPerDireccionMadre(String perDireccionMadre) {
+		this.perDireccionMadre = perDireccionMadre;
+	}
+
+	public String getPerTituloMadre() {
+		return perTituloMadre;
+	}
+
+	public void setPerTituloMadre(String perTituloMadre) {
+		this.perTituloMadre = perTituloMadre;
+	}
+
+	public String getPerOcupacionMadre() {
+		return perOcupacionMadre;
+	}
+
+	public void setPerOcupacionMadre(String perOcupacionMadre) {
+		this.perOcupacionMadre = perOcupacionMadre;
+	}
+
+	public String getPerDireccionTrabajoMadre() {
+		return perDireccionTrabajoMadre;
+	}
+
+	public void setPerDireccionTrabajoMadre(String perDireccionTrabajoMadre) {
+		this.perDireccionTrabajoMadre = perDireccionTrabajoMadre;
+	}
+
+	public String getPerNumeHistClinicaMadre() {
+		return perNumeHistClinicaMadre;
+	}
+
+	public void setPerNumeHistClinicaMadre(String perNumeHistClinicaMadre) {
+		this.perNumeHistClinicaMadre = perNumeHistClinicaMadre;
+	}
+
+	public String getPerCiRepresentante() {
+		return perCiRepresentante;
+	}
+
+	public void setPerCiRepresentante(String perCiRepresentante) {
+		this.perCiRepresentante = perCiRepresentante;
+	}
+
+	public String getPerNombresRepresentante() {
+		return perNombresRepresentante;
+	}
+
+	public void setPerNombresRepresentante(String perNombresRepresentante) {
+		this.perNombresRepresentante = perNombresRepresentante;
+	}
+
+	public String getPerApellidosRepresentante() {
+		return perApellidosRepresentante;
+	}
+
+	public void setPerApellidosRepresentante(String perApellidosRepresentante) {
+		this.perApellidosRepresentante = perApellidosRepresentante;
+	}
+
+	public Date getPerFechaNacRepresentante() {
+		return perFechaNacRepresentante;
+	}
+
+	public void setPerFechaNacRepresentante(Date perFechaNacRepresentante) {
+		this.perFechaNacRepresentante = perFechaNacRepresentante;
+	}
+
+	public String getPerEmailRepresentante() {
+		return perEmailRepresentante;
+	}
+
+	public void setPerEmailRepresentante(String perEmailRepresentante) {
+		this.perEmailRepresentante = perEmailRepresentante;
+	}
+
+	public String getPerTelefonoRepresentante() {
+		return perTelefonoRepresentante;
+	}
+
+	public void setPerTelefonoRepresentante(String perTelefonoRepresentante) {
+		this.perTelefonoRepresentante = perTelefonoRepresentante;
+	}
+
+	public String getPerCelularRepresentante() {
+		return perCelularRepresentante;
+	}
+
+	public void setPerCelularRepresentante(String perCelularRepresentante) {
+		this.perCelularRepresentante = perCelularRepresentante;
+	}
+
+	public String getPerDireccionRepresentante() {
+		return perDireccionRepresentante;
+	}
+
+	public void setPerDireccionRepresentante(String perDireccionRepresentante) {
+		this.perDireccionRepresentante = perDireccionRepresentante;
+	}
+
+	public String getPerTituloRepresentante() {
+		return perTituloRepresentante;
+	}
+
+	public void setPerTituloRepresentante(String perTituloRepresentante) {
+		this.perTituloRepresentante = perTituloRepresentante;
+	}
+
+	public String getPerOcupacionRepresentante() {
+		return perOcupacionRepresentante;
+	}
+
+	public void setPerOcupacionRepresentante(String perOcupacionRepresentante) {
+		this.perOcupacionRepresentante = perOcupacionRepresentante;
+	}
+
+	public String getPerDireccionTrabajoRepresentante() {
+		return perDireccionTrabajoRepresentante;
+	}
+
+	public void setPerDireccionTrabajoRepresentante(
+			String perDireccionTrabajoRepresentante) {
+		this.perDireccionTrabajoRepresentante = perDireccionTrabajoRepresentante;
+	}
+
+	public String getPerNumeHistClinicaRepresentante() {
+		return perNumeHistClinicaRepresentante;
+	}
+
+	public void setPerNumeHistClinicaRepresentante(
+			String perNumeHistClinicaRepresentante) {
+		this.perNumeHistClinicaRepresentante = perNumeHistClinicaRepresentante;
+	}
+	
 	
 	
 	

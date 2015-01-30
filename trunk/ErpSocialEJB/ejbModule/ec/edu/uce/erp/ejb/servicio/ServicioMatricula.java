@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
+import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.DocenteAsignadoVieDTO;
@@ -185,6 +186,22 @@ public interface ServicioMatricula {
 
 	void updateEstadoEstudiante(Integer codEstudiante)
 			throws SeguridadesException;
+
+	List<Persona> readRepresentante(Persona objectDTO)
+			throws SeguridadesException;
+
+	EstudianteVO obtenerEstudiantePorId(Integer Idpersona,
+			Integer Idestudiante, Integer IdMadre, Integer IdPadre)
+			throws SeguridadesException;
+
+	EstudianteVO obtenerEstudiantePorId(Integer Idpersona,
+			Integer Idestudiante, Integer IdMadre, Integer IdPadre,
+			Integer IdRepresentante) throws SeguridadesException;
+
+	List<MatriculaVieDTO> readFicha(MatriculaVieDTO objectDTO)
+			throws SeguridadesException;
+
+	void eliminarEstudiante(Integer idPersona) throws SeguridadesException;
 
 		
 

@@ -19,12 +19,18 @@ public class EstudianteVO implements Serializable{
 	private Empresa empresa;
 	private RepresentanteDTO representante;
 	private Persona personaRepresentante;
+	private Persona madre;
+	private Persona padre;
+	private Persona representanteEst;
 	
 	public EstudianteVO() {
 		estudiante=new EstudianteDTO();
 		persona=new Persona();
 		empresa=new Empresa();
 		representante=new RepresentanteDTO();
+		madre=new Persona();
+		padre=new Persona();
+		representanteEst=new Persona();
 	}
 
 	public EstudianteDTO getEstudiante() {
@@ -66,5 +72,31 @@ public class EstudianteVO implements Serializable{
 	public void setPersonaRepresentante(Persona personaRepresentante) {
 		this.personaRepresentante = personaRepresentante;
 	}
+
+	public Persona getMadre() {
+		return madre;
+	}
+
+	public void setMadre(Persona madre) {
+		this.madre = madre;
+	}
+
+	public Persona getPadre() {
+		return padre;
+	}
+
+	public void setPadre(Persona padre) {
+		this.padre = padre;
+	}
+
+	public Persona getRepresentanteEst() {
+		return representanteEst;
+	}
+
+	public void setRepresentanteEst(Persona representanteEst) {
+		this.representanteEst = representanteEst;
+	}
+	
+	
 	
 }

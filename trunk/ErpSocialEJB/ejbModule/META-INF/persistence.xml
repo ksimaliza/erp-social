@@ -10,7 +10,6 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.CabeceraBien</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.CabeceraCatalogo</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.CabeceraCementerio</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.CabeceraMatricula</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.CabeceraUbicacion</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.CargoEmpleado</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Cargo</class>
@@ -18,8 +17,6 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Cementerio</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Certificado</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Contrato</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.Cupo</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.Curso</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBien</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.DetalleBienPK</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleCatalogo</class>
@@ -27,7 +24,6 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleCementerio</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleCementerioPK</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleJornada</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleMatricula</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleMatriculaPK</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleUbicacion</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.DetalleUbicacionPK</class>
@@ -37,28 +33,16 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Empresa</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.security.Parametro</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.EstadoDocumento</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.EstudianteMatriculaTbl</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.Estudiante</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Folio</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.FormatoDocumento</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.HolguraEntradaSalida</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Ingreso</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.Inventario</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Jornada</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.MatAnio</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.MateriaProfesor</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.Materia</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.Matricula</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.NotMateria</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.Notas</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.PadreEstudiante</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.PadreRepresentante</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.Paralelo</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.PersonaCertificado</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.PersonaEmpEstadoDoc</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.PersonaEmpresa</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.Persona</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.Profesor</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.inventory.Proveedor</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.security.HistorialClave</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.security.HistoricoTransaccione</class>
@@ -163,9 +147,9 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.security.CatalogoValorPK</class>
 
 		<properties>
-			<property name="hibernate.connection.username" value="postgres" />
-			<property name="hibernate.connection.password" value="root" />
-			<property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/ERP_DB" />
+			<property name="hibernate.connection.username" value="webadmin" />
+			<property name="hibernate.connection.password" value="gWUNisZSFe" />
+			<property name="hibernate.connection.url" value="jdbc:postgresql://postgres30071-erpsocial.whelastic.net/erp_social" />
 			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
 			<property name="hibernate.show_sql" value="true"/>
 		</properties>

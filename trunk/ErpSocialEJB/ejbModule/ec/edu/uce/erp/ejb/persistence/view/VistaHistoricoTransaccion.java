@@ -69,6 +69,9 @@ public class VistaHistoricoTransaccion implements Serializable {
 	@Transient
 	@Temporal(TemporalType.DATE)
 	private Date npFechaHasta;
+	
+	@Column(name="login_usuario")
+	private String loginUsuario;
 
 	public VistaHistoricoTransaccion() {
 	}
@@ -234,5 +237,14 @@ public class VistaHistoricoTransaccion implements Serializable {
 	public void setNpFechaHasta(Date npFechaHasta) {
 		this.npFechaHasta = npFechaHasta;
 	}
+
+	public String getLoginUsuario() {
+		return loginUsuario;
+	}
+
+	public void setLoginUsuario(String loginUsuario) {
+		this.loginUsuario = loginUsuario;
+	}
+	
 
 }
