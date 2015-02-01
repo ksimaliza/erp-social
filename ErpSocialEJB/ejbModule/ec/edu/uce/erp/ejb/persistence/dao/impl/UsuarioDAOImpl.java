@@ -158,7 +158,8 @@ public class UsuarioDAOImpl extends AbstractFacadeImpl<Usuario> implements Usuar
 			}
 			
 			criteriaQuery.where(criteriaBuilder.and(criteriaList.toArray(new Predicate[0])));
-			criteriaQuery.orderBy(criteriaBuilder.asc(fromUsuario.get("fechaRegistro")));
+			criteriaQuery.orderBy(criteriaBuilder.asc(fromUsuario.get("loginUsuario")));
+			//criteriaQuery.orderBy(criteriaBuilder.asc(fromUsuario.get("fechaRegistro")));
 			
 			TypedQuery<Usuario> typedQuery = entityManager.createQuery(criteriaQuery);
 			
