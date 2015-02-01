@@ -23,6 +23,7 @@ import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Modulo;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Perfil;
+import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 import ec.edu.uce.erp.ejb.persistence.util.dto.AnioDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioAsistencia;
@@ -47,6 +48,7 @@ public class SelectItemsController {
 	private List<SelectItem> catalogoListaPerfiles;
 	private List<SelectItem> catalogoListaModulos;
 	private List<SelectItem> catalogoListAnio;
+	private List<SelectItem> catalogoListUser;
 	
 	public SelectItemsController () {}
 	
@@ -56,6 +58,7 @@ public class SelectItemsController {
 		this.catalogoListaPerfiles = new ArrayList<SelectItem>();
 		this.catalogoListaModulos = new ArrayList<SelectItem>();
 		this.catalogoListAnio=new ArrayList<SelectItem>();
+		this.catalogoListUser=new ArrayList<SelectItem>();
 	}
 	
 	/**
@@ -177,5 +180,33 @@ public class SelectItemsController {
 		
 		return catalogoListAnio;
 	}
+	/**
+	 * @return the catalogoListaEmpresa
+	 */
+	public List<SelectItem> getCatalogoListUser() {
+		
+		if (CollectionUtils.isEmpty(catalogoListUser)) {
+			
+			slf4jLogger.info("cargar catalogo Usuario");
+			Usuario dto = new Usuario();
+			//dto.setEmrEstado(ESTADO_ACTIVO);
+			try {
+				List<Usuario> userCol = servicioAdministracion.buscarUsuario(dto);
+				CollectionUtils.collect(userCol, new Transformer() {
+					@Override
+					public Object transform(final Object arg0) {
+						final Usuario usuarioDTO = (Usuario)arg0;
+						return new SelectItem(usuarioDTO.getIdUsuario(), usuarioDTO.getLoginUsuario());
+					}
+				}, catalogoListUser);
+			} catch (SeguridadesException e) {
+				slf4jLogger.info("error al cargar catalogo usuario {}", e.getMessage());
+				MensajesWebController.aniadirMensajeError("Error al cargar catalogo usuario");
+			}
+		}
+		
+		return catalogoListUser;
+	}
+	
 	
 }
