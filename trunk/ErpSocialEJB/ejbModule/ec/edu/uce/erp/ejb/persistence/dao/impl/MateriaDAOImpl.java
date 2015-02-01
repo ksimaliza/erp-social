@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -82,5 +83,11 @@ public class MateriaDAOImpl extends AbstractFacadeImpl<MateriaDTO> implements Ma
 	return materiasEncontradas;
 }
 	
+	
+	public void eliminarMateria(Integer codMateria) throws SeguridadesException {
+		Query query=entityManager.createNativeQuery("DELETE FROM mat_materia where mtr_codigo= :codMateria");
+		query.setParameter("codMateria", codMateria);
+		query.executeUpdate();
+	}
 
 }

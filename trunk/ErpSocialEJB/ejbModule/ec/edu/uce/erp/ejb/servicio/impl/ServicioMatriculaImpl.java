@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,6 +36,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepNivelEstudianteDTO
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.TipoNotaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 import ec.edu.uce.erp.ejb.persistence.vo.EstudianteVO;
 import ec.edu.uce.erp.ejb.persistence.vo.MatriculaVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ProfesorVO;
@@ -274,6 +276,10 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	{
 		slf4jLogger.info("createOrUpdateMateria");
 		try {
+			
+			if (existeMateria(materiaDTO)) {
+				throw new SeguridadesException("Ya se encuentra registrada la Materia-"+materiaDTO.getMtrNombe());
+			}	
 		if(materiaDTO.getMtrCodigo()!=null)
 			return matriculaFactoryDAO.getMateriaDAOImpl().update(materiaDTO);
 		else
@@ -302,6 +308,8 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		}
 		
 	}
+	
+	
 	
 	@Override
 	public List<MateriaDTO> buscarMateria(MateriaDTO materiaDTO) throws SeguridadesException {
@@ -1043,6 +1051,21 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		
 		
 	}
+	
+	@Override
+	public void eliminarMateria(Integer codMateria) throws SeguridadesException
+	{
+		slf4jLogger.info("eliminarMateria");
+		
+		try {
+			matriculaFactoryDAO.getMateriaDAOImpl().eliminarMateria(codMateria);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al eliminarMateria {}", e.getMessage());
+			throw new SeguridadesException("No se pudo eliminar de la  base de datos");
+		}
+		
+		
+	}
 
 
 	@Override
@@ -1082,6 +1105,21 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 		}
 		
 		return lista;
+	}
+	
+	
+private Boolean existeMateria (MateriaDTO materia) throws SeguridadesException {
+		MateriaDTO materiaFind = new MateriaDTO();
+		materiaFind.setMtrEmpresa(materia.getMtrEmpresa());
+		materiaFind.setMtrNombe(materia.getMtrNombe());
+		
+		List<MateriaDTO> listMateriaDTO = matriculaFactoryDAO.getMateriaDAOImpl().obtenerMateria(materiaFind);
+		if (CollectionUtils.isEmpty(listMateriaDTO)) {
+			return Boolean.FALSE;
+		} 
+		
+		return Boolean.TRUE;
+		
 	}
 
 	
