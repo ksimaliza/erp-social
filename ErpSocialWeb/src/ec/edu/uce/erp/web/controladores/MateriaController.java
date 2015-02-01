@@ -34,6 +34,7 @@ public class MateriaController extends BaseController{
 	
 	@ManagedProperty(value="#{materiaDataManager}")
 	private MateriaDataManager materiaDataManager;
+	private Integer codMateria;
 	
 	public void setMateriaDataManager(MateriaDataManager materiaDataManager) {
 		this.materiaDataManager = materiaDataManager;
@@ -107,6 +108,21 @@ public class MateriaController extends BaseController{
 			MensajesWebController.aniadirMensajeError("Error al cargarDatosMateria seleccionado");
 		}
 	}
+	
+	//----->>>29/01/2015
+	
+	public void eliminarMateria()
+	{
+		try {
+			
+			servicioMatricula.eliminarMateria(codMateria);
+			buscarMateria();
+					
+		} catch (SeguridadesException e) {
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+	}
+	
 
 
 	@Override
@@ -114,6 +130,17 @@ public class MateriaController extends BaseController{
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	public Integer getCodMateria() {
+		return codMateria;
+	}
+
+
+	public void setCodMateria(Integer codMateria) {
+		this.codMateria = codMateria;
+	}
+	
 	
 	
 	

@@ -1,5 +1,6 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
+import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteRepresentanteDTO;
@@ -410,7 +412,6 @@ public class EstudianteController extends BaseController{
 	
 	public void eliminarEstudiante()
 	{
-		
 		try {
 			
 			servicioMatricula.eliminarEstudiante(codEstudiante);
@@ -420,6 +421,16 @@ public class EstudianteController extends BaseController{
 		} catch (SeguridadesException e) {
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
+	}
+	
+	public void clearFormulario() {
+	
+		estudianteDataManager.setEstudiantePersonaInsertar(new Persona());
+		estudianteDataManager.setMadreInsertar(new Persona());
+		estudianteDataManager.setPadreInsertar(new Persona());
+		estudianteDataManager.setRepresentanteInsertar(new Persona());
+		
+		
 	}
 
 

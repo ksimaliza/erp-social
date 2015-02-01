@@ -20,7 +20,10 @@
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
 					</p:commandButton>
-					<p:commandButton id="btnNuevoEstudiante" value="Insertar" icon="ui-icon ui-icon-circle-plus" oncomplete="dlgNuevoEstudiante.show()">
+					<p:commandButton id="btnNuevoEstudiante" value="Insertar" icon="ui-icon ui-icon-circle-plus" 
+					actionListener="#{estudianteController.clearFormulario}"
+					update=":formNuevoEstudiante:pnlNuevoEstudiante, :formNuevoEstudiante:pnInformacion"
+					oncomplete="dlgNuevoEstudiante.show()">
 						</p:commandButton>
 						<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
 						icon="exportExcel" disabled="#{empty estudianteDataManager.listaEstudianteListDTOs}">
@@ -147,7 +150,7 @@
 				</p:column>
 			</p:dataTable>	
 			
-			<!-- Reset clave usuario -->
+			<!-- Delete Estudiante -->
 			<p:confirmDialog id="dlgEliminar" width="400" widgetVar="dlgEliminar"
 				message="Desea eliminar el estudiante seleccionado?"
 				header="Eliminar Estudiante" appendTo="@(body)">
