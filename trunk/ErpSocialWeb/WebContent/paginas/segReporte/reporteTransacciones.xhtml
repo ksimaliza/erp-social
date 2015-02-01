@@ -61,10 +61,21 @@
 						<td class="label">
 							<h:outputLabel value="Empresa" />
 						</td>
-						<td class="value">
+						<td class="value" colspan="3">
 							<p:selectOneMenu value="#{historicoTransaccionDataManager.historicoTransaccionBuscar.emrPk}">
 								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" />
 								<f:selectItems value="#{selectItemsController.catalogoListaEmpresa}"/>
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td class="label">
+							<h:outputLabel value="Usuarios" />
+						</td>
+						<td class="value" colspan="3">
+							<p:selectOneMenu style="width:230px" value="#{historicoTransaccionDataManager.historicoTransaccionBuscar.idUsuario}">
+								<f:selectItem itemValue="" itemLabel="#{i18n['label.seleccione']}" />
+								<f:selectItems value="#{selectItemsController.catalogoListUser}"/>
 							</p:selectOneMenu>
 						</td>
 					</tr>
