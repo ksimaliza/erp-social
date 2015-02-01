@@ -285,4 +285,6 @@ public interface ServicioAdministracion {
 
 	Persona buscarPersona(Object id) throws SeguridadesException;
 
+	List<Usuario> buscarUsuario(Usuario usuario) throws SeguridadesException;
+
 }

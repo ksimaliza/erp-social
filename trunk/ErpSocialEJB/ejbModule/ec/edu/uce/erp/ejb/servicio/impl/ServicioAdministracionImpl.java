@@ -807,4 +807,23 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		}
 	}
 	
+	@Override
+	public List<Usuario> buscarUsuario(Usuario usuario) throws SeguridadesException {
+		slf4jLogger.info("buscarEmpresa");
+		List<Usuario> listUsuario = null;
+		try {
+			listUsuario = factoryDAO.getUsuarioDAOImpl().obtenerUsuarioCriterios(usuario);
+//			if (CollectionUtils.isNotEmpty(listEmpresas)) {
+//				for (Empresa emp : listEmpresas) {
+//					emp.getSegtModulos().size();
+//				}
+//			}
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscar la empresa {}", e.getMessage());
+			throw new SeguridadesException("No se pudo obtener las empresas de la base de datos");
+		}
+		return listUsuario;
+	}
+	
+	
 }
