@@ -78,21 +78,33 @@
 							<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
 						<p:commandLink styleClass="no-decor"
-							title="Eliminar"
-							oncomplete="dlgEditarMateria.show()"
-							actionListener="#{materiaController.cargarDatosMateria(materias)}"
-							process="@this" update=":formEditarMateria:pnlEditarMateria">
-							<h:graphicImage value="/resources/img/delete.png" alt="Eliminar"/>
+							title="Eliminar Materia" oncomplete="dlgEliminar.show()">
+							<f:setPropertyActionListener target="#{materiaController.codMateria}" value="#{materias.mtrCodigo}" />
+							<h:graphicImage value="/resources/img/delete.gif" alt="Eliminar"/>
 						</p:commandLink>
 					</h:panelGroup>
 					</p:column>
 								
-			</p:dataTable>			
+			</p:dataTable>	
+			<!-- Delete Materia -->
+			<p:confirmDialog id="dlgEliminar" width="400" widgetVar="dlgEliminar"
+				message="Desea eliminar la materia seleccionada?"
+				header="Eliminar Materia" appendTo="@(body)">
+				<p:commandButton value="#{i18n['label.aceptar']}"
+					actionListener="#{materiaController.eliminarMateria()}"
+					oncomplete="dlgEliminar.hide()"
+					update=":formMateria:pnlMessages,tablaMateria" process="@this"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="#{i18n['label.cancelar']}" type="button" 
+					onclick="dlgEliminar.hide()" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>		
 	</h:form>			
 		
 		
 <ui:include src="dialogNuevaMateria.xhtml" />	
 <ui:include src="dialogEditarMateria.xhtml" />		
+
+
 			
 		
 	</ui:define>
