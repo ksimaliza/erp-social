@@ -9,5 +9,7 @@ public interface MateriaDAO extends AbstractFacade<MateriaDTO>{
 
 	List<MateriaDTO> obtenerMateria(MateriaDTO materia)
 			throws SeguridadesException;
+	
+	public void eliminarMateria(Integer codMateria) throws SeguridadesException;
 
 }
