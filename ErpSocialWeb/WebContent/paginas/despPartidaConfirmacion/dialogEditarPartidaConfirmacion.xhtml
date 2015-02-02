@@ -256,8 +256,8 @@
 							<h:outputLabel for="txtTomo" value="#{i18n['erp.despacho.partida.confirmacion.tomo']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtTomo" style="width: 100%"  
-								  value="#{partidaConfirmacionDataManager.confirmacionDTO.conToma}" required="#{partidaBautizoDataManager.estadoCodigo.toString()=='24'}" onkeypress="return isNumberKey(event)" maxlength="10"/>
+							<p:inputText id="txtTomo" style="width: 100%"  label="#{i18n['erp.despacho.partida.confirmacion.tomo']}"
+								  value="#{partidaConfirmacionDataManager.confirmacionDTO.conToma}" required="#{partidaConfirmacionDataManager.estadoCodigo.toString()=='24'}" onkeypress="return isNumberKey(event)" maxlength="10"/>
 						</td>	
 					</tr>
 					<tr>
@@ -266,7 +266,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtActa"  style="width: 100%"
-							 	label="#{i18n['erp.despacho.partida.confirmacion.acta']}" value="#{partidaConfirmacionDataManager.confirmacionDTO.conActa}" required="#{partidaBautizoDataManager.estadoCodigo.toString()=='24'}" onkeypress="return isNumberKey(event)" maxlength="10">
+							 	label="#{i18n['erp.despacho.partida.confirmacion.acta']}" value="#{partidaConfirmacionDataManager.confirmacionDTO.conActa}" required="#{partidaConfirmacionDataManager.estadoCodigo.toString()=='24'}" onkeypress="return isNumberKey(event)" maxlength="10">
 							
 						</p:inputText>
 						
@@ -278,8 +278,8 @@
 							<h:outputLabel for="txtPagina" value="#{i18n['erp.despacho.partida.confirmacion.pagina']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtPagina" style="width: 100%"  
-								value="#{partidaConfirmacionDataManager.confirmacionDTO.conPagina}" required="#{partidaBautizoDataManager.estadoCodigo.toString()=='24'}" onkeypress="return isNumberKey(event)" maxlength="10" />
+							<p:inputText id="txtPagina" style="width: 100%"  label="#{i18n['erp.despacho.partida.confirmacion.pagina']}"
+								value="#{partidaConfirmacionDataManager.confirmacionDTO.conPagina}" required="#{partidaConfirmacionDataManager.estadoCodigo.toString()=='24'}" onkeypress="return isNumberKey(event)" maxlength="10" />
 						</td>	
 					</tr>
 				</table>

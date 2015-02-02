@@ -605,8 +605,8 @@ public class PartidaBautizoController extends BaseController {
 			for (int i = 0; i < partidaBautizoDataManager
 					.getCantonEucaristiaDTOs().size(); i++)
 				if (partidaBautizoDataManager.getCantonEucaristiaDTOs().get(i)
-						.getCatCodigo() == (Integer) partidaBautizoDataManager
-						.getCantonCodigo())
+						.getCatCodigo().equals(partidaBautizoDataManager
+						.getCantonCodigo()))
 					mapParametros.put("canton", partidaBautizoDataManager
 							.getCantonEucaristiaDTOs().get(i)
 							.getCatDescripcion().toUpperCase());
@@ -615,8 +615,8 @@ public class PartidaBautizoController extends BaseController {
 			for (int i = 0; i < partidaBautizoDataManager
 					.getParroquiaEucaristiaDTOs().size(); i++)
 				if (partidaBautizoDataManager.getParroquiaEucaristiaDTOs()
-						.get(i).getCatCodigo() == (Integer) partidaBautizoDataManager
-						.getParroquiaCodigo()) {
+						.get(i).getCatCodigo().equals(partidaBautizoDataManager
+						.getParroquiaCodigo())) {
 					mapParametros.put("parroquiaCabecera", "\""
 							+ partidaBautizoDataManager
 									.getParroquiaEucaristiaDTOs().get(i)
@@ -624,6 +624,9 @@ public class PartidaBautizoController extends BaseController {
 					mapParametros.put("parroquia", partidaBautizoDataManager
 							.getParroquiaEucaristiaDTOs().get(i)
 							.getCatDescripcion().toUpperCase());
+					mapParametros.put("parroquiafechaActual", partidaBautizoDataManager
+							.getParroquiaEucaristiaDTOs().get(i).getCatDescripcion()
+							+ ", " + String.valueOf(full.format(fechaActual).charAt(0)).toUpperCase() +full.format(fechaActual).substring(1));
 
 				}
 		mapParametros.put("tomo", partidaBautizoDataManager.getBautizoDTO()
@@ -660,9 +663,6 @@ public class PartidaBautizoController extends BaseController {
 				+ " "
 				+ partidaBautizoDataManager.getPadrinoInsertar()
 						.getPerNombres().toUpperCase());
-		mapParametros.put("parroquiafechaActual", partidaBautizoDataManager
-				.getParroquiaEucaristiaDTOs().get(0).getCatDescripcion()
-				+ ", " + full.format(fechaActual));
 		mapParametros.put("madrina", partidaBautizoDataManager
 				.getMadrinaInsertar().getPerApellidos().toUpperCase()
 				+ " "
@@ -674,8 +674,8 @@ public class PartidaBautizoController extends BaseController {
 			for (int i = 0; i < partidaBautizoDataManager
 					.getProvinciasEucaristiaDTOs().size(); i++)
 				if (partidaBautizoDataManager.getProvinciasEucaristiaDTOs()
-						.get(i).getCatCodigo() == (Integer) partidaBautizoDataManager
-						.getProvinciaCodigo())
+						.get(i).getCatCodigo().equals(partidaBautizoDataManager
+						.getProvinciaCodigo()))
 					mapParametros.put("provincia", partidaBautizoDataManager
 							.getProvinciasEucaristiaDTOs().get(i)
 							.getCatDescripcion().toUpperCase());
