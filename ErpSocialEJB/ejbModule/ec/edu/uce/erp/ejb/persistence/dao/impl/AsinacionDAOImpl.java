@@ -124,4 +124,21 @@ public class AsinacionDAOImpl extends AbstractFacadeImpl<AsinacionDTO> implement
 
 		return query.getResultList();
 	}
+	
+	public List<AsinacionDTO> asignacionesPorPeriodoNivelParalelo(Integer codPeriodo, Integer codNivel, Integer codParelelo) {
+
+		Query query;
+		String sql = "SELECT p from AsinacionDTO p" + 
+		" WHERE p.matPeriodo.perCodigo = :codPeriodo AND " 
+				+ " p.matNivelParalelo.matNivel.nivCodigo = :codNivel AND "
+				+ " p.matNivelParalelo.matParalelo.parCodigo = :codParelelo";
+
+		query = entityManager.createQuery(sql);
+
+		query.setParameter("codPeriodo", codPeriodo);
+		query.setParameter("codNivel", codNivel);
+		query.setParameter("codParelelo", codParelelo);
+
+		return query.getResultList();
+	}
 }

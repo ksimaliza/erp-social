@@ -14,6 +14,7 @@ import ec.edu.uce.erp.ejb.persistence.dao.MatriculaVieDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.NivelDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.NivelParaleloDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.NotaDAO;
+import ec.edu.uce.erp.ejb.persistence.dao.NotaTutorDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ParaleloDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PeriodoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ProfesorDAO;
@@ -59,5 +60,7 @@ public interface MatriculaFactoryDAO {
 	MatriculaVieDAO getMatriculaVieDAOImpl();
 
 	DocenteAsignadoVieDAO getDocenteAsignadoVieDAOImpl();
+
+	NotaTutorDAO getNotaTutorDAOImpl();
 
 }

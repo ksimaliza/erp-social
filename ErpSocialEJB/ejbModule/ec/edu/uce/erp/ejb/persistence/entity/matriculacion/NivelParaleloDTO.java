@@ -97,6 +97,49 @@ public class NivelParaleloDTO implements Serializable {
 		this.npaEmpresa = npaEmpresa;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((matNivel == null) ? 0 : matNivel.hashCode());
+		result = prime * result + ((matParalelo == null) ? 0 : matParalelo.hashCode());
+		result = prime * result + ((npaCodigo == null) ? 0 : npaCodigo.hashCode());
+		result = prime * result + ((npaEmpresa == null) ? 0 : npaEmpresa.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		NivelParaleloDTO other = (NivelParaleloDTO) obj;
+		if (matNivel == null) {
+			if (other.matNivel != null)
+				return false;
+		} else if (!matNivel.equals(other.matNivel))
+			return false;
+		if (matParalelo == null) {
+			if (other.matParalelo != null)
+				return false;
+		} else if (!matParalelo.equals(other.matParalelo))
+			return false;
+		if (npaCodigo == null) {
+			if (other.npaCodigo != null)
+				return false;
+		} else if (!npaCodigo.equals(other.npaCodigo))
+			return false;
+		if (npaEmpresa == null) {
+			if (other.npaEmpresa != null)
+				return false;
+		} else if (!npaEmpresa.equals(other.npaEmpresa))
+			return false;
+		return true;
+	}
+
 	
 
 }

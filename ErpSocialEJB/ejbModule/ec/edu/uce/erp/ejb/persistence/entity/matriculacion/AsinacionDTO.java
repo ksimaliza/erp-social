@@ -124,6 +124,43 @@ public class AsinacionDTO implements Serializable {
 		this.asiEmpresa = asiEmpresa;
 	}
 
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((asiEmpresa == null) ? 0 : asiEmpresa.hashCode());
+		result = prime * result + ((matNivelParalelo == null) ? 0 : matNivelParalelo.hashCode());
+		result = prime * result + ((matPeriodo == null) ? 0 : matPeriodo.hashCode());
+		return result;
+	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AsinacionDTO other = (AsinacionDTO) obj;
+		if (asiEmpresa == null) {
+			if (other.asiEmpresa != null)
+				return false;
+		} else if (!asiEmpresa.equals(other.asiEmpresa))
+			return false;
+		if (matNivelParalelo == null) {
+			if (other.matNivelParalelo != null)
+				return false;
+		} else if (!matNivelParalelo.equals(other.matNivelParalelo))
+			return false;
+		if (matPeriodo == null) {
+			if (other.matPeriodo != null)
+				return false;
+		} else if (!matPeriodo.equals(other.matPeriodo))
+			return false;
+		return true;
+	}
+
+	
+	
 }

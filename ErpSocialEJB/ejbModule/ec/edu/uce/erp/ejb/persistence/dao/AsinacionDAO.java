@@ -19,5 +19,7 @@ public interface AsinacionDAO extends AbstractFacade<AsinacionDTO> {
 	public List<AsinacionDTO> asignacionesPorPeriodoNivelParaleloMateria(Integer codPeriodo, Integer codNivel, Integer codParelelo, Integer codMateria);
 
 	public List<AsinacionDTO> asignacionesPorPeriodo(Integer codPeriodo);
+	
+	public List<AsinacionDTO> asignacionesPorPeriodoNivelParalelo(Integer codPeriodo, Integer codNivel, Integer codParelelo);
 
 }

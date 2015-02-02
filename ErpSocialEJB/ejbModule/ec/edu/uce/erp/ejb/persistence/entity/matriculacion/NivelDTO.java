@@ -83,7 +83,35 @@ public class NivelDTO implements Serializable {
 		this.nivEmpresa = nivEmpresa;
 	}
 
-	
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nivCodigo == null) ? 0 : nivCodigo.hashCode());
+		result = prime * result + ((nivEmpresa == null) ? 0 : nivEmpresa.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		NivelDTO other = (NivelDTO) obj;
+		if (nivCodigo == null) {
+			if (other.nivCodigo != null)
+				return false;
+		} else if (!nivCodigo.equals(other.nivCodigo))
+			return false;
+		if (nivEmpresa == null) {
+			if (other.nivEmpresa != null)
+				return false;
+		} else if (!nivEmpresa.equals(other.nivEmpresa))
+			return false;
+		return true;
+	}	
 
 }

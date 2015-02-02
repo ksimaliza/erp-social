@@ -20,14 +20,19 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDetalleDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NotaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NotaTutorDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.TipoNotaDTO;
 import ec.edu.uce.erp.ejb.persistence.util.dto.ComparadorTipoNotas;
 import ec.edu.uce.erp.ejb.persistence.util.dto.DatosEstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.util.dto.DatosReporteDTO;
+import ec.edu.uce.erp.ejb.persistence.util.dto.EstudianteNotaSuspensa;
 import ec.edu.uce.erp.ejb.persistence.util.dto.EstudianteNotasParcial;
 import ec.edu.uce.erp.ejb.persistence.util.dto.MateriaEstadoPacialesDTO;
+import ec.edu.uce.erp.ejb.persistence.util.dto.MatriculaNotasTutorDTO;
 import ec.edu.uce.erp.ejb.persistence.util.dto.ReporteDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EstudianteVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ProfesorVO;
@@ -94,6 +99,10 @@ public class ServicioNotasImpl implements ServicioNotas {
 
 				for (MatriculaDetalleDTO matriculaDetalleDTO : listaMatriculaDetalleDTOs) {
 					matriculaDetalleDTO.getMatMatriculaBean().getMatEstudiante().getEstPersona();
+					List<MatriculaDetalleDTO> matriculaDetalleDTOs = matriculaDetalleDTO.getMatMatriculaBean().getMatMatriculaDetalles();
+					for (MatriculaDetalleDTO matriculaDetalleDTO2 : matriculaDetalleDTOs) {
+						matriculaDetalleDTO2.getEstado();
+					}
 					List<NotaDTO> notaDTOs = matriculaDetalleDTO.getNotNotas();
 					for (NotaDTO notaDTO : notaDTOs) {
 						notaDTO.getNotValor();
@@ -120,45 +129,37 @@ public class ServicioNotasImpl implements ServicioNotas {
 					MateriaEstadoPacialesDTO materiaEstadoPacialesDTO = new MateriaEstadoPacialesDTO();
 					materiaEstadoPacialesDTO.setAsinacionDTO(asinacionDTO);
 
-					materiaEstadoPacialesDTO.setTipoNotaDTO(matriculaFactoryDAO.getParcialDAOImpl().find(
-							MessagesApplicacion.getInteger("erp.notas.tipo.primer.parcial.primer.quimestre")));
+					materiaEstadoPacialesDTO.setTipoNotaDTO(matriculaFactoryDAO.getParcialDAOImpl().find(MessagesApplicacion.getInteger("erp.notas.tipo.primer.parcial.primer.quimestre")));
 					if (!materiaEstadoPacialesDTOs.contains(materiaEstadoPacialesDTO)) {
 						materiaEstadoPacialesDTOs.add(materiaEstadoPacialesDTO);
 					}
 				} else {
-					Collections.sort(notaDTOs, new ComparadorTipoNotas());
+					// Collections.sort(notaDTOs, new ComparadorTipoNotas());
 
 					MateriaEstadoPacialesDTO materiaEstadoPacialesDTO = new MateriaEstadoPacialesDTO();
 					materiaEstadoPacialesDTO.setAsinacionDTO(asinacionDTO);
 
 					switch (notaDTOs.size()) {
 					case 1:
-						materiaEstadoPacialesDTO.setTipoNotaDTO(matriculaFactoryDAO.getParcialDAOImpl().find(
-								MessagesApplicacion.getInteger("erp.notas.tipo.segundo.parcial.primer.quimestre")));
+						materiaEstadoPacialesDTO.setTipoNotaDTO(matriculaFactoryDAO.getParcialDAOImpl().find(MessagesApplicacion.getInteger("erp.notas.tipo.segundo.parcial.primer.quimestre")));
 						break;
 					case 2:
-						materiaEstadoPacialesDTO.setTipoNotaDTO(matriculaFactoryDAO.getParcialDAOImpl().find(
-								MessagesApplicacion.getInteger("erp.notas.tipo.tercer.parcial.primer.quimestre")));
+						materiaEstadoPacialesDTO.setTipoNotaDTO(matriculaFactoryDAO.getParcialDAOImpl().find(MessagesApplicacion.getInteger("erp.notas.tipo.tercer.parcial.primer.quimestre")));
 						break;
 					case 3:
-						materiaEstadoPacialesDTO.setTipoNotaDTO(matriculaFactoryDAO.getParcialDAOImpl().find(
-								MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.primer.quimestre")));
+						materiaEstadoPacialesDTO.setTipoNotaDTO(matriculaFactoryDAO.getParcialDAOImpl().find(MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.primer.quimestre")));
 						break;
 					case 5:
-						materiaEstadoPacialesDTO.setTipoNotaDTO(matriculaFactoryDAO.getParcialDAOImpl().find(
-								MessagesApplicacion.getInteger("erp.notas.tipo.primer.parcial.segundo.quimestre")));
+						materiaEstadoPacialesDTO.setTipoNotaDTO(matriculaFactoryDAO.getParcialDAOImpl().find(MessagesApplicacion.getInteger("erp.notas.tipo.primer.parcial.segundo.quimestre")));
 						break;
 					case 6:
-						materiaEstadoPacialesDTO.setTipoNotaDTO(matriculaFactoryDAO.getParcialDAOImpl().find(
-								MessagesApplicacion.getInteger("erp.notas.tipo.segundo.parcial.segundo.quimestre")));
+						materiaEstadoPacialesDTO.setTipoNotaDTO(matriculaFactoryDAO.getParcialDAOImpl().find(MessagesApplicacion.getInteger("erp.notas.tipo.segundo.parcial.segundo.quimestre")));
 						break;
 					case 7:
-						materiaEstadoPacialesDTO.setTipoNotaDTO(matriculaFactoryDAO.getParcialDAOImpl().find(
-								MessagesApplicacion.getInteger("erp.notas.tipo.tercer.parcial.segundo.quimestre")));
+						materiaEstadoPacialesDTO.setTipoNotaDTO(matriculaFactoryDAO.getParcialDAOImpl().find(MessagesApplicacion.getInteger("erp.notas.tipo.tercer.parcial.segundo.quimestre")));
 						break;
 					case 8:
-						materiaEstadoPacialesDTO.setTipoNotaDTO(matriculaFactoryDAO.getParcialDAOImpl().find(
-								MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.segundo.quimestre")));
+						materiaEstadoPacialesDTO.setTipoNotaDTO(matriculaFactoryDAO.getParcialDAOImpl().find(MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.segundo.quimestre")));
 						break;
 					default:
 						materiaEstadoPacialesDTO.setTipoNotaDTO(null);
@@ -201,37 +202,32 @@ public class ServicioNotasImpl implements ServicioNotas {
 			notaDTOTareas.setTipoNotaBean(tipoNotaDTOTareas);
 			notaDTO.addNotaDTO(notaDTOTareas);
 
-			TipoNotaDTO tipoNotaDTOGrupales = matriculaFactoryDAO.getParcialDAOImpl().find(
-					MessagesApplicacion.getInteger("erp.notas.tipo.actividades.grupales"));
+			TipoNotaDTO tipoNotaDTOGrupales = matriculaFactoryDAO.getParcialDAOImpl().find(MessagesApplicacion.getInteger("erp.notas.tipo.actividades.grupales"));
 			NotaDTO notaDTOGrupales = new NotaDTO();
 			notaDTOGrupales.setNotValor(0f);
 			notaDTOGrupales.setTipoNotaBean(tipoNotaDTOGrupales);
 			notaDTO.addNotaDTO(notaDTOGrupales);
 
-			TipoNotaDTO tipoNotaDTOIndividuales = matriculaFactoryDAO.getParcialDAOImpl().find(
-					MessagesApplicacion.getInteger("erp.notas.tipo.actividades.individuales"));
+			TipoNotaDTO tipoNotaDTOIndividuales = matriculaFactoryDAO.getParcialDAOImpl().find(MessagesApplicacion.getInteger("erp.notas.tipo.actividades.individuales"));
 			NotaDTO notaDTOIndividuales = new NotaDTO();
 			notaDTOIndividuales.setNotValor(0f);
 			notaDTOIndividuales.setTipoNotaBean(tipoNotaDTOIndividuales);
 			notaDTO.addNotaDTO(notaDTOIndividuales);
 
-			TipoNotaDTO tipoNotaDTOLecciones = matriculaFactoryDAO.getParcialDAOImpl().find(
-					MessagesApplicacion.getInteger("erp.notas.tipo.lecciones"));
+			TipoNotaDTO tipoNotaDTOLecciones = matriculaFactoryDAO.getParcialDAOImpl().find(MessagesApplicacion.getInteger("erp.notas.tipo.lecciones"));
 			NotaDTO notaDTOLecciones = new NotaDTO();
 			notaDTOLecciones.setNotValor(0f);
 			notaDTOLecciones.setTipoNotaBean(tipoNotaDTOLecciones);
 			notaDTO.addNotaDTO(notaDTOLecciones);
 
-			TipoNotaDTO tipoNotaDTOEscrita = matriculaFactoryDAO.getParcialDAOImpl().find(
-					MessagesApplicacion.getInteger("erp.notas.tipo.leccion.escrita"));
+			TipoNotaDTO tipoNotaDTOEscrita = matriculaFactoryDAO.getParcialDAOImpl().find(MessagesApplicacion.getInteger("erp.notas.tipo.leccion.escrita"));
 			NotaDTO notaDTOEscrita = new NotaDTO();
 			notaDTOEscrita.setNotValor(0f);
 			notaDTOEscrita.setTipoNotaBean(tipoNotaDTOEscrita);
 			notaDTO.addNotaDTO(notaDTOEscrita);
 
 			if (materiaEstadoPacialesDTO.getTipoNotaDTO().equals(-1)) {
-				TipoNotaDTO tipoNotaDTOPrimerParcial = matriculaFactoryDAO.getParcialDAOImpl().find(
-						MessagesApplicacion.getInteger("erp.notas.tipo.primer.parcial.primer.quimestre"));
+				TipoNotaDTO tipoNotaDTOPrimerParcial = matriculaFactoryDAO.getParcialDAOImpl().find(MessagesApplicacion.getInteger("erp.notas.tipo.primer.parcial.primer.quimestre"));
 				materiaEstadoPacialesDTO.setTipoNotaDTO(tipoNotaDTOPrimerParcial);
 			}
 
@@ -252,6 +248,8 @@ public class ServicioNotasImpl implements ServicioNotas {
 	public NotaDTO generarNotaQuimestre(MatriculaDetalleDTO matriculaDetalleDTO, Integer quimestre, NotaDTO notaDTOExamen) {
 
 		NotaDTO notaDTOQuimestre = new NotaDTO();
+		NotaDTO notaDTO1erQuimestre = new NotaDTO();
+		NotaDTO notaDTO2doQuimestre = new NotaDTO();
 
 		// Para tomar la nota del quimestre en caso que ya exista
 		if (matriculaDetalleDTO.getNotNotas().size() == 5) {
@@ -271,16 +269,14 @@ public class ServicioNotasImpl implements ServicioNotas {
 			switch (quimestre) {
 			case 1:
 				if (notaDTO.getTipoNotaBean().getParCodigo() >= MessagesApplicacion.getInteger("erp.notas.tipo.primer.parcial.primer.quimestre")
-						&& notaDTO.getTipoNotaBean().getParCodigo() <= MessagesApplicacion
-								.getInteger("erp.notas.tipo.tercer.parcial.primer.quimestre")) {
+						&& notaDTO.getTipoNotaBean().getParCodigo() <= MessagesApplicacion.getInteger("erp.notas.tipo.tercer.parcial.primer.quimestre")) {
 					promedioParciales += notaDTO.getNotValor();
 				}
 				break;
 
 			case 2:
 				if (notaDTO.getTipoNotaBean().getParCodigo() >= MessagesApplicacion.getInteger("erp.notas.tipo.primer.parcial.segundo.quimestre")
-						&& notaDTO.getTipoNotaBean().getParCodigo() <= MessagesApplicacion
-								.getInteger("erp.notas.tipo.tercer.parcial.segundo.quimestre")) {
+						&& notaDTO.getTipoNotaBean().getParCodigo() <= MessagesApplicacion.getInteger("erp.notas.tipo.tercer.parcial.segundo.quimestre")) {
 					promedioParciales += notaDTO.getNotValor();
 				}
 				break;
@@ -295,21 +291,36 @@ public class ServicioNotasImpl implements ServicioNotas {
 
 		// LLena el objeto nota para guardarlo
 		notaDTOQuimestre.setNotValor(promedioParciales + examenQuimestre);
-		notaDTOQuimestre.setMatMatriculaDetalleBean(matriculaDetalleDTO);
 
 		switch (quimestre) {
 		case 1:
-			notaDTOQuimestre.setTipoNotaBean(matriculaFactoryDAO.getParcialDAOImpl().find(
-					MessagesApplicacion.getInteger("erp.notas.tipo.primer.quimestre")));
+			notaDTOQuimestre.setTipoNotaBean(matriculaFactoryDAO.getParcialDAOImpl().find(MessagesApplicacion.getInteger("erp.notas.tipo.primer.quimestre")));
 			break;
 
 		case 2:
-			notaDTOQuimestre.setTipoNotaBean(matriculaFactoryDAO.getParcialDAOImpl().find(
-					MessagesApplicacion.getInteger("erp.notas.tipo.segundo.quimestre")));
+			notaDTOQuimestre.setTipoNotaBean(matriculaFactoryDAO.getParcialDAOImpl().find(MessagesApplicacion.getInteger("erp.notas.tipo.segundo.quimestre")));
+
+			// PARA ESTABLECER EL ESTADO DE A LA ASIGNACION DE LA MATRICULA
+			// (SUSPENSO, REMEDIAL)
+			notaDTO1erQuimestre = matriculaDetalleDTO.getNotNotas().get(4);
+			notaDTO2doQuimestre = notaDTOQuimestre;
+
+			float notaFinal = (notaDTO1erQuimestre.getNotValor() + notaDTO2doQuimestre.getNotValor()) / 2;
+
+			if (notaFinal >= MessagesApplicacion.getInteger("erp.notas.limite.aprobar")) {
+				matriculaDetalleDTO.setEstado(MessagesApplicacion.getInteger("erp.notas.esto.aprobado.perido.lectivo"));
+			} else if (MessagesApplicacion.getInteger("erp.notas.limite.minimo") <= notaFinal && notaFinal < MessagesApplicacion.getInteger("erp.notas.limite.aprobar")) {
+				matriculaDetalleDTO.setEstado(MessagesApplicacion.getInteger("erp.notas.esto.supletorio.perido.lectivo"));
+			} else {
+				matriculaDetalleDTO.setEstado(MessagesApplicacion.getInteger("erp.notas.esto.remedial.perido.lectivo"));
+			}
+
 			break;
 		default:
 			break;
 		}
+
+		notaDTOQuimestre.setMatMatriculaDetalleBean(matriculaDetalleDTO);
 
 		// guarda la nota del quimestre
 		guardarNota(notaDTOQuimestre);
@@ -336,6 +347,10 @@ public class ServicioNotasImpl implements ServicioNotas {
 				// Obtengo las matriculas del estudiante
 				List<MatriculaDTO> matriculaDTOs = estudianteDTO.getMatMatriculas();
 				for (MatriculaDTO matriculaDTO : matriculaDTOs) {
+					List<NotaTutorDTO> notaTutorDTOs = matriculaDTO.getNotNotasTutor();
+					for (NotaTutorDTO notaTutorDTO : notaTutorDTOs) {
+						notaTutorDTO.getCiclo();
+					}
 					List<MatriculaDetalleDTO> matriculaDetalleDTOs = matriculaDTO.getMatMatriculaDetalles();
 					for (MatriculaDetalleDTO matriculaDetalleDTO : matriculaDetalleDTOs) {
 
@@ -381,8 +396,7 @@ public class ServicioNotasImpl implements ServicioNotas {
 	// ////////////////////////////
 	// ////////PARA REPORTES//////
 	// //////////////////////////
-	public ReporteDTO obtenerDatosReporteQuimestralEstudiantes(DatosEstudianteDTO datosEstudianteDTO, Integer codQuimestre)
-			throws SeguridadesException {
+	public ReporteDTO obtenerDatosReporteQuimestralEstudiantes(DatosEstudianteDTO datosEstudianteDTO, Integer codQuimestre) throws SeguridadesException {
 		ReporteDTO reporteDTO = new ReporteDTO();
 		List<DatosReporteDTO> listaReporteDTOs = new ArrayList<DatosReporteDTO>();
 
@@ -392,8 +406,7 @@ public class ServicioNotasImpl implements ServicioNotas {
 			// CI
 			reporteDTO.setParametro1(datosEstudianteDTO.getEstudianteListDTO().getPerCi());
 			// estudiante
-			reporteDTO.setParametro2(datosEstudianteDTO.getEstudianteListDTO().getPerNombres()
-					+ datosEstudianteDTO.getEstudianteListDTO().getPerApellidos());
+			reporteDTO.setParametro2(datosEstudianteDTO.getEstudianteListDTO().getPerNombres() + datosEstudianteDTO.getEstudianteListDTO().getPerApellidos());
 			// Periodo
 			reporteDTO.setParametro3(datosEstudianteDTO.getPeriodoDTO().getPerDescripcion());
 			// Curso
@@ -433,10 +446,8 @@ public class ServicioNotasImpl implements ServicioNotas {
 						datosReporteDTO.setCalificacion6(matriculaDetalleDTO.getNotNotas().get(8).getNotValor());
 				}
 
-				if (datosReporteDTO.getCalificacion1() != null && datosReporteDTO.getCalificacion2() != null
-						&& datosReporteDTO.getCalificacion3() != null)// Promedio
-					datosReporteDTO.setCalificacion4((datosReporteDTO.getCalificacion1() + datosReporteDTO.getCalificacion2() + datosReporteDTO
-							.getCalificacion3()) / 3);
+				if (datosReporteDTO.getCalificacion1() != null && datosReporteDTO.getCalificacion2() != null && datosReporteDTO.getCalificacion3() != null)// Promedio
+					datosReporteDTO.setCalificacion4((datosReporteDTO.getCalificacion1() + datosReporteDTO.getCalificacion2() + datosReporteDTO.getCalificacion3()) / 3);
 				if (datosReporteDTO.getCalificacion4() != null)// 80% promedio
 					datosReporteDTO.setCalificacion5(datosReporteDTO.getCalificacion4() * 0.8f);
 
@@ -460,6 +471,15 @@ public class ServicioNotasImpl implements ServicioNotas {
 				reporteDTO.setPromeditoTotal(promedio / listaMatriculaDetalleDTOs.size());
 				reporteDTO.setObservacionFinal(estableceNotaCualitativa(reporteDTO.getPromeditoTotal()));
 			}
+
+			List<NotaTutorDTO> listaNotaTutorDTOs = listaMatriculaDetalleDTOs.get(0).getMatMatriculaBean().getNotNotasTutor();
+
+			for (NotaTutorDTO notaTutorDTO : listaNotaTutorDTOs) {
+				if (notaTutorDTO.getCiclo().equals(codQuimestre)) {
+					reporteDTO.setNotaTutorDTO(notaTutorDTO);
+				}
+			}
+
 		} catch (Exception e) {
 			slf4jLogger.error("error al obtenerDatosreporteQuimestralEstudiantes {}", e.toString());
 			throw new SeguridadesException(e);
@@ -469,27 +489,27 @@ public class ServicioNotasImpl implements ServicioNotas {
 	}
 
 	private String estableceNotaCualitativa(Float notaFinal) {
-		if (notaFinal == 10) {
-			return "Supera";
-		} else if (notaFinal >= 9 && notaFinal <= 9.99) {
-			return "Domina";
-		} else if (notaFinal >= 7 && notaFinal <= 8.99) {
-			return "Alcanza";
-		} else if (notaFinal >= 5 && notaFinal <= 6.99) {
-			return "Próximo Alc.";
+		if (notaFinal == new Float(MessagesApplicacion.getInteger("erp.notas.limite.supera"))) {
+			return "SAR";
+		} else if (notaFinal >= MessagesApplicacion.getInteger("erp.notas.limite.domina") && notaFinal <= (MessagesApplicacion.getInteger("erp.notas.limite.supera") - 0.01)) {
+			return "DAR";
+		} else if (notaFinal >= MessagesApplicacion.getInteger("erp.notas.limite.aprobar") && notaFinal <= (MessagesApplicacion.getInteger("erp.notas.limite.domina") - 0.01)) {
+			return "AAR";
+		} else if (notaFinal >= MessagesApplicacion.getInteger("erp.notas.limite.minimo") && notaFinal <= (MessagesApplicacion.getInteger("erp.notas.limite.aprobar") - 0.01)) {
+			return "PAAR";
 		} else {
-			return "No Alcanza";
+			return "NAAR";
 		}
 	}
 
 	private String estableceNotaCualitativaUnaLetra(Float notaFinal) {
-		if (notaFinal > 10) {
+		if (notaFinal > new Float(MessagesApplicacion.getInteger("erp.notas.limite.supera"))) {
 			return "A";
-		} else if (notaFinal >= 9 && notaFinal <= 9.99) {
+		} else if (notaFinal >= MessagesApplicacion.getInteger("erp.notas.limite.domina") && notaFinal <= (MessagesApplicacion.getInteger("erp.notas.limite.supera") - 0.01)) {
 			return "B";
-		} else if (notaFinal >= 7 && notaFinal <= 8.99) {
+		} else if (notaFinal >= MessagesApplicacion.getInteger("erp.notas.limite.aprobar") && notaFinal <= (MessagesApplicacion.getInteger("erp.notas.limite.domina") - 0.01)) {
 			return "C";
-		} else if (notaFinal >= 5 && notaFinal <= 6.99) {
+		} else if (notaFinal >= MessagesApplicacion.getInteger("erp.notas.limite.minimo") && notaFinal <= (MessagesApplicacion.getInteger("erp.notas.limite.aprobar") - 0.01)) {
 			return "D";
 		} else {
 			return "E";
@@ -529,21 +549,18 @@ public class ServicioNotasImpl implements ServicioNotas {
 		}
 	}
 
-	public ReporteDTO generarReporteGeneralPorParalelo(Integer codPeriodo, Integer codNivel, Integer codParelelo, Integer codMateria)
-			throws SeguridadesException {
+	public ReporteDTO generarReporteGeneralPorParalelo(Integer codPeriodo, Integer codNivel, Integer codParelelo, Integer codMateria) throws SeguridadesException {
 		AsinacionDTO asinacionDTO = asignacionPorPeriodoNivelParaleloMateria(codPeriodo, codNivel, codParelelo, codMateria);
 		ReporteDTO reporteDTO = generarReporteGeneralPorParalelo(asinacionDTO);
 		return reporteDTO;
 	}
 
-	private AsinacionDTO asignacionPorPeriodoNivelParaleloMateria(Integer codPeriodo, Integer codNivel, Integer codParelelo, Integer codMateria)
-			throws SeguridadesException {
+	private AsinacionDTO asignacionPorPeriodoNivelParaleloMateria(Integer codPeriodo, Integer codNivel, Integer codParelelo, Integer codMateria) throws SeguridadesException {
 		slf4jLogger.info("asignacionPorPeriodoNivelParaleloMateria");
 
 		try {
 
-			List<AsinacionDTO> asinacionDTOs = matriculaFactoryDAO.getAsinacionDAOImpl().asignacionesPorPeriodoNivelParaleloMateria(codPeriodo,
-					codNivel, codParelelo, codMateria);
+			List<AsinacionDTO> asinacionDTOs = matriculaFactoryDAO.getAsinacionDAOImpl().asignacionesPorPeriodoNivelParaleloMateria(codPeriodo, codNivel, codParelelo, codMateria);
 
 			if (asinacionDTOs.size() == 1) {
 				AsinacionDTO asinacionDTO = asinacionDTOs.get(0);
@@ -551,7 +568,7 @@ public class ServicioNotasImpl implements ServicioNotas {
 			} else if (asinacionDTOs.size() == 0) {
 				throw new SeguridadesException("No hay matriculas registradas para los datos ingresados.");
 			} else {
-				throw new SeguridadesException("Existe un problema consistencia de datos en el ingreso de patriculas.");
+				throw new SeguridadesException("Existe un problema consistencia de datos en el ingreso de matriculas.");
 			}
 
 		} catch (Exception e) {
@@ -571,8 +588,7 @@ public class ServicioNotasImpl implements ServicioNotas {
 			reporteDTO.setParametro2(asinacionDTO.getMatNivelParalelo().getMatNivel().getNivDescaripcion());
 			reporteDTO.setParametro3(asinacionDTO.getMatNivelParalelo().getMatParalelo().getParDescripcion());
 			reporteDTO.setParametro4(asinacionDTO.getMatMateria().getMtrNombe());
-			ProfesorVO profesorVO = servicioMatricula.obtenerDocentePorId(asinacionDTO.getMatProfesor().getProPersona(), asinacionDTO
-					.getMatProfesor().getProCodigo());
+			ProfesorVO profesorVO = servicioMatricula.obtenerDocentePorId(asinacionDTO.getMatProfesor().getProPersona(), asinacionDTO.getMatProfesor().getProCodigo());
 			String docente = profesorVO.getPersona().getPerNombres() + " " + profesorVO.getPersona().getPerApellidos();
 			reporteDTO.setParametro5(docente);
 
@@ -581,13 +597,13 @@ public class ServicioNotasImpl implements ServicioNotas {
 
 			for (MatriculaDetalleDTO matriculaDetalleDTO : listaMatriculaDetalleDTOs) {
 				DatosReporteDTO datosReporteDTO = new DatosReporteDTO();
-				EstudianteVO estudianteVO = servicioMatricula.obtenerEstudiantePorId(matriculaDetalleDTO.getMatMatriculaBean().getMatEstudiante()
-						.getEstPersona(), matriculaDetalleDTO.getMatMatriculaBean().getMatEstudiante().getEstCodigo());
+				EstudianteVO estudianteVO = servicioMatricula.obtenerEstudiantePorId(matriculaDetalleDTO.getMatMatriculaBean().getMatEstudiante().getEstPersona(), matriculaDetalleDTO
+						.getMatMatriculaBean().getMatEstudiante().getEstCodigo());
 				String estudiante = estudianteVO.getPersona().getPerApellidos() + " " + estudianteVO.getPersona().getPerNombres();
 				datosReporteDTO.setNombre(estudiante);
 
 				List<NotaDTO> notaDTOs = matriculaDetalleDTO.getNotNotas();
-				Collections.sort(notaDTOs, new ComparadorTipoNotas());
+				// Collections.sort(notaDTOs, new ComparadorTipoNotas());
 				int numeroNotas = notaDTOs.size();
 
 				if (numeroNotas > 0)// 1er Parcial
@@ -617,8 +633,8 @@ public class ServicioNotasImpl implements ServicioNotas {
 					datosReporteDTO.setObservacion1(estableceNotaCualitativaUnaLetra(datosReporteDTO.getCalificacion10()));
 
 				// PROMEDIO TOTAL
-				if (datosReporteDTO.getCalificacion5() != null && datosReporteDTO.getCalificacion9() != null)
-					datosReporteDTO.setCalificacion11((datosReporteDTO.getCalificacion5() + datosReporteDTO.getCalificacion9()) / 2);
+				if (datosReporteDTO.getCalificacion5() != null && datosReporteDTO.getCalificacion10() != null)
+					datosReporteDTO.setCalificacion11((datosReporteDTO.getCalificacion5() + datosReporteDTO.getCalificacion10()) / 2);
 				if (datosReporteDTO.getCalificacion11() != null)
 					datosReporteDTO.setObservacion2(estableceNotaCualitativaUnaLetra(datosReporteDTO.getCalificacion11()));
 
@@ -637,8 +653,7 @@ public class ServicioNotasImpl implements ServicioNotas {
 
 	// REPORTE DETALLE DEL PARCIAL
 
-	public ReporteDTO generarReporteDetalleParcial(Integer codPeriodo, Integer codNivel, Integer codParelelo, Integer codMateria,
-			Integer codQuimestre, Integer codParcial) throws SeguridadesException {
+	public ReporteDTO generarReporteDetalleParcial(Integer codPeriodo, Integer codNivel, Integer codParelelo, Integer codMateria, Integer codQuimestre, Integer codParcial) throws SeguridadesException {
 		AsinacionDTO asinacionDTO = asignacionPorPeriodoNivelParaleloMateria(codPeriodo, codNivel, codParelelo, codMateria);
 		ReporteDTO reporteDTO = generarReporteDetalleParcial(asinacionDTO, codQuimestre, codParcial);
 		return reporteDTO;
@@ -654,12 +669,10 @@ public class ServicioNotasImpl implements ServicioNotas {
 			reporteDTO.setParametro2(asinacionDTO.getMatNivelParalelo().getMatNivel().getNivDescaripcion());
 			reporteDTO.setParametro3(asinacionDTO.getMatNivelParalelo().getMatParalelo().getParDescripcion());
 			reporteDTO.setParametro4(asinacionDTO.getMatMateria().getMtrNombe());
-			ProfesorVO profesorVO = servicioMatricula.obtenerDocentePorId(asinacionDTO.getMatProfesor().getProPersona(), asinacionDTO
-					.getMatProfesor().getProCodigo());
+			ProfesorVO profesorVO = servicioMatricula.obtenerDocentePorId(asinacionDTO.getMatProfesor().getProPersona(), asinacionDTO.getMatProfesor().getProCodigo());
 			String docente = profesorVO.getPersona().getPerNombres() + " " + profesorVO.getPersona().getPerApellidos();
 			reporteDTO.setParametro5(docente);
-			reporteDTO.setParametro6(new Integer(1).equals(codQuimestre) ? "Primer Quimestre"
-					: new Integer(2).equals(codQuimestre) ? "Segundo Quimestre" : "");
+			reporteDTO.setParametro6(new Integer(1).equals(codQuimestre) ? "Primer Quimestre" : new Integer(2).equals(codQuimestre) ? "Segundo Quimestre" : "");
 			reporteDTO.setParametro7(new Integer(1).equals(codParcial) ? "Primer Parcial" : new Integer(2).equals(codParcial) ? "Segundo Parcial"
 					: new Integer(3).equals(codParcial) ? "Tercer Parcial" : "");
 
@@ -668,35 +681,29 @@ public class ServicioNotasImpl implements ServicioNotas {
 
 			for (MatriculaDetalleDTO matriculaDetalleDTO : listaMatriculaDetalleDTOs) {
 				DatosReporteDTO datosReporteDTO = new DatosReporteDTO();
-				EstudianteVO estudianteVO = servicioMatricula.obtenerEstudiantePorId(matriculaDetalleDTO.getMatMatriculaBean().getMatEstudiante()
-						.getEstPersona(), matriculaDetalleDTO.getMatMatriculaBean().getMatEstudiante().getEstCodigo());
+				EstudianteVO estudianteVO = servicioMatricula.obtenerEstudiantePorId(matriculaDetalleDTO.getMatMatriculaBean().getMatEstudiante().getEstPersona(), matriculaDetalleDTO
+						.getMatMatriculaBean().getMatEstudiante().getEstCodigo());
 				String estudiante = estudianteVO.getPersona().getPerApellidos() + " " + estudianteVO.getPersona().getPerNombres();
 				datosReporteDTO.setNombre(estudiante);
 
 				List<NotaDTO> listaNotaDTOs = matriculaDetalleDTO.getNotNotas();
 				for (NotaDTO notaDTO : listaNotaDTOs) {
-					if (new Integer(1).equals(codQuimestre) && new Integer(1).equals(codParcial)
-							&& new Integer(1).equals(notaDTO.getTipoNotaBean().getParCodigo())) {
+					if (new Integer(1).equals(codQuimestre) && new Integer(1).equals(codParcial) && new Integer(1).equals(notaDTO.getTipoNotaBean().getParCodigo())) {
 						establecerNotasComponenteReporte(datosReporteDTO, notaDTO);
 						break;
-					} else if (new Integer(1).equals(codQuimestre) && new Integer(2).equals(codParcial)
-							&& new Integer(2).equals(notaDTO.getTipoNotaBean().getParCodigo())) {
+					} else if (new Integer(1).equals(codQuimestre) && new Integer(2).equals(codParcial) && new Integer(2).equals(notaDTO.getTipoNotaBean().getParCodigo())) {
 						establecerNotasComponenteReporte(datosReporteDTO, notaDTO);
 						break;
-					} else if (new Integer(1).equals(codQuimestre) && new Integer(3).equals(codParcial)
-							&& new Integer(3).equals(notaDTO.getTipoNotaBean().getParCodigo())) {
+					} else if (new Integer(1).equals(codQuimestre) && new Integer(3).equals(codParcial) && new Integer(3).equals(notaDTO.getTipoNotaBean().getParCodigo())) {
 						establecerNotasComponenteReporte(datosReporteDTO, notaDTO);
 						break;
-					} else if (new Integer(2).equals(codQuimestre) && new Integer(1).equals(codParcial)
-							&& new Integer(5).equals(notaDTO.getTipoNotaBean().getParCodigo())) {
+					} else if (new Integer(2).equals(codQuimestre) && new Integer(1).equals(codParcial) && new Integer(5).equals(notaDTO.getTipoNotaBean().getParCodigo())) {
 						establecerNotasComponenteReporte(datosReporteDTO, notaDTO);
 						break;
-					} else if (new Integer(2).equals(codQuimestre) && new Integer(2).equals(codParcial)
-							&& new Integer(6).equals(notaDTO.getTipoNotaBean().getParCodigo())) {
+					} else if (new Integer(2).equals(codQuimestre) && new Integer(2).equals(codParcial) && new Integer(6).equals(notaDTO.getTipoNotaBean().getParCodigo())) {
 						establecerNotasComponenteReporte(datosReporteDTO, notaDTO);
 						break;
-					} else if (new Integer(2).equals(codQuimestre) && new Integer(3).equals(codParcial)
-							&& new Integer(7).equals(notaDTO.getTipoNotaBean().getParCodigo())) {
+					} else if (new Integer(2).equals(codQuimestre) && new Integer(3).equals(codParcial) && new Integer(7).equals(notaDTO.getTipoNotaBean().getParCodigo())) {
 						establecerNotasComponenteReporte(datosReporteDTO, notaDTO);
 						break;
 					}
@@ -745,14 +752,29 @@ public class ServicioNotasImpl implements ServicioNotas {
 			// CI
 			reporteDTO.setParametro1(datosEstudianteDTO.getEstudianteListDTO().getPerCi());
 			// estudiante
-			reporteDTO.setParametro2(datosEstudianteDTO.getEstudianteListDTO().getPerNombres()
-					+ datosEstudianteDTO.getEstudianteListDTO().getPerApellidos());
+			reporteDTO.setParametro2(datosEstudianteDTO.getEstudianteListDTO().getPerNombres() + datosEstudianteDTO.getEstudianteListDTO().getPerApellidos());
 			// Periodo
 			reporteDTO.setParametro3(datosEstudianteDTO.getPeriodoDTO().getPerDescripcion());
 			// Curso
 			reporteDTO.setParametro4(datosEstudianteDTO.getNivelDTO().getNivDescaripcion());
 			// Paralelo
 			reporteDTO.setParametro5(datosEstudianteDTO.getParaleloDTO().getParDescripcion());
+
+			// Notas tutor finales
+			MatriculaDTO matriculaDTO = datosEstudianteDTO.getListaMatriculaDetalleDTOs().get(0).getMatMatriculaBean();
+			List<NotaTutorDTO> listaNotaTutorDTOs = matriculaDTO.getNotNotasTutor();
+			NotaTutorDTO notaTutorDTOFinal = new NotaTutorDTO();
+
+			for (NotaTutorDTO notaTutorDTO : listaNotaTutorDTOs) {
+				notaTutorDTOFinal.setDiasLaborados((notaTutorDTOFinal.getDiasLaborados() == null ? 0 : notaTutorDTOFinal.getDiasLaborados()) + notaTutorDTO.getDiasLaborados());
+				notaTutorDTOFinal.setFaltasJustificadas((notaTutorDTOFinal.getFaltasJustificadas() == null ? 0 : notaTutorDTOFinal.getFaltasJustificadas()) + notaTutorDTO.getFaltasJustificadas());
+				notaTutorDTOFinal.setFaltaInjustificadas((notaTutorDTOFinal.getFaltaInjustificadas() == null ? 0 : notaTutorDTOFinal.getFaltaInjustificadas()) + notaTutorDTO.getFaltaInjustificadas());
+				notaTutorDTOFinal.setTotalDiasLaborados((notaTutorDTOFinal.getTotalDiasLaborados() == null ? 0 : notaTutorDTOFinal.getTotalDiasLaborados()) + notaTutorDTO.getTotalDiasLaborados());
+				if (notaTutorDTO.getCiclo().equals(2)) {
+					notaTutorDTOFinal.setComportamiento(notaTutorDTO.getComportamiento());
+				}
+			}
+			reporteDTO.setNotaTutorDTO(notaTutorDTOFinal);
 
 			// DATOS
 			List<MatriculaDetalleDTO> listaMatriculaDetalleDTOs = datosEstudianteDTO.getListaMatriculaDetalleDTOs();
@@ -789,6 +811,10 @@ public class ServicioNotasImpl implements ServicioNotas {
 			if (listaMatriculaDetalleDTOs.size() != 0) {// Promedios totales
 				reporteDTO.setPromeditoTotal(promedio / listaMatriculaDetalleDTOs.size());
 				reporteDTO.setObservacionFinal(estableceNotaCualitativa(reporteDTO.getPromeditoTotal()));
+			}
+
+			if (notaTutorDTOFinal.getFaltaInjustificadas() >= notaTutorDTOFinal.getTotalDiasLaborados() * 0.10) {
+				reporteDTO.setParametro6(MessagesApplicacion.getString("erp.notas.pagina.perdida.anio.asistencia"));
 			}
 
 		} catch (Exception e) {
@@ -910,7 +936,7 @@ public class ServicioNotasImpl implements ServicioNotas {
 			return notaDTOQuimestre;
 		}
 
-		Float promedioParciales = 0f;		
+		Float promedioParciales = 0f;
 
 		List<NotaDTO> notaDTOs = matriculaDetalleDTO.getNotNotas();
 
@@ -962,4 +988,192 @@ public class ServicioNotasImpl implements ServicioNotas {
 		return notaDTOQuimestre;
 	}
 
+	/*
+	 * FASE 2
+	 * 
+	 * @see
+	 * ec.edu.uce.erp.ejb.servicio.ServicioNotas#generarListaNotasTutor(java
+	 * .util.List, java.lang.Integer)
+	 */
+
+	public List<AsinacionDTO> obtenerAsignacionesPorPeriodoComAsi(Integer codPeriodo) throws SeguridadesException {
+		try {
+
+			List<AsinacionDTO> asinacionDTOs = matriculaFactoryDAO.getAsinacionDAOImpl().asignacionesPorPeriodo(codPeriodo);
+
+			for (AsinacionDTO asinacionDTO : asinacionDTOs) {
+				asinacionDTO.getMatMateria();
+				asinacionDTO.getMatMatriculaDetalles();
+				asinacionDTO.getMatNivelParalelo();
+				asinacionDTO.getMatNivelParalelo().getMatNivel();
+				asinacionDTO.getMatNivelParalelo().getMatParalelo();
+				List<MatriculaDetalleDTO> listaMatriculaDetalleDTOs = asinacionDTO.getMatMatriculaDetalles();
+
+				for (MatriculaDetalleDTO matriculaDetalleDTO : listaMatriculaDetalleDTOs) {
+					matriculaDetalleDTO.getMatMatriculaBean().getMatEstudiante().getEstPersona();
+					matriculaDetalleDTO.getMatMatriculaBean().getNotNotasTutor().size();
+				}
+			}
+
+			return asinacionDTOs;
+
+		} catch (Exception e) {
+			slf4jLogger.info("error al asignacionesPorPeriodo {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+	}
+
+	public List<MatriculaNotasTutorDTO> generarListaNotasTutor(List<AsinacionDTO> listaAsinacionesDTO, Integer codQuimestre) throws SeguridadesException {
+		try {
+			List<MatriculaNotasTutorDTO> listaMatriculaNotasTutorDTOs = new ArrayList<MatriculaNotasTutorDTO>();
+
+			for (AsinacionDTO asinacionDTO : listaAsinacionesDTO) {
+				List<MatriculaDetalleDTO> listaDetalleDTOs = asinacionDTO.getMatMatriculaDetalles();
+
+				for (MatriculaDetalleDTO matriculaDetalleDTO : listaDetalleDTOs) {
+					if (!listaMatriculaNotasTutorDTOs.contains(matriculaDetalleDTO.getMatMatriculaBean())) {
+						MatriculaNotasTutorDTO matriculaNotasTutorDTO = new MatriculaNotasTutorDTO();
+						matriculaNotasTutorDTO.setMatriculaDTO(matriculaDetalleDTO.getMatMatriculaBean());
+						matriculaNotasTutorDTO.setEstudianteDTO(matriculaDetalleDTO.getMatMatriculaBean().getMatEstudiante());
+						Persona persona = factoryDAO.getPersonaDAOImpl().find(matriculaDetalleDTO.getMatMatriculaBean().getMatEstudiante().getEstPersona());
+						matriculaNotasTutorDTO.setPersona(persona);
+
+						for (NotaTutorDTO notaTutorDTO : matriculaDetalleDTO.getMatMatriculaBean().getNotNotasTutor()) {
+							if (notaTutorDTO.getCiclo().equals(codQuimestre)) {
+								matriculaNotasTutorDTO.setNotaTutorDTO(notaTutorDTO);
+							}
+						}
+
+						if (matriculaNotasTutorDTO.getNotaTutorDTO() == null) {
+							NotaTutorDTO notaTutorDTO = new NotaTutorDTO();
+							notaTutorDTO.setCiclo(codQuimestre);
+							matriculaNotasTutorDTO.setNotaTutorDTO(notaTutorDTO);
+						}
+
+						listaMatriculaNotasTutorDTOs.add(matriculaNotasTutorDTO);
+					}
+				}
+			}
+			return listaMatriculaNotasTutorDTOs;
+		} catch (Exception e) {
+			slf4jLogger.info("error al generarListaNotasTutor {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+
+	}
+
+	public void guardarNotasTutor(List<MatriculaNotasTutorDTO> matriculaNotasTutorDTOs) throws SeguridadesException {
+		try {
+			for (MatriculaNotasTutorDTO matriculaNotasTutorDTO : matriculaNotasTutorDTOs) {
+				matriculaNotasTutorDTO.getNotaTutorDTO().setMatriculaBean(matriculaNotasTutorDTO.getMatriculaDTO());
+
+				matriculaFactoryDAO.getNotaTutorDAOImpl().update(matriculaNotasTutorDTO.getNotaTutorDTO());
+			}
+		} catch (Exception e) {
+			slf4jLogger.info("error al guardarNotasTutor {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+	}
+
+	public List<EstudianteNotaSuspensa> obtenerDatosEstudiantesSuspensos(NivelDTO nivelDTOSeleccionado, ParaleloDTO paraleloDTOSeleccionado, Integer codMateriaSeleccionada,
+			List<AsinacionDTO> asinacionDTOs, Integer codTipoSuspenso) throws SeguridadesException {
+
+		List<EstudianteNotaSuspensa> listaEstudianteNotaSuspensas = new ArrayList<EstudianteNotaSuspensa>();
+		try {
+			for (AsinacionDTO asinacionDTO : asinacionDTOs) {
+				if (asinacionDTO.getMatNivelParalelo().getMatNivel().getNivCodigo().equals(nivelDTOSeleccionado.getNivCodigo())
+						&& asinacionDTO.getMatNivelParalelo().getMatParalelo().getParCodigo().equals(paraleloDTOSeleccionado.getParCodigo())
+						&& asinacionDTO.getMatMateria().getMtrCodigo().equals(codMateriaSeleccionada)) {
+
+					List<MatriculaDetalleDTO> listaMatriculaDetalleDTOs = asinacionDTO.getMatMatriculaDetalles();
+					for (MatriculaDetalleDTO matriculaDetalleDTO : listaMatriculaDetalleDTOs) {
+						if (matriculaDetalleDTO.getEstado().equals(codTipoSuspenso)) {
+
+							EstudianteNotaSuspensa estudianteNotaSuspensa = new EstudianteNotaSuspensa();
+
+							Persona persona = factoryDAO.getPersonaDAOImpl().find(matriculaDetalleDTO.getMatMatriculaBean().getMatEstudiante().getEstPersona());
+							estudianteNotaSuspensa.setPersona(persona);
+
+							NotaDTO notaSuspenso = new NotaDTO();
+							notaSuspenso.setTipoNotaBean(matriculaFactoryDAO.getParcialDAOImpl().find(codTipoSuspenso + 15));
+							List<NotaDTO> notaDTOs = matriculaDetalleDTO.getNotNotas();
+
+							for (NotaDTO notaDTO : notaDTOs) {
+								if (notaDTO.getTipoNotaBean().getParCodigo().equals(codTipoSuspenso + 15)) {
+									notaSuspenso = notaDTO;
+									break;
+								}
+							}
+
+							estudianteNotaSuspensa.setNotaSuspensoDTO(notaSuspenso);
+							estudianteNotaSuspensa.setMatriculaDetalleDTO(matriculaDetalleDTO);
+
+							listaEstudianteNotaSuspensas.add(estudianteNotaSuspensa);
+						}
+					}
+				}
+			}
+
+			return listaEstudianteNotaSuspensas;
+
+		} catch (Exception e) {
+			slf4jLogger.info("error al obtenerDatosEstudiantesSuspensos {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+	}
+
+	public void guardarNotasSuspensas(List<EstudianteNotaSuspensa> listaEstudianteNotaSuspensas, Integer codTipoSuspenso) throws SeguridadesException {
+		try {
+			for (EstudianteNotaSuspensa estudianteNotaSuspensa : listaEstudianteNotaSuspensas) {
+				NotaDTO notaDTO = estudianteNotaSuspensa.getNotaSuspensoDTO();
+
+				if (notaDTO.getNotValor() >= MessagesApplicacion.getInteger("erp.notas.limite.aprobar")) {
+					estudianteNotaSuspensa.getMatriculaDetalleDTO().setEstado(MessagesApplicacion.getInteger("erp.notas.esto.aprobado.perido.lectivo"));
+
+				} else if (MessagesApplicacion.getInteger("erp.notas.esto.supletorio.perido.lectivo").equals(codTipoSuspenso)) {
+					estudianteNotaSuspensa.getMatriculaDetalleDTO().setEstado(MessagesApplicacion.getInteger("erp.notas.esto.remedial.perido.lectivo"));
+
+				} else if (MessagesApplicacion.getInteger("erp.notas.esto.remedial.perido.lectivo").equals(codTipoSuspenso)) {
+					// Obtengo la matricula para verificar si hay alguna otra
+					// materia en gracia
+					MatriculaDTO matriculaDTO = estudianteNotaSuspensa.getMatriculaDetalleDTO().getMatMatriculaBean();
+					List<MatriculaDetalleDTO> matriculaDetalleDTOs = matriculaDTO.getMatMatriculaDetalles();
+					for (MatriculaDetalleDTO matriculaDetalleDTO : matriculaDetalleDTOs) {
+						/*
+						 * Si hay una materia en gracia en nuevo estado de la
+						 * materia ingresada es reprobado y se deben actualizar
+						 * todas las demas materias xq ya habrian dos materias
+						 * en gracia y eso es causa de perdida del año.
+						 */
+						if ((matriculaDetalleDTO.getEstado().equals(MessagesApplicacion.getInteger("erp.notas.esto.gracia.perido.lectivo")) || matriculaDetalleDTO.getEstado().equals(
+								MessagesApplicacion.getInteger("erp.notas.esto.reprobado.perido.lectivo")))
+								&& !estudianteNotaSuspensa.getMatriculaDetalleDTO().getMatCodigo().equals(matriculaDetalleDTO.getMatCodigo())) {
+
+							estudianteNotaSuspensa.getMatriculaDetalleDTO().setEstado(MessagesApplicacion.getInteger("erp.notas.esto.reprobado.perido.lectivo"));
+							/*
+							 * actualizar a reprobado todos las materias que
+							 * estaban en gracia.
+							 */
+							matriculaDetalleDTO.setEstado(MessagesApplicacion.getInteger("erp.notas.esto.reprobado.perido.lectivo"));
+							matriculaFactoryDAO.getMatriculaDetalleDAOImpl().update(matriculaDetalleDTO);
+							break;
+							// si no es gracia, ponemos el estado en gracia.
+						} else {
+							estudianteNotaSuspensa.getMatriculaDetalleDTO().setEstado(MessagesApplicacion.getInteger("erp.notas.esto.gracia.perido.lectivo"));
+						}
+					}
+
+				} else if (MessagesApplicacion.getInteger("erp.notas.esto.gracia.perido.lectivo").equals(codTipoSuspenso)) {
+					estudianteNotaSuspensa.getMatriculaDetalleDTO().setEstado(MessagesApplicacion.getInteger("erp.notas.esto.reprobado.perido.lectivo"));
+				}
+
+				notaDTO.setMatMatriculaDetalleBean(estudianteNotaSuspensa.getMatriculaDetalleDTO());
+
+				matriculaFactoryDAO.getNotaDAOImpl().update(notaDTO);
+			}
+		} catch (Exception e) {
+			slf4jLogger.info("error al guardarNotasSuspensas {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+	}
 }

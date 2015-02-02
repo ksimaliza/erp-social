@@ -82,6 +82,37 @@ public class ParaleloDTO implements Serializable {
 		this.parEmpresa = parEmpresa;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((parCodigo == null) ? 0 : parCodigo.hashCode());
+		result = prime * result + ((parEmpresa == null) ? 0 : parEmpresa.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ParaleloDTO other = (ParaleloDTO) obj;
+		if (parCodigo == null) {
+			if (other.parCodigo != null)
+				return false;
+		} else if (!parCodigo.equals(other.parCodigo))
+			return false;
+		if (parEmpresa == null) {
+			if (other.parEmpresa != null)
+				return false;
+		} else if (!parEmpresa.equals(other.parEmpresa))
+			return false;
+		return true;
+	}
+
 	
 
 }

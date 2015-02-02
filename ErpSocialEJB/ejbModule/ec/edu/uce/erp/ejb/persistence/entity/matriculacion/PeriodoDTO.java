@@ -88,7 +88,7 @@ public class PeriodoDTO implements Serializable {
 	public void setPerEmpresa(Integer perEmpresa) {
 		this.perEmpresa = perEmpresa;
 	}
-
+	
 	public Date getPerFechaInicio() {
 		return perFechaInicio;
 	}
@@ -103,6 +103,37 @@ public class PeriodoDTO implements Serializable {
 
 	public void setPerFechaFinal(Date perFechaFinal) {
 		this.perFechaFinal = perFechaFinal;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((perCodigo == null) ? 0 : perCodigo.hashCode());
+		result = prime * result + ((perEmpresa == null) ? 0 : perEmpresa.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PeriodoDTO other = (PeriodoDTO) obj;
+		if (perCodigo == null) {
+			if (other.perCodigo != null)
+				return false;
+		} else if (!perCodigo.equals(other.perCodigo))
+			return false;
+		if (perEmpresa == null) {
+			if (other.perEmpresa != null)
+				return false;
+		} else if (!perEmpresa.equals(other.perEmpresa))
+			return false;
+		return true;
 	}
 
 
