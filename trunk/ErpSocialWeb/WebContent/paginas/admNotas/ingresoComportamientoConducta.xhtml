@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="title">
+		<h3>
+			<h:outputLabel
+				value="#{i18n['erp.notas.pagina.reporte.paralelo.titulo']}" />
+		</h3>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="#{notasController.form}">
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true" />
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<h4>
+						<h:panelGrid columns="2" id="pnlFiltros">
+
+							<!-- PERIODOS -->
+							<h:outputLabel
+								value="#{i18n['erp.notas.pagina.periodo.lectivo']}" />
+							<p:selectOneMenu id="cbmPeriodos"
+								value="#{notasDataManager.codPeriodoSeleccionado}">
+								<f:selectItem itemLabel="--Seleccione Uno--" itemValue="" />
+								<f:selectItems var="periodo"
+									itemLabel="#{periodo.perDescripcion}"
+									value="#{notasDataManager.listaPeriodoDTOs}"
+									itemValue="#{periodo.perCodigo}" />
+								<p:ajax update="pnlFiltros"
+									listener="#{notasController.buscarAsignacionesPorPeriodoComAsis()}" />
+							</p:selectOneMenu>
+
+							<!-- NIVELES -->
+							<h:outputLabel value="#{i18n['erp.notas.pagina.curso']}:"
+								for="cbmCursos" />
+							<p:selectOneMenu id="cbmCursos"
+								value="#{notasDataManager.nivelDTOSeleccionado.nivCodigo}">
+								<f:selectItem itemLabel="--Seleccione Uno--" itemValue="" />
+								<f:selectItems var="nivel" itemLabel="#{nivel.nivDescaripcion}"
+									value="#{notasDataManager.listaNiveles}"
+									itemValue="#{nivel.nivCodigo}" />
+								<p:ajax update="pnlFiltros"
+									listener="#{notasController.llenarParalelosPorNivelComAsis()}" />
+							</p:selectOneMenu>
+
+							<!-- PARELELO -->
+							<h:outputLabel value="#{i18n['erp.notas.pagina.paralelo']}:"
+								for="cbmParalelos" />
+							<p:selectOneMenu id="cbmParalelos"
+								value="#{notasDataManager.paraleloDTOSeleccionado.parCodigo}">
+								<f:selectItem itemLabel="--Seleccione Uno--" itemValue="" />
+								<f:selectItems var="paralelo"
+									itemLabel="#{paralelo.parDescripcion}"
+									value="#{notasDataManager.listaParalelo}"
+									itemValue="#{paralelo.parCodigo}" />
+								<p:ajax update="pnlFiltros"
+									listener="#{notasController.filtarAsignacionesPorNivelParaleloComAsi()}" />
+							</p:selectOneMenu>
+
+
+							<!-- QUIMESTRE -->
+							<h:outputLabel value="#{i18n['erp.notas.pagina.quimestre']}:"
+								for="cbmQuimestres" />
+							<p:selectOneMenu id="cbmQuimestres"
+								value="#{notasDataManager.codQuimestreSeleccionada}">
+								<f:selectItem itemLabel="--Seleccione Uno--" itemValue="" />
+								<f:selectItem itemLabel="Primero" itemValue="1" />
+								<f:selectItem itemLabel="Segundo" itemValue="2" />
+							</p:selectOneMenu>
+
+							<!-- BUSCAR -->
+							<p:outputLabel value="" />
+							<p:commandButton id="btnBuscar" value="Buscar"
+								actionListener="#{notasController.buscarEstudiantesParaComAsi()}"
+								update="pnlFiltros, tablaEstudiantes">
+							</p:commandButton>
+
+						</h:panelGrid>
+					</h4>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:dataTable id="tablaEstudiantes"
+				value="#{notasDataManager.listaMatriculaNotasTutorDTO}"
+				var="matriculaNotaTutor" rowIndexVar="rowIndex" editable="true"
+				editMode="cell">
+
+				<p:ajax event="cellEdit" listener="#{notasController.onCellEdit}"
+					update=":formNotas:pnlMessages, tablaEstudiantes" />
+
+				<p:columnGroup type="header">
+					<p:row>
+						<p:column headerText="Nombres" />
+
+						<p:column headerText="Faltas Justificadas" />
+
+						<p:column headerText="Faltas Injustificadas" />
+
+						<p:column headerText="Días Laborados" />
+
+						<p:column headerText="Total Días" />
+
+						<p:column headerText="COMPORTAMIENTO" />
+					</p:row>
+				</p:columnGroup>
+
+				<p:column>
+               			#{matriculaNotaTutor.persona.perNombres} #{matriculaNotaTutor.persona.perApellidos} 
+            	</p:column>
+
+
+				<p:column>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText
+								value="#{matriculaNotaTutor.notaTutorDTO.faltasJustificadas}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText
+								value="#{matriculaNotaTutor.notaTutorDTO.faltasJustificadas}">
+								<p:ajax update=":formNotas:pnlMessages, tablaEstudiantes" />
+							</p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText
+								value="#{matriculaNotaTutor.notaTutorDTO.faltaInjustificadas}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText
+								value="#{matriculaNotaTutor.notaTutorDTO.faltaInjustificadas}">
+								<p:ajax update="tablaEstudiantes" />
+							</p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText
+								value="#{matriculaNotaTutor.notaTutorDTO.diasLaborados}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText
+								value="#{matriculaNotaTutor.notaTutorDTO.diasLaborados}">
+								<p:ajax update="tablaEstudiantes" />
+							</p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText
+								value="#{matriculaNotaTutor.notaTutorDTO.totalDiasLaborados}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText
+								value="#{matriculaNotaTutor.notaTutorDTO.totalDiasLaborados}">
+								<p:ajax update="tablaEstudiantes" />
+							</p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText
+								value="#{matriculaNotaTutor.notaTutorDTO.comportamiento}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText
+								value="#{matriculaNotaTutor.notaTutorDTO.comportamiento}">
+								<p:ajax update="tablaEstudiantes" />
+							</p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+			</p:dataTable>
+			<h:commandButton action="#{notasController.guardarNotasTutor()}"
+				value="GUARDAR" />
+		</h:form>
+	</ui:define>
+</ui:composition>

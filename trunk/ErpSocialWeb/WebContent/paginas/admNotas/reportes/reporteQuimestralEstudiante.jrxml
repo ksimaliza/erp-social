@@ -1,8 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteQuimestralEstudiante" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="919d30ee-cc10-4bb6-8041-8a9506845632">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.2100000000000013"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="153"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFBFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="9261731e-f29e-4267-9c6f-5695003321fe"/>
 	<parameter name="parametro6" class="java.lang.String"/>
 	<parameter name="parametro3" class="java.lang.String"/>
 	<parameter name="parametro1" class="java.lang.String"/>
@@ -11,6 +32,11 @@
 	<parameter name="parametro5" class="java.lang.String"/>
 	<parameter name="promeditoTotal" class="java.lang.Float"/>
 	<parameter name="observacionFinal" class="java.lang.String"/>
+	<parameter name="parametro7" class="java.lang.String"/>
+	<parameter name="parametro8" class="java.lang.String"/>
+	<parameter name="parametro9" class="java.lang.String"/>
+	<parameter name="parametro10" class="java.lang.String"/>
+	<parameter name="parametro11" class="java.lang.String"/>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="calificacion1" class="java.lang.Float"/>
 	<field name="calificacion2" class="java.lang.Float"/>
@@ -365,7 +391,7 @@
 				<textFieldExpression><![CDATA[$F{calificacion6} == null ? "" : $F{calificacion6}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="631" y="0" width="71" height="20" uuid="68faab24-6cfe-42d8-9e1d-6afa4bac60ca"/>
+				<reportElement x="632" y="0" width="70" height="20" uuid="68faab24-6cfe-42d8-9e1d-6afa4bac60ca"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -373,13 +399,13 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Right">
+				<textElement textAlignment="Center">
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{calificacion8} == null ? "" : $F{calificacion8}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="562" y="0" width="69" height="20" uuid="4e3117d4-da85-44f2-b2c6-cdeecca7f149"/>
+				<reportElement x="562" y="0" width="70" height="20" uuid="4e3117d4-da85-44f2-b2c6-cdeecca7f149"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -423,7 +449,7 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="21" splitType="Stretch">
+		<band height="41" splitType="Stretch">
 			<textField>
 				<reportElement x="702" y="0" width="100" height="20" uuid="80def5a6-ebfe-4a8b-bbc5-318b0eb2d3fb"/>
 				<box>
@@ -439,7 +465,7 @@
 				<textFieldExpression><![CDATA[$P{observacionFinal} == null ? "" : $P{observacionFinal}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="631" y="0" width="71" height="20" uuid="d9d46e30-88bb-42b8-94e6-51fada5fd9c1"/>
+				<reportElement x="632" y="0" width="70" height="20" uuid="d9d46e30-88bb-42b8-94e6-51fada5fd9c1"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -447,13 +473,13 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Right">
+				<textElement textAlignment="Center">
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{promeditoTotal} == null ? "" : $P{promeditoTotal}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="0" width="631" height="20" uuid="8c017e54-acb5-4a6d-a233-3d4db7a5b026"/>
+				<reportElement x="0" y="0" width="632" height="20" uuid="8c017e54-acb5-4a6d-a233-3d4db7a5b026"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -461,14 +487,183 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[PROMEDIO GENERAL]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="632" height="20" uuid="091fdaa2-e822-441a-9747-bd685185f873"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[COMPORTAMIENTO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="632" y="20" width="170" height="20" uuid="8c5d3597-3880-415b-a76d-9fde5e2dc309"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parametro11} == null ? "" : $P{parametro11}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="104" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="107" height="20" uuid="5e476b6e-8f57-4e92-a271-e30541348c9e"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Asistencia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="107" height="20" uuid="17a6271f-e746-48a3-9be7-8e559e86939a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Faltas Justificadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="107" height="20" uuid="9323915b-fa94-49be-813d-f23ebd7895de"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Faltas Injustificadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="107" height="20" uuid="0bca4267-791b-4df4-a79c-4f8e5629012f"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Días Laborados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="107" height="20" uuid="eb101e79-8577-4573-8787-9d3021d5f416"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Total Días Laborados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="107" y="0" width="71" height="20" uuid="c1c0ea74-d5f2-41c5-abb2-ae6038a6fbcd"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Días]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="107" y="20" width="71" height="20" uuid="0e9d0617-cd60-47dd-8626-4d650bc00e0c"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parametro7} == null ? "" : $P{parametro7}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="107" y="40" width="71" height="20" uuid="617406df-486e-4974-8cf6-9ffa28ae6fab"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parametro8} == null ? "" : $P{parametro8}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="107" y="60" width="71" height="20" uuid="088f90af-43ed-43ae-b5e6-1b473f3bcca8"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parametro9} == null ? "" : $P{parametro9}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="107" y="80" width="71" height="20" uuid="4599f08f-466d-41d7-815a-bee85c4e88f0"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parametro10} == null ? "" : $P{parametro10}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 </jasperReport>

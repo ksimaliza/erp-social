@@ -104,13 +104,13 @@
 							<p:column
 								headerText="#{i18n['erp.notas.pagina.primer.quimestre']}" />
 							<p:column
-								headerText="#{i18n['erp.notas.pagina.segundo.parcial']}" />
+								headerText="#{i18n['erp.notas.pagina.segundo.quimestre']}" />
 							<p:column headerText="#{i18n['erp.notas.pagina.promedio']}" />
 							<p:column headerText="Promedio Cualitativo" />
 						</p:row>
 					</p:columnGroup>
 
-					<p:column footerText="PROMEDIO GENERAL">
+					<p:column>
                			#{registroReporte.nombre}
             		</p:column>
 
@@ -126,22 +126,96 @@
 						</center>
 					</p:column>
 
-					<p:column
-						footerText="#{notasDataManager.reporteDTO.promeditoTotal}">
+					<p:column>
 						<center>
 							<h:outputText value="#{registroReporte.calificacion3}" />
 						</center>
 					</p:column>
 
-					<p:column
-						footerText="#{notasDataManager.reporteDTO.observacionFinal}">
+					<p:column>
 						<center>
 							<h:outputText value="#{registroReporte.observacion}" />
 						</center>
 					</p:column>
 
+					<p:columnGroup type="footer">
+						<p:row>
+							<p:column colspan="3" style="text-align:right"
+								footerText="PROMEDIO GENERAL" />
+							<p:column
+								footerText="#{notasDataManager.reporteDTO.promeditoTotal}" />
+
+							<p:column
+								footerText="#{notasDataManager.reporteDTO.observacionFinal}" />
+						</p:row>
+
+						<p:row>
+							<p:column colspan="3" style="text-align:right"
+								footerText="COMPORTAMIENTO" />
+							<p:column colspan="2"
+								footerText="#{notasDataManager.reporteDTO.notaTutorDTO.comportamiento}" />
+						</p:row>
+					</p:columnGroup>
+
 
 				</p:dataTable>
+				<h:outputText value=" " />
+
+				<br />
+				<h:outputText value="#{notasDataManager.reporteDTO.parametro6}"
+					rendered="#{notasDataManager.reporteDTO.parametro6 ne null}" />
+				<p:panelGrid id="tablaNotasTutor"
+					rendered="#{notasDataManager.reporteDTO != null}">
+
+
+					<f:facet name="header">
+						<p:row>
+							<p:column> #{i18n['erp.notas.pagina.asistencia']} </p:column>
+							<p:column> #{i18n['erp.notas.pagina.dia']} </p:column>
+						</p:row>
+					</f:facet>
+
+					<p:row>
+						<p:column>
+							<h:outputText
+								value="#{i18n['erp.notas.pagina.faltas.justificadas']}" />
+						</p:column>
+						<p:column>
+							<h:outputText
+								value="#{notasDataManager.reporteDTO.notaTutorDTO.faltasJustificadas}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel
+								value="#{i18n['erp.notas.pagina.faltas.injustificadas']}" />
+						</p:column>
+						<p:column>
+							<h:outputText
+								value="#{notasDataManager.reporteDTO.notaTutorDTO.faltaInjustificadas}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel value="#{i18n['erp.notas.pagina.dia.laborados']}" />
+						</p:column>
+						<p:column>
+							<h:outputText
+								value="#{notasDataManager.reporteDTO.notaTutorDTO.diasLaborados}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<h:outputLabel
+								value="#{i18n['erp.notas.pagina.total.dias.laborables']}" />
+						</p:column>
+						<p:column>
+							<h:outputText
+								value="#{notasDataManager.reporteDTO.notaTutorDTO.totalDiasLaborados}" />
+						</p:column>
+					</p:row>
+
+				</p:panelGrid>
 
 			</h:panelGroup>
 
