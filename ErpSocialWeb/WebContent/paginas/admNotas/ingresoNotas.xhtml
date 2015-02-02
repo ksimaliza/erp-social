@@ -85,7 +85,9 @@
 
 						<p:column headerText="Lección Escrita" />
 
-						<p:column headerText="Nota Parcial" />
+						<p:column headerText="Nota Parcial 100 %" />
+						
+						<p:column headerText="Nota Parcial 80 %" />
 					</p:row>
 				</p:columnGroup>
 
@@ -168,6 +170,12 @@
 
 				<p:column>
 					<h:outputText value="#{estudianteNota.notaParcialDTO.notValor}" />
+				</p:column>
+				
+				<p:column>
+					<h:outputText value="#{estudianteNota.notaParcialDTO.notValor*0.80}">
+					 <f:convertNumber pattern="#0.00" locale="es"/>
+					</h:outputText>
 				</p:column>
 
 			</p:dataTable>
