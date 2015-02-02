@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="title">
+		<h3>
+			<h:outputLabel
+				value="#{i18n['erp.notas.pagina.ingreso.suspensos.titulo']}" />
+		</h3>
+	</ui:define>
+	<ui:define name="content">
+		<h:form id="#{notasController.form}">
+			<p:growl id="pnlMessages" autoUpdate="true" closable="true" />
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<h4>
+						<h:outputLabel
+							value="#{i18n['erp.notas.pagina.anio.lectivo']} #{notasDataManager.anioLectivoVigente.perDescripcion}" />
+					</h4>
+					<h4>
+						<h:panelGrid columns="2">
+							<h:outputLabel value="#{i18n['erp.notas.pagina.curso']}"
+								for="cbmCursos" />
+							<p:selectOneMenu id="cbmCursos"
+								value="#{notasDataManager.nivelDTOSeleccionado.nivCodigo}">
+								<f:selectItem itemLabel="--Todos--" itemValue="" />
+								<f:selectItems var="nivel" itemLabel="#{nivel.nivDescaripcion}"
+									value="#{notasDataManager.listaNiveles}"
+									itemValue="#{nivel.nivCodigo}" />
+								<p:ajax update="tablaMenu, cbmParalelos"
+									listener="#{notasController.filtarMateriasPorNivelSuspensos()}" />
+							</p:selectOneMenu>
+
+							<h:outputLabel value="#{i18n['erp.notas.pagina.paralelo']}"
+								for="cbmParalelos" />
+							<p:selectOneMenu id="cbmParalelos"
+								value="#{notasDataManager.paraleloDTOSeleccionado.parCodigo}">
+								<f:selectItem itemLabel="--Todos--" itemValue="" />
+								<f:selectItems var="paralelo"
+									itemLabel="#{paralelo.parDescripcion}"
+									value="#{notasDataManager.listaParalelo}"
+									itemValue="#{paralelo.parCodigo}" />
+								<p:ajax update="tablaMenu"
+									listener="#{notasController.filtarMateriasPorNivelParaleloSuspensos()}" />
+							</p:selectOneMenu>
+
+							<h:outputLabel value="#{i18n['erp.notas.pagina.nombre.materia']}"
+								for="cbmMaterias" />
+							<p:selectOneMenu id="cbmMaterias"
+								value="#{notasDataManager.codMateriaSeleccionada}">
+								<f:selectItem itemLabel="--Todos--" itemValue="" />
+								<f:selectItems var="paralelo" itemLabel="#{paralelo.mtrNombe}"
+									value="#{notasDataManager.listaMaterias}"
+									itemValue="#{paralelo.mtrCodigo}" />
+							</p:selectOneMenu>
+
+							<h:outputLabel value="#{i18n['erp.notas.pagina.tipo.suspenso']}"
+								for="cbmTipoSuspenso" />
+							<p:selectOneMenu id="cbmTipoSuspenso"
+								value="#{notasDataManager.codTipoSuspensoSeleccionado}">
+								<f:selectItem itemLabel="--Todos--" itemValue="" />
+								<f:selectItem itemLabel="Supletorio" itemValue="2" />
+								<f:selectItem itemLabel="Remedial" itemValue="3" />
+								<f:selectItem itemLabel="Gracia" itemValue="4" />
+							</p:selectOneMenu>
+
+							<!-- BUSCAR -->
+							<p:outputLabel value="" />
+							<p:commandButton id="btnBuscar" value="Buscar"
+								actionListener="#{notasController.buscarEstudiantesNotasSuspensas()}"
+								update="tablaMenu">
+							</p:commandButton>
+
+						</h:panelGrid>
+					</h4>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:dataTable id="tablaMenu"
+				value="#{notasDataManager.listaEstudianteNotaSuspensas}"
+				var="estudianteNotaSuspensa" rowIndexVar="rowIndex" paginator="true"
+				rows="5" editable="true" editMode="cell" paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+				<p:columnGroup type="header">
+					<p:row>
+						<p:column
+							headerText="#{i18n['erp.notas.pagina.cabecera.estudiante']}" />
+						<p:column
+							headerText="#{i18n['erp.notas.pagina.cabecera.valor.nota']}" />
+
+					</p:row>
+				</p:columnGroup>
+
+				<p:column>
+               			#{estudianteNotaSuspensa.persona.perApellidos} #{estudianteNotaSuspensa.persona.perNombres}
+            	</p:column>
+				<p:column>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText
+								value="#{estudianteNotaSuspensa.notaSuspensoDTO.notValor}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText
+								value="#{estudianteNotaSuspensa.notaSuspensoDTO.notValor}">
+								<p:ajax update=":formNotas:pnlMessages" />
+							</p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+			</p:dataTable>
+
+			<h:commandButton action="#{notasController.guardarNotasSuspensas()}"
+				value="GUARDAR" />
+
+		</h:form>
+	</ui:define>
+</ui:composition>

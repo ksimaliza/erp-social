@@ -122,6 +122,15 @@
 						<h:commandButton
 							action="#{notasController.ingredarNotasMateria(materiaEstadoParciales)}"
 							value="Ingresar"
+							disabled="#{materiaEstadoParciales.tipoNotaDTO.parCodigo != 5}" />
+					</center>
+				</p:column>
+
+				<p:column>
+					<center>
+						<h:commandButton
+							action="#{notasController.ingredarNotasMateria(materiaEstadoParciales)}"
+							value="Ingresar"
 							disabled="#{materiaEstadoParciales.tipoNotaDTO.parCodigo != 6}" />
 					</center>
 				</p:column>
@@ -141,15 +150,6 @@
 							action="#{notasController.ingredarNotasMateria(materiaEstadoParciales)}"
 							value="Ingresar"
 							disabled="#{materiaEstadoParciales.tipoNotaDTO.parCodigo != 8}" />
-					</center>
-				</p:column>
-
-				<p:column>
-					<center>
-						<h:commandButton
-							action="#{notasController.ingredarNotasMateria(materiaEstadoParciales)}"
-							value="Ingresar"
-							disabled="#{materiaEstadoParciales.tipoNotaDTO.parCodigo != 9}" />
 					</center>
 				</p:column>
 				<!-- </p:subTable> -->
