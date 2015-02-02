@@ -32,8 +32,10 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
 import ec.edu.uce.erp.ejb.persistence.util.dto.ComparadorTipoNotas;
 import ec.edu.uce.erp.ejb.persistence.util.dto.DatosEstudianteDTO;
+import ec.edu.uce.erp.ejb.persistence.util.dto.EstudianteNotaSuspensa;
 import ec.edu.uce.erp.ejb.persistence.util.dto.EstudianteNotasParcial;
 import ec.edu.uce.erp.ejb.persistence.util.dto.MateriaEstadoPacialesDTO;
+import ec.edu.uce.erp.ejb.persistence.util.dto.MatriculaNotasTutorDTO;
 import ec.edu.uce.erp.ejb.persistence.util.dto.ReporteDTO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
 import ec.edu.uce.erp.ejb.servicio.ServicioNotas;
@@ -70,8 +72,7 @@ public class NotasController extends BaseController {
 
 			notasDataManager.setEstaInicializado(Boolean.TRUE);
 			// ESTUDIANTE
-		} else if (notasDataManager.getUsuarioSession().getSegtPerfil().getIdPerfil()
-				.equals(MessagesApplicacion.getInteger("erp.seg.perfil.estudiante"))) {
+		} else if (notasDataManager.getUsuarioSession().getSegtPerfil().getIdPerfil().equals(MessagesApplicacion.getInteger("erp.seg.perfil.estudiante"))) {
 			obtenerAnioLectivoVigente();
 			notasDataManager.setDatosEstudianteDTO(new DatosEstudianteDTO());
 			notasDataManager.setCedulaEstudiante("");
@@ -86,7 +87,14 @@ public class NotasController extends BaseController {
 			notasDataManager.setNivelDTOSeleccionado(new NivelDTO());
 			notasDataManager.setParaleloDTOSeleccionado(new ParaleloDTO());
 			notasDataManager.setEstaInicializado(Boolean.TRUE);
+			// TUTOR
+		} else if (notasDataManager.getUsuarioSession().getSegtPerfil().getIdPerfil().equals(MessagesApplicacion.getInteger("erp.seg.perfil.tutor"))) {
+			obtenerAnioLectivoVigente();
+			notasDataManager.setNivelDTOSeleccionado(new NivelDTO());
+			notasDataManager.setParaleloDTOSeleccionado(new ParaleloDTO());
+			notasDataManager.setEstaInicializado(Boolean.TRUE);
 		}
+
 	}
 
 	public String getForm() {
@@ -116,8 +124,8 @@ public class NotasController extends BaseController {
 
 	private void obtenerAsignacionesPorPeriodoProfesor() {
 		try {
-			notasDataManager.setListaAsinacionDTO(servicioNotas.obtenerAsignacionesPorPeriodoProfesor(notasDataManager.getAnioLectivoVigente()
-					.getPerCodigo(), notasDataManager.getUsuarioSession().getPersonaTbls().get(0).getPerPk()));
+			notasDataManager.setListaAsinacionDTO(servicioNotas.obtenerAsignacionesPorPeriodoProfesor(notasDataManager.getAnioLectivoVigente().getPerCodigo(), notasDataManager.getUsuarioSession()
+					.getPersonaTbls().get(0).getPerPk()));
 		} catch (SeguridadesException e) {
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
@@ -143,14 +151,7 @@ public class NotasController extends BaseController {
 		List<ParaleloDTO> paraleloDTOs = new ArrayList<ParaleloDTO>();
 		NivelDTO nivelDTOSeleccionado = notasDataManager.getNivelDTOSeleccionado();
 
-		for (AsinacionDTO asinacionDTO : notasDataManager.getListaAsinacionDTO()) {
-			if (asinacionDTO.getMatNivelParalelo().getMatNivel().getNivCodigo().equals(nivelDTOSeleccionado.getNivCodigo())
-					&& !paraleloDTOs.contains(asinacionDTO.getMatNivelParalelo().getMatParalelo())) {
-
-				paraleloDTOs.add(asinacionDTO.getMatNivelParalelo().getMatParalelo());
-
-			}
-		}
+		llenarParalelos(paraleloDTOs, nivelDTOSeleccionado);
 
 		notasDataManager.setListaParalelo(paraleloDTOs);
 
@@ -171,8 +172,7 @@ public class NotasController extends BaseController {
 
 		notasDataManager.setListaMaterias(listaMateriaDTOs);
 
-		notasDataManager.setListaMateriaEstadoPacialesDTOs(servicioNotas.establecerEstadosNotasPasadas(notasDataManager
-				.getListaAsinacionesSeleccionadas()));
+		notasDataManager.setListaMateriaEstadoPacialesDTOs(servicioNotas.establecerEstadosNotasPasadas(notasDataManager.getListaAsinacionesSeleccionadas()));
 	}
 
 	public void filtarMateriasPorNivel() {
@@ -192,8 +192,7 @@ public class NotasController extends BaseController {
 			notasDataManager.setListaAsinacionesSeleccionadas(asinacionDTOsSeleccionadas);
 			llenarParalelosPorNivel();
 			notasDataManager.setListaMaterias(listaMateriaDTOs);
-			notasDataManager.setListaMateriaEstadoPacialesDTOs(servicioNotas.establecerEstadosNotasPasadas(notasDataManager
-					.getListaAsinacionesSeleccionadas()));
+			notasDataManager.setListaMateriaEstadoPacialesDTOs(servicioNotas.establecerEstadosNotasPasadas(notasDataManager.getListaAsinacionesSeleccionadas()));
 		}
 
 	}
@@ -216,8 +215,7 @@ public class NotasController extends BaseController {
 			}
 			notasDataManager.setListaAsinacionesSeleccionadas(asinacionDTOsSeleccionadas);
 			notasDataManager.setListaMaterias(listaMateriaDTOs);
-			notasDataManager.setListaMateriaEstadoPacialesDTOs(servicioNotas.establecerEstadosNotasPasadas(notasDataManager
-					.getListaAsinacionesSeleccionadas()));
+			notasDataManager.setListaMateriaEstadoPacialesDTOs(servicioNotas.establecerEstadosNotasPasadas(notasDataManager.getListaAsinacionesSeleccionadas()));
 		}
 
 	}
@@ -231,16 +229,13 @@ public class NotasController extends BaseController {
 	public String ingredarNotasMateria(MateriaEstadoPacialesDTO materiaEstadoPacialesDTO) {
 		notasDataManager.setMateriaEstadoSeleccionado(materiaEstadoPacialesDTO);
 
-		List<EstudianteNotasParcial> listaEstudianteNotasParcials = servicioNotas.obtenerEstudiantesNotasParcial(notasDataManager
-				.getMateriaEstadoSeleccionado());
+		List<EstudianteNotasParcial> listaEstudianteNotasParcials = servicioNotas.obtenerEstudiantesNotasParcial(notasDataManager.getMateriaEstadoSeleccionado());
 
 		notasDataManager.setListaEstudianteNotasParcials(listaEstudianteNotasParcials);
 
 		for (EstudianteNotasParcial estudianteNotasParcial : listaEstudianteNotasParcials) {
-			if (!estudianteNotasParcial.getNotaParcialDTO().getTipoNotaBean().getParCodigo()
-					.equals(MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.primer.quimestre"))
-					&& !estudianteNotasParcial.getNotaParcialDTO().getTipoNotaBean().getParCodigo()
-							.equals(MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.segundo.quimestre"))) {
+			if (!estudianteNotasParcial.getNotaParcialDTO().getTipoNotaBean().getParCodigo().equals(MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.primer.quimestre"))
+					&& !estudianteNotasParcial.getNotaParcialDTO().getTipoNotaBean().getParCodigo().equals(MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.segundo.quimestre"))) {
 				List<NotaDTO> notaDTOsComponentes = estudianteNotasParcial.getNotaParcialDTO().getNotasDTOComponentes();
 				estudianteNotasParcial.setNotaDTOTareas(notaDTOsComponentes.get(0));
 				estudianteNotasParcial.setNotaDTOIndividuales(notaDTOsComponentes.get(1));
@@ -287,18 +282,16 @@ public class NotasController extends BaseController {
 		for (EstudianteNotasParcial estudianteNotasParcial : listaEstudianteNotasParcials) {
 			NotaDTO notaDTOParcial = estudianteNotasParcial.getNotaParcialDTO();
 
-			if (notaDTOParcial.getTipoNotaBean().getParCodigo()
-					.equals(MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.primer.quimestre"))
-					|| notaDTOParcial.getTipoNotaBean().getParCodigo()
-							.equals(MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.segundo.quimestre"))) {
+			if (notaDTOParcial.getTipoNotaBean().getParCodigo().equals(MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.primer.quimestre"))
+					|| notaDTOParcial.getTipoNotaBean().getParCodigo().equals(MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.segundo.quimestre"))) {
 				notaDTOParcial.setNotasDTOComponentes(null);
 
 				notaDTOParcial.setMatMatriculaDetalleBean(estudianteNotasParcial.getMatriculaDetalleDTO());
 				NotaDTO notaDTOExamen = servicioNotas.guardarNota(notaDTOParcial);
 
 				// genera y guardar la nota del quimestre
-				servicioNotas.generarNotaQuimestre(estudianteNotasParcial.getMatriculaDetalleDTO(), notaDTOParcial.getTipoNotaBean().getParCodigo()
-						.equals(MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.primer.quimestre")) ? 1 : 2, notaDTOExamen);
+				servicioNotas.generarNotaQuimestre(estudianteNotasParcial.getMatriculaDetalleDTO(),
+						notaDTOParcial.getTipoNotaBean().getParCodigo().equals(MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.primer.quimestre")) ? 1 : 2, notaDTOExamen);
 
 			} else {
 				List<NotaDTO> notaDTOsComponentes = new ArrayList<NotaDTO>();
@@ -327,8 +320,7 @@ public class NotasController extends BaseController {
 
 	public void buscarNotasEstudiante() {
 		try {
-			DatosEstudianteDTO datosEstudianteDTO = servicioNotas.obtenerEstudianteMatriculas(notasDataManager.getCedulaEstudiante(),
-					notasDataManager.getAnioLectivoVigente().getPerCodigo());
+			DatosEstudianteDTO datosEstudianteDTO = servicioNotas.obtenerEstudianteMatriculas(notasDataManager.getCedulaEstudiante(), notasDataManager.getAnioLectivoVigente().getPerCodigo());
 			notasDataManager.setDatosEstudianteDTO(datosEstudianteDTO);
 
 		} catch (SeguridadesException e) {
@@ -343,8 +335,7 @@ public class NotasController extends BaseController {
 	// PARA REPORTES
 	public void generarReporteQuimestralEstudiante() {
 		try {
-			ReporteDTO reporteDTO = servicioNotas.obtenerDatosReporteQuimestralEstudiantes(notasDataManager.getDatosEstudianteDTO(),
-					notasDataManager.getCodQuimestreSeleccionada());
+			ReporteDTO reporteDTO = servicioNotas.obtenerDatosReporteQuimestralEstudiantes(notasDataManager.getDatosEstudianteDTO(), notasDataManager.getCodQuimestreSeleccionada());
 			notasDataManager.setReporteDTO(reporteDTO);
 		} catch (SeguridadesException e) {
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -356,8 +347,7 @@ public class NotasController extends BaseController {
 			ReporteDTO reporteDTO = notasDataManager.getReporteDTO();
 			JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(reporteDTO.getListaReporteDTOs());
 
-			String reportPath = FacesContext.getCurrentInstance().getExternalContext()
-					.getRealPath("/paginas/admNotas/reportes/reporteQuimestralEstudiante.jasper");
+			String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/paginas/admNotas/reportes/reporteQuimestralEstudiante.jasper");
 
 			HashMap<String, Object> parametros = new HashMap<String, Object>();
 			parametros.put("parametro1", reporteDTO.getParametro1());
@@ -366,6 +356,11 @@ public class NotasController extends BaseController {
 			parametros.put("parametro4", reporteDTO.getParametro4());
 			parametros.put("parametro5", reporteDTO.getParametro5());
 			parametros.put("parametro6", reporteDTO.getParametro6());
+			parametros.put("parametro7", reporteDTO.getNotaTutorDTO().getFaltasJustificadas().toString());
+			parametros.put("parametro8", reporteDTO.getNotaTutorDTO().getFaltaInjustificadas().toString());
+			parametros.put("parametro9", reporteDTO.getNotaTutorDTO().getDiasLaborados().toString());
+			parametros.put("parametro10", reporteDTO.getNotaTutorDTO().getTotalDiasLaborados().toString());
+			parametros.put("parametro11", reporteDTO.getNotaTutorDTO().getComportamiento().toString());
 			parametros.put("promeditoTotal", reporteDTO.getPromeditoTotal());
 			parametros.put("observacionFinal", reporteDTO.getObservacionFinal());
 
@@ -417,9 +412,8 @@ public class NotasController extends BaseController {
 
 	public void generarReporteGeneralPorParalelo() {
 		try {
-			ReporteDTO reporteDTO = servicioNotas.generarReporteGeneralPorParalelo(notasDataManager.getCodPeriodoSeleccionado(), notasDataManager
-					.getNivelDTOSeleccionado().getNivCodigo(), notasDataManager.getParaleloDTOSeleccionado().getParCodigo(), notasDataManager
-					.getCodMateriaSeleccionada());
+			ReporteDTO reporteDTO = servicioNotas.generarReporteGeneralPorParalelo(notasDataManager.getCodPeriodoSeleccionado(), notasDataManager.getNivelDTOSeleccionado().getNivCodigo(),
+					notasDataManager.getParaleloDTOSeleccionado().getParCodigo(), notasDataManager.getCodMateriaSeleccionada());
 			notasDataManager.setReporteDTO(reporteDTO);
 		} catch (SeguridadesException e) {
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -428,9 +422,9 @@ public class NotasController extends BaseController {
 
 	public void generarReporteDetalleParcial() {
 		try {
-			ReporteDTO reporteDTO = servicioNotas.generarReporteDetalleParcial(notasDataManager.getCodPeriodoSeleccionado(), notasDataManager
-					.getNivelDTOSeleccionado().getNivCodigo(), notasDataManager.getParaleloDTOSeleccionado().getParCodigo(), notasDataManager
-					.getCodMateriaSeleccionada(), notasDataManager.getCodQuimestreSeleccionada(), notasDataManager.getCodParcialSeleccionado());
+			ReporteDTO reporteDTO = servicioNotas.generarReporteDetalleParcial(notasDataManager.getCodPeriodoSeleccionado(), notasDataManager.getNivelDTOSeleccionado().getNivCodigo(),
+					notasDataManager.getParaleloDTOSeleccionado().getParCodigo(), notasDataManager.getCodMateriaSeleccionada(), notasDataManager.getCodQuimestreSeleccionada(),
+					notasDataManager.getCodParcialSeleccionado());
 			notasDataManager.setReporteDTO(reporteDTO);
 		} catch (SeguridadesException e) {
 			MensajesWebController.aniadirMensajeError(e.getMessage());
@@ -442,8 +436,7 @@ public class NotasController extends BaseController {
 			ReporteDTO reporteDTO = notasDataManager.getReporteDTO();
 			JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(reporteDTO.getListaReporteDTOs());
 
-			String reportPath = FacesContext.getCurrentInstance().getExternalContext()
-					.getRealPath("/paginas/admNotas/reportes/reporteGeneralPorParalelo.jasper");
+			String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/paginas/admNotas/reportes/reporteGeneralPorParalelo.jasper");
 
 			HashMap<String, Object> parametros = new HashMap<String, Object>();
 			parametros.put("parametro1", reporteDTO.getParametro1());
@@ -470,8 +463,7 @@ public class NotasController extends BaseController {
 			ReporteDTO reporteDTO = notasDataManager.getReporteDTO();
 			JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(reporteDTO.getListaReporteDTOs());
 
-			String reportPath = FacesContext.getCurrentInstance().getExternalContext()
-					.getRealPath("/paginas/admNotas/reportes/reporteDetalleParcial.jasper");
+			String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/paginas/admNotas/reportes/reporteDetalleParcial.jasper");
 
 			HashMap<String, Object> parametros = new HashMap<String, Object>();
 			parametros.put("parametro1", reporteDTO.getParametro1());
@@ -509,8 +501,7 @@ public class NotasController extends BaseController {
 			ReporteDTO reporteDTO = notasDataManager.getReporteDTO();
 			JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(reporteDTO.getListaReporteDTOs());
 
-			String reportPath = FacesContext.getCurrentInstance().getExternalContext()
-					.getRealPath("/paginas/admNotas/reportes/reporteAnualEstudiante.jasper");
+			String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/paginas/admNotas/reportes/reporteAnualEstudiante.jasper");
 
 			HashMap<String, Object> parametros = new HashMap<String, Object>();
 			parametros.put("parametro1", reporteDTO.getParametro1());
@@ -538,25 +529,22 @@ public class NotasController extends BaseController {
 	public String corregirNotasMateria(MateriaEstadoPacialesDTO materiaEstadoPacialesDTO, long codTipoNota) {
 		notasDataManager.setMateriaEstadoSeleccionado(materiaEstadoPacialesDTO);
 
-		List<EstudianteNotasParcial> listaEstudianteNotasParcials = servicioNotas.obtenerEstudiantesNotasParcialCorreccion(
-				notasDataManager.getMateriaEstadoSeleccionado(), (int) codTipoNota);
+		List<EstudianteNotasParcial> listaEstudianteNotasParcials = servicioNotas.obtenerEstudiantesNotasParcialCorreccion(notasDataManager.getMateriaEstadoSeleccionado(), (int) codTipoNota);
 		notasDataManager.setCodTipoNota((int) codTipoNota);
 
 		notasDataManager.setListaEstudianteNotasParcials(listaEstudianteNotasParcials);
 
 		for (EstudianteNotasParcial estudianteNotasParcial : listaEstudianteNotasParcials) {
 			if (estudianteNotasParcial.getNotaParcialDTO() != null) {
-				if (!estudianteNotasParcial.getNotaParcialDTO().getTipoNotaBean().getParCodigo()
-						.equals(MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.primer.quimestre"))
-						&& !estudianteNotasParcial.getNotaParcialDTO().getTipoNotaBean().getParCodigo()
-								.equals(MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.segundo.quimestre"))) {
+				if (!estudianteNotasParcial.getNotaParcialDTO().getTipoNotaBean().getParCodigo().equals(MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.primer.quimestre"))
+						&& !estudianteNotasParcial.getNotaParcialDTO().getTipoNotaBean().getParCodigo().equals(MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.segundo.quimestre"))) {
 
-					List<NotaDTO> notaDTOsComponentes = estudianteNotasParcial.getNotaParcialDTO().getNotasDTOComponentes();					
+					List<NotaDTO> notaDTOsComponentes = estudianteNotasParcial.getNotaParcialDTO().getNotasDTOComponentes();
 					Collections.sort(notaDTOsComponentes, new ComparadorTipoNotas());
-					
+
 					estudianteNotasParcial.setNotaDTOTareas(notaDTOsComponentes.get(0));
 					estudianteNotasParcial.setNotaDTOGrupales(notaDTOsComponentes.get(1));
-					estudianteNotasParcial.setNotaDTOIndividuales(notaDTOsComponentes.get(2));					
+					estudianteNotasParcial.setNotaDTOIndividuales(notaDTOsComponentes.get(2));
 					estudianteNotasParcial.setNotaDTOOrales(notaDTOsComponentes.get(3));
 					estudianteNotasParcial.setNotaDTOEscrita(notaDTOsComponentes.get(4));
 
@@ -584,8 +572,7 @@ public class NotasController extends BaseController {
 			notasDataManager.setListaAsinacionesSeleccionadas(asinacionDTOsSeleccionadas);
 			llenarParalelosPorNivel();
 			notasDataManager.setListaMaterias(listaMateriaDTOs);
-			notasDataManager.setListaMateriaEstadoPacialesDTOs(servicioNotas.establecerEstadosNotasPasadasCorreccion(notasDataManager
-					.getListaAsinacionesSeleccionadas()));
+			notasDataManager.setListaMateriaEstadoPacialesDTOs(servicioNotas.establecerEstadosNotasPasadasCorreccion(notasDataManager.getListaAsinacionesSeleccionadas()));
 		}
 
 	}
@@ -608,8 +595,7 @@ public class NotasController extends BaseController {
 			}
 			notasDataManager.setListaAsinacionesSeleccionadas(asinacionDTOsSeleccionadas);
 			notasDataManager.setListaMaterias(listaMateriaDTOs);
-			notasDataManager.setListaMateriaEstadoPacialesDTOs(servicioNotas.establecerEstadosNotasPasadasCorreccion(notasDataManager
-					.getListaAsinacionesSeleccionadas()));
+			notasDataManager.setListaMateriaEstadoPacialesDTOs(servicioNotas.establecerEstadosNotasPasadasCorreccion(notasDataManager.getListaAsinacionesSeleccionadas()));
 		}
 
 	}
@@ -621,18 +607,16 @@ public class NotasController extends BaseController {
 		for (EstudianteNotasParcial estudianteNotasParcial : listaEstudianteNotasParcials) {
 			NotaDTO notaDTOParcial = estudianteNotasParcial.getNotaParcialDTO();
 
-			if (notaDTOParcial.getTipoNotaBean().getParCodigo()
-					.equals(MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.primer.quimestre"))
-					|| notaDTOParcial.getTipoNotaBean().getParCodigo()
-							.equals(MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.segundo.quimestre"))) {
+			if (notaDTOParcial.getTipoNotaBean().getParCodigo().equals(MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.primer.quimestre"))
+					|| notaDTOParcial.getTipoNotaBean().getParCodigo().equals(MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.segundo.quimestre"))) {
 				notaDTOParcial.setNotasDTOComponentes(null);
 
 				notaDTOParcial.setMatMatriculaDetalleBean(estudianteNotasParcial.getMatriculaDetalleDTO());
 				NotaDTO notaDTOExamen = servicioNotas.guardarNota(notaDTOParcial);
 
 				// genera y guardar la nota del quimestre
-				servicioNotas.generarNotaQuimestre(estudianteNotasParcial.getMatriculaDetalleDTO(), notaDTOParcial.getTipoNotaBean().getParCodigo()
-						.equals(MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.primer.quimestre")) ? 1 : 2, notaDTOExamen);
+				servicioNotas.generarNotaQuimestre(estudianteNotasParcial.getMatriculaDetalleDTO(),
+						notaDTOParcial.getTipoNotaBean().getParCodigo().equals(MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.primer.quimestre")) ? 1 : 2, notaDTOExamen);
 
 			} else {
 				List<NotaDTO> notaDTOsComponentes = new ArrayList<NotaDTO>();
@@ -647,8 +631,7 @@ public class NotasController extends BaseController {
 				servicioNotas.guardarNota(notaDTOParcial);
 
 				// genera y guardar la nota del quimestre
-				servicioNotas.generarNotaQuimestreEdicion(estudianteNotasParcial.getMatriculaDetalleDTO(), notaDTOParcial.getTipoNotaBean().getParCodigo(),
-						notaDTOParcial);
+				servicioNotas.generarNotaQuimestreEdicion(estudianteNotasParcial.getMatriculaDetalleDTO(), notaDTOParcial.getTipoNotaBean().getParCodigo(), notaDTOParcial);
 
 			}
 
@@ -658,10 +641,136 @@ public class NotasController extends BaseController {
 		return "correccionNotas.xhtml";
 
 	}
+
 	@Override
 	public void refrescarFormulario() {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	/*
+	 * FASE 2: PARA EL CONTROL DE ASISTENCIA Y COMPORTAMIENTO
+	 */
+	public void buscarAsignacionesPorPeriodoComAsis() {
+		try {
+			notasDataManager.setListaAsinacionDTO(servicioNotas.obtenerAsignacionesPorPeriodoComAsi(notasDataManager.getCodPeriodoSeleccionado()));
+			llenarNiveles();
+		} catch (SeguridadesException e) {
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+	}
+
+	public void llenarParalelosPorNivelComAsis() {
+		List<ParaleloDTO> paraleloDTOs = new ArrayList<ParaleloDTO>();
+		NivelDTO nivelDTOSeleccionado = notasDataManager.getNivelDTOSeleccionado();
+
+		llenarParalelos(paraleloDTOs, nivelDTOSeleccionado);
+
+		notasDataManager.setListaParalelo(paraleloDTOs);
+
+	}
+
+	private void llenarParalelos(List<ParaleloDTO> paraleloDTOs, NivelDTO nivelDTOSeleccionado) {
+		for (AsinacionDTO asinacionDTO : notasDataManager.getListaAsinacionDTO()) {
+			if (asinacionDTO.getMatNivelParalelo().getMatNivel().getNivCodigo().equals(nivelDTOSeleccionado.getNivCodigo())
+					&& !paraleloDTOs.contains(asinacionDTO.getMatNivelParalelo().getMatParalelo())) {
+
+				paraleloDTOs.add(asinacionDTO.getMatNivelParalelo().getMatParalelo());
+
+			}
+		}
+	}
+
+	public void filtarAsignacionesPorNivelParaleloComAsi() {
+		NivelDTO nivelDTOSeleccionado = notasDataManager.getNivelDTOSeleccionado();
+		ParaleloDTO paraleloDTOSeleccionado = notasDataManager.getParaleloDTOSeleccionado();
+
+		List<AsinacionDTO> asinacionDTOsSeleccionadas = new ArrayList<AsinacionDTO>();
+		for (AsinacionDTO asinacionDTO : notasDataManager.getListaAsinacionDTO()) {
+			if (asinacionDTO.getMatNivelParalelo().getMatNivel().getNivCodigo().equals(nivelDTOSeleccionado.getNivCodigo())
+					&& asinacionDTO.getMatNivelParalelo().getMatParalelo().getParCodigo().equals(paraleloDTOSeleccionado.getParCodigo())) {
+				if (!asinacionDTOsSeleccionadas.contains(asinacionDTO)) {
+					asinacionDTOsSeleccionadas.add(asinacionDTO);
+				}
+			}
+		}
+		notasDataManager.setListaAsinacionesSeleccionadas(asinacionDTOsSeleccionadas);
+
+	}
+
+	public void buscarEstudiantesParaComAsi() {
+		List<MatriculaNotasTutorDTO> listaMatriculaNotasTutorDTOs;
+		try {
+			listaMatriculaNotasTutorDTOs = servicioNotas.generarListaNotasTutor(notasDataManager.getListaAsinacionesSeleccionadas(), notasDataManager.getCodQuimestreSeleccionada());
+
+			notasDataManager.setListaMatriculaNotasTutorDTO(listaMatriculaNotasTutorDTOs);
+		} catch (Exception e) {
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+	}
+
+	public String guardarNotasTutor() {
+		try {
+			List<MatriculaNotasTutorDTO> listaNotaTutorDTO = notasDataManager.getListaMatriculaNotasTutorDTO();
+
+			servicioNotas.guardarNotasTutor(listaNotaTutorDTO);
+
+			notasDataManager.setListaMatriculaNotasTutorDTO(new ArrayList<MatriculaNotasTutorDTO>());
+
+			notasDataManager.setCodPeriodoSeleccionado(null);
+			notasDataManager.setNivelDTOSeleccionado(new NivelDTO());
+			notasDataManager.setParaleloDTOSeleccionado(new ParaleloDTO());
+			notasDataManager.setListaAsinacionDTO(null);
+		} catch (SeguridadesException e) {
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+		return "ingresoComportamientoConducta.xhtml";
+	}
+
+	// SUSPENSOS
+	public void filtarMateriasPorNivelSuspensos() {
+		llenarParalelosPorNivel();
+	}
+
+	public void filtarMateriasPorNivelParaleloSuspensos() {
+		NivelDTO nivelDTOSeleccionado = notasDataManager.getNivelDTOSeleccionado();
+		ParaleloDTO paraleloDTOSeleccionado = notasDataManager.getParaleloDTOSeleccionado();
+		List<MateriaDTO> listaMateriaDTOs = new ArrayList<MateriaDTO>();
+
+		for (AsinacionDTO asinacionDTO : notasDataManager.getListaAsinacionDTO()) {
+			if (asinacionDTO.getMatNivelParalelo().getMatNivel().getNivCodigo().equals(nivelDTOSeleccionado.getNivCodigo())
+					&& asinacionDTO.getMatNivelParalelo().getMatParalelo().getParCodigo().equals(paraleloDTOSeleccionado.getParCodigo())) {
+
+				listaMateriaDTOs.add(asinacionDTO.getMatMateria());
+			}
+		}
+
+		notasDataManager.setListaMaterias(listaMateriaDTOs);
+	}
+
+	public void buscarEstudiantesNotasSuspensas() {
+		try {
+			NivelDTO nivelDTOSeleccionado = notasDataManager.getNivelDTOSeleccionado();
+			ParaleloDTO paraleloDTOSeleccionado = notasDataManager.getParaleloDTOSeleccionado();
+			Integer codMateriaSeleccionada = notasDataManager.getCodMateriaSeleccionada();
+			List<AsinacionDTO> asinacionDTOs = notasDataManager.getListaAsinacionDTO();
+			Integer codTipoSuspenso = notasDataManager.getCodTipoSuspensoSeleccionado();
+
+			List<EstudianteNotaSuspensa> listaEstudianteNotaSuspensas = servicioNotas.obtenerDatosEstudiantesSuspensos(nivelDTOSeleccionado, paraleloDTOSeleccionado, codMateriaSeleccionada,
+					asinacionDTOs, codTipoSuspenso);
+			notasDataManager.setListaEstudianteNotaSuspensas(listaEstudianteNotaSuspensas);
+		} catch (SeguridadesException e) {
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
+	}
+
+	public void guardarNotasSuspensas() {
+		try {
+			servicioNotas.guardarNotasSuspensas(notasDataManager.getListaEstudianteNotaSuspensas(), notasDataManager.getCodTipoSuspensoSeleccionado());
+			notasDataManager.setListaEstudianteNotaSuspensas(null);
+		} catch (SeguridadesException e) {
+			MensajesWebController.aniadirMensajeError(e.getMessage());
+		}
 	}
 
 }
