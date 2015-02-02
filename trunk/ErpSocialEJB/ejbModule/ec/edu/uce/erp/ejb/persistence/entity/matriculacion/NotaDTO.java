@@ -46,7 +46,7 @@ public class NotaDTO implements Serializable {
 	@JoinColumn(name = "not_tipo_nota")
 	private TipoNotaDTO tipoNotaBean;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "not_matricula")
 	private MatriculaDetalleDTO matMatriculaDetalleBean;
 

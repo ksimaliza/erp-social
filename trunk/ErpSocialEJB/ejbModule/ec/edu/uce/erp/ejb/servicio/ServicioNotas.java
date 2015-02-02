@@ -7,11 +7,15 @@ import javax.ejb.Local;
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDetalleDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NotaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
 import ec.edu.uce.erp.ejb.persistence.util.dto.DatosEstudianteDTO;
+import ec.edu.uce.erp.ejb.persistence.util.dto.EstudianteNotaSuspensa;
 import ec.edu.uce.erp.ejb.persistence.util.dto.EstudianteNotasParcial;
 import ec.edu.uce.erp.ejb.persistence.util.dto.MateriaEstadoPacialesDTO;
+import ec.edu.uce.erp.ejb.persistence.util.dto.MatriculaNotasTutorDTO;
 import ec.edu.uce.erp.ejb.persistence.util.dto.ReporteDTO;
 
 @Local
@@ -44,7 +48,19 @@ public interface ServicioNotas {
 	public List<EstudianteNotasParcial> obtenerEstudiantesNotasParcialCorreccion(MateriaEstadoPacialesDTO materiaEstadoPacialesDTO, int codTipoNota);
 
 	public List<MateriaEstadoPacialesDTO> establecerEstadosNotasPasadasCorreccion(List<AsinacionDTO> asinacionDTOs);
-	
+
 	public NotaDTO generarNotaQuimestreEdicion(MatriculaDetalleDTO matriculaDetalleDTO, Integer quimestre, NotaDTO notaDTOExamen);
+
+	// FASE 2
+	public List<AsinacionDTO> obtenerAsignacionesPorPeriodoComAsi(Integer codPeriodo) throws SeguridadesException;
+
+	public List<MatriculaNotasTutorDTO> generarListaNotasTutor(List<AsinacionDTO> listaAsinacionesDTO, Integer codQuimestre) throws SeguridadesException;
+
+	public void guardarNotasTutor(List<MatriculaNotasTutorDTO> matriculaNotasTutorDTOs) throws SeguridadesException;
+
+	public List<EstudianteNotaSuspensa> obtenerDatosEstudiantesSuspensos(NivelDTO nivelDTOSeleccionado, ParaleloDTO paraleloDTOSeleccionado, Integer codMateriaSeleccionada,
+			List<AsinacionDTO> asinacionDTOs, Integer codTipoSuspenso) throws SeguridadesException;
+
+	public void guardarNotasSuspensas(List<EstudianteNotaSuspensa> listaEstudianteNotaSuspensas, Integer codTipoSuspenso) throws SeguridadesException;
 
 }

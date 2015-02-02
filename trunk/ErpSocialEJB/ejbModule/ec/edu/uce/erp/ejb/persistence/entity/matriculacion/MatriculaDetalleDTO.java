@@ -5,41 +5,41 @@ import java.util.List;
 
 import javax.persistence.*;
 
-
 /**
  * The persistent class for the mat_matricula_detalle database table.
  * 
  */
 @Entity
-@Table(name="mat_matricula_detalle")
-@NamedQuery(name="MatriculaDetalleDTO.findAll", query="SELECT m FROM MatriculaDetalleDTO m")
+@Table(name = "mat_matricula_detalle")
+@NamedQuery(name = "MatriculaDetalleDTO.findAll", query = "SELECT m FROM MatriculaDetalleDTO m")
 public class MatriculaDetalleDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="MAT_MATRICULA_DETALLE_MATCODIGO_GENERATOR", sequenceName="MAT_MATRICULA_DETALLE_MAT_CODIGO_SEQ",allocationSize=1)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MAT_MATRICULA_DETALLE_MATCODIGO_GENERATOR")
-	@Column(name="mat_codigo")
+	@SequenceGenerator(name = "MAT_MATRICULA_DETALLE_MATCODIGO_GENERATOR", sequenceName = "MAT_MATRICULA_DETALLE_MAT_CODIGO_SEQ", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MAT_MATRICULA_DETALLE_MATCODIGO_GENERATOR")
+	@Column(name = "mat_codigo")
 	private Integer matCodigo;
 
-	//bi-directional many-to-one association to AsinacionDTO
+	// bi-directional many-to-one association to AsinacionDTO
 	@ManyToOne
-	@JoinColumn(name="mat_asignacion")
+	@JoinColumn(name = "mat_asignacion")
 	private AsinacionDTO matAsinacion;
 
-	//bi-directional many-to-one association to MatriculaDTO
+	// bi-directional many-to-one association to MatriculaDTO
 	@ManyToOne
-	@JoinColumn(name="mat_matricula")
+	@JoinColumn(name = "mat_matricula")
 	private MatriculaDTO matMatriculaBean;
-	
-	@Column(name="mat_empresa")
+
+	@Column(name = "mat_empresa")
 	private Integer matEmpresa;
 
-	
-	@OneToMany(mappedBy="matMatriculaDetalleBean")
+	@OneToMany(mappedBy = "matMatriculaDetalleBean")
 	private List<NotaDTO> notNotas;
 
-	
+	@Column(name = "mat_estado")
+	private Integer estado;
+
 	public MatriculaDetalleDTO() {
 	}
 
@@ -83,5 +83,12 @@ public class MatriculaDetalleDTO implements Serializable {
 		this.matEmpresa = matEmpresa;
 	}
 
-	
+	public Integer getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Integer estado) {
+		this.estado = estado;
+	}
+
 }

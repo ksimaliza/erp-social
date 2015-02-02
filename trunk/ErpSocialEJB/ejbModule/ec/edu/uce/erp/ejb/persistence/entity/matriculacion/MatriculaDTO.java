@@ -64,6 +64,10 @@ public class MatriculaDTO implements Serializable {
 	//bi-directional many-to-one association to MatriculaDetalleDTO
 	@OneToMany(mappedBy="matMatriculaBean")
 	private List<MatriculaDetalleDTO> matMatriculaDetalles;
+	
+	// bi-directional many-to-one association to NotaDTO
+	@OneToMany(mappedBy = "matriculaBean")
+	private List<NotaTutorDTO> notNotasTutor;
 
 	public MatriculaDTO() {
 	}
@@ -149,6 +153,14 @@ public class MatriculaDTO implements Serializable {
 		this.regVerificarFoto = regVerificarFoto;
 	}
 
+	public List<NotaTutorDTO> getNotNotasTutor() {
+		return notNotasTutor;
+	}
+
+	public void setNotNotasTutor(List<NotaTutorDTO> notNotasTutor) {
+		this.notNotasTutor = notNotasTutor;
+	}
+	
 	public InputStream getFotoStream() {
 		if(this.getRegFotoByte()!=null)
 			this.fotoStream=new ByteArrayInputStream(this.getRegFotoByte());
@@ -158,5 +170,32 @@ public class MatriculaDTO implements Serializable {
 	public void setFotoStream(InputStream fotoStream) {
 		this.fotoStream = fotoStream;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((regCodigo == null) ? 0 : regCodigo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MatriculaDTO other = (MatriculaDTO) obj;
+		if (regCodigo == null) {
+			if (other.regCodigo != null)
+				return false;
+		} else if (!regCodigo.equals(other.regCodigo))
+			return false;
+		return true;
+	}
+	
+	
 
 }

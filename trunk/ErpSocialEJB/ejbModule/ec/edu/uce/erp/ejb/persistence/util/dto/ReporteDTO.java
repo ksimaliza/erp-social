@@ -3,6 +3,8 @@ package ec.edu.uce.erp.ejb.persistence.util.dto;
 import java.io.Serializable;
 import java.util.List;
 
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NotaTutorDTO;
+
 public class ReporteDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -19,6 +21,8 @@ public class ReporteDTO implements Serializable {
 
 	private Float promeditoTotal;
 	private String observacionFinal;
+
+	private NotaTutorDTO notaTutorDTO;
 
 	public String getParametro1() {
 		return parametro1;
@@ -98,6 +102,14 @@ public class ReporteDTO implements Serializable {
 
 	public void setParametro7(String parametro7) {
 		this.parametro7 = parametro7;
+	}
+
+	public NotaTutorDTO getNotaTutorDTO() {
+		return notaTutorDTO;
+	}
+
+	public void setNotaTutorDTO(NotaTutorDTO notaTutorDTO) {
+		this.notaTutorDTO = notaTutorDTO;
 	}
 
 }
