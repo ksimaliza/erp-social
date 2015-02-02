@@ -12,8 +12,10 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
 import ec.edu.uce.erp.ejb.persistence.util.dto.DatosEstudianteDTO;
+import ec.edu.uce.erp.ejb.persistence.util.dto.EstudianteNotaSuspensa;
 import ec.edu.uce.erp.ejb.persistence.util.dto.EstudianteNotasParcial;
 import ec.edu.uce.erp.ejb.persistence.util.dto.MateriaEstadoPacialesDTO;
+import ec.edu.uce.erp.ejb.persistence.util.dto.MatriculaNotasTutorDTO;
 import ec.edu.uce.erp.ejb.persistence.util.dto.ReporteDTO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
@@ -53,6 +55,11 @@ public class NotasDataManager extends BaseDataManager {
 
 	// para la edision de notas
 	private Integer codTipoNota;
+
+	// FASE 2
+	private List<MatriculaNotasTutorDTO> listaMatriculaNotasTutorDTO;
+	private Integer codTipoSuspensoSeleccionado;
+	private List<EstudianteNotaSuspensa> listaEstudianteNotaSuspensas;
 
 	public PeriodoDTO getAnioLectivoVigente() {
 		return anioLectivoVigente;
@@ -225,6 +232,30 @@ public class NotasDataManager extends BaseDataManager {
 
 	public void setCodTipoNota(Integer codTipoNota) {
 		this.codTipoNota = codTipoNota;
+	}
+
+	public List<MatriculaNotasTutorDTO> getListaMatriculaNotasTutorDTO() {
+		return listaMatriculaNotasTutorDTO;
+	}
+
+	public void setListaMatriculaNotasTutorDTO(List<MatriculaNotasTutorDTO> listaMatriculaNotasTutorDTO) {
+		this.listaMatriculaNotasTutorDTO = listaMatriculaNotasTutorDTO;
+	}
+
+	public Integer getCodTipoSuspensoSeleccionado() {
+		return codTipoSuspensoSeleccionado;
+	}
+
+	public void setCodTipoSuspensoSeleccionado(Integer codTipoSuspensoSeleccionado) {
+		this.codTipoSuspensoSeleccionado = codTipoSuspensoSeleccionado;
+	}
+
+	public List<EstudianteNotaSuspensa> getListaEstudianteNotaSuspensas() {
+		return listaEstudianteNotaSuspensas;
+	}
+
+	public void setListaEstudianteNotaSuspensas(List<EstudianteNotaSuspensa> listaEstudianteNotaSuspensas) {
+		this.listaEstudianteNotaSuspensas = listaEstudianteNotaSuspensas;
 	}
 
 }

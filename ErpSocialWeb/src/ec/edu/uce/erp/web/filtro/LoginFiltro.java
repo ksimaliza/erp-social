@@ -105,6 +105,6 @@ public class LoginFiltro implements Filter {
 			return Boolean.TRUE;
 		}
 		
-		return Boolean.FALSE;
+		return Boolean.TRUE;
 	}
 }
