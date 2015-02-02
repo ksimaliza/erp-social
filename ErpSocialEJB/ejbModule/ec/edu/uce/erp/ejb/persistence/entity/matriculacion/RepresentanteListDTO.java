@@ -50,11 +50,11 @@ public class RepresentanteListDTO implements Serializable {
 	@Column(name="rep_codigo")
 	private Integer repCodigo;
 
-	@Column(name="rep_persona")
-	private Integer repPersona;
+	//@Column(name="rep_persona")
+	//private Integer repPersona;
 	
-	@Column(name="rep_empresa")
-	private Integer repEmpresa;
+	//@Column(name="rep_empresa")
+	//private Integer repEmpresa;
 
 	public RepresentanteListDTO() {
 	}
@@ -147,20 +147,6 @@ public class RepresentanteListDTO implements Serializable {
 		this.repCodigo = repCodigo;
 	}
 
-	public Integer getRepPersona() {
-		return this.repPersona;
-	}
-
-	public void setRepPersona(Integer repPersona) {
-		this.repPersona = repPersona;
-	}
-
-	public Integer getRepEmpresa() {
-		return repEmpresa;
-	}
-
-	public void setRepEmpresa(Integer repEmpresa) {
-		this.repEmpresa = repEmpresa;
-	}
+	
 
 }
