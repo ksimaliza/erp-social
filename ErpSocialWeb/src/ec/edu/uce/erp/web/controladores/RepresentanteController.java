@@ -77,7 +77,7 @@ public class RepresentanteController extends BaseController{
 		
 		try {
 							
-			representanteDataManager.getRepresentanteBuscar().setRepEmpresa(getEmpresaCode());
+			//representanteDataManager.getRepresentanteBuscar().setRepEmpresa(getEmpresaCode());
 			listarepresentante = this.servicioMatricula.buscarRepresentante(representanteDataManager.getRepresentanteBuscar());
 			
 			if (CollectionUtils.isEmpty(listarepresentante) && listarepresentante.size()==0) {
@@ -95,7 +95,7 @@ public class RepresentanteController extends BaseController{
 	
 	public void cargarDatosRepresentante (RepresentanteListDTO representante) {
 		try {
-			RepresentanteVO representanteEncontrado = servicioMatricula.obtenerRepresentantePorId(representante.getRepPersona(), representante.getRepCodigo());
+			RepresentanteVO representanteEncontrado = servicioMatricula.obtenerRepresentantePorId(representante.getPerPk(), representante.getRepCodigo());
 			
 			this.representanteDataManager.setRepresentanteInstancia(representanteEncontrado.getRepresentante());
 			this.representanteDataManager.setPersonaInstancia(representanteEncontrado.getPersona());

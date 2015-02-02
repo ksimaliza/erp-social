@@ -54,6 +54,7 @@ public class ReporteCarnetController extends BaseController{
 	{
 		try
 		{
+			reporteCarnetDataManager.getMatriculaVieDTO().setEstEmpresa(getEmpresaCode());
 			if(reporteCarnetDataManager.getMatriculaVieDTO().getMatCodigo()==0)
 				reporteCarnetDataManager.getMatriculaVieDTO().setMatCodigo(null);
 			reporteCarnetDataManager.setMatriculaVieDTOList(servicioMatricula.readRepCarnetBuscar(reporteCarnetDataManager.getMatriculaVieDTO()));
