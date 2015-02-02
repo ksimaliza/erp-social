@@ -651,8 +651,8 @@ public class PartidaConfirmacionController extends BaseController {
 			for (int i = 0; i < partidaConfirmacionDataManager
 					.getCantonEucaristiaDTOs().size(); i++)
 				if (partidaConfirmacionDataManager.getCantonEucaristiaDTOs()
-						.get(i).getCatCodigo() == (Integer) partidaConfirmacionDataManager
-						.getCanton())
+						.get(i).getCatCodigo().equals(partidaConfirmacionDataManager
+						.getCanton()))
 					mapParametros.put("canton", partidaConfirmacionDataManager
 							.getCantonEucaristiaDTOs().get(i)
 							.getCatDescripcion().toUpperCase());
@@ -660,8 +660,8 @@ public class PartidaConfirmacionController extends BaseController {
 			for (int i = 0; i < partidaConfirmacionDataManager
 					.getParroquiaEucaristiaDTOs().size(); i++)
 				if (partidaConfirmacionDataManager.getParroquiaEucaristiaDTOs()
-						.get(i).getCatCodigo() == (Integer) partidaConfirmacionDataManager
-						.getParroquia()) {
+						.get(i).getCatCodigo().equals(partidaConfirmacionDataManager
+						.getParroquia())) {
 					mapParametros.put("parroquiaCabecera", "\""
 							+ partidaConfirmacionDataManager
 									.getParroquiaEucaristiaDTOs().get(i)
@@ -670,6 +670,10 @@ public class PartidaConfirmacionController extends BaseController {
 							partidaConfirmacionDataManager
 									.getParroquiaEucaristiaDTOs().get(i)
 									.getCatDescripcion().toUpperCase());
+					mapParametros.put("parroquiafechaActual",
+							partidaConfirmacionDataManager.getParroquiaEucaristiaDTOs()
+									.get(i).getCatDescripcion()
+									+ ", " + String.valueOf(full.format(fechaActual).charAt(0)).toUpperCase() +full.format(fechaActual).substring(1));
 				}
 
 		mapParametros.put("tomo", partidaConfirmacionDataManager
@@ -704,10 +708,6 @@ public class PartidaConfirmacionController extends BaseController {
 				+ " "
 				+ partidaConfirmacionDataManager.getMad_padInsertar()
 						.getPerNombres().toUpperCase());
-		mapParametros.put("parroquiafechaActual",
-				partidaConfirmacionDataManager.getParroquiaEucaristiaDTOs()
-						.get(0).getCatDescripcion()
-						+ ", " + full.format(fechaActual));
 		mapParametros.put("notaMarginal", partidaConfirmacionDataManager
 				.getConfirmacionDTO().getConNotaMarginal());
 
@@ -715,8 +715,8 @@ public class PartidaConfirmacionController extends BaseController {
 			for (int i = 0; i < partidaConfirmacionDataManager
 					.getProvinciaEucaristiaDTOs().size(); i++)
 				if (partidaConfirmacionDataManager.getProvinciaEucaristiaDTOs()
-						.get(i).getCatCodigo() == (Integer) partidaConfirmacionDataManager
-						.getProvincia())
+						.get(i).getCatCodigo().equals(partidaConfirmacionDataManager
+						.getProvincia()))
 					mapParametros.put("provincia",
 							partidaConfirmacionDataManager
 									.getProvinciaEucaristiaDTOs().get(i)

@@ -343,10 +343,10 @@
 					
 					<tr>
 						<td width="30%">
-							<h:outputLabel for="txtPagina" value="#{i18n['erp.despacho.partida.bautizo.pagina']}" required="#{partidaBautizoDataManager.requerido}" />
+							<h:outputLabel for="txtPagina" value="#{i18n['erp.despacho.partida.bautizo.pagina']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtPagina" style="width: 100%"  
+							<p:inputText id="txtPagina" style="width: 100%"  label="#{i18n['erp.despacho.partida.bautizo.pagina']}"
 
 								 value="#{partidaBautizoDataManager.bautizoDTO.bauPagina}" required="#{partidaBautizoDataManager.estadoCodigo.toString()=='20'}" onkeypress="return isNumberKey(event)" maxlength="10"
 

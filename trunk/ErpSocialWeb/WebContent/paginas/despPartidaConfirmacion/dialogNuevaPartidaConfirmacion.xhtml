@@ -18,7 +18,7 @@
 							<h:outputLabel for="txtCiConf" value="#{i18n['erp.despacho.partida.confirmacion.cedula']}" />
 					</td>
 						<td width="70%">
-							<p:inputText id="txtCiConf"  style="width: 100%" label="#{i18n['erp.despacho.partida.confirmacion.cedula']}"
+							<p:inputText id="txtCiConf"  style="width: 100%" label="#{i18n['erp.despacho.partida.confirmacion.cedula']}" required="true"
 								  value="#{partidaConfirmacionDataManager.confirmadoInsertar.perCi}">
 									<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 									<p:ajax event="blur" update="txtApeConf,txtNomConf,txtCiMadre,txtApeMadre,txtNomMadre,txtCiPadre,txtApePadre,txtNomPadre,txtProv,txtCiudad,txtCanton,txtFechaBautizo" listener="#{partidaConfirmacionController.buscarConfirmado}" process="@this"/>
@@ -265,7 +265,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtTomo" style="width: 100%"  
-								  value="#{partidaConfirmacionDataManager.confirmacionDTO.conToma}" label="#{i18n['erp.despacho.partida.confirmacion.tomo']}" required="#{partidaBautizoDataManager.estadoCodigo.toString()=='24'}" onkeypress="return isNumberKey(event)" maxlength="10"/>
+								  value="#{partidaConfirmacionDataManager.confirmacionDTO.conToma}" label="#{i18n['erp.despacho.partida.confirmacion.tomo']}" required="#{partidaConfirmacionDataManager.estadoCodigo.toString()=='24'}" onkeypress="return isNumberKey(event)" maxlength="10"/>
 						</td>	
 					</tr>
 					<tr>
@@ -274,7 +274,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtActa"  style="width: 100%"
-							 	label="#{i18n['erp.despacho.partida.confirmacion.acta']}" value="#{partidaConfirmacionDataManager.confirmacionDTO.conActa}" required="#{partidaBautizoDataManager.estadoCodigo.toString()=='24'}" onkeypress="return isNumberKey(event)" maxlength="10">
+							 	label="#{i18n['erp.despacho.partida.confirmacion.acta']}" value="#{partidaConfirmacionDataManager.confirmacionDTO.conActa}" required="#{partidaConfirmacionDataManager.estadoCodigo.toString()=='24'}" onkeypress="return isNumberKey(event)" maxlength="10">
 							
 						</p:inputText>
 						
@@ -287,7 +287,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtPagina" style="width: 100%" label="#{i18n['erp.despacho.partida.confirmacion.pagina']}" 
-								value="#{partidaConfirmacionDataManager.confirmacionDTO.conPagina}" required="#{partidaBautizoDataManager.estadoCodigo.toString()=='24'}" onkeypress="return isNumberKey(event)" maxlength="10" />
+								value="#{partidaConfirmacionDataManager.confirmacionDTO.conPagina}" required="#{partidaConfirmacionDataManager.estadoCodigo.toString()=='24'}" onkeypress="return isNumberKey(event)" maxlength="10" />
 						</td>	
 					</tr>
 				</table>

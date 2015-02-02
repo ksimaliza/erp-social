@@ -499,17 +499,19 @@ public void registrarDefuncion () {
 			for (int i = 0; i < defuncionDataManager
 					.getCantonEucaristiaDTOs().size(); i++)
 				if (defuncionDataManager.getCantonEucaristiaDTOs().get(i)
-						.getCatCodigo() == (Integer) defuncionDataManager
-						.getCantonCodigo())
+						.getCatCodigo().equals(defuncionDataManager
+						.getCantonCodigo()))
 		mapParametros.put("canton", defuncionDataManager.getCantonEucaristiaDTOs().get(i).getCatDescripcion().toUpperCase());
 		if (defuncionDataManager.getParroquiaEucaristiaDTOs() != null)
 			for (int i = 0; i < defuncionDataManager
 					.getParroquiaEucaristiaDTOs().size(); i++)
 				if (defuncionDataManager.getParroquiaEucaristiaDTOs()
-						.get(i).getCatCodigo() == (Integer) defuncionDataManager
-						.getParroquiaCodigo()) {
+						.get(i).getCatCodigo().equals(defuncionDataManager
+						.getParroquiaCodigo())){
 		mapParametros.put("parroquiaCabecera", "\"" + defuncionDataManager.getParroquiaEucaristiaDTOs().get(i).getCatDescripcion().toUpperCase() +"\"");
 		mapParametros.put("parroquia", defuncionDataManager.getParroquiaEucaristiaDTOs().get(i).getCatDescripcion().toUpperCase());
+		mapParametros.put("parroquiafechaActual", defuncionDataManager.getParroquiaEucaristiaDTOs().get(i).getCatDescripcion()+ ", "+String.valueOf(full.format(fechaActual).charAt(0)).toUpperCase() +full.format(fechaActual).substring(1));
+		
 				}
 		mapParametros.put("tomo", defuncionDataManager.getDefuncionInsertar().getDefTomo());
 		mapParametros.put("pagina", defuncionDataManager.getDefuncionInsertar().getDefPagina());
@@ -528,14 +530,13 @@ public void registrarDefuncion () {
 			slf4jLogger.info("Error al buscar Doctor al exportar  {} ", e);
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
-		mapParametros.put("parroquiafechaActual", defuncionDataManager.getParroquiaEucaristiaDTOs().get(0).getCatDescripcion()+ ", "+full.format(fechaActual));
 		mapParametros.put("notaMarginal", defuncionDataManager.getDefuncionInsertar().getDefNotaMarginal());
 		if (defuncionDataManager.getParroquiaEucaristiaDTOs() != null)
 			for (int i = 0; i < defuncionDataManager
 					.getProvinciasEucaristiaDTOs().size(); i++)
 				if (defuncionDataManager.getProvinciasEucaristiaDTOs()
-						.get(i).getCatCodigo() == (Integer) defuncionDataManager
-						.getProvinciaCodigo())
+						.get(i).getCatCodigo().equals(defuncionDataManager
+						.getProvinciaCodigo()))
 		mapParametros.put("provincia", defuncionDataManager.getProvinciasEucaristiaDTOs().get(i).getCatDescripcion().toUpperCase());
 		mapParametros.put("padre", defuncionDataManager.getPadreInsertar().getPerApellidos().toUpperCase() +  " "+defuncionDataManager.getPadreInsertar().getPerNombres().toUpperCase());
 		mapParametros.put("madre", defuncionDataManager.getMadreInsertar().getPerApellidos().toUpperCase() + " "+ defuncionDataManager.getMadreInsertar().getPerNombres().toUpperCase());

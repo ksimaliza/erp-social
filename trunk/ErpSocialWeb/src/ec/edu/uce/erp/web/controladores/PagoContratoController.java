@@ -378,7 +378,7 @@ public class PagoContratoController extends BaseController {
 				if (pagoContratoDataManager.getPagoContratoListDTOEditar().getConDifunto().equals(listaDefunciones.get(i).getDefPersona())) {
 					  System.out.println(listaDefunciones.get(i).getDefPersona());
 					mapParametros.put("parroquiaCabecera", "\"" + listaDefunciones.get(i).getCatParroquia().toUpperCase() +"\"");
-					mapParametros.put("parroquiaFechaActual", listaDefunciones.get(i).getCatParroquia()+", "+full.format(fechaActual) );
+					mapParametros.put("parroquiaFechaActual", listaDefunciones.get(i).getCatParroquia()+", "+String.valueOf(full.format(fechaActual).charAt(0)).toUpperCase() +full.format(fechaActual).substring(1));
 				}
 			}
 	    mapParametros.put("valorPagar", pagoContratoDataManager.getPagoContratoListDTOEditar().getPagValorPagado().toString());
