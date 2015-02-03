@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteQuimestralEstudiante" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="919d30ee-cc10-4bb6-8041-8a9506845632">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="28"/>
+	<property name="ireport.y" value="210"/>
 	<parameter name="parametro6" class="java.lang.String"/>
 	<parameter name="parametro3" class="java.lang.String"/>
 	<parameter name="parametro1" class="java.lang.String"/>
@@ -11,6 +11,11 @@
 	<parameter name="parametro5" class="java.lang.String"/>
 	<parameter name="promeditoTotal" class="java.lang.Float"/>
 	<parameter name="observacionFinal" class="java.lang.String"/>
+	<parameter name="parametro7" class="java.lang.String"/>
+	<parameter name="parametro8" class="java.lang.String"/>
+	<parameter name="parametro9" class="java.lang.String"/>
+	<parameter name="parametro10" class="java.lang.String"/>
+	<parameter name="parametro11" class="java.lang.String"/>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="calificacion1" class="java.lang.Float"/>
 	<field name="calificacion2" class="java.lang.Float"/>
@@ -269,7 +274,7 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="20" splitType="Stretch">
+		<band height="41" splitType="Stretch">
 			<textField>
 				<reportElement x="452" y="0" width="100" height="20" uuid="80def5a6-ebfe-4a8b-bbc5-318b0eb2d3fb"/>
 				<box>
@@ -307,11 +312,197 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[PROMEDIO GENERAL]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="352" y="20" width="200" height="20" uuid="179df5cb-f659-4ad2-af73-a7c577a347aa"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parametro11} == null ? "" : $P{parametro11}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="352" height="20" uuid="35c9ea84-d969-4d59-b538-a53c1f780190"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[COMPORTAMIENTO]]></text>
+			</staticText>
 		</band>
 	</columnFooter>
+	<pageFooter>
+		<band height="125">
+			<textField>
+				<reportElement x="107" y="62" width="71" height="20" uuid="1589c632-b329-4855-9e23-5e1517172260"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parametro8} == null ? "" : $P{parametro8}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="107" y="102" width="71" height="20" uuid="7ee8eacc-6df3-462a-9944-08d547752650"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parametro10} == null ? "" : $P{parametro10}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="107" y="82" width="71" height="20" uuid="8182f975-eaef-40b2-b656-4b4f0f317622"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parametro9} == null ? "" : $P{parametro9}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="102" width="107" height="20" uuid="7104cea9-bbcb-4f91-a5c2-65496253a878"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Total Días Laborados]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="107" y="42" width="71" height="20" uuid="ae208cb1-47c5-486e-bdfe-5f5a3f5ffeff"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parametro7} == null ? "" : $P{parametro7}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="62" width="107" height="20" uuid="1dd13390-9ab8-45ea-be15-687bd1d7c8d6"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Faltas Injustificadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="107" y="22" width="71" height="20" uuid="c54cf681-2b32-431f-a827-aa5b15a9c285"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Días]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="22" width="107" height="20" uuid="d4819683-5e42-4515-98e9-c0e5e37229bd"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Asistencia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="82" width="107" height="20" uuid="94c4af3e-37c1-4b82-a257-11afc6712180"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Días Laborados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="42" width="107" height="20" uuid="356ab33b-d355-4703-8aee-cb20b0a4b1e1"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" isBold="false" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[Faltas Justificadas]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="2" width="178" height="20" uuid="d4467d43-96b1-4d68-b540-219717b9ba1c"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{parametro6} == null ? "" : $P{parametro6}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
 </jasperReport>
