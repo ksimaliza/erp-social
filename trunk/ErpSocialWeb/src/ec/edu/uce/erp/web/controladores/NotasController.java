@@ -509,6 +509,12 @@ public class NotasController extends BaseController {
 			parametros.put("parametro3", reporteDTO.getParametro3());
 			parametros.put("parametro4", reporteDTO.getParametro4());
 			parametros.put("parametro5", reporteDTO.getParametro5());
+			parametros.put("parametro6", reporteDTO.getParametro6());
+			parametros.put("parametro7", reporteDTO.getNotaTutorDTO().getFaltasJustificadas().toString());
+			parametros.put("parametro8", reporteDTO.getNotaTutorDTO().getFaltaInjustificadas().toString());
+			parametros.put("parametro9", reporteDTO.getNotaTutorDTO().getDiasLaborados().toString());
+			parametros.put("parametro10", reporteDTO.getNotaTutorDTO().getTotalDiasLaborados().toString());
+			parametros.put("parametro11", reporteDTO.getNotaTutorDTO().getComportamiento().toString());
 			parametros.put("promeditoTotal", reporteDTO.getPromeditoTotal());
 			parametros.put("observacionFinal", reporteDTO.getObservacionFinal());
 
