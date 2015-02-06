@@ -18,6 +18,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EstudianteVO;
 import ec.edu.uce.erp.ejb.persistence.vo.MatriculaVO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
@@ -38,6 +39,7 @@ public class MatriculaDataManager extends BaseDataManager {
 	private MatriculaVO detalleMInsertar;
 	private AsinacionDTO asignacionInsertar;
 	private MatriculaDTO matriculaInsertar;
+	private PeriodoDTO anioLectivoVigente;
 	
 	
 	
@@ -47,6 +49,8 @@ public class MatriculaDataManager extends BaseDataManager {
 	private List<NivelDTO> nivelList;
 	
 	private List<EstudianteListDTO> estudianteList;
+	
+	private List<PeriodoDTO> listaPeriodoDTOs;
 	
 	private Date fechaInsertar;
 	
@@ -164,6 +168,22 @@ public class MatriculaDataManager extends BaseDataManager {
 
 	public void setMatriculaInsertar(MatriculaDTO matriculaInsertar) {
 		this.matriculaInsertar = matriculaInsertar;
+	}
+
+	public PeriodoDTO getAnioLectivoVigente() {
+		return anioLectivoVigente;
+	}
+
+	public void setAnioLectivoVigente(PeriodoDTO anioLectivoVigente) {
+		this.anioLectivoVigente = anioLectivoVigente;
+	}
+
+	public List<PeriodoDTO> getListaPeriodoDTOs() {
+		return listaPeriodoDTOs;
+	}
+
+	public void setListaPeriodoDTOs(List<PeriodoDTO> listaPeriodoDTOs) {
+		this.listaPeriodoDTOs = listaPeriodoDTOs;
 	}
 	
 	
