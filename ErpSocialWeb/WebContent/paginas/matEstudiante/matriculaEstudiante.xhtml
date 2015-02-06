@@ -107,7 +107,7 @@
 				<p:column headerText="Estado" width="70%">
 					<h:outputText value="#{estudiante.estEstado}" />
 				</p:column>
-				<p:column headerText="Reportes" styleClass="centered" exportable="false">
+				<p:column headerText="Reportes" styleClass="centered" exportable="false" width="70%">
 				<h:panelGroup rendered="#{estudiante.estEstado.equals('Matrículado')}">
 					<p:commandLink styleClass="no-decor" ajax="false"
 						title="Generar Certificado Matricula"
@@ -124,7 +124,7 @@
 					<p:commandLink styleClass="no-decor" ajax="false"
 						title="Generar Ficha Estudiantil"
 						actionListener="#{estudianteController.fichaEstudiantil(estudiante)}">
-						<h:graphicImage value="/resources/img/icono02.png" />
+						<h:graphicImage value="/resources/img/ficha.gif" />
 					</p:commandLink>
 					</h:panelGroup>
 				</p:column>

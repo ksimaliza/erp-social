@@ -23,15 +23,26 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 		
-			<p:panel id="pnlAnadirMatricula"   header="Matrícular Estudiante">
-				<table>
+			<p:panel id="pnlAnadirMatricula"   header="Registro Estudiante-Período: #{matriculaController.anioLectivoVigente.perDescripcion}">
+					<table>
+				
 				<tr>
 				<td>
 				<table class="formulario" width="400" id="tableStyle">
 
 					<tr>
 						<td colspan="4"><p:graphicImage id="image" height="80" cache="false" value="#{matriculaDataManager.matriculaInsertar.regFoto}"/></td>
+					</tr>	<tr>
+						<td class="label">
+							<h:outputLabel for="txtFecha" value="#{i18n['erp.matricula.registro.fecha']}" />
+						</td>
+						<td class="value">
+							<p:outputLabel id="txtFecha"  value="#{matriculaDataManager.fechaInsertar}" required="true">
+							<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</p:outputLabel>
+						</td>	
 					</tr>
+					
 				
 					<tr>
 						<td class="label"><h:outputLabel value="#{i18n['erp.matricula.registro.nivel']}"  />
@@ -63,16 +74,7 @@
 							</p:selectOneMenu>
 						</td>
 					</tr>
-					<tr>
-						<td class="label">
-							<h:outputLabel for="txtFecha" value="#{i18n['erp.matricula.registro.fecha']}" />
-						</td>
-						<td class="value">
-							<p:outputLabel id="txtFecha"  value="#{matriculaDataManager.fechaInsertar}" required="true">
-							<f:convertDateTime pattern="dd/MM/yyyy"/>
-							</p:outputLabel>
-						</td>	
-					</tr>
+				
 					
 					<tr>
 						<td class="label"><h:outputLabel value="#{i18n['erp.matricula.registro.estudiante']}"  /> 

@@ -22,8 +22,10 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.MatriculaVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
+import ec.edu.uce.erp.ejb.servicio.ServicioNotas;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.common.util.JsfUtil;
@@ -39,6 +41,12 @@ public class MatriculaController extends BaseController {
 		
 		@EJB
 		private ServicioMatricula servicioMatricula;
+		
+		@EJB
+		private ServicioNotas servicioNotas;
+		
+		private PeriodoDTO anioLectivoVigente;
+		private List<PeriodoDTO> listaPeriodoDTOs;
 		
 		@ManagedProperty(value="#{matriculaDataManager}")
 		private MatriculaDataManager matriculaDataManager;
@@ -61,6 +69,7 @@ public class MatriculaController extends BaseController {
 			//buscar();
 			buscarEstudiantes();
 			buscarNivel();
+			obtenerAnioLectivoVigente();
 		}
 		
 		public void registrarMatricula () {
@@ -100,7 +109,7 @@ public class MatriculaController extends BaseController {
 				estudianteDTO.setEstCodigo(matriculaDataManager.getEstudianteCodigo());
 				matriculaDataManager.getMatriculaInsertar().setMatEstudiante(estudianteDTO);
 				matriculaDataManager.getMatriculaInsertar().setRegFecha(new Timestamp(matriculaDataManager.getFechaInsertar().getTime()));
-				
+				matriculaDataManager.getMatriculaInsertar().setRegPeriodo(anioLectivoVigente.getPerCodigo());
 				matriculaDataManager.getMatriculaInsertar().setRegEmpresa(getEmpresaCode());
 				matriculaVO.setMatricula(matriculaDataManager.getMatriculaInsertar());
 				matriculaVO.setAsignacion(matriculaDataManager.getAsinacionList());
@@ -113,7 +122,7 @@ public class MatriculaController extends BaseController {
 				}
 				else
 				{
-					//servicioMatricula.updateEstadoEstudiante(matriculaDataManager.getEstudianteCodigo());
+					servicioMatricula.updateEstadoEstudiante(matriculaDataManager.getEstudianteCodigo());
 					servicioMatricula.createOrUpdateMatricula(matriculaVO);	
 					MensajesWebController.aniadirMensajeInformacion("erp.matricula.registrar.exito");
 					cancel();
@@ -250,5 +259,33 @@ public class MatriculaController extends BaseController {
 			matriculaDataManager.setMatriculaInsertar(new MatriculaDTO());
 			matriculaDataManager.setAsinacionList(new ArrayList<AsinacionListDTO>());
 		}
+		
+		public void obtenerAnioLectivoVigente() {
+			try {
+				this.setAnioLectivoVigente(servicioMatricula.obtenerAnioLectivoVigente(getEmpresaCode()));
+                this.setListaPeriodoDTOs(servicioMatricula.buscarPeriodo(new PeriodoDTO()));
+
+			} catch (SeguridadesException e) {
+				MensajesWebController.aniadirMensajeError(e.getMessage());
+			}
+		}
+
+		public PeriodoDTO getAnioLectivoVigente() {
+			return anioLectivoVigente;
+		}
+
+		public void setAnioLectivoVigente(PeriodoDTO anioLectivoVigente) {
+			this.anioLectivoVigente = anioLectivoVigente;
+		}
+
+		public List<PeriodoDTO> getListaPeriodoDTOs() {
+			return listaPeriodoDTOs;
+		}
+
+		public void setListaPeriodoDTOs(List<PeriodoDTO> listaPeriodoDTOs) {
+			this.listaPeriodoDTOs = listaPeriodoDTOs;
+		}
+		
+		
 
 }
