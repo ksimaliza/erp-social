@@ -204,6 +204,10 @@ public interface ServicioMatricula {
 	void eliminarEstudiante(Integer idPersona) throws SeguridadesException;
 
 	void eliminarMateria(Integer codMateria) throws SeguridadesException;
+	
+	public PeriodoDTO obtenerAnioLectivoVigente() throws SeguridadesException;
+	
+	public PeriodoDTO obtenerAnioLectivoVigente(Integer idEmpresa) throws SeguridadesException;
 
 		
 

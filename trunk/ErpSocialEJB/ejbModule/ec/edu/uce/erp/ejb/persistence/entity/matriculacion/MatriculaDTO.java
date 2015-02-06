@@ -50,6 +50,9 @@ public class MatriculaDTO implements Serializable {
 	@Column(name="reg_empresa")
 	private Integer regEmpresa;
 	
+	@Column(name="reg_periodo")
+	private Integer regPeriodo;
+	
 	@Transient
 	private Boolean regVerificarFoto;
 	
@@ -170,6 +173,16 @@ public class MatriculaDTO implements Serializable {
 	public void setFotoStream(InputStream fotoStream) {
 		this.fotoStream = fotoStream;
 	}
+	
+	
+
+	public Integer getRegPeriodo() {
+		return regPeriodo;
+	}
+
+	public void setRegPeriodo(Integer regPeriodo) {
+		this.regPeriodo = regPeriodo;
+	}
 
 	@Override
 	public int hashCode() {
@@ -195,6 +208,8 @@ public class MatriculaDTO implements Serializable {
 			return false;
 		return true;
 	}
+	
+	
 	
 	
 
