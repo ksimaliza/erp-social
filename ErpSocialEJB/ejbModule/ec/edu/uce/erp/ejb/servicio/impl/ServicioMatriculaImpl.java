@@ -36,7 +36,6 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepNivelEstudianteDTO
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.RepresentanteListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.TipoNotaDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 import ec.edu.uce.erp.ejb.persistence.vo.EstudianteVO;
 import ec.edu.uce.erp.ejb.persistence.vo.MatriculaVO;
 import ec.edu.uce.erp.ejb.persistence.vo.ProfesorVO;
@@ -1121,6 +1120,34 @@ private Boolean existeMateria (MateriaDTO materia) throws SeguridadesException {
 		return Boolean.TRUE;
 		
 	}
+
+/**
+ * Devuelve el anio lectivo que se encuentra activo. Se asume que solo un
+ * anio lectivo esta activo en un periodo de tiempo
+ * 
+ * @return PeriodoDTO
+ * @throws SeguridadesException
+ */
+public PeriodoDTO obtenerAnioLectivoVigente(Integer idEmpresa) throws SeguridadesException {
+	slf4jLogger.info("obtenerAnioLectivoVigente");
+
+	try {
+		PeriodoDTO periodoDTO = matriculaFactoryDAO.getPeriodoDAOImpl().find(matriculaFactoryDAO.getPeriodoDAOImpl().obtenerIdUltimoPeriodo(idEmpresa));
+
+		return periodoDTO;
+	} catch (Exception e) {
+		slf4jLogger.info("error al obtenerAnioLectivoVigente {}", e.toString());
+		throw new SeguridadesException(e);
+	}
+}
+
+
+@Override
+public PeriodoDTO obtenerAnioLectivoVigente() throws SeguridadesException {
+	// TODO Auto-generated method stub
+	return null;
+}
+
 
 	
 	

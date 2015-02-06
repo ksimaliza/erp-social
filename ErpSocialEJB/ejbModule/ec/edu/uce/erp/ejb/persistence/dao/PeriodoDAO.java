@@ -11,5 +11,7 @@ public interface PeriodoDAO extends AbstractFacade<PeriodoDTO>{
 			throws SeguridadesException;
 	
 	public Integer obtenerIdUltimoPeriodo();
+	public Integer obtenerIdUltimoPeriodo(Integer idEmpresa);
+	
 
 }

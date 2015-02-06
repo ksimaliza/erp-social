@@ -93,5 +93,15 @@ public class PeriodoDAOImpl extends AbstractFacadeImpl<PeriodoDTO> implements Pe
 		return Integer.valueOf(query.getResultList().get(0).toString());
 	}
 	
+	public Integer obtenerIdUltimoPeriodo(Integer idEmpresa) {
+		Query query;
+		String sql = "SELECT MAX(p.perCodigo) from PeriodoDTO p  where per_empresa= :idEmpresa";
+
+		query = entityManager.createQuery(sql);
+		query.setParameter("idEmpresa", idEmpresa);
+
+		return Integer.valueOf(query.getResultList().get(0).toString());
+	}
+	
 	
 }

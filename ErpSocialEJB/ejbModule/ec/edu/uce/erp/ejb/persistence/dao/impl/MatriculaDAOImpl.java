@@ -55,6 +55,12 @@ public class MatriculaDAOImpl extends AbstractFacadeImpl<MatriculaDTO> implement
 				predicate = cb.equal(from.get("regEmpresa"), matricula.getRegEmpresa());
 				criteriaList.add(predicate);
 			}
+			
+			//por periodo
+			if (matricula.getRegPeriodo()!=null) {
+				predicate = cb.equal(from.get("regPeriodo"), matricula.getRegPeriodo());
+				criteriaList.add(predicate);
+			}
 				
 			if(criteriaList!=null && criteriaList.size()>0)
 				cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
