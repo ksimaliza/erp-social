@@ -8,7 +8,7 @@
 
         <ui:define name="title">
         <h4>
-                        <h:outputLabel value="Reporte Carnet" />
+                        <h:outputLabel value="Reporte General Estudiantes" />
                 </h4>
         </ui:define>
 
@@ -22,7 +22,7 @@
                                         </p:commandButton>
                                 </p:toolbarGroup>
                         </p:toolbar>
-                        <p:panel id="pnlBuscar" header="Generar Carné" style="width: 650px;" toggleable="true">
+                        <p:panel id="pnlBuscar" header="Generar Reportes" style="width: 650px;" toggleable="true">
 
                         <table id="tblData" cellspacing="5">
 
@@ -58,6 +58,20 @@
                                 <td>
                                 </td>
                                                                 </tr>
+                                <tr>
+						<td class="label"><h:outputLabel value="#{i18n['erp.matricula.asinacion.periodo']}" /> 
+						<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
+						</td>
+						<td>
+							<p:selectOneMenu id="periodo" value="#{reporteCarnetDataManager.matriculaVieDTO.asiPeriodo}" filter="true" required="true"
+							requiredMessage="El campo #{i18n['erp.matricula.asinacion.periodo']} es Obligatorio"
+						        style="width:200px">
+								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
+								<f:selectItems value="#{reporteCarnetController.periodoList}" var="per" itemLabel="#{per.perDescripcion} " itemValue="#{per.perCodigo}"/>
+							</p:selectOneMenu>
+						</td>
+					
+					</tr>                                
                                 
                         </table>
                         
@@ -72,8 +86,32 @@
                                 <p:column headerText="#" styleClass="centered" width="5%">
                                         #{rowIndex+1}
                                 </p:column>
+                                <p:column headerText="Reportes" styleClass="centered" exportable="false" width="20%">
+				<h:panelGroup >
+					<p:commandLink styleClass="no-decor" ajax="false"
+						title="Generar Certificado Matricula"
+						actionListener="#{reporteCarnetController.certificado(rep)}">
+						<h:graphicImage value="/resources/img/icono01.png" />
+					</p:commandLink>
+					<h:outputLabel value="&#160;|&#160;" />
+					<p:commandLink styleClass="no-decor" ajax="false"
+						title="Generar Carné Estudiantil"
+						actionListener="#{reporteCarnetController.carnet(rep)}">
+						<h:graphicImage value="/resources/img/icono02.png" />
+					</p:commandLink>
+					<h:outputLabel value="&#160;|&#160;" />
+					<p:commandLink styleClass="no-decor" ajax="false"
+						title="Generar Ficha Estudiantil"
+						actionListener="#{reporteCarnetController.fichaEstudiantil(rep)}">
+						<h:graphicImage value="/resources/img/ficha.gif" />
+					</p:commandLink>
+					</h:panelGroup>
+				</p:column>
                                 <p:column headerText="Nro. Matricula">
                                         <h:outputText value="2014-GM-#{rep.regCodigo}" />
+                                </p:column>
+                                  <p:column headerText="Período">
+                                        <h:outputText value="#{rep.perDescripcion}" />
                                 </p:column>
                                 <p:column headerText="Foto">
                                         <p:graphicImage value="#{rep.regFoto}" height="45" />
@@ -93,11 +131,7 @@
                                 <p:column headerText="Paralelo" style="display: none">
                                         <h:outputText value="#{rep.regVerificarFoto}" />
                                 </p:column>
-                                        
-                                <p:column headerText="Carné">
-                                        <p:commandButton title="Generar Carné" actionListener="#{reporteCarnetController.carnet(rep)}" icon="exportPdf" ajax="false"/>
-                                </p:column>
-                        
+                               
                         </p:dataTable>
                         
                         
