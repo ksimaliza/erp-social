@@ -245,7 +245,7 @@ public class EstudianteController extends BaseController{
 		}
 	}
 	
-	
+	/*
 	public void certificado(EstudianteListDTO estudiante)
 	{
 		MatriculaVieDTO vie;
@@ -267,8 +267,8 @@ public class EstudianteController extends BaseController{
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 	}
-	
-	
+	*/
+	/*
 	public void carnet(EstudianteListDTO estudiante)
 	{
 		MatriculaVieDTO vie;
@@ -289,29 +289,29 @@ public class EstudianteController extends BaseController{
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 	}
+	*/
 	
 	
-	
-	public void fichaEstudiantil(EstudianteListDTO estudiante)
-	{
-		MatriculaVieDTO vie;
-		try {
-			
-			vie=new MatriculaVieDTO();
-			vie.setRegCodigo(estudiante.getRegCodigo());
-			List<MatriculaVieDTO> list= servicioMatricula.readFicha(vie);
-						
-			Map<String, Object> mapParametros = new HashMap<String, Object>();
-			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
-						
-			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), list, "fichaEstudiante", mapParametros);
-			ReporteUtil.generarReporte(jasperPrint, this.reporteCarnetDataManager.getFormatoPdf(), "FichaEstudiantil");
-			
-			
-		} catch (SeguridadesException e) {
-			MensajesWebController.aniadirMensajeError(e.getMessage());
-		}
-	}
+//	public void fichaEstudiantil(EstudianteListDTO estudiante)
+//	{
+//		MatriculaVieDTO vie;
+//		try {
+//			
+//			vie=new MatriculaVieDTO();
+//			vie.setRegCodigo(estudiante.getRegCodigo());
+//			List<MatriculaVieDTO> list= servicioMatricula.readFicha(vie);
+//						
+//			Map<String, Object> mapParametros = new HashMap<String, Object>();
+//			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
+//						
+//			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), list, "fichaEstudiante", mapParametros);
+//			ReporteUtil.generarReporte(jasperPrint, this.reporteCarnetDataManager.getFormatoPdf(), "FichaEstudiantil");
+//			
+//			
+//		} catch (SeguridadesException e) {
+//			MensajesWebController.aniadirMensajeError(e.getMessage());
+//		}
+//	}
 	
 	
 	
