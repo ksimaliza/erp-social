@@ -67,6 +67,15 @@ public class EstudianteListDTO implements Serializable {
 	@Column(name="per_telefono")
 	private String perTelefono;
 	
+	@Column(name="per_calle_principal")
+	private String perCallePrincipal;
+	
+	@Column(name="per_calle_secundaria")
+	private String perCalleSecundaria;
+	
+	@Column(name="per_numero_vivienda")
+	private String perNumeroVivienda;
+	
 
 	//@Column(name="reg_codigo")
 	//private Integer regCodigo;
@@ -228,6 +237,31 @@ public class EstudianteListDTO implements Serializable {
 	public void setEstRepresentante(Integer estRepresentante) {
 		this.estRepresentante = estRepresentante;
 	}
+
+	public String getPerCallePrincipal() {
+		return perCallePrincipal;
+	}
+
+	public void setPerCallePrincipal(String perCallePrincipal) {
+		this.perCallePrincipal = perCallePrincipal;
+	}
+
+	public String getPerCalleSecundaria() {
+		return perCalleSecundaria;
+	}
+
+	public void setPerCalleSecundaria(String perCalleSecundaria) {
+		this.perCalleSecundaria = perCalleSecundaria;
+	}
+
+	public String getPerNumeroVivienda() {
+		return perNumeroVivienda;
+	}
+
+	public void setPerNumeroVivienda(String perNumeroVivienda) {
+		this.perNumeroVivienda = perNumeroVivienda;
+	}
+	
 	
 
 }
