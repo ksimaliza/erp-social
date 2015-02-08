@@ -165,8 +165,9 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 				slf4jLogger.info("Insert");
 				EstudianteListDTO est=new EstudianteListDTO();
 				est.setPerCi(estudiantevo.getPersona().getPerCi());
-				if(!matriculaFactoryDAO.getEstudianteListDAOImpl().getByAnd(est).isEmpty())
-					throw new SeguridadesException("El estudiante ya existe");
+				if(!matriculaFactoryDAO.getEstudianteListDAOImpl().getByAnd(est).isEmpty()){
+					throw new SeguridadesException("El estudiante ya existe, verifique los datos");
+				}
 				estudiantevo.getEstudiante().setEstEstado("Inscrito");
 				if(factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(estudiantevo.getPersona()).isEmpty())
 					personanueva= factoryDAO.getPersonaDAOImpl().create(estudiantevo.getPersona());
