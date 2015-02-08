@@ -67,9 +67,9 @@
 	rowIndexVar="rowIndex"
 	paginator="true" rows="5" paginatorPosition="bottom"
 	paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-	rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.matricula.docente.lista']}">
+	rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.mensaje.busqueda.vacia']}">
 	<f:facet name="header">
-		#{i18n['erp.matricula.docente.lista']}
+		Lista de Docentes
 	</f:facet>
 	<p:column headerText="#" styleClass="centered" width="5%">
 		#{rowIndex+1}

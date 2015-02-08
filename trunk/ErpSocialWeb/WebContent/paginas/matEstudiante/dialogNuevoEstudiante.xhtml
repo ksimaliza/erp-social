@@ -575,7 +575,6 @@
 					<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 						actionListener="#{estudianteController.registrarEstudiante}"
 						icon="ui-icon-disk"
-						oncomplete="if (args &amp;&amp; !args.validationFailed) dlgNuevoEstudiante.hide()"
 						process="@this,pnlNuevoEstudiante, pnInformacion"
 						update="pnlNuevoEstudiante,pnInformacion,:formEstudiante:tablaEstudiante" />
 					<p:commandButton value="#{i18n['label.cancelar']}"

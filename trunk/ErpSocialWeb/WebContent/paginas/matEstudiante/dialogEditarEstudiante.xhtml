@@ -44,7 +44,7 @@
 							<h:outputLabel for="txtEdad" value="Edad" />
 						</td>
 						<td class="value">
-							<p:outputLabel style="width: 100%" id="txtEdad" value="#{estudianteDataManager.estudiantePersonaInsertar.edad}"  />
+							<p:outputLabel style="width: 100%" id="txtEdad" value="#{estudianteDataManager.estudiantePersonaInsertar.edad} años"  />
 						</td>	
 					</tr>
 						<tr>
@@ -83,25 +83,28 @@
 							<p:calendar id="txtFecNac" style="width: 100%" navigator="true" value="#{estudianteDataManager.estudiantePersonaInsertar.perFechaNac}"  showOn="button" required="true"/>
 						</td>	
 					</tr>
-					
-					
-					<tr>
+<tr>
 						<td class="label">
 							<h:outputLabel for="txtTelefono" value="#{i18n['erp.matricula.estudiante.telefono']}" />
 						</td>
 						<td class="value">
-							<p:inputText id="txtTelefono"
-								value="#{estudianteDataManager.estudiantePersonaInsertar.perTelefono}" label="#{i18n['erp.matricula.estudiante.direccion']}" onkeypress="return isNumberKey(event)" />
+							<p:inputMask mask="(99) 9999-999" id="txtTelefono" 
+								value="#{estudianteDataManager.estudiantePersonaInsertar.perTelefono}" label="#{i18n['erp.matricula.estudiante.direccion']}"></p:inputMask>
 						</td>	
+						<p:tooltip for="txtTelefono" value="Ejemplo: (02)2222-222" showEffect="slide" hideEffect="slide"
+                                                   showEvent="focus" hideEvent="blur"/>
 					</tr>
 					<tr>
 						<td class="label">
 							<h:outputLabel for="txtCelular" value="#{i18n['erp.matricula.estudiante.celular']}" />
 						</td>
 						<td class="value">
-							<p:inputText id="txtCelular" 
-								value="#{estudianteDataManager.estudiantePersonaInsertar.perCelular}" label="#{i18n['erp.matricula.estudiante.direccion']}" onkeypress="return isNumberKey(event)" />
+							<p:inputMask mask="(99) 99999-999" id="txtCelular" 
+								value="#{estudianteDataManager.estudiantePersonaInsertar.perCelular}" label="#{i18n['erp.matricula.estudiante.direccion']}"  />
 						</td>	
+						<p:tooltip for="txtCelular" value=" Ejemplo: (09)99999-999" showEffect="slide" hideEffect="slide"
+                                                   showEvent="focus" hideEvent="blur"
+                                                   />
 					</tr>
 					<tr>
 						<td class="label">
@@ -251,11 +254,13 @@
 				</table>
 			</p:panel>
 			 
-<p:panel  id="pnInformacion" header="Datos Adicionales">
-				<p:accordionPanel>
-				<p:tab title="Información del Padre" id="pnlPadre">
-						
+<p:panel  id="pnInformacion" header="Datos Adicionales" toggleable="true">
+				
+						<p:panel  id="pnlPadre">
 						<table class="formulario">
+						<tr>
+					<td colspan="4"><h3>Datos del Padre</h3></td>
+					</tr>
 							<tr>
 								<td class="label"><h:outputText for="txtCiPadre"
 										value="#{i18n['erp.despacho.partida.bautizo.cedula.padre']}" />
@@ -354,12 +359,14 @@
 							</tr>
 					
 						</table>
+						</p:panel>
 					
-					</p:tab>
-					<p:tab title="Información de la Madre" id="pnlMadre">
-						
+					
+						<p:panel  id="pnlMadre">
 						<table class="formulario">
-						
+						<tr>
+					<td colspan="4"><h3>Datos de la Madre</h3></td>
+					</tr>
 							<tr>
 								<td class="label"><h:outputText for="txtCiMadre"
 										value="Cédula"
@@ -459,12 +466,14 @@
 							</tr>
 							
 						</table>
+						</p:panel>
 						
-					</p:tab>
 					
-					<p:tab title="Información del Representante" id="pnlRepre" >
-					
+					<p:panel id="pnlRepre">
 						<table class="formulario">
+						<tr>
+					<td colspan="4"><h3>Datos del Representante</h3></td>
+					</tr>
 
 							<tr>
 								<td class="label"><h:outputText for="txtCiRepre"
@@ -565,16 +574,15 @@
 								</td>
 							</tr>
 							</table>
-						
-					</p:tab>
-				</p:accordionPanel>
+						</p:panel>
+					
 				</p:panel>
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{estudianteController.registrarEstudiante}"
 					icon="ui-icon-disk"
-					oncomplete="if (args &amp;&amp; !args.validationFailed) dlgEditarEstudiante.hide()"
-					process="@this,pnlEditarEstudiante, pnInformacion" update="pnlEditarEstudiante,pnInformacion,:formEstudiante:pnlMessages,:formEstudiante:tablaEstudiante"/>
+					process="@this,pnlEditarEstudiante, pnInformacion" update="pnlEditarEstudiante,pnInformacion,:formEstudiante:pnlMessages,:formEstudiante:tablaEstudiante">
+				</p:commandButton>	
 				<p:commandButton value="#{i18n['label.cancelar']}" 
 				actionListener="#{estudianteController.cancel}" 
 				process="@this" immediate="true" update="pnlEditarEstudiante, pnInformacion"
