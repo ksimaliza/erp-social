@@ -24,6 +24,7 @@
 					actionListener="#{estudianteController.clearFormulario}"
 					update=":formNuevoEstudiante:pnlNuevoEstudiante, :formNuevoEstudiante:pnInformacion"
 					oncomplete="dlgNuevoEstudiante.show()">
+					<f:setPropertyActionListener target="#{estudianteController.optionType}" value="INS" />
 						</p:commandButton>
 						<p:commandButton id="btnExcel" value="#{i18n['label.exportar.excel']}" ajax="false"
 						icon="exportExcel" disabled="#{empty estudianteDataManager.listaEstudianteListDTOs}">
@@ -78,7 +79,7 @@
 				rowIndexVar="rowIndex"
 				paginator="true" rows="5" paginatorPosition="bottom"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.matricula.estudiante.lista']}">
+				rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.mensaje.busqueda.vacia']}">
 				<f:facet name="header">
 					#{i18n['erp.matricula.estudiante.lista']}
 				</f:facet>
@@ -102,7 +103,7 @@
 				</p:column>		
 				
 				<p:column headerText="#{i18n['erp.matricula.estudiante.direccion']}" width="70%">
-					<h:outputText value="#{estudiante.perDireccion}" />
+					<h:outputText value="#{estudiante.perCallePrincipal}, #{estudiante.perCalleSecundaria}, #{estudiante.perNumeroVivienda}" />
 				</p:column>
 				<p:column headerText="Estado" width="70%">
 					<h:outputText value="#{estudiante.estEstado}" />
@@ -115,6 +116,7 @@
 								oncomplete="dlgEditarEstudiante.show()"
 								actionListener="#{estudianteController.cargarDatosEstudiante(estudiante)}"
 								process="@this" update=":formEditarEstudiante:pnlEditarEstudiante,:formEditarEstudiante:pnInformacion">
+								<f:setPropertyActionListener target="#{estudianteController.optionType}" value="UPD" />
 								<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>
 						

@@ -1,17 +1,12 @@
 package ec.edu.uce.erp.web.controladores;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-
-import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.primefaces.context.RequestContext;
@@ -21,19 +16,14 @@ import org.slf4j.LoggerFactory;
 
 import ec.edu.uce.erp.common.util.SeguridadesException;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
-import ec.edu.uce.erp.ejb.persistence.entity.eucaristia.BautizoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteListDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.EstudianteRepresentanteDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MatriculaVieDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.security.Usuario;
 import ec.edu.uce.erp.ejb.persistence.vo.EstudianteVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.common.util.JsfUtil;
-import ec.edu.uce.erp.web.common.util.ReporteUtil;
 import ec.edu.uce.erp.web.datamanager.EstudianteDataManager;
 import ec.edu.uce.erp.web.datamanager.ReporteCarnetDataManager;
 import ec.edu.uce.erp.web.datamanager.RepresentanteDataManager;
@@ -81,6 +71,10 @@ public class EstudianteController extends BaseController{
 	
 	private Integer codEstudiante;
 	
+	private String optionType;
+	
+	
+	
 	@PostConstruct
 	public void inicializarObjetos () {
 		
@@ -121,6 +115,59 @@ public class EstudianteController extends BaseController{
 			estudianteVO.setPadre(estudianteDataManager.getPadreInsertar());
 			estudianteVO.setMadre(estudianteDataManager.getMadreInsertar());
 			estudianteVO.setRepresentanteEst(estudianteDataManager.getRepresentanteInsertar());
+			
+			if(estudianteDataManager.getPadreInsertar()==null||estudianteDataManager.getMadreInsertar()==null){
+				
+				MensajesWebController.aniadirMensajeError("Al menos debe registrar un Representante Legal del Estudiante.");
+		
+					RequestContext.getCurrentInstance().execute(
+						"dlgNuevoEstudiante.show()");
+							return;
+			}
+			
+			if(estudianteDataManager.getPadreInsertar()!=null&&estudianteDataManager.getEstudiantePersonaInsertar().getPerCi().toString().equals(estudianteDataManager.getPadreInsertar().getPerCi().toString()))
+					{
+				
+				if(optionType.equals("INS")){
+				MensajesWebController.aniadirMensajeError("La Cédula del estudiante, no puede ser igual al del Padre, verifique.");
+				RequestContext.getCurrentInstance().execute("dlgNuevoEstudiante.show()");
+				
+				return;
+				}
+				else {
+					
+					MensajesWebController.aniadirMensajeError("La Cédula del estudiante, no puede ser igual al del Padre, verifique.");
+					RequestContext.getCurrentInstance().execute("dlgEditarEstudiante.show()");
+					
+					return;
+				}
+						
+					}
+			
+			if(estudianteDataManager.getMadreInsertar()!=null&&estudianteDataManager.getEstudiantePersonaInsertar().getPerCi().toString().equals(estudianteDataManager.getMadreInsertar().getPerCi().toString()))
+			{
+		
+				MensajesWebController.aniadirMensajeError("La Cédula del estudiante, no puede ser igual al de la Madre, verifique.");
+				
+				
+				
+				RequestContext.getCurrentInstance().execute(
+						"dlgNuevoEstudiante.show()");
+				
+				return;
+				
+			}
+			
+			if(estudianteDataManager.getRepresentanteInsertar()!=null &&estudianteDataManager.getEstudiantePersonaInsertar().getPerCi().toString().equals(estudianteDataManager.getRepresentanteInsertar().getPerCi().toString()))
+			{
+		
+				
+				RequestContext.getCurrentInstance().execute(
+						"dlgNuevoEstudiante.show()");
+				
+				return;
+				
+			}
 
 			EstudianteDTO estudianteNuevo = this.servicioMatricula.createOrUpdateEstudiante(estudianteVO);
 			if (estudianteNuevo != null) {
@@ -131,6 +178,15 @@ public class EstudianteController extends BaseController{
 				estudianteDataManager.setMadreInsertar(new Persona());
 				estudianteDataManager.setPadreInsertar(new Persona());
 				estudianteDataManager.setRepresentanteInsertar(new Persona());
+					
+				if(this.optionType.equals("INS")){	
+				RequestContext.getCurrentInstance().execute(
+							"dlgNuevoEstudiante.hide()");
+				}else {
+					RequestContext.getCurrentInstance().execute(
+							"dlgEditarEstudiante.hide()");
+				}
+				
 				MensajesWebController.aniadirMensajeInformacion("erp.matricula.estudiante.registrar.exito");
 			}
 			buscarEstudiantes();
@@ -220,6 +276,7 @@ public class EstudianteController extends BaseController{
 			}
 			if (CollectionUtils.isEmpty(personaList)
 					&& personaList.size() == 0) {
+				estudianteDataManager.setEstudiantePersonaInsertar(new Persona());
 				MensajesWebController
 						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			}
@@ -441,6 +498,15 @@ public class EstudianteController extends BaseController{
 
 	public void setCodEstudiante(Integer codEstudiante) {
 		this.codEstudiante = codEstudiante;
+	}
+	
+
+	public String getOptionType() {
+		return optionType;
+	}
+
+	public void setOptionType(String optionType) {
+		this.optionType = optionType;
 	}
 
 	@Override
