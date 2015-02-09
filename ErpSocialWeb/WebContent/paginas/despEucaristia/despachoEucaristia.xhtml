@@ -18,8 +18,6 @@
 			
 			<p:toolbar>
 				<p:toolbarGroup align="left">
-					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
-					</p:commandButton>
 					<p:commandButton id="btnNuevaEucaristia" value="Insertar" icon="ui-icon-disk" actionListener="#{eucaristiaController.limpiarFormulario}" update=":formNuevaEucaristia:pnlNuevaEucaristia,:formNuevaEucaristia:pnlBotones" oncomplete="dlgNuevaEucaristia.show()">
 						</p:commandButton>
 				</p:toolbarGroup>

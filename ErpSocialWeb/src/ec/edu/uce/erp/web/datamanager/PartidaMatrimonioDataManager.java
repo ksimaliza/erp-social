@@ -63,7 +63,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PartidaMatrimo
 	private List<CatalogoEucaristiaDTO> cantonEucaristiaDTOs;
 	private List<CatalogoEucaristiaDTO> parroquiaEucaristiaDTOs;
 	private Boolean exportDesactivado;
-	
+	private String daFe;
 	@PostConstruct
 	public void inicializarObjetos () {
 		
@@ -90,6 +90,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PartidaMatrimo
 		this.tipoEucaristiaDTOs=new ArrayList<CatalogoEucaristiaDTO>();
 		this.sacerdoteInsertar=new SacerdoteDTO();
 		exportDesactivado=true;
+		daFe="";
 		
 	}
 
@@ -394,6 +395,16 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(PartidaMatrimo
 
 	public void setExportDesactivado(Boolean exportDesactivado) {
 		this.exportDesactivado = exportDesactivado;
+	}
+
+
+	public String getDaFe() {
+		return daFe;
+	}
+
+
+	public void setDaFe(String daFe) {
+		this.daFe = daFe;
 	}
 	
 	

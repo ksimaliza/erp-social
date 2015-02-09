@@ -689,8 +689,7 @@ public class PartidaBautizoController extends BaseController {
 				+ " "
 				+ partidaBautizoDataManager.getPadreInsertar().getPerNombres()
 						.toUpperCase());
-		mapParametros.put("daFe", getUsuario().getNpNombresCompletos());
-
+		mapParametros.put("daFe", partidaBautizoDataManager.getDaFe().toUpperCase());
 		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 		JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(), "certificadoBautismo", mapParametros);

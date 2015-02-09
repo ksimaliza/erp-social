@@ -58,6 +58,8 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 	private List<CatalogoEucaristiaDTO> parroquiaEucaristiaDTOs;
 	private List<CatalogoEucaristiaDTO> estadoEucaristiaDTOs;
 	private Boolean exportDesactivado;
+	private String daFe;
+	private Boolean validarCedulaDesactivado;
 	
 	
 	
@@ -80,8 +82,9 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 		this.madreInsertar=new Persona();
 		this.padreInsertar=new Persona();
 		exportDesactivado=true;
+		validarCedulaDesactivado=true;
 		guardar=false;
-			
+		daFe=""	;
 	}
 	
 	
@@ -319,14 +322,21 @@ public class PartidaBautizoDataManager extends BaseDataManager{
 		this.guardar = guardar;
 	}
 
-	
+	public String getDaFe() {
+		return daFe;
+	}
 
+	public void setDaFe(String daFe) {
+		this.daFe = daFe;
+	}
 
+	public Boolean getValidarCedulaDesactivado() {
+		return validarCedulaDesactivado;
+	}
 
-
-
-
-	
+	public void setValidarCedulaDesactivado(Boolean validarCedulaDesactivado) {
+		this.validarCedulaDesactivado = validarCedulaDesactivado;
+	}	
 	
 	
 }

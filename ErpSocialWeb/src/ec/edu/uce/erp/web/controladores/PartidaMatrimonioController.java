@@ -776,7 +776,7 @@ public void registrarMatrimonio () {
 		mapParametros.put("fechaMatrimonio", pequena.format(partidaMatrimonioDataManager.getFechaMatrInsertar()));
 		mapParametros.put("novio", partidaMatrimonioDataManager.getNovioInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getNovioInsertar().getPerNombres().toUpperCase());
 		mapParametros.put("novia", partidaMatrimonioDataManager.getNoviaInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getNoviaInsertar().getPerNombres().toUpperCase());
-		mapParametros.put("certifica", getUsuario().getNpNombresCompletos());
+		mapParametros.put("daFe", partidaMatrimonioDataManager.getDaFe().toUpperCase());
 		//cuando el novio tiene padrino
 		if(partidaMatrimonioDataManager.getPad_novioInsertar().getPerApellidos()!=null &&  partidaMatrimonioDataManager.getPad_novioInsertar().getPerNombres()!=null)
 		mapParametros.put("padrinoNovio", partidaMatrimonioDataManager.getPad_novioInsertar().getPerApellidos().toUpperCase() + " "+   partidaMatrimonioDataManager.getPad_novioInsertar().getPerNombres().toUpperCase());

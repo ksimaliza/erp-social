@@ -731,7 +731,7 @@ public class PartidaConfirmacionController extends BaseController {
 				+ " "
 				+ partidaConfirmacionDataManager.getPadreInsertar()
 						.getPerNombres().toUpperCase());
-		mapParametros.put("daFe", getUsuario().getNpNombresCompletos());
+		mapParametros.put("daFe", partidaConfirmacionDataManager.getDaFe().toUpperCase());
 		mapParametros.put("imagesRealPath",
 				getServletContext().getRealPath("resources/img"));
 

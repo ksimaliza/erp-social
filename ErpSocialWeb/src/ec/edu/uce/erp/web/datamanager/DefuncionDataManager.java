@@ -57,7 +57,7 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(DefuncionDataM
 
 	private Boolean exportDesactivado;
 	private Boolean desactivado;
-	
+	private String daFe;
 
 
 	@PostConstruct
@@ -357,6 +357,14 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(DefuncionDataM
 	}
 
 
+	public String getDaFe() {
+		return daFe;
+	}
+
+
+	public void setDaFe(String daFe) {
+		this.daFe = daFe;
+	}
 	
 
 }

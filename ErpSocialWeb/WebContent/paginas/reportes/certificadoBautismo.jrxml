@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
-<!-- 2015-02-01T23:05:28 -->
+<!-- 2015-02-05T17:15:02 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="certificadoBautismo" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6a8786bc-e1fe-4330-9d5b-ad62d0dae03c">
 	<property name="ireport.zoom" value="0.8264462809917354"/>
 	<property name="ireport.x" value="0"/>
@@ -81,13 +81,6 @@
 				<text><![CDATA[Firma y Sello Encargado]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Heading 1" x="138" y="94" width="168" height="24" uuid="85a6d078-3914-4359-8ef7-24afc6a0e45b"/>
-				<textElement>
-					<font size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[ARQUIDIOCESIS DE]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="64" y="305" width="248" height="20" uuid="80f5bf9f-e542-411e-bdd6-452e358d8837"/>
 				<textElement>
 					<font size="12"/>
@@ -109,25 +102,18 @@
 				<text><![CDATA[PARTIDA BAUTISMAL]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="Heading 1" x="312" y="94" width="172" height="24" uuid="8d26a870-119f-4fa4-ba53-aca430ce0fb1"/>
-				<textElement>
+				<reportElement style="Heading 1" x="64" y="94" width="490" height="24" uuid="8d26a870-119f-4fa4-ba53-aca430ce0fb1"/>
+				<textElement textAlignment="Center">
 					<font size="16"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{canton}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["ARQUIDIOCESIS DE "+$P{canton}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="Heading 1" x="178" y="118" width="191" height="24" uuid="9755ecd0-a51a-4f70-b3ff-b7884f48f238"/>
-				<textElement>
+				<reportElement style="Heading 1" x="64" y="118" width="490" height="24" uuid="9755ecd0-a51a-4f70-b3ff-b7884f48f238"/>
+				<textElement textAlignment="Center">
 					<font size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SERVICIO PARROQUIAL]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Heading 1" x="190" y="147" width="134" height="24" uuid="6811db6d-13ec-41d6-bbf8-e7a0af828ab7"/>
-				<textElement>
-					<font size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[ PARROQUIA DE ]]></text>
 			</staticText>
 			<textField>
 				<reportElement style="Heading 4" x="138" y="282" width="79" height="20" uuid="2fef90a1-7054-4bec-8dd8-5ebea31a7321"/>
@@ -176,7 +162,7 @@
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[DA FÉ:]]></text>
+				<text><![CDATA[DA FE:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="295" y="379" width="237" height="20" uuid="d60313c7-a80f-47ce-b48d-a1a436ad8297"/>
@@ -284,11 +270,11 @@
 				<textFieldExpression><![CDATA[$P{parroquiafechaActual}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Heading 1" x="327" y="147" width="157" height="24" uuid="e7552060-3caf-4b2a-ba8e-7426a30223e5"/>
-				<textElement>
+				<reportElement style="Heading 1" x="64" y="142" width="490" height="24" uuid="e7552060-3caf-4b2a-ba8e-7426a30223e5"/>
+				<textElement textAlignment="Center">
 					<font size="16"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{parroquiaCabecera}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[ "PARROQUIA DE "+$P{parroquiaCabecera}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="294" y="540" width="237" height="20" uuid="5ea3bd02-2159-4fd1-8e06-fbd1b70e0460"/>

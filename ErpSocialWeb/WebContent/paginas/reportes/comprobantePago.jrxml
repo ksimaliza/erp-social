@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
-<!-- 2015-01-22T11:06:01 -->
+<!-- 2015-02-05T23:45:37 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="comprobantePago" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be81c4a4-db54-48b2-8555-d8c6b7b41f8b">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
@@ -41,13 +41,6 @@
 	</background>
 	<title>
 		<band height="591" splitType="Stretch">
-			<staticText>
-				<reportElement x="95" y="96" width="245" height="21" uuid="003363c3-e48a-4402-af1e-ebbb301d5db5"/>
-				<textElement>
-					<font size="16" isBold="true"/>
-				</textElement>
-				<text><![CDATA[CEMENTERIO PARROQUIA DE]]></text>
-			</staticText>
 			<frame>
 				<reportElement style="table" x="30" y="296" width="508" height="31" uuid="9e27961a-a9f9-40ad-892a-5f6dc00576fb"/>
 				<textField>
@@ -182,8 +175,8 @@
 				</staticText>
 			</frame>
 			<textField>
-				<reportElement x="275" y="151" width="280" height="20" uuid="048849f6-6eb4-4155-abac-26924ff518f1"/>
-				<textElement>
+				<reportElement x="241" y="151" width="297" height="20" uuid="048849f6-6eb4-4155-abac-26924ff518f1"/>
+				<textElement textAlignment="Right">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{parroquiaFechaActual}]]></textFieldExpression>
@@ -196,11 +189,11 @@
 				<text><![CDATA[Firma y sello de Encargado]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="340" y="96" width="152" height="21" uuid="d5ba7af6-06d1-4c82-b5e9-bb129e5e30f0"/>
-				<textElement>
-					<font size="16"/>
+				<reportElement x="30" y="96" width="508" height="21" uuid="d5ba7af6-06d1-4c82-b5e9-bb129e5e30f0"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{parroquiaCabecera}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["CEMENTERIO PARROQUIAL DE "+$P{parroquiaCabecera}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

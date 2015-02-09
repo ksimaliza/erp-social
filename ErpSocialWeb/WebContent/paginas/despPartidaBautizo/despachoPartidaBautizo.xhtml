@@ -18,8 +18,6 @@
 			
 			<p:toolbar>
 				<p:toolbarGroup align="left">
-					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
-					</p:commandButton>
 					<p:commandButton id="btnNuevaPartidaBautizo" value="Insertar" icon="ui-icon-disk" actionListener="#{partidaBautizoController.limpiarFormulario}" update=":formNuevaPartidaBautizo:pnlNuevaPartidaBautizo,:formNuevaPartidaBautizo:pnlDatos,:formNuevaPartidaBautizo:pnlDatosMadrina,:formNuevaPartidaBautizo:pnlDatosPadrino" oncomplete="dlgNuevaPartidaBautizo.show()">
 						</p:commandButton>
 				</p:toolbarGroup>
@@ -64,7 +62,10 @@
 					process="@this,pnlBuscarPartidaBautizo"
 					update=":formPartidaBautizo:pnlMessages,tablaPartidaBautizo,pnlBuscarPartidaBautizo " />
 			</p:panel>
-
+           <p:panel id="pnlDaFe" header="#{i18n['erp.despacho.label.dafe']}">
+				<p:inputText id="txtDaFe" 
+								value="#{partidaBautizoDataManager.daFe}" />
+			</p:panel>
 
 <p:dataTable id="tablaPartidaBautizo"
 	value="#{partidaBautizoDataManager.bautizoListDTOs}" var="bautizo"
@@ -131,7 +132,7 @@
 						<p:commandLink styleClass="no-decor"
 							title="#{i18n['label.exportar.pdf']}"
 							actionListener= "#{partidaBautizoController.exportarPdf(bautizo)}"
-							process="@this" ajax="false">
+							process="@this" ajax="false" update=":formPartidaBautizo:pnlMessages">
 							<h:graphicImage value="/resources/img/pdf.png" alt="exportPdf"/>
 						</p:commandLink>
 					</h:panelGroup>	
