@@ -91,7 +91,8 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			{
 				bautizadoPersona=factoryDAO.getPersonaDAOImpl().update(bautizadoPersona);
 			}
-				else	
+			else if(bautizadoPersona.getPerCi().equalsIgnoreCase("") ) bautizadoPersona=factoryDAO.getPersonaDAOImpl().create(bautizadoPersona);
+			else	
 				{
 				listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(bautizadoPersona);
 				if(listPersona.size()<=0)

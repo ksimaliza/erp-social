@@ -18,8 +18,6 @@
 			
 			<p:toolbar>
 				<p:toolbarGroup align="left">
-					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
-					</p:commandButton>
 					<p:commandButton id="btnNuevaPartidaMatrimonio" value="Insertar" icon="ui-icon-disk" actionListener="#{partidaMatrimonioController.limpiarFormulario}" update=":formNuevaPartidaMatrimonio:pnlNuevaPartidaMatrimonio,:formNuevaPartidaMatrimonio:pnlDatos,:formNuevaPartidaMatrimonio:pnlDatosPadrinoNovio,:formNuevaPartidaMatrimonio:pnlDatosMadrinaNovio,:formNuevaPartidaMatrimonio:pnlDatosNovia,:formNuevaPartidaMatrimonio:pnlDatosMadrinaNovia,:formNuevaPartidaMatrimonio:pnlDatosPadrinoNovia,:formNuevaPartidaMatrimonio:pnlDatos,:formNuevaPartidaMatrimonio:pnlDatosMatrimonio,:formPartidaMatrimonio:pnlMessages,:formPartidaMatrimonio:tablaPartidaMatrimonio,:formNuevaPartidaMatrimonio:pnlBotones" oncomplete="dlgNuevaPartidaMatrimonio.show()">
 						</p:commandButton>
 				</p:toolbarGroup>
@@ -76,7 +74,10 @@
 					update=":formPartidaMatrimonio:pnlMessages,tablaPartidaMatrimonio,pnlBuscarPartidaMatrimonio " />
 			</p:panel>
 
-
+<p:panel id="pnlDaFe" header="#{i18n['erp.despacho.label.dafe']}">
+				<p:inputText id="txtDaFe" 
+								value="#{partidaMatrimonioDataManager.daFe}" />
+			</p:panel>
 <p:dataTable id="tablaPartidaMatrimonio"
 	value="#{partidaMatrimonioDataManager.matrimonioListDTOs}" var="matrimonio"
 	rowIndexVar="rowIndex"

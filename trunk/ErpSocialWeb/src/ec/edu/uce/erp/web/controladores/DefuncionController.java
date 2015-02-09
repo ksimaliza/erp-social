@@ -543,8 +543,8 @@ public void registrarDefuncion () {
 		if(defuncionDataManager.getConyugeInsertar()!=null && defuncionDataManager.getConyugeInsertar().getPerApellidos()!=null && defuncionDataManager.getConyugeInsertar().getPerApellidos()!=null )
 			mapParametros.put("conyuge", defuncionDataManager.getConyugeInsertar().getPerApellidos().toUpperCase() + " "+  defuncionDataManager.getConyugeInsertar().getPerNombres().toUpperCase());
 		else
-			mapParametros.put("conyuge", "No tiene conyuge" );
-		mapParametros.put("certifica", getUsuario().getNpNombresCompletos());
+			mapParametros.put("conyuge", "" );
+		mapParametros.put("daFe", defuncionDataManager.getDaFe().toUpperCase());
 		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 		

@@ -19,11 +19,11 @@
 							<h:outputText for="txtCiBau" value="#{i18n['erp.despacho.partida.bautizo.cedula.bautizado']}" />
 						</td>
 						<td width="70%" >
-						<p:inputText id="txtCiBau"  style="width: 100%" required="true" label="#{i18n['erp.despacho.partida.bautizo.cedula.bautizado']}"
+						<p:inputText id="txtCiBau"  style="width: 100%" required="false" label="#{i18n['erp.despacho.partida.bautizo.cedula.bautizado']}"
 
 							  value="#{partidaBautizoDataManager.bautizadoInsertar.perCi}" >
 
-							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
+							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator"/>
 							<p:ajax event="blur" update="txtApeBau,txtNomBau" listener="#{partidaBautizoController.buscarBautizado}" process="@this" /> 
 							</p:inputText>
 						</td>

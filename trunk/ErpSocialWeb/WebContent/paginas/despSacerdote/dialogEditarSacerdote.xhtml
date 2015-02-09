@@ -10,21 +10,6 @@
 		<h:form id="formEditarSacerdote" styleClass="formulario">
 			<p:panel id="pnlEditarSacerdote">
 				<table class="formulario">
-					
-					<tr>
-						<td width="100%" colspan="2"><p:graphicImage id="image" height="80" cache="false" value="#{sacerdoteDataManager.sacerdotePersonaInsertar.perFoto}"/></td>
-					</tr>
-				
-					<tr>
-						<td width="30%">
-							<h:outputLabel value="#{i18n['erp.despacho.sacerdote.foto']}" />
-						</td>
-						<td width="70%">
-							    <p:fileUpload fileUploadListener="#{sacerdoteController.handleFileUpload}" mode="advanced" dragDropSupport="true"
-                     				 update="image" auto="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Seleccionar" process="@this"/>
-						</td>
-					</tr>				
-					
 					<tr>	
 						<td width="30%">
 							<h:outputLabel for="txtCi" value="#{i18n['erp.despacho.sacerdote.cedula']}" />

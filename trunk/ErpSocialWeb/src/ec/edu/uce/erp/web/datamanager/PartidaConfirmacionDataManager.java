@@ -62,7 +62,7 @@ public class PartidaConfirmacionDataManager extends BaseDataManager {
 	private BautizoListDTO bautizoListDTO;
 	private int estadoCodigo;
 	private Boolean exportDesactivado;
-	
+	private String daFe;
 	
 	
 	@PostConstruct
@@ -83,6 +83,7 @@ public class PartidaConfirmacionDataManager extends BaseDataManager {
 		exportDesactivado=true;
 		madreInsertar=new Persona();
 		padreInsertar=new Persona();
+		daFe="";
 		
 	}
 	public Persona getConfirmadoInsertar() {
@@ -339,6 +340,12 @@ public class PartidaConfirmacionDataManager extends BaseDataManager {
 
 	public void setPadreInsertar(Persona padreInsertar) {
 		this.padreInsertar = padreInsertar;
+	}
+	public String getDaFe() {
+		return daFe;
+	}
+	public void setDaFe(String daFe) {
+		this.daFe = daFe;
 	}
 	
 	

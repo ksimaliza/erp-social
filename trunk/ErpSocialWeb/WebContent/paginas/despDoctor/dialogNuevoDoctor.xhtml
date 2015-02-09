@@ -9,21 +9,7 @@
 		widgetVar="dlgNuevoDoctor" modal="true" width="500" minWidth="500" appendTo="@(body)">
 		<h:form id="formNuevoDoctor" styleClass="formulario">
 			<p:panel id="pnlNuevoDoctor">
-				<table class="formulario">
-					
-					<tr>
-						<td width="100%" colspan="2"><p:graphicImage id="image" height="80" cache="false" value="#{doctorDataManager.doctorPersonaInsertar.perFoto}"/></td>
-					</tr>
-				
-					<tr>
-						<td width="30%">
-							<h:outputLabel value="#{i18n['erp.despacho.sacerdote.foto']}" />
-						</td>
-						<td width="70%">
-							    <p:fileUpload fileUploadListener="#{doctorController.handleFileUpload}" mode="advanced" dragDropSupport="true"
-                     				 update="image" auto="true" sizeLimit="1000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Seleccionar" process="@this"/>
-						</td>
-					</tr>				
+				<table class="formulario">				
 					
 					<tr>	
 						<td width="30%">
@@ -34,7 +20,7 @@
 								 label="#{i18n['erp.despacho.doctor.cedula']}">
 								<f:validateLength maximum="10" minimum="10"/>
 								<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
-								<p:ajax event="blur" update="txtNombres,txtApe,txtFecNac,txtDir,txtTelefono,txtCelular,txtEmail,image" listener="#{doctorController.buscarDoctor2}" process="@this"/>
+								<p:ajax event="blur" update="txtNombres,txtApe,txtFecNac,txtDir,txtTelefono,txtCelular,txtEmail" listener="#{doctorController.buscarDoctor2}" process="@this"/>
 							</p:inputText>			
 						</td>
 					</tr>

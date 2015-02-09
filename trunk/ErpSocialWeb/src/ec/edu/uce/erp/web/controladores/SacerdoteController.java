@@ -65,7 +65,7 @@ public void registrarSacerdote () {
 		SacerdoteVO sacerdoteVO;
 		SacerdoteListDTO sacerdoteAux=new SacerdoteListDTO();
 		try {
-			 sacerdoteAux.setPerCi(sacerdoteDataManager.getSacerdotePersonaInsertar().getPerCi());
+			 sacerdoteAux.setSacEmpresa(getEmpresaTbl().getEmrPk());
 			 List<SacerdoteListDTO> listaSacerdotes= servicioEucaristia.buscarSacerdote(sacerdoteAux);
 			 Boolean esSacerdote=false;
 			 for (SacerdoteListDTO sacerdoteListDTO : listaSacerdotes) {

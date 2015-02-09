@@ -18,8 +18,6 @@
 			
 			<p:toolbar>
 				<p:toolbarGroup align="left">
-					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
-					</p:commandButton>
 					<p:commandButton id="btnNuevaPartidaConfirmacion" actionListener="#{partidaConfirmacionController.limpiarFormulario}" value="Insertar" icon="ui-icon-disk" update=":formNuevaPartidaConfirmacion:pnlNuevaPartidaConfirmacion,:formNuevaPartidaConfirmacion:pnlBautizo,:formNuevaPartidaConfirmacion:pnlDatos,:formNuevaPartidaConfirmacion:pnlDatosPadrino" oncomplete="dlgNuevaPartidaConfirmacion.show()">
 						</p:commandButton>
 				</p:toolbarGroup>
@@ -64,7 +62,10 @@
 						process="@this,pnlBuscarPartidaConfirmacion"
 						update=":formPartidaConfirmacion:pnlMessages,tablaPartidaConfirmacion,pnlBuscarPartidaConfirmacion " />
 	</p:panel>
-
+<p:panel id="pnlDaFe" header="#{i18n['erp.despacho.label.dafe']}">
+				<p:inputText id="txtDaFe" 
+								value="#{partidaConfirmacionDataManager.daFe}" />
+			</p:panel>
 
 <p:dataTable id="tablaPartidaConfirmacion"
 	value="#{partidaConfirmacionDataManager.confirmacionListDTOs}" var="confirmacion"

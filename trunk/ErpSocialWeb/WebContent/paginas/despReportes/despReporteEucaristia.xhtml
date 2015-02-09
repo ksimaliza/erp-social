@@ -17,47 +17,9 @@
         <ui:define name="content">
                 <h:form id="form">
                 <p:growl id="pnlMessages" autoUpdate="true" closable="true" />
-                <p:toolbar style="ToolBar">
-                                <p:toolbarGroup align="left">
-                                        <p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
-                                        </p:commandButton>
-                                </p:toolbarGroup>
-                        </p:toolbar>
                         <p:panel id="pnlBuscar" header="Buscar Eucaristías" style="width: 650px;" toggleable="true">
 
                         <table id="tblData" cellspacing="5">
-
-                           <!--   <tr>
-								<td width="30%"><h:outputLabel value="Provincia:"  /> </td>
-		
-								<td width="70%" ><p:selectOneMenu id="provincia" value="#{reporteEucaristiaDataManager.codigoProvincia}" filter="true" required="true"  >
-		
-										<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-										<f:selectItems value="#{reporteEucaristiaController.reporteEucaristiaDataManager.listProvincia}" var="provincia" itemLabel="#{provincia.catDescripcion} " itemValue="#{provincia.catCodigo}"/>
-										<p:ajax listener="#{reporteEucaristiaController.buscarCanton}" process="@this" update="canton"/>
-									</p:selectOneMenu>
-								</td>
-							</tr>
-							
-							<tr>
-								<td width="30%"><h:outputLabel value="Cantón"  /> </td>
-		
-								<td width="70%"><p:selectOneMenu id="canton" value="#{reporteEucaristiaDataManager.codigoCanton}" filter="true" required="true"  >
-										<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-										<f:selectItems value="#{reporteEucaristiaDataManager.listCanton}" var="canton" itemLabel="#{canton.catDescripcion}" itemValue="#{canton.catCodigo}"/>
-										<p:ajax listener="#{reporteEucaristiaController.buscarParroquia}" process="@this" update="parroquia"/>
-									</p:selectOneMenu>
-								</td>
-							</tr>		
-							<tr>
-								<td width="30%"><h:outputLabel value="Parroquia"  /> </td>
-								<td width="70%" ><p:selectOneMenu id="parroquia" value="#{reporteEucaristiaDataManager.codigoParroquia}" filter="true" required="true" >
-										<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-										<f:selectItems value="#{reporteEucaristiaDataManager.listParroquia}" var="parroquia" itemLabel="#{parroquia.catDescripcion}" itemValue="#{parroquia.catCodigo}"/>
-									</p:selectOneMenu>
-								</td>
-							</tr>	                                
--->                                
                                 <tr>
                                 <td align="right"><h:outputLabel value="Desde:" /></td>
                                         <td ><p:calendar id="txtDesde" style="width: 100%" navigator="true" value="#{reporteEucaristiaDataManager.eucaristiaListDTO.fechaDesde}"  showOn="button" /></td>
@@ -80,6 +42,7 @@
                                 		<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{reporteEucaristiaController.exportar}" icon="exportPdf" ajax="false"
 										disabled="#{reporteEucaristiaDataManager.exportDesactivado}"  />
                                 	</td>
+                                	
                                 </tr>
 
                         </table>
