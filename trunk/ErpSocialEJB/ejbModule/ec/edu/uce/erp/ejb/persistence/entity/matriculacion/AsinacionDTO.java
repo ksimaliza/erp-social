@@ -129,6 +129,7 @@ public class AsinacionDTO implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((asiEmpresa == null) ? 0 : asiEmpresa.hashCode());
+		result = prime * result + ((matMateria == null) ? 0 : matMateria.hashCode());
 		result = prime * result + ((matNivelParalelo == null) ? 0 : matNivelParalelo.hashCode());
 		result = prime * result + ((matPeriodo == null) ? 0 : matPeriodo.hashCode());
 		return result;
@@ -148,6 +149,11 @@ public class AsinacionDTO implements Serializable {
 				return false;
 		} else if (!asiEmpresa.equals(other.asiEmpresa))
 			return false;
+		if (matMateria == null) {
+			if (other.matMateria != null)
+				return false;
+		} else if (!matMateria.equals(other.matMateria))
+			return false;
 		if (matNivelParalelo == null) {
 			if (other.matNivelParalelo != null)
 				return false;
@@ -160,7 +166,5 @@ public class AsinacionDTO implements Serializable {
 			return false;
 		return true;
 	}
-
-	
 	
 }

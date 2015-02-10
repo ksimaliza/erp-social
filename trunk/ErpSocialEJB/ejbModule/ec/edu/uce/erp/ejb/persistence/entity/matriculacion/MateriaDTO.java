@@ -82,6 +82,41 @@ public class MateriaDTO implements Serializable {
 		this.mtrEmpresa = mtrEmpresa;
 	}
 
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((mtrCodigo == null) ? 0 : mtrCodigo.hashCode());
+		result = prime * result + ((mtrEmpresa == null) ? 0 : mtrEmpresa.hashCode());
+		result = prime * result + ((mtrNombe == null) ? 0 : mtrNombe.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MateriaDTO other = (MateriaDTO) obj;
+		if (mtrCodigo == null) {
+			if (other.mtrCodigo != null)
+				return false;
+		} else if (!mtrCodigo.equals(other.mtrCodigo))
+			return false;
+		if (mtrEmpresa == null) {
+			if (other.mtrEmpresa != null)
+				return false;
+		} else if (!mtrEmpresa.equals(other.mtrEmpresa))
+			return false;
+		if (mtrNombe == null) {
+			if (other.mtrNombe != null)
+				return false;
+		} else if (!mtrNombe.equals(other.mtrNombe))
+			return false;
+		return true;
+	}
 
 }
