@@ -695,13 +695,26 @@ public class NotasController extends BaseController {
 		for (AsinacionDTO asinacionDTO : notasDataManager.getListaAsinacionDTO()) {
 			if (asinacionDTO.getMatNivelParalelo().getMatNivel().getNivCodigo().equals(nivelDTOSeleccionado.getNivCodigo())
 					&& asinacionDTO.getMatNivelParalelo().getMatParalelo().getParCodigo().equals(paraleloDTOSeleccionado.getParCodigo())) {
-				if (!asinacionDTOsSeleccionadas.contains(asinacionDTO)) {
+				if (!contieneAsignacion(asinacionDTOsSeleccionadas, asinacionDTO)) {
 					asinacionDTOsSeleccionadas.add(asinacionDTO);
 				}
 			}
 		}
 		notasDataManager.setListaAsinacionesSeleccionadas(asinacionDTOsSeleccionadas);
 
+	}
+
+	private Boolean contieneAsignacion(List<AsinacionDTO> listaAsinacionDTOs, AsinacionDTO asinacionDTO) {
+		Boolean respuesta = Boolean.FALSE;
+
+		for (AsinacionDTO asinacionDTO2 : listaAsinacionDTOs) {
+			if (asinacionDTO2.getAsiEmpresa().equals(asinacionDTO.getAsiEmpresa()) && asinacionDTO2.getMatNivelParalelo().equals(asinacionDTO.getMatNivelParalelo())
+					&& asinacionDTO2.getMatPeriodo().equals(asinacionDTO.getMatPeriodo())) {
+				return Boolean.TRUE;
+			}
+		}
+
+		return respuesta;
 	}
 
 	public void buscarEstudiantesParaComAsi() {
