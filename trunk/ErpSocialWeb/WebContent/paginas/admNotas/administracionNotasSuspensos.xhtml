@@ -106,7 +106,9 @@
 						</f:facet>
 						<f:facet name="input">
 							<p:inputText
+								validatorMessage="#{i18n['erp.notas.pagina.error.notas']}"
 								value="#{estudianteNotaSuspensa.notaSuspensoDTO.notValor}">
+								<f:validateDoubleRange minimum="0" maximum="10"></f:validateDoubleRange>
 								<p:ajax update=":formNotas:pnlMessages" />
 							</p:inputText>
 						</f:facet>

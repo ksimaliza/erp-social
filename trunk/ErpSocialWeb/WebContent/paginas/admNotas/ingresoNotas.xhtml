@@ -62,7 +62,7 @@
 					onclick="PF('cMenu').hide()" />
 			</p:contextMenu>
 
-			<p:dataTable id="tablaEstudiantes" 
+			<p:dataTable id="tablaEstudiantes"
 				rendered="#{!notasController.isExamen(notasDataManager.materiaEstadoSeleccionado.tipoNotaDTO.parCodigo)}"
 				value="#{notasDataManager.listaEstudianteNotasParcials}"
 				var="estudianteNota" rowIndexVar="rowIndex" editable="true"
@@ -102,7 +102,9 @@
 							<h:outputText value="#{estudianteNota.notaDTOTareas.notValor}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{estudianteNota.notaDTOTareas.notValor}">
+							<p:inputText value="#{estudianteNota.notaDTOTareas.notValor}"
+								validatorMessage="#{i18n['erp.notas.pagina.error.notas']}">
+								<f:validateLongRange minimum="0" maximum="10"></f:validateLongRange>
 								<p:ajax update="tablaEstudiantes"
 									listener="#{notasController.calcularNotaParcial(estudianteNota)}" />
 							</p:inputText>
@@ -118,7 +120,9 @@
 						</f:facet>
 						<f:facet name="input">
 							<p:inputText
-								value="#{estudianteNota.notaDTOIndividuales.notValor}">
+								value="#{estudianteNota.notaDTOIndividuales.notValor}"
+								validatorMessage="#{i18n['erp.notas.pagina.error.notas']}">
+								<f:validateLongRange minimum="0" maximum="10"></f:validateLongRange>
 								<p:ajax update="tablaEstudiantes"
 									listener="#{notasController.calcularNotaParcial(estudianteNota)}" />
 							</p:inputText>
@@ -132,7 +136,9 @@
 							<h:outputText value="#{estudianteNota.notaDTOGrupales.notValor}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{estudianteNota.notaDTOGrupales.notValor}">
+							<p:inputText value="#{estudianteNota.notaDTOGrupales.notValor}"
+								validatorMessage="#{i18n['erp.notas.pagina.error.notas']}">
+								<f:validateLongRange minimum="0" maximum="10"></f:validateLongRange>
 								<p:ajax update="tablaEstudiantes"
 									listener="#{notasController.calcularNotaParcial(estudianteNota)}" />
 							</p:inputText>
@@ -146,7 +152,9 @@
 							<h:outputText value="#{estudianteNota.notaDTOOrales.notValor}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{estudianteNota.notaDTOOrales.notValor}">
+							<p:inputText value="#{estudianteNota.notaDTOOrales.notValor}"
+								validatorMessage="#{i18n['erp.notas.pagina.error.notas']}">
+								<f:validateLongRange minimum="0" maximum="10"></f:validateLongRange>
 								<p:ajax update="tablaEstudiantes"
 									listener="#{notasController.calcularNotaParcial(estudianteNota)}" />
 							</p:inputText>
@@ -160,7 +168,9 @@
 							<h:outputText value="#{estudianteNota.notaDTOEscrita.notValor}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{estudianteNota.notaDTOEscrita.notValor}">
+							<p:inputText value="#{estudianteNota.notaDTOEscrita.notValor}"
+								validatorMessage="#{i18n['erp.notas.pagina.error.notas']}">
+								<f:validateLongRange minimum="0" maximum="10"></f:validateLongRange>
 								<p:ajax update="tablaEstudiantes"
 									listener="#{notasController.calcularNotaParcial(estudianteNota)}" />
 							</p:inputText>
@@ -207,7 +217,10 @@
 							<h:outputText value="#{estudianteNota.notaParcialDTO.notValor}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{estudianteNota.notaParcialDTO.notValor}"></p:inputText>
+							<p:inputText value="#{estudianteNota.notaParcialDTO.notValor}"
+								validatorMessage="#{i18n['erp.notas.pagina.error.notas']}">
+								<f:validateLongRange minimum="0" maximum="10"></f:validateLongRange>
+							</p:inputText>
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
