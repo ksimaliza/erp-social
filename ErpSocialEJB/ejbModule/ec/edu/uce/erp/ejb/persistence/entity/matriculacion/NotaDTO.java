@@ -86,7 +86,7 @@ public class NotaDTO implements Serializable {
 	}
 
 	public void setNotValor(Float notValor) {
-		this.notValor = notValor;
+		this.notValor = (float) (Math.round(notValor * 100) / 100f);
 	}
 
 	public TipoNotaDTO getTipoNotaBean() {
@@ -127,7 +127,7 @@ public class NotaDTO implements Serializable {
 
 		return notaDTO;
 	}
-	
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
