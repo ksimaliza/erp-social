@@ -22,7 +22,7 @@
 					</p:commandButton>
 					<p:commandButton id="btnNuevoEstudiante" value="Insertar" icon="ui-icon ui-icon-circle-plus" 
 					actionListener="#{estudianteController.clearFormulario}"
-					update=":formNuevoEstudiante:pnlNuevoEstudiante, :formNuevoEstudiante:pnInformacion"
+					update=":formNuevoEstudiante:pnlNuevoEstudiante"
 					oncomplete="dlgNuevoEstudiante.show()">
 					<f:setPropertyActionListener target="#{estudianteController.optionType}" value="INS" />
 						</p:commandButton>
@@ -115,7 +115,7 @@
 								title="#{i18n['label.editar']}"
 								oncomplete="dlgEditarEstudiante.show()"
 								actionListener="#{estudianteController.cargarDatosEstudiante(estudiante)}"
-								process="@this" update=":formEditarEstudiante:pnlEditarEstudiante,:formEditarEstudiante:pnInformacion">
+								process="@this" update=":formEditarEstudiante:pnlEditarEstudiante">
 								<f:setPropertyActionListener target="#{estudianteController.optionType}" value="UPD" />
 								<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['label.editar']}"/>
 						</p:commandLink>

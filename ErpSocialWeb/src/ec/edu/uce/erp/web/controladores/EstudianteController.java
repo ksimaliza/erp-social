@@ -276,7 +276,7 @@ public class EstudianteController extends BaseController{
 			}
 			if (CollectionUtils.isEmpty(personaList)
 					&& personaList.size() == 0) {
-				estudianteDataManager.setEstudiantePersonaInsertar(new Persona());
+				
 				MensajesWebController
 						.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
 			}

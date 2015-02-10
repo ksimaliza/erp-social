@@ -9,7 +9,10 @@
 		widgetVar="dlgEditarEstudiante" modal="true" width="750" minWidth="750" appendTo="@(body)">
 		<p:scrollPanel style="height:500px" mode="native">
 		<h:form id="formEditarEstudiante" styleClass="formulario">
-			<p:panel id="pnlEditarEstudiante" header="Datos Estudiante">
+			<p:tabView id="pnlEditarEstudiante">
+            <p:tab title="Estudiante">
+            
+               <p:panel header="Información General del Estudiante">
 				<table class="formulario">
 					
 					<tr>
@@ -248,22 +251,18 @@
 						</td>
 						
 					</tr>
-
-						
 					
 				</table>
 			</p:panel>
-			 
-<p:panel  id="pnInformacion" header="Datos Adicionales" toggleable="true">
-				
-						<p:panel  id="pnlPadre">
+            
+        </p:tab>
+        <p:tab title="Padre">
+        		
+			<p:panel  id="pnlPadre" header="Información del Padre">
 						<table class="formulario">
 						<tr>
-					<td colspan="4"><h3>Datos del Padre</h3></td>
-					</tr>
-							<tr>
 								<td class="label"><h:outputText for="txtCiPadre"
-										value="#{i18n['erp.despacho.partida.bautizo.cedula.padre']}" />
+										value="Cédula" />
 									<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />	
 								</td>
 								<td class="value"><p:inputText id="txtCiPadre"
@@ -361,12 +360,10 @@
 						</table>
 						</p:panel>
 					
-					
-						<p:panel  id="pnlMadre">
+        </p:tab>
+        <p:tab title="Madre">
+           <p:panel  id="pnlMadre" header="Información de la Madre">
 						<table class="formulario">
-						<tr>
-					<td colspan="4"><h3>Datos de la Madre</h3></td>
-					</tr>
 							<tr>
 								<td class="label"><h:outputText for="txtCiMadre"
 										value="Cédula"
@@ -467,14 +464,10 @@
 							
 						</table>
 						</p:panel>
-						
-					
-					<p:panel id="pnlRepre">
+        </p:tab>
+        <p:tab title="Representante">
+        <p:panel id="pnlRepre" header="Información del Representante">
 						<table class="formulario">
-						<tr>
-					<td colspan="4"><h3>Datos del Representante</h3></td>
-					</tr>
-
 							<tr>
 								<td class="label"><h:outputText for="txtCiRepre"
 										value="Cédula" />
@@ -575,17 +568,22 @@
 							</tr>
 							</table>
 						</p:panel>
-					
-				</p:panel>
+        </p:tab>
+    </p:tabView>
+			
+			
+			
+			 
+
 			<p:panel id="pnlBotones">
 				<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 					actionListener="#{estudianteController.registrarEstudiante}"
 					icon="ui-icon-disk"
-					process="@this,pnlEditarEstudiante, pnInformacion" update="pnlEditarEstudiante,pnInformacion,:formEstudiante:pnlMessages,:formEstudiante:tablaEstudiante">
+					process="@this,pnlEditarEstudiante" update="pnlEditarEstudiante,:formEstudiante:pnlMessages,:formEstudiante:tablaEstudiante">
 				</p:commandButton>	
 				<p:commandButton value="#{i18n['label.cancelar']}" 
 				actionListener="#{estudianteController.cancel}" 
-				process="@this" immediate="true" update="pnlEditarEstudiante, pnInformacion"
+				process="@this" immediate="true" update="pnlEditarEstudiante" onclick="dlgEditarEstudiante.hide();"
 				icon="ui-icon ui-icon-circle-close"/>
 			</p:panel>
 		</h:form>
