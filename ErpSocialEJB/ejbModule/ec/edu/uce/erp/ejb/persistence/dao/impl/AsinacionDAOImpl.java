@@ -64,6 +64,12 @@ public class AsinacionDAOImpl extends AbstractFacadeImpl<AsinacionDTO> implement
 				predicate = cb.equal(from.get("asiEmpresa"),asinacion.getAsiEmpresa());
 				criteriaList.add(predicate);
 			}
+			
+			//por periodo
+			if (asinacion.getPerCodigo()!=null) {
+				predicate = cb.equal(from.get("perCodigo"),asinacion.getPerCodigo());
+				criteriaList.add(predicate);
+			}
 					
 			if(criteriaList!=null && criteriaList.size()>0)
 				cq.where(cb.and(criteriaList.toArray(new Predicate[0])));
