@@ -21,7 +21,8 @@
 							<h:outputLabel
 								value="#{i18n['erp.notas.pagina.cedula.estudiante']}"
 								for="txtCedulaEstudiante" />
-							<p:inputText id="txtCedulaEstudiante"
+							<p:inputText id="txtCedulaEstudiante" required="true"
+								requiredMessage="Ingrese un número de identificación valido"
 								value="#{notasDataManager.cedulaEstudiante}">
 							</p:inputText>
 
