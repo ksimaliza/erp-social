@@ -25,7 +25,6 @@ import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.NivelParaleloDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.PeriodoDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.MatriculaVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioMatricula;
-import ec.edu.uce.erp.ejb.servicio.ServicioNotas;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.common.util.JsfUtil;
@@ -41,10 +40,6 @@ public class MatriculaController extends BaseController {
 		
 		@EJB
 		private ServicioMatricula servicioMatricula;
-		
-		@EJB
-		private ServicioNotas servicioNotas;
-		
 		private PeriodoDTO anioLectivoVigente;
 		private List<PeriodoDTO> listaPeriodoDTOs;
 		
@@ -64,6 +59,7 @@ public class MatriculaController extends BaseController {
 			
 		}
 		
+		@SuppressWarnings("unused")
 		@PostConstruct
 		private void init(){
 			//buscar();
@@ -222,6 +218,7 @@ public class MatriculaController extends BaseController {
 			try {
 				asinacionListDTO=new AsinacionListDTO();
 				asinacionListDTO.setAsiEmpresa(getEmpresaCode());
+				asinacionListDTO.setPerCodigo(anioLectivoVigente.getPerCodigo());
 				asinacionListDTO.setNpaNivel(matriculaDataManager.getNivelCodigo());
 				asinacionListDTO.setNpaParalelo(matriculaDataManager.getParaleloCodigo());
 				asinacionListDTOs = this.servicioMatricula.readAsinacion(asinacionListDTO);

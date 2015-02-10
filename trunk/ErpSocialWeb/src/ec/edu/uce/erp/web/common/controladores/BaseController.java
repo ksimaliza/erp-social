@@ -124,7 +124,7 @@ public abstract class BaseController implements Serializable{
 		HSSFRow header = sheet.getRow(0);
 
 		HSSFCellStyle cellStyle = wb.createCellStyle();
-		cellStyle.setFillForegroundColor(HSSFColor.GREEN.index);
+		cellStyle.setFillForegroundColor(HSSFColor.BLUE_GREY.index);
 		cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
 
 		for (int i = 0; i < header.getPhysicalNumberOfCells(); i++) {

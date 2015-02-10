@@ -11,18 +11,19 @@
 		<h:form id="formNuevoEstudiante" styleClass="formulario">
 		
 		<p:scrollPanel mode="native" style="height:500px">
-		
-			<p:panel id="pnlNuevoEstudiante" header="Datos Estudiante">
+		<p:tabView id="pnlNuevoEstudiante">
+        <p:tab title="Estudiante">
+            <p:panel  header="Información General del Estudiante">
 			
 				<table class="formulario">
 									
 					<tr>
-						<td width="60%" colspan="4"><p:graphicImage id="image" height="80" cache="false" value="#{estudianteDataManager.estudiantePersonaInsertar.perFoto}"/></td>
+						<td colspan="4"><p:graphicImage id="image" height="80" cache="false" value="#{estudianteDataManager.estudiantePersonaInsertar.perFoto}"/></td>
 					</tr>
 				
 					<tr>	
 						<td class="label">
-							<h:outputLabel for="txtCi" value="#{i18n['erp.matricula.estudiante.cedula']}" />
+							<h:outputLabel for="txtCi" value="Cédula" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />
 						</td>
 						<td class="value">
@@ -35,7 +36,7 @@
 							</p:inputText>			
 						</td>
 						<td class="label">
-							<h:outputLabel  value="Género Estudiante" />
+							<h:outputLabel  value="Género" />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}"
 								styleClass="item-required" />
 						</td>
@@ -49,20 +50,10 @@
 						
 					</tr>
 						
+					
 					<tr>
 						<td class="label">
-							<h:outputLabel for="txtNombres" value="#{i18n['erp.matricula.estudiante.nombres']}" />
-							<h:outputLabel value="#{i18n['label.signo.requerido']}"
-								styleClass="item-required" />
-						</td>
-						<td class="value" colspan="3">
-							<p:inputText id="txtNombres" value="#{estudianteDataManager.estudiantePersonaInsertar.perNombres}"
-								style="width: 100%" required="true" label="#{i18n['erp.matricula.estudiante.nombres']}" requiredMessage="El campo #{i18n['erp.matricula.estudiante.nombres']} es Obligatorio." />
-						</td>
-					</tr>
-					<tr>
-						<td class="label">
-							<h:outputLabel for="txtApe" value="#{i18n['erp.matricula.estudiante.apellidos']}"  />
+							<h:outputLabel for="txtApe" value="Apellidos"  />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}"
 								styleClass="item-required" />
 						</td>
@@ -71,10 +62,21 @@
 								value="#{estudianteDataManager.estudiantePersonaInsertar.perApellidos}" label="#{i18n['erp.matricula.estudiante.apellidos']}"/>
 						</td>
 					</tr>
+					<tr>
+						<td class="label">
+							<h:outputLabel for="txtNombres" value="Nombres" />
+							<h:outputLabel value="#{i18n['label.signo.requerido']}"
+								styleClass="item-required" />
+						</td>
+						<td class="value" colspan="3">
+							<p:inputText id="txtNombres" value="#{estudianteDataManager.estudiantePersonaInsertar.perNombres}"
+								style="width: 100%" required="true" label="#{i18n['erp.matricula.estudiante.nombres']}" requiredMessage="El campo #{i18n['erp.matricula.estudiante.nombres']} es Obligatorio." />
+						</td>
+					</tr>
 					
 					<tr>
 						<td class="label">
-							<h:outputLabel for="txtFecNac" value="#{i18n['erp.matricula.estudiante.fechanac']}" />
+							<h:outputLabel for="txtFecNac" value="Fecha Nac." />
 							<h:outputLabel value="#{i18n['label.signo.requerido']}"
 								styleClass="item-required" />
 						</td>
@@ -86,7 +88,7 @@
 					
 					<tr>
 						<td class="label">
-							<h:outputLabel for="txtTelefono" value="#{i18n['erp.matricula.estudiante.telefono']}" />
+							<h:outputLabel for="txtTelefono" value="Teléfono" />
 						</td>
 						<td class="value">
 							<p:inputMask mask="(99) 9999-999" id="txtTelefono" 
@@ -97,7 +99,7 @@
 					</tr>
 					<tr>
 						<td class="label">
-							<h:outputLabel for="txtCelular" value="#{i18n['erp.matricula.estudiante.celular']}" />
+							<h:outputLabel for="txtCelular" value="Celular" />
 						</td>
 						<td class="value">
 							<p:inputMask mask="(99) 99999-999" id="txtCelular" 
@@ -110,7 +112,7 @@
 					
 					<tr>
 						<td class="label">
-							<h:outputLabel for="txtEmail" value="#{i18n['erp.matricula.estudiante.email']}" />
+							<h:outputLabel for="txtEmail" value="Email" />
 						</td>
 						<td class="value" colspan="3">
 							<p:inputText id="txtEmail" style="width: 100%"
@@ -121,7 +123,7 @@
 					</tr>
 					<tr>
 						<td class="label">
-							<h:outputLabel value="#{i18n['erp.matricula.estudiante.foto']}" />
+							<h:outputLabel value="Adj.Foto" />
 						</td>
 						<td>
 						<table width="50" title="Adjuntar Foto Estudiante">
@@ -251,15 +253,13 @@
 					</tr>
 										</table>
 				</p:panel>
-				
-				<p:panel  id="pnInformacion" header="Datos Adicionales">
-				<p:accordionPanel>
-				<p:tab title="Información del Padre" id="pnlPadre">
-						
-						<table class="formulario">
+        </p:tab>
+        <p:tab title="Padre">
+            <p:panel id="pnlPadre" header="Información del Padre">
+            <table class="formulario">
 							<tr>
 								<td class="label"><h:outputText for="txtCiPadre"
-										value="#{i18n['erp.despacho.partida.bautizo.cedula.padre']}" />
+										value="Cédula" />
 									<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />	
 								</td>
 								<td class="value"><p:inputText id="txtCiPadre"
@@ -346,7 +346,7 @@
 							</tr>
 							<tr>
 								<td class="label"><h:outputLabel for="txtNomPadreEmail"
-										value="Email Padre" />
+										value="Email" />
 								</td>
 								<td class="value" colspan="3"><p:inputText id="txtNomPadreEmail"
 										style="width: 100%"
@@ -354,10 +354,11 @@
 								</td>
 							</tr>
 						</table>
-					
-					</p:tab>
-					<p:tab title="Información de la Madre" id="pnlMadre">
-						
+            </p:panel>
+        </p:tab>
+        <p:tab title="Madre">
+           <p:panel id="pnlMadre" header="Información de la Madre">
+           					
 						<table class="formulario">
 						
 							<tr>
@@ -367,7 +368,7 @@
 								<h:outputLabel value="#{i18n['label.signo.requerido']}" styleClass="item-required" />		 
 								</td>
 								<td class="value"><p:inputText id="txtCiMadre"
-										style="width: 100%" onkeypress="return isNumberKey(event);"
+										style="width:100px" onkeypress="return isNumberKey(event);"
 										maxlength="10" required="true" requiredMessage="El campo Cédula de la Madre es Obligatorio."
 										value="#{estudianteDataManager.madreInsertar.perCi}">
 										<f:validator
@@ -401,7 +402,7 @@
 							</tr>
 							<tr>
 								<td class="label"><h:outputLabel for="txtFecNacMadre"
-										value="Fecha Nac. Madre" /> <h:outputLabel
+										value="Fecha Nac." /> <h:outputLabel
 										value="#{i18n['label.signo.requerido']}"
 										styleClass="item-required" /></td>
 								<td class="value"><p:calendar pattern="dd/MM/yyyy"
@@ -450,7 +451,7 @@
 							</tr>
 							<tr>
 								<td class="label"><h:outputLabel for="txtNomMadreEmail"
-										value="Email Madre" />
+										value="Email" />
 								</td>
 								<td class="value"><p:inputText id="txtNomMadreEmail"
 										style="width: 100%"
@@ -459,11 +460,10 @@
 							</tr>
 							
 						</table>
-						
-					</p:tab>
-					
-					<p:tab title="Información del Representante" id="pnlRepre" >
-					
+           </p:panel>
+        </p:tab>
+        <p:tab title="Representante" >
+					<p:panel header="Información del Representante" id="pnlRepre" >
 						<table class="formulario">
 
 							<tr>
@@ -473,7 +473,7 @@
 								</td>
 								<td class="value"><p:inputText id="txtCiRepre" onkeypress="return isNumberKey(event);"
 										maxlength="10"	required="true" requiredMessage="El campo Cédula del Representante es Obligatorio."
- 										style="width: 100%"
+ 										style="width:100px"
 										value="#{estudianteDataManager.representanteInsertar.perCi}">
 										<f:validator
 											validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
@@ -566,21 +566,22 @@
 							</tr>
 						
 						</table>
+						</p:panel>
 						
 					</p:tab>
-				</p:accordionPanel>
-				</p:panel>
-
+    </p:tabView>
+			
 				<p:panel id="pnlBotones">
 					<p:commandButton id="btnGuardar" value="#{i18n['label.guardar']}"
 						actionListener="#{estudianteController.registrarEstudiante}"
 						icon="ui-icon-disk"
-						process="@this,pnlNuevoEstudiante, pnInformacion"
-						update="pnlNuevoEstudiante,pnInformacion,:formEstudiante:tablaEstudiante" />
+						process="@this,pnlNuevoEstudiante"
+						update="pnlNuevoEstudiante,:formEstudiante:tablaEstudiante" />
 					<p:commandButton value="#{i18n['label.cancelar']}"
 						actionListener="#{estudianteController.cancel}" process="@this"
-						immediate="true" update="pnlNuevoEstudiante, pnInformacion"
-						icon="ui-icon ui-icon-circle-close" />
+						immediate="true" update="pnlNuevoEstudiante"
+						icon="ui-icon ui-icon-circle-close" 
+						onclick="dlgNuevoEstudiante.hide();"/>
 				</p:panel>
 
 			</p:scrollPanel>
