@@ -1071,8 +1071,13 @@ public class ServicioMatriculaImpl implements ServicioMatricula{
 	@Override
 	public EstudianteVO obtenerEstudiantePorId(Integer Idpersona,
 			Integer Idestudiante) throws SeguridadesException {
-		// TODO Auto-generated method stub
-		return null;
+		slf4jLogger.info("obtenerEstudiantePorId");
+		
+		EstudianteVO est=new EstudianteVO();
+		
+		est.setEstudiante(matriculaFactoryDAO.getEstudianteDAOImpl().find(Idestudiante));
+		est.setPersona(factoryDAO.getPersonaDAOImpl().find(Idpersona));
+		return est;
 	}
 
 

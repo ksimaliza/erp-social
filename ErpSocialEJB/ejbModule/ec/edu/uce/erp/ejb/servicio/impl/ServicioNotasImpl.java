@@ -1087,7 +1087,7 @@ public class ServicioNotasImpl implements ServicioNotas {
 
 					List<MatriculaDetalleDTO> listaMatriculaDetalleDTOs = asinacionDTO.getMatMatriculaDetalles();
 					for (MatriculaDetalleDTO matriculaDetalleDTO : listaMatriculaDetalleDTOs) {
-						if (matriculaDetalleDTO.getEstado().equals(codTipoSuspenso)) {
+						if (codTipoSuspenso.equals(matriculaDetalleDTO.getEstado())) {
 
 							EstudianteNotaSuspensa estudianteNotaSuspensa = new EstudianteNotaSuspensa();
 
