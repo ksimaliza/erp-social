@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteQuimestralEstudiante" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="919d30ee-cc10-4bb6-8041-8a9506845632">
-	<property name="ireport.zoom" value="1.2100000000000013"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="2.143588810000004"/>
+	<property name="ireport.x" value="320"/>
+	<property name="ireport.y" value="46"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -37,6 +37,8 @@
 	<parameter name="parametro9" class="java.lang.String"/>
 	<parameter name="parametro10" class="java.lang.String"/>
 	<parameter name="parametro11" class="java.lang.String"/>
+	<parameter name="parametro12" class="java.lang.String"/>
+	<parameter name="parametro13" class="java.lang.String"/>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="calificacion1" class="java.lang.Float"/>
 	<field name="calificacion2" class="java.lang.Float"/>
@@ -52,20 +54,22 @@
 	</background>
 	<title>
 		<band height="51" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="0" width="802" height="24" uuid="08225289-1083-4197-8871-27fc94091d43"/>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="18" isBold="true" pdfFontName="Times-Bold"/>
+			<textField>
+				<reportElement mode="Transparent" x="0" y="0" width="802" height="31" forecolor="#000000" backcolor="#FFFFFF" uuid="9b075b9f-10a3-4685-8a22-2d51711b8d60"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="18" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[ESCUELA "9 DE OCTUBRE"]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="24" width="802" height="27" uuid="451585a1-f5a2-439c-8c02-e14b1d3090ff"/>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="16" isBold="true" pdfFontName="Times-Bold"/>
+				<textFieldExpression><![CDATA[$P{parametro12}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="0" y="31" width="802" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="98953ff1-9bca-4868-bef7-226e7811eabe"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[SAN ISIDRO - ESPEJO - CARCHI]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$P{parametro13}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
