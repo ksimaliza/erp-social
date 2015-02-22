@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteGeneralPorParalelo" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7f145391-27ef-429d-8b49-ab59bd2158e0">
-	<property name="ireport.zoom" value="4.0"/>
+	<property name="ireport.zoom" value="1.2745232708414267"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="729"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="parametro1" class="java.lang.String"/>
 	<parameter name="parametro2" class="java.lang.String"/>
 	<parameter name="parametro3" class="java.lang.String"/>
@@ -10,6 +10,8 @@
 	<parameter name="parametro5" class="java.lang.String"/>
 	<parameter name="parametro6" class="java.lang.String"/>
 	<parameter name="parametro7" class="java.lang.String"/>
+	<parameter name="parametro8" class="java.lang.String"/>
+	<parameter name="parametro9" class="java.lang.String"/>
 	<field name="calificacion1" class="java.lang.Float"/>
 	<field name="calificacion2" class="java.lang.Float"/>
 	<field name="calificacion3" class="java.lang.Float"/>
@@ -23,111 +25,110 @@
 	</background>
 	<title>
 		<band height="52" splitType="Stretch">
-			<staticText>
-				<reportElement uuid="791076f1-24cd-453e-a1fb-1c4ec0b53867" x="0" y="0" width="555" height="24"/>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="18" isBold="true" pdfFontName="Times-Bold"/>
+			<textField>
+				<reportElement mode="Transparent" x="0" y="0" width="555" height="25" forecolor="#000000" backcolor="#FFFFFF" uuid="35012492-c8e4-408e-aaca-ffdc05686dff"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="18" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[ESCUELA "9 DE OCTUBRE"]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="38f19034-5153-4ad4-ae2f-b744606873ef" x="0" y="24" width="555" height="27"/>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="16" isBold="true" pdfFontName="Times-Bold"/>
+				<textFieldExpression><![CDATA[$P{parametro8}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="0" y="25" width="555" height="27" forecolor="#000000" backcolor="#FFFFFF" uuid="c4247d10-0228-4638-850a-881dbaa35d3e"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="Times New Roman" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[SAN ISIDRO - ESPEJO - CARCHI]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$P{parametro9}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
 		<band height="121" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="39787246-4ee9-4577-9eab-c9f790d26c48" x="9" y="40" width="73" height="20"/>
+				<reportElement x="9" y="40" width="73" height="20" uuid="39787246-4ee9-4577-9eab-c9f790d26c48"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[Nivel:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="2d42a0ef-88c4-45d1-bd01-d6792e0fa360" x="183" y="40" width="50" height="20"/>
+				<reportElement x="183" y="40" width="50" height="20" uuid="2d42a0ef-88c4-45d1-bd01-d6792e0fa360"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[Paralelo:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="eab55190-5ef0-461f-997f-984f34627b8a" x="233" y="40" width="100" height="20"/>
+				<reportElement x="233" y="40" width="100" height="20" uuid="eab55190-5ef0-461f-997f-984f34627b8a"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{parametro3}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="b445b2d0-9c08-4375-8787-b9aab3c922f2" x="83" y="60" width="100" height="20"/>
+				<reportElement x="83" y="60" width="100" height="20" uuid="b445b2d0-9c08-4375-8787-b9aab3c922f2"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{parametro4}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="498447d3-d8be-4980-9885-3694791e54d7" x="9" y="60" width="73" height="20"/>
+				<reportElement x="9" y="60" width="73" height="20" uuid="498447d3-d8be-4980-9885-3694791e54d7"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[Matéria:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="199e704d-5a57-44bd-b813-fd4589c75c64" x="83" y="40" width="100" height="20"/>
+				<reportElement x="83" y="40" width="100" height="20" uuid="199e704d-5a57-44bd-b813-fd4589c75c64"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{parametro2}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="6a7f5c98-266d-454d-a4b9-1d7c8d8a5e37" x="83" y="20" width="100" height="20"/>
+				<reportElement x="83" y="20" width="100" height="20" uuid="6a7f5c98-266d-454d-a4b9-1d7c8d8a5e37"/>
 				<textElement>
 					<font fontName="Times New Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{parametro1}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="d72bbd3c-044d-4e0e-a710-f837d101bef9" x="9" y="20" width="73" height="20"/>
+				<reportElement x="9" y="20" width="73" height="20" uuid="d72bbd3c-044d-4e0e-a710-f837d101bef9"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[Periodo:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="f860c544-f3a8-4d41-9afe-2529f6924411" x="83" y="80" width="100" height="20"/>
-				<textElement/>
+				<reportElement x="83" y="80" width="100" height="20" uuid="f860c544-f3a8-4d41-9afe-2529f6924411"/>
 				<textFieldExpression><![CDATA[$P{parametro5}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="64c5c17f-91f8-4b3d-bd02-bec95c83a693" x="10" y="80" width="73" height="20"/>
+				<reportElement x="10" y="80" width="73" height="20" uuid="64c5c17f-91f8-4b3d-bd02-bec95c83a693"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[Profesor:]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="6cf5e8a8-6bc1-4d77-8e8a-ec64e306a693" x="83" y="100" width="100" height="20"/>
-				<textElement/>
+				<reportElement x="83" y="100" width="100" height="20" uuid="6cf5e8a8-6bc1-4d77-8e8a-ec64e306a693"/>
 				<textFieldExpression><![CDATA[$P{parametro6}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="f7f5c2b1-5d40-4dbe-96e6-04336115315c" x="233" y="100" width="100" height="20"/>
-				<textElement/>
+				<reportElement x="233" y="100" width="100" height="20" uuid="f7f5c2b1-5d40-4dbe-96e6-04336115315c"/>
 				<textFieldExpression><![CDATA[$P{parametro7}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="72c8afca-bd98-4eed-89bc-7981538fe5ea" x="9" y="100" width="73" height="20"/>
+				<reportElement x="9" y="100" width="73" height="20" uuid="72c8afca-bd98-4eed-89bc-7981538fe5ea"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[Quimestre:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="a9bc238a-3a17-4b90-ace9-1d06aedff9c4" x="183" y="100" width="50" height="20"/>
+				<reportElement x="183" y="100" width="50" height="20" uuid="a9bc238a-3a17-4b90-ace9-1d06aedff9c4"/>
 				<textElement>
 					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
@@ -138,7 +139,7 @@
 	<columnHeader>
 		<band height="30" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="8cb48ab5-3319-4b67-bda9-6d8f656dc444" x="120" y="0" width="50" height="30"/>
+				<reportElement x="120" y="0" width="50" height="30" uuid="8cb48ab5-3319-4b67-bda9-6d8f656dc444"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -146,11 +147,10 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement/>
 				<text><![CDATA[Tareas]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="1f0b3f8f-132a-4113-952d-6d15ac242dcb" x="170" y="0" width="63" height="30"/>
+				<reportElement x="170" y="0" width="63" height="30" uuid="1f0b3f8f-132a-4113-952d-6d15ac242dcb"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -158,11 +158,10 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement/>
 				<text><![CDATA[Actuación en Clases]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="baa20ffe-8661-4898-8898-99532bac1dc7" x="233" y="0" width="62" height="30"/>
+				<reportElement x="233" y="0" width="62" height="30" uuid="baa20ffe-8661-4898-8898-99532bac1dc7"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -170,11 +169,10 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement/>
 				<text><![CDATA[Actuaciones Agrupales]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="933fefa2-efa7-44ce-a64b-36e74a392686" x="295" y="0" width="51" height="30"/>
+				<reportElement x="295" y="0" width="51" height="30" uuid="933fefa2-efa7-44ce-a64b-36e74a392686"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -182,11 +180,10 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement/>
 				<text><![CDATA[Lecciones]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="09c92c5f-fa87-4a8a-8635-53f569c1594f" x="346" y="0" width="50" height="30"/>
+				<reportElement x="346" y="0" width="50" height="30" uuid="09c92c5f-fa87-4a8a-8635-53f569c1594f"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -194,11 +191,10 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement/>
 				<text><![CDATA[Examen Parcial]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="6e1326a2-a6f6-4afe-95f5-b8430bc7863e" x="446" y="0" width="81" height="30"/>
+				<reportElement x="446" y="0" width="81" height="30" uuid="6e1326a2-a6f6-4afe-95f5-b8430bc7863e"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -206,11 +202,10 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement/>
 				<text><![CDATA[Cualitativo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="fa5af07e-bfbe-4430-beb0-fc28a0d3ad7e" x="0" y="0" width="120" height="30"/>
+				<reportElement x="0" y="0" width="120" height="30" uuid="fa5af07e-bfbe-4430-beb0-fc28a0d3ad7e"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -218,11 +213,10 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement/>
 				<text><![CDATA[Estudiantes]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="cc49445b-9c57-4f96-8730-2ed028b7823d" x="396" y="0" width="50" height="30"/>
+				<reportElement x="396" y="0" width="50" height="30" uuid="cc49445b-9c57-4f96-8730-2ed028b7823d"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -230,7 +224,6 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement/>
 				<text><![CDATA[Promedio]]></text>
 			</staticText>
 		</band>
@@ -238,7 +231,7 @@
 	<detail>
 		<band height="21" splitType="Stretch">
 			<textField>
-				<reportElement uuid="0c664792-8da6-4aa5-8f04-e4389e5430d0" x="120" y="0" width="50" height="20"/>
+				<reportElement x="120" y="0" width="50" height="20" uuid="0c664792-8da6-4aa5-8f04-e4389e5430d0"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -246,11 +239,10 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement/>
 				<textFieldExpression><![CDATA[$F{calificacion1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="58d2609c-ff99-4115-aa8d-ee5f5ac7b6f6" x="170" y="0" width="63" height="20"/>
+				<reportElement x="170" y="0" width="63" height="20" uuid="58d2609c-ff99-4115-aa8d-ee5f5ac7b6f6"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -258,11 +250,10 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement/>
 				<textFieldExpression><![CDATA[$F{calificacion2}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="90596049-25e4-47ea-a84c-d092e21980a0" x="233" y="0" width="62" height="20"/>
+				<reportElement x="233" y="0" width="62" height="20" uuid="90596049-25e4-47ea-a84c-d092e21980a0"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -270,11 +261,10 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement/>
 				<textFieldExpression><![CDATA[$F{calificacion3}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="3b2cb44e-fac2-4a1a-a51c-66747eb3e623" x="295" y="0" width="51" height="20"/>
+				<reportElement x="295" y="0" width="51" height="20" uuid="3b2cb44e-fac2-4a1a-a51c-66747eb3e623"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -282,11 +272,10 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement/>
 				<textFieldExpression><![CDATA[$F{calificacion4}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="367e5ff0-3ba4-4ee4-be01-d721be8db483" x="346" y="0" width="50" height="20"/>
+				<reportElement x="346" y="0" width="50" height="20" uuid="367e5ff0-3ba4-4ee4-be01-d721be8db483"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -294,11 +283,10 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement/>
 				<textFieldExpression><![CDATA[$F{calificacion5}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="2c62dd46-bd05-4a6f-bb03-4e1e511b7558" x="446" y="0" width="81" height="20"/>
+				<reportElement x="446" y="0" width="81" height="20" uuid="2c62dd46-bd05-4a6f-bb03-4e1e511b7558"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -306,11 +294,10 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement/>
 				<textFieldExpression><![CDATA[$F{observacion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="ab225d1c-6416-4cd1-8d2c-861d696b6fa0" x="0" y="0" width="120" height="20"/>
+				<reportElement x="0" y="0" width="120" height="20" uuid="ab225d1c-6416-4cd1-8d2c-861d696b6fa0"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -318,11 +305,10 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement/>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="86da9ece-9698-4f9f-8047-3a704b8c3cd6" x="396" y="0" width="50" height="20"/>
+				<reportElement x="396" y="0" width="50" height="20" uuid="86da9ece-9698-4f9f-8047-3a704b8c3cd6"/>
 				<box>
 					<pen lineWidth="1.0"/>
 					<topPen lineWidth="1.0"/>
@@ -330,7 +316,6 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement/>
 				<textFieldExpression><![CDATA[$F{calificacion6}]]></textFieldExpression>
 			</textField>
 		</band>
