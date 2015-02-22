@@ -17,12 +17,10 @@ import javax.faces.event.ActionEvent;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 
@@ -367,6 +365,8 @@ public class NotasController extends BaseController {
 			parametros.put("parametro9", reporteDTO.getNotaTutorDTO().getDiasLaborados().toString());
 			parametros.put("parametro10", reporteDTO.getNotaTutorDTO().getTotalDiasLaborados().toString());
 			parametros.put("parametro11", reporteDTO.getNotaTutorDTO().getComportamiento().toString());
+			parametros.put("parametro12", getEmpresaTbl().getEmrNombre());
+			parametros.put("parametro13", getEmpresaTbl().getEmrDireccion());
 			parametros.put("promeditoTotal", reporteDTO.getPromeditoTotal());
 			parametros.put("observacionFinal", reporteDTO.getObservacionFinal());
 
@@ -450,6 +450,8 @@ public class NotasController extends BaseController {
 			parametros.put("parametro3", reporteDTO.getParametro3());
 			parametros.put("parametro4", reporteDTO.getParametro4());
 			parametros.put("parametro5", reporteDTO.getParametro5());
+			parametros.put("parametro6", getEmpresaTbl().getEmrNombre());
+			parametros.put("parametro7", getEmpresaTbl().getEmrDireccion());
 
 			JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parametros, jrBeanCollectionDataSource);
 
@@ -479,43 +481,42 @@ public class NotasController extends BaseController {
 			parametros.put("parametro5", reporteDTO.getParametro5());
 			parametros.put("parametro6", reporteDTO.getParametro6());
 			parametros.put("parametro7", reporteDTO.getParametro7());
+			parametros.put("parametro8", getEmpresaTbl().getEmrNombre());
+			parametros.put("parametro9", getEmpresaTbl().getEmrDireccion());
 
 			JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parametros, jrBeanCollectionDataSource);
 
 			HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
 			OutputStream out = httpServletResponse.getOutputStream();
 			ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
-			
-			//-->>12/02/15 Formato Excel
-			if(formato.equals(notasDataManager.getFormatoExcel())){
-			JRXlsExporter exporterXLS = new JRXlsExporter();
-            exporterXLS.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
-            exporterXLS.setParameter(JRXlsExporterParameter.OUTPUT_STREAM, arrayOutputStream);
-            exporterXLS.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.FALSE);
-            exporterXLS.setParameter(JRXlsExporterParameter.IS_DETECT_CELL_TYPE, Boolean.TRUE);
-            exporterXLS.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.TRUE);
-            exporterXLS.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
-            exporterXLS.setParameter(JRXlsExporterParameter.IS_COLLAPSE_ROW_SPAN, Boolean.TRUE);
-            exporterXLS.exportReport();
-            httpServletResponse.setHeader("Content-disposition", "attachment; filename=reporteAnualEstudiante.xls");
-            httpServletResponse.setContentType("application/vnd.ms-exce");
-            httpServletResponse.setContentLength(arrayOutputStream.toByteArray().length);
-            out.write(arrayOutputStream.toByteArray());
-            out.flush();
-            out.close();
-            FacesContext.getCurrentInstance().responseComplete();
-			}
-			else {
-				
+
+			// -->>12/02/15 Formato Excel
+			if (formato.equals(notasDataManager.getFormatoExcel())) {
+				JRXlsExporter exporterXLS = new JRXlsExporter();
+				exporterXLS.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
+				exporterXLS.setParameter(JRXlsExporterParameter.OUTPUT_STREAM, arrayOutputStream);
+				exporterXLS.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.FALSE);
+				exporterXLS.setParameter(JRXlsExporterParameter.IS_DETECT_CELL_TYPE, Boolean.TRUE);
+				exporterXLS.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.TRUE);
+				exporterXLS.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
+				exporterXLS.setParameter(JRXlsExporterParameter.IS_COLLAPSE_ROW_SPAN, Boolean.TRUE);
+				exporterXLS.exportReport();
+				httpServletResponse.setHeader("Content-disposition", "attachment; filename=reporteAnualEstudiante.xls");
+				httpServletResponse.setContentType("application/vnd.ms-exce");
+				httpServletResponse.setContentLength(arrayOutputStream.toByteArray().length);
+				out.write(arrayOutputStream.toByteArray());
+				out.flush();
+				out.close();
+				FacesContext.getCurrentInstance().responseComplete();
+			} else {
+
 				httpServletResponse.addHeader("Content-disposition", "attachment; filename=reporteAnualEstudiante.pdf");
 				ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
 
 				JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
 				FacesContext.getCurrentInstance().responseComplete();
 			}
-			
-		
-			
+
 		} catch (Exception e) {
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
@@ -549,6 +550,8 @@ public class NotasController extends BaseController {
 			parametros.put("parametro9", reporteDTO.getNotaTutorDTO().getDiasLaborados().toString());
 			parametros.put("parametro10", reporteDTO.getNotaTutorDTO().getTotalDiasLaborados().toString());
 			parametros.put("parametro11", reporteDTO.getNotaTutorDTO().getComportamiento().toString());
+			parametros.put("parametro12", getEmpresaTbl().getEmrNombre());
+			parametros.put("parametro13", getEmpresaTbl().getEmrDireccion());
 			parametros.put("promeditoTotal", reporteDTO.getPromeditoTotal());
 			parametros.put("observacionFinal", reporteDTO.getObservacionFinal());
 
