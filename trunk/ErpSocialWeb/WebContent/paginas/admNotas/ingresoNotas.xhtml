@@ -103,7 +103,7 @@
 						</f:facet>
 						<f:facet name="input">
 							<p:inputText value="#{estudianteNota.notaDTOTareas.notValor}"
-								validatorMessage="#{i18n['erp.notas.pagina.error.notas']}">
+								validatorMessage="Se debe ingresar un número entre 1 y 10">
 								<f:validateLongRange minimum="0" maximum="10"></f:validateLongRange>
 								<p:ajax update="tablaEstudiantes"
 									listener="#{notasController.calcularNotaParcial(estudianteNota)}" />
@@ -121,7 +121,7 @@
 						<f:facet name="input">
 							<p:inputText
 								value="#{estudianteNota.notaDTOIndividuales.notValor}"
-								validatorMessage="#{i18n['erp.notas.pagina.error.notas']}">
+								validatorMessage="Se debe ingresar un número entre 1 y 10">
 								<f:validateLongRange minimum="0" maximum="10"></f:validateLongRange>
 								<p:ajax update="tablaEstudiantes"
 									listener="#{notasController.calcularNotaParcial(estudianteNota)}" />
@@ -137,7 +137,7 @@
 						</f:facet>
 						<f:facet name="input">
 							<p:inputText value="#{estudianteNota.notaDTOGrupales.notValor}"
-								validatorMessage="#{i18n['erp.notas.pagina.error.notas']}">
+								validatorMessage="Se debe ingresar un número entre 1 y 10">
 								<f:validateLongRange minimum="0" maximum="10"></f:validateLongRange>
 								<p:ajax update="tablaEstudiantes"
 									listener="#{notasController.calcularNotaParcial(estudianteNota)}" />
@@ -153,7 +153,7 @@
 						</f:facet>
 						<f:facet name="input">
 							<p:inputText value="#{estudianteNota.notaDTOOrales.notValor}"
-								validatorMessage="#{i18n['erp.notas.pagina.error.notas']}">
+								validatorMessage="Se debe ingresar un número entre 1 y 10">
 								<f:validateLongRange minimum="0" maximum="10"></f:validateLongRange>
 								<p:ajax update="tablaEstudiantes"
 									listener="#{notasController.calcularNotaParcial(estudianteNota)}" />
@@ -169,7 +169,7 @@
 						</f:facet>
 						<f:facet name="input">
 							<p:inputText value="#{estudianteNota.notaDTOEscrita.notValor}"
-								validatorMessage="#{i18n['erp.notas.pagina.error.notas']}">
+								validatorMessage="Se debe ingresar un número entre 1 y 10">
 								<f:validateLongRange minimum="0" maximum="10"></f:validateLongRange>
 								<p:ajax update="tablaEstudiantes"
 									listener="#{notasController.calcularNotaParcial(estudianteNota)}" />
@@ -218,7 +218,7 @@
 						</f:facet>
 						<f:facet name="input">
 							<p:inputText value="#{estudianteNota.notaParcialDTO.notValor}"
-								validatorMessage="#{i18n['erp.notas.pagina.error.notas']}">
+								validatorMessage="Se debe ingresar un número entre 1 y 10">
 								<f:validateLongRange minimum="0" maximum="10"></f:validateLongRange>
 							</p:inputText>
 						</f:facet>
