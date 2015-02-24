@@ -36,7 +36,7 @@
 			<textField>
 				<reportElement mode="Transparent" x="0" y="0" width="555" height="24" forecolor="#000000" backcolor="#FFFFFF" uuid="04ad790a-918a-42e0-ba57-062c8eb9c9c8"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Times New Roman" size="18" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Arial" size="18" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{parametro12}]]></textFieldExpression>
@@ -44,7 +44,7 @@
 			<textField>
 				<reportElement mode="Transparent" x="0" y="24" width="555" height="27" forecolor="#000000" backcolor="#FFFFFF" uuid="8d704746-f3f2-467c-b25b-b075e13f4da2"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" markup="none">
-					<font fontName="Times New Roman" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<font fontName="Arial" size="16" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Bold" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{parametro13}]]></textFieldExpression>
@@ -54,79 +54,79 @@
 	<pageHeader>
 		<band height="110" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="552" height="20" uuid="aa74df7a-ce1b-4e6f-bc4d-eb41481d6c5d"/>
+				<reportElement x="0" y="0" width="555" height="20" uuid="aa74df7a-ce1b-4e6f-bc4d-eb41481d6c5d"/>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="Times-Bold"/>
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
-				<text><![CDATA[REGISTRO DE NOTAS PARACIALES]]></text>
+				<text><![CDATA[REPORTE ANUAL]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="4" y="49" width="73" height="20" uuid="75e523d3-42d7-4547-ba78-ea905478caaf"/>
 				<textElement>
-					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					<font fontName="Arial" size="10" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[Identificación:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="4" y="69" width="73" height="20" uuid="f2634156-1098-4622-af97-b384770ae75f"/>
 				<textElement>
-					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					<font fontName="Arial" size="10" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[Estudiante:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="4" y="89" width="73" height="20" uuid="a13aa507-ac7f-4ec6-af38-cf631f1baf2a"/>
 				<textElement>
-					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					<font fontName="Arial" size="10" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[Nivel:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="178" y="89" width="50" height="20" uuid="22fc9504-b1a7-403e-bf03-fc7d129fddfe"/>
 				<textElement>
-					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					<font fontName="Arial" size="10" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[Paralelo:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="78" y="49" width="100" height="20" uuid="5bc876ea-5eb0-4081-ab42-2de89ea3ed36"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{parametro1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="78" y="69" width="100" height="20" uuid="baf9960b-05b9-4e33-abcb-b41e95d99724"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{parametro2}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="78" y="89" width="100" height="20" uuid="443aed88-a514-45f7-b3db-23bf32554378"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{parametro4}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="228" y="89" width="100" height="20" uuid="39ce5c14-82f2-4910-a17c-55f75df82ac0"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{parametro5}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="4" y="29" width="73" height="20" uuid="313021c3-9aeb-4554-b91d-972ad19e94fd"/>
 				<textElement>
-					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+					<font fontName="Arial" size="10" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[Periodo:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="78" y="29" width="100" height="20" uuid="649052b6-3608-4312-aa24-fd839b4aed0d"/>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{parametro3}]]></textFieldExpression>
 			</textField>
@@ -144,7 +144,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+					<font fontName="Arial" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[Primer Quimestre]]></text>
 			</staticText>
@@ -158,7 +158,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+					<font fontName="Arial" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[Segundo Quimestre]]></text>
 			</staticText>
@@ -172,7 +172,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+					<font fontName="Arial" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[PROMEDIO GENERAL]]></text>
 			</staticText>
@@ -186,7 +186,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+					<font fontName="Arial" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[PROMEDIO CUALITAVO]]></text>
 			</staticText>
@@ -200,7 +200,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font isBold="true" pdfFontName="Times-Bold"/>
+					<font fontName="Arial" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[Áreas]]></text>
 			</staticText>
@@ -217,6 +217,9 @@
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
 				</box>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -229,7 +232,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right">
-					<font fontName="Times New Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{calificacion1} == null ? "" : $F{calificacion1}]]></textFieldExpression>
 			</textField>
@@ -243,7 +246,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right">
-					<font fontName="Times New Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{calificacion2} == null ? "" : $F{calificacion2}]]></textFieldExpression>
 			</textField>
@@ -257,7 +260,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{observacion} == null ? "" : $F{observacion}]]></textFieldExpression>
 			</textField>
@@ -271,7 +274,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right">
-					<font fontName="Times New Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{calificacion3} == null ? "" : $F{calificacion3}]]></textFieldExpression>
 			</textField>
@@ -289,7 +292,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement>
-					<font fontName="Times New Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{observacionFinal} == null ? "" : $P{observacionFinal}]]></textFieldExpression>
 			</textField>
@@ -303,7 +306,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right">
-					<font fontName="Times New Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{promeditoTotal} == null ? "" : $P{promeditoTotal}]]></textFieldExpression>
 			</textField>
@@ -317,7 +320,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right">
-					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+					<font fontName="Arial" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[PROMEDIO GENERAL]]></text>
 			</staticText>
@@ -331,7 +334,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right">
-					<font fontName="Times New Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{parametro11} == null ? "" : $P{parametro11}]]></textFieldExpression>
 			</textField>
@@ -345,7 +348,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Right">
-					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+					<font fontName="Arial" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[COMPORTAMIENTO]]></text>
 			</staticText>
@@ -363,7 +366,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{parametro8} == null ? "" : $P{parametro8}]]></textFieldExpression>
 			</textField>
@@ -377,7 +380,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{parametro10} == null ? "" : $P{parametro10}]]></textFieldExpression>
 			</textField>
@@ -391,7 +394,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{parametro9} == null ? "" : $P{parametro9}]]></textFieldExpression>
 			</textField>
@@ -405,7 +408,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" isBold="false" pdfFontName="Times-Bold"/>
+					<font fontName="Arial" isBold="false" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[Total Días Laborados]]></text>
 			</staticText>
@@ -419,7 +422,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{parametro7} == null ? "" : $P{parametro7}]]></textFieldExpression>
 			</textField>
@@ -433,7 +436,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" isBold="false" pdfFontName="Times-Bold"/>
+					<font fontName="Arial" isBold="false" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[Faltas Injustificadas]]></text>
 			</staticText>
@@ -447,7 +450,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+					<font fontName="Arial" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[Días]]></text>
 			</staticText>
@@ -461,7 +464,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" isBold="true" pdfFontName="Times-Bold"/>
+					<font fontName="Arial" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[Asistencia]]></text>
 			</staticText>
@@ -475,7 +478,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" isBold="false" pdfFontName="Times-Bold"/>
+					<font fontName="Arial" isBold="false" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[Días Laborados]]></text>
 			</staticText>
@@ -489,7 +492,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" isBold="false" pdfFontName="Times-Bold"/>
+					<font fontName="Arial" isBold="false" pdfFontName="Times-Bold"/>
 				</textElement>
 				<text><![CDATA[Faltas Justificadas]]></text>
 			</staticText>
@@ -503,7 +506,7 @@
 					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center">
-					<font fontName="Times New Roman"/>
+					<font fontName="Arial"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{parametro6} == null ? "" : $P{parametro6}]]></textFieldExpression>
 			</textField>

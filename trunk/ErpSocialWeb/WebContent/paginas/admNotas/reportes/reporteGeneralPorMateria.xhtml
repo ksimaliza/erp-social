@@ -88,9 +88,15 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 
-			<h:commandButton id="btnImprimir" value="Imprimir"
-				actionListener="#{notasController.imprimirReporteGeneralPorParaleloPDF}">
-			</h:commandButton>
+			<p:commandButton id="btnImprimirPDF" value="Exportar a PDF" ajax="false"
+				actionListener="#{notasController.imprimirReporteGeneralPorParaleloPDF(notasDataManager.formatoPdf)}"
+				icon="exportPdf">
+			</p:commandButton>
+			
+			<p:commandButton id="btnImprimirXLS" value="Exportar a Excel" ajax="false"
+				actionListener="#{notasController.imprimirReporteGeneralPorParaleloPDF(notasDataManager.formatoExcel)}"
+				icon="exportExcel">				
+			</p:commandButton>
 
 			<p:dataTable id="tablaReporteGeneral"
 				value="#{notasDataManager.reporteDTO.listaReporteDTOs}"
