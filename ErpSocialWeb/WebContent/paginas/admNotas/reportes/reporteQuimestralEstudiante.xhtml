@@ -97,9 +97,15 @@
 				</p:toolbarGroup>
 			</p:toolbar>
 
-			<h:commandButton id="btnImprimir" value="Imprimir" style="text-align:right"
-				actionListener="#{notasController.imprimirReporteQuimestralEstudiantePDF}">
-			</h:commandButton>
+			<p:commandButton id="btnImprimirPDF" value="Exportar a PDF" ajax="false"
+				actionListener="#{notasController.imprimirReporteQuimestralEstudiantePDF(notasDataManager.formatoPdf)}"
+				icon="exportPdf">
+			</p:commandButton>
+			
+			<p:commandButton id="btnImprimirXLS" value="Exportar a Excel" ajax="false"
+				actionListener="#{notasController.imprimirReporteQuimestralEstudiantePDF(notasDataManager.formatoExcel)}"
+				icon="exportExcel">
+			</p:commandButton>
 
 			<h:panelGroup id="pgTablaNotas">
 				<p:dataTable id="tablaNotas"
