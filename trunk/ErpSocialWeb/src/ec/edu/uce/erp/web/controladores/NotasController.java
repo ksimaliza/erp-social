@@ -346,7 +346,7 @@ public class NotasController extends BaseController {
 		}
 	}
 
-	public void imprimirReporteQuimestralEstudiantePDF(ActionEvent actionEvent) {
+	public void imprimirReporteQuimestralEstudiantePDF(String formato) {
 		try {
 			ReporteDTO reporteDTO = notasDataManager.getReporteDTO();
 			JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(reporteDTO.getListaReporteDTOs());
@@ -373,11 +373,35 @@ public class NotasController extends BaseController {
 			JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parametros, jrBeanCollectionDataSource);
 
 			HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-			httpServletResponse.addHeader("Content-disposition", "attachment; filename=reporteQuimestralEstudiante.pdf");
-			ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+			OutputStream out = httpServletResponse.getOutputStream();
+			ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
 
-			JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
-			FacesContext.getCurrentInstance().responseComplete();
+			// -->>12/02/15 Formato Excel
+			if (formato.equals(notasDataManager.getFormatoExcel())) {
+				JRXlsExporter exporterXLS = new JRXlsExporter();
+				exporterXLS.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
+				exporterXLS.setParameter(JRXlsExporterParameter.OUTPUT_STREAM, arrayOutputStream);
+				exporterXLS.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.FALSE);
+				exporterXLS.setParameter(JRXlsExporterParameter.IS_DETECT_CELL_TYPE, Boolean.TRUE);
+				exporterXLS.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.TRUE);
+				exporterXLS.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
+				exporterXLS.setParameter(JRXlsExporterParameter.IS_COLLAPSE_ROW_SPAN, Boolean.TRUE);
+				exporterXLS.exportReport();
+				httpServletResponse.setHeader("Content-disposition", "attachment; filename=reporteQuimestral.xls");
+				httpServletResponse.setContentType("application/vnd.ms-exce");
+				httpServletResponse.setContentLength(arrayOutputStream.toByteArray().length);
+				out.write(arrayOutputStream.toByteArray());
+				out.flush();
+				out.close();
+				FacesContext.getCurrentInstance().responseComplete();
+			} else {
+
+				httpServletResponse.addHeader("Content-disposition", "attachment; filename=reporteQuimestral.pdf");
+				ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+
+				JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+				FacesContext.getCurrentInstance().responseComplete();
+			}
 		} catch (Exception e) {
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
@@ -437,7 +461,7 @@ public class NotasController extends BaseController {
 		}
 	}
 
-	public void imprimirReporteGeneralPorParaleloPDF(ActionEvent actionEvent) {
+	public void imprimirReporteGeneralPorParaleloPDF(String formato) {
 		try {
 			ReporteDTO reporteDTO = notasDataManager.getReporteDTO();
 			JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(reporteDTO.getListaReporteDTOs());
@@ -456,11 +480,35 @@ public class NotasController extends BaseController {
 			JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parametros, jrBeanCollectionDataSource);
 
 			HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-			httpServletResponse.addHeader("Content-disposition", "attachment; filename=reporteGeneralPorParalelo.pdf");
-			ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+			OutputStream out = httpServletResponse.getOutputStream();
+			ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
 
-			JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
-			FacesContext.getCurrentInstance().responseComplete();
+			// -->>12/02/15 Formato Excel
+			if (formato.equals(notasDataManager.getFormatoExcel())) {
+				JRXlsExporter exporterXLS = new JRXlsExporter();
+				exporterXLS.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
+				exporterXLS.setParameter(JRXlsExporterParameter.OUTPUT_STREAM, arrayOutputStream);
+				exporterXLS.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.FALSE);
+				exporterXLS.setParameter(JRXlsExporterParameter.IS_DETECT_CELL_TYPE, Boolean.TRUE);
+				exporterXLS.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.TRUE);
+				exporterXLS.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
+				exporterXLS.setParameter(JRXlsExporterParameter.IS_COLLAPSE_ROW_SPAN, Boolean.TRUE);
+				exporterXLS.exportReport();
+				httpServletResponse.setHeader("Content-disposition", "attachment; filename=reporteGeneralParalelo.xls");
+				httpServletResponse.setContentType("application/vnd.ms-exce");
+				httpServletResponse.setContentLength(arrayOutputStream.toByteArray().length);
+				out.write(arrayOutputStream.toByteArray());
+				out.flush();
+				out.close();
+				FacesContext.getCurrentInstance().responseComplete();
+			} else {
+
+				httpServletResponse.addHeader("Content-disposition", "attachment; filename=reporteGeneralParalelo.pdf");
+				ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+
+				JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+				FacesContext.getCurrentInstance().responseComplete();
+			}
 		} catch (Exception e) {
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
@@ -501,7 +549,7 @@ public class NotasController extends BaseController {
 				exporterXLS.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
 				exporterXLS.setParameter(JRXlsExporterParameter.IS_COLLAPSE_ROW_SPAN, Boolean.TRUE);
 				exporterXLS.exportReport();
-				httpServletResponse.setHeader("Content-disposition", "attachment; filename=reporteAnualEstudiante.xls");
+				httpServletResponse.setHeader("Content-disposition", "attachment; filename=reporteDetalleParcial.xls");
 				httpServletResponse.setContentType("application/vnd.ms-exce");
 				httpServletResponse.setContentLength(arrayOutputStream.toByteArray().length);
 				out.write(arrayOutputStream.toByteArray());
@@ -510,7 +558,7 @@ public class NotasController extends BaseController {
 				FacesContext.getCurrentInstance().responseComplete();
 			} else {
 
-				httpServletResponse.addHeader("Content-disposition", "attachment; filename=reporteAnualEstudiante.pdf");
+				httpServletResponse.addHeader("Content-disposition", "attachment; filename=reporteDetalleParcial.pdf");
 				ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
 
 				JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
@@ -531,7 +579,7 @@ public class NotasController extends BaseController {
 		}
 	}
 
-	public void imprimirReporteAnualEstudiantePDF(ActionEvent actionEvent) {
+	public void imprimirReporteAnualEstudiantePDF(String formato) {
 		try {
 			ReporteDTO reporteDTO = notasDataManager.getReporteDTO();
 			JRBeanCollectionDataSource jrBeanCollectionDataSource = new JRBeanCollectionDataSource(reporteDTO.getListaReporteDTOs());
@@ -558,11 +606,35 @@ public class NotasController extends BaseController {
 			JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parametros, jrBeanCollectionDataSource);
 
 			HttpServletResponse httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-			httpServletResponse.addHeader("Content-disposition", "attachment; filename=reporteAnualEstudiante.pdf");
-			ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+			OutputStream out = httpServletResponse.getOutputStream();
+			ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
 
-			JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
-			FacesContext.getCurrentInstance().responseComplete();
+			// -->>12/02/15 Formato Excel
+			if (formato.equals(notasDataManager.getFormatoExcel())) {
+				JRXlsExporter exporterXLS = new JRXlsExporter();
+				exporterXLS.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
+				exporterXLS.setParameter(JRXlsExporterParameter.OUTPUT_STREAM, arrayOutputStream);
+				exporterXLS.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.FALSE);
+				exporterXLS.setParameter(JRXlsExporterParameter.IS_DETECT_CELL_TYPE, Boolean.TRUE);
+				exporterXLS.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.TRUE);
+				exporterXLS.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
+				exporterXLS.setParameter(JRXlsExporterParameter.IS_COLLAPSE_ROW_SPAN, Boolean.TRUE);
+				exporterXLS.exportReport();
+				httpServletResponse.setHeader("Content-disposition", "attachment; filename=reporteAnualEstudiante.xls");
+				httpServletResponse.setContentType("application/vnd.ms-exce");
+				httpServletResponse.setContentLength(arrayOutputStream.toByteArray().length);
+				out.write(arrayOutputStream.toByteArray());
+				out.flush();
+				out.close();
+				FacesContext.getCurrentInstance().responseComplete();
+			} else {
+
+				httpServletResponse.addHeader("Content-disposition", "attachment; filename=reporteAnualEstudiante.pdf");
+				ServletOutputStream servletOutputStream = httpServletResponse.getOutputStream();
+
+				JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+				FacesContext.getCurrentInstance().responseComplete();
+			}
 		} catch (Exception e) {
 			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
