@@ -11,9 +11,8 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
@@ -46,8 +45,9 @@ import ec.edu.uce.erp.ejb.servicio.ServicioNotas;
 import ec.edu.uce.erp.web.common.controladores.BaseController;
 import ec.edu.uce.erp.web.common.controladores.MensajesWebController;
 import ec.edu.uce.erp.web.datamanager.NotasDataManager;
+import ec.edu.uce.erp.web.datamanager.NotasSessionDataManager;
 
-@RequestScoped
+@ViewScoped
 @ManagedBean
 public class NotasController extends BaseController {
 
@@ -61,6 +61,9 @@ public class NotasController extends BaseController {
 
 	@ManagedProperty(value = "#{notasDataManager}")
 	private NotasDataManager notasDataManager;
+
+	@ManagedProperty(value = "#{notasSessionDataManager}")
+	private NotasSessionDataManager notasSessionDataManager;
 
 	public void notasControllerPost() {
 
@@ -124,6 +127,14 @@ public class NotasController extends BaseController {
 
 	public void setNotasDataManager(NotasDataManager notasDataManager) {
 		this.notasDataManager = notasDataManager;
+	}
+
+	public NotasSessionDataManager getNotasSessionDataManager() {
+		return notasSessionDataManager;
+	}
+
+	public void setNotasSessionDataManager(NotasSessionDataManager notasSessionDataManager) {
+		this.notasSessionDataManager = notasSessionDataManager;
 	}
 
 	private void obtenerAsignacionesPorPeriodoProfesor() {
@@ -231,11 +242,14 @@ public class NotasController extends BaseController {
 	 *            . objeto materia
 	 */
 	public String ingredarNotasMateria(MateriaEstadoPacialesDTO materiaEstadoPacialesDTO) {
+		notasSessionDataManager.setAnioLectivoVigente(notasDataManager.getAnioLectivoVigente());
 		notasDataManager.setMateriaEstadoSeleccionado(materiaEstadoPacialesDTO);
+		notasSessionDataManager.setMateriaEstadoSeleccionado(materiaEstadoPacialesDTO);
 
 		List<EstudianteNotasParcial> listaEstudianteNotasParcials = servicioNotas.obtenerEstudiantesNotasParcial(notasDataManager.getMateriaEstadoSeleccionado());
 
 		notasDataManager.setListaEstudianteNotasParcials(listaEstudianteNotasParcials);
+		notasSessionDataManager.setListaEstudianteNotasParcials(listaEstudianteNotasParcials);
 
 		for (EstudianteNotasParcial estudianteNotasParcial : listaEstudianteNotasParcials) {
 			if (!estudianteNotasParcial.getNotaParcialDTO().getTipoNotaBean().getParCodigo().equals(MessagesApplicacion.getInteger("erp.notas.tipo.examen.parcial.primer.quimestre"))
@@ -281,7 +295,7 @@ public class NotasController extends BaseController {
 
 	public String guardarNotas() {
 
-		List<EstudianteNotasParcial> listaEstudianteNotasParcials = notasDataManager.getListaEstudianteNotasParcials();
+		List<EstudianteNotasParcial> listaEstudianteNotasParcials = notasSessionDataManager.getListaEstudianteNotasParcials();
 
 		for (EstudianteNotasParcial estudianteNotasParcial : listaEstudianteNotasParcials) {
 			NotaDTO notaDTOParcial = estudianteNotasParcial.getNotaParcialDTO();
@@ -642,12 +656,16 @@ public class NotasController extends BaseController {
 
 	// PARA LA CORRECCION DE NOTAS
 	public String corregirNotasMateria(MateriaEstadoPacialesDTO materiaEstadoPacialesDTO, long codTipoNota) {
+		notasSessionDataManager.setAnioLectivoVigente(notasDataManager.getAnioLectivoVigente());
 		notasDataManager.setMateriaEstadoSeleccionado(materiaEstadoPacialesDTO);
+		notasSessionDataManager.setMateriaEstadoSeleccionado(materiaEstadoPacialesDTO);
 
 		List<EstudianteNotasParcial> listaEstudianteNotasParcials = servicioNotas.obtenerEstudiantesNotasParcialCorreccion(notasDataManager.getMateriaEstadoSeleccionado(), (int) codTipoNota);
 		notasDataManager.setCodTipoNota((int) codTipoNota);
+		notasSessionDataManager.setCodTipoNota((int) codTipoNota);
 
 		notasDataManager.setListaEstudianteNotasParcials(listaEstudianteNotasParcials);
+		notasSessionDataManager.setListaEstudianteNotasParcials(listaEstudianteNotasParcials);
 
 		for (EstudianteNotasParcial estudianteNotasParcial : listaEstudianteNotasParcials) {
 			if (estudianteNotasParcial.getNotaParcialDTO() != null) {
@@ -717,7 +735,7 @@ public class NotasController extends BaseController {
 
 	public String editarNotas() {
 
-		List<EstudianteNotasParcial> listaEstudianteNotasParcials = notasDataManager.getListaEstudianteNotasParcials();
+		List<EstudianteNotasParcial> listaEstudianteNotasParcials = notasSessionDataManager.getListaEstudianteNotasParcials();
 
 		for (EstudianteNotasParcial estudianteNotasParcial : listaEstudianteNotasParcials) {
 			NotaDTO notaDTOParcial = estudianteNotasParcial.getNotaParcialDTO();
