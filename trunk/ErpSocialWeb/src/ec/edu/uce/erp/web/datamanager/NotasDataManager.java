@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.AsinacionDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.MateriaDTO;
@@ -19,13 +19,21 @@ import ec.edu.uce.erp.ejb.persistence.util.dto.MatriculaNotasTutorDTO;
 import ec.edu.uce.erp.ejb.persistence.util.dto.ReporteDTO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
-@SessionScoped
+@ViewScoped
 @ManagedBean
 public class NotasDataManager extends BaseDataManager {
 
 	private static final long serialVersionUID = 1L;
 
 	private Boolean estaInicializado = Boolean.FALSE;
+
+	public Boolean getEstaInicializado() {
+		return estaInicializado;
+	}
+
+	public void setEstaInicializado(Boolean estaInicializado) {
+		this.estaInicializado = estaInicializado;
+	}
 
 	private PeriodoDTO anioLectivoVigente;
 	private List<AsinacionDTO> listaAsinacionDTO;
@@ -60,6 +68,10 @@ public class NotasDataManager extends BaseDataManager {
 	private List<MatriculaNotasTutorDTO> listaMatriculaNotasTutorDTO;
 	private Integer codTipoSuspensoSeleccionado;
 	private List<EstudianteNotaSuspensa> listaEstudianteNotaSuspensas;
+
+	public NotasDataManager() {
+		System.out.println("iniciando view scoped");
+	}
 
 	public PeriodoDTO getAnioLectivoVigente() {
 		return anioLectivoVigente;
@@ -99,14 +111,6 @@ public class NotasDataManager extends BaseDataManager {
 
 	public void setNivelDTOSeleccionado(NivelDTO nivelDTOSeleccionado) {
 		this.nivelDTOSeleccionado = nivelDTOSeleccionado;
-	}
-
-	public Boolean getEstaInicializado() {
-		return estaInicializado;
-	}
-
-	public void setEstaInicializado(Boolean estaInicializado) {
-		this.estaInicializado = estaInicializado;
 	}
 
 	public List<MateriaDTO> getListaMaterias() {
