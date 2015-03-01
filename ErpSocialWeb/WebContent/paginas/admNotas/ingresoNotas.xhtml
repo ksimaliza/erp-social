@@ -18,36 +18,36 @@
 					<h4>
 						<h:panelGrid columns="2">
 							<h:outputLabel
-								value="#{i18n['erp.notas.pagina.periodo.lectivo']}:"
+								value="#{i18n['erp.notas.pagina.periodo.lectivo']}"
 								for="anioLectivo" />
 							<h:outputText id="anioLectivo"
-								value="#{notasDataManager.anioLectivoVigente.perDescripcion}" />
+								value="#{notasSessionDataManager.anioLectivoVigente.perDescripcion}" />
 
 							<h:outputLabel value="#{i18n['erp.notas.pagina.quimestre']}:"
 								for="quimestre" />
 							<h:outputText id="quimestre"
-								value="#{notasDataManager.materiaEstadoSeleccionado.tipoNotaDTO.parCodigo lt 4 ? i18n['erp.notas.pagina.primer.quimestre'] : i18n['erp.notas.pagina.segundo.quimestre']}" />
+								value="#{notasSessionDataManager.materiaEstadoSeleccionado.tipoNotaDTO.parCodigo lt 4 ? i18n['erp.notas.pagina.primer.quimestre'] : i18n['erp.notas.pagina.segundo.quimestre']}" />
 
 							<h:outputLabel value="#{i18n['erp.notas.pagina.parcial']}:"
 								for="parcial" />
 							<h:outputText id="parcial"
-								value="#{notasDataManager.materiaEstadoSeleccionado.tipoNotaDTO.parNombre == null ? i18n['erp.notas.pagina.primer.parcial'] : notasDataManager.materiaEstadoSeleccionado.tipoNotaDTO.parNombre}" />
+								value="#{notasSessionDataManager.materiaEstadoSeleccionado.tipoNotaDTO.parNombre == null ? i18n['erp.notas.pagina.primer.parcial'] : notasSessionDataManager.materiaEstadoSeleccionado.tipoNotaDTO.parNombre}" />
 
 							<h:outputLabel
 								value="#{i18n['erp.notas.pagina.nombre.materia']}:"
 								for="materia" />
 							<h:outputText id="materia"
-								value="#{notasDataManager.materiaEstadoSeleccionado.asinacionDTO.matMateria.mtrNombe}" />
+								value="#{notasSessionDataManager.materiaEstadoSeleccionado.asinacionDTO.matMateria.mtrNombe}" />
 
 							<h:outputLabel value="#{i18n['erp.notas.pagina.curso']}:"
 								for="nivel" />
 							<h:outputText id="nivel"
-								value="#{notasDataManager.materiaEstadoSeleccionado.asinacionDTO.matNivelParalelo.matNivel.nivDescaripcion}" />
+								value="#{notasSessionDataManager.materiaEstadoSeleccionado.asinacionDTO.matNivelParalelo.matNivel.nivDescaripcion}" />
 
 							<h:outputLabel value="#{i18n['erp.notas.pagina.paralelo']}:"
 								for="materia" />
 							<h:outputText id="parelelo"
-								value="#{notasDataManager.materiaEstadoSeleccionado.asinacionDTO.matNivelParalelo.matParalelo.parDescripcion}" />
+								value="#{notasSessionDataManager.materiaEstadoSeleccionado.asinacionDTO.matNivelParalelo.matParalelo.parDescripcion}" />
 						</h:panelGrid>
 					</h4>
 				</p:toolbarGroup>
@@ -63,8 +63,8 @@
 			</p:contextMenu>
 
 			<p:dataTable id="tablaEstudiantes"
-				rendered="#{!notasController.isExamen(notasDataManager.materiaEstadoSeleccionado.tipoNotaDTO.parCodigo)}"
-				value="#{notasDataManager.listaEstudianteNotasParcials}"
+				rendered="#{!notasController.isExamen(notasSessionDataManager.materiaEstadoSeleccionado.tipoNotaDTO.parCodigo)}"
+				value="#{notasSessionDataManager.listaEstudianteNotasParcials}"
 				var="estudianteNota" rowIndexVar="rowIndex" editable="true"
 				editMode="cell" widgetVar="carsTable">
 
@@ -191,8 +191,8 @@
 			</p:dataTable>
 
 			<p:dataTable id="tablaEstudiantesExamen"
-				rendered="#{notasController.isExamen(notasDataManager.materiaEstadoSeleccionado.tipoNotaDTO.parCodigo)}"
-				value="#{notasDataManager.listaEstudianteNotasParcials}"
+				rendered="#{notasController.isExamen(notasSessionDataManager.materiaEstadoSeleccionado.tipoNotaDTO.parCodigo)}"
+				value="#{notasSessionDataManager.listaEstudianteNotasParcials}"
 				var="estudianteNota" rowIndexVar="rowIndex" editable="true"
 				editMode="cell" widgetVar="carsTable">
 
