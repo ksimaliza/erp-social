@@ -115,7 +115,7 @@ public class ReporteMatrimonioController extends BaseController {
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(),reporteMatrimonioDataManager.getMatrimonioListDTOs(), "reportePartidasMatrimonio", mapParametros);
-			ReporteUtil.generarReporte(jasperPrint, this.reporteMatrimonioDataManager.getFormatoPdf(), "reportePartidasMatrimonio");
+			ReporteUtil.generarReporte(jasperPrint, this.reporteMatrimonioDataManager.getFormatoExcel(), "reportePartidasMatrimonio");
 	}
 
 	@Override

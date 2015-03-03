@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
-<!-- 2015-02-09T17:07:48 -->
+<!-- 2015-02-24T08:33:42 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="partidaMatrimonio" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ffbea6fa-01cf-4c50-a0f6-0e07021ca6b0">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
@@ -147,7 +147,7 @@
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Yo, el Infrascripto, certifico en forma legal, a petición de la parte interesada que:]]></text>
+				<text><![CDATA[Yo, el Infrascrito, certifico en forma legal, a petición de la parte interesada que:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="91" y="462" width="64" height="20" uuid="f97472c0-0e73-4ba7-b724-e8b54a601578"/>

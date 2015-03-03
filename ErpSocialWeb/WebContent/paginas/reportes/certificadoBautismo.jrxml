@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
-<!-- 2015-02-05T17:15:02 -->
+<!-- 2015-02-23T19:00:34 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="certificadoBautismo" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6a8786bc-e1fe-4330-9d5b-ad62d0dae03c">
 	<property name="ireport.zoom" value="0.8264462809917354"/>
 	<property name="ireport.x" value="0"/>
@@ -43,7 +43,7 @@
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Yo, el Infrascripto, certifico en forma legal, a petición de la parte interesada que:]]></text>
+				<text><![CDATA[Yo, el Infrascrito, certifico en forma legal, a petición de la parte interesada que:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Heading 4" x="85" y="400" width="117" height="20" uuid="b0d83b99-cb6f-401b-a5a4-15f4cadd7913"/>
@@ -274,7 +274,7 @@
 				<textElement textAlignment="Center">
 					<font size="16"/>
 				</textElement>
-				<textFieldExpression><![CDATA[ "PARROQUIA DE "+$P{parroquiaCabecera}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["PARROQUIA DE "+$P{parroquiaCabecera}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="294" y="540" width="237" height="20" uuid="5ea3bd02-2159-4fd1-8e06-fbd1b70e0460"/>

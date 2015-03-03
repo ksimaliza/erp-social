@@ -117,7 +117,7 @@ public class ReportePartidaBautizoController extends BaseController {
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 			
 			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(),reportePartidaBautizoDataManager.getBautizoListDTOs(), "reportePartidasBautizos", mapParametros);
-			ReporteUtil.generarReporte(jasperPrint, this.reportePartidaBautizoDataManager.getFormatoPdf(), "reportePartidasBautizos");
+			ReporteUtil.generarReporte(jasperPrint, this.reportePartidaBautizoDataManager.getFormatoExcel(), "reportePartidasBautizos");
 	}
 
 	@Override

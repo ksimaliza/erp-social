@@ -118,7 +118,7 @@ public class ReporteConfirmacionController extends BaseController {
 		mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(),reporteConfirmacionDataManager.getConfirmacionListDTOs(), "reporteConfirmacion", mapParametros);
-			ReporteUtil.generarReporte(jasperPrint, this.reporteConfirmacionDataManager.getFormatoPdf(), "reporteConfirmacion");
+			ReporteUtil.generarReporte(jasperPrint, this.reporteConfirmacionDataManager.getFormatoExcel(), "reporteConfirmacion");
 	}
 
 	@Override

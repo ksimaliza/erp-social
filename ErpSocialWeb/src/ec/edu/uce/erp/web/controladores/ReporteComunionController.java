@@ -119,7 +119,7 @@ public class ReporteComunionController extends BaseController {
 				mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(),reporteComunionDataManager.getComunionListDTOs(), "reportePrimeraComunion", mapParametros);
-			ReporteUtil.generarReporte(jasperPrint, this.reporteComunionDataManager.getFormatoPdf(), "reportePrimeraComunion");
+			ReporteUtil.generarReporte(jasperPrint, this.reporteComunionDataManager.getFormatoExcel(), "reportePrimeraComunion");
 	}
 	
 

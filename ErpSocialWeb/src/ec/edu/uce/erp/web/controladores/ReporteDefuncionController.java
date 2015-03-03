@@ -113,7 +113,7 @@ public class ReporteDefuncionController extends BaseController {
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(),reporteDefuncionDataManager.getDefuncionListDTOs(), "reporteDefuncion", mapParametros);
-			ReporteUtil.generarReporte(jasperPrint, this.reporteDefuncionDataManager.getFormatoPdf(), "reporteDefuncion");
+			ReporteUtil.generarReporte(jasperPrint, this.reporteDefuncionDataManager.getFormatoExcel(), "reporteDefuncion");
 	}
 
 	@Override

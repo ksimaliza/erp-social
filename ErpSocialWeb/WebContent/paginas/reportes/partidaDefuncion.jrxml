@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
-<!-- 2015-02-09T17:21:26 -->
+<!-- 2015-02-27T19:17:04 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="partidaDefuncion" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cf6663c6-bc77-4d13-a6e3-52e85ef7463e">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
@@ -40,7 +40,7 @@
 				<text><![CDATA[Firma y Sello Encargado]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="93" y="315" width="74" height="20" uuid="572714d3-9bf7-4694-b796-010214781d9b"/>
+				<reportElement x="100" y="315" width="74" height="20" uuid="572714d3-9bf7-4694-b796-010214781d9b"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -58,17 +58,17 @@
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Yo, el Infrascripto, certifico en forma legal, a petición de la parte interesada que:]]></text>
+				<text><![CDATA[Yo, el Infrascrito, certifico en forma legal, a petición de la parte interesada que:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="430" y="316" width="39" height="20" uuid="b6ed0260-f0d7-4865-a420-ba9efac6d0c6"/>
+				<reportElement x="306" y="315" width="39" height="20" uuid="b6ed0260-f0d7-4865-a420-ba9efac6d0c6"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[ACTA: ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="469" y="316" width="74" height="20" uuid="0db0be12-86e0-4de2-a6c9-b63d6b6fadc5"/>
+				<reportElement x="345" y="315" width="74" height="20" uuid="0db0be12-86e0-4de2-a6c9-b63d6b6fadc5"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -89,7 +89,7 @@
 				<text><![CDATA[Parroquia:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="359" y="316" width="71" height="20" uuid="5c2e9a19-722f-406d-896c-efa064f61f70"/>
+				<reportElement x="234" y="315" width="71" height="20" uuid="5c2e9a19-722f-406d-896c-efa064f61f70"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -124,7 +124,7 @@
 				<text><![CDATA[NOTA MARGINAL:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="306" y="316" width="59" height="20" uuid="8cbcaa54-acf7-4257-a6ae-9eba7be7ba7e"/>
+				<reportElement x="174" y="315" width="59" height="20" uuid="8cbcaa54-acf7-4257-a6ae-9eba7be7ba7e"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
@@ -215,18 +215,11 @@
 				<text><![CDATA[DA FE:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="23" y="336" width="248" height="20" uuid="ccfbf53c-c9fe-44c4-8bcb-ff40af182f70"/>
+				<reportElement x="23" y="335" width="248" height="20" uuid="ccfbf53c-c9fe-44c4-8bcb-ff40af182f70"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[del Archivo Parroquial se halla la siguiente:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="163" y="315" width="147" height="20" uuid="c31a2ef6-e335-4543-9e80-243bce0c66c0"/>
-				<textElement>
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[de partida de defunciones,]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="23" y="449" width="317" height="20" uuid="52d9e29e-5fd3-4daa-adaa-845d004eecd1"/>
