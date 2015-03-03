@@ -525,8 +525,9 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 			{
 				mad_pad=factoryDAO.getPersonaDAOImpl().update(mad_pad);
 			}
-				else	
-				{
+			//cuando  no se tiene madrina/o
+			else if(!mad_pad.getPerCi().toString().equals(""))	
+			{	
 					listPersona=factoryDAO.getPersonaDAOImpl().buscarPersonaCriterios(mad_pad);
 					if(listPersona.size()<=0)
 						mad_pad=factoryDAO.getPersonaDAOImpl().create(mad_pad);
@@ -576,7 +577,8 @@ public class ServicioEucaristiaImpl implements ServicioEucaristia {
 		slf4jLogger.info("obtenerComunionPorId");
 		ComunionVO comunion =new ComunionVO();
 		comunion.setAsignadoPersona(factoryDAO.getPersonaDAOImpl().find(comunionListDTO.getPcoAsignado()));
-		comunion.setComunion(eucaristiaFactoryDAO.getPrimeraComunionDAOImpl().find(comunionListDTO.getPcoCodigo()));	
+		comunion.setComunion(eucaristiaFactoryDAO.getPrimeraComunionDAOImpl().find(comunionListDTO.getPcoCodigo()));
+		if(comunionListDTO.getPcoPadrino()!=null)
 		comunion.setMad_pad(factoryDAO.getPersonaDAOImpl().find(comunionListDTO.getPcoPadrino()));
 		//comunion.getComunion().setPcoAsignado(comunionListDTO.getPcoAsignado());
 		

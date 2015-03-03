@@ -116,7 +116,7 @@ public class ReporteSepulturaController extends BaseController {
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 		
 			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(),reporteSepulturaDataManager.getSepulturaListDTOs(), "reporteSepultura", mapParametros);
-			ReporteUtil.generarReporte(jasperPrint, this.reporteSepulturaDataManager.getFormatoPdf(), "reporteSepultura");
+			ReporteUtil.generarReporte(jasperPrint, this.reporteSepulturaDataManager.getFormatoExcel(), "reporteSepultura");
 	}
 
 	@Override

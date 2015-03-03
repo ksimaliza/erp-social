@@ -158,12 +158,7 @@ public class PartidaConfirmacionController extends BaseController {
 			ConfirmacionDTO confirmacionNuevo = this.servicioEucaristia
 					.createOrUpdateConfirmacion(confirmacionVO);
 
-			if (!partidaConfirmacionDataManager.getConfirmacionDTO().getConToma()
-					.equalsIgnoreCase("")
-					&& !partidaConfirmacionDataManager.getConfirmacionDTO().getConActa()
-							.equalsIgnoreCase("")
-					&& !partidaConfirmacionDataManager.getConfirmacionDTO()
-							.getConPagina().equalsIgnoreCase(""))
+			if (partidaConfirmacionDataManager.getConfirmacionDTO().getConEstado()==24)
 			partidaConfirmacionDataManager.setExportDesactivado(false);
 			else
 				partidaConfirmacionDataManager.setExportDesactivado(true);

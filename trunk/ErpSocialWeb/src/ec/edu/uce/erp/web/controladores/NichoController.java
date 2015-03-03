@@ -187,7 +187,7 @@ public void buscarSeccion  () {
 		CatalogoEucaristiaDTO cat=new CatalogoEucaristiaDTO();
 		cat.setCatCodigo(29);
 		cat.setCatEmpresa(getEmpresaTbl().getEmrPk());
-		listaCatalogo=this.servicioEucaristia.buscarCatalogo(cat);
+		listaCatalogo=this.servicioEucaristia.buscarSeccionNicho(cat);
 		
 		if (CollectionUtils.isEmpty(listaCatalogo) && listaCatalogo.size()==0) {
 			MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");

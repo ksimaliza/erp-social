@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
-<!-- 2015-02-09T17:11:34 -->
+<!-- 2015-02-24T08:40:13 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="certificadoConfirmación" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d7194322-d6d9-4509-8b84-4f36b45a963f">
 	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
@@ -143,11 +143,11 @@
 				<text><![CDATA[PÁGINA:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="61" y="416" width="103" height="20" uuid="e1ddff6a-da92-4d6d-b9cf-23782092979b"/>
+				<reportElement x="61" y="416" width="159" height="20" uuid="e1ddff6a-da92-4d6d-b9cf-23782092979b"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[SACERDOTE:]]></text>
+				<text><![CDATA[MINISTRO/SACERDOTE:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="61" y="516" width="115" height="20" uuid="5db4f83f-332f-41a3-a3b9-84a217086837"/>
@@ -217,7 +217,7 @@
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Yo, el Infrascripto, certifico en forma legal, a petición de la parte interesada que:]]></text>
+				<text><![CDATA[Yo, el Infrascrito, certifico en forma legal, a petición de la parte interesada que:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="29" y="278" width="82" height="20" uuid="729d0ba0-3f13-4001-86b8-b250575c8315"/>

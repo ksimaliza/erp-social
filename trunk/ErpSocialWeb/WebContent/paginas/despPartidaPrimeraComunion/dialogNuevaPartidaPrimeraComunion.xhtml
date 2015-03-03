@@ -128,7 +128,7 @@
 							<h:outputLabel value="#{i18n['erp.despacho.partida.tipo.padrino']}" />
 						</td>
 						<td width="70%">
-							<p:selectOneMenu id="padrino" value="#{partidaPrimeraComunionDataManager.tipoCodigo}" label="#{i18n['erp.despacho.partida.tipo.padrino']}" filter="true" required="true">
+							<p:selectOneMenu id="padrino" value="#{partidaPrimeraComunionDataManager.tipoCodigo}" label="#{i18n['erp.despacho.partida.tipo.padrino']}" filter="true">
 									<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 									<f:selectItems value="#{partidaComunionController.partidaPrimeraComunionDataManager.tipoEucaristiaDTOs}" var="tipo" itemLabel="#{tipo.catDescripcion} " itemValue="#{tipo.catCodigo}"/>
 							</p:selectOneMenu>
@@ -140,9 +140,8 @@
 							<h:outputLabel for="txtCiPad" value="#{i18n['erp.despacho.partida.comunion.cedula.padrino.madrina']}" />
 						</td>
 						<td width="70%">
-							<p:inputText id="txtCiPad"  style="width: 100%"
-							required="true" value="#{partidaPrimeraComunionDataManager.mad_padInsertar.perCi}" label="#{i18n['erp.despacho.partida.comunion.cedula.padrino.madrina']}" >
-							<f:validateLength maximum="10" minimum="10"/>
+							<p:inputText id="txtCiPad"  style="width: 100%" value="#{partidaPrimeraComunionDataManager.mad_padInsertar.perCi}" label="#{i18n['erp.despacho.partida.comunion.cedula.padrino.madrina']}" >
+							<f:validateLength maximum="10"/>
 							<f:validator validatorId="ec.edu.uce.erp.web.validador.CedulaValidator" />
 							<p:ajax event="blur" update="txtApePad,txtNomPad" listener="#{partidaComunionController.buscarMadrina}" process="@this"/>
 						</p:inputText>
@@ -156,7 +155,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtNomPad" style="width: 100%" label="#{i18n['erp.despacho.partida.comunion.nombres.padrino.madrina']}"
-								 required="true" value="#{partidaPrimeraComunionDataManager.mad_padInsertar.perNombres}" />
+								  value="#{partidaPrimeraComunionDataManager.mad_padInsertar.perNombres}" />
 						</td>	
 					</tr>
 						
@@ -166,7 +165,7 @@
 						</td>
 						<td width="70%">
 							<p:inputText id="txtApePad" style="width: 100%" label="#{i18n['erp.despacho.partida.comunion.apellidos.padrino.madrina']}"
-								 required="true" value="#{partidaPrimeraComunionDataManager.mad_padInsertar.perApellidos}" />
+								  value="#{partidaPrimeraComunionDataManager.mad_padInsertar.perApellidos}" />
 						</td>	
 					</tr>
 					

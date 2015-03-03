@@ -116,7 +116,7 @@ public class ReporteEucaristiaController extends LoginController {
 			mapParametros.put("imagesRealPath", getServletContext().getRealPath("resources/img"));
 			
 			JasperPrint jasperPrint = ReporteUtil.jasperPrint(getFacesContext(),reporteEucaristiaDataManager.getEucaristiaListDTOs(), "reporteEucaristia", mapParametros);
-			ReporteUtil.generarReporte(jasperPrint, this.reporteEucaristiaDataManager.getFormatoPdf(), "reporteEucaristia");
+			ReporteUtil.generarReporte(jasperPrint, this.reporteEucaristiaDataManager.getFormatoExcel(), "reporteEucaristia");
 	}
 	
 	

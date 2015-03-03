@@ -124,7 +124,7 @@
 							<h:outputLabel value="#{i18n['erp.despacho.partida.tipo.padrino']}" />
 						</td>
 						<td width="70%">
-							<p:selectOneMenu id="padrino" value="#{partidaPrimeraComunionDataManager.tipoCodigo}" filter="true" required="true">
+							<p:selectOneMenu id="padrino" value="#{partidaPrimeraComunionDataManager.tipoCodigo}" filter="true">
 									<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
 									<f:selectItems value="#{partidaComunionController.partidaPrimeraComunionDataManager.tipoEucaristiaDTOs}" var="tipo" itemLabel="#{tipo.catDescripcion} " itemValue="#{tipo.catCodigo}"/>
 							</p:selectOneMenu>

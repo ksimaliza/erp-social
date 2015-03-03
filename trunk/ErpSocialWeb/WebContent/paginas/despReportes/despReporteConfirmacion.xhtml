@@ -37,7 +37,7 @@
 	                                        title="Buscar"/>
                                         </td>
                                 	<td >
-                                		<p:commandButton value="#{i18n['label.exportar.pdf']}" actionListener="#{reporteConfirmacionController.exportar}" icon="exportPdf" ajax="false"
+                                		<p:commandButton value="#{i18n['label.exportar.excel']}" actionListener="#{reporteConfirmacionController.exportar}" icon="exportExcel" ajax="false"
 										disabled="#{reporteConfirmacionDataManager.exportDesactivado}"  />
                                 	</td>
                                 </tr>
@@ -63,7 +63,7 @@
                                 <p:column headerText="Nombre Confirmado">
                                         <h:outputText value="#{confirmacion.perApellidos} #{confirmacion.perNombres}"  height="45" />
                                 </p:column>
-                                <p:column headerText="Sacerdote">
+                                <p:column headerText="Ministro / Sacerdote">
                                         <h:outputText value="#{confirmacion.sacNombres}  #{confirmacion.sacApellidos}" />
                                 </p:column>
                                 <p:column headerText="Fecha Confirmacion">
