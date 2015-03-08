@@ -22,14 +22,10 @@
 		<div class="center">
 			<p:growl id="pnlMessagesG" />
 		</div>
-		<table width="100%" border="0" cellpadding="0" cellspacing="0"
+			<table width="100%" border="0" cellpadding="0" cellspacing="0"
 			id="tableLogin1">
-			<tr>
-			<td style="height:10px;">
 			
-			</td>
-			</tr>
-			<tr>
+				<tr>
 				<td width="100%" align="center">
 					<table id="Login" cellspacing="0" cellpadding="0" border="0px"
 						style="table-layout: fixed; border: solid 0px #80bce1;">
@@ -37,13 +33,33 @@
 						 <tr style=" height : 590px;">
                                     <td 
 								style="width: 502px;background-repeat:no-repeat;background-image:url(./../resources/img/loginL.jpg);">
-								
+							
 								</td>
-                                 <td 
+                                 <td valign="top"
 								style="width: 502px;background-repeat:no-repeat;background-image:url(./../resources/img/loginR.jpg);">
+								<table>
+									<tr>
+										<td style="width: 350px"></td>
+										<td><h:commandLink
+												style="display:inline-block;text-decoration:none;padding:0px 5px;white-space: nowrap;"
+												onclick="window.open('http://200.124.231.106:8080/share/page/site-index')"
+												title="Alfresco">
+												<h:graphicImage value="/resources/img/logoalfresco.gif"
+													alt="Alfresco" style="width: 50px;height: 20px;" />
+												<f:ajax event="click" />
+											</h:commandLink> <p:spacer></p:spacer> <p:spacer></p:spacer> <p:spacer></p:spacer>
+											<h:commandLink
+												style="display:inline-block;text-decoration:none;padding:0px 5px;white-space: nowrap;color:#2D3E92;font-weight: bold;"
+												onclick="window.open('Ayuda.pdf')" title="Ayuda">
+												<h:graphicImage value="/resources/img/headerIcon05.png"
+													alt="Ayuda" style="width: 16px;height: 16px;" />
+												<f:ajax event="click" />
+											</h:commandLink></td>
+									</tr>
+								</table>
 								<table cellspacing="0" cellpadding="0" border="0px"
 									style="table-layout: fixed; padding: 5px 0px 0px 100px;">
-									<tr style=" height : 150px;">
+									<tr style=" height : 300px;">
 									
 									</tr>
 									<tr>
