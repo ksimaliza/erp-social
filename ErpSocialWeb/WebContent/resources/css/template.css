@@ -426,6 +426,12 @@ TD.ToolBar {
 	
 }
 
+.iconAlfresco {
+	width: 16px;
+	height: 16px;
+	background: #ddd url(../img/logoalfresco.png) !important;
+}
+
 
       
     
