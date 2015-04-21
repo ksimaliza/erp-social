@@ -21,6 +21,11 @@ public final class MensajesWebController {
 	public static void aniadirMensajeError(String mensaje) {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, MessageProvider.getInstancia().getValue(mensaje), null));
 	}
+
+	public static void addErrorMessage(String mensaje) {
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, mensaje, null));
+	}
+
 	
 	/**
 	 * A&ntilde;ade un mensaje de informaci&iacute;n a la jeraquia de componetes de la p&aacute;gina JSF
@@ -29,7 +34,11 @@ public final class MensajesWebController {
 	public static void aniadirMensajeInformacion(String mensaje) {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, MessageProvider.getInstancia().getValue(mensaje), null));
 	}
-	
+
+	public static void addInfoMessage(String mensaje) {
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, mensaje, null));
+	}
+
 	/**
 	 * A&ntilde;ade un mensaje de advertencia a la jeraquia de componetes de la p&aacute;gina JSF
 	 * @param mensaje

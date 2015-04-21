@@ -2,6 +2,7 @@ package ec.edu.uce.erp.web.controladores;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -17,6 +18,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.TipoDTO;
 import ec.edu.uce.erp.ejb.persistence.vo.EmpleadoVO;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
 import ec.edu.uce.erp.ejb.servicio.ServicioAsistencia;
@@ -45,18 +47,26 @@ public class EmpleadoController extends BaseController{
 	@ManagedProperty(value="#{empleadoDataManager}")
 	private EmpleadoDataManager empleadoDataManager;
 	
+	public EmpleadoDataManager getEmpleadoDataManager() {
+		return empleadoDataManager;
+	}
+
 	public void setEmpleadoDataManager(EmpleadoDataManager empleadoDataManager) {
 		this.empleadoDataManager = empleadoDataManager;
 	}
 	
-
+	@PostConstruct
+	private void init()
+	{
+		readTipo();	
+	}
 	
 
 	public void registrarEmpleado () {
 		
 		slf4jLogger.info("registrarEmpleado");
 		EmpleadoVO empleadoVO;
-
+		TipoDTO tipoDTO;
 		try {
 			empleadoDataManager.getEmpleadoDTOInsertar().setAemEmpresa(getEmpresaCode());
 			empleadoVO=new EmpleadoVO();
@@ -65,6 +75,11 @@ public class EmpleadoController extends BaseController{
 			empleadoVO.setEmpleado(empleadoDataManager.getEmpleadoInsertar());
 			empleadoVO.setEmpleadoDTO(empleadoDataManager.getEmpleadoDTOInsertar());
 			empleadoVO.setPersona(empleadoDataManager.getPersonaInsertar());
+			
+			tipoDTO=new TipoDTO();
+			tipoDTO.setTipCodigo(empleadoDataManager.getTipoCode());
+			empleadoVO.getHorarioEmpleadoDTO().setAsiTipo(tipoDTO);
+			
 			EmpleadoDTO empleadoNuevo = this.servicioAsistencia.createOrUpdateEmpleado(empleadoVO);
 							
 			if (empleadoNuevo != null) {
@@ -112,7 +127,7 @@ public class EmpleadoController extends BaseController{
 			this.empleadoDataManager.setEmpleadoDTOInsertar(empleadoEncontrado.getEmpleadoDTO());
 			this.empleadoDataManager.setEmpleadoInsertar(empleadoEncontrado.getEmpleado());
 			this.empleadoDataManager.setPersonaInsertar(empleadoEncontrado.getPersona());
-			
+			empleadoDataManager.setTipoCode(empleadoEncontrado.getHorarioEmpleadoDTO().getAsiTipo().getTipCodigo());
 							
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosEmpleado {}", e.getMessage());
@@ -133,7 +148,15 @@ public class EmpleadoController extends BaseController{
 		}
 	}
 
-
+	private void readTipo()
+	{
+		try {
+			empleadoDataManager.setTipoList(servicioAsistencia.readAllTipo());
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("buscarPersonaEmpleado {}", e.getMessage());
+			MensajesWebController.aniadirMensajeError(e.toString());
+		}
+	}
 
 	@Override
 	public void refrescarFormulario() {
