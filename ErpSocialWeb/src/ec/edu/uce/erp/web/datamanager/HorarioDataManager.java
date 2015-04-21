@@ -5,14 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.DiaDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.TipoDTO;
 import ec.edu.uce.erp.ejb.persistence.util.dto.TiempoDTO;
 
 
-@SessionScoped
+@ViewScoped
 @ManagedBean (name = "horarioDataManager")
 public class HorarioDataManager implements Serializable{
 
@@ -36,10 +37,13 @@ public class HorarioDataManager implements Serializable{
 	
 	
 	private List<TipoDTO> tipoList;
-	private String tipoCode;
+	private Integer tipoCode;
+	private Integer tipoCodeBuscar;
 	
 	private List<DiaDTO> diaList;
-	private int diaCode;
+	private Integer diaCode;
+	
+	private List<HorarioDTO> horarioList;
 	
 	
 	public HorarioDataManager() {
@@ -52,6 +56,8 @@ public class HorarioDataManager implements Serializable{
 		tipoList=new ArrayList<TipoDTO>();
 		
 		diaList=new ArrayList<DiaDTO>();
+		
+		horarioList=new ArrayList<HorarioDTO>();
 	}
 
 
@@ -145,16 +151,6 @@ public class HorarioDataManager implements Serializable{
 	}
 
 
-	public String getTipoCode() {
-		return tipoCode;
-	}
-
-
-	public void setTipoCode(String tipoCode) {
-		this.tipoCode = tipoCode;
-	}
-
-
 	public List<DiaDTO> getDiaList() {
 		return diaList;
 	}
@@ -164,14 +160,43 @@ public class HorarioDataManager implements Serializable{
 		this.diaList = diaList;
 	}
 
+	public Integer getTipoCode() {
+		return tipoCode;
+	}
 
-	public int getDiaCode() {
+
+	public void setTipoCode(Integer tipoCode) {
+		this.tipoCode = tipoCode;
+	}
+
+
+	public Integer getDiaCode() {
 		return diaCode;
 	}
 
 
-	public void setDiaCode(int diaCode) {
+	public void setDiaCode(Integer diaCode) {
 		this.diaCode = diaCode;
+	}
+
+
+	public Integer getTipoCodeBuscar() {
+		return tipoCodeBuscar;
+	}
+
+
+	public void setTipoCodeBuscar(Integer tipoCodeBuscar) {
+		this.tipoCodeBuscar = tipoCodeBuscar;
+	}
+
+
+	public List<HorarioDTO> getHorarioList() {
+		return horarioList;
+	}
+
+
+	public void setHorarioList(List<HorarioDTO> horarioList) {
+		this.horarioList = horarioList;
 	}
 
 

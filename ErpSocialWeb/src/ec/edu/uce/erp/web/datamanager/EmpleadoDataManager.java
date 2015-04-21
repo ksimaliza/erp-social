@@ -14,6 +14,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.TipoDTO;
 import ec.edu.uce.erp.web.common.datamanager.BaseDataManager;
 
 @SessionScoped
@@ -31,6 +32,9 @@ public class EmpleadoDataManager extends BaseDataManager {
 	private EmpleadoListDTO empleadoBuscar;
 	private List<EmpleadoListDTO> empleadoList;
 	
+	private List<TipoDTO> tipoList;
+	private Integer tipoCode;
+	
 	@PostConstruct
 	public void inicializarObjetos () {
 		
@@ -40,6 +44,7 @@ public class EmpleadoDataManager extends BaseDataManager {
 		empleadoInsertar=new Empleado();
 		empleadoList=new ArrayList<EmpleadoListDTO>();
 		empleadoBuscar=new EmpleadoListDTO();
+		tipoList=new ArrayList<TipoDTO>();
 	}
 
 	public Persona getPersonaInsertar() {
@@ -80,6 +85,22 @@ public class EmpleadoDataManager extends BaseDataManager {
 
 	public void setEmpleadoBuscar(EmpleadoListDTO empleadoBuscar) {
 		this.empleadoBuscar = empleadoBuscar;
+	}
+
+	public List<TipoDTO> getTipoList() {
+		return tipoList;
+	}
+
+	public void setTipoList(List<TipoDTO> tipoList) {
+		this.tipoList = tipoList;
+	}
+
+	public Integer getTipoCode() {
+		return tipoCode;
+	}
+
+	public void setTipoCode(Integer tipoCode) {
+		this.tipoCode = tipoCode;
 	}
 
 	

@@ -117,9 +117,9 @@ public class DiaLaboralController extends BaseController{
 				eventModel.addEvent(new DefaultScheduleEvent(diaNo.getDnlObservacion(), desde,hasta));
 			}
 		} catch (SeguridadesException e) {
-			MensajesWebController.aniadirMensajeError(e.toString());
+			MensajesWebController.addErrorMessage(e.toString());
 		} catch (ParseException e) {
-			MensajesWebController.aniadirMensajeError(e.toString());
+			MensajesWebController.addErrorMessage(e.toString());
 		}
 	}
 	
@@ -129,12 +129,13 @@ public class DiaLaboralController extends BaseController{
 			diaLaboralDataManager.getDiaNoLaboral().setDnlAnio(CalendarUtil.getYear(new Timestamp(this.event.getStartDate().getTime())));
 			diaLaboralDataManager.getDiaNoLaboral().setDnlMes(CalendarUtil.getMonth(new Timestamp(this.event.getStartDate().getTime())));
 			diaLaboralDataManager.getDiaNoLaboral().setDnlDia(CalendarUtil.getDay(new Timestamp(this.event.getStartDate().getTime())));
+			diaLaboralDataManager.getDiaNoLaboral().setDnlEntidad(getEmpresaCode());
 			servicioAsistencia.createDiaNoLaboral(diaLaboralDataManager.getDiaNoLaboral());
 			diaLaboralDataManager.setDiaNoLaboral(new DiaNoLaboralDTO());
 			sabadoDomingoLoad();
-			MensajesWebController.aniadirMensajeError("Guardado Exitosamente");
+			MensajesWebController.addErrorMessage("Guardado Exitosamente");
 		} catch (SeguridadesException e) {
-			MensajesWebController.aniadirMensajeError(e.toString());
+			MensajesWebController.addErrorMessage(e.toString());
 		}
 	}
 	
@@ -143,7 +144,7 @@ public class DiaLaboralController extends BaseController{
             event = new DefaultScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
 			diaLaboralDataManager.setFecha(event.getStartDate());
 		} catch (Exception e) {
-			MensajesWebController.aniadirMensajeError(e.toString());
+			MensajesWebController.addErrorMessage(e.toString());
 		}
     }
 

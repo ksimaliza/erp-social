@@ -1,5 +1,6 @@
 package ec.edu.uce.erp.web.controladores;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,13 +68,14 @@ public class PermisoController extends BaseController{
 		slf4jLogger.info("registrarPermiso");
 		try {
 			PermisoVO permisoVO=new PermisoVO();
+			permisoDataManager.getPermiso().setPerFecha(new Timestamp(permisoDataManager.getFechaPermiso().getTime()));			
 			permisoVO.setPermiso(permisoDataManager.getPermiso());
 			permisoDataManager.getEmpleado().setAemCodigo(Integer.valueOf(permisoDataManager.getEmpleadoCodigo().toString()));
 			permisoVO.setEmpleado(permisoDataManager.getEmpleado());
 			PermisoDTO permiso= this.servicioAsistencia.createOrUpdatePermiso(permisoVO);
 			if (permiso != null) {
 				permisoVO=new PermisoVO();
-				MensajesWebController.aniadirMensajeInformacion("erp.matricula.permiso.registrar.exito");
+				MensajesWebController.addInfoMessage("Guardado Exitosamente");
 			}			
 		} catch (SeguridadesException e) {
 			slf4jLogger.info(e.toString());
