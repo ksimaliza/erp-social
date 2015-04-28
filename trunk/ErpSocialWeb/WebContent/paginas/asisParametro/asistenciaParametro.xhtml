@@ -20,42 +20,25 @@
 				<p:toolbarGroup align="left">
 					<p:commandButton id="btnRefrescar" value="Refrescar" icon="ui-icon-arrowrefresh-1-w" >
 					</p:commandButton>
-					<p:commandButton id="btnNuevoParametro" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevoParametro.show()">
-						</p:commandButton>
+<!-- 					<p:commandButton id="btnNuevoParametro" value="Insertar" icon="ui-icon-disk" oncomplete="dlgNuevoParametro.show()"> -->
+<!-- 						</p:commandButton> -->
 				</p:toolbarGroup>
 			
 				
 			</p:toolbar>
 			
-			<p:panel id="pnlBuscar" header="#{i18n['erp.asistencia.parametro.buscar']}">
-				<table class="formulario">
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="sumEmpleado" value="Empleado:" />
-						</td>
-						<td width="70%">
-							<p:selectOneMenu id="sumEmpleado" value="#{parametroAsistenciaDataManager.empleadoCodigoBuscar}" filter="true">
-								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-								<f:selectItems value="#{parametroAsistenciaController.parametroAsistenciaDataManager.empleadoList}" var="emp" itemLabel="#{emp.perApellidos} #{emp.perNombres}" itemValue="#{emp.aemCodigo}"/>
-							</p:selectOneMenu>
-						</td>
-					</tr>
-										
-				</table>
-			</p:panel>
-
 			<p:panel id="botonesBuscar">
 				<p:commandButton id="btnBuscar"
 					actionListener="#{parametroAsistenciaController.buscarParametros()}"
 					value="#{i18n['label.buscar']}" 
-					process="@this,pnlBuscar"
-					update=":formParametro:pnlMessages,tabla,pnlBuscar" />
+					process="@this"
+					update=":formParametro:pnlMessages,tabla" />
 			</p:panel>
 
 
 			<p:dataTable id="tabla"  rowIndexVar="rowIndex" paginator="true" rows="5" paginatorPosition="bottom"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.asistencia.parametro.lista']}" value="#{parametroAsistenciaDataManager.parametroCatalogoList}" var="par">
+				rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.asistencia.parametro.lista']}" value="#{parametroAsistenciaDataManager.parametroList}" var="par">
 				
 				<f:facet name="header">
 					#{i18n['erp.asistencia.parametro.lista']}
@@ -65,7 +48,7 @@
 				</p:column>
 
 				<p:column headerText="#{i18n['erp.asistencia.parametro.descripcion']}" width="70%">
-					<h:outputText value="#{par.catDescripcion}" />
+					<h:outputText value="#{par.pasDescripcion}" />
 				</p:column>								
 
 				<p:column headerText="#{i18n['erp.asistencia.parametro.valor']}" width="30%">

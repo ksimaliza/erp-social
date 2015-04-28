@@ -170,6 +170,18 @@
 							<h:selectBooleanCheckbox value="#{empleadoDataManager.empleadoDTOInsertar.aemEstado}" />
 						</td>
 					</tr>
+
+					<tr>
+						<td width="30%"><h:outputLabel value="Tipo Horario:" /></td>
+						<td><p:selectOneMenu value="#{empleadoDataManager.tipoCode}"
+								style="width:100px;">
+								<f:selectItem itemLabel="----" />
+								<f:selectItems
+									value="#{empleadoDataManager.tipoList}"
+									var="tip" itemLabel="#{tip.tipDescripcion}"
+									itemValue="#{tip.tipCodigo}" />
+							</p:selectOneMenu></td>
+					</tr>
 					
 								
 				</table>
