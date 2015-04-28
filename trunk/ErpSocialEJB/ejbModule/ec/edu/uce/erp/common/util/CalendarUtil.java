@@ -201,4 +201,15 @@ public class CalendarUtil {
 		return new Timestamp(cal.getTime().getTime());
 	}
 
+	public static Calendar getCalendar(int hour,int minute)
+	{
+		Calendar cal = Calendar.getInstance();       // get calendar instance
+		cal.set(Calendar.HOUR_OF_DAY, hour);            // set hour to midnight
+		cal.set(Calendar.MINUTE, minute);                 // set minute in hour
+		cal.set(Calendar.SECOND, 0);                 // set second in minute
+		cal.set(Calendar.MILLISECOND, 0); 
+		return cal;		
+	}
+
+	
 }

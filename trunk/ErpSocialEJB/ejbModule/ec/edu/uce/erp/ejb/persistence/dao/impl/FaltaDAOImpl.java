@@ -172,7 +172,7 @@ public class FaltaDAOImpl extends AbstractFacadeImpl<FaltaDTO> implements FaltaD
 					from.get("perApellidos"),
 					from.get("perNombres"),
 					from.get("perDireccion"),
-					from.get("perFechaNac")
+					from.get("falFecha")
 					).distinct(true);
 			
 			predicateList=new ArrayList<Predicate>();

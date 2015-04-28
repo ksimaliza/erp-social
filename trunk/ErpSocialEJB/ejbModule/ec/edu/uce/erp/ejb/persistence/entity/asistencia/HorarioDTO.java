@@ -24,6 +24,9 @@ public class HorarioDTO implements Serializable {
 	@Column(name="hor_hora_inicio")
 	private Timestamp horHoraInicio;
 
+	@Column(name="hor_empresa")
+	private Integer horEmpresa;
+	
 	@Column(name="hot_hora_fin")
 	private Timestamp hotHoraFin;
 
@@ -78,6 +81,14 @@ public class HorarioDTO implements Serializable {
 
 	public void setAsiTipo(TipoDTO asiTipo) {
 		this.asiTipo = asiTipo;
+	}
+
+	public Integer getHorEmpresa() {
+		return horEmpresa;
+	}
+
+	public void setHorEmpresa(Integer horEmpresa) {
+		this.horEmpresa = horEmpresa;
 	}
 
 }

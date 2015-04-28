@@ -147,5 +147,4 @@ public final class UtilAplication {
 		return flag;
 	}
 
-	
 }
