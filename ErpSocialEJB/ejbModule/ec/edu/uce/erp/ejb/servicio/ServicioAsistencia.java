@@ -74,9 +74,6 @@ public interface ServicioAsistencia{
 
 	TipoDTO obtenerTipoPorId(Integer id) throws SeguridadesException;
 
-	List<ParametroDTO> buscarParametro(ParametroDTO parametro)
-			throws SeguridadesException;
-
 	ParametroDTO actualizarParametroAsistencia(ParametroDTO parametro)
 			throws SeguridadesException;
 
@@ -156,6 +153,16 @@ public interface ServicioAsistencia{
 
 	List<DiaNoLaboralDTO> readDiaNoLaboral(int year, int entidad)
 			throws SeguridadesException;
+
+	List<HorarioDTO> readHorario(HorarioDTO horarioDTO)
+			throws SeguridadesException;
+
+	List<ParametroDTO> readParametro() throws SeguridadesException;
+
+	List<ParametroDTO> readParametro(ParametroDTO parametroDTO)
+			throws SeguridadesException;
+
+	ParametroDTO readParametroById(Object id) throws SeguridadesException;
 	
 
 }

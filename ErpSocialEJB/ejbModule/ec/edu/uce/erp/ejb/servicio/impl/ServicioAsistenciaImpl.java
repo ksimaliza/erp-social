@@ -125,7 +125,11 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 				empleadoVO.getEmpleado().setPerFk(personanueva.getPerPk());
 				empleadonuevo=factoryDAO.getEmpleadoeDAOImpl().update(empleadoVO.getEmpleado());
 				empleadoVO.getEmpleadoDTO().setAemEmpleado(empleadonuevo.getEmpPk());
-				return asistenciaFactoryDAO.getEmpleadoDAOImpl().update(empleadoVO.getEmpleadoDTO());
+				
+				empleadoDTO= asistenciaFactoryDAO.getEmpleadoDAOImpl().update(empleadoVO.getEmpleadoDTO());
+				empleadoVO.getHorarioEmpleadoDTO().setAsiEmpleado(empleadoDTO);
+				asistenciaFactoryDAO.getHorarioEmpleadoDAOImpl().update(empleadoVO.getHorarioEmpleadoDTO());
+				return empleadoDTO;
 			}
 			else
 			{
@@ -144,7 +148,10 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 					empleadoVO.getEmpleado().setPerFk(personanueva.getPerPk());
 					empleadonuevo=factoryDAO.getEmpleadoeDAOImpl().create(empleadoVO.getEmpleado());
 					empleadoVO.getEmpleadoDTO().setAemEmpleado(empleadonuevo.getEmpPk());
-					return asistenciaFactoryDAO.getEmpleadoDAOImpl().create(empleadoVO.getEmpleadoDTO());
+					empleadoDTO= asistenciaFactoryDAO.getEmpleadoDAOImpl().create(empleadoVO.getEmpleadoDTO());
+					empleadoVO.getHorarioEmpleadoDTO().setAsiEmpleado(empleadoDTO);
+					asistenciaFactoryDAO.getHorarioEmpleadoDAOImpl().create(empleadoVO.getHorarioEmpleadoDTO());
+					return empleadoDTO;
 				}
 			}
 			
@@ -200,10 +207,15 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 	@Override
 	public EmpleadoVO obtenerEmpleadoPorId(EmpleadoListDTO empleadoListDTO) throws SeguridadesException {
 		slf4jLogger.info("obtenerEmpleadoPorId");
+		HorarioEmpleadoDTO horarioEmpleadoDTO;
+		
 		EmpleadoVO empleado=new EmpleadoVO();
 		empleado.setPersona(factoryDAO.getPersonaDAOImpl().find(empleadoListDTO.getPerPk()));
 		empleado.setEmpleado(factoryDAO.getEmpleadoeDAOImpl().find(empleadoListDTO.getAemEmpleado()));
 		empleado.setEmpleadoDTO(asistenciaFactoryDAO.getEmpleadoDAOImpl().find(empleadoListDTO.getAemCodigo()));
+		horarioEmpleadoDTO=new HorarioEmpleadoDTO();
+		horarioEmpleadoDTO.setAsiEmpleado(empleado.getEmpleadoDTO());
+		empleado.setHorarioEmpleadoDTO(asistenciaFactoryDAO.getHorarioEmpleadoDAOImpl().getByAnd(horarioEmpleadoDTO).get(0));
 		
 		return empleado;
 	}
@@ -452,7 +464,6 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 			parametro=new ParametroDTO();
 			
 			parametro.setPasEntidad(empleado.getAemEmpresa());
-			parametro.setPasEmpleado(empleado.getAemEmpleado());
 			parametroList= asistenciaFactoryDAO.getParametroDAOImpl().getByAnd(parametro);
 			
 			verificarFaltas(registroAsistencia);
@@ -461,12 +472,12 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 			//A tiempo
 			valor=parametroList.get(0).getPasValor();
 			hora=UtilAplication.fechaActualConFormato("yyyy-MM-dd")+" "+valor;
-			if(actual.getTime()<Timestamp.valueOf(hora).getTime())
+			if(actual.getTime()<=Timestamp.valueOf(hora).getTime())
 				registroAsistencia.getRegistroDTO().setRasTipoEntrada("A tiempo");
-			else if(actual.getTime()>Timestamp.valueOf(hora).getTime()&& actual.getTime()< Timestamp.valueOf(CalendarUtil.addMinute(hora, "yyyy-MM-dd hh:mm:ss", Integer.valueOf(parametroList.get(3).getPasValor()))).getTime()){
+			else if(actual.getTime()>Timestamp.valueOf(hora).getTime()&& actual.getTime()< Timestamp.valueOf(CalendarUtil.addMinute(hora, "yyyy-MM-dd hh:mm:ss", Integer.valueOf(parametroList.get(1).getPasValor()))).getTime()){
 				registroAsistencia.getRegistroDTO().setRasTipoEntrada("Atraso");
 			}
-			else if(actual.getTime()>=Timestamp.valueOf(CalendarUtil.addMinute(hora, "yyyy-MM-dd hh:mm:ss", Integer.valueOf(parametroList.get(3).getPasValor()))).getTime()){
+			else if(actual.getTime()>Timestamp.valueOf(CalendarUtil.addMinute(hora, "yyyy-MM-dd hh:mm:ss", Integer.valueOf(parametroList.get(1).getPasValor()))).getTime()){
 				registroAsistencia.getRegistroDTO().setRasTipoEntrada("Falta");
 				FaltaDTO falta=new FaltaDTO();
 				falta.setAsiEmpleado(empleado);
@@ -538,6 +549,20 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		}
 		
 	}
+
+	@Override
+	public List<HorarioDTO> readHorario(HorarioDTO horarioDTO) throws SeguridadesException
+	{
+		slf4jLogger.info("createOrUpdateFalta");
+		try {
+			return asistenciaFactoryDAO.getHorarioDAOImpl().getByAnd(horarioDTO);
+		} catch (Exception e) {
+			slf4jLogger.info("error al createOrUpdateFalta {}", e.toString());
+			throw new SeguridadesException(e);
+		}
+		
+	}
+
 	
 	
 	@Override
@@ -718,10 +743,10 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 
 	
 	@Override
-	public List<ParametroDTO> buscarParametro(ParametroDTO parametro) throws SeguridadesException {
+	public List<ParametroDTO> readParametro(ParametroDTO parametroDTO) throws SeguridadesException {
 		List<ParametroDTO> listParametro = null;
 		try {
-			listParametro = asistenciaFactoryDAO.getParametroDAOImpl().buscarTodos();
+			listParametro = asistenciaFactoryDAO.getParametroDAOImpl().getByAnd(parametroDTO);
 		} catch (Exception e) {
 			slf4jLogger.info("Error al buscarParametrosCriterios {}" , e.getMessage());
 			throw new SeguridadesException(e);
@@ -729,6 +754,30 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		return listParametro;
 	}
 
+	@Override
+	public List<ParametroDTO> readParametro() throws SeguridadesException {
+		List<ParametroDTO> listParametro = null;
+		try {
+			listParametro = asistenciaFactoryDAO.getParametroDAOImpl().getByAnd(new ParametroDTO());
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarParametrosCriterios {}" , e.getMessage());
+			throw new SeguridadesException(e);
+		}
+		return listParametro;
+	}
+
+	@Override
+	public ParametroDTO readParametroById(Object id) throws SeguridadesException {
+		try {
+			return asistenciaFactoryDAO.getParametroDAOImpl().find(id);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarParametrosCriterios {}" , e.getMessage());
+			throw new SeguridadesException(e);
+		}
+	}
+
+	
+	
 	@Override
 	@TransactionAttribute (TransactionAttributeType.REQUIRED)
 	public ParametroDTO actualizarParametroAsistencia(ParametroDTO parametro) throws SeguridadesException {

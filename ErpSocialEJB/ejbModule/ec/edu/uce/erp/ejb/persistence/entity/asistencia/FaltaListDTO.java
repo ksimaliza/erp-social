@@ -47,8 +47,9 @@ public class FaltaListDTO implements Serializable {
 	@Column(name="fal_descripcion")
 	private String falDescripcion;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name="fal_fecha")
-	private Timestamp falFecha;
+	private Date falFecha;
 
 	@Column(name="per_apellidos")
 	private String perApellidos;
@@ -89,7 +90,7 @@ public class FaltaListDTO implements Serializable {
 			String perApellidos,
 			String perNombres,
 			String perDireccion,
-			Date perFechaNac){
+			Date falFecha){
 		
 		super();
 		this.aemEmpleado=aemEmpleado;
@@ -97,7 +98,7 @@ public class FaltaListDTO implements Serializable {
 		this.perApellidos=perApellidos;
 		this.perNombres=perNombres;
 		this.perDireccion=perDireccion;
-		this.perFechaNac=perFechaNac;
+		this.falFecha=falFecha;
 	}
 	
 	public String getAemClave() {
@@ -180,14 +181,6 @@ public class FaltaListDTO implements Serializable {
 		this.falDescripcion = falDescripcion;
 	}
 
-	public Timestamp getFalFecha() {
-		return this.falFecha;
-	}
-
-	public void setFalFecha(Timestamp falFecha) {
-		this.falFecha = falFecha;
-	}
-
 	public String getPerApellidos() {
 		return this.perApellidos;
 	}
@@ -266,6 +259,14 @@ public class FaltaListDTO implements Serializable {
 
 	public void setPerTelefono(String perTelefono) {
 		this.perTelefono = perTelefono;
+	}
+
+	public Date getFalFecha() {
+		return falFecha;
+	}
+
+	public void setFalFecha(Date falFecha) {
+		this.falFecha = falFecha;
 	}
 
 }

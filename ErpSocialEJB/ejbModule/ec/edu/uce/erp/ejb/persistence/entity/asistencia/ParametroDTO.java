@@ -25,12 +25,6 @@ public class ParametroDTO implements Serializable {
 
 	@Column(name="pas_entidad")
 	private Integer pasEntidad;
-
-	@Column(name="pas_empleado")
-	private Integer pasEmpleado;
-
-	@Column(name="pas_catalogo")
-	private Integer pasCatalogo;
 	
 	@Column(name="pas_valor")
 	private String pasValor;
@@ -68,22 +62,6 @@ public class ParametroDTO implements Serializable {
 
 	public void setPasValor(String pasValor) {
 		this.pasValor = pasValor;
-	}
-
-	public Integer getPasEmpleado() {
-		return pasEmpleado;
-	}
-
-	public void setPasEmpleado(Integer pasEmpleado) {
-		this.pasEmpleado = pasEmpleado;
-	}
-
-	public Integer getPasCatalogo() {
-		return pasCatalogo;
-	}
-
-	public void setPasCatalogo(Integer pasCatalogo) {
-		this.pasCatalogo = pasCatalogo;
 	}
 
 }
