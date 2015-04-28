@@ -4,6 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/WEB-INF/templates/template.xhtml">
 	
 <ui:define name="title">
@@ -74,21 +75,26 @@
 				<f:facet name="header">
 					#{i18n['erp.asistencia.permiso.lista']}
 				</f:facet>
-				<p:column headerText="#" styleClass="centered" width="5%">
+				<p:column headerText="#" styleClass="centered" width="5">
 					#{rowIndex+1}
 				</p:column>
 
-				<p:column headerText="#{i18n['erp.asistencia.empleado.cedula']}" width="40%">
+				<p:column headerText="#{i18n['erp.asistencia.empleado.cedula']}" width="40">
 					<h:outputText value="#{per.perCi}" />
 				</p:column>								
 
-				<p:column headerText="#{i18n['erp.asistencia.empleado.nombres']}" width="35%">
+				<p:column headerText="#{i18n['erp.asistencia.empleado.nombres']}" width="30">
 						<h:outputText value="#{per.perNombres}" />
 				</p:column>
 				
-				<p:column headerText="#{i18n['erp.asistencia.empleado.apellidos']}" width="40%">
+				<p:column headerText="#{i18n['erp.asistencia.empleado.apellidos']}" width="20">
 					<h:outputText value="#{per.perApellidos}" />
 				</p:column>				
+
+				<p:column headerText="Fecha" width="10">
+					<h:outputText value="#{fn:substring(per.perFecha,0,10)}" />
+				</p:column>				
+
 
 			</p:dataTable>			
 	

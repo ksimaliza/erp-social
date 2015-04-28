@@ -4,6 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/WEB-INF/templates/template.xhtml">
 	
 	<ui:define name="title">
@@ -98,21 +99,21 @@
 			<h:outputText value="#{emp.perDireccion}" />
 		</p:column>
 		
-		<p:column headerText="#{i18n['erp.asistencia.empleado.fechanac']}" width="40%">
-			<h:outputText value="#{emp.perFechaNac}" />
+		<p:column headerText="Fecha" width="40%">
+			<h:outputText value="#{fn:substring(emp.falFecha,0,10)}" />
 		</p:column>	
 	
-		<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%">
-			<h:panelGroup>
-				<p:commandLink styleClass="no-decor"
-					title="#{i18n['label.editar']}"
-					oncomplete="dlgFaltas.show()"
-					actionListener="#{reporteFaltaController.faltas(emp)}"
-					process="@this" update=":formdialogFaltas:tablaFalta2">
-					<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['erp.asistencia.falta.lista']}"/>
-				</p:commandLink>
-			</h:panelGroup>
-		</p:column> 
+<!-- 		<p:column headerText="#{i18n['label.opciones']}" styleClass="centered" width="10%"> -->
+<!-- 			<h:panelGroup> -->
+<!-- 				<p:commandLink styleClass="no-decor" -->
+<!-- 					title="#{i18n['label.editar']}" -->
+<!-- 					oncomplete="dlgFaltas.show()" -->
+<!-- 					actionListener="#{reporteFaltaController.faltas(emp)}" -->
+<!-- 					process="@this" update=":formdialogFaltas:tablaFalta2"> -->
+<!-- 					<h:graphicImage value="/resources/img/edit.png" alt="#{i18n['erp.asistencia.falta.lista']}"/> -->
+<!-- 				</p:commandLink> -->
+<!-- 			</h:panelGroup> -->
+<!-- 		</p:column>  -->
 	
 	</p:dataTable>			
 	

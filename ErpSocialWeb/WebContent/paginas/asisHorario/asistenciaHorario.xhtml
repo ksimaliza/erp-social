@@ -4,6 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
+ 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	template="/WEB-INF/templates/template.xhtml">
 	
 	<ui:define name="title">
@@ -23,6 +24,54 @@
 						</p:commandButton>
 					</p:toolbarGroup>
 			</p:toolbar>
+
+			<p:panel id="pnlBuscar" header="#{i18n['erp.asistencia.empleado.buscar']}">
+				<table class="formulario">
+
+					<tr>
+						<td><h:outputText value="Tipo: " /></td>
+						<td><p:selectOneMenu value="#{horarioDataManager.tipoCodeBuscar}"
+								style="width:100px;">
+								<f:selectItem itemLabel="----" />
+								<f:selectItems
+									value="#{horarioController.horarioDataManager.tipoList}"
+									var="tip" itemLabel="#{tip.tipDescripcion}"
+									itemValue="#{tip.tipCodigo}" />
+							</p:selectOneMenu></td>
+					</tr>
+				</table>
+			</p:panel>
+
+			<p:panel id="botonesBuscar">
+				<p:commandButton id="btnBuscar"
+					actionListener="#{horarioController.buscar}"
+					value="#{i18n['label.buscar']}" 
+					process="@this,pnlBuscar"
+					update="tabla,pnlBuscar" />
+			</p:panel>
+
+			<p:dataTable id="tabla" value="#{horarioDataManager.horarioList}" var="hor">
+			
+				<f:facet name="header">
+					#{i18n['erp.asistencia.falta.lista']}
+				</f:facet>
+				<p:column headerText="#" styleClass="centered" width="5%">
+					#{rowIndex+1}
+				</p:column>
+
+				<p:column headerText="Dia" width="20%">
+					<h:outputText value="#{hor.asiDia.diaDescripcion}" />
+				</p:column>								
+
+				<p:column headerText="Hora Inicio" width="20%">
+					<h:outputText value="#{fn:substring(hor.horHoraInicio,10,16)}" />
+				</p:column>								
+
+				<p:column headerText="Hora Fin" width="20%">
+					<h:outputText value="#{fn:substring(hor.hotHoraFin,10,16)}" />
+				</p:column>
+			
+			</p:dataTable>			
 
 		</h:form>
 		

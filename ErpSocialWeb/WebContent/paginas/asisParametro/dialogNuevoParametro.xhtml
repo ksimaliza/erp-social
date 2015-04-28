@@ -10,30 +10,6 @@
 		<h:form id="formNuevoParametro" styleClass="formulario">
 			<p:panel id="pnlNuevoParametro">
 				<table class="formulario">
-
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="sumEmpleado" value="#{i18n['erp.asistencia.falta.empleado']}" />
-						</td>
-						<td>
-							<p:selectOneMenu id="sumEmpleado" value="#{parametroAsistenciaDataManager.empleadoCodigo}" filter="true" required="true">
-								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-								<f:selectItems value="#{parametroAsistenciaDataManager.empleadoList}" var="emp" itemLabel="#{emp.perApellidos} #{emp.perNombres}" itemValue="#{emp.aemCodigo}"/>
-							</p:selectOneMenu>
-						</td>
-					</tr>
-
-					<tr>
-						<td width="30%">
-							<h:outputLabel for="sumCatalogo" value="Tipo" />
-						</td>
-						<td>
-							<p:selectOneMenu id="sumCatalogo" value="#{parametroAsistenciaDataManager.catalogoCodigo}" filter="true" required="true">
-								<f:selectItem itemLabel="#{i18n['label.seleccione']}"/>
-								<f:selectItems value="#{parametroAsistenciaDataManager.catalogoList}" var="cat" itemLabel="#{cat.catDescripcion}" itemValue="#{cat.catCodigo}"/>
-							</p:selectOneMenu>
-						</td>
-					</tr>
 										
 					<tr>
 						<td width="30%">

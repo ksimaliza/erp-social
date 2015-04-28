@@ -7,7 +7,7 @@
 	
 	<p:dialog id="popUpEditarEmpleado" header="#{i18n['erp.asistencia.empleado.registrar']}" resizable="false" draggable="false"
 		widgetVar="dlgEditarEmpleado" modal="true" width="500" minWidth="500" appendTo="@(body)" height="500">
-		<p:scrollPanel>
+		<p:scrollPanel mode="native" style="height:500px">
 		<h:form id="formEditarEmpleado" styleClass="formulario">
 		
 			<p:panel id="pnlEditarEmpleado">
@@ -166,7 +166,17 @@
 							<h:selectBooleanCheckbox value="#{empleadoDataManager.empleadoDTOInsertar.aemEstado}" />
 						</td>
 					</tr>
-					
+					<tr>
+						<td width="30%"><h:outputLabel value="Tipo Horario:" /></td>
+						<td><p:selectOneMenu value="#{empleadoDataManager.tipoCode}"
+								style="width:100px;">
+								<f:selectItem itemLabel="----" />
+								<f:selectItems
+									value="#{empleadoDataManager.tipoList}"
+									var="tip" itemLabel="#{tip.tipDescripcion}"
+									itemValue="#{tip.tipCodigo}" />
+							</p:selectOneMenu></td>
+					</tr>					
 								
 				</table>
 			</p:panel>
