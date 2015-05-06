@@ -131,6 +131,7 @@ public class AsinacionDAOImpl extends AbstractFacadeImpl<AsinacionDTO> implement
 		return query.getResultList();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<AsinacionDTO> asignacionesPorPeriodoNivelParalelo(Integer codPeriodo, Integer codNivel, Integer codParelelo) {
 
 		Query query;

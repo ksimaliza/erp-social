@@ -56,6 +56,16 @@ public class CalendarUtil {
 		 return newTime;
 	}
 	
+	
+	public static Date addMinute(Timestamp time,int minuto)
+	{
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(time);
+        cal.add(Calendar.MINUTE, minuto);
+        return cal.getTime();
+	}
+	
+	
 	public static String addMinute(String time,String format,int minuto)
 	{
 		String newTime = null;
@@ -146,6 +156,13 @@ public class CalendarUtil {
 		return day;
 	}
 
+	public static Integer getDayOfWeek(Timestamp da) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(da);
+		Integer day = cal.get(Calendar.DAY_OF_WEEK);
+		return day;
+	}
+	
 	public static int getMonth() {
 		Calendar cal = Calendar.getInstance();
 		int month = cal.get(Calendar.MONTH);

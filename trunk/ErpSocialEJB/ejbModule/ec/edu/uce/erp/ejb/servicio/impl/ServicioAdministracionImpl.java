@@ -26,6 +26,7 @@ import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
 import ec.edu.uce.erp.ejb.persistence.entity.Empresa;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
+import ec.edu.uce.erp.ejb.persistence.entity.asistencia.ParametroDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.matriculacion.ProfesorDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.security.Menu;
 import ec.edu.uce.erp.ejb.persistence.entity.security.MenuUsuario;
@@ -38,6 +39,7 @@ import ec.edu.uce.erp.ejb.persistence.view.VistaHistoricoTransaccion;
 import ec.edu.uce.erp.ejb.persistence.view.VistaModuloMenu;
 import ec.edu.uce.erp.ejb.persistence.view.VistaUsuario;
 import ec.edu.uce.erp.ejb.servicio.ServicioAdministracion;
+import ec.edu.uce.erp.ejb.servicio.ServicioAsistencia;
 
 /**
  * @author
@@ -50,7 +52,10 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 	
 	@EJB 
 	private FactoryDAO factoryDAO;
-	
+
+	@EJB 
+	private ServicioAsistencia servicioAsistencia;
+
 	/*
 	 * Metodos para administracion de empresas
 	 */
@@ -61,7 +66,7 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 		slf4jLogger.info("registrarEmpresa");
 		
 		Empresa empresaNueva = null;
-		
+		ParametroDTO parametroDTO;
 		try {
 			
 			if (empresaRepetida(empresa)) {
@@ -73,6 +78,19 @@ public class ServicioAdministracionImpl implements ServicioAdministracion {
 			}
 			
 			empresaNueva = factoryDAO.getEmpresaDAOImpl().create(empresa);
+			
+			parametroDTO=new ParametroDTO();
+			parametroDTO.setPasDescripcion("Minutos a Tiempo");
+			parametroDTO.setPasValor("5");
+			parametroDTO.setPasEntidad(empresaNueva.getEmrPk());
+			servicioAsistencia.createParametroAsistencia(parametroDTO);
+			
+			parametroDTO=new ParametroDTO();
+			parametroDTO.setPasDescripcion("Minutos Atraso");
+			parametroDTO.setPasValor("40");
+			parametroDTO.setPasEntidad(empresaNueva.getEmrPk());
+			servicioAsistencia.createParametroAsistencia(parametroDTO);
+			
 			
 			factoryDAO.getHistoricoTransaccioneDAOImpl()
 					.registrarHistoricoTransaccion(new AuditoriaDTO(empresa.getUsuarioRegistro()
