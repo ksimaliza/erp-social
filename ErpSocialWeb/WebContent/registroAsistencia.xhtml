@@ -18,49 +18,61 @@
 
 <body>
 
-	<f:view transient="true">
+<!-- 	<f:view transient="true"> -->
 
 		<h:form id="formAsistencia">
+			
 			<div class="center">
 				<p:growl id="pnlMessagesG" />
 			</div>
+			
+			<div align="center">
+			
 			<p:panel id="pnlDatos">
-				<table class="center" width="98%">
+				<table class="center" width="1000px;">
+				
 					<tr>
-						<td width="100%" colspan="2"><p:messages id="messages"
+						<td colspan="3"><p:graphicImage url="resources/img/controlAsistencia.jpg" width="98%"/></td>					
+					</tr>
+				
+					<tr>
+						<td width="98%" colspan="3"><p:messages id="messages"
 								autoUpdate="true" closable="true" /></td>
 					</tr>
 
 					<tr>
-						<td width="20%"><h:outputLabel for="txtUsuario"
+						<td><h:outputLabel for="txtUsuario"
 								value="#{i18n['erp.asistencia.empleado.usuario']}" /></td>
-						<td width="70%"><p:inputText id="txtUsuario"
-								style="width: 100%"
+						<td><p:inputText id="txtUsuario"
+								style="width: 300px;"
 								value="#{registroAsistenciaDataManager.empleado.aemUsuario}"
 								required="true" /></td>
+						<td rowspan="3">		
+						 	<p:clock pattern="dd-MM-yyyy HH:mm:ss " mode="server" />
+						</td>								
 					</tr>
 
 					<tr>
-						<td width="20%"><h:outputLabel for="txtClave"
+						<td><h:outputLabel for="txtClave"
 								value="#{i18n['erp.asistencia.empleado.clave']}" /></td>
-						<td width="70%"><p:inputText id="txtClave"
-								style="width: 100%"
+						<td><p:inputText id="txtClave"
+								style="width: 300px;"
 								value="#{registroAsistenciaDataManager.empleado.aemClave}"
 								required="true" /></td>
 					</tr>
 
 					<tr>
-						<td width="20%"><h:outputLabel for="txtCodigo"
+						<td><h:outputLabel for="txtCodigo"
 								value="#{i18n['erp.asistencia.empleado.codigo.asistencia']}" />
 						</td>
-						<td width="70%"><p:inputText id="txtCodigo"
-								style="width: 100%"
+						<td><p:inputText id="txtCodigo"
+								style="width: 300px;"
 								value="#{registroAsistenciaDataManager.empleado.aemCodigoRegistro}"
 								required="true" /></td>
 					</tr>
 					
 					<tr>
-						<td colspan="2">
+						<td colspan="3">
 							<table>
 								<tr>
 									<td>
@@ -75,17 +87,13 @@
 											disabled="#{registroAsistenciaDataManager.desactivarImprimir}"
 											actionListener="#{registroAsistenciaController.imprimir}" />
 									</td>
-									<td>		
-									 	<p:clock
-											pattern="dd-MM-yyyy HH:mm:ss " mode="server" />
-									</td>
 								
-									<td>		
-										<h:outputText value="Foto: " />
-									</td>
-									<td>	
-			       						<p:selectBooleanCheckbox value="#{registroAsistenciaDataManager.tomarFoto}" />	
-									</td>
+<!-- 									<td>		 -->
+<!-- 										<h:outputText value="Foto: " /> -->
+<!-- 									</td> -->
+<!-- 									<td>	 -->
+<!-- 			       						<p:selectBooleanCheckbox value="#{registroAsistenciaDataManager.tomarFoto}" />	 -->
+<!-- 									</td> -->
 								</tr>
 							</table>
 						</td>		
@@ -93,20 +101,21 @@
 
 				</table>
 
-				<table>
-					<tr>
-						<td><p:photoCam widgetVar="pc"
-								listener="#{photoCamView.oncapture}" update="photo" /></td>
-						<td><p:graphicImage id="photo"
-								name="demo/images/photocam/#{photoCamView.filename}.png" /></td>
-					</tr>
-				</table>
+<!-- 				<table> -->
+<!-- 					<tr> -->
+<!-- 						<td><p:photoCam widgetVar="pc" -->
+<!-- 								listener="#{photoCamView.oncapture}" update="photo" /></td> -->
+<!-- 						<td><p:graphicImage id="photo" -->
+<!-- 								name="demo/images/photocam/#{photoCamView.filename}.png" /></td> -->
+<!-- 					</tr> -->
+<!-- 				</table> -->
 
 			</p:panel>
+			</div>
 
 		</h:form>
 
-	</f:view>
+<!-- 	</f:view> -->
 </body>
 
 </html>
