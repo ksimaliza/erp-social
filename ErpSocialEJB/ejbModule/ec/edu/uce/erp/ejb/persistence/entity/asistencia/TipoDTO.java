@@ -24,6 +24,9 @@ public class TipoDTO implements Serializable {
 	@Column(name="tip_descripcion")
 	private String tipDescripcion;
 
+	@Column(name="tip_empresa")
+	private Integer tipEmpresa;
+	
 	//bi-directional many-to-one association to HorarioEmpleadoDTO
 	@OneToMany(mappedBy="asiTipo")
 	private List<HorarioEmpleadoDTO> asiHorarioEmpleados;
@@ -53,6 +56,14 @@ public class TipoDTO implements Serializable {
 
 	public List<HorarioEmpleadoDTO> getAsiHorarioEmpleados() {
 		return this.asiHorarioEmpleados;
+	}
+
+	public Integer getTipEmpresa() {
+		return tipEmpresa;
+	}
+
+	public void setTipEmpresa(Integer tipEmpresa) {
+		this.tipEmpresa = tipEmpresa;
 	}
 
 	public void setAsiHorarioEmpleados(List<HorarioEmpleadoDTO> asiHorarioEmpleados) {

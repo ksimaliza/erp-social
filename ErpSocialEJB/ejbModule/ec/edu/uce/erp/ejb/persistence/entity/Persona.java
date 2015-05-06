@@ -86,6 +86,7 @@ public class Persona implements Serializable {
 	
 	@Column(name="per_numero_vivienda")
 	private String perNumeroVivienda;
+	
 	@Column(name="per_lugar_ocupa")
 	private String perLugarOcupa;
 	

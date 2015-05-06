@@ -1,6 +1,7 @@
 package ec.edu.uce.erp.ejb.servicio.impl;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -390,7 +391,6 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 			slf4jLogger.info("error al deletePermiso {}", e.toString());
 			throw new SeguridadesException(e);
 		}
-		
 	}
 			
 	
@@ -460,6 +460,8 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		ParametroDTO parametro;
 		String hora,valor;
 		List<ParametroDTO> parametroList;
+		HorarioDTO horarioDTO;
+		DiaDTO diaDTO;
 		try{
 			parametro=new ParametroDTO();
 			
@@ -471,7 +473,16 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 			
 			//A tiempo
 			valor=parametroList.get(0).getPasValor();
-			hora=UtilAplication.fechaActualConFormato("yyyy-MM-dd")+" "+valor;
+			
+			//Buscar horario
+			horarioDTO=new HorarioDTO();
+			horarioDTO.setHorEmpresa(empleado.getAemEmpresa());
+			diaDTO=new DiaDTO();
+			
+			diaDTO.setDiaCodigo(CalendarUtil.getDayOfWeek(actual));
+			horarioDTO.setAsiDia(diaDTO);
+			
+			hora=UtilAplication.fechaActualConFormato("yyyy-MM-dd")+" "+new SimpleDateFormat("HH:mm:ss").format(CalendarUtil.addMinute(readHorario(horarioDTO).get(0).getHorHoraInicio(), Integer.valueOf(valor)));;
 			if(actual.getTime()<=Timestamp.valueOf(hora).getTime())
 				registroAsistencia.getRegistroDTO().setRasTipoEntrada("A tiempo");
 			else if(actual.getTime()>Timestamp.valueOf(hora).getTime()&& actual.getTime()< Timestamp.valueOf(CalendarUtil.addMinute(hora, "yyyy-MM-dd hh:mm:ss", Integer.valueOf(parametroList.get(1).getPasValor()))).getTime()){
@@ -647,6 +658,20 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 	}
 
 	@Override
+	public List<TipoDTO> readTipo(TipoDTO tipo) throws SeguridadesException {
+		slf4jLogger.info("buscarTipo");
+		List<TipoDTO> listTipo = null;
+		try {
+			listTipo = asistenciaFactoryDAO.getTipoDAOImpl().getByAnd(tipo);
+		} catch (Exception e) {
+			slf4jLogger.info("Error al buscarTipo {}" , e.getMessage());
+			throw new SeguridadesException(e);
+		}
+		return listTipo;
+	}
+
+	
+	@Override
 	public List<TipoDTO> readAllTipo() throws SeguridadesException {
 		slf4jLogger.info("buscarTipo");
 		List<TipoDTO> listTipo = null;
@@ -792,6 +817,18 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		}
 		
 		return parametroUpdate;
+	}
+	
+	@Override
+	@TransactionAttribute (TransactionAttributeType.REQUIRED)
+	public ParametroDTO createParametroAsistencia(ParametroDTO parametro) throws SeguridadesException {
+		try {
+			return asistenciaFactoryDAO.getParametroDAOImpl().update(parametro);
+			
+		} catch (Exception e) {
+			slf4jLogger.info("Error al actualizarParametro {}" , e.getMessage());
+			throw new SeguridadesException(e);
+		}
 	}
 	
 	@Override

@@ -163,6 +163,11 @@ public interface ServicioAsistencia{
 			throws SeguridadesException;
 
 	ParametroDTO readParametroById(Object id) throws SeguridadesException;
+
+	ParametroDTO createParametroAsistencia(ParametroDTO parametro)
+			throws SeguridadesException;
+
+	List<TipoDTO> readTipo(TipoDTO tipo) throws SeguridadesException;
 	
 
 }

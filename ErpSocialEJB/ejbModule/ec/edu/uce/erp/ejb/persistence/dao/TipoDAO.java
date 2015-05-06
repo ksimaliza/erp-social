@@ -9,4 +9,6 @@ public interface TipoDAO extends  AbstractFacade<TipoDTO> {
 
 	List<TipoDTO> obtenerTipo(TipoDTO tipo) throws SeguridadesException;
 
+	List<TipoDTO> getByAnd(TipoDTO objetoDTO) throws SecurityException;
+
 }
