@@ -150,11 +150,17 @@ public class EmpleadoController extends BaseController{
 
 	private void readTipo()
 	{
+		TipoDTO tipoDTO;
 		try {
-			empleadoDataManager.setTipoList(servicioAsistencia.readAllTipo());
+			tipoDTO=new TipoDTO();
+			tipoDTO.setTipEmpresa(getEmpresaCode());
+			empleadoDataManager.setTipoList(servicioAsistencia.readTipo(tipoDTO));
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("buscarPersonaEmpleado {}", e.getMessage());
 			MensajesWebController.aniadirMensajeError(e.toString());
+		}
+		finally{
+			tipoDTO=null;
 		}
 	}
 

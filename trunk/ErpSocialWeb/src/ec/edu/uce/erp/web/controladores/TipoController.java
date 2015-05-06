@@ -1,13 +1,10 @@
 package ec.edu.uce.erp.web.controladores;
 
-import java.util.List;
-
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.primefaces.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,12 +22,9 @@ import ec.edu.uce.erp.web.datamanager.TipoDataManager;
 
 public class TipoController extends BaseController {
 	
-/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-private static final Logger slf4jLogger = LoggerFactory.getLogger(TipoController.class);
+	private static final Logger slf4jLogger = LoggerFactory.getLogger(TipoController.class);
 	
 	@EJB
 	private ServicioAsistencia servicioAsistencia;
@@ -39,80 +33,67 @@ private static final Logger slf4jLogger = LoggerFactory.getLogger(TipoController
 	private TipoDataManager tipoDataManager;
 
 	
-		public void setTipoDataManager(TipoDataManager tipoDataManager) {
+	public void setTipoDataManager(TipoDataManager tipoDataManager) {
 		this.tipoDataManager = tipoDataManager;
 	}
 		
-		public TipoController() {
-			
-		}
+	public TipoController() {
+		
+	}
 		
 		
-		/*
-		 * Medodos
-		 */
+	public void registrarTipo () {
 		
-		public void registrarTipo () {
-			
-			slf4jLogger.info("registrarTipo");
-			try {
-				TipoDTO tipoNuevo = this.servicioAsistencia.createOrUpdateTipo(this.tipoDataManager.getTipoInsertar());
-				if (tipoNuevo != null) {
-					tipoDataManager.setTipoInsertar(new TipoDTO());
-					MensajesWebController.aniadirMensajeInformacion("erp.asistencia.tipo.registrar.exito");
-				}
-				
-			} catch (SeguridadesException e) {
-				slf4jLogger.info(e.toString());
-				MensajesWebController.aniadirMensajeError(e.getMessage());
+		slf4jLogger.info("registrarTipo");
+		try {
+			this.tipoDataManager.getTipoInsertar().setTipEmpresa(getEmpresaCode());
+			TipoDTO tipoNuevo = this.servicioAsistencia.createOrUpdateTipo(this.tipoDataManager.getTipoInsertar());
+			if (tipoNuevo != null) {
+				tipoDataManager.setTipoInsertar(new TipoDTO());
+				MensajesWebController.aniadirMensajeInformacion("erp.asistencia.tipo.registrar.exito");
 			}
 			
+		} catch (SeguridadesException e) {
+			slf4jLogger.info(e.toString());
+			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
 		
-		public void buscarTipo () {
-			slf4jLogger.info("buscarTipo");
-			
-			List<TipoDTO> listaTipo=null;
-			
-			try {
-								
-				listaTipo = this.servicioAsistencia.buscarTipo(tipoDataManager.gettipoBuscar());
-				
-				if (CollectionUtils.isEmpty(listaTipo) && listaTipo.size()==0) {
-					MensajesWebController.aniadirMensajeAdvertencia("erp.mensaje.busqueda.vacia");
-				} else {
-					this.tipoDataManager.setListTipo(listaTipo);
-				}
-				
-			} catch (SeguridadesException e) {
-				slf4jLogger.info("Error al buscarTipo {} ", e);
-				MensajesWebController.aniadirMensajeError(e.getMessage());
-			}
-			
-		}
+	}
 		
-		public void cargarDatosTipo (TipoDTO tipo) {
-			try {
-				TipoDTO tipoEncontrado = servicioAsistencia.obtenerTipoPorId(tipo.getTipCodigo());
-				this.tipoDataManager.setTipoInsertar(tipoEncontrado);
-				
-														
-			} catch (SeguridadesException e) {
-				slf4jLogger.info("Error al cargar los cargarDatosTipo seleccionado {}", e.getMessage());
-				MensajesWebController.aniadirMensajeError("Error al cargarDatosTipo seleccionado");
-			}
+	public void buscarTipo () {
+		slf4jLogger.info("buscarTipo");
+		try {
+			tipoDataManager.gettipoBuscar().setTipEmpresa(getEmpresaCode());
+			this.tipoDataManager.setListTipo(servicioAsistencia.readTipo(tipoDataManager.gettipoBuscar()));
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al buscarTipo {} ", e);
+			MensajesWebController.aniadirMensajeError(e.getMessage());
 		}
+	}
+		
+	public void cargarDatosTipo (TipoDTO tipo) {
+		try {
+			TipoDTO tipoEncontrado = servicioAsistencia.obtenerTipoPorId(tipo.getTipCodigo());
+			this.tipoDataManager.setTipoInsertar(tipoEncontrado);
+			
+													
+		} catch (SeguridadesException e) {
+			slf4jLogger.info("Error al cargar los cargarDatosTipo seleccionado {}", e.getMessage());
+			MensajesWebController.aniadirMensajeError("Error al cargarDatosTipo seleccionado");
+		}
+	}
 
-		public void cancel()
-		{
-			tipoDataManager.setTipoInsertar(new TipoDTO());
-			RequestContext.getCurrentInstance().execute("dlgNuevoTipoNicho.hide()");
-		}
+	public void cancel()
+	{
+		tipoDataManager.setTipoInsertar(new TipoDTO());
+		RequestContext.getCurrentInstance().execute("dlgNuevoTipoNicho.hide()");
+	}
+
+	
+	@Override
+	public void refrescarFormulario() {
+		// TODO Auto-generated method stub
 		
-		@Override
-		public void refrescarFormulario() {
-			// TODO Auto-generated method stub
-			
-		}
+	}
 		
 }
