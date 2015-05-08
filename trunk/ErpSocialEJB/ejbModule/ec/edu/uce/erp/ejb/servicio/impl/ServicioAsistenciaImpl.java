@@ -32,7 +32,6 @@ import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioEmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorasTrabajadasListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.ParametroCatalogoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.ParametroDTO;
@@ -128,8 +127,7 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 				empleadoVO.getEmpleadoDTO().setAemEmpleado(empleadonuevo.getEmpPk());
 				
 				empleadoDTO= asistenciaFactoryDAO.getEmpleadoDAOImpl().update(empleadoVO.getEmpleadoDTO());
-				empleadoVO.getHorarioEmpleadoDTO().setAsiEmpleado(empleadoDTO);
-				asistenciaFactoryDAO.getHorarioEmpleadoDAOImpl().update(empleadoVO.getHorarioEmpleadoDTO());
+				
 				return empleadoDTO;
 			}
 			else
@@ -150,8 +148,6 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 					empleadonuevo=factoryDAO.getEmpleadoeDAOImpl().create(empleadoVO.getEmpleado());
 					empleadoVO.getEmpleadoDTO().setAemEmpleado(empleadonuevo.getEmpPk());
 					empleadoDTO= asistenciaFactoryDAO.getEmpleadoDAOImpl().create(empleadoVO.getEmpleadoDTO());
-					empleadoVO.getHorarioEmpleadoDTO().setAsiEmpleado(empleadoDTO);
-					asistenciaFactoryDAO.getHorarioEmpleadoDAOImpl().create(empleadoVO.getHorarioEmpleadoDTO());
 					return empleadoDTO;
 				}
 			}
@@ -208,15 +204,11 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 	@Override
 	public EmpleadoVO obtenerEmpleadoPorId(EmpleadoListDTO empleadoListDTO) throws SeguridadesException {
 		slf4jLogger.info("obtenerEmpleadoPorId");
-		HorarioEmpleadoDTO horarioEmpleadoDTO;
 		
 		EmpleadoVO empleado=new EmpleadoVO();
 		empleado.setPersona(factoryDAO.getPersonaDAOImpl().find(empleadoListDTO.getPerPk()));
 		empleado.setEmpleado(factoryDAO.getEmpleadoeDAOImpl().find(empleadoListDTO.getAemEmpleado()));
 		empleado.setEmpleadoDTO(asistenciaFactoryDAO.getEmpleadoDAOImpl().find(empleadoListDTO.getAemCodigo()));
-		horarioEmpleadoDTO=new HorarioEmpleadoDTO();
-		horarioEmpleadoDTO.setAsiEmpleado(empleado.getEmpleadoDTO());
-		empleado.setHorarioEmpleadoDTO(asistenciaFactoryDAO.getHorarioEmpleadoDAOImpl().getByAnd(horarioEmpleadoDTO).get(0));
 		
 		return empleado;
 	}
@@ -435,8 +427,20 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 						registro= asistenciaFactoryDAO.getRegistroDAOImpl().create(verificarEntrada(registroAsistencia,empleado).getRegistroDTO());					
 					}
 					else{
-						registro.setRasHoraSalida(new Timestamp(new Date().getTime()));
-						registro= asistenciaFactoryDAO.getRegistroDAOImpl().update(registro);
+						if(CalendarUtil.getDayOfYear(registro.getRasHoraInicio())!=CalendarUtil.getDayOfYear(CalendarUtil.getTimeNowTimestamp()))
+						{
+							SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
+							String strDate = sdfDate.format(new Date(registro.getRasHoraInicio().getTime()));
+							strDate=strDate+" 23:59:59";
+							registro.setRasHoraSalida(CalendarUtil.stringToTimestamp(strDate));
+							registro= asistenciaFactoryDAO.getRegistroDAOImpl().update(registro);
+							registro= asistenciaFactoryDAO.getRegistroDAOImpl().create(verificarEntrada(registroAsistencia,empleado).getRegistroDTO());
+						}
+						else
+						{
+							registro.setRasHoraSalida(new Timestamp(new Date().getTime()));
+							registro= asistenciaFactoryDAO.getRegistroDAOImpl().update(registro);							
+						}
 					}
 				}
 				else{
@@ -449,7 +453,7 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 			}
 		}catch(Exception e){
 			slf4jLogger.info("Error al readFalta {}", e.getMessage());
-			throw new SeguridadesException("No se pudo encontraron datos de empleado");	
+			throw new SeguridadesException("No se pudo encontraron datos de empleado o verifique la creacion de los horarios");	
 		}
 		return registro;
 	}
@@ -462,6 +466,7 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 		List<ParametroDTO> parametroList;
 		HorarioDTO horarioDTO;
 		DiaDTO diaDTO;
+		TipoDTO tipoDTO;
 		try{
 			parametro=new ParametroDTO();
 			
@@ -475,11 +480,14 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 			valor=parametroList.get(0).getPasValor();
 			
 			//Buscar horario
+			tipoDTO=new TipoDTO();
+			tipoDTO.setTipCodigo(empleado.getAemTipo());
 			horarioDTO=new HorarioDTO();
 			horarioDTO.setHorEmpresa(empleado.getAemEmpresa());
+			horarioDTO.setAsiTipo(tipoDTO);
 			diaDTO=new DiaDTO();
 			
-			diaDTO.setDiaCodigo(CalendarUtil.getDayOfWeek(actual));
+			diaDTO.setDiaCodigo(CalendarUtil.getDayOfWeek(actual)-1);
 			horarioDTO.setAsiDia(diaDTO);
 			
 			hora=UtilAplication.fechaActualConFormato("yyyy-MM-dd")+" "+new SimpleDateFormat("HH:mm:ss").format(CalendarUtil.addMinute(readHorario(horarioDTO).get(0).getHorHoraInicio(), Integer.valueOf(valor)));;
@@ -593,38 +601,6 @@ public class ServicioAsistenciaImpl implements ServicioAsistencia{
 	}
 	
 	/*Horario Empleado*/
-	@Override
-	public HorarioEmpleadoDTO createOrUpdateHorarioEmpleado(HorarioEmpleadoDTO horarioempleadoDTO) throws SeguridadesException
-	{
-		slf4jLogger.info("createOrUpdateHorarioEmpleado");
-		try {
-		if(horarioempleadoDTO.getHemCodigo()!=null)
-			return asistenciaFactoryDAO.getHorarioEmpleadoDAOImpl().update(horarioempleadoDTO);
-		else
-			return asistenciaFactoryDAO.getHorarioEmpleadoDAOImpl().create(horarioempleadoDTO);
-		} catch (Exception e) {
-			slf4jLogger.info("error al createOrUpdateHorarioEmpleado {}", e.toString());
-			throw new SeguridadesException(e);
-		}
-		
-	}
-	
-	
-	@Override
-	public void deleteHorarioEmpleado(HorarioEmpleadoDTO horarioempleadoDTO) throws SeguridadesException
-	{
-		slf4jLogger.info("deleteHorarioEmpleado");
-		try {
-		if(horarioempleadoDTO.getHemCodigo()!=null)
-			asistenciaFactoryDAO.getHorarioEmpleadoDAOImpl().remove(horarioempleadoDTO);		
-		else 
-			throw new SeguridadesException("no existe una coincidencia");
-		} catch (Exception e) {
-			slf4jLogger.info("error al deleteHorarioEmpleado {}", e.toString());
-			throw new SeguridadesException(e);
-		}
-		
-	}
 	
 	/*Tipo*/
 	@Override

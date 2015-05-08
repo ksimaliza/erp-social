@@ -11,7 +11,6 @@ import ec.edu.uce.erp.ejb.persistence.dao.DiaNoLaboralDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.EmpleadoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.FaltaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HorarioDAO;
-import ec.edu.uce.erp.ejb.persistence.dao.HorarioEmpleadoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ParametroAsistenciaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ParametroCatalogoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PermisoDAO;
@@ -23,7 +22,6 @@ import ec.edu.uce.erp.ejb.persistence.dao.impl.DiaNoLaboralDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.EmpleadoDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.FaltaDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.HorarioDAOImpl;
-import ec.edu.uce.erp.ejb.persistence.dao.impl.HorarioEmpleadoDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.ParametroAsistenciaDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.ParametroCatalogoDAOImpl;
 import ec.edu.uce.erp.ejb.persistence.dao.impl.PermisoDAOImpl;
@@ -40,7 +38,6 @@ public class AsistenciaFactoryDAOImpl implements AsistenciaFactoryDAO {
 	private EmpleadoDAO empleadoDAO;
 	private FaltaDAO faltaDAO;
 	private HorarioDAO horarioDAO;
-	private HorarioEmpleadoDAO horarioempleadoDAO;
 	private ParametroAsistenciaDAO parametroDAO;
 	private PermisoDAO permisoDAO;
 	private RegistroDAO registroDAO;
@@ -83,15 +80,6 @@ public class AsistenciaFactoryDAOImpl implements AsistenciaFactoryDAO {
 			horarioDAO = new HorarioDAOImpl(entityManager);
 		}
 		return horarioDAO;
-	}
-	
-	@Override
-	public HorarioEmpleadoDAO getHorarioEmpleadoDAOImpl()
-	{
-		if (horarioempleadoDAO == null) {
-			horarioempleadoDAO = new HorarioEmpleadoDAOImpl(entityManager);
-		}
-		return horarioempleadoDAO;
 	}
 	
 	@Override

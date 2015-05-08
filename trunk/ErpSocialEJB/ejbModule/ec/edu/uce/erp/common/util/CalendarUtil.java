@@ -163,6 +163,22 @@ public class CalendarUtil {
 		return day;
 	}
 	
+
+	public static Integer getDayOfMonth(Timestamp da) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(da);
+		Integer day = cal.get(Calendar.DAY_OF_MONTH);
+		return day;
+	}
+
+	public static Integer getDayOfYear(Timestamp da) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(da);
+		Integer day = cal.get(Calendar.DAY_OF_YEAR);
+		return day;
+	}
+
+	
 	public static int getMonth() {
 		Calendar cal = Calendar.getInstance();
 		int month = cal.get(Calendar.MONTH);

@@ -8,7 +8,6 @@ import ec.edu.uce.erp.ejb.persistence.dao.DiaNoLaboralDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.EmpleadoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.FaltaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.HorarioDAO;
-import ec.edu.uce.erp.ejb.persistence.dao.HorarioEmpleadoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ParametroAsistenciaDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.ParametroCatalogoDAO;
 import ec.edu.uce.erp.ejb.persistence.dao.PermisoDAO;
@@ -25,8 +24,6 @@ public interface AsistenciaFactoryDAO {
 	FaltaDAO getFaltaDAOImpl();
 
 	HorarioDAO getHorarioDAOImpl();
-
-	HorarioEmpleadoDAO getHorarioEmpleadoDAOImpl();
 
 	ParametroAsistenciaDAO getParametroDAOImpl();
 

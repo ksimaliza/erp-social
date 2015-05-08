@@ -38,14 +38,14 @@ public class EmpleadoDTO implements Serializable {
 
 	@Column(name="aem_empresa")
 	private Integer aemEmpresa;
+
+	@Column(name="aem_tipo_horario")
+	private Integer aemTipo;
+
 	
 	//bi-directional many-to-one association to FaltaDTO
 	@OneToMany(mappedBy="asiEmpleado")
 	private List<FaltaDTO> asiFaltas;
-
-	//bi-directional many-to-one association to HorarioEmpleadoDTO
-	@OneToMany(mappedBy="asiEmpleado")
-	private List<HorarioEmpleadoDTO> asiHorarioEmpleados;
 
 	//bi-directional many-to-one association to PermisoDTO
 	@OneToMany(mappedBy="asiEmpleado")
@@ -128,14 +128,6 @@ public class EmpleadoDTO implements Serializable {
 		return asiFalta;
 	}
 
-	public List<HorarioEmpleadoDTO> getAsiHorarioEmpleados() {
-		return this.asiHorarioEmpleados;
-	}
-
-	public void setAsiHorarioEmpleados(List<HorarioEmpleadoDTO> asiHorarioEmpleados) {
-		this.asiHorarioEmpleados = asiHorarioEmpleados;
-	}
-
 	public Integer getAemEmpleado() {
 		return aemEmpleado;
 	}
@@ -144,18 +136,12 @@ public class EmpleadoDTO implements Serializable {
 		this.aemEmpleado = aemEmpleado;
 	}
 
-	public HorarioEmpleadoDTO addAsiHorarioEmpleado(HorarioEmpleadoDTO asiHorarioEmpleado) {
-		getAsiHorarioEmpleados().add(asiHorarioEmpleado);
-		asiHorarioEmpleado.setAsiEmpleado(this);
-
-		return asiHorarioEmpleado;
+	public Integer getAemTipo() {
+		return aemTipo;
 	}
 
-	public HorarioEmpleadoDTO removeAsiHorarioEmpleado(HorarioEmpleadoDTO asiHorarioEmpleado) {
-		getAsiHorarioEmpleados().remove(asiHorarioEmpleado);
-		asiHorarioEmpleado.setAsiEmpleado(null);
-
-		return asiHorarioEmpleado;
+	public void setAemTipo(Integer aemTipo) {
+		this.aemTipo = aemTipo;
 	}
 
 	public List<PermisoDTO> getAsiPermisos() {
