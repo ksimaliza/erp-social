@@ -5,7 +5,6 @@ import java.io.Serializable;
 import ec.edu.uce.erp.ejb.persistence.entity.Empleado;
 import ec.edu.uce.erp.ejb.persistence.entity.Persona;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioEmpleadoDTO;
 
 public class EmpleadoVO implements Serializable  {
 
@@ -17,13 +16,11 @@ public class EmpleadoVO implements Serializable  {
 	private Empleado empleado;
 	private Persona persona;
 	private EmpleadoDTO empleadoDTO;
-	private HorarioEmpleadoDTO horarioEmpleadoDTO;
 	
 	public EmpleadoVO()  {
 		empleadoDTO=new EmpleadoDTO();
 		persona=new Persona();
 		empleado=new Empleado();
-		horarioEmpleadoDTO=new HorarioEmpleadoDTO();
 	}
 
 	public Empleado getEmpleado() {
@@ -48,16 +45,6 @@ public class EmpleadoVO implements Serializable  {
 
 	public void setEmpleadoDTO(EmpleadoDTO empleadoDTO) {
 		this.empleadoDTO = empleadoDTO;
-	}
-
-	public HorarioEmpleadoDTO getHorarioEmpleadoDTO() {
-		return horarioEmpleadoDTO;
-	}
-
-	public void setHorarioEmpleadoDTO(HorarioEmpleadoDTO horarioEmpleadoDTO) {
-		this.horarioEmpleadoDTO = horarioEmpleadoDTO;
-	}
-	
-	
+	}	
 	
 }

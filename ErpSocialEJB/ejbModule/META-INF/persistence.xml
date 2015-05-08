@@ -85,7 +85,6 @@
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioDTO</class>
-		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioEmpleadoDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.ParametroDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.PermisoDTO</class>
 		<class>ec.edu.uce.erp.ejb.persistence.entity.asistencia.RegistroDTO</class>

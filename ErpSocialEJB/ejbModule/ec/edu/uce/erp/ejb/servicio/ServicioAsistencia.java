@@ -14,7 +14,6 @@ import ec.edu.uce.erp.ejb.persistence.entity.asistencia.EmpleadoListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.FaltaListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioDTO;
-import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorarioEmpleadoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.HorasTrabajadasListDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.ParametroCatalogoDTO;
 import ec.edu.uce.erp.ejb.persistence.entity.asistencia.ParametroDTO;
@@ -52,9 +51,6 @@ public interface ServicioAsistencia{
 	void deleteEmpleado(EmpleadoDTO empleadoDTO) throws SeguridadesException;
 
 	TipoDTO createOrUpdateTipo(TipoDTO tipoDTO) throws SeguridadesException;
-
-	void deleteHorarioEmpleado(HorarioEmpleadoDTO horarioempleadoDTO)
-			throws SeguridadesException;
 
 	void deleteHorario(HorarioDTO horarioDTO) throws SeguridadesException;
 
@@ -97,9 +93,6 @@ public interface ServicioAsistencia{
 
 	PermisoDTO createOrUpdatePermiso(PermisoVO permisoVO)
 			throws SeguridadesException;
-
-	HorarioEmpleadoDTO createOrUpdateHorarioEmpleado(
-			HorarioEmpleadoDTO horarioempleadoDTO) throws SeguridadesException;
 
 	void deletePermiso(PermisoDTO permisoDTO) throws SeguridadesException;
 
