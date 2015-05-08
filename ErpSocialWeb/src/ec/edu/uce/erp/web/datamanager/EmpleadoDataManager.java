@@ -33,7 +33,6 @@ public class EmpleadoDataManager extends BaseDataManager {
 	private List<EmpleadoListDTO> empleadoList;
 	
 	private List<TipoDTO> tipoList;
-	private Integer tipoCode;
 	
 	@PostConstruct
 	public void inicializarObjetos () {
@@ -94,15 +93,5 @@ public class EmpleadoDataManager extends BaseDataManager {
 	public void setTipoList(List<TipoDTO> tipoList) {
 		this.tipoList = tipoList;
 	}
-
-	public Integer getTipoCode() {
-		return tipoCode;
-	}
-
-	public void setTipoCode(Integer tipoCode) {
-		this.tipoCode = tipoCode;
-	}
-
-	
 	
 }

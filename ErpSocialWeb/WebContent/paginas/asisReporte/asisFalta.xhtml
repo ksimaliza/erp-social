@@ -67,6 +67,19 @@
 					value="#{i18n['label.buscar']}" 
 					process="@this,pnlBuscar"
 					update=":formFalta:pnlMessages,tablaFalta,pnlBuscar" />
+					
+				<h:commandLink>
+					Excel
+			        <h:graphicImage value="/resources/img/exportExcel.gif" />
+			        <p:dataExporter type="xls" target="tablaFalta" fileName="atrasos" pageOnly="true" />
+		    	</h:commandLink>
+		
+				<h:commandLink>
+					Pdf			
+			        <h:graphicImage value="/resources/img/pdf.png" />
+			        <p:dataExporter type="pdf" target="tablaFalta" fileName="atrasos" pageOnly="true" />
+		    	</h:commandLink>
+					
 			</p:panel>
 
 
