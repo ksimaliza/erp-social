@@ -88,12 +88,12 @@
 											actionListener="#{registroAsistenciaController.imprimir}" />
 									</td>
 								
-<!-- 									<td>		 -->
-<!-- 										<h:outputText value="Foto: " /> -->
-<!-- 									</td> -->
-<!-- 									<td>	 -->
-<!-- 			       						<p:selectBooleanCheckbox value="#{registroAsistenciaDataManager.tomarFoto}" />	 -->
-<!-- 									</td> -->
+									<td>		
+										<h:outputText value="Foto: " />
+									</td>
+									<td>	
+			       						<p:selectBooleanCheckbox value="#{registroAsistenciaDataManager.tomarFoto}" />	
+									</td>
 								</tr>
 							</table>
 						</td>		
@@ -101,14 +101,13 @@
 
 				</table>
 
-<!-- 				<table> -->
-<!-- 					<tr> -->
-<!-- 						<td><p:photoCam widgetVar="pc" -->
-<!-- 								listener="#{photoCamView.oncapture}" update="photo" /></td> -->
+				<table>
+					<tr>
+						<td><p:photoCam widgetVar="pc"/></td>
 <!-- 						<td><p:graphicImage id="photo" -->
 <!-- 								name="demo/images/photocam/#{photoCamView.filename}.png" /></td> -->
-<!-- 					</tr> -->
-<!-- 				</table> -->
+					</tr>
+				</table>
 
 			</p:panel>
 			</div>

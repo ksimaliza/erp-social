@@ -66,7 +66,7 @@ public class EmpleadoController extends BaseController{
 		
 		slf4jLogger.info("registrarEmpleado");
 		EmpleadoVO empleadoVO;
-		TipoDTO tipoDTO;
+
 		try {
 			empleadoDataManager.getEmpleadoDTOInsertar().setAemEmpresa(getEmpresaCode());
 			empleadoVO=new EmpleadoVO();
@@ -75,10 +75,6 @@ public class EmpleadoController extends BaseController{
 			empleadoVO.setEmpleado(empleadoDataManager.getEmpleadoInsertar());
 			empleadoVO.setEmpleadoDTO(empleadoDataManager.getEmpleadoDTOInsertar());
 			empleadoVO.setPersona(empleadoDataManager.getPersonaInsertar());
-			
-			tipoDTO=new TipoDTO();
-			tipoDTO.setTipCodigo(empleadoDataManager.getTipoCode());
-			empleadoVO.getHorarioEmpleadoDTO().setAsiTipo(tipoDTO);
 			
 			EmpleadoDTO empleadoNuevo = this.servicioAsistencia.createOrUpdateEmpleado(empleadoVO);
 							
@@ -127,7 +123,6 @@ public class EmpleadoController extends BaseController{
 			this.empleadoDataManager.setEmpleadoDTOInsertar(empleadoEncontrado.getEmpleadoDTO());
 			this.empleadoDataManager.setEmpleadoInsertar(empleadoEncontrado.getEmpleado());
 			this.empleadoDataManager.setPersonaInsertar(empleadoEncontrado.getPersona());
-			empleadoDataManager.setTipoCode(empleadoEncontrado.getHorarioEmpleadoDTO().getAsiTipo().getTipCodigo());
 							
 		} catch (SeguridadesException e) {
 			slf4jLogger.info("Error al cargarDatosEmpleado {}", e.getMessage());

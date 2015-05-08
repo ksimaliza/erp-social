@@ -32,8 +32,14 @@ public final class JsfUtil {
 			fileName=JsfUtil.getRandomName(split[split.length-1]);
 			
 //			pathDir=getRealPath()+"\\images\\tmp\\upload\\";
-			pathDir=getRealPath()+MessagesApplicacion.getString("erp.ruta.relativa.imagenes");
-			pathFile=pathDir+"\\"+fileName;
+			
+			String pathRetalivaImagenes=File.separator+"images"+File.separator+"tmp"+File.separator+"upload"+File.separator;
+			
+			pathDir=getRealPath()+pathRetalivaImagenes;
+			
+			slf4jLogger.info("pathDir: "+pathDir);
+			
+			pathFile=pathDir+File.separator+fileName;
 			
 			f= new File(pathFile);
 			if(f.exists())
@@ -47,10 +53,10 @@ public final class JsfUtil {
 			fos.close();
 			if(fileName.split("\\.")[1].equals("pdf")){
 //				pathFile="\\images\\tmp\\upload\\"+fileName;
-				pathFile=MessagesApplicacion.getString("erp.ruta.relativa.imagenes")+fileName;
+				pathFile=pathRetalivaImagenes+fileName;
 			} else{
 //				pathFile="\\images\\tmp\\upload\\"+fileName;
-				pathFile=MessagesApplicacion.getString("erp.ruta.relativa.imagenes")+fileName;
+				pathFile=pathRetalivaImagenes+fileName;
 			}
 			pathFile=pathFile.replace('\\', '/');
 		} catch (FileNotFoundException e) {

@@ -5,12 +5,25 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 	
-	<p:dialog id="popUpFaltas" header="#{i18n['erp.asistencia.falta.lista1']}" resizable="false" draggable="false"
+	<p:dialog id="popUpFaltas" header="Faltas" resizable="false" draggable="false"
 		widgetVar="dlgFaltas" modal="true" width="500" minWidth="500" appendTo="@(body)" height="500">
 		
 		<p:scrollPanel>
 		
 		<h:form id="formdialogFaltas" styleClass="formulario">
+		<h:commandLink>
+			Excel
+	        <h:graphicImage value="/resources/img/exportExcel.gif" />
+	        <p:dataExporter type="xls" target="tablaFalta2" fileName="faltas" pageOnly="true" />
+    	</h:commandLink>
+
+		<h:commandLink>
+			Pdf			
+	        <h:graphicImage value="/resources/img/pdf.png" />
+	        <p:dataExporter type="pdf" target="tablaFalta2" fileName="faltas" pageOnly="true" />
+    	</h:commandLink>
+		
+		
 		
 		<p:dataTable id="tablaFalta2"
 			value="#{reporteFaltasDataManager.faltasList2}" var="falta"
@@ -19,7 +32,7 @@
 			rowsPerPageTemplate="5,10,15" emptyMessage="#{i18n['erp.asistencia.falta.lista1']}">
 			
 			<f:facet name="header">
-				#{i18n['erp.asistencia.falta.lista1']}
+				Faltas
 			</f:facet>
 			<p:column headerText="#" styleClass="centered" width="5%">
 				#{rowIndex+1}
