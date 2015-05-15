@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
-<!-- 2015-02-23T18:48:05 -->
+<!-- 2015-05-15T00:57:13 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteExhumacion" pageWidth="942" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0973bba7-de3d-401a-9986-5b9be79fb60c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
@@ -119,42 +119,42 @@
 	<detail>
 		<band height="24" splitType="Stretch">
 			<textField>
-				<reportElement x="81" y="0" width="82" height="10" uuid="705ab248-bc1a-4ae9-bf56-7dd1d6c17cff"/>
+				<reportElement x="81" y="0" width="82" height="20" uuid="705ab248-bc1a-4ae9-bf56-7dd1d6c17cff"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{perCi}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="163" y="0" width="253" height="10" uuid="bd467f3f-ce65-43f1-bf5e-df7102dc7437"/>
+				<reportElement x="163" y="0" width="253" height="20" uuid="bd467f3f-ce65-43f1-bf5e-df7102dc7437"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{perApellidos}+ " "+$F{perNombres}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="416" y="0" width="243" height="10" uuid="e42563a2-05db-44f6-b0ec-b7159c60a802"/>
+				<reportElement x="416" y="0" width="243" height="20" uuid="e42563a2-05db-44f6-b0ec-b7159c60a802"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{apellidosautoriza}+ " " + $F{nombresautoriza}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="659" y="0" width="106" height="10" uuid="1bd791cf-b62a-4904-b023-b3c1eeec278f"/>
+				<reportElement x="659" y="0" width="106" height="20" uuid="1bd791cf-b62a-4904-b023-b3c1eeec278f"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{exuFechaCepelio})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="765" y="0" width="136" height="10" uuid="fdc23d40-fd81-483e-9de9-7f34fae9ff81"/>
+				<reportElement x="765" y="0" width="136" height="20" uuid="fdc23d40-fd81-483e-9de9-7f34fae9ff81"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{exuFechaExhumacion})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="81" height="10" uuid="7bf09fb4-230b-4722-9d46-40ee736dfc78"/>
+				<reportElement x="0" y="0" width="81" height="20" uuid="7bf09fb4-230b-4722-9d46-40ee736dfc78"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
-<!-- 2015-02-23T18:12:56 -->
+<!-- 2015-05-15T01:27:46 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteDefuncion" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="105" bottomMargin="20" uuid="ba73f98d-1750-4bef-9797-3d1192f59bf3">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="52"/>
@@ -72,14 +72,14 @@
 				<text><![CDATA[al]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="420" y="173" width="221" height="21" uuid="48bcec56-ff49-4e75-98c6-13f86811d56f"/>
+				<reportElement x="434" y="173" width="236" height="21" uuid="48bcec56-ff49-4e75-98c6-13f86811d56f"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SACERDOTE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="199" y="173" width="221" height="20" uuid="16bbe3cf-43c0-4025-a98b-fd2138e33ab6"/>
+				<reportElement x="199" y="173" width="235" height="20" uuid="16bbe3cf-43c0-4025-a98b-fd2138e33ab6"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -93,7 +93,7 @@
 				<text><![CDATA[CÉDULA DIFUNTO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="641" y="173" width="132" height="20" uuid="88dcc018-7f41-4426-b9e1-e8f37a8958a1"/>
+				<reportElement x="670" y="173" width="132" height="20" uuid="88dcc018-7f41-4426-b9e1-e8f37a8958a1"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -111,35 +111,35 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="72" y="0" width="127" height="10" uuid="d93f1ff0-bbf9-400d-ae1d-6a51af99797e"/>
+				<reportElement x="72" y="0" width="127" height="20" uuid="d93f1ff0-bbf9-400d-ae1d-6a51af99797e"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{perCi}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="199" y="0" width="221" height="10" uuid="1a59f2f8-eecc-44c7-a821-7a89c7df8e05"/>
+				<reportElement x="199" y="0" width="235" height="20" uuid="1a59f2f8-eecc-44c7-a821-7a89c7df8e05"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{perApellidos}+ " " +$F{perApellidos}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="420" y="0" width="221" height="10" uuid="bbd199f0-2894-4a9e-88eb-686fd68e968f"/>
+				<reportElement x="434" y="0" width="236" height="20" uuid="bbd199f0-2894-4a9e-88eb-686fd68e968f"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{sacApellidos}+ " " +$F{sacNombres}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="641" y="0" width="132" height="10" uuid="a8382b24-0879-4341-b7ab-007c4ce16ca3"/>
+				<reportElement x="670" y="0" width="132" height="20" uuid="a8382b24-0879-4341-b7ab-007c4ce16ca3"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{defFecha})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="72" height="10" uuid="6b6ba14f-5868-497f-8f98-6c18b3ddc055"/>
+				<reportElement x="0" y="0" width="72" height="20" uuid="6b6ba14f-5868-497f-8f98-6c18b3ddc055"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
