@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
-<!-- 2015-02-19T22:18:07 -->
+<!-- 2015-05-15T00:32:20 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportePartidasBautizos" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="68" bottomMargin="20" uuid="f584007c-a5fa-48a8-8b51-a68261401949">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
@@ -80,7 +80,7 @@
 				<text><![CDATA[#]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="180" y="150" width="100" height="20" uuid="11e2d446-53e2-4b7b-8ca0-0b4de9a9d862"/>
+				<reportElement x="180" y="150" width="175" height="20" uuid="11e2d446-53e2-4b7b-8ca0-0b4de9a9d862"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -94,21 +94,21 @@
 				<text><![CDATA[CÉDULA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="280" y="150" width="100" height="20" uuid="428c955a-5172-48cf-9a45-d7d67ead3393"/>
+				<reportElement x="355" y="150" width="183" height="20" uuid="428c955a-5172-48cf-9a45-d7d67ead3393"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SACERDOTE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="380" y="150" width="100" height="20" uuid="b10f6349-913a-4440-8e0f-9ef438c048cc"/>
+				<reportElement x="538" y="150" width="100" height="20" uuid="b10f6349-913a-4440-8e0f-9ef438c048cc"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[FECHA BAUTIZO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="480" y="150" width="100" height="20" uuid="e55b7787-39d2-48cf-b8d5-a634aa4dca3a"/>
+				<reportElement x="638" y="150" width="100" height="20" uuid="e55b7787-39d2-48cf-b8d5-a634aa4dca3a"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -117,44 +117,44 @@
 		</band>
 	</title>
 	<detail>
-		<band height="10" splitType="Stretch">
+		<band height="28" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="80" height="10" uuid="75fabe20-75b7-449e-b2a0-5f9b85876061"/>
+				<reportElement x="0" y="0" width="80" height="20" uuid="75fabe20-75b7-449e-b2a0-5f9b85876061"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="82" y="0" width="98" height="10" uuid="2858c406-0498-451c-9334-49a0b62d60fe"/>
+				<reportElement x="82" y="0" width="98" height="20" uuid="2858c406-0498-451c-9334-49a0b62d60fe"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{perCi}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="180" y="0" width="100" height="10" uuid="96e6fcb5-5f7e-4abf-bda3-c312a68c7203"/>
+				<reportElement x="180" y="0" width="175" height="20" uuid="96e6fcb5-5f7e-4abf-bda3-c312a68c7203"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{perApellidos} + "  "+ $F{perNombres}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="280" y="0" width="100" height="10" uuid="5b52ee1c-7281-45da-87e6-c3a5395625ae"/>
+				<reportElement x="355" y="0" width="183" height="20" uuid="5b52ee1c-7281-45da-87e6-c3a5395625ae"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{sacApellidos} + " " + $F{sacNombres}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="0" width="100" height="10" uuid="ef759ac1-5820-41bd-98e4-1343ab18948e"/>
+				<reportElement x="538" y="0" width="100" height="20" uuid="ef759ac1-5820-41bd-98e4-1343ab18948e"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{bauFechaBautizo})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="480" y="0" width="100" height="10" uuid="69267733-ddfd-4698-bfa7-89862b625608"/>
+				<reportElement x="638" y="0" width="100" height="20" uuid="69267733-ddfd-4698-bfa7-89862b625608"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
-<!-- 2015-02-20T22:56:56 -->
+<!-- 2015-05-15T01:24:27 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportePrimeraComunion" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="105" bottomMargin="20" uuid="92ceb21e-2137-4397-85c8-ca8f2d3e8b05">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="159"/>
@@ -27,21 +27,21 @@
 	<title>
 		<band height="171" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="20" width="480" height="23" uuid="ab0ddce5-90a6-41c6-9cde-2cb3473cd4b5"/>
+				<reportElement x="0" y="20" width="801" height="23" uuid="ab0ddce5-90a6-41c6-9cde-2cb3473cd4b5"/>
 				<textElement textAlignment="Center">
 					<font size="18" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{empresa}.toUpperCase()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="151" y="120" width="197" height="24" uuid="eaa81483-d99a-4dbc-a747-6bea116e3e2d"/>
+				<reportElement x="276" y="120" width="197" height="24" uuid="eaa81483-d99a-4dbc-a747-6bea116e3e2d"/>
 				<textElement>
 					<font size="18" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PRIMERA COMUNIÓN]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="190" y="51" width="290" height="20" uuid="e58cbeeb-cd43-4f8f-be95-0b92ddda97aa"/>
+				<reportElement x="473" y="51" width="328" height="20" uuid="e58cbeeb-cd43-4f8f-be95-0b92ddda97aa"/>
 				<textElement textAlignment="Right">
 					<font size="12"/>
 				</textElement>
@@ -83,14 +83,14 @@
 				<text><![CDATA[#]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="280" y="150" width="100" height="20" uuid="ca472c55-c630-400b-8930-164b3bb06da6"/>
+				<reportElement x="450" y="150" width="252" height="20" uuid="ca472c55-c630-400b-8930-164b3bb06da6"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SACERDOTE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="180" y="150" width="100" height="20" uuid="907a7a54-83e6-4daf-90a2-fab717c91b41"/>
+				<reportElement x="180" y="150" width="270" height="20" uuid="907a7a54-83e6-4daf-90a2-fab717c91b41"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -104,7 +104,7 @@
 				<text><![CDATA[CÉDULA ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="380" y="150" width="100" height="20" uuid="da643b4d-e514-4acd-bae8-e182918b288d"/>
+				<reportElement x="702" y="150" width="100" height="20" uuid="da643b4d-e514-4acd-bae8-e182918b288d"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -115,35 +115,35 @@
 	<detail>
 		<band height="22" splitType="Stretch">
 			<textField>
-				<reportElement x="80" y="0" width="100" height="10" uuid="e7fa3473-7bef-44ae-9f86-44b323ff33f4"/>
+				<reportElement x="80" y="0" width="100" height="22" uuid="e7fa3473-7bef-44ae-9f86-44b323ff33f4"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{perCi}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="180" y="0" width="100" height="10" uuid="6b169452-86da-440f-84dc-73ceaabe3705"/>
+				<reportElement x="180" y="0" width="270" height="22" uuid="6b169452-86da-440f-84dc-73ceaabe3705"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{perApellidos} + "  "+ $F{perNombres}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="280" y="0" width="100" height="10" uuid="3dfee4ff-955a-421a-ac0d-f2cdf64bb3bf"/>
+				<reportElement x="450" y="0" width="252" height="22" uuid="3dfee4ff-955a-421a-ac0d-f2cdf64bb3bf"/>
 				<textElement textAlignment="Left">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{sacApellidos} + " " + $F{sacNombres}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="0" width="100" height="10" uuid="167b0071-797f-40b2-a867-27a41a68f2ba"/>
+				<reportElement x="702" y="0" width="100" height="22" uuid="167b0071-797f-40b2-a867-27a41a68f2ba"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{pcoFechaHora})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="80" height="10" uuid="d8d7d755-914e-41a1-b056-cf7611369179"/>
+				<reportElement x="0" y="0" width="80" height="22" uuid="d8d7d755-914e-41a1-b056-cf7611369179"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
-<!-- 2015-02-23T16:34:38 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportePartidasMatrimonio" pageWidth="942" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b144c22e-0179-4b71-9b64-3b039cdb18cc">
+<!-- 2015-05-15T00:49:36 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportePartidasMatrimonio" pageWidth="1042" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b144c22e-0179-4b71-9b64-3b039cdb18cc">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -75,7 +75,7 @@
 				<text><![CDATA[al]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="671" y="149" width="132" height="20" uuid="4d8838f9-4739-4a91-a828-b57d91da66b9"/>
+				<reportElement x="869" y="149" width="132" height="20" uuid="4d8838f9-4739-4a91-a828-b57d91da66b9"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -89,28 +89,28 @@
 				<text><![CDATA[CÉDULA NOVIO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="107" y="149" width="140" height="20" uuid="dfea2c43-7bf2-4104-9fd1-d97fc6a1ab6d"/>
+				<reportElement x="107" y="149" width="190" height="20" uuid="dfea2c43-7bf2-4104-9fd1-d97fc6a1ab6d"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[NOMBRE NOVIO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="513" y="149" width="158" height="20" uuid="52069298-3b40-4f56-8129-5089fe3ea088"/>
+				<reportElement x="633" y="149" width="236" height="20" uuid="52069298-3b40-4f56-8129-5089fe3ea088"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SACERDOTE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="346" y="149" width="167" height="20" uuid="e2162126-67ee-4d0f-a3bd-c308443e27c8"/>
+				<reportElement x="396" y="149" width="237" height="20" uuid="e2162126-67ee-4d0f-a3bd-c308443e27c8"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[NOMBRE NOVIA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="247" y="149" width="98" height="20" uuid="e7b823c9-a23d-4727-ac58-23ee24f6f206"/>
+				<reportElement x="297" y="149" width="98" height="20" uuid="e7b823c9-a23d-4727-ac58-23ee24f6f206"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -128,49 +128,49 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="35" y="0" width="72" height="10" uuid="2b2444bc-8bd4-4ebd-9849-f4e10c4ec97c"/>
+				<reportElement x="35" y="0" width="72" height="20" uuid="2b2444bc-8bd4-4ebd-9849-f4e10c4ec97c"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{novioCedula}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="346" y="0" width="167" height="10" uuid="32363b1b-01ba-4eae-9fdc-f35fb1c9f4fe"/>
+				<reportElement x="396" y="0" width="237" height="20" uuid="32363b1b-01ba-4eae-9fdc-f35fb1c9f4fe"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{perApellidos} + " " +$F{perNombres}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="247" y="0" width="99" height="10" uuid="89e9694e-c6ad-4a99-9845-9864e72d66b4"/>
+				<reportElement x="297" y="0" width="99" height="20" uuid="89e9694e-c6ad-4a99-9845-9864e72d66b4"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{perCi}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="107" y="0" width="140" height="10" uuid="461a7405-4d94-472f-b919-2330d53cc98a"/>
+				<reportElement x="107" y="0" width="190" height="20" uuid="461a7405-4d94-472f-b919-2330d53cc98a"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{novioApellidos} + " " + $F{novioNombres}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="513" y="0" width="158" height="10" uuid="80915571-c7cd-4f9e-b226-296b63eb5309"/>
+				<reportElement x="633" y="0" width="236" height="20" uuid="80915571-c7cd-4f9e-b226-296b63eb5309"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{sacApellidos} + " " +  $F{sacNombres}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="671" y="0" width="131" height="10" uuid="fa78b34c-9ab5-4d5e-a6a8-726dcd4a3e41"/>
+				<reportElement x="869" y="0" width="131" height="20" uuid="fa78b34c-9ab5-4d5e-a6a8-726dcd4a3e41"/>
 				<textElement textAlignment="Center">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{matFecha})]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="-10" y="0" width="44" height="10" uuid="63cfcf79-d668-4d67-88ff-ce495a71a021"/>
+				<reportElement x="-10" y="0" width="44" height="20" uuid="63cfcf79-d668-4d67-88ff-ce495a71a021"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
